@@ -1,0 +1,11 @@
+{
+    "id": "{DC733830-533B-43CD-98F5-23FC2E61287F}",
+    "name": "DenonAVR",
+    "type": 3,
+    "vendor": "Denon",
+    "aliases": ["Denon AV Receiver"],
+    "parentRequirements": ["{01A68655-DDAF-4F79-9F35-65878A86F344}"],
+    "childRequirements": [],
+    "implemented": ["{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}"],
+    "prefix": "DENONAVR"
+}

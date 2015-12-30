@@ -1,0 +1,41 @@
+{
+    "elements":
+            [
+				{ "type": "Label", "label": "Denon AV Receiver"},
+				{ "type": "CheckBox", "name": "Display", "caption": "Display anzeigen" }, 
+				{ "type": "CheckBox", "name": "Control", "caption": "Steuerung anzeigen" }, 
+				{ "type": "CheckBox", "name": "Zone2", "caption": "Zone 2 anzeigen" },
+				{ "type": "CheckBox", "name": "Zone3", "caption": "Zone 3 anzeigen" }
+            ],
+    "actions":
+            [
+                {
+                    "type": "Button",
+                    "label": "On",
+                    "onClick": "DENONAVR_PowerOn($id);"
+                },
+                {
+                    "type": "Button",
+                    "label": "Off",
+                    "onClick": "DENONAVR_PowerOff($id);"
+                }
+            ],
+    "status":
+            [
+                {
+                    "code": 101,
+                    "icon": "inactive",
+                    "caption": "Die Instanz wird erstellt."
+                },
+				{
+                    "code": 102,
+                    "icon": "active",
+                    "caption": "Konfiguration gültig."
+                },
+                {
+                    "code": 104,
+                    "icon": "inactive",
+                    "caption": "Denon AVR ist inaktiv."
+                }
+            ]
+}
