@@ -600,7 +600,7 @@ class DenonAVR extends IPSModule
 			$this->EnableAction("DynamicCompressor");
 			
 			//C.Width
-			$C.WidthId = $this->RegisterVariableInteger("C.Width", "C.Width", $ProfileName."C.Width", 27);
+			$CWidthId = $this->RegisterVariableInteger("C.Width", "C.Width", $ProfileName."C.Width", 27);
 			$this->EnableAction("C.Width");
 			
 			//DynamicRange
