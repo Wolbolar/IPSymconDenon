@@ -1267,130 +1267,130 @@ class DenonAVR extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$value = "STANDBY";
+				$Value = "STANDBY";
 			}
 		else
 			{
-				$value = "ON";
+				$Value = "ON";
 			}
 		
-	 CSCK_SendText($id, "PW".$value.chr(13));
+	 CSCK_SendText($id, "PW".$Value.chr(13));
 	}
 
 	public function MasterVolume($Value) // "UP" or "DOWN"
 	{
-	 CSCK_SendText($id, "MV".$value.chr(13));
+	 CSCK_SendText($id, "MV".$Value.chr(13));
 	}
 
 	public function MasterVolumeFix($Value) // Volume direct -80(db) bis 18(db)
 	{
-	 $value= intval($value) +80;
-	 CSCK_SendText($id, "MV".$value.chr(13));
+	 $Value= intval($Value) +80;
+	 CSCK_SendText($id, "MV".$Value.chr(13));
 	}
 
 	public function BassLevel($Value)
 	{
-		$value = (intval($value) +50);
-		$value = str_pad($value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSBAS ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "PSBAS ".$Value.chr(13));
 	}
 
 	public function LFELevel($Value)
 	{
-		$value = (intval($value) +10);
-		$value = str_pad($value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSLFE ".$value.chr(13));
+		$Value = (intval($Value) +10);
+		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "PSLFE ".$Value.chr(13));
 	}
 
 	public function TrebleLevel($Value)
 	{
-		$value = (intval($value) +50);
-		$value = str_pad($value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSTRE ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "PSTRE ".$Value.chr(13));
 	}
 
 	public function ChannelVolume($Value) // setzen Korrekturlevel pro LS-Kanal
 	{
-	 CSCK_SendText($id, "CV".$value.chr(13));
+	 CSCK_SendText($id, "CV".$Value.chr(13));
 	}
 
 	public function MainMute($Value) // "ON" or "OFF"
 	{
-	 CSCK_SendText($id, "MU".$value.chr(13));
+	 CSCK_SendText($id, "MU".$Value.chr(13));
 	}
 
 	public function Input($Value) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
-	 CSCK_SendText($id, "SI".$value.chr(13));
+	 CSCK_SendText($id, "SI".$Value.chr(13));
 	}
 
 	public function MainZonePower($Value) // MainZone "ON" or "OFF"
 	{
-	 CSCK_SendText($id, "ZM".$value.chr(13));
+	 CSCK_SendText($id, "ZM".$Value.chr(13));
 	}
 
 	public function RecSelect($Value) //
 	{
-	 CSCK_SendText($id, "SR".$value.chr(13)); // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
+	 CSCK_SendText($id, "SR".$Value.chr(13)); // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	}
 
 	public function SelectDecodeMode($Value) // AUTO; HDMI; DIGITAL; ANALOG
 	{
-	  CSCK_SendText($id, "SD".$value.chr(13));
+	  CSCK_SendText($id, "SD".$Value.chr(13));
 	}
 
 	public function DecodeMode($Value) // Auto, PCM, DTS
 	{
-	 CSCK_SendText($id, "DC".$value.chr(13));
+	 CSCK_SendText($id, "DC".$Value.chr(13));
 	}
 
 	public function VideoSelect($Value) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
 	{
-	 CSCK_SendText($id, "SV".$value.chr(13));
+	 CSCK_SendText($id, "SV".$Value.chr(13));
 	}
 
 	public function SLEEP($Value) //
 	{
-		if ($value == 0)
+		if ($Value == 0)
 		{
 			CSCK_SendText($id, "SLPOFF".chr(13));
 		}
 		ELSE
 		{
-		$value = str_pad($value, 3 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "SLP".$value.chr(13));
+		$Value = str_pad($Value, 3 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "SLP".$Value.chr(13));
 		}
 	}
 
 	public function ModeSelect($Value) //
 	{
-	 CSCK_SendText($id, "MS".$value.chr(13));
+	 CSCK_SendText($id, "MS".$Value.chr(13));
 	}
 
 	public function VideoSet($Value) //
 	{
-	 CSCK_SendText($id, "VS".$value.chr(13));
+	 CSCK_SendText($id, "VS".$Value.chr(13));
 	}
 
 	public function ParaSettings($Value) // S
 	{
-	 CSCK_SendText($id, "PS".$value.chr(13));
+	 CSCK_SendText($id, "PS".$Value.chr(13));
 	}
 
 	public function ParaVideo($Value) //
 	{
-	 CSCK_SendText($id, "PV".$value.chr(13));
+	 CSCK_SendText($id, "PV".$Value.chr(13));
 	}
 
 	public function QuickSelect($Value) // 1-5
 	{
-	  CSCK_SendText($id, "MSQUICK".$value.chr(13));
+	  CSCK_SendText($id, "MSQUICK".$Value.chr(13));
 	}
 
 	public function Preset($Value) //
 	{
-		$value = str_pad($value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "NSB".$value.chr(13));
+		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "NSB".$Value.chr(13));
 	}
 
 	public function NSE_Request($id) // fragt NSE-Werte ab
@@ -1400,77 +1400,77 @@ class DenonAVR extends IPSModule
 
 	public function DynEQ($Value) // Dynamic Equilizer ON/OFF
 	{
-	  CSCK_SendText($id, "PSDYNEQ ".$value.chr(13));
+	  CSCK_SendText($id, "PSDYNEQ ".$Value.chr(13));
 	}
 
 	public function CinEQ($Value) // Cinema Equilizer ON/OFF
 	{
-	  CSCK_SendText($id, "PSCINEMA EQ.".$value.chr(13));
+	  CSCK_SendText($id, "PSCINEMA EQ.".$Value.chr(13));
 	}
 	public function MultiEQMode($Value) // MultiEquilizer AUDYSSEE/BYP.LR/FLAT/MANUELL/OFF
 	{
-	  CSCK_SendText($id, "PSMULTEQ:".$value.chr(13));
+	  CSCK_SendText($id, "PSMULTEQ:".$Value.chr(13));
 	}
 
 	public function DynVol($Value) // Dynamic Volume NGT(EVE/DAY
 	{
-	  CSCK_SendText($id, "PSDYNVOL ".$value.chr(13));
+	  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
 	}
 
 	public function AudioDelay($Value) // Audio Delay 0-200 ms
 	{
-		$value = str_pad($value, 3 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSDELAY ".$value.chr(13));
+		$Value = str_pad($Value, 3 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "PSDELAY ".$Value.chr(13));
 	}
 
 	public function Dimension($Value) // Audio Delay 0-200 ms
 	{
-		$value = str_pad($value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSDIM ".$value.chr(13));
+		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
+		CSCK_SendText($id, "PSDIM ".$Value.chr(13));
 	}
 
 	public function InputSource($Value) // Input Source
 	{
-	  CSCK_SendText($id, "SI".$value.chr(13));
+	  CSCK_SendText($id, "SI".$Value.chr(13));
 	}
 
 	public function DynamicCompressor($Value) // Dynamic Compressor OFF/LOW/MID/HIGH
 	{
-	  CSCK_SendText($id, "PSDCO ".$value.chr(13));
+	  CSCK_SendText($id, "PSDCO ".$Value.chr(13));
 	}
 
 	public function ToneDefeat($Value) // Tone Defeat (AVR3809) ON/OFF
 	{
-	  CSCK_SendText($id, "PSTONE DEFEAT ".$value.chr(13));
+	  CSCK_SendText($id, "PSTONE DEFEAT ".$Value.chr(13));
 	}
 
 	public function ToneCTRL($Value) // Tone Control (AVR 3311) ON/OFF
 	{
-	  CSCK_SendText($id, "PSTONE CTRL ".$value.chr(13));
+	  CSCK_SendText($id, "PSTONE CTRL ".$Value.chr(13));
 	}
 
 	public function AudioRestorer($Value) // Audio Restorer OFF/MODE1/MODE2/MODE3
 	{
-		switch ($value)
+		switch ($Value)
 		{
 		   case 0:
-			  $value = "OFF";
-			  CSCK_SendText($id, "PSRSTR ".$value.chr(13));
+			  $Value = "OFF";
+			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
 			break;
 
 			case 1:
-			  $value = "MODE1";
-			  CSCK_SendText($id, "PSRSTR ".$value.chr(13));
+			  $Value = "MODE1";
+			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
 			break;
 
 			case 2:
-			  $value = "MODE2";
-			  CSCK_SendText($id, "PSRSTR ".$value.chr(13));
+			  $Value = "MODE2";
+			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
 			break;
 
 			case 3:
-			  $value = "MODE2";
-			  CSCK_SendText($id, "PSRSTR ".$value.chr(13));
+			  $Value = "MODE2";
+			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
 			break;
 
 		}
@@ -1478,46 +1478,46 @@ class DenonAVR extends IPSModule
 
 	public function DigitalInputMode($Value) // Digital Input Mode AUTO/PCM/DTS
 	{
-	  CSCK_SendText($id, "DC".$value.chr(13));
+	  CSCK_SendText($id, "DC".$Value.chr(13));
 	}
 
 	public function InputMode($Value) // Input Mode AUTO/HDMI/DIGITALANALOG/ARC/NO
 	{
-	  CSCK_SendText($id, "SD".$value.chr(13));
+	  CSCK_SendText($id, "SD".$Value.chr(13));
 	}
 
 	public function DynamicRange($Value) // DynamicRange
 	{
-	  CSCK_SendText($id, "PSDRC ".$value.chr(13));
+	  CSCK_SendText($id, "PSDRC ".$Value.chr(13));
 	}
 
 	public function DynamicEQ($Value)
 	{
-	  CSCK_SendText($id, "PSDYNEQ ".$value.chr(13));
+	  CSCK_SendText($id, "PSDYNEQ ".$Value.chr(13));
 	}
 
 	public function DynamicVolume($Value)
 	{
-		switch ($value)
+		switch ($Value)
 			{
 			   case 0:
-				  $value = "OFF";
-				  CSCK_SendText($id, "PSDYNVOL ".$value.chr(13));
+				  $Value = "OFF";
+				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
 				break;
 
 				case 1:
-				  $value = "NGT";
-				  CSCK_SendText($id, "PSDYNVOL ".$value.chr(13));
+				  $Value = "NGT";
+				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
 				break;
 
 				case 2:
-				  $value = "EVE";
-				  CSCK_SendText($id, "PSDYNVOL ".$value.chr(13));
+				  $Value = "EVE";
+				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
 				break;
 
 				case 3:
-				  $value = "DAY";
-				  CSCK_SendText($id, "PSDYNVOL ".$value.chr(13));
+				  $Value = "DAY";
+				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
 				break;
 
 			}
@@ -1525,36 +1525,36 @@ class DenonAVR extends IPSModule
 
 	public function RoomSize($Value)
 	{
-		switch ($value)
+		switch ($Value)
 			{
 			   case 0:
-				  $value = "N";
-				  CSCK_SendText($id, "PSRSZ ".$value.chr(13));
+				  $Value = "N";
+				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
 				break;
 
 				case 1:
-				  $value = "S";
-				  CSCK_SendText($id, "PSRSZ ".$value.chr(13));
+				  $Value = "S";
+				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
 				break;
 
 				case 2:
-				  $value = "MS";
-				  CSCK_SendText($id, "PSRSZ ".$value.chr(13));
+				  $Value = "MS";
+				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
 				break;
 
 				case 3:
-				  $value = "M";
-				  CSCK_SendText($id, "PSRSZ ".$value.chr(13));
+				  $Value = "M";
+				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
 				break;
 
 				case 4:
-				  $value = "MS";
-				  CSCK_SendText($id, "PSRSZ ".$value.chr(13));
+				  $Value = "MS";
+				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
 				break;
 
 				case 5:
-				  $value = "L";
-				  CSCK_SendText($id, "PSRSZ ".$value.chr(13));
+				  $Value = "L";
+				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
 				break;
 
 			}
@@ -1562,37 +1562,37 @@ class DenonAVR extends IPSModule
 
 	public function SurroundBackMode($Value)
 	{
-	  CSCK_SendText($id, "PSSB:".$value.chr(13));
+	  CSCK_SendText($id, "PSSB:".$Value.chr(13));
 	}
 
 	public function CWidth($Value)
 	{
-	  CSCK_SendText($id, "PSCEN ".$value.chr(13));
+	  CSCK_SendText($id, "PSCEN ".$Value.chr(13));
 	}
 
 	public function SurroundMode($Value)
 	{
-	  CSCK_SendText($id, "MS".$value.chr(13));
+	  CSCK_SendText($id, "MS".$Value.chr(13));
 	}
 
 	public function SurroundPlayMode($Value)
 	{
-	  CSCK_SendText($id, "PSMODE:".$value.chr(13));
+	  CSCK_SendText($id, "PSMODE:".$Value.chr(13));
 	}
 
 	public function CinemaEQ($Value)
 	{
-	  CSCK_SendText($id, "PSCINEMA EQ.".$value.chr(13));
+	  CSCK_SendText($id, "PSCINEMA EQ.".$Value.chr(13));
 	}
 
 	public function Panorama($Value)
 	{
-	  CSCK_SendText($id, "PSPAN ".$value.chr(13));
+	  CSCK_SendText($id, "PSPAN ".$Value.chr(13));
 	}
 
 	public function FrontHeight($Value)
 	{
-	  CSCK_SendText($id, "PSFH:".$value.chr(13));
+	  CSCK_SendText($id, "PSFH:".$Value.chr(13));
 	}
 
 	public function NSE_DisplayRequest()
@@ -1612,80 +1612,80 @@ class DenonAVR extends IPSModule
 
 	public function ChannelVolumeFL($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVFL ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVFL ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeFR($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVFR ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVFR ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeC($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVC ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVC ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeSW($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVSW ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVSW ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeSL($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVSL ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVSL ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeSR($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVSR ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVSR ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeSBL($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVSBL ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVSBL ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeSBR($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVSBR ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVSBR ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeSB($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVSB ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVSB ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeFHL($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVFHL ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVFHL ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeFHR($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVFHR ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVFHR ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeFWL($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVFWL ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVFWL ".$Value.chr(13));
 	}
 
 	public function ChannelVolumeFWR($Value)
 	{
-		$value = (intval($value) +50);
-		CSCK_SendText($id, "CVFWR ".$value.chr(13));
+		$Value = (intval($Value) +50);
+		CSCK_SendText($id, "CVFWR ".$Value.chr(13));
 	}
 
 	######################## Cursor Steuerung ######################################
@@ -1725,93 +1725,93 @@ class DenonAVR extends IPSModule
 
 	public function Z2_Volume($Value) // "UP" or "DOWN"
 	{
-		CSCK_SendText($id, "Z2".$value.chr(13));
+		CSCK_SendText($id, "Z2".$Value.chr(13));
 	}
 
 	public function Zone2VolumeFix($Value) // 18(db) bis -80(db)
 	{
-		$value= intval($value) +80;
-		CSCK_SendText($id, "Z2".$value.chr(13));
+		$Value= intval($Value) +80;
+		CSCK_SendText($id, "Z2".$Value.chr(13));
 	}
 
 	public function Zone2Power($Value) // "ON" or "OFF"
 	{
-		CSCK_SendText($id, "Z2".$value.chr(13));
+		CSCK_SendText($id, "Z2".$Value.chr(13));
 	}
 
 	public function Zone2Mute($Value) // "ON" or "OFF"
 	{
-		CSCK_SendText($id, "Z2MU".$value.chr(13));
+		CSCK_SendText($id, "Z2MU".$Value.chr(13));
 	}
 
 	public function Zone2InputSource($Value) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR ; TUNER
 	{
-		CSCK_SendText($id, "Z2".$value.chr(13));
+		CSCK_SendText($id, "Z2".$Value.chr(13));
 	}
 
 	public function Zone2ChannelSetting($Value) // Zone 2 Channel Setting: STEREO/MONO
 	{
-		if ($value == false)
+		if ($Value == false)
 					{
-						$value = "ST";
+						$Value = "ST";
 					}
 					else
 					{
-						$value = "MONO";
+						$Value = "MONO";
 					}
 		
-		CSCK_SendText($id, "Z2CS".$value.chr(13));
+		CSCK_SendText($id, "Z2CS".$Value.chr(13));
 	}
 
 	public function Zone2QuickSelect($Value) // Zone 2 Quickselect 1-5
 	{
-		$value = $value +1;
-		CSCK_SendText($id, "Z2QUICK".$value.chr(13));
+		$Value = $Value +1;
+		CSCK_SendText($id, "Z2QUICK".$Value.chr(13));
 	}
 
 	public function Zone2ChannelVolumeFL($id)
 	{
-	   $value = $value + 50;
-		CSCK_SendText($id, "Z2CVFL ".$value.chr(13));
+	   $Value = $Value + 50;
+		CSCK_SendText($id, "Z2CVFL ".$Value.chr(13));
 	}
 
 	public function Zone2ChannelVolumeFR($id)
 	{
-	   $value = $value + 50;
-		CSCK_SendText($id, "Z2CVFR ".$value.chr(13));
+	   $Value = $Value + 50;
+		CSCK_SendText($id, "Z2CVFR ".$Value.chr(13));
 	}
 
 	########################## Zone 3 Functions ####################################
 
 	public function Zone3Volume($Value) // "UP" or "DOWN"
 	{
-		CSCK_SendText($id, "Z3".$value.chr(13));
+		CSCK_SendText($id, "Z3".$Value.chr(13));
 	}
 
 	public function Zone3VolumeFix($Value) // 18(db) bis -80(db)
 	{
-		$value= intval($value) +80;
-		CSCK_SendText($id, "Z3".$value.chr(13));
+		$Value= intval($Value) +80;
+		CSCK_SendText($id, "Z3".$Value.chr(13));
 	}
 
 	public function Zone3Power($Value) // "ON" or "OFF"
 	{
-		CSCK_SendText($id, "Z3".$value.chr(13));
+		CSCK_SendText($id, "Z3".$Value.chr(13));
 	}
 
 	public function Zone3Mute($Value) // "ON" or "OFF"
 	{
-		CSCK_SendText($id, "Z3MU".$value.chr(13));
+		CSCK_SendText($id, "Z3MU".$Value.chr(13));
 	}
 
 	public function Zone3InputSource($Value) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR
 	{
-		CSCK_SendText($id, "Z3".$value.chr(13));
+		CSCK_SendText($id, "Z3".$Value.chr(13));
 	}
 
 	public function Zone3ChannelSetting($Value) // Zone 3 Channel Setting: STEREO/MONO
 	{
-		if ($value == false)
+		if ($Value == false)
 			{
 				$Value = "ST";
 			}
@@ -1820,25 +1820,25 @@ class DenonAVR extends IPSModule
 				$Value = "MONO";
 			}
 		
-		CSCK_SendText($id, "Z3CS".$value.chr(13));
+		CSCK_SendText($id, "Z3CS".$Value.chr(13));
 	}
 
 	public function Zone3QuickSelect($Value) // Zone 3 Quickselect 1-5
 	{
-	   $value = $value +1;
-		CSCK_SendText($id, "Z3QUICK".$value.chr(13));
+	   $Value = $Value +1;
+		CSCK_SendText($id, "Z3QUICK".$Value.chr(13));
 	}
 
 	public function Zone3ChannelVolumeFL($Value)
 	{
-	   $value = $value + 50;
-		CSCK_SendText($id, "Z3CVFL ".$value.chr(13));
+	   $Value = $Value + 50;
+		CSCK_SendText($id, "Z3CVFL ".$Value.chr(13));
 	}
 
 	public function Zone3ChannelVolumeFR($Value)
 	{
-	   $value = $value + 50;
-		CSCK_SendText($id, "Z3CVFR ".$value.chr(13));
+	   $Value = $Value + 50;
+		CSCK_SendText($id, "Z3CVFR ".$Value.chr(13));
 	}
 
 	/*
