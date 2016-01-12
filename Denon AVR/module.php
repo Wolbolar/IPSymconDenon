@@ -1262,7 +1262,7 @@ class DenonAVR extends IPSModule
 	// senden an Parent und weiterleitung an socket
 
 	######################### Main Functions #######################################
-
+	/*
 	public function Power($Value) // STANDBY oder ON
 	{
 		if ($Value == false)
@@ -1276,7 +1276,8 @@ class DenonAVR extends IPSModule
 		
 	 CSCK_SendText($id, "PW".$Value.chr(13));
 	}
-
+	*/
+	
 	public function MasterVolume($Value) // "UP" or "DOWN"
 	{
 	 CSCK_SendText($id, "MV".$Value.chr(13));
