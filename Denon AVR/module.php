@@ -180,7 +180,7 @@ class DenonAVR extends IPSModule
 	{
 		switch ($Speaker)
 		{
-			case "FL"
+			case "FL":
 				//ChannelVolumeFL
 				$Name = "DENON".$Type.".ChannelVolumeFL";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -188,7 +188,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeFL");
 			break;
 			
-			case "FR"
+			case "FR":
 				//ChannelVolumeFR
 				$Name = "DENON".$Type.".ChannelVolumeFR";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -196,7 +196,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeFR");
 			break;
 			
-			case "C"
+			case "C":
 				//ChannelVolumeC
 				$Name = "DENON".$Type.".ChannelVolumeC";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -204,7 +204,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeC");
 			break;
 			
-			case "SW"
+			case "SW":
 				//ChannelVolumeSW
 				$Name = "DENON".$Type.".ChannelVolumeSW";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -212,7 +212,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSW");
 			break;
 			
-			case "SW2"
+			case "SW2":
 				//ChannelVolumeSW
 				$Name = "DENON".$Type.".ChannelVolumeSW2";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -220,7 +220,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSW2");
 			break;
 			
-			case "SL"
+			case "SL":
 				//ChannelVolumeSL
 				$Name = "DENON".$Type.".ChannelVolumeSL";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -228,7 +228,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSL");
 			break;
 			
-			case "SR"
+			case "SR":
 				//ChannelVolumeSR
 				$Name = "DENON".$Type.".ChannelVolumeSR";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -236,7 +236,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSR");
 			break;
 			
-			case "SBL"
+			case "SBL":
 				//ChannelVolumeSBL
 				$Name = "DENON".$Type.".ChannelVolumeSBL";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -244,7 +244,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSBL");
 			break;
 			
-			case "SBR"
+			case "SBR":
 				//ChannelVolumeSBR
 				$Name = "DENON".$Type.".ChannelVolumeSBR";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -252,7 +252,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSBR");
 			break;
 			
-			case "SB"
+			case "SB":
 				//ChannelVolumeSB
 				$Name = "DENON".$Type.".ChannelVolumeSB";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -260,7 +260,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeSB");
 			break;
 			
-			case "FHL"
+			case "FHL":
 				//ChannelVolumeFHL
 				$Name = "DENON".$Type.".ChannelVolumeFHL";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -268,7 +268,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeFHL");
 			break;
 			
-			case "FHR"
+			case "FHR":
 				//ChannelVolumeFHR
 				$Name = "DENON".$Type.".ChannelVolumeFHR";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -276,7 +276,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeFHR");
 			break;
 			
-			case "FWL"
+			case "FWL":
 				//ChannelVolumeFWL
 				$Name = "DENON".$Type.".ChannelVolumeFWL";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
@@ -284,7 +284,7 @@ class DenonAVR extends IPSModule
 				$this->EnableAction("ChannelVolumeFWL");
 			break;
 			
-			case "FWR"
+			case "FWR":
 				//ChannelVolumeFWR
 				$Name = "DENON".$Type.".ChannelVolumeFWR";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
