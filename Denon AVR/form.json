@@ -48,13 +48,8 @@
             [
                 {
                     "type": "Button",
-                    "label": "On",
-                    "onClick": "DENONAVR_PowerOn($id);"
-                },
-                {
-                    "type": "Button",
-                    "label": "Off",
-                    "onClick": "DENONAVR_PowerOff($id);"
+                    "label": "Power",
+                    "onClick": "DENONAVR_Power($id);"
                 }
             ],
     "status":
