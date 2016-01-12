@@ -1121,7 +1121,7 @@ class DenonAVR extends IPSModule
 	}
 	
 	
-	protected function RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Nachkommastellen)
+	protected function RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
         
         if(!IPS_VariableProfileExists($Name)) {
@@ -1134,7 +1134,7 @@ class DenonAVR extends IPSModule
         
         IPS_SetVariableProfileIcon($Name, $Icon);
         IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
-		IPS_SetVariableProfileDigits($Name, $Nachkommastellen); //  Nachkommastellen
+		IPS_SetVariableProfileDigits($Name, $Digits); //  Nachkommastellen
         IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
         
     }
