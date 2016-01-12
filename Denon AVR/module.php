@@ -18,6 +18,18 @@ class DenonAVR extends IPSModule
 		$this->RegisterPropertyInteger("Zone", 0);
 		$this->RegisterPropertyBoolean("Display", false);
 		$this->RegisterPropertyBoolean("Control", false);
+		$this->RegisterPropertyBoolean("FL", false);
+		$this->RegisterPropertyBoolean("FR", false);
+		$this->RegisterPropertyBoolean("C", false);
+		$this->RegisterPropertyBoolean("SW", false);
+		$this->RegisterPropertyBoolean("SW2", false);
+		$this->RegisterPropertyBoolean("SBL", false);
+		$this->RegisterPropertyBoolean("SBR", false);
+		$this->RegisterPropertyBoolean("SB", false);
+		$this->RegisterPropertyBoolean("FHL", false);
+		$this->RegisterPropertyBoolean("FHR", false);
+		$this->RegisterPropertyBoolean("FWL", false);
+		$this->RegisterPropertyBoolean("FWR", false);
 				
     }
 
@@ -48,6 +60,20 @@ class DenonAVR extends IPSModule
 		//Optionen
 		$Display = $this->ReadPropertyBoolean('Display');
 		$Control = $this->ReadPropertyBoolean('Control');
+		
+		//Lautsprecher
+		$FL = $this->ReadPropertyBoolean('FL');
+		$FR = $this->ReadPropertyBoolean('FR');
+		$C = $this->ReadPropertyBoolean('C');
+		$SW = $this->ReadPropertyBoolean('SW');
+		$SW2 = $this->ReadPropertyBoolean('SW2');
+		$SBL = $this->ReadPropertyBoolean('SBL');
+		$SBR = $this->ReadPropertyBoolean('SBR');
+		$SB = $this->ReadPropertyBoolean('SB');
+		$FHL = $this->ReadPropertyBoolean('FHL');
+		$FHR = $this->ReadPropertyBoolean('FHR');
+		$FWL = $this->ReadPropertyBoolean('FWL');
+		$FWR = $this->ReadPropertyBoolean('FWR');
 				
 		//Auswahl Prüfen
 		if ($Display === true)
@@ -60,6 +86,54 @@ class DenonAVR extends IPSModule
 				//Control
 				$this->SetupControl($Type);
 			}
+		if ($FL === true)
+			{
+				$this->SetupSpeaker($Type, "FL");
+			}
+		if ($FR === true)
+			{
+				$this->SetupSpeaker($Type, "FR");
+			}
+		if ($C === true)
+			{
+				$this->SetupSpeaker($Type, "C");
+			}
+		if ($SW === true)
+			{
+				$this->SetupSpeaker($Type, "SW");
+			}
+		if ($SW2 === true)
+			{
+				$this->SetupSpeaker($Type, "SW2");
+			}
+		if ($SBL === true)
+			{
+				$this->SetupSpeaker($Type, "SBL");
+			}
+		if ($SBR === true)
+			{
+				$this->SetupSpeaker($Type, "SBR");
+			}
+		if ($SB === true)
+			{
+				$this->SetupSpeaker($Type, "SB");
+			}
+		if ($FHL === true)
+			{
+				$this->SetupSpeaker($Type, "FHL");
+			}
+		if ($FHR === true)
+			{
+				$this->SetupSpeaker($Type, "FHR");
+			}
+		if ($FWL === true)
+			{
+				$this->SetupSpeaker($Type, "FWL");
+			}
+		if ($FWR === true)
+			{
+				$this->SetupSpeaker($Type, "FWR");
+			}		
 		if ($Zone === 0)
 			{
 				//Mainzone
@@ -101,6 +175,135 @@ class DenonAVR extends IPSModule
 		$this->SetStatus(102);
 	}
 	
+	protected function SetupSpeaker($Type, $Speaker)
+	{
+		$this->SetupSpeaker($Type, $Speaker);
+		// Status aktiv
+		$this->SetStatus(102);
+	}
+	
+	protected function SetupSpeaker($Type, $Speaker)
+	{
+		switch ($Speaker)
+		{
+			case "FL"
+				//ChannelVolumeFL
+				$Name = "DENON".$Type.".ChannelVolumeFL";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeFLId = $this->RegisterVariableFloat("ChannelVolumeFL", "ChannelVolumeFL", $ProfileName."ChannelVolumeFL", 32);
+				$this->EnableAction("ChannelVolumeFL");
+			break;
+			
+			case "FR"
+				//ChannelVolumeFR
+				$Name = "DENON".$Type.".ChannelVolumeFR";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeFRId = $this->RegisterVariableFloat("ChannelVolumeFR", "ChannelVolumeFR", $ProfileName."ChannelVolumeFR", 33);
+				$this->EnableAction("ChannelVolumeFR");
+			break;
+			
+			case "C"
+				//ChannelVolumeC
+				$Name = "DENON".$Type.".ChannelVolumeC";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeCId = $this->RegisterVariableFloat("ChannelVolumeC", "ChannelVolumeC", $ProfileName."ChannelVolumeC", 34);
+				$this->EnableAction("ChannelVolumeC");
+			break;
+			
+			case "SW"
+				//ChannelVolumeSW
+				$Name = "DENON".$Type.".ChannelVolumeSW";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSWId = $this->RegisterVariableFloat("ChannelVolumeSW", "ChannelVolumeSW", $ProfileName."ChannelVolumeSW", 35);
+				$this->EnableAction("ChannelVolumeSW");
+			break;
+			
+			case "SW2"
+				//ChannelVolumeSW
+				$Name = "DENON".$Type.".ChannelVolumeSW2";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSW2Id = $this->RegisterVariableFloat("ChannelVolumeSW2", "ChannelVolumeSW2", $ProfileName."ChannelVolumeSW2", 35);
+				$this->EnableAction("ChannelVolumeSW2");
+			break;
+			
+			case "SL"
+				//ChannelVolumeSL
+				$Name = "DENON".$Type.".ChannelVolumeSL";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSLId = $this->RegisterVariableFloat("ChannelVolumeSL", "ChannelVolumeSL", $ProfileName."ChannelVolumeSL", 36);
+				$this->EnableAction("ChannelVolumeSL");
+			break;
+			
+			case "SR"
+				//ChannelVolumeSR
+				$Name = "DENON".$Type.".ChannelVolumeSR";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSRId = $this->RegisterVariableFloat("ChannelVolumeSR", "ChannelVolumeSR", $ProfileName."ChannelVolumeSR", 37);
+				$this->EnableAction("ChannelVolumeSR");
+			break;
+			
+			case "SBL"
+				//ChannelVolumeSBL
+				$Name = "DENON".$Type.".ChannelVolumeSBL";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSBLId = $this->RegisterVariableFloat("ChannelVolumeSBL", "ChannelVolumeSBL", $ProfileName."ChannelVolumeSBL", 38);
+				$this->EnableAction("ChannelVolumeSBL");
+			break;
+			
+			case "SBR"
+				//ChannelVolumeSBR
+				$Name = "DENON".$Type.".ChannelVolumeSBR";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSBRId = $this->RegisterVariableFloat("ChannelVolumeSBR", "ChannelVolumeSBR", $ProfileName."ChannelVolumeSBR", 39);
+				$this->EnableAction("ChannelVolumeSBR");
+			break;
+			
+			case "SB"
+				//ChannelVolumeSB
+				$Name = "DENON".$Type.".ChannelVolumeSB";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeSBId = $this->RegisterVariableFloat("ChannelVolumeSB", "ChannelVolumeSB", $ProfileName."ChannelVolumeSB", 40);
+				$this->EnableAction("ChannelVolumeSB");
+			break;
+			
+			case "FHL"
+				//ChannelVolumeFHL
+				$Name = "DENON".$Type.".ChannelVolumeFHL";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeFHLId = $this->RegisterVariableFloat("ChannelVolumeFHL", "ChannelVolumeFHL", $ProfileName."ChannelVolumeFHL", 41);
+				$this->EnableAction("ChannelVolumeFHL");
+			break;
+			
+			case "FHR"
+				//ChannelVolumeFHR
+				$Name = "DENON".$Type.".ChannelVolumeFHR";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeFHRId = $this->RegisterVariableFloat("ChannelVolumeFHR", "ChannelVolumeFHR", $ProfileName."ChannelVolumeFHR", 42);
+				$this->EnableAction("ChannelVolumeFHR");
+			break;
+			
+			case "FWL"
+				//ChannelVolumeFWL
+				$Name = "DENON".$Type.".ChannelVolumeFWL";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeFWLId = $this->RegisterVariableFloat("ChannelVolumeFWL", "ChannelVolumeFWL", $ProfileName."ChannelVolumeFWL", 43);
+				$this->EnableAction("ChannelVolumeFWL");
+			break;
+			
+			case "FWR"
+				//ChannelVolumeFWR
+				$Name = "DENON".$Type.".ChannelVolumeFWR";
+				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
+				$ChannelVolumeFWRId = $this->RegisterVariableFloat("ChannelVolumeFWR", "ChannelVolumeFWR", $ProfileName."ChannelVolumeFWR", 44);
+				$this->EnableAction("ChannelVolumeFWR");
+			break;
+			
+		}
+		
+
+				
+	}
+		
 	protected function SetupProfiles($Type, $Zone)
 	{
 	/* Profile anlegen
@@ -319,57 +522,7 @@ class DenonAVR extends IPSModule
 		$Name = "DENON".$Type.".Preset";
 		$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 1, 1, 0);
 		
-		//ChannelVolumeFL
-		$Name = "DENON".$Type.".ChannelVolumeFL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
 		
-		//ChannelVolumeFR
-		$Name = "DENON".$Type.".ChannelVolumeFR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeC
-		$Name = "DENON".$Type.".ChannelVolumeC";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeSW
-		$Name = "DENON".$Type.".ChannelVolumeSW";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeSL
-		$Name = "DENON".$Type.".ChannelVolumeSL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeSR
-		$Name = "DENON".$Type.".ChannelVolumeSR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeSBL
-		$Name = "DENON".$Type.".ChannelVolumeSBL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeSBR
-		$Name = "DENON".$Type.".ChannelVolumeSBR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeSB
-		$Name = "DENON".$Type.".ChannelVolumeSB";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeFHL
-		$Name = "DENON".$Type.".ChannelVolumeFHL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeFHR
-		$Name = "DENON".$Type.".ChannelVolumeFHR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeFWL
-		$Name = "DENON".$Type.".ChannelVolumeFWL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);
-		
-		//ChannelVolumeFWR
-		$Name = "DENON".$Type.".ChannelVolumeFWR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1.0, 0);	
 		}
 	elseif($Zone === 1) //Zone 2
 		{
@@ -620,57 +773,6 @@ class DenonAVR extends IPSModule
 			$PresetId = $this->RegisterVariableInteger("Preset", "Preset", $ProfileName."Preset", 31);
 			$this->EnableAction("Preset");
 			
-			//ChannelVolumeFL
-			$ChannelVolumeFLId = $this->RegisterVariableFloat("ChannelVolumeFL", "ChannelVolumeFL", $ProfileName."ChannelVolumeFL", 32);
-			$this->EnableAction("ChannelVolumeFL");
-			
-			//ChannelVolumeFR
-			$ChannelVolumeFRId = $this->RegisterVariableFloat("ChannelVolumeFR", "ChannelVolumeFR", $ProfileName."ChannelVolumeFR", 33);
-			$this->EnableAction("ChannelVolumeFR");
-			
-			//ChannelVolumeC
-			$ChannelVolumeCId = $this->RegisterVariableFloat("ChannelVolumeC", "ChannelVolumeC", $ProfileName."ChannelVolumeC", 34);
-			$this->EnableAction("ChannelVolumeC");
-			
-			//ChannelVolumeSW
-			$ChannelVolumeSWId = $this->RegisterVariableFloat("ChannelVolumeSW", "ChannelVolumeSW", $ProfileName."ChannelVolumeSW", 35);
-			$this->EnableAction("ChannelVolumeSW");
-			
-			//ChannelVolumeSL
-			$ChannelVolumeSLId = $this->RegisterVariableFloat("ChannelVolumeSL", "ChannelVolumeSL", $ProfileName."ChannelVolumeSL", 36);
-			$this->EnableAction("ChannelVolumeSL");
-			
-			//ChannelVolumeSR
-			$ChannelVolumeSRId = $this->RegisterVariableFloat("ChannelVolumeSR", "ChannelVolumeSR", $ProfileName."ChannelVolumeSR", 37);
-			$this->EnableAction("ChannelVolumeSR");
-			
-			//ChannelVolumeSBL
-			$ChannelVolumeSBLId = $this->RegisterVariableFloat("ChannelVolumeSBL", "ChannelVolumeSBL", $ProfileName."ChannelVolumeSBL", 38);
-			$this->EnableAction("ChannelVolumeSBL");
-			
-			//ChannelVolumeSBR
-			$ChannelVolumeSBRId = $this->RegisterVariableFloat("ChannelVolumeSBR", "ChannelVolumeSBR", $ProfileName."ChannelVolumeSBR", 39);
-			$this->EnableAction("ChannelVolumeSBR");
-			
-			//ChannelVolumeSB
-			$ChannelVolumeSBId = $this->RegisterVariableFloat("ChannelVolumeSB", "ChannelVolumeSB", $ProfileName."ChannelVolumeSB", 40);
-			$this->EnableAction("ChannelVolumeSB");
-			
-			//ChannelVolumeFHL
-			$ChannelVolumeFHLId = $this->RegisterVariableFloat("ChannelVolumeFHL", "ChannelVolumeFHL", $ProfileName."ChannelVolumeFHL", 41);
-			$this->EnableAction("ChannelVolumeFHL");
-			
-			//ChannelVolumeFHR
-			$ChannelVolumeFHRId = $this->RegisterVariableFloat("ChannelVolumeFHR", "ChannelVolumeFHR", $ProfileName."ChannelVolumeFHR", 42);
-			$this->EnableAction("ChannelVolumeFHR");
-			
-			//ChannelVolumeFWL
-			$ChannelVolumeFWLId = $this->RegisterVariableFloat("ChannelVolumeFWL", "ChannelVolumeFWL", $ProfileName."ChannelVolumeFWL", 43);
-			$this->EnableAction("ChannelVolumeFWL");
-			
-			//ChannelVolumeFWR
-			$ChannelVolumeFWRId = $this->RegisterVariableFloat("ChannelVolumeFWR", "ChannelVolumeFWR", $ProfileName."ChannelVolumeFWR", 44);
-			$this->EnableAction("ChannelVolumeFWR");
 		}
 		elseif($Zone === 1) //Zone 2
 		{
@@ -741,17 +843,6 @@ class DenonAVR extends IPSModule
 			$this->EnableAction("Zone3QuickSelect");
 		}
 		
-		
-		
-		// Variablen bei Auswahl anlegen
-		/*
-		$ITType = $this->ReadPropertyString('ITType');
-		if ($ITType === "Dimmer")
-			{
-			$this->RegisterVariableInteger("Dimmer", "Dimmer", "IntertechnoDimmer.AIOIT", 2);
-			$this->EnableAction("Dimmer");
-			}
-		*/	
 	}
 	
 	
