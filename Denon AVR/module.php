@@ -1855,6 +1855,21 @@ class DenonAVR extends IPSModule
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{66164EB8-3439-4599-B937-A365D7A68567}", "Buffer" => $data->Buffer)));
 	}
 	
+	// Data Empfang
+	/*
+	public function ReceiveData($JSONString)
+	{
+	 
+		// Empfangene Daten vom Gateway/Splitter
+		$data = json_decode($JSONString);
+		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
+	 
+		// Datenverarbeitung und schreiben der Werte in die Statusvariablen
+		//SetValue($this->GetIDForIdent("Value"), $data->Buffer);
+	 
+	}
+	*/
+	
 	################## DATAPOINTS PARENT
 /*
     public function ReceiveData($JSONString)
@@ -1984,18 +1999,7 @@ class DenonAVR extends IPSModule
     }
 	*/
 	
-	// Data Empfang
-	public function ReceiveData($JSONString)
-	{
-	 
-		// Empfangene Daten vom Gateway/Splitter
-		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
-	 
-		// Datenverarbeitung und schreiben der Werte in die Statusvariablen
-		//SetValue($this->GetIDForIdent("Value"), $data->Buffer);
-	 
-	}
+	
 
 }
 
