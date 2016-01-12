@@ -1134,7 +1134,7 @@ class DenonAVR extends IPSModule
         
         IPS_SetVariableProfileIcon($Name, $Icon);
         IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
-		IPS_SetVariableProfileDigits($Name, 0); //  Nachkommastellen
+		IPS_SetVariableProfileDigits($Name, $Nachkommastellen); //  Nachkommastellen
         IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
         
     }
