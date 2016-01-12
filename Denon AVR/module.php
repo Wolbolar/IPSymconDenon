@@ -275,7 +275,7 @@ class DenonAVR extends IPSModule
 												));
 		
 		//C.Width
-		$Name = "DENON".$Type.".C.Width";
+		$Name = "DENON".$Type.".CWidth";
 		$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 7, 1, 0);
 		
 		//DynamicRange
@@ -601,8 +601,8 @@ class DenonAVR extends IPSModule
 			$this->EnableAction("DynamicCompressor");
 			
 			//C.Width
-			$CWidthId = $this->RegisterVariableInteger("C.Width", "C.Width", $ProfileName."C.Width", 27);
-			$this->EnableAction("C.Width");
+			$CWidthId = $this->RegisterVariableInteger("CWidth", "CWidth", $ProfileName."C.Width", 27);
+			$this->EnableAction("CWidth");
 			
 			//DynamicRange
 			$DynamicRangeId = $this->RegisterVariableInteger("DynamicRange", "DynamicRange", $ProfileName."DynamicRange", 28);
@@ -857,7 +857,7 @@ class DenonAVR extends IPSModule
 					$this->MasterVolumeFix($Value);
 				break;
 
-				case "C.Width":
+				case "CWidth":
 					$this->CWidth($Value);
 				break;
 
