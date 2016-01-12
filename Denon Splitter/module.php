@@ -218,7 +218,7 @@ class DenonSplitter extends IPSModule
 
 	// Data von clientsocket beziehen
 	
-	$data=$IPS_VALUE;
+	//$data=$IPS_VALUE;
 
 	$maincat= substr($data,0,2); //Eventidentifikation
 	$zonecat= substr($data,2); //Zoneneventidentifikation
