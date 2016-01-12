@@ -1175,54 +1175,7 @@ class DenonAVR extends IPSModule
 		$IPDenon = IPS_GetProperty($ParentID, 'Host');
 		return $IPDenon;
 	}
-	
-	protected function PowerSetState ($state){
-	SetValueBoolean($this->GetIDForIdent('STATE'), $state);
-	return $this->SetPowerState($state);	
-	}
-	
-	protected function SetPowerState($state) {
-		if ($state === true)
-		{
-		$action = "E";
-		return $this->SendCommand($action, $this->GetIPGateway());
-		}
-		else
-		{
-		$action = "6";
-		return $this->SendCommand($action, $this->GetIPGateway());
-		}
-	}
-	
-	   	
-	//IT Befehl E schaltet an
-	public function PowerOn() {
-		SetValueBoolean($this->GetIDForIdent('STATE'), true);
-		$action = "E";
-		return $this->SendCommand($this->Calculate(), $action, $this->GetIPGateway());
-		}
 		
-	//IT Befehl 6 schaltet aus
-	public function PowerOff() {
-		SetValueBoolean($this->GetIDForIdent('STATE'), false);
-		$action = "6";
-		return $this->SendCommand($this->Calculate(), $action, $this->GetIPGateway());
-		}
-		
-	//Senden eines Befehls an Intertechno
-	// Sendestring IT /command?XC_FNC=SendSC&type=IT&data=
-	private $response = false;
-	protected function SendCommand($IT_send, $action, $ip_aiogateway)
-	{
-		$gwcheck = file_get_contents("http://".$ip_aiogateway."/command?XC_FNC=SendSC&type=IT&data=".$IT_send.$action);
-		if ($gwcheck == "{XC_SUC}")
-			{
-			$this->response = true;	
-			}
-		return $this->response;
-	}
-	
-	
 	protected function RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
         
@@ -1310,9 +1263,9 @@ class DenonAVR extends IPSModule
 
 	######################### Main Functions #######################################
 
-	public function POWER($Value) // STANDBY oder ON
+	public function Power($Value) // STANDBY oder ON
 	{
-		if ($value == false)
+		if ($Value == false)
 			{
 				$value = "STANDBY";
 			}
