@@ -16,7 +16,7 @@ class DenonSplitter extends IPSModule
         $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR");
 
         $this->RegisterPropertyString("Host", "");
-		$this->RegisterPropertyInteger("Port", 21);
+		$this->RegisterPropertyInteger("Port", 23);
         $this->RegisterPropertyBoolean("Open", false);
      
     }
@@ -27,6 +27,11 @@ class DenonSplitter extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
+		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
+        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
+        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
+        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		
 // Zwangskonfiguration des ClientSocket
         $ParentID = $this->GetParent();
         if (!($ParentID === false))

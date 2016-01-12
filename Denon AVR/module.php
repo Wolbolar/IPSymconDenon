@@ -1327,7 +1327,7 @@ class DenonAVR extends IPSModule
 
 	public function MainZonePower($Value) // MainZone "ON" or "OFF"
 	{
-	 CSCK_SendText($id, "ZM".$Value.chr(13));
+	  CSCK_SendText($id, "ZM".$Value.chr(13));
 	}
 
 	public function RecSelect($Value) //
