@@ -151,6 +151,22 @@ class DenonAVR extends IPSModule
 			}
 	}
 	
+	protected function SetupDisplay($Type)
+	{	
+		$this->RegisterVariableString("Display", "Display", "~HTMLBox", 32);
+		$this->EnableAction("Display");
+		// Status aktiv
+		//$this->SetStatus(102);
+	}
+	
+	protected function SetupControl($Type)
+	{	
+		$this->RegisterVariableString("Control", "Control", "~HTMLBox", 32);
+		$this->EnableAction("Control");
+		// Status aktiv
+		//$this->SetStatus(102);
+	}
+	
 	protected function SetupMainzone($Type, $Zone)
 	{	
 		$this->SetupProfiles($Type, $Zone);
@@ -178,6 +194,7 @@ class DenonAVR extends IPSModule
 		
 	protected function SetupSpeaker($Type, $Speaker)
 	{
+		$Icon = "Intensity"; 
 		switch ($Speaker)
 		{
 			case "FL":
