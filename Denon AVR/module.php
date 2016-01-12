@@ -175,13 +175,7 @@ class DenonAVR extends IPSModule
 		$this->SetStatus(102);
 	}
 	
-	protected function SetupSpeaker($Type, $Speaker)
-	{
-		$this->SetupSpeaker($Type, $Speaker);
-		// Status aktiv
-		$this->SetStatus(102);
-	}
-	
+		
 	protected function SetupSpeaker($Type, $Speaker)
 	{
 		switch ($Speaker)
