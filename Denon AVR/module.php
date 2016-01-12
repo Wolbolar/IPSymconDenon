@@ -117,6 +117,7 @@ class DenonAVR extends IPSModule
 	//!!!! Icons sind noch zu ergänzen
 	if($Zone === 0) //Mainzone
 		{
+		$Icon = "Intensity"; 	
 		//AudioDelay
 		$Name = "DENON".$Type.".AudioDelay";
 		$this->RegisterProfileIntegerDenon($Name, $Icon, "", "ms", 0, 200, 0, 0);
