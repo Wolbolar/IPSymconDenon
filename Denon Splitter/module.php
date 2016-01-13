@@ -7,7 +7,7 @@ class DenonSplitter extends IPSModule
 
     public function Create()
     {
-//Never delete this line!
+	//Never delete this line!
         parent::Create();
 		
 		//These lines are parsed on Symcon Startup or Instance creation
@@ -15,7 +15,8 @@ class DenonSplitter extends IPSModule
 		// ClientSocket benötigt
         $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR");
 
-        $this->RegisterPropertyString("Host", "");
+        //$this->RegisterPropertyString("Host", "");
+		$this->RegisterPropertyString("Host", "192.168.55.14");
 		$this->RegisterPropertyInteger("Port", 23);
         $this->RegisterPropertyBoolean("Open", false);
      
@@ -23,7 +24,7 @@ class DenonSplitter extends IPSModule
 
     public function ApplyChanges()
     {
-//Never delete this line!
+	//Never delete this line!
         parent::ApplyChanges();
         $change = false;
 
@@ -32,7 +33,7 @@ class DenonSplitter extends IPSModule
         IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 		
-// Zwangskonfiguration des ClientSocket
+	// Zwangskonfiguration des ClientSocket
         $ParentID = $this->GetParent();
         if (!($ParentID === false))
         {
