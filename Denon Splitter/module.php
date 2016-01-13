@@ -49,7 +49,7 @@ class DenonSplitter extends IPSModule
             }
             $ParentOpen = $this->ReadPropertyBoolean('Open');
 			
-// Keine Verbindung erzwingen wenn IPAIOGateway leer ist, sonst folgt später Exception.
+	// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
             if (!$ParentOpen)
                 $this->SetStatus(104);
 
