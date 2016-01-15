@@ -1075,418 +1075,385 @@ class DenonAVR extends IPSModule
 		$Display = $this->ReadPropertyBoolean('Display');
 		$Control = $this->ReadPropertyBoolean('Control');
 		
-		if ($Commandtype === 0)
+		if ($Commandtype === 0) //http Command
 		{
 			if($Zone === 0) //Mainzone
-		{
-			switch($Ident)
-			{
-				case "Power":
-					$this->PowerHTTP($Value);
-				break;
+				{
+				switch($Ident)
+					{
+					case "Power":
+						$this->PowerHTTP($Value);
+					break;
 
-				case "DigitalInputMode":
-					$this->DigitalInputModeHTTP($Value);
-				break;
+					case "DigitalInputMode":
+						$this->DigitalInputModeHTTP($Value);
+					break;
 
-				case "InputSource":
-					$this->InputSourceHTTP($Value);
-				break;
+					case "InputSource":
+						$this->InputSourceHTTP($Value);
+					break;
 
-				case "InputMode":
-					$this->InputModeHTTP($Value);
-				break;
+					case "InputMode":
+						$this->InputModeHTTP($Value);
+					break;
 
-				case "MainMute":
-					$this->MainMuteHTTP($Value);
-				break;
+					case "MainMute":
+						$this->MainMuteHTTP($Value);
+					break;
 
-				case "MasterVolume":
-					$this->MasterVolumeFixHTTP($Value);
-				break;
+					case "MasterVolume":
+						$this->MasterVolumeFixHTTP($Value);
+					break;
 
-				case "MainZonePower":
-					$this->MainZonePowerHTTP($Value);
-				break;
+					case "MainZonePower":
+						$this->MainZonePowerHTTP($Value);
+					break;
+									
+					default:
+						throw new Exception("Invalid ident");
+					}
+				}
+			elseif($Zone === 1) //Zone 2
+				{
+				switch($Ident)
+					{
+					case "Zone2Power":
+						$this->Zone2PowerHTTP($Value);
+					break;
 
-								
-				default:
-					throw new Exception("Invalid ident");
-			}
+					case "Zone2Volume":
+						$this->Zone2VolumeFixHTTP($Value);
+					break;
+
+					case "Zone2Mute":
+						$this->Zone2MuteHTTP($Value);
+					break;
+
+					case "Zone2InputSource":
+						$this->Zone2InputSourceHTTP($Value);
+					break;
+						
+					default:
+						throw new Exception("Invalid ident");
+					}
+				}
+			elseif($Zone === 2) //Zone 3
+				{
+				switch($Ident)
+					{
+					case "Zone3Power":
+						$this->Zone3PowerHTTP($Value);
+					break;
+
+					case "Zone3Volume":
+						$this->Zone3VolumeFixHTTP($Value);
+					break;
+
+					case "Zone3Mute":
+						$this->Zone3MuteHTTP($Value);
+					break;
+
+					case "Zone3InputSource":
+						$this->Zone3InputSourceHTTP($Value);
+					break;
+						
+					default:
+						throw new Exception("Invalid ident");
+					}
+				}
 		}
-		elseif($Zone === 1) //Zone 2
-		{
-			switch($Ident)
-			{
-				case "Zone2Power":
-					$this->Zone2PowerHTTP($Value);
-				break;
-
-				case "Zone2Volume":
-					$this->Zone2VolumeFixHTTP($Value);
-				break;
-
-				case "Zone2Mute":
-					$this->Zone2MuteHTTP($Value);
-				break;
-
-				case "Zone2InputSource":
-					$this->Zone2InputSourceHTTP($Value);
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-			}
-		}
-		elseif($Zone === 2) //Zone 3
-		{
-			switch($Ident)
-			{
-				case "Zone3Power":
-					$this->Zone3PowerHTTP($Value);
-				break;
-
-				case "Zone3Volume":
-					$this->Zone3VolumeFixHTTP($Value);
-				break;
-
-				case "Zone3Mute":
-					$this->Zone3MuteHTTP($Value);
-				break;
-
-				case "Zone3InputSource":
-					$this->Zone3InputSourceHTTP($Value);
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-			}
-		}
-		
-		#################### Cursorsteuerung #####################################
-		switch($Ident)
-			{
-				case "CursorUp":
-					$this->CursorUpHTTP();
-				break;
-
-				case "CursorDown":
-					$this->CursorDownHTTP();
-				break;
-
-				case "CursorLeft":
-					$this->CursorLeftHTTP();
-				break;
-
-				case "CursorRight":
-					$this->CursorRightHTTP();
-				break;
-
-				case "Enter":
-					$this->EnterHTTP();
-				break;
-
-				case "Return":
-					$this->CursorReturnHTTP();
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-			}
-		}
-		else
+		else //Telnet Command
 		{
 			if($Zone === 0) //Mainzone
-		{
-			switch($Ident)
-			{
-				case "Power":
-					$this->Power($Value);
-				break;
+				{
+				switch($Ident)
+					{
+					case "Power":
+						$this->Power($Value);
+					break;
 
-				case "DigitalInputMode":
-					$this->DigitalInputMode($Value);
-				break;
+					case "DigitalInputMode":
+						$this->DigitalInputMode($Value);
+					break;
 
-				case "InputSource":
-					$this->InputSource($Value);
-				break;
+					case "InputSource":
+						$this->InputSource($Value);
+					break;
 
-				case "InputMode":
-					$this->InputMode($Value);
-				break;
+					case "InputMode":
+						$this->InputMode($Value);
+					break;
 
-				case "RoomSize":
-					$this->RoomSize($Value);
-				break;
+					case "RoomSize":
+						$this->RoomSize($Value);
+					break;
 
-				case "MainMute":
-					$this->MainMute($Value);
-				break;
+					case "MainMute":
+						$this->MainMute($Value);
+					break;
 
-				case "ToneCTRL":
-					$this->ToneCTRL($Value);
-				break;
+					case "ToneCTRL":
+						$this->ToneCTRL($Value);
+					break;
 
-				case "ToneDefeat":
-					$this->ToneDefeat($Value);
-				break;
+					case "ToneDefeat":
+						$this->ToneDefeat($Value);
+					break;
 
-				case "QuickSelect":
-					$this->Quickselect($Value);
-				break;
+					case "QuickSelect":
+						$this->Quickselect($Value);
+					break;
 
-				case "VideoSelect":
-					$this->VideoSelect($Value);
-				break;
+					case "VideoSelect":
+						$this->VideoSelect($Value);
+					break;
 
-				case "Panorama":
-					$this->Panorama($Value);
-				break;
+					case "Panorama":
+						$this->Panorama($Value);
+					break;
 
-				case "FrontHeight":
-					$this->FrontHeight($Value);
-				break;
+					case "FrontHeight":
+						$this->FrontHeight($Value);
+					break;
 
-				case "BassLevel":
-					$this->BassLevel($Value);
-				break;
+					case "BassLevel":
+						$this->BassLevel($Value);
+					break;
 
-				case "LFELevel":
-					$this->LFELevel($Value);
-				break;
+					case "LFELevel":
+						$this->LFELevel($Value);
+					break;
 
-				case "TrebleLevel":
-					$this->TrebleLevel($Value);
-				break;
+					case "TrebleLevel":
+						$this->TrebleLevel($Value);
+					break;
 
-				case "DynamicEQ":
-					$this->DynamicEQ($Value);
-				break;
+					case "DynamicEQ":
+						$this->DynamicEQ($Value);
+					break;
 
-				case "DynamicCompressor":
-					$this->DynamicCompressor($Value);
-				break;
+					case "DynamicCompressor":
+						$this->DynamicCompressor($Value);
+					break;
 
-				case "DynamicVolume":
-				 $this->DynamicVolume($Value);
-				break;
+					case "DynamicVolume":
+						$this->DynamicVolume($Value);
+					break;
 
-				case "DynamicRange":
-					$this->DynamicCompressor($Value);
-				break;
+					case "DynamicRange":
+						$this->DynamicCompressor($Value);
+					break;
 
-				case "AudioDelay":
-					$this->AudioDelay($Value);
-				break;
+					case "AudioDelay":
+						$this->AudioDelay($Value);
+					break;
 
-				case "AudioRestorer":
-					$this->AudioRestorer($Value);
-				break;
+					case "AudioRestorer":
+						$this->AudioRestorer($Value);
+					break;
 
-				case "MasterVolume":
-					$this->MasterVolumeFix($Value);
-				break;
+					case "MasterVolume":
+						$this->MasterVolumeFix($Value);
+					break;
 
-				case "CWidth":
-					$this->CWidth($Value);
-				break;
+					case "CWidth":
+						$this->CWidth($Value);
+					break;
 
-				case "Dimension":
-					$this->Dimension($Value);
-				break;
+					case "Dimension":
+						$this->Dimension($Value);
+					break;
 
-				case "SurroundMode":
-					$this->SurroundMode($Value);
-				break;
+					case "SurroundMode":
+						$this->SurroundMode($Value);
+					break;
 
-				case "SurroundPlayMode":
-					$this->SurroundPlayMode($Value);
-				break;
+					case "SurroundPlayMode":
+						$this->SurroundPlayMode($Value);
+					break;
 
-				case "SurroundBackMode":
-					$this->SurroundBackMode($Value);
-				break;
+					case "SurroundBackMode":
+						$this->SurroundBackMode($Value);
+					break;
 
-				case "Sleep":
-					$this->Sleep($Value);
-				break;
+					case "Sleep":
+						$this->Sleep($Value);
+					break;
 
-				case "CinemaEQ":
-					$this->CinemaEQ($Value);
-				break;
+					case "CinemaEQ":
+						$this->CinemaEQ($Value);
+					break;
 
-				case "MainZonePower":
-					$this->MainZonePower($Value);
-				break;
+					case "MainZonePower":
+						$this->MainZonePower($Value);
+					break;
 
-				case "MultiEQMode":
-					$this->MultiEQMode($Value);
-				break;
+					case "MultiEQMode":
+						$this->MultiEQMode($Value);
+					break;
 
-				case "Preset":
-					$this->Preset($Value);
-				break;
+					case "Preset":
+						$this->Preset($Value);
+					break;
 
-				case "ChannelVolumeFL":
-					$this->ChannelVolumeFL($Value);
-				break;
+					case "ChannelVolumeFL":
+						$this->ChannelVolumeFL($Value);
+					break;
 
-				case "ChannelVolumeFR":
-					$this->ChannelVolumeFR($Value);
-				break;
+					case "ChannelVolumeFR":
+						$this->ChannelVolumeFR($Value);
+					break;
 
-				case "ChannelVolumeC":
-					$this->ChannelVolumeC($Value);
-				break;
+					case "ChannelVolumeC":
+						$this->ChannelVolumeC($Value);
+					break;
 
-				case "ChannelVolumeSW":
-					$this->ChannelVolumeSW($Value);
-				break;
+					case "ChannelVolumeSW":
+						$this->ChannelVolumeSW($Value);
+					break;
 
-				case "ChannelVolumeSL":
-					$this->ChannelVolumeSL($Value);
-				break;
+					case "ChannelVolumeSL":
+						$this->ChannelVolumeSL($Value);
+					break;
 
-				case "ChannelVolumeSR":
-					$this->ChannelVolumeSR($Value);
-				break;
+					case "ChannelVolumeSR":
+						$this->ChannelVolumeSR($Value);
+					break;
 
-				case "ChannelVolumeSBL":
-					$this->ChannelVolumeSBL($Value);
-				break;
+					case "ChannelVolumeSBL":
+						$this->ChannelVolumeSBL($Value);
+					break;
 
-				case "ChannelVolumeSBR":
-					$this->ChannelVolumeSBR($Value);
-				break;
+					case "ChannelVolumeSBR":
+						$this->ChannelVolumeSBR($Value);
+					break;
 
-				case "ChannelVolumeSB":
-					$this->ChannelVolumeSB($Value);
-				break;
+					case "ChannelVolumeSB":
+						$this->ChannelVolumeSB($Value);
+					break;
 
-				case "ChannelVolumeFHL":
-					$this->ChannelVolumeFHL($Value);
-				break;
+					case "ChannelVolumeFHL":
+						$this->ChannelVolumeFHL($Value);
+					break;
 
-				case "ChannelVolumeFHR":
-					$this->ChannelVolumeFHR($Value);
-				break;
+					case "ChannelVolumeFHR":
+						$this->ChannelVolumeFHR($Value);
+					break;
 
-				case "ChannelVolumeFWL":
-					$this->ChannelVolumeFWL($Value);
-				break;
+					case "ChannelVolumeFWL":
+						$this->ChannelVolumeFWL($Value);
+					break;
 
-				case "ChannelVolumeFWR":
-					$this->ChannelVolumeFWR($Value);
-				break;
-								
-				default:
-					throw new Exception("Invalid ident");
-			}
-		}
-		elseif($Zone === 1) //Zone 2
-		{
-			switch($Ident)
-			{
-				case "Zone2Power":
-					$this->Zone2Power($Value);
-				break;
+					case "ChannelVolumeFWR":
+						$this->ChannelVolumeFWR($Value);
+					break;
+										
+					default:
+						throw new Exception("Invalid ident");
+					}
+				}
+			elseif($Zone === 1) //Zone 2
+				{
+				switch($Ident)
+					{
+					case "Zone2Power":
+						$this->Zone2Power($Value);
+					break;
 
-				case "Zone2Volume":
-					$this->Zone2VolumeFix($Value);
-				break;
+					case "Zone2Volume":
+						$this->Zone2VolumeFix($Value);
+					break;
 
-				case "Zone2Mute":
-					$this->Zone2Mute($Value);
-				break;
+					case "Zone2Mute":
+						$this->Zone2Mute($Value);
+					break;
 
-				case "Zone2InputSource":
-					$this->Zone2InputSource($Value);
-				break;
+					case "Zone2InputSource":
+						$this->Zone2InputSource($Value);
+					break;
 
-				case "Zone2ChannelSetting":
-					$this->Zone2ChannelSetting($Value);
-				break;
+					case "Zone2ChannelSetting":
+						$this->Zone2ChannelSetting($Value);
+					break;
 
-				case "Zone2ChannelVolumeFL":
-					$this->Zone2ChannelVolumeFL($Value);
-				break;
+					case "Zone2ChannelVolumeFL":
+						$this->Zone2ChannelVolumeFL($Value);
+					break;
 
-				case "Zone2ChannelVolumeFR":
-					$this->Zone2ChannelVolumeFL($Value);
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-			}
-		}
-		elseif($Zone === 2) //Zone 3
-		{
-			switch($Ident)
-			{
-				case "Zone3Power":
-					$this->Zone3Power($Value);
-				break;
+					case "Zone2ChannelVolumeFR":
+						$this->Zone2ChannelVolumeFL($Value);
+					break;
+						
+					default:
+						throw new Exception("Invalid ident");
+					}
+				}
+			elseif($Zone === 2) //Zone 3
+				{
+				switch($Ident)
+					{
+					case "Zone3Power":
+						$this->Zone3Power($Value);
+					break;
 
-				case "Zone3Volume":
-					$this->Zone3VolumeFix($Value);
-				break;
+					case "Zone3Volume":
+						$this->Zone3VolumeFix($Value);
+					break;
 
-				case "Zone3Mute":
-					$this->Zone3Mute($Value);
-				break;
+					case "Zone3Mute":
+						$this->Zone3Mute($Value);
+					break;
 
-				case "Zone3InputSource":
-					$this->Zone3InputSource($Value);
-				break;
+					case "Zone3InputSource":
+						$this->Zone3InputSource($Value);
+					break;
 
-				case "Zone3ChannelSetting":
-					$this->Zone3ChannelSetting($Value);
-				break;
+					case "Zone3ChannelSetting":
+						$this->Zone3ChannelSetting($Value);
+					break;
 
-				case "Zone3ChannelVolumeFL":
-					$this->Zone3ChannelVolumeFL($Value);
-				break;
+					case "Zone3ChannelVolumeFL":
+						$this->Zone3ChannelVolumeFL($Value);
+					break;
 
-				case "Zone3ChannelVolumeFR":
-					$this->Zone3ChannelVolumeFL($Value);
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-			}
-		}
-		
+					case "Zone3ChannelVolumeFR":
+						$this->Zone3ChannelVolumeFL($Value);
+					break;
+						
+					default:
+						throw new Exception("Invalid ident");
+					}
+				}	
 		#################### Cursorsteuerung #####################################
-		switch($Ident)
-			{
-				case "CursorUp":
-					$this->CursorUp();
-				break;
+			switch($Ident)
+				{
+					case "CursorUp":
+						$this->CursorUp();
+					break;
 
-				case "CursorDown":
-					$this->CursorDown();
-				break;
+					case "CursorDown":
+						$this->CursorDown();
+					break;
 
-				case "CursorLeft":
-					$this->CursorLeft();
-				break;
+					case "CursorLeft":
+						$this->CursorLeft();
+					break;
 
-				case "CursorRight":
-					$this->CursorRight();
-				break;
+					case "CursorRight":
+						$this->CursorRight();
+					break;
 
-				case "Enter":
-					$this->Enter();
-				break;
+					case "Enter":
+						$this->Enter();
+					break;
 
-				case "Return":
-					$this->CursorReturn();
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-			}
+					case "Return":
+						$this->CursorReturn();
+					break;
+					
+					default:
+						throw new Exception("Invalid ident");
+				}	
 		}
 		
     }
