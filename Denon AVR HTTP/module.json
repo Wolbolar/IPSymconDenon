@@ -1,0 +1,11 @@
+{
+    "id": "{5A53A01E-CED5-482F-A28D-331D80874B75}",
+    "name": "DenonAVRHTTP",
+    "type": 3,
+    "vendor": "Denon",
+    "aliases": ["Denon AV Receiver HTTP Control"],
+    "parentRequirements": ["{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}"],
+    "childRequirements": [],
+    "implemented": ["{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}"],
+    "prefix": "DAVRH"
+}

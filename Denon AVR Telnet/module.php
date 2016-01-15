@@ -16,7 +16,6 @@ class DenonAVR extends IPSModule
 		
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 0);
-		$this->RegisterPropertyInteger("Commandtype", 0);
 		$this->RegisterPropertyBoolean("Display", false);
 		$this->RegisterPropertyBoolean("Control", false);
 		$this->RegisterPropertyBoolean("FL", false);
@@ -54,8 +53,7 @@ class DenonAVR extends IPSModule
 		//Type und Zone
 		$Type = $this->ReadPropertyInteger('Type');
 		$Zone = $this->ReadPropertyInteger('Zone');
-		$Commandtype = $this->ReadPropertyInteger('Commandtype');
-					
+							
 		//Import Kategorie
 		//$ImportCategoryID = $this->ReadPropertyInteger('ImportCategoryID');
 		
@@ -139,17 +137,17 @@ class DenonAVR extends IPSModule
 		if ($Zone === 0)
 			{
 				//Mainzone
-				$this->SetupZone($Type, $Zone, $Commandtype);
+				$this->SetupZone($Type, $Zone);
 			}
 		elseif ($Zone === 1)
 			{
 				//Zone 2
-				$this->SetupZone($Type, $Zone, $Commandtype);
+				$this->SetupZone($Type, $Zone);
 			}
 		elseif ($Zone === 2)
 			{
 				//Zone 3
-				$this->SetupZone($Type, $Zone, 3);
+				$this->SetupZone($Type, $Zone);
 			}
 	}
 	
@@ -169,234 +167,16 @@ class DenonAVR extends IPSModule
 		//$this->SetStatus(102);
 	}
 	
-	protected function SetupZone($Type, $Zone, $Commandtype)
+	protected function SetupZone($Type, $Zone)
 	{	
-		if ($Commandtype === 0)
-			{
-			$this->SetupProfilesHTTP($Type, $Zone);
-			$this->SetupVarHTTP($Type, $Zone);	
-			}
-		else
-			{
-			$this->SetupProfiles($Type, $Zone);
-			$this->SetupVar($Type, $Zone);	
-			}
+		$this->SetupProfiles($Type, $Zone);
+		$this->SetupVar($Type, $Zone);	
+			
 		
 		// Status aktiv
 		$this->SetStatus(102);
 	}
-
 	
-	// HTTP Profile
-	protected function SetupProfilesHTTP($Type, $Zone)
-	{
-	//$this->GetStateHTTP();
-	
-	if($Zone === 0) //Mainzone
-		{
-		$Icon = "Intensity"; 	
-				
-		//MasterVolume
-		$Name = "DENON".$Type.".MasterVolume";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80.0, 18.0, 0.5, 0);
-		
-		//InputSource
-		$Name = "DENON".$Type.".InputSource";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
-												Array(0, "Phono",  "", -1),
-												Array(1, "CD",  "", -1),
-												Array(2, "Tuner",  "", -1),
-												Array(3, "DVD",  "", -1),
-												Array(4, "BD",  "", -1),
-												Array(5, "TV",  "", -1),
-												Array(6, "SAT/CBL",  "", -1),
-												Array(7, "DVR",  "", -1),
-												Array(8, "GAME",  "", -1),
-												Array(9, "V.AUX",  "", -1),
-												Array(10, "DOCK",  "", -1),
-												Array(11, "IPOD",  "", -1),
-												Array(12, "NET/USB",  "", -1),
-												Array(13, "NAPSTER",  "", -1),
-												Array(14, "LASTFM",  "", -1),
-												Array(15, "FLICKR",  "", -1),
-												Array(16, "FAVORITES",  "", -1),
-												Array(17, "IRADIO",  "", -1),
-												Array(18, "SERVER",  "", -1),
-												Array(19, "USB/IPOD",  "", -1)			
-												));
-		
-		//SurroundMode
-		$Name = "DENON".$Type.".SurroundMode";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 14, 1, 0, Array(
-												Array(0, "DIRECT",  "", -1),
-												Array(1, "PURE DIRECT",  "", -1),
-												Array(2, "STEREO",  "", -1),
-												Array(3, "STANDARD",  "", -1),
-												Array(4, "DOLBY DIGITAL",  "", -1),
-												Array(5, "DTS SURROUND",  "", -1),
-												Array(6, "DOLBY PL2X C",  "", -1),
-												Array(7, "MCH STEREO",  "", -1),
-												Array(8, "ROCK ARENA",  "", -1),
-												Array(9, "JAZZ CLUB",  "", -1),
-												Array(10, "MONO MOVIE",  "", -1),
-												Array(11, "MATRIX",  "", -1),
-												Array(12, "VIDEO GAME",  "", -1),
-												Array(13, "VIRTUAL",  "", -1),
-												Array(14, "MULTI CH IN 7.1",  "", -1)
-												));
-			
-		}
-	elseif($Zone === 1) //Zone 2
-		{
-		//Zone2Volume
-		$Name = "DENON".$Type.".Zone2Volume";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80, 18, 1, 1);
-		
-		//Zone2InputSource
-		$Name = "DENON".$Type.".Zone2InputSource";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
-												Array(0, "Phono",  "", -1),
-												Array(1, "CD",  "", -1),
-												Array(2, "Tuner",  "", -1),
-												Array(3, "DVD",  "", -1),
-												Array(4, "BD",  "", -1),
-												Array(5, "TV",  "", -1),
-												Array(6, "SAT/CBL",  "", -1),
-												Array(7, "DVR",  "", -1),
-												Array(8, "GAME",  "", -1),
-												Array(9, "V.AUX",  "", -1),
-												Array(10, "DOCK",  "", -1),
-												Array(11, "IPOD",  "", -1),
-												Array(12, "NET/USB",  "", -1),
-												Array(13, "NAPSTER",  "", -1),
-												Array(14, "LASTFM",  "", -1),
-												Array(15, "FLICKR",  "", -1),
-												Array(16, "FAVORITES",  "", -1),
-												Array(17, "IRADIO",  "", -1),
-												Array(18, "SERVER",  "", -1),
-												Array(19, "USB/IPOD",  "", -1)			
-												));
-		
-				
-		}
-	elseif($Zone === 2) //Zone 3
-		{
-		//Zone3Volume
-		$Name = "DENON".$Type.".Zone3Volume";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80, 18, 1, 1);
-		
-		//Zone3InputSource
-		$Name = "DENON".$Type.".Zone3InputSource";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
-												Array(0, "Phono",  "", -1),
-												Array(1, "CD",  "", -1),
-												Array(2, "Tuner",  "", -1),
-												Array(3, "DVD",  "", -1),
-												Array(4, "BD",  "", -1),
-												Array(5, "TV",  "", -1),
-												Array(6, "SAT/CBL",  "", -1),
-												Array(7, "DVR",  "", -1),
-												Array(8, "GAME",  "", -1),
-												Array(9, "V.AUX",  "", -1),
-												Array(10, "DOCK",  "", -1),
-												Array(11, "IPOD",  "", -1),
-												Array(12, "NET/USB",  "", -1),
-												Array(13, "NAPSTER",  "", -1),
-												Array(14, "LASTFM",  "", -1),
-												Array(15, "FLICKR",  "", -1),
-												Array(16, "FAVORITES",  "", -1),
-												Array(17, "IRADIO",  "", -1),
-												Array(18, "SERVER",  "", -1),
-												Array(19, "USB/IPOD",  "", -1)			
-												));
-		}
-		
-	}
-	
-	// HTTP Vars
-	protected function SetupVarHTTP($Type, $Zone)
-	{
-		//$this->GetStateHTTP();
-		$ProfileName = "DENON".$Type.".";
-		
-		if($Zone === 0) //Mainzone
-		{
-			//Power
-			$PowerId = $this->RegisterVariableBoolean("Power", "Power", "~Switch", 1);
-			$this->EnableAction("Power");
-			
-			//MainZonePower
-			$MainZonePowerId = $this->RegisterVariableBoolean("MainZonePower", "MainZonePower", "~Switch", 2);
-			$this->EnableAction("MainZonePower");
-			
-			//MainMute
-			$MainMuteId = $this->RegisterVariableBoolean("MainMute", "MainMute", "~Switch", 3);
-			$this->EnableAction("MainMute");
-			
-			
-			
-			//MasterVolume
-			$MasterVolumeId = $this->RegisterVariableFloat("MasterVolume", "MasterVolume", $ProfileName."MasterVolume", 10);
-			$this->EnableAction("MasterVolume");
-			
-			//DigitalInputMode
-			$DigitalInputModeId = $this->RegisterVariableInteger("DigitalInputMode", "DigitalInputMode", $ProfileName."DigitalInputMode", 14);
-			$this->EnableAction("DigitalInputMode");
-			
-			//InputSource
-			$InputSourceId = $this->RegisterVariableInteger("InputSource", "InputSource", $ProfileName."InputSource", 15);
-			$this->EnableAction("InputSource");
-			
-			//SurroundMode
-			$SurroundModeId = $this->RegisterVariableInteger("SurroundMode", "SurroundMode", $ProfileName."SurroundMode", 16);
-			$this->EnableAction("SurroundMode");
-			
-			//InputMode
-			$InputModeId = $this->RegisterVariableInteger("InputMode", "InputMode", $ProfileName."InputMode", 22);
-			$this->EnableAction("InputMode");
-			
-		}
-		elseif($Zone === 1) //Zone 2
-		{
-			//Zone2Power
-			$Zone2PowerId = $this->RegisterVariableBoolean("Zone2Power", "Zone2Power", "~Switch", 1);
-			$this->EnableAction("Zone2Power");
-
-			//Zone2Mute
-			$Zone2MuteId = $this->RegisterVariableBoolean("Zone2Mute", "Zone2Mute", "~Switch", 2);
-			$this->EnableAction("Zone2Mute");
-
-			//Zone2Volume
-			$Zone2VolumeId = $this->RegisterVariableFloat("Zone2Volume", "Zone2Volume", $ProfileName."Zone2Volume", 3);
-			$this->EnableAction("Zone2Volume");
-			
-			//Zone2InputSource
-			$Zone2InputSourceId = $this->RegisterVariableInteger("Zone2InputSource", "Zone2InputSource", $ProfileName."Zone2InputSource", 4);
-			$this->EnableAction("Zone2InputSource");
-			
-		}
-		elseif($Zone === 2) //Zone 3
-		{
-			//Zone3Power
-			$Zone3PowerId = $this->RegisterVariableBoolean("Zone3Power", "Zone3Power", "~Switch", 1);
-			$this->EnableAction("Zone3Power");
-
-			//Zone3Mute	
-			$Zone3MuteId = $this->RegisterVariableBoolean("Zone3Mute", "Zone3Mute", "~Switch", 2);
-			$this->EnableAction("Zone3Mute");
-			
-			//Zone3Volume
-			$Zone3VolumeId = $this->RegisterVariableFloat("Zone3Volume", "Zone3Volume", $ProfileName."Zone3Volume", 3);
-			$this->EnableAction("Zone3Volume");
-			
-			//Zone3InputSource
-			$Zone3InputSourceId = $this->RegisterVariableInteger("Zone3InputSource", "Zone3InputSource", $ProfileName."Zone3InputSource", 4);
-			$this->EnableAction("Zone3InputSource");
-			
-		}
-	}
-	
-		
 	protected function SetupSpeaker($Type, $Speaker)
 	{
 		$Icon = "Intensity"; 
@@ -1069,361 +849,271 @@ class DenonAVR extends IPSModule
         //Type und Zone
 		$Type = $this->ReadPropertyInteger('Type');
 		$Zone = $this->ReadPropertyInteger('Zone');
-		$Commandtype = $this->ReadPropertyInteger('Commandtype');
-		
+				
 		//Optionen
 		$Display = $this->ReadPropertyBoolean('Display');
 		$Control = $this->ReadPropertyBoolean('Control');
 		
-		if ($Commandtype === 0) //http Command
-		{
-			if($Zone === 0) //Mainzone
+		if($Zone === 0) //Mainzone
+			{
+			switch($Ident)
 				{
-				switch($Ident)
-					{
-					case "Power":
-						$this->PowerHTTP($Value);
-					break;
+				case "Power":
+					$this->Power($Value);
+				break;
 
-					case "DigitalInputMode":
-						$this->DigitalInputModeHTTP($Value);
-					break;
+				case "DigitalInputMode":
+					$this->DigitalInputMode($Value);
+				break;
 
-					case "InputSource":
-						$this->InputSourceHTTP($Value);
-					break;
+				case "InputSource":
+					$this->InputSource($Value);
+				break;
 
-					case "InputMode":
-						$this->InputModeHTTP($Value);
-					break;
+				case "InputMode":
+					$this->InputMode($Value);
+				break;
 
-					case "MainMute":
-						$this->MainMuteHTTP($Value);
-					break;
+				case "RoomSize":
+					$this->RoomSize($Value);
+				break;
 
-					case "MasterVolume":
-						$this->MasterVolumeFixHTTP($Value);
-					break;
+				case "MainMute":
+					$this->MainMute($Value);
+				break;
 
-					case "MainZonePower":
-						$this->MainZonePowerHTTP($Value);
-					break;
-									
-					default:
-						throw new Exception("Invalid ident");
-					}
-				}
-			elseif($Zone === 1) //Zone 2
-				{
-				switch($Ident)
-					{
-					case "Zone2Power":
-						$this->Zone2PowerHTTP($Value);
-					break;
+				case "ToneCTRL":
+					$this->ToneCTRL($Value);
+				break;
 
-					case "Zone2Volume":
-						$this->Zone2VolumeFixHTTP($Value);
-					break;
+				case "ToneDefeat":
+					$this->ToneDefeat($Value);
+				break;
 
-					case "Zone2Mute":
-						$this->Zone2MuteHTTP($Value);
-					break;
+				case "QuickSelect":
+					$this->Quickselect($Value);
+				break;
 
-					case "Zone2InputSource":
-						$this->Zone2InputSourceHTTP($Value);
-					break;
-						
-					default:
-						throw new Exception("Invalid ident");
-					}
-				}
-			elseif($Zone === 2) //Zone 3
-				{
-				switch($Ident)
-					{
-					case "Zone3Power":
-						$this->Zone3PowerHTTP($Value);
-					break;
+				case "VideoSelect":
+					$this->VideoSelect($Value);
+				break;
 
-					case "Zone3Volume":
-						$this->Zone3VolumeFixHTTP($Value);
-					break;
+				case "Panorama":
+					$this->Panorama($Value);
+				break;
 
-					case "Zone3Mute":
-						$this->Zone3MuteHTTP($Value);
-					break;
+				case "FrontHeight":
+					$this->FrontHeight($Value);
+				break;
 
-					case "Zone3InputSource":
-						$this->Zone3InputSourceHTTP($Value);
-					break;
-						
-					default:
-						throw new Exception("Invalid ident");
-					}
-				}
-		}
-		else //Telnet Command
-		{
-			if($Zone === 0) //Mainzone
-				{
-				switch($Ident)
-					{
-					case "Power":
-						$this->Power($Value);
-					break;
+				case "BassLevel":
+					$this->BassLevel($Value);
+				break;
 
-					case "DigitalInputMode":
-						$this->DigitalInputMode($Value);
-					break;
+				case "LFELevel":
+					$this->LFELevel($Value);
+				break;
 
-					case "InputSource":
-						$this->InputSource($Value);
-					break;
+				case "TrebleLevel":
+					$this->TrebleLevel($Value);
+				break;
 
-					case "InputMode":
-						$this->InputMode($Value);
-					break;
+				case "DynamicEQ":
+					$this->DynamicEQ($Value);
+				break;
 
-					case "RoomSize":
-						$this->RoomSize($Value);
-					break;
+				case "DynamicCompressor":
+					$this->DynamicCompressor($Value);
+				break;
 
-					case "MainMute":
-						$this->MainMute($Value);
-					break;
+				case "DynamicVolume":
+					$this->DynamicVolume($Value);
+				break;
 
-					case "ToneCTRL":
-						$this->ToneCTRL($Value);
-					break;
+				case "DynamicRange":
+					$this->DynamicCompressor($Value);
+				break;
 
-					case "ToneDefeat":
-						$this->ToneDefeat($Value);
-					break;
+				case "AudioDelay":
+					$this->AudioDelay($Value);
+				break;
 
-					case "QuickSelect":
-						$this->Quickselect($Value);
-					break;
+				case "AudioRestorer":
+					$this->AudioRestorer($Value);
+				break;
 
-					case "VideoSelect":
-						$this->VideoSelect($Value);
-					break;
+				case "MasterVolume":
+					$this->MasterVolumeFix($Value);
+				break;
 
-					case "Panorama":
-						$this->Panorama($Value);
-					break;
+				case "CWidth":
+					$this->CWidth($Value);
+				break;
 
-					case "FrontHeight":
-						$this->FrontHeight($Value);
-					break;
+				case "Dimension":
+					$this->Dimension($Value);
+				break;
 
-					case "BassLevel":
-						$this->BassLevel($Value);
-					break;
+				case "SurroundMode":
+					$this->SurroundMode($Value);
+				break;
 
-					case "LFELevel":
-						$this->LFELevel($Value);
-					break;
+				case "SurroundPlayMode":
+					$this->SurroundPlayMode($Value);
+				break;
 
-					case "TrebleLevel":
-						$this->TrebleLevel($Value);
-					break;
+				case "SurroundBackMode":
+					$this->SurroundBackMode($Value);
+				break;
 
-					case "DynamicEQ":
-						$this->DynamicEQ($Value);
-					break;
+				case "Sleep":
+					$this->Sleep($Value);
+				break;
 
-					case "DynamicCompressor":
-						$this->DynamicCompressor($Value);
-					break;
+				case "CinemaEQ":
+					$this->CinemaEQ($Value);
+				break;
 
-					case "DynamicVolume":
-						$this->DynamicVolume($Value);
-					break;
+				case "MainZonePower":
+					$this->MainZonePower($Value);
+				break;
 
-					case "DynamicRange":
-						$this->DynamicCompressor($Value);
-					break;
+				case "MultiEQMode":
+					$this->MultiEQMode($Value);
+				break;
 
-					case "AudioDelay":
-						$this->AudioDelay($Value);
-					break;
+				case "Preset":
+					$this->Preset($Value);
+				break;
 
-					case "AudioRestorer":
-						$this->AudioRestorer($Value);
-					break;
+				case "ChannelVolumeFL":
+					$this->ChannelVolumeFL($Value);
+				break;
 
-					case "MasterVolume":
-						$this->MasterVolumeFix($Value);
-					break;
+				case "ChannelVolumeFR":
+					$this->ChannelVolumeFR($Value);
+				break;
 
-					case "CWidth":
-						$this->CWidth($Value);
-					break;
+				case "ChannelVolumeC":
+					$this->ChannelVolumeC($Value);
+				break;
 
-					case "Dimension":
-						$this->Dimension($Value);
-					break;
+				case "ChannelVolumeSW":
+					$this->ChannelVolumeSW($Value);
+				break;
 
-					case "SurroundMode":
-						$this->SurroundMode($Value);
-					break;
+				case "ChannelVolumeSL":
+					$this->ChannelVolumeSL($Value);
+				break;
 
-					case "SurroundPlayMode":
-						$this->SurroundPlayMode($Value);
-					break;
+				case "ChannelVolumeSR":
+					$this->ChannelVolumeSR($Value);
+				break;
 
-					case "SurroundBackMode":
-						$this->SurroundBackMode($Value);
-					break;
+				case "ChannelVolumeSBL":
+					$this->ChannelVolumeSBL($Value);
+				break;
 
-					case "Sleep":
-						$this->Sleep($Value);
-					break;
+				case "ChannelVolumeSBR":
+					$this->ChannelVolumeSBR($Value);
+				break;
 
-					case "CinemaEQ":
-						$this->CinemaEQ($Value);
-					break;
+				case "ChannelVolumeSB":
+					$this->ChannelVolumeSB($Value);
+				break;
 
-					case "MainZonePower":
-						$this->MainZonePower($Value);
-					break;
+				case "ChannelVolumeFHL":
+					$this->ChannelVolumeFHL($Value);
+				break;
 
-					case "MultiEQMode":
-						$this->MultiEQMode($Value);
-					break;
+				case "ChannelVolumeFHR":
+					$this->ChannelVolumeFHR($Value);
+				break;
 
-					case "Preset":
-						$this->Preset($Value);
-					break;
+				case "ChannelVolumeFWL":
+					$this->ChannelVolumeFWL($Value);
+				break;
 
-					case "ChannelVolumeFL":
-						$this->ChannelVolumeFL($Value);
-					break;
-
-					case "ChannelVolumeFR":
-						$this->ChannelVolumeFR($Value);
-					break;
-
-					case "ChannelVolumeC":
-						$this->ChannelVolumeC($Value);
-					break;
-
-					case "ChannelVolumeSW":
-						$this->ChannelVolumeSW($Value);
-					break;
-
-					case "ChannelVolumeSL":
-						$this->ChannelVolumeSL($Value);
-					break;
-
-					case "ChannelVolumeSR":
-						$this->ChannelVolumeSR($Value);
-					break;
-
-					case "ChannelVolumeSBL":
-						$this->ChannelVolumeSBL($Value);
-					break;
-
-					case "ChannelVolumeSBR":
-						$this->ChannelVolumeSBR($Value);
-					break;
-
-					case "ChannelVolumeSB":
-						$this->ChannelVolumeSB($Value);
-					break;
-
-					case "ChannelVolumeFHL":
-						$this->ChannelVolumeFHL($Value);
-					break;
-
-					case "ChannelVolumeFHR":
-						$this->ChannelVolumeFHR($Value);
-					break;
-
-					case "ChannelVolumeFWL":
-						$this->ChannelVolumeFWL($Value);
-					break;
-
-					case "ChannelVolumeFWR":
-						$this->ChannelVolumeFWR($Value);
-					break;
+				case "ChannelVolumeFWR":
+					$this->ChannelVolumeFWR($Value);
+				break;
 										
-					default:
-						throw new Exception("Invalid ident");
-					}
+				default:
+					throw new Exception("Invalid ident");
 				}
-			elseif($Zone === 1) //Zone 2
+			}
+		elseif($Zone === 1) //Zone 2
+			{
+			switch($Ident)
 				{
-				switch($Ident)
-					{
-					case "Zone2Power":
-						$this->Zone2Power($Value);
-					break;
+				case "Zone2Power":
+					$this->Zone2Power($Value);
+				break;
 
-					case "Zone2Volume":
-						$this->Zone2VolumeFix($Value);
-					break;
+				case "Zone2Volume":
+					$this->Zone2VolumeFix($Value);
+				break;
 
-					case "Zone2Mute":
-						$this->Zone2Mute($Value);
-					break;
+				case "Zone2Mute":
+					$this->Zone2Mute($Value);
+				break;
 
-					case "Zone2InputSource":
-						$this->Zone2InputSource($Value);
-					break;
+				case "Zone2InputSource":
+					$this->Zone2InputSource($Value);
+				break;
 
-					case "Zone2ChannelSetting":
-						$this->Zone2ChannelSetting($Value);
-					break;
+				case "Zone2ChannelSetting":
+					$this->Zone2ChannelSetting($Value);
+				break;
 
-					case "Zone2ChannelVolumeFL":
-						$this->Zone2ChannelVolumeFL($Value);
-					break;
+				case "Zone2ChannelVolumeFL":
+					$this->Zone2ChannelVolumeFL($Value);
+				break;
 
-					case "Zone2ChannelVolumeFR":
-						$this->Zone2ChannelVolumeFL($Value);
-					break;
+				case "Zone2ChannelVolumeFR":
+					$this->Zone2ChannelVolumeFL($Value);
+				break;
 						
-					default:
-						throw new Exception("Invalid ident");
-					}
+				default:
+					throw new Exception("Invalid ident");
 				}
-			elseif($Zone === 2) //Zone 3
+			}
+		elseif($Zone === 2) //Zone 3
+			{
+			switch($Ident)
 				{
-				switch($Ident)
-					{
-					case "Zone3Power":
-						$this->Zone3Power($Value);
-					break;
+				case "Zone3Power":
+					$this->Zone3Power($Value);
+				break;
 
-					case "Zone3Volume":
-						$this->Zone3VolumeFix($Value);
-					break;
+				case "Zone3Volume":
+					$this->Zone3VolumeFix($Value);
+				break;
 
-					case "Zone3Mute":
-						$this->Zone3Mute($Value);
-					break;
+				case "Zone3Mute":
+					$this->Zone3Mute($Value);
+				break;
 
-					case "Zone3InputSource":
-						$this->Zone3InputSource($Value);
-					break;
+				case "Zone3InputSource":
+					$this->Zone3InputSource($Value);
+				break;
 
-					case "Zone3ChannelSetting":
-						$this->Zone3ChannelSetting($Value);
-					break;
+				case "Zone3ChannelSetting":
+					$this->Zone3ChannelSetting($Value);
+				break;
 
-					case "Zone3ChannelVolumeFL":
-						$this->Zone3ChannelVolumeFL($Value);
-					break;
+				case "Zone3ChannelVolumeFL":
+					$this->Zone3ChannelVolumeFL($Value);
+				break;
 
-					case "Zone3ChannelVolumeFR":
-						$this->Zone3ChannelVolumeFL($Value);
-					break;
+				case "Zone3ChannelVolumeFR":
+					$this->Zone3ChannelVolumeFL($Value);
+				break;
 						
-					default:
-						throw new Exception("Invalid ident");
-					}
-				}	
+				default:
+					throw new Exception("Invalid ident");
+				}
+			}	
 		#################### Cursorsteuerung #####################################
 			switch($Ident)
 				{
@@ -1454,8 +1144,6 @@ class DenonAVR extends IPSModule
 					default:
 						throw new Exception("Invalid ident");
 				}	
-		}
-		
     }
 	
 	

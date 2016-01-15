@@ -1,6 +1,8 @@
 {
     "elements":
             [
+				{ "type": "Label", "label": "AV Receiver Ansteuerung Telnet" },
+				{ "type": "Label", "label": "Telnet Steuerung funktoniert nur von einem einzigen Client aus, mehr Funktionsumfang als HTTP." },
 				{ "type": "Label", "label": "Denon AV Receiver"},
 				{ "type": "Label", "label": "AV Reciever Typ:" },
 				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
@@ -25,15 +27,7 @@
 									{ "value": 2, "label": "Zone 3" }
 								  ]
 				},
-				{ "type": "Label", "label": "AV Receiver Ansteuerung http / Telnet:" },
-				{ "type": "Label", "label": "http Steuerung funktioniert immer bei Modellen ab 2011 hat aber nicht alle Befehle." },
-				{ "type": "Label", "label": "Telnet Steuerung funktoniert nur von einem einzigen Client aus, voller Funktionsumfang." },
-				{ "type": "Select", "name": "Commandtype", "caption": "AVR Command Type",
-						"options": [
-									{ "value": 0, "label": "http Steuerung" },
-									{ "value": 1, "label": "Telnet Steuerung" }
-								  ]
-				},
+				
 				{ "type": "CheckBox", "name": "Display", "caption": "Display anzeigen" }, 
 				{ "type": "CheckBox", "name": "Control", "caption": "Steuerung anzeigen" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
@@ -59,7 +53,7 @@
                 {
                     "type": "Button",
                     "label": "Power",
-                    "onClick": "DENONAVR_Power($id);"
+                    "onClick": "DAVRT_Power($id);"
                 }
             ],
     "status":

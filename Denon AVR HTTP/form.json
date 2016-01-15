@@ -1,0 +1,62 @@
+{
+    "elements":
+            [
+				{ "type": "Label", "label": "AV Receiver Ansteuerung http" },
+				{ "type": "Label", "label": "http Steuerung funktioniert bei Modellen ab 2011 beinhaltet aber nicht alle Befehle." },
+				{ "type": "Label", "label": "Denon AV Receiver"},
+				{ "type": "Label", "label": "AV Reciever Typ:" },
+				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
+						"options": [
+									{ "value": 0, "label": "AVR 4311" },
+									{ "value": 1, "label": "AVR-X4000" },
+									{ "value": 2, "label": "AVR-S700" },
+									{ "value": 3, "label": "AVR-S900" },
+									{ "value": 4, "label": "AVR-X1100" },
+									{ "value": 5, "label": "AVR-X2100" },
+									{ "value": 6, "label": "AVR-X3100" },
+									{ "value": 7, "label": "AVR-X4100" },
+									{ "value": 8, "label": "AVR-X5200" },
+									{ "value": 9, "label": "AVR-X7200" }
+								  ]
+				},
+				{ "type": "Label", "label": "AV Receiver Zone:" },
+				{ "type": "Select", "name": "Zone", "caption": "AVR Zone",
+						"options": [
+									{ "value": 0, "label": "Main Zone" },
+									{ "value": 1, "label": "Zone 2" },
+									{ "value": 2, "label": "Zone 3" }
+								  ]
+				},
+				
+				
+				{ "type": "CheckBox", "name": "Display", "caption": "Display anzeigen" }, 
+				{ "type": "CheckBox", "name": "Control", "caption": "Steuerung anzeigen" }
+				
+            ],
+    "actions":
+            [
+                {
+                    "type": "Button",
+                    "label": "Power",
+                    "onClick": "DAVRH_Power($id);"
+                }
+            ],
+    "status":
+            [
+                {
+                    "code": 101,
+                    "icon": "inactive",
+                    "caption": "Die Instanz wird erstellt."
+                },
+				{
+                    "code": 102,
+                    "icon": "active",
+                    "caption": "Konfiguration gültig."
+                },
+                {
+                    "code": 104,
+                    "icon": "inactive",
+                    "caption": "Denon AVR ist inaktiv."
+                }
+            ]
+}
