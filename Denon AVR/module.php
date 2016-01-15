@@ -1619,11 +1619,11 @@ class DenonAVR extends IPSModule
 	{
 		if ($Value == false)
 			{
-				file_get_contents("http://".$this->GetIPDenon()."PutZone_OnOff%2FON&amp;cmd1=aspMainZone_WebUpdateStatus%2F");
+				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F");
 			}
 		else
 			{
-				file_get_contents("http://".$this->GetIPDenon()."PutZone_OnOff%2FOFF&amp;cmd1=aspMainZone_WebUpdateStatus%2F");
+				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
 			}
 		
 	 CSCK_SendText($id, "PW".$Value.chr(13));
