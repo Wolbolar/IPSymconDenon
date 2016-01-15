@@ -1587,10 +1587,12 @@ class DenonAVR extends IPSModule
 		if ($Value == false)
 			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FSTANDBY&cmd1=aspMainZone_WebUpdateStatus%2F");
+				SetValueBoolean($this->GetIDForIdent('Power'), $Value);
 			}
 		else
 			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
+				SetValueBoolean($this->GetIDForIdent('Power'), $Value);
 			}
 		
 	}
@@ -1600,10 +1602,12 @@ class DenonAVR extends IPSModule
 		if ($Value == false)
 			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F");
+				SetValueBoolean($this->GetIDForIdent('MainZonePower'), $Value);
 			}
 		else
 			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
+				SetValueBoolean($this->GetIDForIdent('MainZonePower'), $Value);
 			}
 		
 	}
@@ -1660,10 +1664,12 @@ class DenonAVR extends IPSModule
 		if ($Value == false)
 			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F");
+				SetValueBoolean($this->GetIDForIdent('MainMute'), $Value);
 			}
 		else
 			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Fon&cmd1=aspMainZone_WebUpdateStatus%2F");
+				SetValueBoolean($this->GetIDForIdent('MainMute'), $Value);
 			}
 	}
 
