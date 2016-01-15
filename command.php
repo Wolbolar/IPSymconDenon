@@ -209,17 +209,17 @@ Not as many commands as IP/serial method.
     <key id="net_usb" code="PutZone_InputFunction%2FNET%2FUSB&amp;cmd1=aspMainZone_WebUpdateStatus%2F"/>
 
 //Zone 1
-MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FSTANDBY&cmd1=aspMainZone_WebUpdateStatus%2F
-MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FON&cmd1=aspMainZone_WebUpdateStatus%2F
-MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F //powerOn
-MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F //powerOff
+MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FSTANDBY&cmd1=aspMainZone_WebUpdateStatus%2F // Standby
+MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FON&cmd1=aspMainZone_WebUpdateStatus%2F // On
+MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F // Mainzone powerOn
+MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F //Mainzone powerOff
 
 MainZone/index.put.asp?cmd0=PutMasterVolumeBtn%2F%3E
 MainZone/index.put.asp?cmd0=PutMasterVolumeBtn%2F%3C
 MainZone/index.put.asp?cmd0=PutMasterVolumeSet%2F-30.0
 
-MainZone/index.put.asp?cmd0=PutVolumeMute%2Fon&cmd1=aspMainZone_WebUpdateStatus%2F
-MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F
+MainZone/index.put.asp?cmd0=PutVolumeMute%2Fon&cmd1=aspMainZone_WebUpdateStatus%2F //Muteon
+MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F //Muteoff
 
 MainZone/index.put.asp?cmd0=PutZone_InputFunction%2FBD&cmd1=aspMainZone_WebUpdateStatus%2F
 MainZone/index.put.asp?cmd0=PutZone_InputFunction%2FCD&cmd1=aspMainZone_WebUpdateStatus%2F

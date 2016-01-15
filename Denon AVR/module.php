@@ -1619,6 +1619,19 @@ class DenonAVR extends IPSModule
 	{
 		if ($Value == false)
 			{
+				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FSTANDBY&cmd1=aspMainZone_WebUpdateStatus%2F");
+			}
+		else
+			{
+				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
+			}
+		
+	}
+	
+	public function MainZonePowerHTTP($Value) // ON oder OFF
+	{
+		if ($Value == false)
+			{
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F");
 			}
 		else
@@ -1641,8 +1654,7 @@ class DenonAVR extends IPSModule
 	
 	public function MasterVolumeFixHTTP($Value) // Volume direct -80(db) bis 18(db)
 	{
-	 $Value= intval($Value) +80;
-	 CSCK_SendText($id, "MV".$Value.chr(13));
+		file_get_contents("http://".$this->GetIPDenon()."MainZone/index.put.asp?cmd0=PutMasterVolumeSet%2F".$Value);
 	}
 
 	public function BassLevel($Value)
@@ -1678,7 +1690,14 @@ class DenonAVR extends IPSModule
 	
 	public function MainMuteHTTP($Value) // "ON" or "OFF"
 	{
-	 CSCK_SendText($id, "MU".$Value.chr(13));
+		if ($Value == false)
+			{
+				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F");
+			}
+		else
+			{
+				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Fon&cmd1=aspMainZone_WebUpdateStatus%2F");
+			}
 	}
 
 	public function Input($Value) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
@@ -1846,6 +1865,30 @@ class DenonAVR extends IPSModule
 	public function InputMode($Value) // Input Mode AUTO/HDMI/DIGITALANALOG/ARC/NO
 	{
 	  CSCK_SendText($id, "SD".$Value.chr(13));
+	}
+	
+	public function InputModeHTTP($Value) // Input Mode HTTP
+	{
+		switch ($Value)
+		{
+		   case 0:
+			  //BD
+			  file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F");
+			break;
+
+			case 1:
+			  
+			break;
+
+			case 2:
+			  
+			break;
+
+			case 3:
+			  
+			break;
+
+		}
 	}
 
 	public function DynamicRange($Value) // DynamicRange
