@@ -1626,7 +1626,6 @@ class DenonAVR extends IPSModule
 				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
 			}
 		
-	 CSCK_SendText($id, "PW".$Value.chr(13));
 	}
 	
 	public function MasterVolume($Value) // "UP" or "DOWN"
