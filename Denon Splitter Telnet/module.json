@@ -1,6 +1,6 @@
 {
     "id": "{9AE3087F-DC25-4ADB-AB46-AD7455E71032}",
-    "name": "DenonSplitter",
+    "name": "DenonSplitterTelnet",
     "type": 2,
     "vendor": "Denon",
     "aliases": ["Denon AVR Splitter Telnet"],

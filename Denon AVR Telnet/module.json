@@ -1,6 +1,6 @@
 {
     "id": "{DC733830-533B-43CD-98F5-23FC2E61287F}",
-    "name": "DenonAVR",
+    "name": "DenonAVRTelnet",
     "type": 3,
     "vendor": "Denon",
     "aliases": ["Denon AV Receiver Telnet Control"],
