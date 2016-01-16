@@ -1,0 +1,49 @@
+{
+    "elements":
+            [
+                {
+                    "name": "Open",
+                    "type": "CheckBox",
+                    "caption": "Open"
+                },
+				{ "type": "Label", "label": "IP Adresse des Denon AVR / Port für HTTP 80" },
+                {
+                    "name": "Host",
+                    "type": "ValidationTextBox",
+                    "caption": "IP Adresse"
+                },
+				{
+                    "name": "Port",
+                    "type": "NumberSpinner",
+                    "caption": "Denon Port"
+                }
+            ],
+    "status":
+            [
+                {
+                    "code": 101,
+                    "icon": "inactive",
+                    "caption": "Die Instanz wird erstellt."
+                },
+				{
+                    "code": 102,
+                    "icon": "active",
+                    "caption": "Denon AVR ereichbar."
+                },
+                {
+                    "code": 104,
+                    "icon": "inactive",
+                    "caption": "Interface geschlossen."
+                },
+                {
+                    "code": 202,
+                    "icon": "error",
+                    "caption": "Denon AVR IP Adresse darf nicht leer sein."
+                },
+                {
+                    "code": 203,
+                    "icon": "error",
+                    "caption": "Verbindung zum Denon AVR verloren."
+                }
+            ]
+}

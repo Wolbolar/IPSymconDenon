@@ -12,7 +12,7 @@ class DenonAVR extends IPSModule
         parent::Create();
 
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
-        $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
+        $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 0);

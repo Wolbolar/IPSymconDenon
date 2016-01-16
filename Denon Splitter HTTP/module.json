@@ -1,0 +1,11 @@
+{
+    "id": "{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}",
+    "name": "DenonSplitterHTTP",
+    "type": 2,
+    "vendor": "Denon",
+    "aliases": ["Denon AVR Splitter HTTP"],
+    "parentRequirements": ["{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}"],
+    "childRequirements": ["{D9209251-0036-48C2-AF96-9F5EDE761A52}"],
+    "implemented": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}"],
+    "prefix": "DAVRSH"
+}
