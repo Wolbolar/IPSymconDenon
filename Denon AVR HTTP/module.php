@@ -102,7 +102,7 @@ class DenonAVRHTTP extends IPSModule
 		
 		
 		// Status aktiv
-		$this->SetStatus(102);
+		//$this->SetStatus(102);
 	}
 
 	
@@ -358,6 +358,8 @@ class DenonAVRHTTP extends IPSModule
 			}
 				
 		}
+	// Status aktiv
+		$this->SetStatus(102);	
 	}
 	
 	protected function SetupVar($Type, $Zone)
