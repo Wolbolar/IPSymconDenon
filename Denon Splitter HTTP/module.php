@@ -32,41 +32,48 @@ class DenonSplitterHTTP extends IPSModule
         $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
         IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
-		
-	// Zwangskonfiguration des ClientSocket
+	//IP Prüfen
+		$ip = $this->ReadPropertyString('Host');
+	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
+		{
+		$this->SetStatus(102); //IP Adresse ist gültig -> aktiv
+			
+		// Zwangskonfiguration des ClientSocket
         $ParentID = $this->GetParent();
         if (!($ParentID === false))
-        {
-            if (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('Host'))
-            {
-                IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
-                $change = true;
-            }
-            if (IPS_GetProperty($ParentID, 'Port') <> $this->ReadPropertyInteger('Port'))
-            {
-                IPS_SetProperty($ParentID, 'Port', $this->ReadPropertyInteger('Port'));
-                $change = true;
-            }
-            $ParentOpen = $this->ReadPropertyBoolean('Open');
-			
-	// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
-            if (!$ParentOpen)
-                $this->SetStatus(104);
+			{
+				if (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('Host'))
+				{
+					IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
+					$change = true;
+				}
+				if (IPS_GetProperty($ParentID, 'Port') <> $this->ReadPropertyInteger('Port'))
+				{
+					IPS_SetProperty($ParentID, 'Port', $this->ReadPropertyInteger('Port'));
+					$change = true;
+				}
+				$ParentOpen = $this->ReadPropertyBoolean('Open');
+				
+		// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
+				if (!$ParentOpen)
+					$this->SetStatus(104);
 
-            if ($this->ReadPropertyString('Host') == '')
-            {
-                if ($ParentOpen)
-                    $this->SetStatus(202);
-                $ParentOpen = false;
-            }
-            if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen)
-            {
-                IPS_SetProperty($ParentID, 'Open', $ParentOpen);
-                $change = true;
-            }
-            if ($change)
-                @IPS_ApplyChanges($ParentID);
-        }
+				if ($this->ReadPropertyString('Host') == '')
+				{
+					if ($ParentOpen)
+						$this->SetStatus(202);
+					$ParentOpen = false;
+				}
+				if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen)
+				{
+					IPS_SetProperty($ParentID, 'Open', $ParentOpen);
+					$change = true;
+				}
+				if ($change)
+					@IPS_ApplyChanges($ParentID);
+			}	
+		}
+	
 		
 // Eigene Profile
       
