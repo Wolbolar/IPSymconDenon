@@ -51,6 +51,7 @@ class DenonAVRHTTP extends IPSModule
 		
 		//IP Prüfen
 		$ip = $this->GetIPDenon();
+		echo $ip;
 		if (!$ip == "")
 		{
 			//Auswahl Prüfen
