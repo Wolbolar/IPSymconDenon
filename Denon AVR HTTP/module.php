@@ -50,10 +50,10 @@ class DenonAVRHTTP extends IPSModule
 		$Control = $this->ReadPropertyBoolean('Control');
 		
 		//IP Prüfen
-		$ip = $this->GetIPDenon();
-		echo $ip;
-		if (!$ip == "")
-		{
+		//$ip = $this->GetIPDenon();
+		
+		//if (!$ip == "")
+		//{
 			//Auswahl Prüfen
 			if ($Display === true)
 				{
@@ -80,13 +80,14 @@ class DenonAVRHTTP extends IPSModule
 					//Zone 3
 					$this->SetupZone($Type, $Zone);
 				}
-		}
+		//}
+		/*
 		else
 		{
 			// Status inaktiv
 			$this->SetStatus(202);
 		}
-		
+		*/
 		
 	}
 	
