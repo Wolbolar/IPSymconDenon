@@ -6,6 +6,6 @@
     "aliases": ["Denon AV Receiver HTTP Control"],
     "parentRequirements": ["{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}"],
     "childRequirements": [],
-    "implemented": ["{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}"],
+    "implemented": ["{D9209251-0036-48C2-AF96-9F5EDE761A52}"],
     "prefix": "DAVRH"
 }
