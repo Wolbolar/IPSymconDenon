@@ -48,33 +48,45 @@ class DenonAVRHTTP extends IPSModule
 		//Optionen
 		$Display = $this->ReadPropertyBoolean('Display');
 		$Control = $this->ReadPropertyBoolean('Control');
-				
-		//Auswahl Prüfen
-		if ($Display === true)
-			{
-				//Display
-				$this->SetupDisplay($Type);
-			}
-		if ($Control === true)
-			{
-				//Control
-				$this->SetupControl($Type);
-			}
-		if ($Zone === 0)
-			{
-				//Mainzone
-				$this->SetupZone($Type, $Zone);
-			}
-		elseif ($Zone === 1)
-			{
-				//Zone 2
-				$this->SetupZone($Type, $Zone);
-			}
-		elseif ($Zone === 2)
-			{
-				//Zone 3
-				$this->SetupZone($Type, $Zone);
-			}
+		
+		//IP Prüfen
+		$ip = $this->GetIPDenon();
+		if (!$ip == "")
+		{
+			//Auswahl Prüfen
+			if ($Display === true)
+				{
+					//Display
+					$this->SetupDisplay($Type);
+				}
+			if ($Control === true)
+				{
+					//Control
+					$this->SetupControl($Type);
+				}
+			if ($Zone === 0)
+				{
+					//Mainzone
+					$this->SetupZone($Type, $Zone);
+				}
+			elseif ($Zone === 1)
+				{
+					//Zone 2
+					$this->SetupZone($Type, $Zone);
+				}
+			elseif ($Zone === 2)
+				{
+					//Zone 3
+					$this->SetupZone($Type, $Zone);
+				}
+		}
+		else
+		{
+			// Status inaktiv
+			$this->SetStatus(202);
+		}
+		
+		
 	}
 	
 	protected function SetupDisplay($Type)

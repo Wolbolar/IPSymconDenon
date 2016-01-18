@@ -57,6 +57,11 @@
                     "code": 104,
                     "icon": "inactive",
                     "caption": "Denon AVR ist inaktiv."
+                },
+				{
+                    "code": 202,
+                    "icon": "error",
+                    "caption": "IP Adresse ungültig. Bitte die IP Adresse überpüfen."
                 }
             ]
 }
