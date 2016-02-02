@@ -408,8 +408,8 @@ class DENON_API_Commands extends stdClass
 	const CEIDOWN = "CEI DOWN"; // CENTER IMAGE DOWN
 	const CEI = "CEI "; // ---AVR-4311 can be operated from 0 to 7
 	
-	const CEIUP = "ATT ON"; // SW ATT ON
-	const CEIDOWN = "ATT OFF"; // SW ATT OFF
+	const ATTON = "ATT ON"; // SW ATT ON
+	const ATTOFF = "ATT OFF"; // SW ATT OFF
 	const ATT = "ATT ?"; // Return PSATT Status
 	
 	
