@@ -14,21 +14,6 @@ class IPSVarType extends stdClass
 }
 
 
-class IPSDENONProfiles extends stdClass
-{
-	const ptSwitch = '~Switch';
-    var ptSpeakerLayout;
-    var ptVolume;
-	
-	
-	static $ProfilInteger = array(
-        self::ptToneOffset => array(-10, 10, 2),
-        self::ptSleep => array(0x00, 0x5A, 1),
-        self::ptNetRadioPreset => array(0x01, 0x30, 1),
-        self::ptRadioPreset => array(0x01, 0x30, 1)
-    );
-}
-
 class DENON_Zone extends stdClass
 {
 
