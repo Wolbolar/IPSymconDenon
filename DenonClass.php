@@ -301,8 +301,8 @@ class DENON_API_Commands extends stdClass
 	const VOLMODOFF = "VOLMOD OFF"; // Dolby Volume Modeler direct change off
 	const VOLMOD = "VOLMOD"; // Return PSVOLMOD Status
 
-	const FH:ON = "FH:ON"; // FRONT HEIGHT ON
-	const FH:OFF = "FH:OFF"; // FRONT HEIGHT OFF
+	const FHON = "FH:ON"; // FRONT HEIGHT ON
+	const FHOFF = "FH:OFF"; // FRONT HEIGHT OFF
 	const FH = "FH: ?"; // Return PSFH: Status
 	
 	const PHGLOW = "PHG LOW"; // PL2z HEIGHT GAIN direct change low
