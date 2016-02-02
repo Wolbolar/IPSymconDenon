@@ -276,7 +276,6 @@ class DENON_API_Commands extends stdClass
 	const SBPL2XMUSIC = "SB:PL2X MUSIC"; // Surround Back SP Mode	PL2X Music
 	const SBON = "SB:ON"; // Surround Back SP Mode on
 	const SBOFF = "SB:OFF"; // Surround Back SP Mode off
-	const SB = "SB: ?"; // SB: ? Return PSSB: Status
 	
 	const CINEMAEQON = "CINEMA EQ.ON"; // Cinema EQ on
 	const CINEMAEQOFF = "CINEMA EQ.OFF"; // Cinema EQ off
