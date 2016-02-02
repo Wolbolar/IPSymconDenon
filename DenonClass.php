@@ -373,7 +373,7 @@ class DENON_API_Commands extends stdClass
 	const DCOHIGH = "DCO HIGH"; // D.COMP High
 	const DCO = "DCO ?"; // Return PSDCO Status
 	
-	const LFEUP = "LFE UP"; // LFE DOWN
+	const LFEDOWN = "LFE DOWN"; // LFE DOWN
 	const LFEUP = "LFE UP"; // LFE UP
 	const LFE = "LFE "; // LFE ** ---AVR-4311 can be operated from 0 to -10
 	
