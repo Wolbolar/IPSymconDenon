@@ -354,11 +354,11 @@ class DENON_API_Commands extends stdClass
 	
 	const BASUP = "BAS UP"; // BASS UP
 	const BASDOWN = "BAS DOWN"; // BASS DOWN
-	const BASDOWN = "BAS "; // BASS ** ---AVR-4311 can be operated from -6 to +6
+	const BAS = "BAS "; // BASS ** ---AVR-4311 can be operated from -6 to +6
 	
 	const TREUP = "TRE UP"; // TREBLE UP
 	const TREDOWN = "TRE DOWN"; // TREBLE DOWN
-	const TREDOWN = "TRE "; // TREBLE ** ---AVR-4311 can be operated from -6 to +6
+	const TRE = "TRE "; // TREBLE ** ---AVR-4311 can be operated from -6 to +6
 	
 	const DRCAUTO = "DRC AUTO"; // DRC direct change
 	const DRCLOW = "DRC LOW"; // DRC Low
