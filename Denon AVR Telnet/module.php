@@ -2022,30 +2022,6 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	*/
-	 protected function SendDataToParent($Data)
-    {
-        // API-Daten verpacken und dann versenden.
-        $JSONString = $Data->ToJSONString('{8F47273A-0B69-489E-AF36-F391AE5FBEC0}');
-//        IPS_LogMessage('SendDataToSplitter:'.$this->InstanceID,$JSONString);
-        // Daten senden
-        return @IPS_SendDataToParent($this->InstanceID, $JSONString);
-    }
-	
-		
-	// Data Empfang
-	/*
-	public function ReceiveData($JSONString)
-	{
-	 
-		// Empfangene Daten vom Gateway/Splitter
-		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
-	 
-		// Datenverarbeitung und schreiben der Werte in die Statusvariablen
-		//SetValue($this->GetIDForIdent("Value"), $data->Buffer);
-	 
-	}
-	*/
 	
 	################## DATAPOINTS PARENT
 /*
