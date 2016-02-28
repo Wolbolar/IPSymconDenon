@@ -1958,43 +1958,26 @@ class DenonAVRHTTP extends IPSModule
 	
 	
 	*/
-	 protected function SendDataToParent($Data)
-    {
-        // API-Daten verpacken und dann versenden.
-        $JSONString = $Data->ToJSONString('{8F47273A-0B69-489E-AF36-F391AE5FBEC0}');
-//        IPS_LogMessage('SendDataToSplitter:'.$this->InstanceID,$JSONString);
-        // Daten senden
-        return @IPS_SendDataToParent($this->InstanceID, $JSONString);
-    }
+	 		
+	public function Send($Text)
+		{
+			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $Text))); //Denon AVR HTTP Interface GUI
+		}
 	
-	// Beispiel innerhalb einer Gateway/Splitter Instanz
-	public function ReceiveData($JSONString) {
-	 
-		// Empfangene Daten vom I/O
-		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
-	 
-		// Hier werden die Daten verarbeitet
-	 
-		// Weiterleitung zu allen Gerät-/Device-Instanzen
-		$this->SendDataToChildren(json_encode(Array("DataID" => "{66164EB8-3439-4599-B937-A365D7A68567}", "Buffer" => $data->Buffer)));
-	}
-	
-	// Data Empfang
-	/*
+	// Daten vom Splitter Instanz
 	public function ReceiveData($JSONString)
 	{
 	 
-		// Empfangene Daten vom Gateway/Splitter
+		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
+		IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer));
 	 
-		// Datenverarbeitung und schreiben der Werte in die Statusvariablen
+		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		//SetValue($this->GetIDForIdent("Value"), $data->Buffer);
 	 
 	}
-	*/
 	
+		
 	################## DATAPOINTS PARENT
 /*
     public function ReceiveData($JSONString)

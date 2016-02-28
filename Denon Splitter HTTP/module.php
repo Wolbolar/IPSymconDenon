@@ -1965,16 +1965,17 @@ class DenonSplitterHTTP extends IPSModule
 	public function ReceiveData($JSONString)
 	{
 	 
-		// Empfangene Daten vom I/O
+		// Empfangene Daten vom Denon HTTP I/O
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
+		IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer));
 	 
 		// Hier werden die Daten verarbeitet
 	 
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
-		$this->SendDataToChildren(json_encode(Array("DataID" => "{66164EB8-3439-4599-B937-A365D7A68567}", "Buffer" => $data->Buffer)));
+		$this->SendDataToChildren(json_encode(Array("DataID" => "{D9209251-0036-48C2-AF96-9F5EDE761A52}", "Buffer" => $data->Buffer))); //Denon HTTP Splitter Interface GUI
 	}
 	
+			
 	################## DATAPOINT RECEIVE FROM CHILD
 	
 
@@ -1983,7 +1984,7 @@ class DenonSplitterHTTP extends IPSModule
 	 
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ForwardData", utf8_decode($data->Buffer));
+		IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode($data->Buffer));
 	 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
@@ -1998,12 +1999,13 @@ class DenonSplitterHTTP extends IPSModule
 		}
 	 
 		// Weiterleiten zur I/O Instanz
-		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer)));
+		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUI
 	 
 		// Weiterverarbeiten und durchreichen
 		return $resultat;
 	 
 	}
+	
 
 	/*
     public function ForwardData($JSONString)

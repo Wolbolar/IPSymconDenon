@@ -23,6 +23,8 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("C", false);
 		$this->RegisterPropertyBoolean("SW", false);
 		$this->RegisterPropertyBoolean("SW2", false);
+		$this->RegisterPropertyBoolean("SL", false);
+		$this->RegisterPropertyBoolean("SR", false);
 		$this->RegisterPropertyBoolean("SBL", false);
 		$this->RegisterPropertyBoolean("SBR", false);
 		$this->RegisterPropertyBoolean("SB", false);
@@ -67,6 +69,8 @@ class DenonAVRTelnet extends IPSModule
 		$C = $this->ReadPropertyBoolean('C');
 		$SW = $this->ReadPropertyBoolean('SW');
 		$SW2 = $this->ReadPropertyBoolean('SW2');
+		$SL = $this->ReadPropertyBoolean('SL');
+		$SR = $this->ReadPropertyBoolean('SR');
 		$SBL = $this->ReadPropertyBoolean('SBL');
 		$SBR = $this->ReadPropertyBoolean('SBR');
 		$SB = $this->ReadPropertyBoolean('SB');
@@ -106,6 +110,14 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$this->SetupSpeaker($Type, "SW2");
 			}
+		if ($SL === true)
+			{
+				$this->SetupSpeaker($Type, "SL");
+			}
+		if ($SR === true)
+			{
+				$this->SetupSpeaker($Type, "SR");
+			}	
 		if ($SBL === true)
 			{
 				$this->SetupSpeaker($Type, "SBL");
