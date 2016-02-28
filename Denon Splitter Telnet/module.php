@@ -1968,23 +1968,24 @@ class DenonSplitterTelnet extends IPSModule
 	 
 		// Empfangene Daten vom I/O
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData", utf8_decode($data->Buffer));
+		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($data->Buffer));
 	 
 		// Hier werden die Daten verarbeitet
+		//echo utf8_decode($data->Buffer);
 	 
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
-		$this->SendDataToChildren(json_encode(Array("DataID" => "{66164EB8-3439-4599-B937-A365D7A68567}", "Buffer" => $data->Buffer)));
+		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data->Buffer))); //Denon Telnet Splitter Interface GUI
 	}
 	
-	################## DATAPOINT RECEIVE FROM CHILD
 	
-
+	################## DATAPOINT RECEIVE FROM CHILD
+		
 	public function ForwardData($JSONString)
 	{
 	 
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ForwardData", utf8_decode($data->Buffer));
+		IPS_LogMessage("ForwardData Denon Telnet Splitter", utf8_decode($data->Buffer));
 	 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
@@ -1999,13 +2000,14 @@ class DenonSplitterTelnet extends IPSModule
 		}
 	 
 		// Weiterleiten zur I/O Instanz
-		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer)));
+		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUID
 	 
 		// Weiterverarbeiten und durchreichen
 		return $resultat;
 	 
 	}
-
+	
+	
 	/*
     public function ForwardData($JSONString)
     {

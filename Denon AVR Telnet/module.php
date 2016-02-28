@@ -161,6 +161,22 @@ class DenonAVRTelnet extends IPSModule
 				//Zone 3
 				$this->SetupZone($Type, $Zone);
 			}
+		
+		$responseid = @IPS_GetVariableIDByName("Response", $this->InstanceID);
+				if ($responseid === false)
+					{
+						//Response
+						$responseid = $this->RegisterVariableString("Response", "Response", "~String", 1);
+						//IPS_SetHidden($responseid, true);
+						$this->EnableAction("Response");
+					
+					}
+				else
+					{
+						//Variable UserAuthToken existiert bereits
+						
+					}
+			
 	}
 	
 	protected function SetupDisplay($Type)
@@ -1166,7 +1182,26 @@ class DenonAVRTelnet extends IPSModule
 		return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;//ConnectionID
     }
 	
-		
+	//Data Transfer
+	public function SendCommand($payload)
+		{
+			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $payload))); //Denon AVR Telnet Interface GUI
+		}
+	
+	// Daten vom Splitter Instanz
+	public function ReceiveData($JSONString)
+	{
+	 
+		// Empfangene Daten vom Splitter
+		$data = json_decode($JSONString);
+		IPS_LogMessage("ReceiveData Denon Telnet Splitter", utf8_decode($data->Buffer));
+	 
+		// Hier werden die Daten verarbeitet und in Variablen geschrieben
+		SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+	 
+	}	
+
+	
 	//IP Denon 
 	protected function GetIPDenon(){
 		$ParentID = $this->GetParent();
@@ -1251,6 +1286,40 @@ class DenonAVRTelnet extends IPSModule
         
     }
 	
+	
+	//Denon Commands
+	public function Power($Value) // STANDBY oder ON
+	{
+		if ($Value == false)
+			{
+				$command = "STANDBY";
+			}
+		else
+			{
+				$command = "ON";
+			}
+		
+		//CSCK_SendText($id, "PW".$Value.chr(13));
+		$payload = "PW".$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
+	public function MainZonePower($Value) // MainZone "ON" or "OFF"
+	{
+		if ($Value == false)
+			{
+				$command = "OFF";
+			}
+		else
+			{
+				$command = "ON";
+			}
+		
+		//CSCK_SendText($id, "ZM".$Value.chr(13));
+		$payload = "ZW".$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
 	//Funktionsscript von Raketenschnecke
 	
 	//--------- DENON AVR 3311 Anbindung V0.95 18.06.11 15:08.53 by Raketenschnecke ---------
@@ -1267,21 +1336,9 @@ class DenonAVRTelnet extends IPSModule
 	// senden an Parent und weiterleitung an socket
 
 	######################### Main Functions #######################################
-	/*
-	public function Power($Value) // STANDBY oder ON
-	{
-		if ($Value == false)
-			{
-				$Value = "STANDBY";
-			}
-		else
-			{
-				$Value = "ON";
-			}
-		
-	 CSCK_SendText($id, "PW".$Value.chr(13));
-	}
-	*/
+	
+	
+	
 	
 	public function PowerHTTP($Value) // STANDBY oder ON
 	{
@@ -1379,10 +1436,7 @@ class DenonAVRTelnet extends IPSModule
 	 CSCK_SendText($id, "SI".$Value.chr(13));
 	}
 
-	public function MainZonePower($Value) // MainZone "ON" or "OFF"
-	{
-	  CSCK_SendText($id, "ZM".$Value.chr(13));
-	}
+	
 
 	public function RecSelect($Value) //
 	{

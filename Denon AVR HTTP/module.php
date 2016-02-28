@@ -1959,9 +1959,9 @@ class DenonAVRHTTP extends IPSModule
 	
 	*/
 	 		
-	public function Send($Text)
+	public function Send($payload)
 		{
-			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $Text))); //Denon AVR HTTP Interface GUI
+			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $payload))); //Denon AVR HTTP Interface GUI
 		}
 	
 	// Daten vom Splitter Instanz
