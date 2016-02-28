@@ -1065,7 +1065,33 @@ class DenonAVRTelnet extends IPSModule
 				case "ChannelVolumeFWR":
 					$this->ChannelVolumeFWR($Value);
 				break;
-										
+				
+				#################### Cursorsteuerung #####################################
+			
+				case "CursorUp":
+					$this->CursorUp();
+				break;
+
+				case "CursorDown":
+					$this->CursorDown();
+				break;
+
+				case "CursorLeft":
+					$this->CursorLeft();
+				break;
+
+				case "CursorRight":
+					$this->CursorRight();
+				break;
+
+				case "Enter":
+					$this->Enter();
+				break;
+
+				case "Return":
+					$this->CursorReturn();
+				break;
+					
 				default:
 					throw new Exception("Invalid ident");
 				}
@@ -1101,7 +1127,33 @@ class DenonAVRTelnet extends IPSModule
 				case "Zone2ChannelVolumeFR":
 					$this->Zone2ChannelVolumeFL($Value);
 				break;
-						
+				
+				#################### Cursorsteuerung #####################################
+			
+				case "CursorUp":
+					$this->CursorUp();
+				break;
+
+				case "CursorDown":
+					$this->CursorDown();
+				break;
+
+				case "CursorLeft":
+					$this->CursorLeft();
+				break;
+
+				case "CursorRight":
+					$this->CursorRight();
+				break;
+
+				case "Enter":
+					$this->Enter();
+				break;
+
+				case "Return":
+					$this->CursorReturn();
+				break;
+				
 				default:
 					throw new Exception("Invalid ident");
 				}
@@ -1137,41 +1189,38 @@ class DenonAVRTelnet extends IPSModule
 				case "Zone3ChannelVolumeFR":
 					$this->Zone3ChannelVolumeFL($Value);
 				break;
-						
+				
+				#################### Cursorsteuerung #####################################
+			
+				case "CursorUp":
+					$this->CursorUp();
+				break;
+
+				case "CursorDown":
+					$this->CursorDown();
+				break;
+
+				case "CursorLeft":
+					$this->CursorLeft();
+				break;
+
+				case "CursorRight":
+					$this->CursorRight();
+				break;
+
+				case "Enter":
+					$this->Enter();
+				break;
+
+				case "Return":
+					$this->CursorReturn();
+				break;
+				
 				default:
 					throw new Exception("Invalid ident");
 				}
 			}	
-		#################### Cursorsteuerung #####################################
-			switch($Ident)
-				{
-					case "CursorUp":
-						$this->CursorUp();
-					break;
-
-					case "CursorDown":
-						$this->CursorDown();
-					break;
-
-					case "CursorLeft":
-						$this->CursorLeft();
-					break;
-
-					case "CursorRight":
-						$this->CursorRight();
-					break;
-
-					case "Enter":
-						$this->Enter();
-					break;
-
-					case "Return":
-						$this->CursorReturn();
-					break;
-					
-					default:
-						throw new Exception("Invalid ident");
-				}	
+		
     }
 	
 	
