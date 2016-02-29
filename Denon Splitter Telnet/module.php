@@ -37,7 +37,7 @@ class DenonSplitterTelnet extends IPSModule
 		$ip = $this->ReadPropertyString('Host');
 		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 			{
-			$this->SetStatus(102); //IP Adresse ist gültig -> aktiv
+			
 			// Zwangskonfiguration des ClientSocket
 			$ParentID = $this->GetParent();
 			if (!($ParentID === false))
@@ -73,8 +73,17 @@ class DenonSplitterTelnet extends IPSModule
 						@IPS_ApplyChanges($ParentID);
 				}
 			}	
-	
-	
+		else
+			{
+			$this->SetStatus(204); //IP Adresse ist ungültig 
+			}
+			
+		// Wenn I/O verbunden ist
+        if (($this->ReadPropertyBoolean('Open'))
+                and ( $this->HasActiveParent($ParentID)))
+        {
+            //Instanz aktiv
+        }
 		
 // Eigene Profile
       
