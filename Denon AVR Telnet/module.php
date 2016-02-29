@@ -421,12 +421,14 @@ class DenonAVRTelnet extends IPSModule
 			$this->EnableAction("MainZonePower");
 			
 			//MainMute
+			$Icon = "Intensity";
 			$MainMuteId = $this->RegisterVariableBoolean("MainMute", "MainMute", "~Switch", 3);
 			$this->EnableAction("MainMute");
 			
 			if ($CinemaEQ)
 			{
 				//CinemaEQ
+				$Icon = "Intensity";
 				$CinemaEQId = $this->RegisterVariableBoolean("CinemaEQ", "CinemaEQ", "~Switch", 4);
 				$this->EnableAction("CinemaEQ");
 			}
@@ -434,6 +436,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($Panorama)
 			{
 				//Panorama
+				$Icon = "Intensity";
 				$PanoramaId = $this->RegisterVariableBoolean("Panorama", "Panorama", "~Switch", 5);
 				$this->EnableAction("Panorama");
 			}
@@ -441,6 +444,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($FrontHeight)
 			{
 				//FrontHeight
+				$Icon = "Intensity";
 				$FrontHeightId = $this->RegisterVariableBoolean("FrontHeight", "FrontHeight", "~Switch", 6);
 				$this->EnableAction("FrontHeight");
 			}
@@ -448,6 +452,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($ToneCTRL)
 			{
 				//ToneCTRL
+				$Icon = "Intensity";
 				$ToneCTRLId = $this->RegisterVariableBoolean("ToneCTRL", "ToneCTRL", "~Switch", 7);
 				$this->EnableAction("ToneCTRL");
 			}
@@ -455,6 +460,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($DynamicEQ)
 			{
 				//DynamicEQ
+				$Icon = "Intensity";
 				$DynamicEQId = $this->RegisterVariableBoolean("DynamicEQ", "DynamicEQ", "~Switch", 8);
 				$this->EnableAction("DynamicEQ");
 			}
@@ -590,6 +596,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($SurroundPlayMode)
 			{
 				//SurroundPlayMode
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".SurroundPlayMode";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 2, 1, 0, Array(
 														Array(0, "CINEMA",  "", -1),
@@ -603,6 +610,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($MultiEQMode)
 			{
 				//MultiEQMode
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".MultiEQMode";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 4, 1, 0, Array(
 														Array(0, "OFF",  "", -1),
@@ -618,6 +626,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($AudioRestorer)
 			{
 				//AudioRestorer
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".AudioRestorer";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
 														Array(0, "OFF",  "", -1),
@@ -632,6 +641,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($BassLevel)
 			{
 				//BassLevel
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".BassLevel";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -6, 6, 1, 0);
 				$BassLevelId = $this->RegisterVariableFloat("BassLevel", "BassLevel", $Name, 20);
@@ -641,6 +651,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($TrebleLevel)
 			{
 				//TrebleLevel
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".TrebleLevel";
 				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -6, 6, 1, 0);
 				$TrebleLevelId = $this->RegisterVariableFloat("TrebleLevel", "TrebleLevel", $Name, 21);
@@ -650,15 +661,17 @@ class DenonAVRTelnet extends IPSModule
 			if ($Dimension)
 			{
 				//Dimension
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".Dimension";
 				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 6, 1, 0);
-				$DimensionId = $this->RegisterVariableInteger("Dimension", "Dimension", $ProfileName."Dimension", 23);
+				$DimensionId = $this->RegisterVariableInteger("Dimension", "Dimension", $Name, 23);
 				$this->EnableAction("Dimension");
 			}
 			
 			if ($DynamicVolume)
 			{
 				//DynamicVolume
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".DynamicVolume";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
 														Array(0, "OFF",  "", -1),
@@ -673,6 +686,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($RoomSize)
 			{
 				//RoomSize
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".RoomSize";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
 														Array(0, "Neutral",  "", -1),
@@ -689,6 +703,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($DynamicCompressor)
 			{
 				//DynamicCompressor
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".DynamicCompressor";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
 														Array(0, "OFF",  "", -1),
@@ -696,13 +711,14 @@ class DenonAVRTelnet extends IPSModule
 														Array(2, "MID",  "", -1),
 														Array(3, "HIGH",  "", -1)
 														));
-				$DynamicCompressorId = $this->RegisterVariableInteger("DynamicCompressor", "DynamicCompressor", $ProfileName."DynamicCompressor", 26);
+				$DynamicCompressorId = $this->RegisterVariableInteger("DynamicCompressor", "DynamicCompressor", $Name, 26);
 				$this->EnableAction("DynamicCompressor");										
 			}
 			
 			if ($CWidth)
 			{
 				//C.Width
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".CWidth";
 				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 7, 1, 0);
 				$CWidthId = $this->RegisterVariableInteger("CWidth", "CWidth", $Name, 27);
@@ -712,6 +728,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($DynamicRange)
 			{
 				//DynamicRange
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".DynamicRange";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 4, 1, 0, Array(
 														Array(0, "OFF",  "", -1),
@@ -727,6 +744,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($VideoSelect)
 			{
 				//VideoSelect
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".VideoSelect";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 8, 1, 0, Array(
 														Array(0, "DVD",  "", -1),
@@ -746,6 +764,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($SurroundBackMode)
 			{
 				//SurroundBackMode
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".SurroundBackMode";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 7, 1, 0, Array(
 														Array(0, "OFF",  "", -1),
@@ -764,6 +783,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($Preset)
 			{
 				//Preset
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".Preset";
 				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 1, 1, 0);
 				$PresetId = $this->RegisterVariableInteger("Preset", "Preset", $Name, 31);
@@ -773,6 +793,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($Inputmode)
 			{
 				//InputMode
+				$Icon = "Intensity";
 				$Name = "DENON".$Type.".InputMode";
 				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
 														Array(0, "AUTO",  "", -1),
@@ -780,7 +801,7 @@ class DenonAVRTelnet extends IPSModule
 														Array(2, "DIGITAL",  "", -1),
 														Array(3, "ANALOG",  "", -1)
 														));
-				$InputModeId = $this->RegisterVariableInteger("InputMode", "InputMode", $ProfileName."InputMode", 22);
+				$InputModeId = $this->RegisterVariableInteger("InputMode", "InputMode", $Name, 22);
 				$this->EnableAction("InputMode");
 			}
 		
@@ -793,16 +814,19 @@ class DenonAVRTelnet extends IPSModule
 		$this->EnableAction("Zone2Power");
 
 		//Zone2Mute
+		$Icon = "Intensity";
 		$Zone2MuteId = $this->RegisterVariableBoolean("Zone2Mute", "Zone2Mute", "~Switch", 2);
 		$this->EnableAction("Zone2Mute");
 
 		//Zone2Volume
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone2Volume";
 		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80, 18, 1, 1);
 		$Zone2VolumeId = $this->RegisterVariableFloat("Zone2Volume", "Zone2Volume", $Name, 3);
 		$this->EnableAction("Zone2Volume");
 		
 		//Zone2InputSource
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone2InputSource";
 		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
 												Array(0, "Phono",  "", -1),
@@ -830,6 +854,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->EnableAction("Zone2InputSource");										
 		
 		//Zone2ChannelSetting
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone2ChannelSetting";
 		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 1, 1, 0, Array(
 												Array(0, "Stereo",  "", -1),
@@ -839,18 +864,21 @@ class DenonAVRTelnet extends IPSModule
 		$this->EnableAction("Zone2ChannelSetting");										
 		
 		//Zone2ChannelVolumeFL
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone2ChannelVolumeFL";
 		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
 		$Zone2ChannelVolumeFLId = $this->RegisterVariableFloat("Zone2ChannelVolumeFL", "Zone2ChannelVolumeFL", $Name, 6);
 		$this->EnableAction("Zone2ChannelVolumeFL");
 		
 		//Zone2ChannelVolumeFR
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone2ChannelVolumeFR";
 		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
 		$Zone2ChannelVolumeFRId = $this->RegisterVariableFloat("Zone2ChannelVolumeFR", "Zone2ChannelVolumeFR", $Name, 7);
 		$this->EnableAction("Zone2ChannelVolumeFR");
 		
 		//Zone2QuickSelect
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone2QuickSelect";
 		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
 												Array(0, "NONE",  "", -1),
@@ -869,17 +897,20 @@ class DenonAVRTelnet extends IPSModule
 		$Zone3PowerId = $this->RegisterVariableBoolean("Zone3Power", "Zone3Power", "~Switch", 1);
 		$this->EnableAction("Zone3Power");
 
-		//Zone3Mute	
+		//Zone3Mute
+		$Icon = "Intensity";		
 		$Zone3MuteId = $this->RegisterVariableBoolean("Zone3Mute", "Zone3Mute", "~Switch", 2);
 		$this->EnableAction("Zone3Mute");
 				
 		//Zone3Volume
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone3Volume";
 		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80, 18, 1, 1);
 		$Zone3VolumeId = $this->RegisterVariableFloat("Zone3Volume", "Zone3Volume", $Name, 3);
 		$this->EnableAction("Zone3Volume");
 		
 		//Zone3InputSource
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone3InputSource";
 		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
 												Array(0, "Phono",  "", -1),
@@ -907,6 +938,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->EnableAction("Zone3InputSource");										
 		
 		//Zone3ChannelSetting
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone3ChannelSetting";
 		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 1, 1, 0, Array(
 												Array(0, "Stereo",  "", -1),
@@ -916,18 +948,21 @@ class DenonAVRTelnet extends IPSModule
 		$this->EnableAction("Zone3ChannelSetting");										
 		
 		//Zone3ChannelVolumeFL
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone3ChannelVolumeFL";
 		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
 		$Zone3ChannelVolumeFLId = $this->RegisterVariableFloat("Zone3ChannelVolumeFL", "Zone3ChannelVolumeFL", $Name, 6);
 		$this->EnableAction("Zone3ChannelVolumeFL");
 		
 		//Zone3ChannelVolumeFR
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone3ChannelVolumeFR";
 		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
 		$Zone3ChannelVolumeFRId = $this->RegisterVariableFloat("Zone3ChannelVolumeFR", "Zone3ChannelVolumeFR", $Name, 7);
 		$this->EnableAction("Zone3ChannelVolumeFR");
 		
 		//Zone3QuickSelect
+		$Icon = "Intensity";
 		$Name = "DENON".$Type.".Zone3QuickSelect";
 		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
 												Array(0, "NONE",  "", -1),
