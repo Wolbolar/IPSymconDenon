@@ -15,8 +15,8 @@ class DenonSplitterTelnet extends IPSModule
 		// ClientSocket benötigt
         $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR Telnet");
 
-        //$this->RegisterPropertyString("Host", "");
-		$this->RegisterPropertyString("Host", "192.168.55.14");
+        
+		$this->RegisterPropertyString("Host", "");
 		$this->RegisterPropertyInteger("Port", 23);
         $this->RegisterPropertyBoolean("Open", false);
      
