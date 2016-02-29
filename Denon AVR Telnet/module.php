@@ -2042,33 +2042,174 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	//Denon Commands
-	public function Power($Value) // STANDBY oder ON
+	public function Power(string $Value) // STANDBY oder ON
 	{
 		if ($Value == false)
 			{
-				$command = "STANDBY";
+				$command = DENON_API_Commands::STANDBY;
 			}
 		else
 			{
-				$command = "ON";
+				$command = DENON_API_Commands::ON;
 			}
 		
-		$payload = "PW".$command.chr(13);
+		$payload = DENON_API_Commands::PW.$command.chr(13);
 		$this->SendCommand($payload);
 	}
 	
-	public function MainZonePower($Value) // MainZone "ON" or "OFF"
+	public function MainZonePower(string $Value) // MainZone "ON" or "OFF"
 	{
 		if ($Value == false)
 			{
-				$command = "OFF";
+				$command = DENON_API_Commands::OFF;
 			}
 		else
 			{
-				$command = "ON";
+				$command = DENON_API_Commands::ON;
 			}
 		
-		$payload = "ZM".$command.chr(13);
+		$payload = DENON_API_Commands::ZM.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
+	public function MasterVolume(string $command) // "UP" or "DOWN" 
+	{
+		$payload = DENON_API_Commands::MV.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
+	public function MasterVolumeFix(integer $command) // 
+	{
+		//$Value= intval($Value) +80;
+		$payload = DENON_API_Commands::MV.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
+	public function MainMute(string $command) // "ON" or "OFF"
+	{
+		$payload = DENON_API_Commands::MU.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
+	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
+	{
+		$payload = DENON_API_Commands::SI.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function RecSelect(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
+	{
+		$payload = DENON_API_Commands::SR.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function SelectDecodeMode(string $command) // AUTO; HDMI; DIGITAL; ANALOG
+	{
+		$payload = DENON_API_Commands::SD.$command.chr(13);
+		$this->SendCommand($payload);
+	  
+	}
+
+	public function DecodeMode(string $command) // Auto, PCM, DTS
+	{
+		$payload = DENON_API_Commands::DC.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function VideoSelect(string $command) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
+	{
+		$payload = DENON_API_Commands::VS.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeFL(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FL.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFR(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FR.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeC(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::C.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSW(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SW.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSL(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SL.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSR(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SR.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSBL(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBL.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSBR(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBR.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSB(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SB.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFHL(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHL.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFHR(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHR.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFWL(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWL.$command.chr(13);
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFWR(integer $command)
+	{
+		//$Value = (intval($Value) +50);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWR.$command.chr(13);
 		$this->SendCommand($payload);
 	}
 	
@@ -2122,17 +2263,6 @@ class DenonAVRTelnet extends IPSModule
 		
 	}
 	
-	public function MasterVolume($Value) // "UP" or "DOWN"
-	{
-	 CSCK_SendText($id, "MV".$Value.chr(13));
-	}
-	
-	public function MasterVolumeFix($Value) // Volume direct -80(db) bis 18(db)
-	{
-	 $Value= intval($Value) +80;
-	 CSCK_SendText($id, "MV".$Value.chr(13));
-	}
-	
 	public function MasterVolumeFixHTTP($Value) // Volume direct -80(db) bis 18(db)
 	{
 		file_get_contents("http://".$this->GetIPDenon()."MainZone/index.put.asp?cmd0=PutMasterVolumeSet%2F".$Value);
@@ -2164,10 +2294,7 @@ class DenonAVRTelnet extends IPSModule
 	 CSCK_SendText($id, "CV".$Value.chr(13));
 	}
 
-	public function MainMute($Value) // "ON" or "OFF"
-	{
-	 CSCK_SendText($id, "MU".$Value.chr(13));
-	}
+	
 	
 	public function MainMuteHTTP($Value) // "ON" or "OFF"
 	{
@@ -2183,32 +2310,7 @@ class DenonAVRTelnet extends IPSModule
 			}
 	}
 
-	public function Input($Value) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
-	{
-	 CSCK_SendText($id, "SI".$Value.chr(13));
-	}
-
 	
-
-	public function RecSelect($Value) //
-	{
-	 CSCK_SendText($id, "SR".$Value.chr(13)); // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
-	}
-
-	public function SelectDecodeMode($Value) // AUTO; HDMI; DIGITAL; ANALOG
-	{
-	  CSCK_SendText($id, "SD".$Value.chr(13));
-	}
-
-	public function DecodeMode($Value) // Auto, PCM, DTS
-	{
-	 CSCK_SendText($id, "DC".$Value.chr(13));
-	}
-
-	public function VideoSelect($Value) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
-	{
-	 CSCK_SendText($id, "SV".$Value.chr(13));
-	}
 
 	public function SLEEP($Value) //
 	{
@@ -2495,83 +2597,7 @@ class DenonAVRTelnet extends IPSModule
 	  CSCK_SendText($id, "NSH".chr(13));
 	}
 
-	public function ChannelVolumeFL($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVFL ".$Value.chr(13));
-	}
 
-	public function ChannelVolumeFR($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVFR ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeC($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVC ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeSW($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVSW ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeSL($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVSL ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeSR($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVSR ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeSBL($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVSBL ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeSBR($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVSBR ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeSB($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVSB ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeFHL($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVFHL ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeFHR($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVFHR ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeFWL($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVFWL ".$Value.chr(13));
-	}
-
-	public function ChannelVolumeFWR($Value)
-	{
-		$Value = (intval($Value) +50);
-		CSCK_SendText($id, "CVFWR ".$Value.chr(13));
-	}
 
 	######################## Cursor Steuerung ######################################
 
