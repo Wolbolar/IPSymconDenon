@@ -85,7 +85,7 @@ class DenonAVRHTTP extends IPSModule
 		else
 		{
 			// Status inaktiv
-			$this->SetStatus(202);
+			$this->SetStatus(202); //IP Adresse nicht gültig
 		}
 		
 		

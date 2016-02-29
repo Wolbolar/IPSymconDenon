@@ -60,8 +60,8 @@
                 },
 				{
                     "code": 202,
-                    "icon": "error",
-                    "caption": "IP Adresse ungültig. Bitte die IP Adresse überpüfen."
+                    "icon": "inactive",
+                    "caption": "Denon AVR IP Adresse ist nicht gültig."
                 }
             ]
 }

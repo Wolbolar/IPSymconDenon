@@ -103,7 +103,6 @@ class DenonSplitterHTTP extends IPSModule
         *
         *
         */
-    
 
 
     private function RegisterHook($WebHook, $TargetID)
