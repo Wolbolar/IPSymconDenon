@@ -1077,7 +1077,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	protected function GetInputSource()
 	{
-		$inputsources = array ()
+		$inputsources = array ();
 		return $inputsources;
 	}
 	
