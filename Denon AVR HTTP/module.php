@@ -108,17 +108,24 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterVariableString("Display", "Display", "~HTMLBox", 32);
 		//Display bauen
 		$this->EnableAction("Display");
-		// Status aktiv
-		//$this->SetStatus(102);
+		
 	}
 	
 	protected function SetupControl($Type)
 	{	
-		$this->RegisterVariableString("Control", "Control", "~HTMLBox", 32);
-		//Control bauen
-		$this->EnableAction("Control");
-		// Status aktiv
-		//$this->SetStatus(102);
+		//Control
+			$Icon = "Move";
+			$Name = "DENON".$Type.".Navigation";
+			$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 0, 0, Array(
+													Array(0, "Left",  "", -1),
+													Array(1, "Down",  "", -1),
+													Array(2, "Up",  "", -1),
+													Array(3, "Right",  "", -1),
+													Array(4, "Enter",  "", -1),
+													Array(5, "Return",  "", -1)		
+													));
+			$InputSourceId = $this->RegisterVariableInteger("Navigation", "Navigation", $Name, 15);
+			$this->EnableAction("Navigation");
 	}
 	
 	protected function SetupZone($Type, $Zone)
@@ -126,9 +133,6 @@ class DenonAVRHTTP extends IPSModule
 		$this->SetupProfiles($Type, $Zone);
 		$this->SetupVar($Type, $Zone);	
 		
-		
-		// Status aktiv
-		//$this->SetStatus(102);
 	}
 
 	

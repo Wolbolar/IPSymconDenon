@@ -232,16 +232,25 @@ class DenonAVRTelnet extends IPSModule
 	
 	protected function SetupControl($Type)
 	{	
-		$this->RegisterVariableString("Control", "Control", "~HTMLBox", 32);
-		$this->EnableAction("Control");
-		// Status aktiv
-		//$this->SetStatus(102);
+		//Control
+			$Icon = "Move";
+			$Name = "DENON".$Type.".Navigation";
+			$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 0, 0, Array(
+													Array(0, "Left",  "", -1),
+													Array(1, "Down",  "", -1),
+													Array(2, "Up",  "", -1),
+													Array(3, "Right",  "", -1),
+													Array(4, "Enter",  "", -1),
+													Array(5, "Return",  "", -1)		
+													));
+			$InputSourceId = $this->RegisterVariableInteger("Navigation", "Navigation", $Name, 15);
+			$this->EnableAction("Navigation");
 	}
 	
 	
 	protected function SetupSpeaker($Type, $Speaker)
 	{
-		$Icon = "Intensity"; 
+		$Icon = "Speaker"; 
 		switch ($Speaker)
 		{
 			case "FL":
@@ -477,7 +486,7 @@ class DenonAVRTelnet extends IPSModule
 			$this->EnableAction("MasterVolume");
 		
 			//InputSource
-			$Icon = "Intensity";
+			$Icon = "Database";
 			$Name = "DENON".$Type.".InputSource";
 			//Input Source auslesen
 			$inputsources = $this->GetInputSource();
