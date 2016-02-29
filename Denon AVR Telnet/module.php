@@ -1026,6 +1026,454 @@ class DenonAVRTelnet extends IPSModule
 		}
 	}
 	
+	protected function MainZoneXml($xml)
+	{
+	$MainZoneXml = array();
+	
+		//FriendlyName
+		$FriendlyName = $xml->xpath('.//FriendlyName');
+		if ($FriendlyName)
+		{
+			$MainZone[3]["Name"] = "FriendlyName";
+			$MainZone[3]["Value"] = (string)$FriendlyName[0]->value;
+			$MainZone[3]["Vartype"] = 3; //Vartype String
+			$MainZone[3]["MinValue"] = ""; //MinValue
+			$MainZone[3]["MaxValue"] = ""; //Number
+			$MainZone[3]["Icon"] = "Power"; //Icon
+			$MainZone[3]["Prefix"] = ""; //Prefix
+			$MainZone[3]["Suffix"] = ""; //Suffix
+			$MainZone[3]["StepSize"] = ""; //Stepsize
+			$MainZone[3]["Digits"] = ""; //Digits
+		}
+
+		//Power
+		$AVRPower = $xml->xpath('.//Power');
+		if ($AVRPower)
+		{
+			$MainZone[0]["Name"] = "Power";
+			$MainZone[0]["Value"] = (string)$AVRPower[0]->value;
+			$MainZone[0]["Vartype"] = 0; //Vartype Bool
+			$MainZone[0]["MinValue"] = ""; //MinValue
+			$MainZone[0]["MaxValue"] = ""; //MaxValue
+			$MainZone[0]["Icon"] = "Power"; //Icon
+			$MainZone[0]["Prefix"] = ""; //Prefix
+			$MainZone[0]["Suffix"] = ""; //Suffix
+			$MainZone[0]["StepSize"] = ""; //Stepsize
+			$MainZone[0]["Digits"] = ""; //Digits
+		}
+
+
+		//Zone Power
+		$ZonePower = $xml->xpath('.//ZonePower');
+		if ($ZonePower)
+		{
+			$MainZone[1]["Name"] = "MainZonePower";
+			$MainZone[1]["Value"] = (string)$ZonePower[0]->value;
+			$MainZone[1]["Vartype"] = 0; //Vartype Bool
+			$MainZone[1]["MinValue"] = ""; //MinValue
+			$MainZone[1]["MaxValue"] = ""; //Number
+			$MainZone[1]["Icon"] = "Power"; //Icon
+			$MainZone[1]["Prefix"] = ""; //Prefix
+			$MainZone[1]["Suffix"] = ""; //Suffix
+			$MainZone[1]["StepSize"] = ""; //Stepsize
+			$MainZone[1]["Digits"] = ""; //Digits
+		}
+
+		//RenameZone
+		$RenameZone = $xml->xpath('.//RenameZone');
+		if ($RenameZone)
+		{
+			$MainZone[3]["Name"] = "MainZone";
+			$MainZone[3]["Value"] = (string)$RenameZone[0]->value;
+			$MainZone[3]["Vartype"] = 3; //Vartype String
+			$MainZone[3]["MinValue"] = ""; //MinValue
+			$MainZone[3]["MaxValue"] = ""; //Number
+			$MainZone[3]["Icon"] = "Power"; //Icon
+			$MainZone[3]["Prefix"] = ""; //Prefix
+			$MainZone[3]["Suffix"] = ""; //Suffix
+			$MainZone[3]["StepSize"] = ""; //Stepsize
+			$MainZone[3]["Digits"] = ""; //Digits
+		}
+
+
+
+		//TopMenuLink
+		$TopMenuLink = $xml->xpath('.//TopMenuLink');
+		if ($TopMenuLink)
+		{
+			$MainZone[4]["Name"] = "TopMenuLink";
+			$MainZone[4]["Value"] = (string)$TopMenuLink[0]->value;
+			$MainZone[4]["Vartype"] = 3; //Vartype String
+			$MainZone[4]["MinValue"] = ""; //MinValue
+			$MainZone[4]["MaxValue"] = ""; //Number
+			$MainZone[4]["Icon"] = "Power"; //Icon
+			$MainZone[4]["Prefix"] = ""; //Prefix
+			$MainZone[4]["Suffix"] = ""; //Suffix
+			$MainZone[4]["StepSize"] = ""; //Stepsize
+			$MainZone[4]["Digits"] = ""; //Digits
+		}
+
+
+		//ModelId
+		$ModelId = $xml->xpath('.//ModelId');
+		if ($ModelId)
+		{
+			$MainZone[5]["Name"] = "ModelId";
+			$MainZone[5]["Value"] = (string)$ModelId[0]->value;
+			$MainZone[5]["Vartype"] = 3; //Vartype String
+			$MainZone[5]["MinValue"] = ""; //MinValue
+			$MainZone[5]["MaxValue"] = ""; //Number
+			$MainZone[5]["Icon"] = "Power"; //Icon
+			$MainZone[5]["Prefix"] = ""; //Prefix
+			$MainZone[5]["Suffix"] = ""; //Suffix
+			$MainZone[5]["StepSize"] = ""; //Stepsize
+			$MainZone[5]["Digits"] = ""; //Digits
+		}
+
+
+		//SalesArea
+		$SalesArea = $xml->xpath('.//SalesArea');
+		if ($SalesArea)
+		{
+			$MainZone[6]["Name"] = "SalesArea";
+			$MainZone[6]["Value"] = (string)$SalesArea[0]->value;
+			$MainZone[6]["Vartype"] = 3; //Vartype String
+			$MainZone[6]["MinValue"] = ""; //MinValue
+			$MainZone[6]["MaxValue"] = ""; //Number
+			$MainZone[6]["Icon"] = "Power"; //Icon
+			$MainZone[6]["Prefix"] = ""; //Prefix
+			$MainZone[6]["Suffix"] = ""; //Suffix
+			$MainZone[6]["StepSize"] = ""; //Stepsize
+			$MainZone[6]["Digits"] = ""; //Digits
+		}
+
+
+		//InputFuncSelect
+		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
+		if ($InputFuncSelect)
+		{
+			$MainZone[7]["Name"] = "InputFuncSelect";
+			$MainZone[7]["Value"] = (string)$InputFuncSelect[0]->value;
+			$MainZone[7]["Vartype"] = 3; //Vartype String
+			$MainZone[7]["MinValue"] = ""; //MinValue
+			$MainZone[7]["MaxValue"] = ""; //Number
+			$MainZone[7]["Icon"] = "Power"; //Icon
+			$MainZone[7]["Prefix"] = ""; //Prefix
+			$MainZone[7]["Suffix"] = ""; //Suffix
+			$MainZone[7]["StepSize"] = ""; //Stepsize
+			$MainZone[7]["Digits"] = ""; //Digits
+		}
+
+
+		//NetFuncSelect
+		$NetFuncSelect = $xml->xpath('.//NetFuncSelect');
+		if ($NetFuncSelect)
+		{
+			$MainZone[8]["Name"] = "NetFuncSelect";
+			$MainZone[8]["Value"] = (string)$NetFuncSelect[0]->value;
+			$MainZone[8]["Vartype"] = 3; //Vartype String
+			$MainZone[8]["MinValue"] = ""; //MinValue
+			$MainZone[8]["MaxValue"] = ""; //Number
+			$MainZone[8]["Icon"] = "Power"; //Icon
+			$MainZone[8]["Prefix"] = ""; //Prefix
+			$MainZone[8]["Suffix"] = ""; //Suffix
+			$MainZone[8]["StepSize"] = ""; //Stepsize
+			$MainZone[8]["Digits"] = ""; //Digits
+		}
+
+
+		//InputFuncSelectMain
+		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
+		if ($InputFuncSelectMain)
+		{
+		   $MainZone[9]["Name"] = "InputFuncSelectMain";
+			$MainZone[9]["Value"] = (string)$InputFuncSelectMain[0]->value;
+			$MainZone[9]["Vartype"] = 3; //Vartype String
+			$MainZone[9]["MinValue"] = ""; //MinValue
+			$MainZone[9]["MaxValue"] = ""; //Number
+			$MainZone[9]["Icon"] = "Power"; //Icon
+			$MainZone[9]["Prefix"] = ""; //Prefix
+			$MainZone[9]["Suffix"] = ""; //Suffix
+			$MainZone[9]["StepSize"] = ""; //Stepsize
+			$MainZone[9]["Digits"] = ""; //Digits
+		}
+
+		//selectSurround
+		$selectSurround = $xml->xpath('.//selectSurround');
+		if ($selectSurround)
+		{
+			$MainZone[10]["Name"] = "selectSurround";
+			$MainZone[10]["Value"] = (string)$selectSurround[0]->value;
+			$MainZone[10]["Vartype"] = 3; //Vartype String
+			$MainZone[10]["MinValue"] = ""; //MinValue
+			$MainZone[10]["MaxValue"] = ""; //Number
+			$MainZone[10]["Icon"] = "Power"; //Icon
+			$MainZone[10]["Prefix"] = ""; //Prefix
+			$MainZone[10]["Suffix"] = ""; //Suffix
+			$MainZone[10]["StepSize"] = ""; //Stepsize
+			$MainZone[10]["Digits"] = ""; //Digits
+		}
+
+		//VolumeDisplay
+		$VolumeDisplay = $xml->xpath('.//VolumeDisplay');
+		if ($VolumeDisplay)
+		{
+			$MainZone[10]["Name"] = "VolumeDisplay";
+			$MainZone[10]["Value"] = (string)$VolumeDisplay[0]->value;
+			$MainZone[10]["Vartype"] = 3; //Vartype String
+			$MainZone[10]["MinValue"] = ""; //MinValue
+			$MainZone[10]["MaxValue"] = ""; //Number
+			$MainZone[10]["Icon"] = "Power"; //Icon
+			$MainZone[10]["Prefix"] = ""; //Prefix
+			$MainZone[10]["Suffix"] = ""; //Suffix
+			$MainZone[10]["StepSize"] = ""; //Stepsize
+			$MainZone[10]["Digits"] = ""; //Digits
+		}
+
+
+
+		//MasterVolume
+		$MasterVolume = $xml->xpath('.//MasterVolume');
+		if ($MasterVolume)
+		{
+			$MainZone[11]["Name"] = "MasterVolume";
+			$MainZone[11]["Value"] = (string)$MasterVolume[0]->value;
+			$MainZone[11]["Vartype"] = 2; //Vartype Float
+			$MainZone[11]["MinValue"] = -80.0; //MinValue
+			$MainZone[11]["MaxValue"] = 18.0; //Number
+			$MainZone[11]["Icon"] = "Power"; //Icon
+			$MainZone[11]["Prefix"] = ""; //Prefix
+			$MainZone[11]["Suffix"] = "%"; //Suffix
+			$MainZone[11]["StepSize"] = 0.5; //Stepsize
+			$MainZone[11]["Digits"] = 0; //Digits
+		}
+
+
+		//Mute
+		$Mute = $xml->xpath('.//Mute');
+		if ($Mute)
+		{
+			$MainZone[12]["Name"] = "Mute";
+			$MainZone[12]["Value"] = (string)$Mute[0]->value;
+			$MainZone[12]["Vartype"] = 0; //Vartype Bool
+			$MainZone[12]["MinValue"] = ""; //MinValue
+			$MainZone[12]["MaxValue"] = ""; //Number
+			$MainZone[12]["Icon"] = "Power"; //Icon
+			$MainZone[12]["Prefix"] = ""; //Prefix
+			$MainZone[12]["Suffix"] = ""; //Suffix
+			$MainZone[12]["StepSize"] = ""; //Stepsize
+			$MainZone[12]["Digits"] = ""; //Digits
+		}
+
+
+		//RemoteMaintenance
+		$RemoteMaintenance = $xml->xpath('.//RemoteMaintenance');
+		if ($RemoteMaintenance)
+		{
+			$MainZone[13]["Name"] = "RemoteMaintenance";
+			$MainZone[13]["Value"] = (string)$RemoteMaintenance[0]->value;
+			$MainZone[13]["Vartype"] = 3; //Vartype String
+			$MainZone[13]["MinValue"] = ""; //MinValue
+			$MainZone[13]["MaxValue"] = ""; //Number
+			$MainZone[13]["Icon"] = "Power"; //Icon
+			$MainZone[13]["Prefix"] = ""; //Prefix
+			$MainZone[13]["Suffix"] = ""; //Suffix
+			$MainZone[13]["StepSize"] = ""; //Stepsize
+			$MainZone[13]["Digits"] = ""; //Digits
+		}
+
+
+		//GameSourceDisplay
+		$GameSourceDisplay = $xml->xpath('.//GameSourceDisplay');
+		if ($GameSourceDisplay)
+		{
+			$MainZone[14]["Name"] = "GameSourceDisplay";
+			$MainZone[14]["Value"] = (string)$GameSourceDisplay[0]->value;
+			$MainZone[14]["Vartype"] = 3; //Vartype String
+			$MainZone[14]["MinValue"] = ""; //MinValue
+			$MainZone[14]["MaxValue"] = ""; //Number
+			$MainZone[14]["Icon"] = "Power"; //Icon
+			$MainZone[14]["Prefix"] = ""; //Prefix
+			$MainZone[14]["Suffix"] = ""; //Suffix
+			$MainZone[14]["StepSize"] = ""; //Stepsize
+			$MainZone[14]["Digits"] = ""; //Digits
+		}
+
+
+		//LastfmDisplay
+		$LastfmDisplay = $xml->xpath('.//LastfmDisplay');
+		if ($LastfmDisplay)
+		{
+			$MainZone[15]["Name"] = "LastfmDisplay";
+			$MainZone[15]["Value"] = (string)$LastfmDisplay[0]->value;
+			$MainZone[15]["Vartype"] = 3; //Vartype String
+			$MainZone[15]["MinValue"] = ""; //MinValue
+			$MainZone[15]["MaxValue"] = ""; //Number
+			$MainZone[15]["Icon"] = "Power"; //Icon
+			$MainZone[15]["Prefix"] = ""; //Prefix
+			$MainZone[15]["Suffix"] = ""; //Suffix
+			$MainZone[15]["StepSize"] = ""; //Stepsize
+			$MainZone[15]["Digits"] = ""; //Digits
+		}
+
+
+		//SubwooferDisplay
+		$SubwooferDisplay = $xml->xpath('.//SubwooferDisplay');
+		if ($SubwooferDisplay)
+		{
+			$MainZone[16]["Name"] = "SubwooferDisplay";
+			$MainZone[16]["Value"] = (string)$SubwooferDisplay[0]->value;
+			$MainZone[16]["Vartype"] = 3; //Vartype String
+			$MainZone[16]["MinValue"] = ""; //MinValue
+			$MainZone[16]["MaxValue"] = ""; //Number
+			$MainZone[16]["Icon"] = "Power"; //Icon
+			$MainZone[16]["Prefix"] = ""; //Prefix
+			$MainZone[16]["Suffix"] = ""; //Suffix
+			$MainZone[16]["StepSize"] = ""; //Stepsize
+			$MainZone[16]["Digits"] = ""; //Digits
+		}
+
+
+		//Zone2VolDisp
+		$Zone2VolDisp = $xml->xpath('.//Zone2VolDisp');
+		if ($Zone2VolDisp )
+		{
+			$MainZone[17]["Name"] = "Zone2VolDisp";
+			$MainZone[17]["Value"] = (string)$Zone2VolDisp[0]->value;
+			$MainZone[17]["Vartype"] = 3; //Vartype String
+			$MainZone[17]["MinValue"] = ""; //MinValue
+			$MainZone[17]["MaxValue"] = ""; //Number
+			$MainZone[17]["Icon"] = "Power"; //Icon
+			$MainZone[17]["Prefix"] = ""; //Prefix
+			$MainZone[17]["Suffix"] = ""; //Suffix
+			$MainZone[17]["StepSize"] = ""; //Stepsize
+			$MainZone[17]["Digits"] = ""; //Digits
+		}
+
+	
+	return $MainZoneXml;
+	}
+	
+	protected function MainZoneXmlStatus($xml)
+	{
+		$MainZoneStatus = array();
+
+		//RestorerMode
+		$RestorerMode = $xml->xpath('.//RestorerMode');
+		if ($RestorerMode)
+		{
+			$MainZoneStatus[0]["Name"] = "RestorerMode";
+			$MainZoneStatus[0]["Value"] = (string)$RestorerMode[0]->value;
+			$MainZoneStatus[0]["Vartype"] = 3; //Vartype String
+			$MainZoneStatus[0]["MinValue"] = ""; //MinValue
+			$MainZoneStatus[0]["MaxValue"] = ""; //Number
+			$MainZoneStatus[0]["Icon"] = "Power"; //Icon
+			$MainZoneStatus[0]["Prefix"] = ""; //Prefix
+			$MainZoneStatus[0]["Suffix"] = ""; //Suffix
+			$MainZoneStatus[0]["StepSize"] = ""; //Stepsize
+			$MainZoneStatus[0]["Digits"] = ""; //Digits
+		}
+
+
+		//SurrMode
+		$SurrMode = $xml->xpath('.//SurrMode');
+		if ($SurrMode )
+		{
+			$MainZoneStatus[1]["Name"] = "SurrMode";
+			$MainZoneStatus[1]["Value"] = (string)$SurrMode[0]->value;
+			$MainZoneStatus[1]["Vartype"] = 3; //Vartype String
+			$MainZoneStatus[1]["MinValue"] = ""; //MinValue
+			$MainZoneStatus[1]["MaxValue"] = ""; //Number
+			$MainZoneStatus[1]["Icon"] = "Power"; //Icon
+			$MainZoneStatus[1]["Prefix"] = ""; //Prefix
+			$MainZoneStatus[1]["Suffix"] = ""; //Suffix
+			$MainZoneStatus[1]["StepSize"] = ""; //Stepsize
+			$MainZoneStatus[1]["Digits"] = ""; //Digits
+		}
+
+		//Inputs
+		$InputFuncList = $xml->xpath('.//InputFuncList');
+		if ($InputFuncList)
+		{
+			$countinput = count($InputFuncList[0]->value);
+			$RenameSource = $xml->xpath('.//RenameSource');
+			$SourceDelete = $xml->xpath('.//SourceDelete');
+			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
+			$countUse = count($SourceDeleteUse);
+			$MainZoneStatus[2]["Name"] = "Inputs";
+			$Inputs = array();
+
+			for ($i = 0; $i <= $countinput-1; $i++)
+				{
+					if ((string)$SourceDelete[0]->value[$i] == "USE")
+					{
+						if ((string)$RenameSource[0]->value[$i] != "")
+							{
+							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
+							}
+						else
+							{
+							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
+						   }
+					}
+			   }
+			$MainZoneStatus[2]["Value"] = $Inputs;
+			$MainZoneStatus[2]["Vartype"] = 1; //Vartype Integer
+			$MainZoneStatus[2]["MinValue"] = 0; //MinValue
+			$MainZoneStatus[2]["MaxValue"] = $countUse; //Number
+			$MainZoneStatus[2]["Icon"] = "Power"; //Icon
+			$MainZoneStatus[2]["Prefix"] = ""; //Prefix
+			$MainZoneStatus[2]["Suffix"] = ""; //Suffix
+			$MainZoneStatus[2]["StepSize"] = 1; //Stepsize
+			$MainZoneStatus[2]["Digits"] = 0; //Digits
+		}
+
+		return $MainZoneStatus;
+	}
+	
+	protected function NetAudioStatusXml($xml)
+	{
+		$NetAudioStatus = array();
+
+		//Modell
+		$szLine = $xml->xpath('.//szLine');
+		$NetAudioStatus[0]["Name"] = "Modell";
+		$NetAudioStatus[0]["Value"] = (string)$szLine[0]->value;
+		$NetAudioStatus[0]["Vartype"] = 3; //Vartype String
+		$NetAudioStatus[0]["MinValue"] = ""; //MinValue
+		$NetAudioStatus[0]["MaxValue"] = ""; //Number
+		$NetAudioStatus[0]["Icon"] = "Power"; //Icon
+		$NetAudioStatus[0]["Prefix"] = ""; //Prefix
+		$NetAudioStatus[0]["Suffix"] = ""; //Suffix
+		$NetAudioStatus[0]["StepSize"] = ""; //Stepsize
+		$NetAudioStatus[0]["Digits"] = ""; //Digits
+
+		return $NetAudioStatus;
+	}
+	
+	protected function Deviceinfo($xml)
+	{
+		$Deviceinfo = array();
+
+		//ModelName
+		$ModelName = $xml->xpath('.//ModelName');
+		//var_dump($ModelName);
+		$Deviceinfo[0]["Name"] = "ModelName";
+		$Deviceinfo[0]["Value"] = (string)$ModelName[0];
+		$Deviceinfo[0]["Vartype"] = 3; //Vartype String
+		$Deviceinfo[0]["MinValue"] = ""; //MinValue
+		$Deviceinfo[0]["MaxValue"] = ""; //Number
+		$Deviceinfo[0]["Icon"] = "Power"; //Icon
+		$Deviceinfo[0]["Prefix"] = ""; //Prefix
+		$Deviceinfo[0]["Suffix"] = ""; //Suffix
+		$Deviceinfo[0]["StepSize"] = ""; //Stepsize
+		$Deviceinfo[0]["Digits"] = ""; //Digits
+
+		return $Deviceinfo;
+	}
+	
+	
+	
 	//Zuordnung und Auswahl der anzulegenden Profile
 	protected function ProfileSelektor($MainZoneXml)
 	{
