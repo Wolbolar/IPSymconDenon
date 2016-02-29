@@ -44,6 +44,11 @@
                     "code": 203,
                     "icon": "error",
                     "caption": "Verbindung zum Denon AVR verloren."
+                },
+				{
+                    "code": 204,
+                    "icon": "error",
+                    "caption": "Keine gültige IP Adresse."
                 }
             ]
 }
