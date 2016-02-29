@@ -48,13 +48,10 @@ class DenonAVRHTTP extends IPSModule
 		//Optionen
 		$Display = $this->ReadPropertyBoolean('Display');
 		$Control = $this->ReadPropertyBoolean('Control');
-		
-		//IP Prüfen
-		$ip = $this->GetIPDenon();
-		
-		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
-		{
-			//Auswahl Prüfen
+		$ParentID = $this->GetParent();
+		if ($this->HasActiveParent($ParentID))
+        {
+            //Auswahl Prüfen
 			if ($Display === true)
 				{
 					//Display
@@ -80,8 +77,8 @@ class DenonAVRHTTP extends IPSModule
 					//Zone 3
 					$this->SetupZone($Type, $Zone);
 				}
-		}
-		
+        }	
+				
 		else
 		{
 			// Status inaktiv
@@ -90,6 +87,21 @@ class DenonAVRHTTP extends IPSModule
 		
 		
 	}
+	
+	protected function HasActiveParent($ParentID)
+    {
+        if ($ParentID > 0)
+        {
+            $parent = IPS_GetInstance($ParentID);
+            if ($parent['InstanceStatus'] == 102)
+            {
+                $this->SetStatus(102);
+                return true;
+            }
+        }
+        $this->SetStatus(203);
+        return false;
+    }
 	
 	protected function SetupDisplay($Type)
 	{	
