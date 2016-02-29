@@ -363,9 +363,13 @@ class DenonAVRTelnet extends IPSModule
 	{
 		// Status aktiv
 		$this->SetStatus(102);
-		
-	$MainZoneXml = $this->getStates($Zone, "MainZoneXml");
-	$this->ProfileSelektor($MainZoneXml);	
+	/*
+	if ()
+	{
+		$MainZoneXml = $this->getStates($Zone, "MainZoneXml");
+		$this->ProfileSelektor($MainZoneXml);
+	}
+		*/
 		
 	/* Profile anlegen
 	* Erstellen von Variablenprofile mit Namenspräfix "DENON."	
