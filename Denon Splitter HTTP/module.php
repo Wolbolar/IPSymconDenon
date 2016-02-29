@@ -13,9 +13,9 @@ class DenonSplitterHTTP extends IPSModule
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
 		// ClientSocket benötigt
-        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR HTTP");
+        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR HTTP"); //Clientsocket
 
-        $this->RegisterPropertyString("Host", "");
+        $this->RegisterPropertyString("Host", "192.168.x.x");
 		$this->RegisterPropertyInteger("Port", 80);
         $this->RegisterPropertyBoolean("Open", false);
      
