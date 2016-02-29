@@ -15,8 +15,7 @@ class DenonSplitterHTTP extends IPSModule
 		// ClientSocket benötigt
         $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR HTTP");
 
-        //$this->RegisterPropertyString("Host", "");
-		$this->RegisterPropertyString("Host", "");
+        $this->RegisterPropertyString("Host", "");
 		$this->RegisterPropertyInteger("Port", 80);
         $this->RegisterPropertyBoolean("Open", false);
      

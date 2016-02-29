@@ -1,7 +1,7 @@
 <?
 
 //  API Datentypen
-class IPSVarType extends stdClass
+class DENONIPSVarType extends stdClass
 {
 
     const vtNone = -1;
@@ -13,6 +13,41 @@ class IPSVarType extends stdClass
 
 }
 
+class IPSProfiles extends stdClass
+{
+
+// Start Register variables and Actions
+        // with the following order:
+    public $positions = array ( 
+                             ('Coordinator')     => 10,
+                             ('GroupMembers')    => 11,
+                             ('MemberOfGroup')   => 12,
+                             ('GroupVolume')     => 13,
+                             ('Details')         => 20,
+                             ('CoverURL')        => 21,
+                             ('ContentStream')   => 22,
+                             ('Artist')          => 23,
+                             ('Title')           => 24,
+                             ('Album')           => 25,
+                             ('TrackDuration')   => 26,
+                             ('Position')        => 27,
+                             ('nowPlaying')      => 29,
+                             ('Radio')           => 40,
+                             ('Playlist')        => 41,
+                             ('Status')          => 49,
+                             ('Volume')          => 50,
+                             ('Mute')            => 51,
+                             ('Loudness')        => 52,
+                             ('Bass')            => 53,
+                             ('Treble')          => 54,
+                             ('Balance')         => 58,
+                             ('Sleeptimer')      => 60,
+                             ('PlayMode')        => 61,
+                             ('Crossfade')       => 62,
+                             ('_updateStatus')   => 98,
+                             ('_updateGrouping') => 99
+                           );
+}
 
 class DENON_Zone extends stdClass
 {
@@ -26,21 +61,44 @@ class DENON_Zone extends stdClass
     public $thisZone;
 	    static $ZoneCMDs = array(
         DENON_Zone::ZoneMain => array(
-            DENON_API_Commands::PWR,
-            DENON_API_Commands::AMT
+            DENON_API_Commands::PW,
+			DENON_API_Commands::MV,
+			DENON_API_Commands::CV,
+			DENON_API_Commands::MU,
+			DENON_API_Commands::SI,
+			DENON_API_Commands::ZM,
+			DENON_API_Commands::SD,
+			DENON_API_Commands::DC,
+			DENON_API_Commands::SV,
+			DENON_API_Commands::SLP,
+			DENON_API_Commands::MS,
+			DENON_API_Commands::VS,
+			DENON_API_Commands::PS,
+            DENON_API_Commands::PV
         ),
         DENON_Zone::Zone2 => array(
-            DENON_API_Commands::LMZ,
-            DENON_API_Commands::ZPW
+            DENON_API_Commands::Z2,
+            DENON_API_Commands::Z2MU,
+			DENON_API_Commands::Z2CS,
+			DENON_API_Commands::Z2CV,
+			DENON_API_Commands::Z2HPF,
+			DENON_API_Commands::Z2PS,
+			DENON_API_Commands::Z2SLP
         ),
         DENON_Zone::Zone3 => array(
-            DENON_API_Commands::PW3,
-            DENON_API_Commands::MT3
+            DENON_API_Commands::Z3,
+			DENON_API_Commands::Z3MU,
+			DENON_API_Commands::Z3CS,
+			DENON_API_Commands::Z3CV,
+			DENON_API_Commands::Z3HPF,
+			DENON_API_Commands::Z3PS,
+            DENON_API_Commands::Z3SLP
         ),
         DENON_Zone::Zone4 => array(
             DENON_API_Commands::PW4,
             DENON_API_Commands::MT4
         )
+		
     );
 	
 	public function CmdAvaiable(DenonAVRCP_API_Data $API_Data)
@@ -51,8 +109,8 @@ class DENON_Zone extends stdClass
 	public function SubCmdAvaiable(DenonAVRCP_API_Data $API_Data)
     {
 
-//        IPS_LogMessage('APISubCommand', print_r($API_Data->APISubCommand, 1));
-//        IPS_LogMessage('ZoneCMDs', print_r(self::$ZoneCMDs[$this->thisZone], 1));
+	//  IPS_LogMessage('APISubCommand', print_r($API_Data->APISubCommand, 1));
+	//  IPS_LogMessage('ZoneCMDs', print_r(self::$ZoneCMDs[$this->thisZone], 1));
         if ($API_Data->APISubCommand <> null)
             if (property_exists($API_Data->APISubCommand, $this->thisZone))
                 return (in_array($API_Data->APISubCommand->{$this->thisZone}, self::$ZoneCMDs[$this->thisZone]));
@@ -412,8 +470,117 @@ class DENON_API_Commands extends stdClass
 	const ATTOFF = "ATT OFF"; // SW ATT OFF
 	const ATT = "ATT ?"; // Return PSATT Status
 	
+	const IsVariable = 0;
+    const VarType = 1;
+    const VarName = 2;
+    const Profile = 3;
+    const EnableAction = 4;
+    const RequestValue = 5;
+    const ValueMapping = 6;
+    const ValuePrefix = 7;
 	
+	// Mapping von CMDs der Main auf identische CMDs der Zonen
+	/*
+    static $CMDMapping = array(
+        DENON_API_Commands::TUN => array(
+            DENON_Zone::ZoneMain => DENON_API_Commands::TUN,            
+            DENON_Zone::Zone2 => DENON_API_Commands::TUZ,
+            DENON_Zone::Zone3 => DENON_API_Commands::TU3,
+            DENON_Zone::Zone4 => DENON_API_Commands::TU4
+        ),
+        DENON_API_Commands::RAS => array(
+            DENON_Zone::ZoneMain => DENON_API_Commands::RAS,            
+            DENON_Zone::Zone2 => DENON_API_Commands::RAZ
+        )
+    );
+	*/
+	
+	// Nur für alle CMDs, welche keine SubCommands sind.
+    static $VarMapping = array
+	(
+        DENON_API_Commands::PW
+        => array(
+            self::VarType => IPSVarType::vtBoolean,
+            self::EnableAction => true,
+            self::Profile => IPSProfiles::ptSwitch,
+            self::IsVariable => true,
+            self::VarName => 'Power',
+            self::RequestValue => true,
+            self::ValueMapping => null
+        ),
+		DENON_API_Commands::MV
+        => array(
+            self::VarType => IPSVarType::vtBoolean,
+            self::EnableAction => true,
+            self::Profile => IPSProfiles::ptSwitch,
+            self::IsVariable => true,
+            self::VarName => 'Mute',
+            self::RequestValue => true,
+            self::ValueMapping => null
+        )
+	);	
 }	
+
+
+
+class DENON_API_Command_Mapping extends stdClass
+{
+
+    static public function GetMapping($Cmd) //__construct($Cmd)
+    {
+        if (array_key_exists($Cmd, DENON_API_Commands::$CMDMapping))
+        {
+//            IPS_LogMessage('GetMapping', print_r(ISCP_API_Commands::$CMDMapping[$Cmd], 1));
+            return DENON_API_Commands::$CMDMapping[$Cmd];
+            /*
+              $this->VarType = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::VarType];
+              $this->EnableAction = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::EnableAction];
+              $this->Profile = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::Profile];
+             */
+        }
+        else
+            return null;
+    }
+
+}
+
+class DENON_API_Data_Mapping extends stdClass
+{
+
+//    public $VarType;
+//    public $EnableAction;
+//    public $Profile;
+
+    static public function GetMapping($Cmd) //__construct($Cmd)
+    {
+        if (array_key_exists($Cmd, ISCP_API_Commands::$VarMapping))
+        {
+            $result = new stdClass;
+            $result->IsVariable = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::IsVariable];
+            $result->VarType = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::VarType];
+            $result->VarName = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::VarName];
+            $result->Profile = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::Profile];
+            $result->EnableAction = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::EnableAction];
+            $result->RequestValue = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::RequestValue];
+
+            $result->ValueMapping = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::ValueMapping];
+
+            if (array_key_exists(ISCP_API_Commands::ValuePrefix, ISCP_API_Commands::$VarMapping[$Cmd]))
+                $result->ValuePrefix = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::ValuePrefix];
+
+            return $result;
+            /*
+              $this->VarType = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::VarType];
+              $this->EnableAction = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::EnableAction];
+              $this->Profile = ISCP_API_Commands::$VarMapping[$Cmd][ISCP_API_Commands::Profile];
+             */
+        }
+        else
+            return null;
+    }
+
+}
+
 
 class DenonAVRCP_API_Data extends stdClass
 {
