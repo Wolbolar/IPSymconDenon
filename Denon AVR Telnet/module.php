@@ -101,6 +101,7 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRVar->ptChannelVolumeSR = "DENON".$DenonAVRVar->Type.".ChannelVolumeSR";
 		$DenonAVRVar->ptChannelVolumeSBL = "DENON".$DenonAVRVar->Type.".ChannelVolumeSBL";
 		$DenonAVRVar->ptChannelVolumeSBR = "DENON".$DenonAVRVar->Type.".ChannelVolumeSBR";
+		$DenonAVRVar->ptChannelVolumeSB = "DENON".$DenonAVRVar->Type.".ChannelVolumeSB";
 		$DenonAVRVar->ptChannelVolumeFHL = "DENON".$DenonAVRVar->Type.".ChannelVolumeFHL";
 		$DenonAVRVar->ptChannelVolumeFHR = "DENON".$DenonAVRVar->Type.".ChannelVolumeFHR";
 		$DenonAVRVar->ptChannelVolumeFWL = "DENON".$DenonAVRVar->Type.".ChannelVolumeFWL";
