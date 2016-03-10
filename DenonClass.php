@@ -493,7 +493,7 @@ class DENONIPSProfiles extends stdClass
 	
 	function getpos($profile)
 	{
-    public $positions = array 
+		$positions = array 
 						( 
                             $this->ptPower => 10,
 							$this->ptMainZonePower => 11,
