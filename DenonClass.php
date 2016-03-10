@@ -82,6 +82,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptChannelVolumeSR;
 	public $ptChannelVolumeSBL;
 	public $ptChannelVolumeSBR;
+	public $ptChannelVolumeSB;
 	public $ptChannelVolumeFHL;
 	public $ptChannelVolumeFHR;
 	public $ptChannelVolumeFWL;
