@@ -359,7 +359,7 @@ class DenonAVRTelnet extends IPSModule
 	protected function SetupZone($Type, $Zone)
 	{
 		
-	/
+	
 	//!!!! Icons sind noch zu individuell anzupassen
 	
 	if($Zone === 0) //Mainzone
