@@ -28,8 +28,7 @@
 								  ]
 				},
 				
-				{ "type": "CheckBox", "name": "Display", "caption": "Display anzeigen" }, 
-				{ "type": "CheckBox", "name": "Control", "caption": "Steuerung anzeigen" },
+				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
 				{ "type": "Label", "label": "Lautsprecher:" },
 				{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
@@ -72,7 +71,6 @@
 				{ "type": "CheckBox", "name": "DynamicRange", "caption": "DynamicRange" },
 				{ "type": "CheckBox", "name": "VideoSelect", "caption": "VideoSelect" },
 				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "SurroundBackMode" },
-				{ "type": "CheckBox", "name": "Preset", "caption": "Preset" },
 				{ "type": "CheckBox", "name": "Inputmode", "caption": "Inputmode" }		
             ],
     "actions":

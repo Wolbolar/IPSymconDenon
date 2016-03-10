@@ -17,9 +17,9 @@ class DENONIPSProfiles extends stdClass
 {
 	//Name übergeben
 	// function  IM Array auf übereinstimmnung überprüfen match ausgeben
-	// function cretae profile mit übergabewert aus array aufruf der neuen klasse var zu setzten der var mit übergabe des profilnames ( am besten in einer klasse zusammenführen)
+	// function create profile mit übergabewert aus array aufruf der neuen klasse var zu setzten der var mit übergabe des profilnames ( am besten in einer klasse zusammenführen)
 	
-	public $description;
+	//public $description;
 	public $Type;
 	public $Zone;
 	const DENON = "DENON";
@@ -88,85 +88,61 @@ class DENONIPSProfiles extends stdClass
 	public $ptChannelVolumeFWR;
 	public $ptNavigation;
 
-	public function SetupVarDenon($key)
+	public function SetupVarDenonBool($profile)
 	{
+		//Ident, Name, Profile, Position 
+		$profiles = array (
+		$this->ptPower => array(DENON_API_Commands::PW."/Power", "Power", "~Switch", 1),
+		$this->ptMainZonePower => array(DENON_API_Commands::ZM."/MainZonePower", "MainZonePower", "~Switch", 2),
+		$this->ptMainMute => array(DENON_API_Commands::MU."/MainMute", "MainMute", "~Switch", 3),
+		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ."/CinemaEQ", "CinemaEQ", "~Switch", 4),
+		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ."/DynamicEQ", "DynamicEQ", "~Switch", 8),
+		$this->ptFrontHeight => array(DENON_API_Commands::PSFH."/FrontHeight", "FrontHeight", "~Switch", 6),
+		$this->ptPanorama => array(DENON_API_Commands::PSPAN."/Panorama", "Panorama", "~Switch", 5),
+		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE."/ToneCTRL", "ToneCTRL", "~Switch", 7)
+		);
 		
-		
+		foreach($profiles as $ptName => $profilvar)
+		{
+			if($ptName == $profile)
+			{
+			   return $profilvar;
+			}
+
+		}	
 	}
-
-	// Anlegen der Unterschiedlichen Profiltypen
-	/* Profile anlegen
-	* Erstellen von Variablenprofile mit Namenspräfix "DENON."	
-	* RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
-	* RegisterProfileIntegerDenonAss($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen, $Associations);
-	* $Associations Value, Association, Icon, Color
-	* RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
-	* RegisterProfilFloatDenonAss($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen, $Associations)
-	* RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
-	*/
 	
-	public $Profilename;
-	//RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) bisher wird nur Name Min max stepsize verwendet
-	/*
-	foreach (IPSProfiles::$ProfilInteger as $Profile => $Size)
-        {
-            $this->RegisterProfileInteger($Profile, "", "", "", $Size[0], $Size[1], $Size[2]);
-        }
-					$MasterVolumeId = $this->RegisterVariableFloat("MasterVolume", "MasterVolume", $Name, 10);
-			
-
-	*/
-	protected function CreateVarInteger($Profilename)
+	public function SetupVarDenonInteger($profile)
 	{
-		
+		//Sichtbare variablen profil suchen
 		$profiles = array(
-        $this->ptSleep => array("Intensity",  "", "", 0, 120, 10, 0),
-		
-
-        $this->ptVideoSelect => array(0x01, 0x30, 1)
+        $this->ptSleep => array(DENON_API_Commands::SLP."/Sleep", "Intensity",  "", "", 0, 120, 10, 0),
+		$this->ptDimension => array(DENON_API_Commands::PSDIM."/Dimension", "Intensity",  "", "", 0, 6, 1, 0),
+		$this->ptCWidth => array(DENON_API_Commands::PSDCO."/CWidth", "Intensity",  "", "", 0, 7, 1, 0),
 		);
-		return $this->ProfilInteger;
 		
+		foreach($profiles as $ptName => $profilvar)
+		{
+			if($ptName == $profile)
+			{
+			   $pos = $this->getpos($profile);
+			   $profileinteger = array(
+			   "ProfilName" => $ptName,
+			   "Profile" => $profilvar,
+			   "Position" => $pos
+			   );
+			   
+			   return $profileinteger;
+			}
+
+		}	
 	}
 	
-	public $ProfilFloat;
-	
-	protected function ProfilFloat()
+	public function SetupVarDenonIntegerAss($profile)
 	{
-		$this->ProfilFloat = array(
-		$this->ptMasterVolume => array("Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptChannelVolumeFL => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFR => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeC => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW2 => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSL => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSR => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBL => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBR => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHL => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHR => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWL => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWR => array("Intensity", "", "dB", -12, 12, 1.0, 0),
-		$this->ptAudioDelay => array("Intensity", "", " ms", 0, 200, 0, 0),
-		$this->ptLFELevel("Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
-
-		
-		);
-	}	
-	public $ProfilAssociationsMainZone;
-	//RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) bisher wird nur Name und Associations ausgelesen
-	/*
-	foreach (IPSProfiles::$ProfilAssociations as $Profile => $Association)
-        {
-            $this->RegisterProfileIntegerEx($Profile, "", "", "", $Association);
-        }
-	*/
-	public function ProfilAssociationsMainZone($ProfilAssociationsMainZone, $ptInputSource, $ptQuickSelect, $ptDigitalInputMode, $ptSurroundMode, $ptSurroundPlayMode, $ptMultiEQMode,
-	$ptAudioRestorer, $ptDynamicVolume, $ptRoomSize, $ptDynamicCompressor, $ptDynamicRange, $ptVideoSelect, $ptSurroundBackMode, $ptInputMode)
-	{
+		//Sichtbare variablen profil suchen
 		//Associations
-		$this->ProfilAssociationsMainZone = array
+		$ProfilAssociationsMainZone = array
 		(
 			$this->ptNavigation => array(
 				Array("Move", "", "", 0, 5, 0, 0),
@@ -316,14 +292,8 @@ class DENONIPSProfiles extends stdClass
 				Array(3, "ANALOG",  "", -1)
 			)
 		);
-		return $this->ProfilAssociationsMainZone;
-	}
-	
-	public $ProfilAssociationsZone2;
-	
-	public function ProfilAssociationsZone2($ProfilAssociationsZone2, $ptZone2InputSource, $ptZone2ChannelSetting, $ptZone2QuickSelect)
-	{
-		$this->ProfilAssociationsZone2 = array
+		
+		$ProfilAssociationsZone2 = array
 		(
 			$this->ptZone2InputSource => array(
 				Array("Database", "", "", 0, 19, 1, 0),
@@ -363,13 +333,9 @@ class DENONIPSProfiles extends stdClass
 				Array(5, "QS 5",  "", -1)
 			)
 		);
-	}
-	
-	public $ProfilAssociationsZone3;
-	
-	public function ProfilAssociationsZone3($ProfilAssociationsZone3, $ptZone3ChannelSetting, $ptZone3QuickSelect)
-	{
-		$this->ProfilAssociationsZone3 = array
+		
+		
+		$ProfilAssociationsZone3 = array
 		(
 			$this->ptZone3InputSource => array(
 				Array("Database", "", "", 0, 19, 1, 0),
@@ -409,41 +375,199 @@ class DENONIPSProfiles extends stdClass
 				Array(5, "QS 5",  "", -1)
 			)
 		);
+		
+		if($this->Zone == 0)
+		{
+			foreach($ProfilAssociationsMainZone as $ptName => $profilvar)
+			{
+				if($ptName == $profile)
+				{
+				   return $profilvar;
+				}
+
+			}	
+		}
+		elseif($this->Zone == 1)
+		{
+			foreach($ProfilAssociationsZone2 as $ptName => $profilvar)
+			{
+				if($ptName == $profile)
+				{
+				   return $profilvar;
+				}
+
+			}	
+		}
+		if($this->Zone == 2)
+		{
+			foreach($ProfilAssociationsZone3 as $ptName => $profilvar)
+			{
+				if($ptName == $profile)
+				{
+				   return $profilvar;
+				}
+
+			}	
+		}
+		
+		
 	}
 	
+	public function SetupVarDenonFloat($profile)
+	{
+		//Sichtbare variablen profil suchen
+		$profiles = array(
+		$this->ptMasterVolume => array(DENON_API_Commands::MV."/MasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL."/ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR."/ChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC."/ChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW."/ChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2."/ChannelVolumeSW2", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL."/ChannelVolumeSL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR."/ChannelVolumeSR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL."/ChannelVolumeSBL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR."/ChannelVolumeSBR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL."/ChannelVolumeFHL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR."/ChannelVolumeFHR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL."/ChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR."/ChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL."/AudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
+		$this->ptLFELevel(DENON_API_Commands::PSLFE."/LFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
+		$this->ptBassLevel => array(DENON_API_Commands::PSBAS."/BassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
+		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE."/TrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0)
+		);
+		
+		foreach($profiles as $ptName => $profilvar)
+		{
+			if($ptName == $profile)
+			{
+			   $pos = $this->getpos($profile);
+			   $profilefloat = array(
+			   "ProfilName" => $ptName,
+			   "Profile" => $profilvar,
+			   "Position" => $pos
+			   );
+			   
+			   return $profilefloat;
+			}
+
+		}	
+	}
+
+	// Anlegen der Unterschiedlichen Profiltypen
+	/* Profile anlegen
+	* Erstellen von Variablenprofile mit Namenspräfix "DENON."	
+	* RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
+	* RegisterProfileIntegerDenonAss($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen, $Associations);
+	* $Associations Value, Association, Icon, Color
+	* RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
+	* RegisterProfilFloatDenonAss($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen, $Associations)
+	* RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
+	*/
 	
 	
-// Start Register variables and Actions
-        // with the following order:
-    public $positions = array ( 
-                             ('Coordinator')     => 10,
-                             ('GroupMembers')    => 11,
-                             ('MemberOfGroup')   => 12,
-                             ('GroupVolume')     => 13,
-                             ('Details')         => 20,
-                             ('CoverURL')        => 21,
-                             ('ContentStream')   => 22,
-                             ('Artist')          => 23,
-                             ('Title')           => 24,
-                             ('Album')           => 25,
-                             ('TrackDuration')   => 26,
-                             ('Position')        => 27,
-                             ('nowPlaying')      => 29,
-                             ('Radio')           => 40,
-                             ('Playlist')        => 41,
-                             ('Status')          => 49,
-                             ('Volume')          => 50,
-                             ('Mute')            => 51,
-                             ('Loudness')        => 52,
-                             ('Bass')            => 53,
-                             ('Treble')          => 54,
-                             ('Balance')         => 58,
-                             ('Sleeptimer')      => 60,
-                             ('PlayMode')        => 61,
-                             ('Crossfade')       => 62,
-                             ('_updateStatus')   => 98,
-                             ('_updateGrouping') => 99
-                           );
+	//RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) bisher wird nur Name Min max stepsize verwendet
+	/*
+	foreach (IPSProfiles::$ProfilInteger as $Profile => $Size)
+        {
+            $this->RegisterProfileInteger($Profile, "", "", "", $Size[0], $Size[1], $Size[2]);
+        }
+					$MasterVolumeId = $this->RegisterVariableFloat("MasterVolume", "MasterVolume", $Name, 10);
+			
+
+	*/
+
+	
+	
+	
+	
+	//RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) bisher wird nur Name und Associations ausgelesen
+	/*
+	foreach (IPSProfiles::$ProfilAssociations as $Profile => $Association)
+        {
+            $this->RegisterProfileIntegerEx($Profile, "", "", "", $Association);
+        }
+	*/
+	
+	
+	
+	function getpos($profile)
+	{
+    public $positions = array 
+						( 
+                            $this->ptPower => 10,
+							$this->ptMainZonePower => 11,
+							$this->ptMainMute => 12,
+							$this->ptMasterVolume => 13,
+							$this->ptInputSource => 14,
+							$this->ptSurroundMode => 15,
+							$this->ptNavigation => 16,
+							$this->ptDynamicVolume => 17,
+							$this->ptCinemaEQ => 18,
+							$this->ptPanorama => 19,
+							$this->ptChannelVolumeFL => 20,
+							$this->ptChannelVolumeFR => 21,
+							$this->ptChannelVolumeC => 22,
+							$this->ptChannelVolumeSW => 23,
+							$this->ptChannelVolumeSW2 => 24,
+							$this->ptChannelVolumeSL => 25,
+							$this->ptChannelVolumeSR => 26,
+							$this->ptChannelVolumeSBL => 27,
+							$this->ptChannelVolumeSBR => 28,
+							$this->ptChannelVolumeFHL => 29,
+							$this->ptChannelVolumeFHR => 30,
+							$this->ptChannelVolumeFWL => 31,
+							$this->ptChannelVolumeFWR => 32,
+							$this->ptFrontHeight => 33,
+							$this->ptToneCTRL => 34,
+							$this->ptDynamicEQ => 35,
+							$this->ptAudioDelay => 36,
+							$this->ptLFELevel => 37,
+							$this->ptQuickSelect => 38,
+							$this->ptSleep => 39,
+							$this->ptDigitalInputMode => 40,
+							$this->ptSurroundPlayMode => 41,
+							$this->ptMultiEQMode => 42,
+							$this->ptAudioRestorer => 43,
+							$this->ptBassLevel => 44,
+							$this->ptTrebleLevel => 45,
+							$this->ptDimension => 46,
+							$this->ptRoomSize => 47,
+							$this->ptDynamicCompressor => 48,
+							$this->ptCWidth => 49,
+							$this->ptDynamicRange => 50,
+							$this->ptVideoSelect => 51,
+							$this->ptSurroundBackMode => 52,
+							$this->ptPreset => 53,
+							$this->ptInputMode => 54,
+							$this->ptZone2Power => 55,
+							$this->ptZone2Mute => 56,
+							$this->ptZone2Volume => 57,
+							$this->ptZone2InputSource => 58,
+							$this->ptZone2ChannelSetting => 59,
+							$this->ptZone2ChannelVolumeFL => 60,
+							$this->ptZone2ChannelVolumeFR => 61,
+							$this->ptZone2QuickSelect => 62,
+							$this->ptZone3Power => 63,
+							$this->ptZone3Mute => 64,
+							$this->ptZone3Volume => 65,
+							$this->ptZone3InputSource => 66,
+							$this->ptZone3ChannelSetting => 67,
+							$this->ptZone3ChannelVolumeFL => 68,
+							$this->ptZone3ChannelVolumeFR => 69,
+							$this->ptZone3QuickSelect => 70,
+							
+							
+						);
+		foreach($positions as $ptName => $position)
+		{
+			if($ptName == $profile)
+			{
+			   return $position;
+			}
+
+		}				
+	}
 }
 
 class DENON_Zone extends stdClass
