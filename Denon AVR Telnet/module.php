@@ -1954,8 +1954,8 @@ class DenonAVRTelnet extends IPSModule
           echo "Error on Send.";
           return;
           } */
-    }
-	*/
+    //}
+	
 	
 	protected function GetParent()
     {
