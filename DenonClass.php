@@ -653,7 +653,7 @@ class DENON_API_Commands extends stdClass
 	const PS = "PS"; // Parameter Setting
 	const PV = "PV"; // Parameter Video
 	
-	const SR? = " ?"; //Status Request
+	const SR = " ?"; //Status Request
 	
 	//Zone 2
 	const Z2 = "Z2"; // Zone 2
