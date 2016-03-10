@@ -383,7 +383,14 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $profile)
 				{
-				   return $profilvar;
+				   $pos = $this->getpos($profile);
+				   $profilefloat = array(
+				   "ProfilName" => $ptName,
+				   "Profile" => $profilvar,
+				   "Position" => $pos
+				   );
+				   
+				   return $profilefloat;
 				}
 
 			}	
@@ -394,7 +401,14 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $profile)
 				{
-				   return $profilvar;
+				   $pos = $this->getpos($profile);
+				   $profilefloat = array(
+				   "ProfilName" => $ptName,
+				   "Profile" => $profilvar,
+				   "Position" => $pos
+				   );
+				   
+				   return $profilefloat;
 				}
 
 			}	
@@ -405,7 +419,14 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $profile)
 				{
-				   return $profilvar;
+				   $pos = $this->getpos($profile);
+				   $profilefloat = array(
+				   "ProfilName" => $ptName,
+				   "Profile" => $profilvar,
+				   "Position" => $pos
+				   );
+				   
+				   return $profilefloat;
 				}
 
 			}	
