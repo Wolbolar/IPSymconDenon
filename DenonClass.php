@@ -93,14 +93,14 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Ident, Name, Profile, Position 
 		$profiles = array (
-		$this->ptPower => array(DENON_API_Commands::PW."/Power", "Power", "~Switch", 1),
-		$this->ptMainZonePower => array(DENON_API_Commands::ZM."/MainZonePower", "MainZonePower", "~Switch", 2),
-		$this->ptMainMute => array(DENON_API_Commands::MU."/MainMute", "MainMute", "~Switch", 3),
-		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ."/CinemaEQ", "CinemaEQ", "~Switch", 4),
-		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ."/DynamicEQ", "DynamicEQ", "~Switch", 8),
-		$this->ptFrontHeight => array(DENON_API_Commands::PSFH."/FrontHeight", "FrontHeight", "~Switch", 6),
-		$this->ptPanorama => array(DENON_API_Commands::PSPAN."/Panorama", "Panorama", "~Switch", 5),
-		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE."/ToneCTRL", "ToneCTRL", "~Switch", 7)
+		$this->ptPower => array(DENON_API_Commands::PW."xxxPower", "Power", "~Switch", 1),
+		$this->ptMainZonePower => array(DENON_API_Commands::ZM."xxxMainZonePower", "MainZonePower", "~Switch", 2),
+		$this->ptMainMute => array(DENON_API_Commands::MU."xxxMainMute", "MainMute", "~Switch", 3),
+		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ."xxxCinemaEQ", "CinemaEQ", "~Switch", 4),
+		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ."xxxDynamicEQ", "DynamicEQ", "~Switch", 8),
+		$this->ptFrontHeight => array(DENON_API_Commands::PSFH."xxxFrontHeight", "FrontHeight", "~Switch", 6),
+		$this->ptPanorama => array(DENON_API_Commands::PSPAN."xxxPanorama", "Panorama", "~Switch", 5),
+		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE."xxxToneCTRL", "ToneCTRL", "~Switch", 7)
 		);
 		
 		foreach($profiles as $ptName => $profilvar)
@@ -117,9 +117,9 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profiles = array(
-        $this->ptSleep => array(DENON_API_Commands::SLP."/Sleep", "Intensity",  "", "", 0, 120, 10, 0),
-		$this->ptDimension => array(DENON_API_Commands::PSDIM."/Dimension", "Intensity",  "", "", 0, 6, 1, 0),
-		$this->ptCWidth => array(DENON_API_Commands::PSDCO."/CWidth", "Intensity",  "", "", 0, 7, 1, 0),
+        $this->ptSleep => array(DENON_API_Commands::SLP."xxxSleep", "Intensity",  "", "", 0, 120, 10, 0),
+		$this->ptDimension => array(DENON_API_Commands::PSDIM."xxxDimension", "Intensity",  "", "", 0, 6, 1, 0),
+		$this->ptCWidth => array(DENON_API_Commands::PSDCO."xxxCWidth", "Intensity",  "", "", 0, 7, 1, 0),
 		);
 		
 		foreach($profiles as $ptName => $profilvar)
@@ -418,24 +418,25 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profiles = array(
-		$this->ptMasterVolume => array(DENON_API_Commands::MV."/MasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL."/ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR."/ChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC."/ChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW."/ChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2."/ChannelVolumeSW2", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL."/ChannelVolumeSL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR."/ChannelVolumeSR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL."/ChannelVolumeSBL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR."/ChannelVolumeSBR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL."/ChannelVolumeFHL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR."/ChannelVolumeFHR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL."/ChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR."/ChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL."/AudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
-		$this->ptLFELevel(DENON_API_Commands::PSLFE."/LFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
-		$this->ptBassLevel => array(DENON_API_Commands::PSBAS."/BassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
-		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE."/TrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0)
+		$this->ptMasterVolume => array(DENON_API_Commands::MV."xxxMasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL."xxxChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR."xxxChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC."xxxChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW."xxxChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2."xxxChannelVolumeSW2", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL."xxxChannelVolumeSL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR."xxxChannelVolumeSR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL."xxxChannelVolumeSBL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR."xxxChannelVolumeSBR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSB => array(DENON_API_Commands::CVSB."xxxChannelVolumeSB", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL."xxxChannelVolumeFHL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR."xxxChannelVolumeFHR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL."xxxChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR."xxxChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL."xxxAudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
+		$this->ptLFELevel(DENON_API_Commands::PSLFE."xxxLFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
+		$this->ptBassLevel => array(DENON_API_Commands::PSBAS."xxxBassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
+		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE."xxxTrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0)
 		);
 		
 		foreach($profiles as $ptName => $profilvar)

@@ -247,7 +247,7 @@ class DenonAVRTelnet extends IPSModule
 				$Position = $profile["Position"];
 				$varprofile = $profile["Profile"];
 				$Ident = $varprofile[0];
-				$Teile = explode("/", $ident);
+				$Teile = explode("xxx", $Ident);
 				$Name = $Teile[1];
 				$this->RegisterProfileFloatDenon($Name, $varprofile[1], $varprofile[2], $varprofile[3], $varprofile[4], $varprofile[5], $varprofile[6], $varprofile[7]);
 				$ChannelVolumeFLId = $this->RegisterVariableFloat($Ident, $Name, $Profilname, $Position);
@@ -265,7 +265,7 @@ class DenonAVRTelnet extends IPSModule
 				$Position = $profile["Position"];
 				$varprofile = $profile["Profile"];
 				$Ident = $varprofile[0];
-				$Teile = explode("/", $ident);
+				$Teile = explode("xxx", $Ident);
 				$Name = $Teile[1];
 				$this->RegisterProfileIntegerDenonAss($Name, $varprofile[1], $varprofile[2], $varprofile[3], $varprofile[4], $varprofile[5], $varprofile[6], $varprofile[7], $varprofile[8]);
 				$InputSourceId = $this->RegisterVariableInteger($Ident, $Name, $Profilname, $Position);
@@ -284,7 +284,7 @@ class DenonAVRTelnet extends IPSModule
 				$Position = $profile["Position"];
 				$varprofile = $profile["Profile"];
 				$Ident = $varprofile[0];
-				$Teile = explode("/", $ident);
+				$Teile = explode("xxx", $Ident);
 				$Name = $Teile[1];
 				$this->RegisterProfileFloatDenon($Name, $varprofile[1], $varprofile[2], $varprofile[3], $varprofile[4], $varprofile[5], $varprofile[6], $varprofile[7]);
 				//Ident, Name, Profile, Position 
