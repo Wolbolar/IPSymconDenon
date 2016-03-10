@@ -434,7 +434,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL."xxxChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR."xxxChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL."xxxAudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
-		$this->ptLFELevel(DENON_API_Commands::PSLFE."xxxLFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
+		$this->ptLFELevel => array(DENON_API_Commands::PSLFE."xxxLFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
 		$this->ptBassLevel => array(DENON_API_Commands::PSBAS."xxxBassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
 		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE."xxxTrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0)
 		);
