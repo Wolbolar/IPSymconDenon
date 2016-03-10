@@ -1073,7 +1073,8 @@ class DENON_API_Commands extends stdClass
 	*/
 	
 	// Nur für alle CMDs, welche keine SubCommands sind.
-    static $VarMapping = array
+    /*
+	static $VarMapping = array
 	(
         //Power
 		DENON_API_Commands::PW
@@ -1561,6 +1562,7 @@ class DENON_API_Commands extends stdClass
 	//Zone2
 	//Zone3
 	);	
+	*/
 }	
 
 class DENON_HTTP_GET
