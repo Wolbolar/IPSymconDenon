@@ -51,7 +51,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptDynamicVolume;
 	public $ptRoomSize;
 	public $ptDynamicCompressor;
-	public $ptCWidth;
+	public $ptCenterWidth;
 	public $ptDynamicRange;
 	public $ptVideoSelect;
 	public $ptSurroundBackMode;
@@ -88,26 +88,71 @@ class DENONIPSProfiles extends stdClass
 	public $ptChannelVolumeFWL;
 	public $ptChannelVolumeFWR;
 	public $ptNavigation;
+	public $ptContrast;
+	public $ptBrightness;
+	public $ptChromalevel;
+	public $ptHue;
+	public $ptEnhancer;
+	public $ptSubwoofer;
+	public $ptSubwooferATT;
+	public $ptDNRDirectChange;
+	public $ptEffect;
+	public $ptAFDM;
+	public $ptEffectLevel;
+	public $ptDimension;
+	public $ptCenterImage;
+	public $ptStageWidth;
+	public $ptStageHeight;
+	public $ptAudysseyDSX;
+	public $ptReferenceLevel;
+	public $ptDRCDirectChange;
+	public $ptSpeakerOutputFront;
+	public $ptDCOMPDirectChange;
+	public $ptHDMIMonitor;
+	public $ptASP;
+	public $ptResolution;
+	public $ptResolutionHDMI;
+	public $ptHDMIAudioOutput;
+	public $ptVideoProcessingMode;
+	public $ptDolbyVolumeLeveler;
+	public $ptDolbyVolumeModeler;
+	public $ptPLIIZHeightGain;
+	public $ptVerticalStretch;
+	public $ptDolbyVolume;
+	
 
 	public function SetupVarDenonBool($profile)
 	{
 		//Ident, Name, Profile, Position 
 		$profiles = array (
-		$this->ptPower => array(DENON_API_Commands::PW."xxxPower", "Power", "~Switch", 1),
-		$this->ptMainZonePower => array(DENON_API_Commands::ZM."xxxMainZonePower", "MainZonePower", "~Switch", 2),
-		$this->ptMainMute => array(DENON_API_Commands::MU."xxxMainMute", "MainMute", "~Switch", 3),
-		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ."xxxCinemaEQ", "CinemaEQ", "~Switch", 4),
-		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ."xxxDynamicEQ", "DynamicEQ", "~Switch", 8),
-		$this->ptFrontHeight => array(DENON_API_Commands::PSFH."xxxFrontHeight", "FrontHeight", "~Switch", 6),
-		$this->ptPanorama => array(DENON_API_Commands::PSPAN."xxxPanorama", "Panorama", "~Switch", 5),
-		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE."xxxToneCTRL", "ToneCTRL", "~Switch", 7)
+		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", 1),
+		$this->ptMainZonePower => array(DENON_API_Commands::ZM, "MainZonePower", "~Switch", 2),
+		$this->ptMainMute => array(DENON_API_Commands::MU, "MainMute", "~Switch", 3),
+		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ, "CinemaEQ", "~Switch", 4),
+		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ, "DynamicEQ", "~Switch", 8),
+		$this->ptFrontHeight => array(DENON_API_Commands::PSFH, "FrontHeight", "~Switch", 6),
+		$this->ptPanorama => array(DENON_API_Commands::PSPAN, "Panorama", "~Switch", 5),
+		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE, "ToneCTRL", "~Switch", 7),
+		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "VerticalStretch", "~Switch", 9),
+		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "DolbyVolume", "~Switch", 10),
+		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", 11),
+		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", 12),
+		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", 13),
+		$this->ptSubwooferATT => arry(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", 14 )
 		);
 		
 		foreach($profiles as $ptName => $profilvar)
 		{
 			if($ptName == $profile)
 			{
-			   return $profilvar;
+			   $profilebool = array(
+			   "Name" => $profilvar[1],
+			   "Ident" => $profilvar[0],
+			   "ProfilName" => $profilvar[2],
+			   "Position" => $profilvar[3]
+			   );
+			   
+			   return $profilbool;
 			}
 
 		}	
@@ -117,21 +162,28 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profiles = array(
-        $this->ptSleep => array(DENON_API_Commands::SLP."xxxSleep", "Intensity",  "", "", 0, 120, 10, 0),
-		$this->ptDimension => array(DENON_API_Commands::PSDIM."xxxDimension", "Intensity",  "", "", 0, 6, 1, 0),
-		$this->ptCWidth => array(DENON_API_Commands::PSDCO."xxxCWidth", "Intensity",  "", "", 0, 7, 1, 0),
+        $this->ptSleep => array(DENON_API_Commands::SLP, "Sleep", "Intensity",  "", "", 0, 120, 10, 0),
+		$this->ptDimension => array(DENON_API_Commands::PSDIM, "Dimension", "Intensity",  "", "", 0, 6, 1, 0)
 		);
 		
 		foreach($profiles as $ptName => $profilvar)
 		{
 			if($ptName == $profile)
 			{
-			   $pos = $this->getpos($profile);
-			   $profileinteger = array(
-			   "ProfilName" => $ptName,
-			   "Profile" => $profilvar,
-			   "Position" => $pos
-			   );
+				$pos = $this->getpos($profile);
+				$profileinteger = array(
+				"ProfilName" => $ptName,
+				"Name" => $profilvar[1],
+				"Ident" => $profilvar[0],
+				"Icon" => $profilvar[2],
+				"Prefix" => $profilvar[3],
+				"Suffix" => $profilvar[4],
+				"MinValue" => $profilvar[5],
+				"MaxValue" => $profilvar[6],
+				"Stepsize" => $profilvar[7],
+				"Digits" => $profilvar[8],
+				"Position" => $pos
+				);
 			   
 			   return $profileinteger;
 			}
@@ -143,19 +195,28 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		//Associations
+		//Associations Value, Association, Icon, Color
+
 		$ProfilAssociationsMainZone = array
 		(
 			$this->ptNavigation => array(
-				Array("Move", "", "", 0, 5, 0, 0),
+				"Ident" => DENON_API_Commands::MN,
+				"Name" => "Navigation",
+				"Profilesettings" => Array("Move", "", "", 0, 5, 0, 0),
+				"Associations" => array(
 				Array(0, "Left",  "", -1),
 				Array(1, "Down",  "", -1),
 				Array(2, "Up",  "", -1),
 				Array(3, "Right",  "", -1),
 				Array(4, "Enter",  "", -1),
-				Array(5, "Return",  "", -1)		
+				Array(5, "Return",  "", -1)
+				)		
 			),
 			$this->ptInputSource => array(
-				Array("Database", "", "", 0, 19, 1, 0),
+				"Ident" => DENON_API_Commands::SI,
+				"Name" => "Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, 19, 0, 0),
+				"Associations" => array(
 				Array(0, "Phono",  "", -1),
 				Array(1, "CD",  "", -1),
 				Array(2, "Tuner",  "", -1),
@@ -176,94 +237,139 @@ class DENONIPSProfiles extends stdClass
 				Array(17, "IRADIO",  "", -1),
 				Array(18, "SERVER",  "", -1),
 				Array(19, "USB/IPOD",  "", -1)
+				)
 			),
 			$this->ptQuickSelect => array(
-				Array("Intensity", "", "", 0, 5, 1, 0),
+				"Ident" => DENON_API_Commands::MSQUICK,
+				"Name" => "Quick Select",
+				"Profilesettings" => Array("Intensity", "", "", 0, 5, 1, 0),
+				"Associations" => array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "QS 1",  "", -1),
 				Array(2, "QS 2",  "", -1),
 				Array(3, "QS 3",  "", -1),
 				Array(4, "QS 4",  "", -1),
 				Array(5, "QS 5",  "", -1)
+				)
 			),
 			$this->ptDigitalInputMode => array(
-				Array("Intensity", "", "", 0, 2, 1, 0),
+				"Ident" => DENON_API_Commands::DC,
+				"Name" => "Input Mode",
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Associations" => Array(
 				Array(0, "AUTO",  "", -1),
 				Array(1, "PCM",  "", -1),
 				Array(2, "DTS",  "", -1)
+				)
 			),
 			$this->ptSurroundMode => array(
-				Array("Intensity", "", "", 0, 14, 1, 0),
+				"Ident" => DENON_API_Commands::MS,
+				"Name" => "Surround Mode",
+				"Profilesettings" => Array("Intensity", "", "", 0, 15, 0, 0),
+				"Associations" => Array(
 				Array(0, "DIRECT",  "", -1),
 				Array(1, "PURE DIRECT",  "", -1),
 				Array(2, "STEREO",  "", -1),
 				Array(3, "STANDARD",  "", -1),
 				Array(4, "DOLBY DIGITAL",  "", -1),
 				Array(5, "DTS SURROUND",  "", -1),
-				Array(6, "DOLBY PL2X C",  "", -1),
-				Array(7, "MCH STEREO",  "", -1),
-				Array(8, "ROCK ARENA",  "", -1),
-				Array(9, "JAZZ CLUB",  "", -1),
-				Array(10, "MONO MOVIE",  "", -1),
-				Array(11, "MATRIX",  "", -1),
-				Array(12, "VIDEO GAME",  "", -1),
-				Array(13, "VIRTUAL",  "", -1),
-				Array(14, "MULTI CH IN 7.1",  "", -1)
+				Array(6, "MCH STEREO",  "", -1),
+				Array(7, "WIDESCREEN",  "", -1),
+				Array(8, "SUPERSTADIUM",  "", -1),
+				Array(9, "ROCK ARENA",  "", -1),
+				Array(10, "JAZZ CLUB",  "", -1),
+				Array(11, "CLASSICCONCERT",  "", -1),
+				Array(12, "MONO MOVIE",  "", -1),
+				Array(13, "MATRIX",  "", -1),
+				Array(14, "VIDEO GAME",  "", -1),
+				Array(15, "VIRTUAL",  "", -1)
+				)
 			),
 			$this->ptSurroundPlayMode => array(
-				Array("Intensity", "", "", 0, 2, 1, 0),
+				"Ident" => DENON_API_Commands::PSMODE,
+				"Name" => "SurroundPlayMode",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
 				Array(0, "CINEMA",  "", -1),
 				Array(1, "MUSIC",  "", -1),
-				Array(2, "GAME",  "", -1)
+				Array(2, "GAME",  "", -1),
+				Array(3, "PRO LOGIC",  "", -1)
+				)
 			),
 			$this->ptMultiEQMode => array(
-				Array("Intensity", "", "", 0, 4, 1, 0),
+				"Ident" => DENON_API_Commands::PSMULTEQ,
+				"Name" = > "Multi EQ Mode"
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "AUDYSSEY",  "", -1),
 				Array(2, "BYP.LR",  "", -1),
 				Array(3, "FLAT",  "", -1),
 				Array(4, "MANUAL",  "", -1)
+				)
 			),
 			$this->ptAudioRestorer => array(
-				Array("Intensity", "", "", 0, 3, 1, 0),
+				"Ident" => DENON_API_Commands::PSRSTR,
+				"Name" => "Audio Restorer",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "Restorer 64",  "", -1),
 				Array(2, "Restorer 96",  "", -1),
 				Array(3, "Restorer HQ",  "", -1)
+				)
 			),
 			$this->ptDynamicVolume => array(
-				Array("Intensity", "", "", 0, 3, 1, 0),
+				"Ident" => DENON_API_Commands::PSDYNVOL,
+				"Name" => "Dynamic Volume",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "Midnight",  "", -1),
 				Array(2, "Evening",  "", -1),
 				Array(3, "Day",  "", -1)
+				)
 			),
 			$this->ptRoomSize => array(
-				Array("Intensity", "", "", 0, 5, 1, 0),
-				Array(0, "Neutral",  "", -1),
-				Array(1, "Small",  "", -1),
-				Array(2, "Small/Medium",  "", -1),
-				Array(3, "Medium",  "", -1),
-				Array(4, "Medium/Large",  "", -1),
-				Array(5, "Large",  "", -1)
+				"Ident" => DENON_API_Commands::PSRSZ,
+				"Name" => "Room Size"
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Associations" => Array(
+				Array(0, "Small",  "", -1),
+				Array(1, "Small/Medium",  "", -1),
+				Array(2, "Medium",  "", -1),
+				Array(3, "Medium/Large",  "", -1),
+				Array(4, "Large",  "", -1)
+				)
 			),
 			$this->ptDynamicCompressor => array(
-				Array("Intensity", "", "", 0, 3, 1, 0),
+				"Ident" => DENON_API_Commands::DCO,
+				"Name" => "Dynamic Compressor",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "LOW",  "", -1),
 				Array(2, "MID",  "", -1),
 				Array(3, "HIGH",  "", -1)
+				)
 			),
 			$this->ptDynamicRange => array(
-				Array("Intensity", "", "", 0, 4, 1, 0),
+				"Ident" => DENON_API_Commands::DRC,
+				"Name" => "",
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "AUTO",  "", -1),
 				Array(2, "LOW",  "", -1),
 				Array(3, "MID",  "", -1),
 				Array(4, "HI",  "", -1)
+				)
 			),
 			$this->ptVideoSelect => array(
-				Array("Intensity", "", "", 0, 8, 1, 0),
+				"Ident" => DENON_API_Commands::SV,
+				"Name" => "Video Select",
+				"Profilesettings" => Array("Intensity", "", "", 0, 8, 1, 0),
+				"Associations" => Array(
 				Array(0, "DVD",  "", -1),
 				Array(1, "BD",  "", -1),
 				Array(2, "TV",  "", -1),
@@ -273,31 +379,180 @@ class DENONIPSProfiles extends stdClass
 				Array(6, "V.AUX",  "", -1),
 				Array(7, "DOCK",  "", -1),
 				Array(8, "SOURCE",  "", -1)
+				)
 			),
 			$this->ptSurroundBackMode => array(
-				Array("Intensity", "", "", 0, 7, 1, 0),
+				"Ident" => DENON_API_Commands::PSSB,
+				"Name" => "Surround Back Mode",
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "ON",  "", -1),
 				Array(2, "MTRX ON",  "", -1),
 				Array(3, "PL2X CINEMA",  "", -1),
-				Array(4, "PL2X MUSIC",  "", -1),
-				Array(5, "ESDSCRT",  "", -1),
-				Array(6, "PESMTRX",  "", -1),
-				Array(7, "DSCRT ON",  "", -1)
+				Array(4, "PL2X MUSIC",  "", -1)
+				)
+			),
+			$this->ptHDMIMonitor => array(
+				"Ident" => DENON_API_Commands::VSMONI,
+				"Name" => "HDMI Monitor",
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Associations" => Array(
+				Array(0, "Auto",  "", -1),
+				Array(1, "Monitor 1",  "", -1),
+				Array(2, "Monitor 2",  "", -1)
+				)
+			),
+			$this->ptSurroundBackMode => array(
+				"Ident" => DENON_API_Commands::PSSB,
+				"Name" => "Surround Back Mode",
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Associations" => Array(
+				Array(0, "OFF",  "", -1),
+				Array(1, "ON",  "", -1),
+				Array(2, "MTRX ON",  "", -1),
+				Array(3, "PL2X CINEMA",  "", -1),
+				Array(4, "PL2X MUSIC",  "", -1)
+				)
+			),
+			$this->ptSpeakerOutputFront => array(
+				"Ident" => DENON_API_Commands::PSSP,
+				"Name" => "Speaker Output Front",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
+				Array(0, "Front Height",  "", -1),
+				Array(1, "Front Weight",  "", -1),
+				Array(2, "HW",  "", -1),
+				Array(3, "Off",  "", -1)
+				)
+			),
+			$this->ptReferenceLevel => array(
+				"Ident" => DENON_API_Commands::PSREFLEV,
+				"Name" => "Reference Level",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
+				Array(0, "Offset 0",  "", -1),
+				Array(1, "Offset 5",  "", -1),
+				Array(2, "Offset 10",  "", -1),
+				Array(3, "Offset 15",  "", -1)
+				)
+			),
+			$this->ptPLIIZHeightGain => array(
+				"Ident" => DENON_API_Commands::PSPHG,
+				"Name" => "PLIIZ Height Gain",
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Associations" => Array(
+				Array(0, "Low",  "", -1),
+				Array(1, "Mid",  "", -1),
+				Array(2, "High",  "", -1)
+				)
+			),
+			$this->ptDolbyVolumeModeler => array(
+				"Ident" => DENON_API_Commands::PSVOLMOD,
+				"Name" => "Dolby Volume Modeler",
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Associations" => Array(
+				Array(0, "Off",  "", -1),
+				Array(1, "Half",  "", -1),
+				Array(2, "Full",  "", -1)
+				)
+			),
+			$this->ptDolbyVolumeLeveler => array(
+				"Ident" => DENON_API_Commands::PSVOLLEV,
+				"Name" => "Dolby Volume Leveler",
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Associations" => Array(
+				Array(0, "Low",  "", -1),
+				Array(1, "Middle",  "", -1),
+				Array(2, "High",  "", -1)
+				)
+			),
+			$this->ptVideoProcessingMode => array(
+				"Ident" => DENON_API_Commands::VSVPM,
+				"Name" => "Video Processing Mode",
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Associations" => Array(
+				Array(0, "Auto",  "", -1),
+				Array(1, "Game",  "", -1),
+				Array(2, "Movie",  "", -1)
+				)
+			),
+			$this->ptHDMIAudioOutput => array(
+				"Ident" => DENON_API_Commands::VSAUDIO,
+				"Name" => "HDMI Audio Output",
+				"Profilesettings" => Array("Intensity", "", "", 0, 1, 1, 0),
+				"Associations" => Array(
+				Array(0, "TV",  "", -1),
+				Array(1, "AMP",  "", -1)
+				)
+			),
+			$this->ptResolutionHDMI => array(
+				"Ident" => DENON_API_Commands::VSSCH,
+				"Name" => "Resolution HDMI",
+				"Profilesettings" => Array("Intensity", "", "", 0, 5, 1, 0),
+				"Associations" => Array(
+				Array(0, "480p/576p",  "", -1),
+				Array(1, "1080i",  "", -1),
+				Array(2, "720p",  "", -1),
+				Array(3, "1080p",  "", -1),
+				Array(4, "1080p 24Hz",  "", -1),
+				Array(5, "Auto", "", -1)
+				)
+			),
+			$this->ptResolution => array(
+				"Ident" => DENON_API_Commands::VSSC,
+				"Name" => "Resolution",
+				"Profilesettings" => Array("Intensity", "", "", 0, 5, 1, 0),
+				"Associations" => Array(
+				Array(0, "480p/576p",  "", -1),
+				Array(1, "1080i",  "", -1),
+				Array(2, "720p",  "", -1),
+				Array(3, "1080p",  "", -1),
+				Array(4, "1080p 24Hz",  "", -1),
+				Array(5, "Auto", "", -1)
+				)
+			),
+			$this->ptASP => array(
+				"Ident" => DENON_API_Commands::VSASP,
+				"Name" => "ASP",
+				"Profilesettings" => Array("Intensity", "", "", 0, 1, 1, 0),
+				"Associations" => Array(
+				Array(0, "Normal",  "", -1),
+				Array(1, "Full",  "", -1)
+				)
+			),
+			$this->ptDNRDirectChange => array(
+				"Ident" => DENON_API_Commands::PVDNR,
+				"Name" => "DNR Direct Change",
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Associations" => Array(
+				Array(0, "OFF",  "", -1),
+				Array(1, "Low",  "", -1),
+				Array(2, "Middle",  "", -1),
+				Array(3, "High",  "", -1)
+				)
 			),
 			$this->ptInputMode => array(
-				Array("Database", "", "", 0, 3, 1, 0),
+				"Ident" => DENON_API_Commands::SD,
+				"Name" => "Input Mode",
+				"Profilesettings" => Array("Database", "", "", 0, 4, 1, 0),
+				"Associations" => Array(
 				Array(0, "AUTO",  "", -1),
 				Array(1, "HDMI",  "", -1),
 				Array(2, "DIGITAL",  "", -1),
-				Array(3, "ANALOG",  "", -1)
+				Array(3, "ANALOG",  "", -1),
+				Array(4, "Ext.IN",  "", -1),				
+				)
 			)
 		);
 		
 		$ProfilAssociationsZone2 = array
 		(
 			$this->ptZone2InputSource => array(
-				Array("Database", "", "", 0, 19, 1, 0),
+				"Ident" => DENON_API_Commands::Z2,
+				"Name" => "Zone 2 Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, 19, 1, 0),
+				"Associations" => Array(
 				Array(0, "Phono",  "", -1),
 				Array(1, "CD",  "", -1),
 				Array(2, "Tuner",  "", -1),
@@ -318,20 +573,29 @@ class DENONIPSProfiles extends stdClass
 				Array(17, "IRADIO",  "", -1),
 				Array(18, "SERVER",  "", -1),
 				Array(19, "USB/IPOD",  "", -1)
+				)
 			),
 			$this->ptZone2ChannelSetting => array(
-				Array("Database", "", "", 0, 1, 1, 0),
+				"Ident" => DENON_API_Commands::Z2CS,
+				"Name" => "",
+				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
+				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
 				Array(1, "Mono",  "", -1)
+				)
 			),
 			$this->ptZone2QuickSelect => array(
-				Array("Database", "", "", 0, 5, 1, 0),
+				"Ident" => DENON_API_Commands::Z2QUICK,
+				"Name" => "Zone 2 Quick Selektion",
+				"Profilesettings" => Array("Database", "", "", 0, 5, 1, 0),
+				"Associations" => Array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "QS 1",  "", -1),
 				Array(2, "QS 2",  "", -1),
 				Array(3, "QS 3",  "", -1),
 				Array(4, "QS 4",  "", -1),
 				Array(5, "QS 5",  "", -1)
+				)
 			)
 		);
 		
@@ -339,7 +603,10 @@ class DENONIPSProfiles extends stdClass
 		$ProfilAssociationsZone3 = array
 		(
 			$this->ptZone3InputSource => array(
-				Array("Database", "", "", 0, 19, 1, 0),
+				"Ident" => DENON_API_Commands::MN."xxxNavigation",
+				"Name" => "",
+				"Profilesettings" => Array("Database", "", "", 0, 19, 1, 0),
+				"Associations" => Array(
 				Array(0, "Phono",  "", -1),
 				Array(1, "CD",  "", -1),
 				Array(2, "Tuner",  "", -1),
@@ -360,20 +627,29 @@ class DENONIPSProfiles extends stdClass
 				Array(17, "IRADIO",  "", -1),
 				Array(18, "SERVER",  "", -1),
 				Array(19, "USB/IPOD",  "", -1)
+				)
 			),
 			$this->ptZone3ChannelSetting => array(
-				Array("Database", "", "", 0, 1, 1, 0),
+				"Ident" => DENON_API_Commands::MN."xxxNavigation",
+				"Name" => "",
+				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
+				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
 				Array(1, "Mono",  "", -1)
+				)
 			),
 			$this->ptZone3QuickSelect => array(
-				Array("Database", "", "", 0, 5, 1, 0),
+				"Ident" => DENON_API_Commands::MN."xxxNavigation",
+				"Name" => ""
+				"Profilesettings" => Array("Database", "", "", 0, 5, 1, 0),
+				"Associations" => Array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "QS 1",  "", -1),
 				Array(2, "QS 2",  "", -1),
 				Array(3, "QS 3",  "", -1),
 				Array(4, "QS 4",  "", -1),
 				Array(5, "QS 5",  "", -1)
+				)
 			)
 		);
 		
@@ -383,14 +659,26 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $profile)
 				{
-				   $pos = $this->getpos($profile);
-				   $profilefloat = array(
-				   "ProfilName" => $ptName,
-				   "Profile" => $profilvar,
-				   "Position" => $pos
+					$pos = $this->getpos($profile);
+				    $profilesettings = $profilvar["Profilesettings"];
+					$Ident = $profilvar["Ident"];
+					$Name = $profilvar["Name"];
+					$profileintegerass = array(
+					"ProfilName" => $ptName,
+					"Ident" => $Ident,
+					"Name" => $Name,
+					"Icon" => $profilesettings[0],
+					"Prefix" => $profilesettings[1],
+					"Suffix" => $profilesettings[2],
+					"MinValue" => $profilesettings[3],
+					"MaxValue" => $profilesettings[4],
+					"Stepsize" => $profilesettings[5],
+					"Digits" => $profilesettings[6],
+					"Associations" => $profilvar["Associations"],
+					"Position" => $pos
 				   );
 				   
-				   return $profilefloat;
+				   return $profileintegerass;
 				}
 
 			}	
@@ -401,14 +689,26 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $profile)
 				{
-				   $pos = $this->getpos($profile);
-				   $profilefloat = array(
-				   "ProfilName" => $ptName,
-				   "Profile" => $profilvar,
-				   "Position" => $pos
+					$pos = $this->getpos($profile);
+				    $profilesettings = $profilvar["Profilesettings"];
+					$Ident = $profilvar["Ident"];
+					$Name = $profilvar["Name"];
+					$profileintegerass = array(
+					"ProfilName" => $ptName,
+					"Ident" => $Ident,
+					"Name" => $Name,
+					"Icon" => $profilesettings[0],
+					"Prefix" => $profilesettings[1],
+					"Suffix" => $profilesettings[2],
+					"MinValue" => $profilesettings[3],
+					"MaxValue" => $profilesettings[4],
+					"Stepsize" => $profilesettings[5],
+					"Digits" => $profilesettings[6],
+					"Associations" => $profilvar["Associations"],
+					"Position" => $pos
 				   );
 				   
-				   return $profilefloat;
+				   return $profileintegerass;
 				}
 
 			}	
@@ -419,14 +719,26 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $profile)
 				{
-				   $pos = $this->getpos($profile);
-				   $profilefloat = array(
-				   "ProfilName" => $ptName,
-				   "Profile" => $profilvar,
-				   "Position" => $pos
+					$pos = $this->getpos($profile);
+				    $profilesettings = $profilvar["Profilesettings"];
+					$Ident = $profilvar["Ident"];
+					$Name = $profilvar["Name"];
+					$profileintegerass = array(
+					"ProfilName" => $ptName,
+					"Ident" => $Ident,
+					"Name" => $Name,
+					"Icon" => $profilesettings[0],
+					"Prefix" => $profilesettings[1],
+					"Suffix" => $profilesettings[2],
+					"MinValue" => $profilesettings[3],
+					"MaxValue" => $profilesettings[4],
+					"Stepsize" => $profilesettings[5],
+					"Digits" => $profilesettings[6],
+					"Associations" => $profilvar["Associations"],
+					"Position" => $pos
 				   );
 				   
-				   return $profilefloat;
+				   return $profileintegerass;
 				}
 
 			}	
@@ -439,36 +751,60 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profiles = array(
-		$this->ptMasterVolume => array(DENON_API_Commands::MV."xxxMasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL."xxxChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR."xxxChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC."xxxChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW."xxxChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2."xxxChannelVolumeSW2", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL."xxxChannelVolumeSL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR."xxxChannelVolumeSR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL."xxxChannelVolumeSBL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR."xxxChannelVolumeSBR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSB => array(DENON_API_Commands::CVSB."xxxChannelVolumeSB", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL."xxxChannelVolumeFHL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR."xxxChannelVolumeFHR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL."xxxChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR."xxxChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL."xxxAudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
-		$this->ptLFELevel => array(DENON_API_Commands::PSLFE."xxxLFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
-		$this->ptBassLevel => array(DENON_API_Commands::PSBAS."xxxBassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
-		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE."xxxTrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0)
+		$this->ptMasterVolume => array(DENON_API_Commands::MV, "MasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "ChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "ChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW, "ChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2, "ChannelVolumeSW2", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL, "ChannelVolumeSL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR, "ChannelVolumeSR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL, "ChannelVolumeSBL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR, "ChannelVolumeSBR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSB => array(DENON_API_Commands::CVSB, "ChannelVolumeSB", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL, "ChannelVolumeFHL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR, "ChannelVolumeFHR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL, "ChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR, "ChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL, "AudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
+		$this->ptLFELevel => array(DENON_API_Commands::PSLFE, "LFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
+		$this->ptBassLevel => array(DENON_API_Commands::PSBAS, "BassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
+		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE, "TrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
+		$this->ptCenterWidth => array(DENON_API_Commands::PSDCO, "CenterWidth", "Intensity",  "", "", 0, 7, 1, 0),
+		$this->ptEffectLevel => array(DENON_APT_Commands::PSEFF, "EffectLevel", "Intensity", "", "", 0, 15, 1, 0),
+		$this->ptCenterImage => array(DENON_APT_Commands::PSCEN, "CenterImage", "Intensity", "", "", 0.0, 1.0, 0.1, 0),
+		$this->ptContrast => array(DENON_APT_Commands::PVCN, "Contrast", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptBrightness => array(DENON_APT_Commands::PVBR, "Brightness", "Intensity", "", "", 0, 12, 1, 0),
+		$this->ptChromalevel => array(DENON_APT_Commands::PVCM, "Chromalevel", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptHue => array(DENON_APT_Commands::PVHUE, "Hue", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptEnhancer => array(DENON_APT_Commands::PVENH, "Enhancer", "Intensity", "", "", 0, 12, 1, 0),
+		$this->ptStageHeight => array(DENON_APT_Commands::PSSTH, "StageHeight", "Intensity", "", "", -10, 10, 1, 0),
+		$this->ptStageWidth => array(DENON_APT_Commands::PSSTW, "StageWidth", "Intensity", "", "", -10, 10, 1, 0)
+
+
 		);
 		
 		foreach($profiles as $ptName => $profilvar)
 		{
 			if($ptName == $profile)
 			{
-			   $pos = $this->getpos($profile);
-			   $profilefloat = array(
-			   "ProfilName" => $ptName,
-			   "Profile" => $profilvar,
-			   "Position" => $pos
+				$pos = $this->getpos($profile);
+				$Ident = $profilvar[0];
+				$Name = $profilvar[1];
+				$profilefloat = array(
+				"ProfilName" => $ptName,
+				"Name" => $Name,
+				"Ident" => $Ident,
+				"Icon" => $profilvar[2];
+				"Prefix" => $profilvar[3];
+				"Suffix" => $profilvar[4];
+				"MinValue" => $profilvar[5];
+				"MaxValue" => $profilvar[6];
+				"Stepsize" => $profilvar[7];
+				"Digits" => $profilvar[8];
+				"Position" => $pos
+			   
+			   
 			   );
 			   
 			   return $profilefloat;
@@ -477,40 +813,6 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 
-	// Anlegen der Unterschiedlichen Profiltypen
-	/* Profile anlegen
-	* Erstellen von Variablenprofile mit Namenspräfix "DENON."	
-	* RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
-	* RegisterProfileIntegerDenonAss($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen, $Associations);
-	* $Associations Value, Association, Icon, Color
-	* RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
-	* RegisterProfilFloatDenonAss($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen, $Associations)
-	* RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Nachkommastellen);
-	*/
-	
-	
-	//RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) bisher wird nur Name Min max stepsize verwendet
-	/*
-	foreach (IPSProfiles::$ProfilInteger as $Profile => $Size)
-        {
-            $this->RegisterProfileInteger($Profile, "", "", "", $Size[0], $Size[1], $Size[2]);
-        }
-					$MasterVolumeId = $this->RegisterVariableFloat("MasterVolume", "MasterVolume", $Name, 10);
-			
-
-	*/
-
-	
-	
-	
-	
-	//RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) bisher wird nur Name und Associations ausgelesen
-	/*
-	foreach (IPSProfiles::$ProfilAssociations as $Profile => $Association)
-        {
-            $this->RegisterProfileIntegerEx($Profile, "", "", "", $Association);
-        }
-	*/
 	
 	
 	
@@ -579,6 +881,38 @@ class DENONIPSProfiles extends stdClass
 							$this->ptZone3ChannelVolumeFL => 68,
 							$this->ptZone3ChannelVolumeFR => 69,
 							$this->ptZone3QuickSelect => 70,
+							$this->ptNavigation => 71,
+							$this->ptContrast => 72,
+							$this->ptBrightness => 73,
+							$this->ptChromalevel => 74,
+							$this->ptHue => 75,
+							$this->ptEnhancer => 76,
+							$this->ptSubwoofer => 77,
+							$this->ptSubwooferATT => 78,
+							$this->ptDNRDirectChange => 79,
+							$this->ptEffect => 80,
+							$this->ptAFDM => 81,
+							$this->ptEffectLevel => 82,
+							$this->ptDimension => 83,
+							$this->ptCenterImage => 84,
+							$this->ptStageWidth => 85,
+							$this->ptStageHeight => 86,
+							$this->ptAudysseyDSX => 87,
+							$this->ptReferenceLevel => 88,
+							$this->ptDRCDirectChange => 89,
+							$this->ptSpeakerOutputFront => 90,
+							$this->ptDCOMPDirectChange => 91,
+							$this->ptHDMIMonitor => 92,
+							$this->ptASP => 93,
+							$this->ptResolution => 94,
+							$this->ptResolutionHDMI => 95,
+							$this->ptHDMIAudioOutput => 96,
+							$this->ptVideoProcessingMode => 97,
+							$this->ptDolbyVolumeLeveler => 98,
+							$this->ptDolbyVolumeModeler => 99,
+							$this->ptPLIIZHeightGain => 100,
+							$this->ptVerticalStretch => 101,
+							$this->ptDolbyVolume => 102
 							
 							
 						);
@@ -605,7 +939,20 @@ class DENON_Zone extends stdClass
         DENON_Zone::Mainzone => array(
             DENON_API_Commands::PW,
 			DENON_API_Commands::MV,
-			DENON_API_Commands::CV,
+			DENON_API_Commands::CVFL,
+			DENON_API_Commands::CVFR,
+			DENON_API_Commands::CVC,
+			DENON_API_Commands::CVSW,
+			DENON_API_Commands::CVSW2,
+			DENON_API_Commands::CVSL,
+			DENON_API_Commands::CVSR,
+			DENON_API_Commands::CVSBL,
+			DENON_API_Commands::CVSBR,
+			DENON_API_Commands::CVSB,
+			DENON_API_Commands::CVFHL,
+			DENON_API_Commands::CVFHR,
+			DENON_API_Commands::CVFWL,
+			DENON_API_Commands::CVFWR,
 			DENON_API_Commands::MU,
 			DENON_API_Commands::SI,
 			DENON_API_Commands::ZM,
@@ -614,9 +961,57 @@ class DENON_Zone extends stdClass
 			DENON_API_Commands::SV,
 			DENON_API_Commands::SLP,
 			DENON_API_Commands::MS,
-			DENON_API_Commands::VS,
-			DENON_API_Commands::PS,
-            DENON_API_Commands::PV
+			DENON_API_Commands::MSQUICK,
+			DENON_API_Commands::MSQUICKMEMORY,			
+			DENON_API_Commands::PSATT,
+			DENON_API_Commands::VSASP,
+			DENON_API_Commands::VSSC,
+			DENON_API_Commands::VSSCH,
+			DENON_API_Commands::VSAUDIO,
+			DENON_API_Commands::VSMONI,
+			DENON_API_Commands::VSVPM,
+			DENON_API_Commands::VSVST,
+			DENON_API_Commands::PSTONE,
+			DENON_API_Commands::PSSB,
+			DENON_API_Commands::PSCINEMAEQ,
+			DENON_API_Commands::PSMODE,
+			DENON_API_Commands::PSDOLVOL,
+			DENON_API_Commands::PSVOLLEV,
+			DENON_API_Commands::PSVOLMOD,
+			DENON_API_Commands::PSFH,
+			DENON_API_Commands::PSPHG,
+			DENON_API_Commands::PSSP,
+			DENON_API_Commands::PSMULTEQ,
+			DENON_API_Commands::PSDYNEQ,
+			DENON_API_Commands::PSREFLEV,
+			DENON_API_Commands::PSDYNVOL,
+			DENON_API_Commands::PSDSX,
+			DENON_API_Commands::PSSTW,
+			DENON_API_Commands::PSSTH,
+			DENON_API_Commands::PSBAS,
+			DENON_API_Commands::PSTRE,
+			DENON_API_Commands::PSDRC,
+			DENON_API_Commands::PSDCO,
+			DENON_API_Commands::PSLFE,
+			DENON_API_Commands::PSEFF,
+			DENON_API_Commands::PSDEL,
+			DENON_API_Commands::PSAFD,
+			DENON_API_Commands::PSPAN,
+			DENON_API_Commands::PSDIM,
+			DENON_API_Commands::PSCEN,
+			DENON_API_Commands::PSCEI,
+			DENON_API_Commands::PSRSTR,
+			DENON_API_Commands::PSRSZ,
+			DENON_API_Commands::PSSWR,
+			DENON_API_Commands::PSATT,			
+            DENON_API_Commands::PVCN,
+            DENON_API_Commands::PVBR,
+            DENON_API_Commands::PVCM,
+            DENON_API_Commands::PVHUE,
+            DENON_API_Commands::PVDNR,
+            DENON_API_Commands::PVENH,
+			DENON_API_Commands::MN
+
         ),
         DENON_Zone::Zone2 => array(
             DENON_API_Commands::Z2,
@@ -663,7 +1058,22 @@ class DENON_API_Commands extends stdClass
 //MAIN Zone
     const PW = "PW"; // Power
     const MV = "MV"; // Master Volume
-	const CV = "CV"; // Channel Volume
+	//const CV = "CV"; // Channel Volume
+	//CV
+	const CVFL = "CVFL "; // Channel Volume Front Left
+	const CVFR = "CVFR "; // Channel Volume Front Right
+	const CVC = "CVC "; // Channel Volume Center
+	const CVSW = "CVSW "; // Channel Volume Subwoofer
+	const CVSW2 = "CVSW2 "; // Channel Volume Subwoofer2
+	const CVSL = "CVSL "; // Channel Volume Surround Left
+	const CVSR = "CVSR "; // Channel Volume Surround Right
+	const CVSBL = "CVSBL "; // Channel Volume Surround Back Left
+	const CVSBR = "CVSBR "; // Channel Volume Surround Back Right
+	const CVSB = "CVSB "; // Channel Volume Surround Back
+	const CVFHL = "FHL "; // Channel Volume Front Height Left
+	const CVFHR = "FHR "; // Channel Volume Front Height Right
+	const CVFWL = "FWL "; // Channel Volume Front Wide Left
+	const CVFWR = "FWR "; // Channel Volume Front Wide Right
 	const MU = "MU"; // Volume Mute
 	const SI = "SI"; // Select
 	const ZM = "ZM"; // Main Zone
@@ -672,9 +1082,61 @@ class DENON_API_Commands extends stdClass
 	const SV = "SV"; // Video Select
 	const SLP = "SLP"; // Main Zone Sleep Timer
 	const MS = "MS"; // Select Surround Mode
-	const VS = "VS"; // Select Video Mode
-	const PS = "PS"; // Parameter Setting
-	const PV = "PV"; // Parameter Video
+	const MSQUICK = "QUICK"; // Quick Select Mode Select
+	const MSQUICKMEMORY = "QUICK"; // Quick Select Mode Memory
+	const MN = "MN" //Navigation
+	
+	//VS
+	const VSASP = "VSASP"; // ASP
+	const VSSC = "VSSC"; // Set Resolution
+	const VSSCH = "VSSCH"; // Set Resolution HDMI
+	const VSAUDIO = "VSAUDIO"; // Set HDMI Audio Output
+	const VSMONI = "VSMONI"; // Set HDMI Monitor
+	const VSVPM = "VSVPM"; // Set Video Processing Mode
+	const VSVST = "VSVST"; // Set Vertical Stretch
+	//PS
+	const PSATT = "PSATT"; // SW ATT
+	const PSTONE = "PSTONE"; // Tone Control
+	const PSSB = "PSSB"; // Surround Back SP Mode
+	const PSCINEMAEQ = "CINEMA EQ"; // Cinema EQ
+	const PSMODE = "PSMODE:"; // Mode Music
+	const PSDOLVOL = "PSDOLVOL"; // Dolby Volume direct change
+	const PSVOLLEV = "PSVOLLEV"; // Dolby Volume Leveler direct change
+	const PSVOLMOD = "PSVOLMOD"; // Dolby Volume Modeler direct change
+	const PSFH = "PSFH:"; // FRONT HEIGHT
+	const PSPHG = "PSPHG"; // PL2z HEIGHT GAIN direct change
+	const PSSP = "PSSP:"; // Speaker Output set
+	const PSMULTEQ = "PSMULTEQ:"; // MultEQ XT 32 mode direct change
+	const PSDYNEQ = "PSDYNEQ"; // Dynamic EQ
+	const PSREFLEV = "PSREFLEV"; // Reference Level Offset
+	const PSDYNVOL = "PSDYNVOL"; // Dynamic Volume
+	const PSDSX = "PSDSX"; // Audyssey DSX ON
+	const PSSTW = "PSSTW"; // STAGE WIDTH
+	const PSSTH = "PSSTH"; // STAGE HEIGHT
+	const PSBAS = "PSBAS"; // BASS
+	const PSTRE = "PSTRE"; // TREBLE
+	const PSDRC = "PSDRC"; // DRC direct change
+	const PSDCO = "PSDCO"; // D.COMP direct change	
+	const PSLFE = "PSLFE"; // LFE
+	const PSEFF = "PSEFF"; // EFFECT direct change	
+	const PSDEL = "PSDEL"; // DELAY	
+	const PSAFD = "PSAFD"; // AFDM	
+	const PSPAN = "PSPAN"; // PANORAMA	
+	const PSDIM = "PSDIM"; // DIMENSION	
+	const PSCEN = "PSCEN"; // CENTER WIDTH	
+	const PSCEI = "PSCEI"; // CENTER IMAGE
+	const PSRSTR = "PSRSTR"; //Audio Restorer
+	const PSRSZ = "PSRSZ"; //Room Size
+	const PSSWR = "PSSWR"; //Subwoofer
+	const PSATT = "PSATT"; //Subwoofer ATT
+	
+	//PV
+	const PVCN = "PVCN"; // Contrast
+	const PVBR = "PVBR"; // Brightness
+	const PVCM = "PVCM"; // Chroma
+	const PVHUE = "PVHUE"; // Hue
+	const PVDNR = "PVDNR"; // DNR direct change
+	const PVENH = "PVENH"; // Enhancer
 	
 	const SR = " ?"; //Status Request
 	
@@ -717,21 +1179,7 @@ class DENON_API_Commands extends stdClass
 	const UP = "UP"; // Master Volume Up
 	const DOWN = "DOWN"; // Master Volume Down
 	
-	//CV
-	const CVFL = "CVFL "; // Channel Volume Front Left
-	const CVFR = "CVFR "; // Channel Volume Front Right
-	const CVC = "CVC "; // Channel Volume Center
-	const CVSW = "CVSW "; // Channel Volume Subwoofer
-	const CVSW2 = "CVSW2 "; // Channel Volume Subwoofer2
-	const CVSL = "CVSL "; // Channel Volume Surround Left
-	const CVSR = "CVSR "; // Channel Volume Surround Right
-	const CVSBL = "CVSBL "; // Channel Volume Surround Back Left
-	const CVSBR = "CVSBR "; // Channel Volume Surround Back Right
-	const CVSB = "CVSB "; // Channel Volume Surround Back
-	const CVFHL = "FHL "; // Channel Volume Front Height Left
-	const CVFHR = "FHR "; // Channel Volume Front Height Right
-	const CVFWL = "FWL "; // Channel Volume Front Wide Left
-	const CVFWR = "FWR "; // Channel Volume Front Wide Right
+	
 	/*
 	const FL_UP = "FL UP"; // Channel Volume Front Left Up
 	const FL_DOWN = "FL DOWN"; // Channel Volume Front Left Down
@@ -829,13 +1277,14 @@ class DENON_API_Commands extends stdClass
 	const MATRIX = "MATRIX"; // Matrix Mode
 	const VIDEOGAME = "VIDEO GAME"; // Video Game Mode
 	const VIRTUAL = "VIRTUAL"; // Virtual Mode
-	const MSQUICK = "QUICK"; // Quick Select Mode Select
+	//Quick Select Mode
 	const QUICK1 = "1"; // Quick Select 1 Mode Select
 	const QUICK2 = "2"; // Quick Select 2 Mode Select
 	const QUICK3 = "3"; // Quick Select 3 Mode Select
 	const QUICK4 = "4"; // Quick Select 4 Mode Select
 	const QUICK5 = "5"; // Quick Select 5 Mode Select
-	const MSQUICKMEMORY = "QUICK"; // Quick Select Mode Memory
+	
+	//MSQUICKMEMORY
 	const QUICK1MEMORY = "1 MEMORY"; // Quick Select 1 Mode Memory
 	const QUICK2MEMORY = "2 MEMORY"; // Quick Select 2 Mode Memory
 	const QUICK3MEMORY = "3 MEMORY"; // Quick Select 3 Mode Memory
@@ -844,7 +1293,7 @@ class DENON_API_Commands extends stdClass
 	const QUICK = "QUICK ?"; // QUICK ? Return MSQUICK Status
 	
 	//VS
-	const PSMONI = "PSMONI"; // Set HDMI Monitor
+	//VSMONI Set HDMI Monitor
 	const MONI1 = "1"; // 1
 	const MONI2 = "2"; // 2
 	/*
@@ -854,12 +1303,12 @@ class DENON_API_Commands extends stdClass
 	const MONI = "MONI ?"; // MONI ? Return VSMONI Status
 	*/
 	
-	const PSASP = "PSASP"; // 
+	//VSASP
 	const ASPNRM = "NRM"; // Set Normal Mode
 	const ASPFUL = "FUL"; // Set Full Mode
 	const ASP = " ?"; // ASP ? Return VSASP Status
 	
-	const PSSC = "PSSC"; // Set Resolution
+	//VSSC Set Resolution
 	const SC48P = "48P"; // Set Resolution to 480p/576p
 	const SC10I = "10I"; // Set Resolution to 1080i
 	const SC72P = "72P"; // Set Resolution to 720p
@@ -868,7 +1317,7 @@ class DENON_API_Commands extends stdClass
 	const SCAUTO = "AUTO"; // Set Resolution to Auto
 	const SC = " ?"; // SC ? Return VSSC Status
 	
-	const PSSCH = "PSSCH"; // Set Resolution HDMI
+	//VSSCH Set Resolution HDMI
 	const SCH48P = "48P"; // Set Resolution to 480p/576p HDMI
 	const SCH10I = "10I"; // Set Resolution to 1080i HDMI
 	const SCH72P = "72P"; // Set Resolution to 720p HDMI
@@ -877,83 +1326,83 @@ class DENON_API_Commands extends stdClass
 	const SCHAUTO = "AUTO"; // Set Resolution to Auto HDMI
 	const SCH = " ?"; // SCH ? Return VSSCH Status(HDMI)
 	
-	const PSAUDIO = "AUDIO"; // Set HDMI Audio Output
+	//VSAUDIO Set HDMI Audio Output
 	const AUDIOAMP = " AMP"; // Set HDMI Audio Output to AMP
 	const AUDIOTV = " TV"; // Set HDMI Audio Output to TV
 	const AUDIO = " ?"; // AUDIO ? Return VSAUDIO Status
 	
-	const PSVPM = "PSVPM"; // Set Video Processing Mode
+	//VSVPM Set Video Processing Mode
 	const VPMAUTO = "AUTO"; // Set Video Processing Mode to Auto
 	const VPGAME = "GAME"; // Set Video Processing Mode to Game
 	const VPMOVI = "OVI"; // Set Video Processing Mode to Movie
 	const VPM = " ?"; // VPM ? Return VSVPM Status
 	
-	const PSVST = "PSVST"; // Set Vertical Stretch
+	//VSVST Set Vertical Stretch
 	const VSTON = " ON"; // Set Vertical Stretch On
 	const VSTOFF = " OFF"; // Set Vertical Stretch Off 
 	const VST = " ?"; // VST ? Return VSVST Status
 	
 	//PS Parameter
-	const PSTONE = "PSTONE"; // Tone Control
+	//PSTONE Tone Control
 	const TONECTRLON = " CTRL ON"; // Tone Control On
 	const TONECTRLOFF = " CTRL OFF"; // Tone Control Off
 	const TONECTRL = " CTRL ?"; // TONE CTRL ? Return PSTONE CONTROL Status
 	
-	const PSSB = "PSSB"; // Surround Back SP Mode
+	//PSSB Surround Back SP Mode
 	const SBMTRXON = ":MTRX ON"; // Surround Back SP Mode Matrix
 	const SBPL2XCINEMA = ":PL2X CINEMA"; // Surround Back SP Mode	PL2X Cinema
 	const SBPL2XMUSIC = ":PL2X MUSIC"; // Surround Back SP Mode	PL2X Music
 	const SBON = ":ON"; // Surround Back SP Mode on
 	const SBOFF = ":OFF"; // Surround Back SP Mode off
 	
-	const PSCINEMAEQ = "CINEMA EQ"; // Cinema EQ
+	//PSCINEMAEQ Cinema EQ
 	const CINEMAEQON = ".ON"; // Cinema EQ on
 	const CINEMAEQOFF = ".OFF"; // Cinema EQ off
 	const CINEMAEQ = ". ?"; // Return PSCINEMA EQ.Status
 	
-	const PSMODE = "PSMODE:"; // Mode Music
+	//PSMODE Mode Music
 	const MODEMUSIC = "MUSIC"; // Mode Music CINEMA / MUSIC / GAME / PL mode change
 	const MODECINEMA = "CINEMA"; // This parameter can change DOLBY PL2,PL2x,NEO:6 mode.
 	const MODEGAME = "GAME"; // SB=ON：PL2x mode / SB=OFF：PL2 mode GAME can change DOLBY PL2 & PL2x mode PSMODE:PRO LOGIC
 	const MODEPROLOGIC = "PRO LOGIC"; // PL can change ONLY DOLBY PL2 mode
 	const MODE = " ?"; // Return PSMODE: Status
 	
-	const PSDOLVOL = "PSDOLVOL"; // Dolby Volume direct change
+	//PSDOLVOL Dolby Volume direct change
 	const DOLVOLON = " ON"; // Dolby Volume direct change on
 	const DOLVOLOFF = " OFF"; // Dolby Volume direct change off
 	const DOLVOL = " ?"; // Return PSDOLVOL Status
 	
-	const PSVOLLEV = "PSVOLLEV"; // Dolby Volume Leveler direct change
+	//PSVOLLEV Dolby Volume Leveler direct change
 	const VOLLEVLOW = " LOW"; // Dolby Volume Leveler direct change Low
 	const VOLLEVMID = " MID"; // Dolby Volume Leveler direct change Middle
 	const VOLLEVHI = " HI"; // Dolby Volume Leveler direct change High
 	const VOLLEV = " ?"; // Return PSVOLLEV Status
 	
-	const PSVOLMOD = "PSVOLMOD"; // Dolby Volume Modeler direct change
+	// PSVOLMOD Dolby Volume Modeler direct change
 	const VOLMODHLF = " HLF"; // Dolby Volume Modeler direct change half
 	const VOLMODFUL = " FUL"; // Dolby Volume Modeler direct change full
 	const VOLMODOFF = " OFF"; // Dolby Volume Modeler direct change off
 	const VOLMOD = " ?"; // Return PSVOLMOD Status
 
-	const PSFH = "PSFH:"; // FRONT HEIGHT
+	//PSFH Front Height
 	const FHON = "ON"; // FRONT HEIGHT ON
 	const FHOFF = "OFF"; // FRONT HEIGHT OFF
 	const FH = " ?"; // Return PSFH: Status
 	
-	const PSPHG = "PSPHG"; // PL2z HEIGHT GAIN direct change
+	//PSPHG PL2z Height Gain direct change
 	const PHGLOW = " LOW"; // PL2z HEIGHT GAIN direct change low
 	const PHGMID = " MID"; // PL2z HEIGHT GAIN direct change middle
 	const PHGHI = " HI"; // PL2z HEIGHT GAIN direct change high
 	const PHG = " ?"; // Return PSPHG Status
 	
-	const PSSP = "PSSP:"; // Speaker Output set
+	//PSSP Speaker Output set
 	const SPFH = "FH"; // Speaker Output set FH
 	const SPFW = "FW"; // Speaker Output set FW
 	const SPHW = "HW"; // Speaker Output set HW
 	const SPOFF = "OFF"; // Speaker Output set off
 	const SP = " ?"; // Return PSSP: Status
 
-	const PSMULTEQ = "PSMULTEQ:"; // MultEQ XT 32 mode direct change
+	// MulEQ XT 32 mode direct change
 	const MULTEQAUDYSSEY = "AUDYSSEY"; // MultEQ XT 32 mode direct change MULTEQ:AUDYSSEY
 	const MULTEQBYPLR = "BYP.LR"; // MultEQ XT 32 mode direct change MULTEQ:BYP.LR
 	const MULTEQFLAT = "FLAT"; // MultEQ XT 32 mode direct change MULTEQ:FLAT
@@ -961,52 +1410,52 @@ class DENON_API_Commands extends stdClass
 	const MULTEQOFF = "OFF"; // MultEQ XT 32 mode direct change MULTEQ:OFF
 	const MULTEQ = " ?"; // Return PSMULTEQ: Status
 	
-	const PSDYNEQ = "PSDYNEQ"; // Dynamic EQ
+	//PSDYNEQ Dynamic EQ
 	const DYNEQON = " ON"; // Dynamic EQ = ON
 	const DYNEQOFF = " OFF"; // Dynamic EQ = OFF
 	const DYNEQ = " ?"; // Return PSDYNEQ Status
 	
-	const PSREFLEV = "PSREFLEV"; // Reference Level Offset
+	//PSREFLEV Reference Level Offset
 	const REFLEV0 = " 0"; // Reference Level Offset=0dB
 	const REFLEV5 = " 5"; // Reference Level Offset=5dB
 	const REFLEV10 = " 10"; // Reference Level Offset=10dB
 	const REFLEV15 = " 15"; // Reference Level Offset=15dB
 	const REFLEV = " ?"; // Return PSREFLEV Status
 	
-	const PSDYNVOL = "PSDYNVOL"; // Dynamic Volume
+	//PSDYNVOL Dynamic Volume
 	const DYNVOLNGT = " NGT"; // Dynamic Volume = Midnight
 	const DYNVOLEVE = " EVE"; // Dynamic Volume = Evening
 	const DYNVOLDAY = " DAY"; // Dynamic Volume = Day
 	const DYNVOL = " ?"; // Return PSDYNVOL Status
 	
-	const PSDSX = "PSDSX"; // Audyssey DSX ON
+	//PSDSX Audyssey DSX ON
 	const DSXONHW = " ONHW"; // Audyssey DSX ON(Height/Wide)
 	const DSXONH = " ONH"; // Audyssey DSX ON(Height)
 	const DSXONW = " ONW"; // Audyssey DSX ON(Wide)
 	const DSXOFF = " OFF"; // Audyssey DSX OFF
 	const DSX = " ?"; // Return PSDSX Status
 	
-	const PSSTW = "PSSTW"; // STAGE WIDTH
+	//PSSTW Stage Width
 	const STWUP = " UP"; // STAGE WIDTH UP
 	const STWDOWN = " DOWN"; // STAGE WIDTH DOWN
 	const STW = " "; // STAGE WIDTH ** ---AVR-4311 can be operated from -10 to +10
 	
-	const PSSTH = "PSSTH"; // STAGE HEIGHT
+	//PSSTH Stage Height
 	const STHUP = " UP"; // STAGE HEIGHT UP
 	const STHDOWN = " DOWN"; // STAGE HEIGHT DOWN
 	const STH = " "; // STAGE HEIGHT ** ---AVR-4311 can be operated from -10 to +10
 	
-	const PSBAS = "PSBAS"; // BASS
+	//PSBAS Bass
 	const BASUP = " UP"; // BASS UP
 	const BASDOWN = " DOWN"; // BASS DOWN
 	const BAS = " "; // BASS ** ---AVR-4311 can be operated from -6 to +6
 	
-	const PSTRE = "PSTRE"; // TREBLE
+	//PSTRE Treble
 	const TREUP = " UP"; // TREBLE UP
 	const TREDOWN = " DOWN"; // TREBLE DOWN
 	const TRE = " "; // TREBLE ** ---AVR-4311 can be operated from -6 to +6
 	
-	const PSDRC = "PSDRC"; // DRC direct change
+	//PSDRC DRC direct change
 	const DRCAUTO = " AUTO"; // DRC direct change
 	const DRCLOW = " LOW"; // DRC Low
 	const DRCMID = " MID"; // DRC Middle
@@ -1014,57 +1463,72 @@ class DENON_API_Commands extends stdClass
 	const DRCOFF = "OFF"; // DRC off
 	const DRC = " ?"; // Return PSDRC Status
 	
-	const PSDCO = "PSDCO"; // D.COMP direct change
+
+	//PSDCO D.Comp direct change
 	const DCOOFF = " OFF"; // D.COMP direct change
 	const DCOLOW = " LOW"; // D.COMP Low
 	const DCOMID = " MID"; // D.COMP Middle
 	const DCOHIGH = " HIGH"; // D.COMP High
 	const DCO = " ?"; // Return PSDCO Status
-	
-	const PSLFE = "PSLFE"; // LFE
+
+	//PSLFE LFE	
 	const LFEDOWN = " DOWN"; // LFE DOWN
 	const LFEUP = " UP"; // LFE UP
 	const LFE = " "; // LFE ** ---AVR-4311 can be operated from 0 to -10
-	
-	const PSEFF = "PSEFF"; // EFFECT direct change
+
+
+	//PSEFF Effect direct change
 	const EFFON = " ON"; // EFFECT ON direct change
 	const EFFOFF = " OFF"; // EFFECT OFF direct change
 	
 	const EFFUP = " UP"; // EFFECT UP direct change
 	const EFFDOWN = " DOWN"; // EFFECT DOWN direct change
 	const EFF = " "; // EFFECT ** ---AVR-4311 can be operated from 1 to 15
-	
-	const PSDEL = "PSDEL"; // DELAY
+
+
+	//PSDEL Delay
 	const DELUP = " UP"; // DELAY UP
 	const DELDOWN = " DOWN"; // DELAY DOWN
 	const DEL = " "; // DELAY ** ---AVR-4311 can be operated from 0 to 300
-	
-	const PSAFD = "PSAFD"; // AFDM
+
+	//PSAFD AFDM
 	const AFDON = " ON"; // AFDM ON
 	const AFDOFF = " OFF"; // AFDM OFF
 	const AFD = " "; // Return PSAFD Status
-	
-	const PSPAN = "PSPAN"; // PANORAMA
+
+
+	//PSPAN Panorama
 	const PANON = "PAN ON"; // PANORAMA ON
 	const PANOFF = "PAN OFF"; // PANORAMA OFF
 	const PAN = "PAN ?"; // Return PSPAN Status
-	
-	const PSDIM = "PSDIM"; // DIMENSION
+
+
+	//PSDIM Dimension
 	const DIMUP = " UP"; // DIMENSION UP
 	const DIMDOWN = " DOWN"; // DIMENSION DOWN
 	const DIM = " "; // ---AVR-4311 can be operated from 0 to 6
-	
-	const PSCEN = "PSCEN"; // CENTER WIDTH
+
+
+	//PSCEN Center Width
 	const CENUP = "CEN UP"; // CENTER WIDTH UP
 	const CENDOWN = "CEN DOWN"; // CENTER WIDTH DOWN
 	const CEN = "CEN "; // ---AVR-4311 can be operated from 0 to 7
-	
-	const PSCEI = "PSCEI"; // CENTER IMAGE
+
+	//PSCEI Center Image
 	const CEIUP = "CEI UP"; // CENTER IMAGE UP
 	const CEIDOWN = "CEI DOWN"; // CENTER IMAGE DOWN
 	const CEI = "CEI "; // ---AVR-4311 can be operated from 0 to 7
 	
-	const PSATT = "PSATT"; // SW ATT
+	
+	//PSRSZ Room Size
+	const RSZS = " S";
+	const RSZMS = " MS";
+	const RSZM = " M";
+	const RSZML = " ML";
+	const RSZL = " L";
+	
+	
+	//SW ATT
 	const ATTON = "ATT ON"; // SW ATT ON
 	const ATTOFF = "ATT OFF"; // SW ATT OFF
 	const ATT = "ATT ?"; // Return PSATT Status
@@ -1087,13 +1551,6 @@ class DENON_API_Commands extends stdClass
             DENON_Zone::Zone3 => DENON_API_Commands::Z3
         )
     );
-	//Ident schreiben für Command und Befehlsnamen  Werte sind Subcommands
-	/*
-	$ident = "MV_MasterVolume";
-	$part = explode("_", $ident);
-	$command = $part[0];
-	$name = $part[1];
-	*/
 	
 	// Nur für alle CMDs, welche keine SubCommands sind.
     /*

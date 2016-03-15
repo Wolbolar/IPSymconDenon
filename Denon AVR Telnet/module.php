@@ -59,7 +59,39 @@ class DenonAVRTelnet extends IPSModule
 		//Nicht genutzt
 		//$this->RegisterPropertyBoolean('Preset', false);
 		//"Preset" => $this->ReadPropertyBoolean('Preset'),
-		$this->RegisterPropertyBoolean('Inputmode', false);	
+		$this->RegisterPropertyBoolean('Inputmode', false);
+		$this->RegisterPropertyBoolean('Contrast', false);
+		$this->RegisterPropertyBoolean('Brightness', false);
+		$this->RegisterPropertyBoolean('Chromalevel', false);
+		$this->RegisterPropertyBoolean('Hue', false);
+		$this->RegisterPropertyBoolean('Enhancer', false);
+		$this->RegisterPropertyBoolean('Subwoofer', false);
+		$this->RegisterPropertyBoolean('SubwooferATT', false);
+		$this->RegisterPropertyBoolean('DNRDirectChange', false);
+		$this->RegisterPropertyBoolean('Effect', false);
+		$this->RegisterPropertyBoolean('AFDM', false);
+		$this->RegisterPropertyBoolean('EffectLevel', false);
+		$this->RegisterPropertyBoolean('Dimension', false);
+		$this->RegisterPropertyBoolean('CenterImage', false);
+		$this->RegisterPropertyBoolean('StageWidth', false);
+		$this->RegisterPropertyBoolean('StageHeight', false);
+		$this->RegisterPropertyBoolean('AudysseyDSX', false);
+		$this->RegisterPropertyBoolean('ReferenceLevel', false);
+		$this->RegisterPropertyBoolean('DRCDirectChange', false);
+		$this->RegisterPropertyBoolean('SpeakerOutputFront', false);
+		$this->RegisterPropertyBoolean('DCOMPDirectChange', false);
+		$this->RegisterPropertyBoolean('HDMIMonitor', false);
+		$this->RegisterPropertyBoolean('ASP', false);
+		$this->RegisterPropertyBoolean('Resolution', false);
+		$this->RegisterPropertyBoolean('ResolutionHDMI', false);
+		$this->RegisterPropertyBoolean('HDMIAudioOutput', false);
+		$this->RegisterPropertyBoolean('VideoProcessingMode', false);
+		$this->RegisterPropertyBoolean('DolbyVolumeLeveler', false);
+		$this->RegisterPropertyBoolean('DolbyVolumeModeler', false);
+		$this->RegisterPropertyBoolean('PLIIZHeightGain', false);
+		$this->RegisterPropertyBoolean('VerticalStretch', false);
+		$this->RegisterPropertyBoolean('DolbyVolume', false);		
+
     }
 
 
@@ -92,20 +124,20 @@ class DenonAVRTelnet extends IPSModule
 		//Type und Zone
 		$DenonAVRVar->Type = $this->ReadPropertyInteger('Type');
 		$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
-		$DenonAVRVar->ptChannelVolumeFL = "DENON".$DenonAVRVar->Type.".ChannelVolumeFL";
-		$DenonAVRVar->ptChannelVolumeFR = "DENON".$DenonAVRVar->Type.".ChannelVolumeFR";
-		$DenonAVRVar->ptChannelVolumeC = "DENON".$DenonAVRVar->Type.".ChannelVolumeC";
-		$DenonAVRVar->ptChannelVolumeSW = "DENON".$DenonAVRVar->Type.".ChannelVolumeSW";
-		$DenonAVRVar->ptChannelVolumeSW2 = "DENON".$DenonAVRVar->Type.".ChannelVolumeSW2";
-		$DenonAVRVar->ptChannelVolumeSL = "DENON".$DenonAVRVar->Type.".ChannelVolumeSL";
-		$DenonAVRVar->ptChannelVolumeSR = "DENON".$DenonAVRVar->Type.".ChannelVolumeSR";
-		$DenonAVRVar->ptChannelVolumeSBL = "DENON".$DenonAVRVar->Type.".ChannelVolumeSBL";
-		$DenonAVRVar->ptChannelVolumeSBR = "DENON".$DenonAVRVar->Type.".ChannelVolumeSBR";
-		$DenonAVRVar->ptChannelVolumeSB = "DENON".$DenonAVRVar->Type.".ChannelVolumeSB";
-		$DenonAVRVar->ptChannelVolumeFHL = "DENON".$DenonAVRVar->Type.".ChannelVolumeFHL";
-		$DenonAVRVar->ptChannelVolumeFHR = "DENON".$DenonAVRVar->Type.".ChannelVolumeFHR";
-		$DenonAVRVar->ptChannelVolumeFWL = "DENON".$DenonAVRVar->Type.".ChannelVolumeFWL";
-		$DenonAVRVar->ptChannelVolumeFWR = "DENON".$DenonAVRVar->Type.".ChannelVolumeFWR";
+		$DenonAVRVar->ptChannelVolumeFL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFL";
+		$DenonAVRVar->ptChannelVolumeFR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFR";
+		$DenonAVRVar->ptChannelVolumeC = "DENON.".$DenonAVRVar->Type.".ChannelVolumeC";
+		$DenonAVRVar->ptChannelVolumeSW = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSW";
+		$DenonAVRVar->ptChannelVolumeSW2 = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSW2";
+		$DenonAVRVar->ptChannelVolumeSL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSL";
+		$DenonAVRVar->ptChannelVolumeSR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSR";
+		$DenonAVRVar->ptChannelVolumeSBL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSBL";
+		$DenonAVRVar->ptChannelVolumeSBR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSBR";
+		$DenonAVRVar->ptChannelVolumeSB = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSB";
+		$DenonAVRVar->ptChannelVolumeFHL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFHL";
+		$DenonAVRVar->ptChannelVolumeFHR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFHR";
+		$DenonAVRVar->ptChannelVolumeFWL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFWL";
+		$DenonAVRVar->ptChannelVolumeFWR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFWR";
 		$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->Type.'.Power';
 		$DenonAVRVar->ptMainZonePower = 'DENON.'.$DenonAVRVar->Type.'.MainZonePower';
 		$DenonAVRVar->ptMainMute = 'DENON.'.$DenonAVRVar->Type.'.MainMute';
@@ -154,6 +186,37 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRVar->ptZone3ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFR';
 		$DenonAVRVar->ptZone3QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone3QuickSelect';
 		$DenonAVRVar->ptNavigation = "DENON".$DenonAVRVar->Type.".Navigation";
+		$DenonAVRVar->ptContrast = "DENON".$DenonAVRVar->Type.".Contrast";
+		$DenonAVRVar->ptBrightness = "DENON".$DenonAVRVar->Type.".Brightness";
+		$DenonAVRVar->ptChromalevel = "DENON".$DenonAVRVar->Type.".Chromalevel";
+		$DenonAVRVar->ptHue = "DENON".$DenonAVRVar->Type.".Hue";
+		$DenonAVRVar->ptEnhancer = "DENON".$DenonAVRVar->Type.".Enhancer";
+		$DenonAVRVar->ptSubwoofer = "DENON".$DenonAVRVar->Type.".Subwoofer";
+		$DenonAVRVar->ptSubwooferATT = "DENON".$DenonAVRVar->Type.".SubwooferATT";
+		$DenonAVRVar->ptDNRDirectChange = "DENON".$DenonAVRVar->Type.".DNRDirectChange";
+		$DenonAVRVar->ptEffect = "DENON".$DenonAVRVar->Type.".Effect";
+		$DenonAVRVar->ptAFDM = "DENON".$DenonAVRVar->Type.".AFDM";
+		$DenonAVRVar->ptEffectLevel = "DENON".$DenonAVRVar->Type.".EffectLevel";
+		$DenonAVRVar->ptDimension = "DENON".$DenonAVRVar->Type.".Dimension";
+		$DenonAVRVar->ptCenterImage = "DENON".$DenonAVRVar->Type.".CenterImage";
+		$DenonAVRVar->ptStageWidth = "DENON".$DenonAVRVar->Type.".StageWidth";
+		$DenonAVRVar->ptStageHeight = "DENON".$DenonAVRVar->Type.".StageHeight";
+		$DenonAVRVar->ptAudysseyDSX = "DENON".$DenonAVRVar->Type.".AudysseyDSX";
+		$DenonAVRVar->ptReferenceLevel = "DENON".$DenonAVRVar->Type.".ReferenceLevel";
+		$DenonAVRVar->ptDRCDirectChange = "DENON".$DenonAVRVar->Type.".DRCDirectChange";
+		$DenonAVRVar->ptSpeakerOutputFront = "DENON".$DenonAVRVar->Type.".SpeakerOutputFront";
+		$DenonAVRVar->ptDCOMPDirectChange = "DENON".$DenonAVRVar->Type.".DCOMPDirectChange";
+		$DenonAVRVar->ptHDMIMonitor = "DENON".$DenonAVRVar->Type.".HDMIMonitor";
+		$DenonAVRVar->ptASP = "DENON".$DenonAVRVar->Type.".ASP";
+		$DenonAVRVar->ptResolution = "DENON".$DenonAVRVar->Type.".Resolution";
+		$DenonAVRVar->ptResolutionHDMI = "DENON".$DenonAVRVar->Type.".ResolutionHDMI";
+		$DenonAVRVar->ptHDMIAudioOutput = "DENON".$DenonAVRVar->Type.".HDMIAudioOutput";
+		$DenonAVRVar->ptVideoProcessingMode = "DENON".$DenonAVRVar->Type.".VideoProcessingMode";
+		$DenonAVRVar->ptDolbyVolumeLeveler = "DENON".$DenonAVRVar->Type.".DolbyVolumeLeveler";
+		$DenonAVRVar->ptDolbyVolumeModeler = "DENON".$DenonAVRVar->Type.".DolbyVolumeModeler";
+		$DenonAVRVar->ptPLIIZHeightGain = "DENON".$DenonAVRVar->Type.".PLIIZHeightGain";
+		$DenonAVRVar->ptVerticalStretch = "DENON".$DenonAVRVar->Type.".VerticalStretch";
+		$DenonAVRVar->ptDolbyVolume = "DENON".$DenonAVRVar->Type.".DolbyVolume";
 	
 	//Variablen						
 	
@@ -167,7 +230,13 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRVar->ptDynamicEQ => $this->ReadPropertyBoolean('DynamicEQ'),
 		$DenonAVRVar->ptFrontHeight => $this->ReadPropertyBoolean('FrontHeight'),
 		$DenonAVRVar->ptPanorama => $this->ReadPropertyBoolean('Panorama'),
-		$DenonAVRVar->ptToneCTRL => $this->ReadPropertyBoolean('ToneCTRL')
+		$DenonAVRVar->ptToneCTRL => $this->ReadPropertyBoolean('ToneCTRL'),
+		$DenonAVRVar->ptVerticalStretch => $this->ReadPropertyBoolean('VerticalStretch'),
+		$DenonAVRVar->ptDolbyVolume => $this->ReadPropertyBoolean('DolbyVolume'),
+		$DenonAVRVar->ptEffect => $this->ReadPropertyBoolean('Effect'),
+		$DenonAVRVar->ptAFDM => $this->ReadPropertyBoolean('AFDM'),
+		$DenonAVRVar->ptSubwoofer => $this->ReadPropertyBoolean('Subwoofer'),
+		$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT')	
 		);
 	
 	
@@ -175,8 +244,7 @@ class DenonAVRTelnet extends IPSModule
 	$vInteger = array
 		(
 		$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep'),
-		$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension'),
-		$DenonAVRVar->ptCWidth => $this->ReadPropertyBoolean('CWidth')
+		$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension')
 		);
 	
 	//Integer mit Association
@@ -221,7 +289,17 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptAudioDelay => $this->ReadPropertyBoolean('AudioDelay'),
 			$DenonAVRVar->ptLFELevel => $this->ReadPropertyBoolean('LFELevel'),
 			$DenonAVRVar->ptBassLevel => $this->ReadPropertyBoolean('BassLevel'),
-			$DenonAVRVar->ptTrebleLevel => $this->ReadPropertyBoolean('TrebleLevel')
+			$DenonAVRVar->ptTrebleLevel => $this->ReadPropertyBoolean('TrebleLevel'),
+			$DenonAVRVar->ptCenterWidth => $this->ReadPropertyBoolean('CenterWidth'),
+			$DenonAVRVar->ptEffectLevel => $this->ReadPropertyBoolean('EffectLevel'),
+			$DenonAVRVar->ptCenterImage => $this->ReadPropertyBoolean('CenterImage'),
+			$DenonAVRVar->ptContrast => $this->ReadPropertyBoolean('Contrast'),
+			$DenonAVRVar->ptBrightness => $this->ReadPropertyBoolean('Brightness'),
+			$DenonAVRVar->ptChromalevel => $this->ReadPropertyBoolean('Chromalevel'),
+			$DenonAVRVar->ptHue => $this->ReadPropertyBoolean('Hue'),
+			$DenonAVRVar->ptEnhancer => $this->ReadPropertyBoolean('Enhancer'),
+			$DenonAVRVar->ptStageHeight => $this->ReadPropertyBoolean('StageHeight'),
+			$DenonAVRVar->ptStageWidth => $this->ReadPropertyBoolean('StageWidth')
 		);
 			
 		//Sichtbare Variablen anlegen
@@ -232,9 +310,14 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
 				//Ident, Name, Profile, Position 
-				$this->RegisterVariableBoolean($profile[0], $profile[1], $profile[2], $profile[3]);
-				$this->EnableAction($profile[0]);
+				$this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$this->EnableAction($profile["Ident"]);
 			}	
+		// wenn nicht sichtbar löschen
+		else ($visible === false)
+			{
+				//löschfunktion aufrufen
+			}
 		}
 		
 		foreach ($vInteger as $ptInteger => $visible)
@@ -243,16 +326,15 @@ class DenonAVRTelnet extends IPSModule
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
-				$Profilename = $profile["ProfilName"];
-				$Position = $profile["Position"];
-				$varprofile = $profile["Profile"];
-				$Ident = $varprofile[0];
-				$Teile = explode("xxx", $Ident);
-				$Name = $Teile[1];
-				$this->RegisterProfileFloatDenon($Name, $varprofile[1], $varprofile[2], $varprofile[3], $varprofile[4], $varprofile[5], $varprofile[6], $varprofile[7]);
-				$ChannelVolumeFLId = $this->RegisterVariableFloat($Ident, $Name, $Profilname, $Position);
-				$this->EnableAction($Ident);
+				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"]);
+				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$this->EnableAction($profile["Ident"]);
 			}	
+		// wenn nicht sichtbar löschen
+		else ($visible === false)
+			{
+				//löschfunktion aufrufen
+			}
 		}
 		
 		foreach ($vIntegerAss as $ptIntegerAss => $visible)
@@ -261,17 +343,16 @@ class DenonAVRTelnet extends IPSModule
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
-				$Profilename = $profile["ProfilName"];
-				$Position = $profile["Position"];
-				$varprofile = $profile["Profile"];
-				$Ident = $varprofile[0];
-				$Teile = explode("xxx", $Ident);
-				$Name = $Teile[1];
-				$this->RegisterProfileIntegerDenonAss($Name, $varprofile[1], $varprofile[2], $varprofile[3], $varprofile[4], $varprofile[5], $varprofile[6], $varprofile[7], $varprofile[8]);
-				$InputSourceId = $this->RegisterVariableInteger($Ident, $Name, $Profilname, $Position);
-				$this->EnableAction($Ident);
+				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
+				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$this->EnableAction($profile["Ident"]);
 				
 			}	
+		// wenn nicht sichtbar löschen
+		else ($visible === false)
+			{
+				//löschfunktion aufrufen
+			}
 		}
 		
 		foreach ($vFloat as $ptFloat => $visible)
@@ -280,17 +361,15 @@ class DenonAVRTelnet extends IPSModule
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
-				$Profilename = $profile["ProfilName"];
-				$Position = $profile["Position"];
-				$varprofile = $profile["Profile"];
-				$Ident = $varprofile[0];
-				$Teile = explode("xxx", $Ident);
-				$Name = $Teile[1];
-				$this->RegisterProfileFloatDenon($Name, $varprofile[1], $varprofile[2], $varprofile[3], $varprofile[4], $varprofile[5], $varprofile[6], $varprofile[7]);
-				//Ident, Name, Profile, Position 
-				$this->RegisterVariableFloat($Ident, $Name, $Profilename, $Position);
-				$this->EnableAction($Ident);
-			}	
+				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
+				$this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$this->EnableAction($profile["Ident"]);
+			}
+		// wenn nicht sichtbar löschen
+		else ($visible === false)
+			{
+				//löschfunktion aufrufen
+			}
 		}
 		
 		
@@ -342,24 +421,6 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	
-	protected function SetupControl($Type)
-	{	
-		//Control
-			$Icon = "Move";
-			$Name = "DENON".$Type.".Navigation";
-			$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 0, 0, Array(
-													Array(0, "Left",  "", -1),
-													Array(1, "Down",  "", -1),
-													Array(2, "Up",  "", -1),
-													Array(3, "Right",  "", -1),
-													Array(4, "Enter",  "", -1),
-													Array(5, "Return",  "", -1)		
-													));
-			$InputSourceId = $this->RegisterVariableInteger("Navigation", "Navigation", $Name, 15);
-			$this->EnableAction("Navigation");
-	}
-	
-	
 		
 	protected function SetupZone($Type, $Zone)
 	{
@@ -371,400 +432,7 @@ class DenonAVRTelnet extends IPSModule
 		{
 			//Generelle-Variablen anlegen
 			//Ident, Name, Profile, Position
-						
-			//Power
-			$PowerId = $this->RegisterVariableBoolean("Power", "Power", "~Switch", 1);
-			$this->EnableAction("Power");
 			
-			//MainZonePower
-			$MainZonePowerId = $this->RegisterVariableBoolean("MainZonePower", "MainZonePower", "~Switch", 2);
-			$this->EnableAction("MainZonePower");
-			
-			//MainMute
-			$Icon = "Intensity";
-			$MainMuteId = $this->RegisterVariableBoolean("MainMute", "MainMute", "~Switch", 3);
-			$this->EnableAction("MainMute");
-			
-			if ($CinemaEQ)
-			{
-				//CinemaEQ
-				$Icon = "Intensity";
-				$CinemaEQId = $this->RegisterVariableBoolean("CinemaEQ", "CinemaEQ", "~Switch", 4);
-				$this->EnableAction("CinemaEQ");
-			}
-			
-			if ($Panorama)
-			{
-				//Panorama
-				$Icon = "Intensity";
-				$PanoramaId = $this->RegisterVariableBoolean("Panorama", "Panorama", "~Switch", 5);
-				$this->EnableAction("Panorama");
-			}
-			
-			if ($FrontHeight)
-			{
-				//FrontHeight
-				$Icon = "Intensity";
-				$FrontHeightId = $this->RegisterVariableBoolean("FrontHeight", "FrontHeight", "~Switch", 6);
-				$this->EnableAction("FrontHeight");
-			}
-			
-			if ($ToneCTRL)
-			{
-				//ToneCTRL
-				$Icon = "Intensity";
-				$ToneCTRLId = $this->RegisterVariableBoolean("ToneCTRL", "ToneCTRL", "~Switch", 7);
-				$this->EnableAction("ToneCTRL");
-			}
-			
-			if ($DynamicEQ)
-			{
-				//DynamicEQ
-				$Icon = "Intensity";
-				$DynamicEQId = $this->RegisterVariableBoolean("DynamicEQ", "DynamicEQ", "~Switch", 8);
-				$this->EnableAction("DynamicEQ");
-			}
-			
-			//MasterVolume
-			$Icon = "Intensity";
-			$Name = "DENON".$Type.".MasterVolume";
-			$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80.0, 18.0, 0.5, 0);
-			$MasterVolumeId = $this->RegisterVariableFloat("MasterVolume", "MasterVolume", $Name, 10);
-			$this->EnableAction("MasterVolume");
-		
-			//InputSource
-			$Icon = "Database";
-			$Name = "DENON".$Type.".InputSource";
-			//Input Source auslesen
-			$inputsources = $this->GetInputSource();
-			$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
-													Array(0, "Phono",  "", -1),
-													Array(1, "CD",  "", -1),
-													Array(2, "Tuner",  "", -1),
-													Array(3, "DVD",  "", -1),
-													Array(4, "BD",  "", -1),
-													Array(5, "TV",  "", -1),
-													Array(6, "SAT/CBL",  "", -1),
-													Array(7, "DVR",  "", -1),
-													Array(8, "GAME",  "", -1),
-													Array(9, "V.AUX",  "", -1),
-													Array(10, "DOCK",  "", -1),
-													Array(11, "IPOD",  "", -1),
-													Array(12, "NET/USB",  "", -1),
-													Array(13, "NAPSTER",  "", -1),
-													Array(14, "LASTFM",  "", -1),
-													Array(15, "FLICKR",  "", -1),
-													Array(16, "FAVORITES",  "", -1),
-													Array(17, "IRADIO",  "", -1),
-													Array(18, "SERVER",  "", -1),
-													Array(19, "USB/IPOD",  "", -1)			
-													));
-			$InputSourceId = $this->RegisterVariableInteger("InputSource", "InputSource", $Name, 15);
-			$this->EnableAction("InputSource");
-		
-			
-			
-			
-			
-			if ($AudioDelay)
-			{
-				//AudioDelay
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".AudioDelay";
-				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "ms", 0, 200, 0, 0);
-				$AudioDelayId = $this->RegisterVariableInteger("AudioDelay", "AudioDelay", $Name, 9);
-				$this->EnableAction("AudioDelay");
-			}
-			
-			if ($LFELevel)
-			{
-				//LFELevel
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".LFELevel";
-				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -10.0, 0.0, 0.5, 1);
-				$LFELevelId = $this->RegisterVariableFloat("LFELevel", "LFELevel", $Name, 11);
-				$this->EnableAction("LFELevel");
-			}
-			
-			if ($QuickSelect)
-			{
-				//QuickSelect
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".QuickSelect";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
-														Array(0, "NONE",  "", -1),
-														Array(1, "QS 1",  "", -1),
-														Array(2, "QS 2",  "", -1),
-														Array(3, "QS 3",  "", -1),
-														Array(4, "QS 4",  "", -1),
-														Array(5, "QS 5",  "", -1)	
-														));
-				$QuickSelectId = $this->RegisterVariableInteger("QuickSelect", "QuickSelect", $Name, 12);
-				$this->EnableAction("QuickSelect");
-			}
-			
-			if ($Sleep)
-			{
-				//Sleep
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".Sleep";
-				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 120, 10, 0);
-				$SleepId = $this->RegisterVariableInteger("Sleep", "Sleep", $Name, 13);
-				$this->EnableAction("Sleep");
-			}
-			
-			if ($DigitalInputMode)
-			{
-				//DigitalInputMode
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".DigitalInputMode";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 2, 1, 0, Array(
-														Array(0, "AUTO",  "", -1),
-														Array(1, "PCM",  "", -1),
-														Array(2, "DTS",  "", -1)	
-														));
-				$DigitalInputModeId = $this->RegisterVariableInteger("DigitalInputMode", "DigitalInputMode", $Name, 14);
-				$this->EnableAction("DigitalInputMode");										
-			}
-			
-			if ($SurroundMode)
-			{
-				//SurroundMode
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".SurroundMode";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 14, 1, 0, Array(
-														Array(0, "DIRECT",  "", -1),
-														Array(1, "PURE DIRECT",  "", -1),
-														Array(2, "STEREO",  "", -1),
-														Array(3, "STANDARD",  "", -1),
-														Array(4, "DOLBY DIGITAL",  "", -1),
-														Array(5, "DTS SURROUND",  "", -1),
-														Array(6, "DOLBY PL2X C",  "", -1),
-														Array(7, "MCH STEREO",  "", -1),
-														Array(8, "ROCK ARENA",  "", -1),
-														Array(9, "JAZZ CLUB",  "", -1),
-														Array(10, "MONO MOVIE",  "", -1),
-														Array(11, "MATRIX",  "", -1),
-														Array(12, "VIDEO GAME",  "", -1),
-														Array(13, "VIRTUAL",  "", -1),
-														Array(14, "MULTI CH IN 7.1",  "", -1)
-														));
-				$SurroundModeId = $this->RegisterVariableInteger("SurroundMode", "SurroundMode", $Name, 16);
-				$this->EnableAction("SurroundMode");										
-			}
-			
-			if ($SurroundPlayMode)
-			{
-				//SurroundPlayMode
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".SurroundPlayMode";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 2, 1, 0, Array(
-														Array(0, "CINEMA",  "", -1),
-														Array(1, "MUSIC",  "", -1),
-														Array(2, "GAME",  "", -1)
-														));
-				$SurroundPlayModeId = $this->RegisterVariableInteger("SurroundPlayMode", "SurroundPlayMode", $Name, 17);
-				$this->EnableAction("SurroundPlayMode");										
-			}
-		
-			if ($MultiEQMode)
-			{
-				//MultiEQMode
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".MultiEQMode";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 4, 1, 0, Array(
-														Array(0, "OFF",  "", -1),
-														Array(1, "AUDYSSEY",  "", -1),
-														Array(2, "BYP.LR",  "", -1),
-														Array(3, "FLAT",  "", -1),
-														Array(4, "MANUAL",  "", -1)
-														));
-				$MultiEQModeId = $this->RegisterVariableInteger("MultiEQMode", "MultiEQMode", $Name, 18);
-				$this->EnableAction("MultiEQMode");										
-			}
-			
-			if ($AudioRestorer)
-			{
-				//AudioRestorer
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".AudioRestorer";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
-														Array(0, "OFF",  "", -1),
-														Array(1, "Restorer 64",  "", -1),
-														Array(2, "Restorer 96",  "", -1),
-														Array(3, "Restorer HQ",  "", -1)
-														));
-				$AudioRestorerId = $this->RegisterVariableInteger("AudioRestorer", "AudioRestorer", $Name, 19);
-				$this->EnableAction("AudioRestorer");										
-			}
-			
-			if ($BassLevel)
-			{
-				//BassLevel
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".BassLevel";
-				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -6, 6, 1, 0);
-				$BassLevelId = $this->RegisterVariableFloat("BassLevel", "BassLevel", $Name, 20);
-				$this->EnableAction("BassLevel");
-			}
-			
-			if ($TrebleLevel)
-			{
-				//TrebleLevel
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".TrebleLevel";
-				$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -6, 6, 1, 0);
-				$TrebleLevelId = $this->RegisterVariableFloat("TrebleLevel", "TrebleLevel", $Name, 21);
-				$this->EnableAction("TrebleLevel");
-			}
-			
-			if ($Dimension)
-			{
-				//Dimension
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".Dimension";
-				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 6, 1, 0);
-				$DimensionId = $this->RegisterVariableInteger("Dimension", "Dimension", $Name, 23);
-				$this->EnableAction("Dimension");
-			}
-			
-			if ($DynamicVolume)
-			{
-				//DynamicVolume
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".DynamicVolume";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
-														Array(0, "OFF",  "", -1),
-														Array(1, "Midnight",  "", -1),
-														Array(2, "Evening",  "", -1),
-														Array(3, "Day",  "", -1)
-														));
-				$DynamicVolumeId = $this->RegisterVariableInteger("DynamicVolume", "DynamicVolume", $Name, 24);
-				$this->EnableAction("DynamicVolume");										
-			}
-			
-			if ($RoomSize)
-			{
-				//RoomSize
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".RoomSize";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
-														Array(0, "Neutral",  "", -1),
-														Array(1, "Small",  "", -1),
-														Array(2, "Small/Medium",  "", -1),
-														Array(3, "Medium",  "", -1),
-														Array(4, "Medium/Large",  "", -1),
-														Array(5, "Large",  "", -1)
-														));
-				$RoomSizeId = $this->RegisterVariableInteger("RoomSize", "RoomSize", $Name, 25);
-				$this->EnableAction("RoomSize");
-			}
-			
-			if ($DynamicCompressor)
-			{
-				//DynamicCompressor
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".DynamicCompressor";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
-														Array(0, "OFF",  "", -1),
-														Array(1, "LOW",  "", -1),
-														Array(2, "MID",  "", -1),
-														Array(3, "HIGH",  "", -1)
-														));
-				$DynamicCompressorId = $this->RegisterVariableInteger("DynamicCompressor", "DynamicCompressor", $Name, 26);
-				$this->EnableAction("DynamicCompressor");										
-			}
-			
-			if ($CWidth)
-			{
-				//C.Width
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".CWidth";
-				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 7, 1, 0);
-				$CWidthId = $this->RegisterVariableInteger("CWidth", "CWidth", $Name, 27);
-				$this->EnableAction("CWidth");
-			}
-			
-			if ($DynamicRange)
-			{
-				//DynamicRange
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".DynamicRange";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 4, 1, 0, Array(
-														Array(0, "OFF",  "", -1),
-														Array(1, "AUTO",  "", -1),
-														Array(2, "LOW",  "", -1),
-														Array(3, "MID",  "", -1),
-														Array(4, "HI",  "", -1)
-														));
-				$DynamicRangeId = $this->RegisterVariableInteger("DynamicRange", "DynamicRange", $Name, 28);
-				$this->EnableAction("DynamicRange");
-			}
-			
-			if ($VideoSelect)
-			{
-				//VideoSelect
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".VideoSelect";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 8, 1, 0, Array(
-														Array(0, "DVD",  "", -1),
-														Array(1, "BD",  "", -1),
-														Array(2, "TV",  "", -1),
-														Array(3, "SAT/CBL",  "", -1),
-														Array(4, "DVR",  "", -1),
-														Array(5, "GAME",  "", -1),
-														Array(6, "V.AUX",  "", -1),
-														Array(7, "DOCK",  "", -1),
-														Array(8, "SOURCE",  "", -1)
-														));
-				$VideoSelectId = $this->RegisterVariableInteger("VideoSelect", "VideoSelect", $Name, 29);
-				$this->EnableAction("VideoSelect");	
-			}
-			
-			if ($SurroundBackMode)
-			{
-				//SurroundBackMode
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".SurroundBackMode";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 7, 1, 0, Array(
-														Array(0, "OFF",  "", -1),
-														Array(1, "ON",  "", -1),
-														Array(2, "MTRX ON",  "", -1),
-														Array(3, "PL2X CINEMA",  "", -1),
-														Array(4, "PL2X MUSIC",  "", -1),
-														Array(5, "ESDSCRT",  "", -1),
-														Array(6, "PESMTRX",  "", -1),
-														Array(7, "DSCRT ON",  "", -1)
-														));
-				$SurroundBackModeId = $this->RegisterVariableInteger("SurroundBackMode", "SurroundBackMode", $Name, 30);
-				$this->EnableAction("SurroundBackMode");										
-			}
-			
-			if ($Preset)
-			{
-				//Preset
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".Preset";
-				$this->RegisterProfileIntegerDenon($Name, $Icon, "", "", 0, 1, 1, 0);
-				$PresetId = $this->RegisterVariableInteger("Preset", "Preset", $Name, 31);
-				$this->EnableAction("Preset");
-			}
-		
-			if ($Inputmode)
-			{
-				//InputMode
-				$Icon = "Intensity";
-				$Name = "DENON".$Type.".InputMode";
-				$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 3, 1, 0, Array(
-														Array(0, "AUTO",  "", -1),
-														Array(1, "HDMI",  "", -1),
-														Array(2, "DIGITAL",  "", -1),
-														Array(3, "ANALOG",  "", -1)
-														));
-				$InputModeId = $this->RegisterVariableInteger("InputMode", "InputMode", $Name, 22);
-				$this->EnableAction("InputMode");
-			}
-		
 		}
 	elseif($Zone === 1) //Zone 2
 		{
@@ -2076,7 +1744,7 @@ class DenonAVRTelnet extends IPSModule
         
     }
 	
-	protected function RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	protected function RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
         
         if(!IPS_VariableProfileExists($Name)) {
@@ -2089,6 +1757,7 @@ class DenonAVRTelnet extends IPSModule
         
         IPS_SetVariableProfileIcon($Name, $Icon);
         IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+		IPS_SetVariableProfileDigits($Name, $Digits); //  Nachkommastellen
         IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
         
     }
