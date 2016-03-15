@@ -1148,7 +1148,6 @@ class DENON_API_Commands extends stdClass
 	const TP = "TP"; // Tuner Preset
 	const TM = "TM"; // Tuner Mode
 	const NS = "NS"; // Network Audio
-	const MN = "MN"; // Navigation
 	const TR = "TR"; // Trigger
 	const SY = "SY"; // Remote Lock
 	const UG = "UG"; // Upgrade ID Display
@@ -1165,51 +1164,6 @@ class DENON_API_Commands extends stdClass
 	const UP = "UP"; // Master Volume Up
 	const DOWN = "DOWN"; // Master Volume Down
 	
-	
-	/*
-	const FL_UP = "FL UP"; // Channel Volume Front Left Up
-	const FL_DOWN = "FL DOWN"; // Channel Volume Front Left Down
-	const FL = "FL "; // Channel Volume Front Left Set to 50 FL 50
-	const FR_UP = "FR UP"; // Channel Volume Front Right Up
-	const FR_DOWN = "FR DOWN"; // Channel Volume Front Right Down
-	const FR = "FR "; // Channel Volume Front Right Set to 50 FR 50
-	const C_UP = "C UP"; // Channel Volume Center Up
-	const C_DOWN = "C DOWN"; // Channel Volume Center Down
-	const C = "C "; // Channel Volume Center Set to 50 C 50
-	const SW_UP = "SW UP"; // Channel Volume Subwoofer Up
-	const SW_DOWN = "SW DOWN"; // Channel Volume Subwoofer Down
-	const SW = "SW "; // Channel Volume Subwoofer Set to 50 SW 50
-	const SW2_UP = "SW2 UP"; // Channel Volume Subwoofer 2 Up
-	const SW2_DOWN = "SW2 DOWN"; // Channel Volume Subwoofer 2 Down
-	const SW2 = "SW2 "; // Channel Volume Subwoofer 2 Set to 50 SW2 50
-	const SL_UP = "SL UP"; // Channel Volume Surround Left Up
-	const SL_DOWN = "SL DOWN"; // Channel Volume Surround Left Down
-	const SL = "SL "; // Channel Volume Surround Left Set to 50 SL 50
-	const SR_UP = "SR UP"; // Channel Volume Surround Right Up
-	const SR_DOWN = "SR DOWN"; // Channel Volume Surround Right Down
-	const SR = "SR "; // Channel Volume Surround Right Set to 50 SR 50
-	const SBL_UP = "SBL UP"; // Channel Volume Surround Back Left Up
-	const SBL_DOWN = "SBL DOWN"; // Channel Volume Surround Back Left Down
-	const SBL = "SBL "; // Channel Volume Surround Back Left Set to 50 SBL 50
-	const SBR_UP = "SBR UP"; // Channel Volume Surround Back Right Up
-	const SBR_DOWN = "SBR DOWN"; // Channel Volume Surround Back Right Down
-	const SBR = "SBR "; // Channel Volume Surround Back Right Set to 50 SBR 50
-	const SB_UP = "SB UP"; // Channel Volume Surround Back Up
-	const SB_DOWN = "SB DOWN"; // Channel Volume Surround Back Down
-	const SB = "SB "; // Channel Volume Surround Back Set to 50 SB 50
-	const FHL_UP = "FHL UP"; // Channel Volume Front Height Left Up
-	const FHL_DOWN = "FHL DOWN"; // Channel Volume Front Height Left Down
-	const FHL = "FHL "; // Channel Volume Front Height Left Set to 50 FHL 50
-	const FHR_UP = "FHR UP"; // Channel Volume Front Height Right Up
-	const FHR_DOWN = "FHR DOWN"; // Channel Volume Front Height Right Down
-	const FHR = "FHR "; // Channel Volume Front Height Right Set to 50 FHL 50
-	const FWL_UP = "FWL UP"; // Channel Volume Front Wide Left Up
-	const FWL_DOWN = "FWL DOWN"; // Channel Volume Front Wide Left Down
-	const FWL = "FWL "; // Channel Volume Front Wide Left Set to 50 FHL 50
-	const FWR_UP = "FWR UP"; // Channel Volume Front Wide Right Up
-	const FWR_DOWN = "FWL DOWN"; // Channel Volume Front Wide Right Down
-	const FWR = "FWR "; // Channel Volume Front Wide Right Set to 50 FHL 50
-	*/
 	
 	//SI
 	const PHONO = "PHONO"; // Select Input Source Phono
@@ -1282,12 +1236,7 @@ class DENON_API_Commands extends stdClass
 	//VSMONI Set HDMI Monitor
 	const MONI1 = "1"; // 1
 	const MONI2 = "2"; // 2
-	/*
-	const MONIAUTO = "MONIAUTO"; // Set HDMI Monitor Auto
-	const MONI1 = "MONI1"; // Set HDMI Monitor Out 1
-	const MONI2 = "MONI2"; // Set HDMI Monitor Out 2
-	const MONI = "MONI ?"; // MONI ? Return VSMONI Status
-	*/
+	
 	
 	//VSASP
 	const ASPNRM = "NRM"; // Set Normal Mode
