@@ -759,15 +759,15 @@ class DENONIPSProfiles extends stdClass
 		$this->ptBassLevel => array(DENON_API_Commands::PSBAS, "BassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
 		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE, "TrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
 		$this->ptCenterWidth => array(DENON_API_Commands::PSDCO, "CenterWidth", "Intensity",  "", "", 0, 7, 1, 0),
-		$this->ptEffectLevel => array(DENON_APT_Commands::PSEFF, "EffectLevel", "Intensity", "", "", 0, 15, 1, 0),
-		$this->ptCenterImage => array(DENON_APT_Commands::PSCEN, "CenterImage", "Intensity", "", "", 0.0, 1.0, 0.1, 0),
-		$this->ptContrast => array(DENON_APT_Commands::PVCN, "Contrast", "Intensity", "", "", -6, 6, 1, 0),
-		$this->ptBrightness => array(DENON_APT_Commands::PVBR, "Brightness", "Intensity", "", "", 0, 12, 1, 0),
-		$this->ptChromalevel => array(DENON_APT_Commands::PVCM, "Chromalevel", "Intensity", "", "", -6, 6, 1, 0),
-		$this->ptHue => array(DENON_APT_Commands::PVHUE, "Hue", "Intensity", "", "", -6, 6, 1, 0),
-		$this->ptEnhancer => array(DENON_APT_Commands::PVENH, "Enhancer", "Intensity", "", "", 0, 12, 1, 0),
-		$this->ptStageHeight => array(DENON_APT_Commands::PSSTH, "StageHeight", "Intensity", "", "", -10, 10, 1, 0),
-		$this->ptStageWidth => array(DENON_APT_Commands::PSSTW, "StageWidth", "Intensity", "", "", -10, 10, 1, 0)
+		$this->ptEffectLevel => array(DENON_API_Commands::PSEFF, "EffectLevel", "Intensity", "", "", 0, 15, 1, 0),
+		$this->ptCenterImage => array(DENON_API_Commands::PSCEN, "CenterImage", "Intensity", "", "", 0.0, 1.0, 0.1, 0),
+		$this->ptContrast => array(DENON_API_Commands::PVCN, "Contrast", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptBrightness => array(DENON_API_Commands::PVBR, "Brightness", "Intensity", "", "", 0, 12, 1, 0),
+		$this->ptChromalevel => array(DENON_API_Commands::PVCM, "Chromalevel", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptHue => array(DENON_API_Commands::PVHUE, "Hue", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptEnhancer => array(DENON_API_Commands::PVENH, "Enhancer", "Intensity", "", "", 0, 12, 1, 0),
+		$this->ptStageHeight => array(DENON_API_Commands::PSSTH, "StageHeight", "Intensity", "", "", -10, 10, 1, 0),
+		$this->ptStageWidth => array(DENON_API_Commands::PSSTW, "StageWidth", "Intensity", "", "", -10, 10, 1, 0)
 
 
 		);
@@ -847,7 +847,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptDimension => 46,
 							$this->ptRoomSize => 47,
 							$this->ptDynamicCompressor => 48,
-							$this->ptCWidth => 49,
+							$this->ptCenterWidth => 49,
 							$this->ptDynamicRange => 50,
 							$this->ptVideoSelect => 51,
 							$this->ptSurroundBackMode => 52,
