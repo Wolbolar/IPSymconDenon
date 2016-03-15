@@ -1115,7 +1115,6 @@ class DENON_API_Commands extends stdClass
 	const PSRSTR = "PSRSTR"; //Audio Restorer
 	const PSRSZ = "PSRSZ"; //Room Size
 	const PSSWR = "PSSWR"; //Subwoofer
-	const PSATT = "PSATT"; //Subwoofer ATT
 	
 	//PV
 	const PVCN = "PVCN"; // Contrast
