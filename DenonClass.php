@@ -119,7 +119,8 @@ class DENONIPSProfiles extends stdClass
 	public $ptVerticalStretch;
 	public $ptDolbyVolume;
 	
-
+	
+	
 	public function SetupVarDenonBool($profile)
 	{
 		//Ident, Name, Profile, Position 
@@ -144,14 +145,14 @@ class DENONIPSProfiles extends stdClass
 		{
 			if($ptName == $profile)
 			{
-			   private $profilebool = array(
+			   $profilebool = array(
 			   "Name" => $profilvar[1],
 			   "Ident" => $profilvar[0],
 			   "ProfilName" => $profilvar[2],
 			   "Position" => $profilvar[3]
 			   );
 			   
-			   return $profilbool;
+			   return $profilebool;
 			}
 
 		}	
@@ -170,7 +171,7 @@ class DENONIPSProfiles extends stdClass
 			if($ptName == $profile)
 			{
 				$pos = $this->getpos($profile);
-				private $profileinteger = array(
+				$profileinteger = array(
 				"ProfilName" => $ptName,
 				"Name" => $profilvar[1],
 				"Ident" => $profilvar[0],
@@ -650,7 +651,7 @@ class DENONIPSProfiles extends stdClass
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
-					private $profileintegerass = array(
+					$profileintegerass = array(
 					"ProfilName" => $ptName,
 					"Ident" => $Ident,
 					"Name" => $Name,
@@ -680,7 +681,7 @@ class DENONIPSProfiles extends stdClass
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
-					private $profileintegerass = array(
+					$profileintegerass = array(
 					"ProfilName" => $ptName,
 					"Ident" => $Ident,
 					"Name" => $Name,
@@ -710,7 +711,7 @@ class DENONIPSProfiles extends stdClass
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
-					private $profileintegerass = array(
+					$profileintegerass = array(
 					"ProfilName" => $ptName,
 					"Ident" => $Ident,
 					"Name" => $Name,
