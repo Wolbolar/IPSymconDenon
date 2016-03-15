@@ -386,7 +386,11 @@ class DenonAVRTelnet extends IPSModule
 						//Variable Response existiert bereits
 						
 					}
-			
+					
+				//auf aktive Parent prüfen
+				
+			//Status aktiv
+			$this->SetStatus(102);
 	}
 	
 	 private function GetZone()
