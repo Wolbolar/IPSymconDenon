@@ -740,7 +740,8 @@ class DENONIPSProfiles extends stdClass
 		//Sichtbare variablen profil suchen
 		$profiles = array(
 		$this->ptMasterVolume => array(DENON_API_Commands::MV, "MasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFL => array("CVFL", "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		//$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "ChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "ChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW, "ChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
@@ -1047,20 +1048,20 @@ class DENON_API_Commands extends stdClass
     const MV = "MV"; // Master Volume
 	//const CV = "CV"; // Channel Volume
 	//CV
-	const CVFL = "CVFL "; // Channel Volume Front Left
-	const CVFR = "CVFR "; // Channel Volume Front Right
-	const CVC = "CVC "; // Channel Volume Center
-	const CVSW = "CVSW "; // Channel Volume Subwoofer
+	const CVFL = "CVFL"; // Channel Volume Front Left
+	const CVFR = "CVFR"; // Channel Volume Front Right
+	const CVC = "CVC"; // Channel Volume Center
+	const CVSW = "CVSW"; // Channel Volume Subwoofer
 	const CVSW2 = "CVSW2 "; // Channel Volume Subwoofer2
-	const CVSL = "CVSL "; // Channel Volume Surround Left
-	const CVSR = "CVSR "; // Channel Volume Surround Right
-	const CVSBL = "CVSBL "; // Channel Volume Surround Back Left
-	const CVSBR = "CVSBR "; // Channel Volume Surround Back Right
-	const CVSB = "CVSB "; // Channel Volume Surround Back
-	const CVFHL = "FHL "; // Channel Volume Front Height Left
-	const CVFHR = "FHR "; // Channel Volume Front Height Right
-	const CVFWL = "FWL "; // Channel Volume Front Wide Left
-	const CVFWR = "FWR "; // Channel Volume Front Wide Right
+	const CVSL = "CVSL"; // Channel Volume Surround Left
+	const CVSR = "CVSR"; // Channel Volume Surround Right
+	const CVSBL = "CVSBL"; // Channel Volume Surround Back Left
+	const CVSBR = "CVSBR"; // Channel Volume Surround Back Right
+	const CVSB = "CVSB"; // Channel Volume Surround Back
+	const CVFHL = "FHL"; // Channel Volume Front Height Left
+	const CVFHR = "FHR"; // Channel Volume Front Height Right
+	const CVFWL = "FWL"; // Channel Volume Front Wide Left
+	const CVFWR = "FWR"; // Channel Volume Front Wide Right
 	const MU = "MU"; // Volume Mute
 	const SI = "SI"; // Select
 	const ZM = "ZM"; // Main Zone
