@@ -297,7 +297,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptMultiEQMode => array(
 				"Ident" => DENON_API_Commands::PSMULTEQ,
-				"Name" = > "Multi EQ Mode",
+				"Name" => "Multi EQ Mode",
 				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
 				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
@@ -331,7 +331,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptRoomSize => array(
 				"Ident" => DENON_API_Commands::PSRSZ,
-				"Name" => "Room Size"
+				"Name" => "Room Size",
 				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
 				"Associations" => Array(
 				Array(0, "Small",  "", -1),
@@ -354,7 +354,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptDynamicRange => array(
 				"Ident" => DENON_API_Commands::DRC,
-				"Name" => "",
+				"Name" => "Dynamic Range",
 				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
 				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
@@ -400,18 +400,6 @@ class DENONIPSProfiles extends stdClass
 				Array(0, "Auto",  "", -1),
 				Array(1, "Monitor 1",  "", -1),
 				Array(2, "Monitor 2",  "", -1)
-				)
-			),
-			$this->ptSurroundBackMode => array(
-				"Ident" => DENON_API_Commands::PSSB,
-				"Name" => "Surround Back Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
-				"Associations" => Array(
-				Array(0, "OFF",  "", -1),
-				Array(1, "ON",  "", -1),
-				Array(2, "MTRX ON",  "", -1),
-				Array(3, "PL2X CINEMA",  "", -1),
-				Array(4, "PL2X MUSIC",  "", -1)
 				)
 			),
 			$this->ptSpeakerOutputFront => array(
@@ -602,8 +590,8 @@ class DENONIPSProfiles extends stdClass
 		$ProfilAssociationsZone3 = array
 		(
 			$this->ptZone3InputSource => array(
-				"Ident" => DENON_API_Commands::MN."xxxNavigation",
-				"Name" => "",
+				"Ident" => DENON_API_Commands::MN,
+				"Name" => "Input Source",
 				"Profilesettings" => Array("Database", "", "", 0, 19, 1, 0),
 				"Associations" => Array(
 				Array(0, "Phono",  "", -1),
@@ -629,8 +617,8 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			$this->ptZone3ChannelSetting => array(
-				"Ident" => DENON_API_Commands::MN."xxxNavigation",
-				"Name" => "",
+				"Ident" => DENON_API_Commands::MN,
+				"Name" => "Channel Setting",
 				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
 				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
@@ -638,8 +626,8 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			$this->ptZone3QuickSelect => array(
-				"Ident" => DENON_API_Commands::MN."xxxNavigation",
-				"Name" => ""
+				"Ident" => DENON_API_Commands::MN,
+				"Name" => "Quick Select",
 				"Profilesettings" => Array("Database", "", "", 0, 5, 1, 0),
 				"Associations" => Array(
 				Array(0, "NONE",  "", -1),
@@ -794,13 +782,13 @@ class DENONIPSProfiles extends stdClass
 				"ProfilName" => $ptName,
 				"Name" => $Name,
 				"Ident" => $Ident,
-				"Icon" => $profilvar[2];
-				"Prefix" => $profilvar[3];
-				"Suffix" => $profilvar[4];
-				"MinValue" => $profilvar[5];
-				"MaxValue" => $profilvar[6];
-				"Stepsize" => $profilvar[7];
-				"Digits" => $profilvar[8];
+				"Icon" => $profilvar[2],
+				"Prefix" => $profilvar[3],
+				"Suffix" => $profilvar[4],
+				"MinValue" => $profilvar[5],
+				"MaxValue" => $profilvar[6],
+				"Stepsize" => $profilvar[7],
+				"Digits" => $profilvar[8],
 				"Position" => $pos
 			   
 			   
