@@ -297,7 +297,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptMultiEQMode => array(
 				"Ident" => DENON_API_Commands::PSMULTEQ,
-				"Name" = > "Multi EQ Mode"
+				"Name" = > "Multi EQ Mode",
 				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
 				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
