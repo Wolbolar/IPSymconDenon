@@ -144,7 +144,7 @@ class DENONIPSProfiles extends stdClass
 		{
 			if($ptName == $profile)
 			{
-			   $profilebool = array(
+			   private $profilebool = array(
 			   "Name" => $profilvar[1],
 			   "Ident" => $profilvar[0],
 			   "ProfilName" => $profilvar[2],
@@ -170,7 +170,7 @@ class DENONIPSProfiles extends stdClass
 			if($ptName == $profile)
 			{
 				$pos = $this->getpos($profile);
-				$profileinteger = array(
+				private $profileinteger = array(
 				"ProfilName" => $ptName,
 				"Name" => $profilvar[1],
 				"Ident" => $profilvar[0],
@@ -590,7 +590,7 @@ class DENONIPSProfiles extends stdClass
 		$ProfilAssociationsZone3 = array
 		(
 			$this->ptZone3InputSource => array(
-				"Ident" => DENON_API_Commands::MN,
+				"Ident" => DENON_API_Commands::Z3,
 				"Name" => "Input Source",
 				"Profilesettings" => Array("Database", "", "", 0, 19, 1, 0),
 				"Associations" => Array(
@@ -617,7 +617,7 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			$this->ptZone3ChannelSetting => array(
-				"Ident" => DENON_API_Commands::MN,
+				"Ident" => DENON_API_Commands::Z3CS,
 				"Name" => "Channel Setting",
 				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
 				"Associations" => Array(
@@ -626,7 +626,7 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			$this->ptZone3QuickSelect => array(
-				"Ident" => DENON_API_Commands::MN,
+				"Ident" => DENON_API_Commands::Z3QUICK,
 				"Name" => "Quick Select",
 				"Profilesettings" => Array("Database", "", "", 0, 5, 1, 0),
 				"Associations" => Array(
@@ -650,7 +650,7 @@ class DENONIPSProfiles extends stdClass
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
-					$profileintegerass = array(
+					private $profileintegerass = array(
 					"ProfilName" => $ptName,
 					"Ident" => $Ident,
 					"Name" => $Name,
@@ -680,7 +680,7 @@ class DENONIPSProfiles extends stdClass
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
-					$profileintegerass = array(
+					private $profileintegerass = array(
 					"ProfilName" => $ptName,
 					"Ident" => $Ident,
 					"Name" => $Name,
@@ -710,7 +710,7 @@ class DENONIPSProfiles extends stdClass
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
-					$profileintegerass = array(
+					private $profileintegerass = array(
 					"ProfilName" => $ptName,
 					"Ident" => $Ident,
 					"Name" => $Name,
@@ -1134,6 +1134,7 @@ class DENON_API_Commands extends stdClass
 	const Z2HPF = "Z2HPF"; // Zone 2 HPF
 	const Z2PS = "Z2PS"; // Zone 2 Parameter
 	const Z2SLP = "Z2SLP"; // Zone 2 Sleep Timer
+	const Z2QUICK = "Z2QUICK"; // Zone 2 Quick
 	
 	//Zone 3
 	const Z3 = "Z3"; // Zone 3
@@ -1143,6 +1144,7 @@ class DENON_API_Commands extends stdClass
 	const Z3HPF = "Z3HPF"; // Zone 3 HPF
 	const Z3PS = "Z3PS"; // Zone 3 Parameter
 	const Z3SLP = "Z3SLP"; // Zone 3 Sleep Timer
+	const Z3QUICK = "Z3QUICK" // Zone 3 Quick
 	
 	const TF = "TF"; // Tuner Frequency
 	const TP = "TP"; // Tuner Preset
