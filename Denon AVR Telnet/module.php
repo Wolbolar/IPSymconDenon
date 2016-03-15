@@ -71,7 +71,6 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('Effect', false);
 		$this->RegisterPropertyBoolean('AFDM', false);
 		$this->RegisterPropertyBoolean('EffectLevel', false);
-		$this->RegisterPropertyBoolean('Dimension', false);
 		$this->RegisterPropertyBoolean('CenterImage', false);
 		$this->RegisterPropertyBoolean('StageWidth', false);
 		$this->RegisterPropertyBoolean('StageHeight', false);
@@ -197,7 +196,6 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRVar->ptEffect = "DENON".$DenonAVRVar->Type.".Effect";
 		$DenonAVRVar->ptAFDM = "DENON".$DenonAVRVar->Type.".AFDM";
 		$DenonAVRVar->ptEffectLevel = "DENON".$DenonAVRVar->Type.".EffectLevel";
-		$DenonAVRVar->ptDimension = "DENON".$DenonAVRVar->Type.".Dimension";
 		$DenonAVRVar->ptCenterImage = "DENON".$DenonAVRVar->Type.".CenterImage";
 		$DenonAVRVar->ptStageWidth = "DENON".$DenonAVRVar->Type.".StageWidth";
 		$DenonAVRVar->ptStageHeight = "DENON".$DenonAVRVar->Type.".StageHeight";

@@ -881,7 +881,6 @@ class DENONIPSProfiles extends stdClass
 							$this->ptEffect => 80,
 							$this->ptAFDM => 81,
 							$this->ptEffectLevel => 82,
-							$this->ptDimension => 83,
 							$this->ptCenterImage => 84,
 							$this->ptStageWidth => 85,
 							$this->ptStageHeight => 86,

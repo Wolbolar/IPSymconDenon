@@ -82,7 +82,6 @@
 				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
 				{ "type": "CheckBox", "name": "AFDM", "caption": "AFDM" },
 				{ "type": "CheckBox", "name": "EffectLevel", "caption": "EffectLevel" },
-				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },
 				{ "type": "CheckBox", "name": "CenterImage", "caption": "CenterImage" },
 				{ "type": "CheckBox", "name": "StageWidth", "caption": "StageWidth" },
 				{ "type": "CheckBox", "name": "StageHeight", "caption": "StageHeight" },
