@@ -99,7 +99,6 @@ class DENONIPSProfiles extends stdClass
 	public $ptEffect;
 	public $ptAFDM;
 	public $ptEffectLevel;
-	public $ptDimension;
 	public $ptCenterImage;
 	public $ptStageWidth;
 	public $ptStageHeight;
