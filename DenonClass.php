@@ -1071,7 +1071,7 @@ class DENON_API_Commands extends stdClass
 	const MS = "MS"; // Select Surround Mode
 	const MSQUICK = "QUICK"; // Quick Select Mode Select
 	const MSQUICKMEMORY = "QUICK"; // Quick Select Mode Memory
-	const MN = "MN" //Navigation
+	const MN = "MN"; //Navigation
 	
 	//VS
 	const VSASP = "VSASP"; // ASP
