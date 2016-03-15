@@ -306,7 +306,7 @@ class DenonAVRTelnet extends IPSModule
 		foreach ($vBoolean as $ptBool => $visible)
 		{
 		//Auswahl Prüfen
-		if ($visible === true)
+		if($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
 				//Ident, Name, Profile, Position 
@@ -314,7 +314,7 @@ class DenonAVRTelnet extends IPSModule
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
-		else ($visible === false)
+		else($visible === false)
 			{
 				//löschfunktion aufrufen
 			}
@@ -323,7 +323,7 @@ class DenonAVRTelnet extends IPSModule
 		foreach ($vInteger as $ptInteger => $visible)
 		{
 		//Auswahl Prüfen
-		if ($visible === true)
+		if($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"]);
@@ -331,7 +331,7 @@ class DenonAVRTelnet extends IPSModule
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
-		else ($visible === false)
+		else($visible === false)
 			{
 				//löschfunktion aufrufen
 			}
@@ -340,7 +340,7 @@ class DenonAVRTelnet extends IPSModule
 		foreach ($vIntegerAss as $ptIntegerAss => $visible)
 		{
 		//Auswahl Prüfen
-		if ($visible === true)
+		if($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
@@ -349,7 +349,7 @@ class DenonAVRTelnet extends IPSModule
 				
 			}	
 		// wenn nicht sichtbar löschen
-		else ($visible === false)
+		else($visible === false)
 			{
 				//löschfunktion aufrufen
 			}
@@ -358,7 +358,7 @@ class DenonAVRTelnet extends IPSModule
 		foreach ($vFloat as $ptFloat => $visible)
 		{
 		//Auswahl Prüfen
-		if ($visible === true)
+		if($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
@@ -366,7 +366,7 @@ class DenonAVRTelnet extends IPSModule
 				$this->EnableAction($profile["Ident"]);
 			}
 		// wenn nicht sichtbar löschen
-		else ($visible === false)
+		else($visible === false)
 			{
 				//löschfunktion aufrufen
 			}
