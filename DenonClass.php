@@ -1145,7 +1145,7 @@ class DENON_API_Commands extends stdClass
 	const Z3HPF = "Z3HPF"; // Zone 3 HPF
 	const Z3PS = "Z3PS"; // Zone 3 Parameter
 	const Z3SLP = "Z3SLP"; // Zone 3 Sleep Timer
-	const Z3QUICK = "Z3QUICK" // Zone 3 Quick
+	const Z3QUICK = "Z3QUICK"; // Zone 3 Quick
 	
 	const TF = "TF"; // Tuner Frequency
 	const TP = "TP"; // Tuner Preset
