@@ -52,7 +52,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('DynamicVolume', false);
 		$this->RegisterPropertyBoolean('RoomSize', false);
 		$this->RegisterPropertyBoolean('DynamicCompressor', false);
-		$this->RegisterPropertyBoolean('CWidth', false);
+		$this->RegisterPropertyBoolean('CenterWidth', false);
 		$this->RegisterPropertyBoolean('DynamicRange', false);
 		$this->RegisterPropertyBoolean('VideoSelect', false);
 		$this->RegisterPropertyBoolean('SurroundBackMode', false);
@@ -163,7 +163,7 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRVar->ptDynamicVolume = 'DENON.'.$DenonAVRVar->Type.'.DynamicVolume';
 		$DenonAVRVar->ptRoomSize = 'DENON.'.$DenonAVRVar->Type.'.RoomSize';
 		$DenonAVRVar->ptDynamicCompressor = 'DENON.'.$DenonAVRVar->Type.'.DynamicCompressor';
-		$DenonAVRVar->ptCWidth = 'DENON.'.$DenonAVRVar->Type.'.CWidth';
+		$DenonAVRVar->ptCenterWidth = 'DENON.'.$DenonAVRVar->Type.'.CenterWidth';
 		$DenonAVRVar->ptDynamicRange = 'DENON.'.$DenonAVRVar->Type.'.DynamicRange';
 		$DenonAVRVar->ptVideoSelect = 'DENON.'.$DenonAVRVar->Type.'.VideoSelect';
 		$DenonAVRVar->ptSurroundBackMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundBackMode';

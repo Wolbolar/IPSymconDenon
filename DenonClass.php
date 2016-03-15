@@ -137,7 +137,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", 11),
 		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", 12),
 		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", 13),
-		$this->ptSubwooferATT => arry(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", 14 )
+		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", 14 )
 		);
 		
 		foreach($profiles as $ptName => $profilvar)
