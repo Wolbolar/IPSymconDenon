@@ -591,7 +591,7 @@ class DenonAVRTelnet extends IPSModule
             return false;
 //            return;
         }
-*/
+
         /*        if ($ret === false)
           {
           echo "Error on Send.";
