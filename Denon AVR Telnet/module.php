@@ -15,7 +15,7 @@ class DenonAVRTelnet extends IPSModule
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
 		$this->RegisterPropertyInteger("Type", 0);
-		$this->RegisterPropertyInteger("Zone", 0);
+		$this->RegisterPropertyInteger("Zone", 6);
 		//$this->RegisterPropertyBoolean("Display", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("FL", false);
@@ -56,9 +56,6 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('DynamicRange', false);
 		$this->RegisterPropertyBoolean('VideoSelect', false);
 		$this->RegisterPropertyBoolean('SurroundBackMode', false);
-		//Nicht genutzt
-		//$this->RegisterPropertyBoolean('Preset', false);
-		//"Preset" => $this->ReadPropertyBoolean('Preset'),
 		$this->RegisterPropertyBoolean('Inputmode', false);
 		$this->RegisterPropertyBoolean('Contrast', false);
 		$this->RegisterPropertyBoolean('Brightness', false);
@@ -117,189 +114,344 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function ValidateConfiguration()
 	{
+		//Zone prüfen
+		$Zone = $this->ReadPropertyInteger('Zone');
 		
-		//Profilnamen anlegen
-		$DenonAVRVar = new DENONIPSProfiles;
-		//Type und Zone
-		$DenonAVRVar->Type = $this->ReadPropertyInteger('Type');
-		$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
-		$DenonAVRVar->ptChannelVolumeFL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFL";
-		$DenonAVRVar->ptChannelVolumeFR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFR";
-		$DenonAVRVar->ptChannelVolumeC = "DENON.".$DenonAVRVar->Type.".ChannelVolumeC";
-		$DenonAVRVar->ptChannelVolumeSW = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSW";
-		$DenonAVRVar->ptChannelVolumeSW2 = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSW2";
-		$DenonAVRVar->ptChannelVolumeSL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSL";
-		$DenonAVRVar->ptChannelVolumeSR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSR";
-		$DenonAVRVar->ptChannelVolumeSBL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSBL";
-		$DenonAVRVar->ptChannelVolumeSBR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSBR";
-		$DenonAVRVar->ptChannelVolumeSB = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSB";
-		$DenonAVRVar->ptChannelVolumeFHL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFHL";
-		$DenonAVRVar->ptChannelVolumeFHR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFHR";
-		$DenonAVRVar->ptChannelVolumeFWL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFWL";
-		$DenonAVRVar->ptChannelVolumeFWR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFWR";
-		$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->Type.'.Power';
-		$DenonAVRVar->ptMainZonePower = 'DENON.'.$DenonAVRVar->Type.'.MainZonePower';
-		$DenonAVRVar->ptMainMute = 'DENON.'.$DenonAVRVar->Type.'.MainMute';
-		$DenonAVRVar->ptCinemaEQ = 'DENON.'.$DenonAVRVar->Type.'.CinemaEQ';
-		$DenonAVRVar->ptPanorama = 'DENON.'.$DenonAVRVar->Type.'.Panorama';
-		$DenonAVRVar->ptFrontHeight = 'DENON.'.$DenonAVRVar->Type.'.FrontHeight';
-		$DenonAVRVar->ptToneCTRL = 'DENON.'.$DenonAVRVar->Type.'.ToneCTRL';
-		$DenonAVRVar->ptDynamicEQ = 'DENON.'.$DenonAVRVar->Type.'.DynamicEQ';
-		$DenonAVRVar->ptMasterVolume = 'DENON.'.$DenonAVRVar->Type.'.MasterVolume';
-		$DenonAVRVar->ptInputSource = 'DENON.'.$DenonAVRVar->Type.'.Inputsource';
-		$DenonAVRVar->ptAudioDelay = 'DENON.'.$DenonAVRVar->Type.'.AudioDelay';
-		$DenonAVRVar->ptLFELevel = 'DENON.'.$DenonAVRVar->Type.'.LFELevel';
-		$DenonAVRVar->ptQuickSelect = 'DENON.'.$DenonAVRVar->Type.'.QuickSelect';
-		$DenonAVRVar->ptSleep = 'DENON.'.$DenonAVRVar->Type.'.Sleep';
-		$DenonAVRVar->ptDigitalInputMode = 'DENON.'.$DenonAVRVar->Type.'.DigitalInputMode';
-		$DenonAVRVar->ptSurroundMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundMode';
-		$DenonAVRVar->ptSurroundPlayMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundPlayMode';
-		$DenonAVRVar->ptMultiEQMode = 'DENON.'.$DenonAVRVar->Type.'.MultiEQMode';
-		$DenonAVRVar->ptAudioRestorer = 'DENON.'.$DenonAVRVar->Type.'.AudioRestorer';
-		$DenonAVRVar->ptBassLevel = 'DENON.'.$DenonAVRVar->Type.'.BassLevel';
-		$DenonAVRVar->ptTrebleLevel = 'DENON.'.$DenonAVRVar->Type.'.TrebleLevel';
-		$DenonAVRVar->ptDimension = 'DENON.'.$DenonAVRVar->Type.'.Dimension';
-		$DenonAVRVar->ptDynamicVolume = 'DENON.'.$DenonAVRVar->Type.'.DynamicVolume';
-		$DenonAVRVar->ptRoomSize = 'DENON.'.$DenonAVRVar->Type.'.RoomSize';
-		$DenonAVRVar->ptDynamicCompressor = 'DENON.'.$DenonAVRVar->Type.'.DynamicCompressor';
-		$DenonAVRVar->ptCenterWidth = 'DENON.'.$DenonAVRVar->Type.'.CenterWidth';
-		$DenonAVRVar->ptDynamicRange = 'DENON.'.$DenonAVRVar->Type.'.DynamicRange';
-		$DenonAVRVar->ptVideoSelect = 'DENON.'.$DenonAVRVar->Type.'.VideoSelect';
-		$DenonAVRVar->ptSurroundBackMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundBackMode';
-		$DenonAVRVar->ptPreset = 'DENON.'.$DenonAVRVar->Type.'.Preset';
-		$DenonAVRVar->ptInputMode = 'DENON.'.$DenonAVRVar->Type.'.InputMode';
-		$DenonAVRVar->ptZone2Power = 'DENON.'.$DenonAVRVar->Type.'.Zone2Power';
-		$DenonAVRVar->ptZone2Mute = 'DENON.'.$DenonAVRVar->Type.'.Zone2Mute';
-		$DenonAVRVar->ptZone2Volume = 'DENON.'.$DenonAVRVar->Type.'.Zone2Volume';
-		$DenonAVRVar->ptZone2InputSource = 'DENON.'.$DenonAVRVar->Type.'.Zone2InputSource';
-		$DenonAVRVar->ptZone2ChannelSetting = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelSetting';
-		$DenonAVRVar->ptZone2ChannelVolumeFL = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelVolumeFL';
-		$DenonAVRVar->ptZone2ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelVolumeFR';
-		$DenonAVRVar->ptZone2QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone2QuickSelect';
-		$DenonAVRVar->ptZone3Power = 'DENON.'.$DenonAVRVar->Type.'.Zone3Power';
-		$DenonAVRVar->ptZone3Mute = 'DENON.'.$DenonAVRVar->Type.'.Zone3Mute';
-		$DenonAVRVar->ptZone3Volume = 'DENON.'.$DenonAVRVar->Type.'.Zone3Volume';
-		$DenonAVRVar->ptZone3InputSource = 'DENON.'.$DenonAVRVar->Type.'.Zone3InputSource';
-		$DenonAVRVar->ptZone3ChannelSetting = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelSetting';
-		$DenonAVRVar->ptZone3ChannelVolumeFL = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFL';
-		$DenonAVRVar->ptZone3ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFR';
-		$DenonAVRVar->ptZone3QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone3QuickSelect';
-		$DenonAVRVar->ptNavigation = "DENON".$DenonAVRVar->Type.".Navigation";
-		$DenonAVRVar->ptContrast = "DENON".$DenonAVRVar->Type.".Contrast";
-		$DenonAVRVar->ptBrightness = "DENON".$DenonAVRVar->Type.".Brightness";
-		$DenonAVRVar->ptChromalevel = "DENON".$DenonAVRVar->Type.".Chromalevel";
-		$DenonAVRVar->ptHue = "DENON".$DenonAVRVar->Type.".Hue";
-		$DenonAVRVar->ptEnhancer = "DENON".$DenonAVRVar->Type.".Enhancer";
-		$DenonAVRVar->ptSubwoofer = "DENON".$DenonAVRVar->Type.".Subwoofer";
-		$DenonAVRVar->ptSubwooferATT = "DENON".$DenonAVRVar->Type.".SubwooferATT";
-		$DenonAVRVar->ptDNRDirectChange = "DENON".$DenonAVRVar->Type.".DNRDirectChange";
-		$DenonAVRVar->ptEffect = "DENON".$DenonAVRVar->Type.".Effect";
-		$DenonAVRVar->ptAFDM = "DENON".$DenonAVRVar->Type.".AFDM";
-		$DenonAVRVar->ptEffectLevel = "DENON".$DenonAVRVar->Type.".EffectLevel";
-		$DenonAVRVar->ptCenterImage = "DENON".$DenonAVRVar->Type.".CenterImage";
-		$DenonAVRVar->ptStageWidth = "DENON".$DenonAVRVar->Type.".StageWidth";
-		$DenonAVRVar->ptStageHeight = "DENON".$DenonAVRVar->Type.".StageHeight";
-		$DenonAVRVar->ptAudysseyDSX = "DENON".$DenonAVRVar->Type.".AudysseyDSX";
-		$DenonAVRVar->ptReferenceLevel = "DENON".$DenonAVRVar->Type.".ReferenceLevel";
-		$DenonAVRVar->ptDRCDirectChange = "DENON".$DenonAVRVar->Type.".DRCDirectChange";
-		$DenonAVRVar->ptSpeakerOutputFront = "DENON".$DenonAVRVar->Type.".SpeakerOutputFront";
-		$DenonAVRVar->ptDCOMPDirectChange = "DENON".$DenonAVRVar->Type.".DCOMPDirectChange";
-		$DenonAVRVar->ptHDMIMonitor = "DENON".$DenonAVRVar->Type.".HDMIMonitor";
-		$DenonAVRVar->ptASP = "DENON".$DenonAVRVar->Type.".ASP";
-		$DenonAVRVar->ptResolution = "DENON".$DenonAVRVar->Type.".Resolution";
-		$DenonAVRVar->ptResolutionHDMI = "DENON".$DenonAVRVar->Type.".ResolutionHDMI";
-		$DenonAVRVar->ptHDMIAudioOutput = "DENON".$DenonAVRVar->Type.".HDMIAudioOutput";
-		$DenonAVRVar->ptVideoProcessingMode = "DENON".$DenonAVRVar->Type.".VideoProcessingMode";
-		$DenonAVRVar->ptDolbyVolumeLeveler = "DENON".$DenonAVRVar->Type.".DolbyVolumeLeveler";
-		$DenonAVRVar->ptDolbyVolumeModeler = "DENON".$DenonAVRVar->Type.".DolbyVolumeModeler";
-		$DenonAVRVar->ptPLIIZHeightGain = "DENON".$DenonAVRVar->Type.".PLIIZHeightGain";
-		$DenonAVRVar->ptVerticalStretch = "DENON".$DenonAVRVar->Type.".VerticalStretch";
-		$DenonAVRVar->ptDolbyVolume = "DENON".$DenonAVRVar->Type.".DolbyVolume";
-	
-	//Variablen						
-	
-	//Boolean
-	$vBoolean = array
-		(
-		$DenonAVRVar->ptPower => true,
-		$DenonAVRVar->ptMainZonePower => true,
-		$DenonAVRVar->ptMainMute => true,
-		$DenonAVRVar->ptCinemaEQ => $this->ReadPropertyBoolean('CinemaEQ'),
-		$DenonAVRVar->ptDynamicEQ => $this->ReadPropertyBoolean('DynamicEQ'),
-		$DenonAVRVar->ptFrontHeight => $this->ReadPropertyBoolean('FrontHeight'),
-		$DenonAVRVar->ptPanorama => $this->ReadPropertyBoolean('Panorama'),
-		$DenonAVRVar->ptToneCTRL => $this->ReadPropertyBoolean('ToneCTRL'),
-		$DenonAVRVar->ptVerticalStretch => $this->ReadPropertyBoolean('VerticalStretch'),
-		$DenonAVRVar->ptDolbyVolume => $this->ReadPropertyBoolean('DolbyVolume'),
-		$DenonAVRVar->ptEffect => $this->ReadPropertyBoolean('Effect'),
-		$DenonAVRVar->ptAFDM => $this->ReadPropertyBoolean('AFDM'),
-		$DenonAVRVar->ptSubwoofer => $this->ReadPropertyBoolean('Subwoofer'),
-		$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT')	
-		);
-	
-	
-	//Integer
-	$vInteger = array
-		(
-		$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep'),
-		$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension')
-		);
-	
-	//Integer mit Association
-	$vIntegerAss = array
-		(
-		 $DenonAVRVar->ptInputSource => true,
-		 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
-		 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
-		 $DenonAVRVar->ptDigitalInputMode => $this->ReadPropertyBoolean('DigitalInputMode'),
-		 $DenonAVRVar->ptSurroundMode => $this->ReadPropertyBoolean('SurroundMode'),
-		 $DenonAVRVar->ptSurroundPlayMode => $this->ReadPropertyBoolean('SurroundPlayMode'),
-		 $DenonAVRVar->ptMultiEQMode => $this->ReadPropertyBoolean('MultiEQMode'),
-		 $DenonAVRVar->ptAudioRestorer => $this->ReadPropertyBoolean('AudioRestorer'),
-		 $DenonAVRVar->ptDynamicVolume => $this->ReadPropertyBoolean('DynamicVolume'),
-		 $DenonAVRVar->ptRoomSize => $this->ReadPropertyBoolean('RoomSize'),
-		 $DenonAVRVar->ptDynamicCompressor => $this->ReadPropertyBoolean('DynamicCompressor'),
-		 $DenonAVRVar->ptDynamicRange => $this->ReadPropertyBoolean('DynamicRange'),
-		 $DenonAVRVar->ptVideoSelect => $this->ReadPropertyBoolean('VideoSelect'),
-		 $DenonAVRVar->ptSurroundBackMode => $this->ReadPropertyBoolean('SurroundBackMode'),
-		 $DenonAVRVar->ptInputMode => $this->ReadPropertyBoolean('Inputmode')
-		);
-	
-	//Float
-	$vFloat = array
-		(
-		//Lautsprecher
-			$DenonAVRVar->ptMasterVolume => true,
-			$DenonAVRVar->ptChannelVolumeFL => $this->ReadPropertyBoolean('FL'),
-			$DenonAVRVar->ptChannelVolumeFR => $this->ReadPropertyBoolean('FR'),
-			$DenonAVRVar->ptChannelVolumeC => $this->ReadPropertyBoolean('C'),
-			$DenonAVRVar->ptChannelVolumeSW => $this->ReadPropertyBoolean('SW'),
-			$DenonAVRVar->ptChannelVolumeSW2 => $this->ReadPropertyBoolean('SW2'),
-			$DenonAVRVar->ptChannelVolumeSL => $this->ReadPropertyBoolean('SL'),
-			$DenonAVRVar->ptChannelVolumeSR => $this->ReadPropertyBoolean('SR'),
-			$DenonAVRVar->ptChannelVolumeSBL => $this->ReadPropertyBoolean('SBL'),
-			$DenonAVRVar->ptChannelVolumeSBR => $this->ReadPropertyBoolean('SBR'),
-			$DenonAVRVar->ptChannelVolumeSB => $this->ReadPropertyBoolean('SB'),
-			$DenonAVRVar->ptChannelVolumeFHL => $this->ReadPropertyBoolean('FHL'),
-			$DenonAVRVar->ptChannelVolumeFHR => $this->ReadPropertyBoolean('FHR'),
-			$DenonAVRVar->ptChannelVolumeFWL => $this->ReadPropertyBoolean('FWL'),
-			$DenonAVRVar->ptChannelVolumeFWR => $this->ReadPropertyBoolean('FWR'),
-			$DenonAVRVar->ptAudioDelay => $this->ReadPropertyBoolean('AudioDelay'),
-			$DenonAVRVar->ptLFELevel => $this->ReadPropertyBoolean('LFELevel'),
-			$DenonAVRVar->ptBassLevel => $this->ReadPropertyBoolean('BassLevel'),
-			$DenonAVRVar->ptTrebleLevel => $this->ReadPropertyBoolean('TrebleLevel'),
-			$DenonAVRVar->ptCenterWidth => $this->ReadPropertyBoolean('CenterWidth'),
-			$DenonAVRVar->ptEffectLevel => $this->ReadPropertyBoolean('EffectLevel'),
-			$DenonAVRVar->ptCenterImage => $this->ReadPropertyBoolean('CenterImage'),
-			$DenonAVRVar->ptContrast => $this->ReadPropertyBoolean('Contrast'),
-			$DenonAVRVar->ptBrightness => $this->ReadPropertyBoolean('Brightness'),
-			$DenonAVRVar->ptChromalevel => $this->ReadPropertyBoolean('Chromalevel'),
-			$DenonAVRVar->ptHue => $this->ReadPropertyBoolean('Hue'),
-			$DenonAVRVar->ptEnhancer => $this->ReadPropertyBoolean('Enhancer'),
-			$DenonAVRVar->ptStageHeight => $this->ReadPropertyBoolean('StageHeight'),
-			$DenonAVRVar->ptStageWidth => $this->ReadPropertyBoolean('StageWidth')
-		);
+		if ($Zone == 0) //Mainzone
+		{
+			//Profilnamen anlegen
+			$DenonAVRVar = new DENONIPSProfiles;
+			$Type = GetAVRType();
+			//Type und Zone
+			$DenonAVRVar->Type = $Type;
+			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRVar->ptChannelVolumeFL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFL";
+			$DenonAVRVar->ptChannelVolumeFR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFR";
+			$DenonAVRVar->ptChannelVolumeC = "DENON.".$DenonAVRVar->Type.".ChannelVolumeC";
+			$DenonAVRVar->ptChannelVolumeSW = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSW";
+			$DenonAVRVar->ptChannelVolumeSW2 = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSW2";
+			$DenonAVRVar->ptChannelVolumeSL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSL";
+			$DenonAVRVar->ptChannelVolumeSR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSR";
+			$DenonAVRVar->ptChannelVolumeSBL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSBL";
+			$DenonAVRVar->ptChannelVolumeSBR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSBR";
+			$DenonAVRVar->ptChannelVolumeSB = "DENON.".$DenonAVRVar->Type.".ChannelVolumeSB";
+			$DenonAVRVar->ptChannelVolumeFHL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFHL";
+			$DenonAVRVar->ptChannelVolumeFHR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFHR";
+			$DenonAVRVar->ptChannelVolumeFWL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFWL";
+			$DenonAVRVar->ptChannelVolumeFWR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFWR";
+			$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->Type.'.Power';
+			$DenonAVRVar->ptMainZonePower = 'DENON.'.$DenonAVRVar->Type.'.MainZonePower';
+			$DenonAVRVar->ptMainMute = 'DENON.'.$DenonAVRVar->Type.'.MainMute';
+			$DenonAVRVar->ptCinemaEQ = 'DENON.'.$DenonAVRVar->Type.'.CinemaEQ';
+			$DenonAVRVar->ptPanorama = 'DENON.'.$DenonAVRVar->Type.'.Panorama';
+			$DenonAVRVar->ptFrontHeight = 'DENON.'.$DenonAVRVar->Type.'.FrontHeight';
+			$DenonAVRVar->ptToneCTRL = 'DENON.'.$DenonAVRVar->Type.'.ToneCTRL';
+			$DenonAVRVar->ptDynamicEQ = 'DENON.'.$DenonAVRVar->Type.'.DynamicEQ';
+			$DenonAVRVar->ptMasterVolume = 'DENON.'.$DenonAVRVar->Type.'.MasterVolume';
+			$DenonAVRVar->ptInputSource = 'DENON.'.$DenonAVRVar->Type.'.Inputsource';
+			$DenonAVRVar->ptAudioDelay = 'DENON.'.$DenonAVRVar->Type.'.AudioDelay';
+			$DenonAVRVar->ptLFELevel = 'DENON.'.$DenonAVRVar->Type.'.LFELevel';
+			$DenonAVRVar->ptQuickSelect = 'DENON.'.$DenonAVRVar->Type.'.QuickSelect';
+			$DenonAVRVar->ptSleep = 'DENON.'.$DenonAVRVar->Type.'.Sleep';
+			$DenonAVRVar->ptDigitalInputMode = 'DENON.'.$DenonAVRVar->Type.'.DigitalInputMode';
+			$DenonAVRVar->ptSurroundMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundMode';
+			$DenonAVRVar->ptSurroundPlayMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundPlayMode';
+			$DenonAVRVar->ptMultiEQMode = 'DENON.'.$DenonAVRVar->Type.'.MultiEQMode';
+			$DenonAVRVar->ptAudioRestorer = 'DENON.'.$DenonAVRVar->Type.'.AudioRestorer';
+			$DenonAVRVar->ptBassLevel = 'DENON.'.$DenonAVRVar->Type.'.BassLevel';
+			$DenonAVRVar->ptTrebleLevel = 'DENON.'.$DenonAVRVar->Type.'.TrebleLevel';
+			$DenonAVRVar->ptDimension = 'DENON.'.$DenonAVRVar->Type.'.Dimension';
+			$DenonAVRVar->ptDynamicVolume = 'DENON.'.$DenonAVRVar->Type.'.DynamicVolume';
+			$DenonAVRVar->ptRoomSize = 'DENON.'.$DenonAVRVar->Type.'.RoomSize';
+			$DenonAVRVar->ptDynamicCompressor = 'DENON.'.$DenonAVRVar->Type.'.DynamicCompressor';
+			$DenonAVRVar->ptCenterWidth = 'DENON.'.$DenonAVRVar->Type.'.CenterWidth';
+			$DenonAVRVar->ptDynamicRange = 'DENON.'.$DenonAVRVar->Type.'.DynamicRange';
+			$DenonAVRVar->ptVideoSelect = 'DENON.'.$DenonAVRVar->Type.'.VideoSelect';
+			$DenonAVRVar->ptSurroundBackMode = 'DENON.'.$DenonAVRVar->Type.'.SurroundBackMode';
+			$DenonAVRVar->ptPreset = 'DENON.'.$DenonAVRVar->Type.'.Preset';
+			$DenonAVRVar->ptInputMode = 'DENON.'.$DenonAVRVar->Type.'.InputMode';
+			$DenonAVRVar->ptNavigation = "DENON".$DenonAVRVar->Type.".Navigation";
+			$DenonAVRVar->ptContrast = "DENON".$DenonAVRVar->Type.".Contrast";
+			$DenonAVRVar->ptBrightness = "DENON".$DenonAVRVar->Type.".Brightness";
+			$DenonAVRVar->ptChromalevel = "DENON".$DenonAVRVar->Type.".Chromalevel";
+			$DenonAVRVar->ptHue = "DENON".$DenonAVRVar->Type.".Hue";
+			$DenonAVRVar->ptEnhancer = "DENON".$DenonAVRVar->Type.".Enhancer";
+			$DenonAVRVar->ptSubwoofer = "DENON".$DenonAVRVar->Type.".Subwoofer";
+			$DenonAVRVar->ptSubwooferATT = "DENON".$DenonAVRVar->Type.".SubwooferATT";
+			$DenonAVRVar->ptDNRDirectChange = "DENON".$DenonAVRVar->Type.".DNRDirectChange";
+			$DenonAVRVar->ptEffect = "DENON".$DenonAVRVar->Type.".Effect";
+			$DenonAVRVar->ptAFDM = "DENON".$DenonAVRVar->Type.".AFDM";
+			$DenonAVRVar->ptEffectLevel = "DENON".$DenonAVRVar->Type.".EffectLevel";
+			$DenonAVRVar->ptCenterImage = "DENON".$DenonAVRVar->Type.".CenterImage";
+			$DenonAVRVar->ptStageWidth = "DENON".$DenonAVRVar->Type.".StageWidth";
+			$DenonAVRVar->ptStageHeight = "DENON".$DenonAVRVar->Type.".StageHeight";
+			$DenonAVRVar->ptAudysseyDSX = "DENON".$DenonAVRVar->Type.".AudysseyDSX";
+			$DenonAVRVar->ptReferenceLevel = "DENON".$DenonAVRVar->Type.".ReferenceLevel";
+			$DenonAVRVar->ptDRCDirectChange = "DENON".$DenonAVRVar->Type.".DRCDirectChange";
+			$DenonAVRVar->ptSpeakerOutputFront = "DENON".$DenonAVRVar->Type.".SpeakerOutputFront";
+			$DenonAVRVar->ptDCOMPDirectChange = "DENON".$DenonAVRVar->Type.".DCOMPDirectChange";
+			$DenonAVRVar->ptHDMIMonitor = "DENON".$DenonAVRVar->Type.".HDMIMonitor";
+			$DenonAVRVar->ptASP = "DENON".$DenonAVRVar->Type.".ASP";
+			$DenonAVRVar->ptResolution = "DENON".$DenonAVRVar->Type.".Resolution";
+			$DenonAVRVar->ptResolutionHDMI = "DENON".$DenonAVRVar->Type.".ResolutionHDMI";
+			$DenonAVRVar->ptHDMIAudioOutput = "DENON".$DenonAVRVar->Type.".HDMIAudioOutput";
+			$DenonAVRVar->ptVideoProcessingMode = "DENON".$DenonAVRVar->Type.".VideoProcessingMode";
+			$DenonAVRVar->ptDolbyVolumeLeveler = "DENON".$DenonAVRVar->Type.".DolbyVolumeLeveler";
+			$DenonAVRVar->ptDolbyVolumeModeler = "DENON".$DenonAVRVar->Type.".DolbyVolumeModeler";
+			$DenonAVRVar->ptPLIIZHeightGain = "DENON".$DenonAVRVar->Type.".PLIIZHeightGain";
+			$DenonAVRVar->ptVerticalStretch = "DENON".$DenonAVRVar->Type.".VerticalStretch";
+			$DenonAVRVar->ptDolbyVolume = "DENON".$DenonAVRVar->Type.".DolbyVolume";
 			
+			//Variablen						
+	
+			//Boolean
+			$vBoolean = array
+				(
+				$DenonAVRVar->ptPower => true,
+				$DenonAVRVar->ptMainZonePower => true,
+				$DenonAVRVar->ptMainMute => true,
+				$DenonAVRVar->ptCinemaEQ => $this->ReadPropertyBoolean('CinemaEQ'),
+				$DenonAVRVar->ptDynamicEQ => $this->ReadPropertyBoolean('DynamicEQ'),
+				$DenonAVRVar->ptFrontHeight => $this->ReadPropertyBoolean('FrontHeight'),
+				$DenonAVRVar->ptPanorama => $this->ReadPropertyBoolean('Panorama'),
+				$DenonAVRVar->ptToneCTRL => $this->ReadPropertyBoolean('ToneCTRL'),
+				$DenonAVRVar->ptVerticalStretch => $this->ReadPropertyBoolean('VerticalStretch'),
+				$DenonAVRVar->ptDolbyVolume => $this->ReadPropertyBoolean('DolbyVolume'),
+				$DenonAVRVar->ptEffect => $this->ReadPropertyBoolean('Effect'),
+				$DenonAVRVar->ptAFDM => $this->ReadPropertyBoolean('AFDM'),
+				$DenonAVRVar->ptSubwoofer => $this->ReadPropertyBoolean('Subwoofer'),
+				$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT')	
+				);
+				
+			//Integer
+			$vInteger = array
+				(
+				$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep'),
+				$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension')
+				);
+			
+			//Integer mit Association
+			$vIntegerAss = array
+				(
+				 $DenonAVRVar->ptInputSource => true,
+				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
+				 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
+				 $DenonAVRVar->ptDigitalInputMode => $this->ReadPropertyBoolean('DigitalInputMode'),
+				 $DenonAVRVar->ptSurroundMode => $this->ReadPropertyBoolean('SurroundMode'),
+				 $DenonAVRVar->ptSurroundPlayMode => $this->ReadPropertyBoolean('SurroundPlayMode'),
+				 $DenonAVRVar->ptMultiEQMode => $this->ReadPropertyBoolean('MultiEQMode'),
+				 $DenonAVRVar->ptAudioRestorer => $this->ReadPropertyBoolean('AudioRestorer'),
+				 $DenonAVRVar->ptDynamicVolume => $this->ReadPropertyBoolean('DynamicVolume'),
+				 $DenonAVRVar->ptRoomSize => $this->ReadPropertyBoolean('RoomSize'),
+				 $DenonAVRVar->ptDynamicCompressor => $this->ReadPropertyBoolean('DynamicCompressor'),
+				 $DenonAVRVar->ptDynamicRange => $this->ReadPropertyBoolean('DynamicRange'),
+				 $DenonAVRVar->ptVideoSelect => $this->ReadPropertyBoolean('VideoSelect'),
+				 $DenonAVRVar->ptSurroundBackMode => $this->ReadPropertyBoolean('SurroundBackMode'),
+				 $DenonAVRVar->ptInputMode => $this->ReadPropertyBoolean('Inputmode')
+				);
+				
+			//Float
+			$vFloat = array
+				(
+				//Lautsprecher
+				$DenonAVRVar->ptMasterVolume => true,
+				$DenonAVRVar->ptChannelVolumeFL => $this->ReadPropertyBoolean('FL'),
+				$DenonAVRVar->ptChannelVolumeFR => $this->ReadPropertyBoolean('FR'),
+				$DenonAVRVar->ptChannelVolumeC => $this->ReadPropertyBoolean('C'),
+				$DenonAVRVar->ptChannelVolumeSW => $this->ReadPropertyBoolean('SW'),
+				$DenonAVRVar->ptChannelVolumeSW2 => $this->ReadPropertyBoolean('SW2'),
+				$DenonAVRVar->ptChannelVolumeSL => $this->ReadPropertyBoolean('SL'),
+				$DenonAVRVar->ptChannelVolumeSR => $this->ReadPropertyBoolean('SR'),
+				$DenonAVRVar->ptChannelVolumeSBL => $this->ReadPropertyBoolean('SBL'),
+				$DenonAVRVar->ptChannelVolumeSBR => $this->ReadPropertyBoolean('SBR'),
+				$DenonAVRVar->ptChannelVolumeSB => $this->ReadPropertyBoolean('SB'),
+				$DenonAVRVar->ptChannelVolumeFHL => $this->ReadPropertyBoolean('FHL'),
+				$DenonAVRVar->ptChannelVolumeFHR => $this->ReadPropertyBoolean('FHR'),
+				$DenonAVRVar->ptChannelVolumeFWL => $this->ReadPropertyBoolean('FWL'),
+				$DenonAVRVar->ptChannelVolumeFWR => $this->ReadPropertyBoolean('FWR'),
+				$DenonAVRVar->ptAudioDelay => $this->ReadPropertyBoolean('AudioDelay'),
+				$DenonAVRVar->ptLFELevel => $this->ReadPropertyBoolean('LFELevel'),
+				$DenonAVRVar->ptBassLevel => $this->ReadPropertyBoolean('BassLevel'),
+				$DenonAVRVar->ptTrebleLevel => $this->ReadPropertyBoolean('TrebleLevel'),
+				$DenonAVRVar->ptCenterWidth => $this->ReadPropertyBoolean('CenterWidth'),
+				$DenonAVRVar->ptEffectLevel => $this->ReadPropertyBoolean('EffectLevel'),
+				$DenonAVRVar->ptCenterImage => $this->ReadPropertyBoolean('CenterImage'),
+				$DenonAVRVar->ptContrast => $this->ReadPropertyBoolean('Contrast'),
+				$DenonAVRVar->ptBrightness => $this->ReadPropertyBoolean('Brightness'),
+				$DenonAVRVar->ptChromalevel => $this->ReadPropertyBoolean('Chromalevel'),
+				$DenonAVRVar->ptHue => $this->ReadPropertyBoolean('Hue'),
+				$DenonAVRVar->ptEnhancer => $this->ReadPropertyBoolean('Enhancer'),
+				$DenonAVRVar->ptStageHeight => $this->ReadPropertyBoolean('StageHeight'),
+				$DenonAVRVar->ptStageWidth => $this->ReadPropertyBoolean('StageWidth')
+				);
+				
+			$this->SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat);		
+		}
+		elseif ($Zone == 1) //Zone 2
+		{
+			//Profilnamen anlegen
+			$DenonAVRVar = new DENONIPSProfiles;
+			$Type = GetAVRType();
+			//Type und Zone
+			$DenonAVRVar->Type = $Type;
+			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRVar->ptZone2Power = 'DENON.'.$DenonAVRVar->Type.'.Zone2Power';
+			$DenonAVRVar->ptZone2Mute = 'DENON.'.$DenonAVRVar->Type.'.Zone2Mute';
+			$DenonAVRVar->ptZone2Volume = 'DENON.'.$DenonAVRVar->Type.'.Zone2Volume';
+			$DenonAVRVar->ptZone2InputSource = 'DENON.'.$DenonAVRVar->Type.'.Zone2InputSource';
+			$DenonAVRVar->ptZone2ChannelSetting = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelSetting';
+			$DenonAVRVar->ptZone2ChannelVolumeFL = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelVolumeFL';
+			$DenonAVRVar->ptZone2ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelVolumeFR';
+			$DenonAVRVar->ptZone2QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone2QuickSelect';
+			
+			//Variablen						
+	
+			//Boolean
+			$vBoolean = array
+				(
+				$DenonAVRVar->ptZone2Power => true,
+				$DenonAVRVar->ptZone2Mute => true,
+				$DenonAVRVar->ptZone2HPF => true
+				);
+				
+			//Integer
+			$vInteger = array
+				(
+				$DenonAVRVar->ptSleepZ2 => true
+				);
+			
+			//Integer mit Association
+			$vIntegerAss = array
+				(
+				 $DenonAVRVar->ptZone2InputSource => true,
+				 $DenonAVRVar->ptZone2ChannelSetting => true,
+				 $DenonAVRVar->ptZone2QuickSelect => true
+				);
+				
+			//Float
+			$vFloat = array
+				(
+				//Lautsprecher
+				$DenonAVRVar->ptZone2Volume => true,
+				$DenonAVRVar->ptZone2ChannelVolumeFL => true,
+				$DenonAVRVar->ptZone2ChannelVolumeFR => true
+				);
+			
+			$this->SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat);
+		}
+		elseif ($Zone == 2) // Zone 3
+		{
+			//Profilnamen anlegen
+			$DenonAVRVar = new DENONIPSProfiles;
+			$Type = GetAVRType();
+			//Type und Zone
+			$DenonAVRVar->Type = $Type;
+			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRVar->ptZone3Power = 'DENON.'.$DenonAVRVar->Type.'.Zone3Power';
+			$DenonAVRVar->ptZone3Mute = 'DENON.'.$DenonAVRVar->Type.'.Zone3Mute';
+			$DenonAVRVar->ptZone3Volume = 'DENON.'.$DenonAVRVar->Type.'.Zone3Volume';
+			$DenonAVRVar->ptZone3InputSource = 'DENON.'.$DenonAVRVar->Type.'.Zone3InputSource';
+			$DenonAVRVar->ptZone3ChannelSetting = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelSetting';
+			$DenonAVRVar->ptZone3ChannelVolumeFL = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFL';
+			$DenonAVRVar->ptZone3ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFR';
+			$DenonAVRVar->ptZone3QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone3QuickSelect';
+			
+			//Variablen						
+	
+			//Boolean
+			$vBoolean = array
+				(
+				$DenonAVRVar->ptZone3Power => true,
+				$DenonAVRVar->ptZone3Mute => true,
+				$DenonAVRVar->ptZone3HPF => true
+				);
+				
+			//Integer
+			$vInteger = array
+				(
+				$DenonAVRVar->ptSleepZ3 => true
+				);
+			
+			//Integer mit Association
+			$vIntegerAss = array
+				(
+				 $DenonAVRVar->ptZone3InputSource => true,
+				 $DenonAVRVar->ptZone3ChannelSetting => true,
+				 $DenonAVRVar->ptZone3QuickSelect => true
+				);
+				
+			//Float
+			$vFloat = array
+				(
+				//Lautsprecher
+				$DenonAVRVar->ptZone3Volume => true,
+				$DenonAVRVar->ptZone3ChannelVolumeFL => true,
+				$DenonAVRVar->ptZone3ChannelVolumeFR => true
+				);
+			
+			$this->SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat);
+		}
+		
+		
+		
+		
+		//TestEmpfangspuffer
+		$responseid = @IPS_GetVariableIDByName("Response", $this->InstanceID);
+				if ($responseid === false)
+					{
+						//Response
+						$responseid = $this->RegisterVariableString("Response", "Response", "~String", 1);
+						//IPS_SetHidden($responseid, true);
+						$this->EnableAction("Response");
+					
+					}
+				else
+					{
+						//Variable Response existiert bereits
+						
+					}
+					
+				//auf aktive Parent prüfen
+				
+			//Status aktiv
+			$this->SetStatus(102);
+	}
+	
+	private function GetZone()
+    {
+        $this->DenonZone = new DENON_Zone();
+        $this->DenonZone->thisZone = $this->ReadPropertyInteger("Zone");
+        return true;
+    }
+	
+	private function GetAVRType()
+	{
+		$TypeInt = $this->ReadPropertyInteger('Type');
+		
+		$Types = array(
+				0 => "AVR 4311",
+				1 => "AVR-X4000",
+				2 => "AVR-S700",
+				3 => "AVR-S900",
+				4 => "AVR-X1100",
+				5 => "AVR-X2100",
+				6 => "AVR-X3100",
+				7 => "AVR-X4100",
+				8 => "AVR-X5200",
+				9 => "AVR-X7200");
+		
+		foreach($Types as $TypeID => $Type)
+		{
+			if($TypeID == $TypeInt)
+			{
+			   return $Type;
+			}
+
+		}		
+	}
+	
+	private function SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat)
+	{
 		//Sichtbare Variablen anlegen
 		foreach ($vBoolean as $ptBool => $visible)
 		{
@@ -370,35 +522,7 @@ class DenonAVRTelnet extends IPSModule
 			}
 		}
 		
-		
-		//TestEmpfangspuffer
-		$responseid = @IPS_GetVariableIDByName("Response", $this->InstanceID);
-				if ($responseid === false)
-					{
-						//Response
-						$responseid = $this->RegisterVariableString("Response", "Response", "~String", 1);
-						//IPS_SetHidden($responseid, true);
-						$this->EnableAction("Response");
-					
-					}
-				else
-					{
-						//Variable Response existiert bereits
-						
-					}
-					
-				//auf aktive Parent prüfen
-				
-			//Status aktiv
-			$this->SetStatus(102);
 	}
-	
-	 private function GetZone()
-    {
-        $this->DenonZone = new DENON_Zone();
-        $this->DenonZone->thisZone = $this->ReadPropertyInteger("Zone");
-        return true;
-    }
 	
 	protected function SetupDisplay($Type)
 	{	
@@ -420,773 +544,7 @@ class DenonAVRTelnet extends IPSModule
             $this->UnregisterVariable($name);
         }
     }
-	
-	
-	
 		
-	protected function SetupZone($Type, $Zone)
-	{
-		
-	
-	//!!!! Icons sind noch zu individuell anzupassen
-	
-	if($Zone === 0) //Mainzone
-		{
-			//Generelle-Variablen anlegen
-			//Ident, Name, Profile, Position
-			
-		}
-	elseif($Zone === 1) //Zone 2
-		{
-			
-		//Zone2Power
-		$Zone2PowerId = $this->RegisterVariableBoolean("Zone2Power", "Zone2Power", "~Switch", 1);
-		$this->EnableAction("Zone2Power");
-
-		//Zone2Mute
-		$Icon = "Intensity";
-		$Zone2MuteId = $this->RegisterVariableBoolean("Zone2Mute", "Zone2Mute", "~Switch", 2);
-		$this->EnableAction("Zone2Mute");
-
-		//Zone2Volume
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone2Volume";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80, 18, 1, 1);
-		$Zone2VolumeId = $this->RegisterVariableFloat("Zone2Volume", "Zone2Volume", $Name, 3);
-		$this->EnableAction("Zone2Volume");
-		
-		//Zone2InputSource
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone2InputSource";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
-												Array(0, "Phono",  "", -1),
-												Array(1, "CD",  "", -1),
-												Array(2, "Tuner",  "", -1),
-												Array(3, "DVD",  "", -1),
-												Array(4, "BD",  "", -1),
-												Array(5, "TV",  "", -1),
-												Array(6, "SAT/CBL",  "", -1),
-												Array(7, "DVR",  "", -1),
-												Array(8, "GAME",  "", -1),
-												Array(9, "V.AUX",  "", -1),
-												Array(10, "DOCK",  "", -1),
-												Array(11, "IPOD",  "", -1),
-												Array(12, "NET/USB",  "", -1),
-												Array(13, "NAPSTER",  "", -1),
-												Array(14, "LASTFM",  "", -1),
-												Array(15, "FLICKR",  "", -1),
-												Array(16, "FAVORITES",  "", -1),
-												Array(17, "IRADIO",  "", -1),
-												Array(18, "SERVER",  "", -1),
-												Array(19, "USB/IPOD",  "", -1)			
-												));
-		$Zone2InputSourceId = $this->RegisterVariableInteger("Zone2InputSource", "Zone2InputSource", $Name, 4);
-		$this->EnableAction("Zone2InputSource");										
-		
-		//Zone2ChannelSetting
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone2ChannelSetting";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 1, 1, 0, Array(
-												Array(0, "Stereo",  "", -1),
-												Array(1, "Mono",  "", -1)
-												));
-		$Zone2ChannelSettingId = $this->RegisterVariableInteger("Zone2ChannelSetting", "Zone2ChannelSetting", $Name, 5);
-		$this->EnableAction("Zone2ChannelSetting");										
-		
-		//Zone2ChannelVolumeFL
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone2ChannelVolumeFL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
-		$Zone2ChannelVolumeFLId = $this->RegisterVariableFloat("Zone2ChannelVolumeFL", "Zone2ChannelVolumeFL", $Name, 6);
-		$this->EnableAction("Zone2ChannelVolumeFL");
-		
-		//Zone2ChannelVolumeFR
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone2ChannelVolumeFR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
-		$Zone2ChannelVolumeFRId = $this->RegisterVariableFloat("Zone2ChannelVolumeFR", "Zone2ChannelVolumeFR", $Name, 7);
-		$this->EnableAction("Zone2ChannelVolumeFR");
-		
-		//Zone2QuickSelect
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone2QuickSelect";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
-												Array(0, "NONE",  "", -1),
-												Array(1, "QS 1",  "", -1),
-												Array(2, "QS 2",  "", -1),
-												Array(3, "QS 3",  "", -1),
-												Array(4, "QS 4",  "", -1),
-												Array(5, "QS 5",  "", -1)	
-												));
-		$Zone2QuickSelectId = $this->RegisterVariableInteger("Zone2QuickSelect", "Zone2QuickSelect", $Name, 8);
-		$this->EnableAction("Zone2QuickSelect");											
-		}
-	elseif($Zone === 2) //Zone 3
-		{
-		//Zone3Power
-		$Zone3PowerId = $this->RegisterVariableBoolean("Zone3Power", "Zone3Power", "~Switch", 1);
-		$this->EnableAction("Zone3Power");
-
-		//Zone3Mute
-		$Icon = "Intensity";		
-		$Zone3MuteId = $this->RegisterVariableBoolean("Zone3Mute", "Zone3Mute", "~Switch", 2);
-		$this->EnableAction("Zone3Mute");
-				
-		//Zone3Volume
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone3Volume";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "%", -80, 18, 1, 1);
-		$Zone3VolumeId = $this->RegisterVariableFloat("Zone3Volume", "Zone3Volume", $Name, 3);
-		$this->EnableAction("Zone3Volume");
-		
-		//Zone3InputSource
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone3InputSource";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 19, 1, 0, Array(
-												Array(0, "Phono",  "", -1),
-												Array(1, "CD",  "", -1),
-												Array(2, "Tuner",  "", -1),
-												Array(3, "DVD",  "", -1),
-												Array(4, "BD",  "", -1),
-												Array(5, "TV",  "", -1),
-												Array(6, "SAT/CBL",  "", -1),
-												Array(7, "DVR",  "", -1),
-												Array(8, "GAME",  "", -1),
-												Array(9, "V.AUX",  "", -1),
-												Array(10, "DOCK",  "", -1),
-												Array(11, "IPOD",  "", -1),
-												Array(12, "NET/USB",  "", -1),
-												Array(13, "NAPSTER",  "", -1),
-												Array(14, "LASTFM",  "", -1),
-												Array(15, "FLICKR",  "", -1),
-												Array(16, "FAVORITES",  "", -1),
-												Array(17, "IRADIO",  "", -1),
-												Array(18, "SERVER",  "", -1),
-												Array(19, "USB/IPOD",  "", -1)			
-												));
-		$Zone3InputSourceId = $this->RegisterVariableInteger("Zone3InputSource", "Zone3InputSource", $Name, 4);
-		$this->EnableAction("Zone3InputSource");										
-		
-		//Zone3ChannelSetting
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone3ChannelSetting";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 1, 1, 0, Array(
-												Array(0, "Stereo",  "", -1),
-												Array(1, "Mono",  "", -1)
-												));
-		$Zone3ChannelSettingId = $this->RegisterVariableInteger("Zone3ChannelSetting", "Zone3ChannelSetting", $Name, 5);
-		$this->EnableAction("Zone3ChannelSetting");										
-		
-		//Zone3ChannelVolumeFL
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone3ChannelVolumeFL";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
-		$Zone3ChannelVolumeFLId = $this->RegisterVariableFloat("Zone3ChannelVolumeFL", "Zone3ChannelVolumeFL", $Name, 6);
-		$this->EnableAction("Zone3ChannelVolumeFL");
-		
-		//Zone3ChannelVolumeFR
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone3ChannelVolumeFR";
-		$this->RegisterProfileFloatDenon($Name, $Icon, "", "dB", -12, 12, 1, 1);
-		$Zone3ChannelVolumeFRId = $this->RegisterVariableFloat("Zone3ChannelVolumeFR", "Zone3ChannelVolumeFR", $Name, 7);
-		$this->EnableAction("Zone3ChannelVolumeFR");
-		
-		//Zone3QuickSelect
-		$Icon = "Intensity";
-		$Name = "DENON".$Type.".Zone3QuickSelect";
-		$this->RegisterProfileIntegerDenonAss($Name, $Icon, "", "", 0, 5, 1, 0, Array(
-												Array(0, "NONE",  "", -1),
-												Array(1, "QS 1",  "", -1),
-												Array(2, "QS 2",  "", -1),
-												Array(3, "QS 3",  "", -1),
-												Array(4, "QS 4",  "", -1),
-												Array(5, "QS 5",  "", -1)	
-												));
-		$Zone3QuickSelectId = $this->RegisterVariableInteger("Zone3QuickSelect", "Zone3QuickSelect", $Name, 8);
-		$this->EnableAction("Zone3QuickSelect");										
-		}
-	}
-	
-	//Status
-	public function getStates ($Zone, $Info)
-	{
-		if ($Zone == 0) //Main
-		{
-			if ($Info == "MainZoneXml")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml"));
-				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$MainZoneXml = $this->MainZoneXml($xml);
-					return $MainZoneXml;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
-						
-			}
-			elseif ($Info == "MainZoneXmlStatus")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXmlStatus.xml"));
-				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$MainZoneXmlStatus = $this->MainZoneXmlStatus($xml);
-					return $MainZoneXmlStatus;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
-						
-			}
-			elseif ($Info == "NetAudioStatusXml")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_NetAudioStatusXml.xml"));
-				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$NetAudioStatusXml = $this->NetAudioStatusXml($xml);
-					return $NetAudioStatusXml;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
-						
-			}
-			elseif ($Info == "Deviceinfo")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_Deviceinfo.xml"));
-				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$Deviceinfo = $this->Deviceinfo($xml);
-					return $Deviceinfo;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
-						
-			}
-		}
-		elseif ($Zone == 1) // Zone 2
-		{
-			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
-		}
-		elseif ($Zone == 2) // Zone 3
-		{
-			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
-		}
-	}
-	
-	protected function MainZoneXml($xml)
-	{
-	$MainZoneXml = array();
-	
-		//FriendlyName
-		$FriendlyName = $xml->xpath('.//FriendlyName');
-		if ($FriendlyName)
-		{
-			$MainZone[3]["Name"] = "FriendlyName";
-			$MainZone[3]["Value"] = (string)$FriendlyName[0]->value;
-			$MainZone[3]["Vartype"] = 3; //Vartype String
-			$MainZone[3]["MinValue"] = ""; //MinValue
-			$MainZone[3]["MaxValue"] = ""; //Number
-			$MainZone[3]["Icon"] = "Power"; //Icon
-			$MainZone[3]["Prefix"] = ""; //Prefix
-			$MainZone[3]["Suffix"] = ""; //Suffix
-			$MainZone[3]["StepSize"] = ""; //Stepsize
-			$MainZone[3]["Digits"] = ""; //Digits
-		}
-
-		//Power
-		$AVRPower = $xml->xpath('.//Power');
-		if ($AVRPower)
-		{
-			$MainZone[0]["Name"] = "Power";
-			$MainZone[0]["Value"] = (string)$AVRPower[0]->value;
-			$MainZone[0]["Vartype"] = 0; //Vartype Bool
-			$MainZone[0]["MinValue"] = ""; //MinValue
-			$MainZone[0]["MaxValue"] = ""; //MaxValue
-			$MainZone[0]["Icon"] = "Power"; //Icon
-			$MainZone[0]["Prefix"] = ""; //Prefix
-			$MainZone[0]["Suffix"] = ""; //Suffix
-			$MainZone[0]["StepSize"] = ""; //Stepsize
-			$MainZone[0]["Digits"] = ""; //Digits
-		}
-
-
-		//Zone Power
-		$ZonePower = $xml->xpath('.//ZonePower');
-		if ($ZonePower)
-		{
-			$MainZone[1]["Name"] = "MainZonePower";
-			$MainZone[1]["Value"] = (string)$ZonePower[0]->value;
-			$MainZone[1]["Vartype"] = 0; //Vartype Bool
-			$MainZone[1]["MinValue"] = ""; //MinValue
-			$MainZone[1]["MaxValue"] = ""; //Number
-			$MainZone[1]["Icon"] = "Power"; //Icon
-			$MainZone[1]["Prefix"] = ""; //Prefix
-			$MainZone[1]["Suffix"] = ""; //Suffix
-			$MainZone[1]["StepSize"] = ""; //Stepsize
-			$MainZone[1]["Digits"] = ""; //Digits
-		}
-
-		//RenameZone
-		$RenameZone = $xml->xpath('.//RenameZone');
-		if ($RenameZone)
-		{
-			$MainZone[3]["Name"] = "MainZone";
-			$MainZone[3]["Value"] = (string)$RenameZone[0]->value;
-			$MainZone[3]["Vartype"] = 3; //Vartype String
-			$MainZone[3]["MinValue"] = ""; //MinValue
-			$MainZone[3]["MaxValue"] = ""; //Number
-			$MainZone[3]["Icon"] = "Power"; //Icon
-			$MainZone[3]["Prefix"] = ""; //Prefix
-			$MainZone[3]["Suffix"] = ""; //Suffix
-			$MainZone[3]["StepSize"] = ""; //Stepsize
-			$MainZone[3]["Digits"] = ""; //Digits
-		}
-
-
-
-		//TopMenuLink
-		$TopMenuLink = $xml->xpath('.//TopMenuLink');
-		if ($TopMenuLink)
-		{
-			$MainZone[4]["Name"] = "TopMenuLink";
-			$MainZone[4]["Value"] = (string)$TopMenuLink[0]->value;
-			$MainZone[4]["Vartype"] = 3; //Vartype String
-			$MainZone[4]["MinValue"] = ""; //MinValue
-			$MainZone[4]["MaxValue"] = ""; //Number
-			$MainZone[4]["Icon"] = "Power"; //Icon
-			$MainZone[4]["Prefix"] = ""; //Prefix
-			$MainZone[4]["Suffix"] = ""; //Suffix
-			$MainZone[4]["StepSize"] = ""; //Stepsize
-			$MainZone[4]["Digits"] = ""; //Digits
-		}
-
-
-		//ModelId
-		$ModelId = $xml->xpath('.//ModelId');
-		if ($ModelId)
-		{
-			$MainZone[5]["Name"] = "ModelId";
-			$MainZone[5]["Value"] = (string)$ModelId[0]->value;
-			$MainZone[5]["Vartype"] = 3; //Vartype String
-			$MainZone[5]["MinValue"] = ""; //MinValue
-			$MainZone[5]["MaxValue"] = ""; //Number
-			$MainZone[5]["Icon"] = "Power"; //Icon
-			$MainZone[5]["Prefix"] = ""; //Prefix
-			$MainZone[5]["Suffix"] = ""; //Suffix
-			$MainZone[5]["StepSize"] = ""; //Stepsize
-			$MainZone[5]["Digits"] = ""; //Digits
-		}
-
-
-		//SalesArea
-		$SalesArea = $xml->xpath('.//SalesArea');
-		if ($SalesArea)
-		{
-			$MainZone[6]["Name"] = "SalesArea";
-			$MainZone[6]["Value"] = (string)$SalesArea[0]->value;
-			$MainZone[6]["Vartype"] = 3; //Vartype String
-			$MainZone[6]["MinValue"] = ""; //MinValue
-			$MainZone[6]["MaxValue"] = ""; //Number
-			$MainZone[6]["Icon"] = "Power"; //Icon
-			$MainZone[6]["Prefix"] = ""; //Prefix
-			$MainZone[6]["Suffix"] = ""; //Suffix
-			$MainZone[6]["StepSize"] = ""; //Stepsize
-			$MainZone[6]["Digits"] = ""; //Digits
-		}
-
-
-		//InputFuncSelect
-		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
-		if ($InputFuncSelect)
-		{
-			$MainZone[7]["Name"] = "InputFuncSelect";
-			$MainZone[7]["Value"] = (string)$InputFuncSelect[0]->value;
-			$MainZone[7]["Vartype"] = 3; //Vartype String
-			$MainZone[7]["MinValue"] = ""; //MinValue
-			$MainZone[7]["MaxValue"] = ""; //Number
-			$MainZone[7]["Icon"] = "Power"; //Icon
-			$MainZone[7]["Prefix"] = ""; //Prefix
-			$MainZone[7]["Suffix"] = ""; //Suffix
-			$MainZone[7]["StepSize"] = ""; //Stepsize
-			$MainZone[7]["Digits"] = ""; //Digits
-		}
-
-
-		//NetFuncSelect
-		$NetFuncSelect = $xml->xpath('.//NetFuncSelect');
-		if ($NetFuncSelect)
-		{
-			$MainZone[8]["Name"] = "NetFuncSelect";
-			$MainZone[8]["Value"] = (string)$NetFuncSelect[0]->value;
-			$MainZone[8]["Vartype"] = 3; //Vartype String
-			$MainZone[8]["MinValue"] = ""; //MinValue
-			$MainZone[8]["MaxValue"] = ""; //Number
-			$MainZone[8]["Icon"] = "Power"; //Icon
-			$MainZone[8]["Prefix"] = ""; //Prefix
-			$MainZone[8]["Suffix"] = ""; //Suffix
-			$MainZone[8]["StepSize"] = ""; //Stepsize
-			$MainZone[8]["Digits"] = ""; //Digits
-		}
-
-
-		//InputFuncSelectMain
-		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
-		if ($InputFuncSelectMain)
-		{
-		   $MainZone[9]["Name"] = "InputFuncSelectMain";
-			$MainZone[9]["Value"] = (string)$InputFuncSelectMain[0]->value;
-			$MainZone[9]["Vartype"] = 3; //Vartype String
-			$MainZone[9]["MinValue"] = ""; //MinValue
-			$MainZone[9]["MaxValue"] = ""; //Number
-			$MainZone[9]["Icon"] = "Power"; //Icon
-			$MainZone[9]["Prefix"] = ""; //Prefix
-			$MainZone[9]["Suffix"] = ""; //Suffix
-			$MainZone[9]["StepSize"] = ""; //Stepsize
-			$MainZone[9]["Digits"] = ""; //Digits
-		}
-
-		//selectSurround
-		$selectSurround = $xml->xpath('.//selectSurround');
-		if ($selectSurround)
-		{
-			$MainZone[10]["Name"] = "selectSurround";
-			$MainZone[10]["Value"] = (string)$selectSurround[0]->value;
-			$MainZone[10]["Vartype"] = 3; //Vartype String
-			$MainZone[10]["MinValue"] = ""; //MinValue
-			$MainZone[10]["MaxValue"] = ""; //Number
-			$MainZone[10]["Icon"] = "Power"; //Icon
-			$MainZone[10]["Prefix"] = ""; //Prefix
-			$MainZone[10]["Suffix"] = ""; //Suffix
-			$MainZone[10]["StepSize"] = ""; //Stepsize
-			$MainZone[10]["Digits"] = ""; //Digits
-		}
-
-		//VolumeDisplay
-		$VolumeDisplay = $xml->xpath('.//VolumeDisplay');
-		if ($VolumeDisplay)
-		{
-			$MainZone[10]["Name"] = "VolumeDisplay";
-			$MainZone[10]["Value"] = (string)$VolumeDisplay[0]->value;
-			$MainZone[10]["Vartype"] = 3; //Vartype String
-			$MainZone[10]["MinValue"] = ""; //MinValue
-			$MainZone[10]["MaxValue"] = ""; //Number
-			$MainZone[10]["Icon"] = "Power"; //Icon
-			$MainZone[10]["Prefix"] = ""; //Prefix
-			$MainZone[10]["Suffix"] = ""; //Suffix
-			$MainZone[10]["StepSize"] = ""; //Stepsize
-			$MainZone[10]["Digits"] = ""; //Digits
-		}
-
-
-
-		//MasterVolume
-		$MasterVolume = $xml->xpath('.//MasterVolume');
-		if ($MasterVolume)
-		{
-			$MainZone[11]["Name"] = "MasterVolume";
-			$MainZone[11]["Value"] = (string)$MasterVolume[0]->value;
-			$MainZone[11]["Vartype"] = 2; //Vartype Float
-			$MainZone[11]["MinValue"] = -80.0; //MinValue
-			$MainZone[11]["MaxValue"] = 18.0; //Number
-			$MainZone[11]["Icon"] = "Power"; //Icon
-			$MainZone[11]["Prefix"] = ""; //Prefix
-			$MainZone[11]["Suffix"] = "%"; //Suffix
-			$MainZone[11]["StepSize"] = 0.5; //Stepsize
-			$MainZone[11]["Digits"] = 0; //Digits
-		}
-
-
-		//Mute
-		$Mute = $xml->xpath('.//Mute');
-		if ($Mute)
-		{
-			$MainZone[12]["Name"] = "Mute";
-			$MainZone[12]["Value"] = (string)$Mute[0]->value;
-			$MainZone[12]["Vartype"] = 0; //Vartype Bool
-			$MainZone[12]["MinValue"] = ""; //MinValue
-			$MainZone[12]["MaxValue"] = ""; //Number
-			$MainZone[12]["Icon"] = "Power"; //Icon
-			$MainZone[12]["Prefix"] = ""; //Prefix
-			$MainZone[12]["Suffix"] = ""; //Suffix
-			$MainZone[12]["StepSize"] = ""; //Stepsize
-			$MainZone[12]["Digits"] = ""; //Digits
-		}
-
-
-		//RemoteMaintenance
-		$RemoteMaintenance = $xml->xpath('.//RemoteMaintenance');
-		if ($RemoteMaintenance)
-		{
-			$MainZone[13]["Name"] = "RemoteMaintenance";
-			$MainZone[13]["Value"] = (string)$RemoteMaintenance[0]->value;
-			$MainZone[13]["Vartype"] = 3; //Vartype String
-			$MainZone[13]["MinValue"] = ""; //MinValue
-			$MainZone[13]["MaxValue"] = ""; //Number
-			$MainZone[13]["Icon"] = "Power"; //Icon
-			$MainZone[13]["Prefix"] = ""; //Prefix
-			$MainZone[13]["Suffix"] = ""; //Suffix
-			$MainZone[13]["StepSize"] = ""; //Stepsize
-			$MainZone[13]["Digits"] = ""; //Digits
-		}
-
-
-		//GameSourceDisplay
-		$GameSourceDisplay = $xml->xpath('.//GameSourceDisplay');
-		if ($GameSourceDisplay)
-		{
-			$MainZone[14]["Name"] = "GameSourceDisplay";
-			$MainZone[14]["Value"] = (string)$GameSourceDisplay[0]->value;
-			$MainZone[14]["Vartype"] = 3; //Vartype String
-			$MainZone[14]["MinValue"] = ""; //MinValue
-			$MainZone[14]["MaxValue"] = ""; //Number
-			$MainZone[14]["Icon"] = "Power"; //Icon
-			$MainZone[14]["Prefix"] = ""; //Prefix
-			$MainZone[14]["Suffix"] = ""; //Suffix
-			$MainZone[14]["StepSize"] = ""; //Stepsize
-			$MainZone[14]["Digits"] = ""; //Digits
-		}
-
-
-		//LastfmDisplay
-		$LastfmDisplay = $xml->xpath('.//LastfmDisplay');
-		if ($LastfmDisplay)
-		{
-			$MainZone[15]["Name"] = "LastfmDisplay";
-			$MainZone[15]["Value"] = (string)$LastfmDisplay[0]->value;
-			$MainZone[15]["Vartype"] = 3; //Vartype String
-			$MainZone[15]["MinValue"] = ""; //MinValue
-			$MainZone[15]["MaxValue"] = ""; //Number
-			$MainZone[15]["Icon"] = "Power"; //Icon
-			$MainZone[15]["Prefix"] = ""; //Prefix
-			$MainZone[15]["Suffix"] = ""; //Suffix
-			$MainZone[15]["StepSize"] = ""; //Stepsize
-			$MainZone[15]["Digits"] = ""; //Digits
-		}
-
-
-		//SubwooferDisplay
-		$SubwooferDisplay = $xml->xpath('.//SubwooferDisplay');
-		if ($SubwooferDisplay)
-		{
-			$MainZone[16]["Name"] = "SubwooferDisplay";
-			$MainZone[16]["Value"] = (string)$SubwooferDisplay[0]->value;
-			$MainZone[16]["Vartype"] = 3; //Vartype String
-			$MainZone[16]["MinValue"] = ""; //MinValue
-			$MainZone[16]["MaxValue"] = ""; //Number
-			$MainZone[16]["Icon"] = "Power"; //Icon
-			$MainZone[16]["Prefix"] = ""; //Prefix
-			$MainZone[16]["Suffix"] = ""; //Suffix
-			$MainZone[16]["StepSize"] = ""; //Stepsize
-			$MainZone[16]["Digits"] = ""; //Digits
-		}
-
-
-		//Zone2VolDisp
-		$Zone2VolDisp = $xml->xpath('.//Zone2VolDisp');
-		if ($Zone2VolDisp )
-		{
-			$MainZone[17]["Name"] = "Zone2VolDisp";
-			$MainZone[17]["Value"] = (string)$Zone2VolDisp[0]->value;
-			$MainZone[17]["Vartype"] = 3; //Vartype String
-			$MainZone[17]["MinValue"] = ""; //MinValue
-			$MainZone[17]["MaxValue"] = ""; //Number
-			$MainZone[17]["Icon"] = "Power"; //Icon
-			$MainZone[17]["Prefix"] = ""; //Prefix
-			$MainZone[17]["Suffix"] = ""; //Suffix
-			$MainZone[17]["StepSize"] = ""; //Stepsize
-			$MainZone[17]["Digits"] = ""; //Digits
-		}
-
-	
-	return $MainZoneXml;
-	}
-	
-	protected function MainZoneXmlStatus($xml)
-	{
-		$MainZoneStatus = array();
-
-		//RestorerMode
-		$RestorerMode = $xml->xpath('.//RestorerMode');
-		if ($RestorerMode)
-		{
-			$MainZoneStatus[0]["Name"] = "RestorerMode";
-			$MainZoneStatus[0]["Value"] = (string)$RestorerMode[0]->value;
-			$MainZoneStatus[0]["Vartype"] = 3; //Vartype String
-			$MainZoneStatus[0]["MinValue"] = ""; //MinValue
-			$MainZoneStatus[0]["MaxValue"] = ""; //Number
-			$MainZoneStatus[0]["Icon"] = "Power"; //Icon
-			$MainZoneStatus[0]["Prefix"] = ""; //Prefix
-			$MainZoneStatus[0]["Suffix"] = ""; //Suffix
-			$MainZoneStatus[0]["StepSize"] = ""; //Stepsize
-			$MainZoneStatus[0]["Digits"] = ""; //Digits
-		}
-
-
-		//SurrMode
-		$SurrMode = $xml->xpath('.//SurrMode');
-		if ($SurrMode )
-		{
-			$MainZoneStatus[1]["Name"] = "SurrMode";
-			$MainZoneStatus[1]["Value"] = (string)$SurrMode[0]->value;
-			$MainZoneStatus[1]["Vartype"] = 3; //Vartype String
-			$MainZoneStatus[1]["MinValue"] = ""; //MinValue
-			$MainZoneStatus[1]["MaxValue"] = ""; //Number
-			$MainZoneStatus[1]["Icon"] = "Power"; //Icon
-			$MainZoneStatus[1]["Prefix"] = ""; //Prefix
-			$MainZoneStatus[1]["Suffix"] = ""; //Suffix
-			$MainZoneStatus[1]["StepSize"] = ""; //Stepsize
-			$MainZoneStatus[1]["Digits"] = ""; //Digits
-		}
-
-		//Inputs
-		$InputFuncList = $xml->xpath('.//InputFuncList');
-		if ($InputFuncList)
-		{
-			$countinput = count($InputFuncList[0]->value);
-			$RenameSource = $xml->xpath('.//RenameSource');
-			$SourceDelete = $xml->xpath('.//SourceDelete');
-			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
-			$countUse = count($SourceDeleteUse);
-			$MainZoneStatus[2]["Name"] = "Inputs";
-			$Inputs = array();
-
-			for ($i = 0; $i <= $countinput-1; $i++)
-				{
-					if ((string)$SourceDelete[0]->value[$i] == "USE")
-					{
-						if ((string)$RenameSource[0]->value[$i] != "")
-							{
-							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
-							}
-						else
-							{
-							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
-						   }
-					}
-			   }
-			$MainZoneStatus[2]["Value"] = $Inputs;
-			$MainZoneStatus[2]["Vartype"] = 1; //Vartype Integer
-			$MainZoneStatus[2]["MinValue"] = 0; //MinValue
-			$MainZoneStatus[2]["MaxValue"] = $countUse; //Number
-			$MainZoneStatus[2]["Icon"] = "Power"; //Icon
-			$MainZoneStatus[2]["Prefix"] = ""; //Prefix
-			$MainZoneStatus[2]["Suffix"] = ""; //Suffix
-			$MainZoneStatus[2]["StepSize"] = 1; //Stepsize
-			$MainZoneStatus[2]["Digits"] = 0; //Digits
-		}
-
-		return $MainZoneStatus;
-	}
-	
-	protected function NetAudioStatusXml($xml)
-	{
-		$NetAudioStatus = array();
-
-		//Modell
-		$szLine = $xml->xpath('.//szLine');
-		$NetAudioStatus[0]["Name"] = "Modell";
-		$NetAudioStatus[0]["Value"] = (string)$szLine[0]->value;
-		$NetAudioStatus[0]["Vartype"] = 3; //Vartype String
-		$NetAudioStatus[0]["MinValue"] = ""; //MinValue
-		$NetAudioStatus[0]["MaxValue"] = ""; //Number
-		$NetAudioStatus[0]["Icon"] = "Power"; //Icon
-		$NetAudioStatus[0]["Prefix"] = ""; //Prefix
-		$NetAudioStatus[0]["Suffix"] = ""; //Suffix
-		$NetAudioStatus[0]["StepSize"] = ""; //Stepsize
-		$NetAudioStatus[0]["Digits"] = ""; //Digits
-
-		return $NetAudioStatus;
-	}
-	
-	protected function Deviceinfo($xml)
-	{
-		$Deviceinfo = array();
-
-		//ModelName
-		$ModelName = $xml->xpath('.//ModelName');
-		//var_dump($ModelName);
-		$Deviceinfo[0]["Name"] = "ModelName";
-		$Deviceinfo[0]["Value"] = (string)$ModelName[0];
-		$Deviceinfo[0]["Vartype"] = 3; //Vartype String
-		$Deviceinfo[0]["MinValue"] = ""; //MinValue
-		$Deviceinfo[0]["MaxValue"] = ""; //Number
-		$Deviceinfo[0]["Icon"] = "Power"; //Icon
-		$Deviceinfo[0]["Prefix"] = ""; //Prefix
-		$Deviceinfo[0]["Suffix"] = ""; //Suffix
-		$Deviceinfo[0]["StepSize"] = ""; //Stepsize
-		$Deviceinfo[0]["Digits"] = ""; //Digits
-
-		return $Deviceinfo;
-	}
-	
-	
-	
-	//Zuordnung und Auswahl der anzulegenden Profile
-	protected function ProfileSelektor($MainZoneXml)
-	{
-	$Type = $this->ReadPropertyInteger('Type');	
-	foreach($MainZoneXml as $Profil)
-		{
-		$Name = $Profil["Name"];
-		$Name = "DENON_".$Type.".".$Name;
-		$Value =	$Profil["Value"];
-		$Vartype =	$Profil["Vartype"];
-		$Icon = $Profil["Icon"];
-		$Prefix = $Profil["Prefix"];
-		$Suffix = $Profil["Suffix"];
-		$MinValue = $Profil["MinValue"];
-		$MaxValue = $Profil["MaxValue"];
-		$StepSize = $Profil["StepSize"];
-		$Digits = $Profil["Digits"];
-
-		if ($Vartype == 1)
-			{
-			//Einschränkung für anzulegende Profile
-			if($Name == "inputs")
-				{
-				RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits);	
-				}		
-			}
-		elseif ($Vartype == 2)
-			{
-			//Einschränkung für anzulegende Profile
-			if($Name == "MasterVolume")
-				{
-				RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize);
-				}		
-			}
-		
-		elseif ($vartype == 3)
-			{
-			//Einschränkung für anzulegende Profile
-			if($Name == "" || $Name == "")
-				{
-				RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize);
-				}
-			}
-		
-		}
-	}
-	
-	
 	
 	protected function GetInputSource()
 	{
@@ -1205,12 +563,14 @@ class DenonAVRTelnet extends IPSModule
             echo $ex->getMessage();
             return false;
         }
-		/*
+		
+		
 		$APIData = new DenonAVRCP_API_Data();
 		// Command aus Ident auslesen
-        $APIData->APICommand = substr($Ident, 0, 3);
+		$APIData->APICommand = $Ident;
+        //$APIData->APICommand = substr($Ident, 0, 3);
         $APIData->Data = $Value;
-        if (!$this->OnkyoZone->CmdAvaiable($APIData))
+        if (!$this->DenonZone->CmdAvaiable($APIData))
         {
 //            trigger_error("Illegal Command in this Zone.", E_USER_WARNING);
             echo "Illegal Command in this Zone";
@@ -1239,12 +599,10 @@ class DenonAVRTelnet extends IPSModule
           } */
 		
 		//Type und Zone
+		/*
 		$Type = $this->ReadPropertyInteger('Type');
 		$Zone = $this->ReadPropertyInteger('Zone');
 				
-		//Optionen
-		$Display = $this->ReadPropertyBoolean('Display');
-		$Control = $this->ReadPropertyBoolean('Control');
 		
 		if($Zone === 0) //Mainzone
 			{
@@ -1584,7 +942,7 @@ class DenonAVRTelnet extends IPSModule
 					throw new Exception("Invalid ident");
 				}
 			}	
-		
+		*/
     }
 	
 	/*
@@ -1762,6 +1120,153 @@ class DenonAVRTelnet extends IPSModule
 		IPS_SetVariableProfileDigits($Name, $Digits); //  Nachkommastellen
         IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
         
+    }
+
+	
+	private function SendAPIData(DenonAVRCP_API_Data $APIData)
+    {
+        
+		/*
+		$DualType = substr($APIData->APICommand, 3, 1);
+        $APIData->APICommand = substr($APIData->APICommand, 0, 3);
+        if ($APIData->Mapping === null)
+            $APIData->GetMapping();
+
+        IPS_LogMessage('SendAPIData', print_r($APIData, 1));
+
+        // Variable konvertieren..        
+        switch ($APIData->Mapping->VarType)
+        {
+            case IPSVarType::vtBoolean:
+                $APIData->Data = ISCP_API_Commands::$BoolValueMapping[$APIData->Data];
+                break;
+            case IPSVarType::vtFloat:
+//                echo "Float VarType not implemented.";
+
+                throw new Exception("Float VarType not implemented.", E_USER_NOTICE);
+                break;
+            case IPSVarType::vtInteger:
+                if ($APIData->Mapping->ValueMapping == null)
+                    $APIData->Data = strtoupper(substr('0' . dechex($APIData->Data), -2));
+                else
+                {
+                    $Mapping = array_flip($APIData->Mapping->ValueMapping);
+                    if (array_key_exists($APIData->Data, $Mapping))
+                        $APIData->Data = $Mapping[$APIData->Data];
+                    else
+                        $APIData->Data = strtoupper(substr('0' . dechex($APIData->Data), -2));
+                }
+                break;
+            case IPSVarType::vtDualInteger:
+                if ($DualType === false)
+                {
+                    throw new Exception("Error on get DualInteger.", E_USER_NOTICE);
+//                    echo "Error on get DualInteger.";
+//                    return false;
+                }
+                $Prefix = array_flip($APIData->Mapping->ValuePrefix)[$DualType];
+                $Mapping = array_flip($APIData->Mapping->ValueMapping);
+                if (array_key_exists($APIData->Data, $Mapping))
+                    $APIData->Data = $Prefix . $Mapping[$APIData->Data];
+                else
+                    $APIData->Data = strtoupper($Prefix . substr('0' . dechex($APIData->Data), -2));
+                break;
+            default:
+//                echo "Unknow VarType.";
+//                return;
+                throw new Exception("Unknow VarType.", E_USER_NOTICE);
+                break;
+        }
+        try
+        {
+            $ret = $this->Send($APIData);
+        } catch (Exception $exc)
+        {
+            throw $exc;
+        }
+
+        if ($ret->Data == "N/A")
+        {
+            throw new Exception("Command (temporally) not available.", E_USER_NOTICE);
+//            return;
+        }
+        switch ($APIData->Mapping->VarType)
+        {
+            case IPSVarType::vtBoolean:
+            case IPSVarType::vtInteger:
+            case IPSVarType::vtFloat:
+                if ($ret->Data <> $APIData->Data)
+                {
+                    IPS_LogMessage('RequestAction', print_r($APIData, 1));
+                    IPS_LogMessage('RequestActionResult', print_r($ret, 1));
+                    throw new Exception("Value not available.", E_USER_NOTICE);
+//                    echo "Value not available.";
+//                    return;
+                }
+                break;
+            case IPSVarType::vtDualInteger:
+                if (strpos($ret->Data, $APIData->Data) === false)
+                {
+                    IPS_LogMessage('RequestAction', print_r($APIData, 1));
+                    IPS_LogMessage('RequestActionResult', print_r($ret, 1));
+                    throw new Exception("Value not available.", E_USER_NOTICE);
+//                    echo "Value not available.";
+//                    return;
+                }
+                break;
+        }
+
+        return $ret;
+		*/
+    }
+
+    private function Send(DenonAVRCP_API_Data $APIData, $needResponse = true)
+    {
+        if (!$this->DenonZone->CmdAvaiable($APIData))
+            throw new Exception("Command not available at this Zone.", E_USER_NOTICE);
+        if (!$this->HasActiveParent())
+            throw new Exception("Instance has no active Parent.", E_USER_NOTICE);
+
+        $ReplyAPIDataID = $this->GetIDForIdent('ReplyAPIData');
+        if (!$this->lock('RequestSendData'))
+            throw new Exception('RequestSendData is locked', E_USER_NOTICE);
+
+        if ($needResponse)
+        {
+            if (!$this->lock('ReplyAPIData'))
+            {
+                $this->unlock('RequestSendData');
+                throw new Exception('ReplyAPIData is locked', E_USER_NOTICE);
+            }
+            SetValueString($ReplyAPIDataID, '');
+            $this->unlock('ReplyAPIData');
+        }
+        $ret = $this->SendDataToParent($APIData);
+        if ($ret === false)
+        {
+//            IPS_LogMessage('exc',print_r($ret,1));
+            $this->unlock('RequestSendData');
+            throw new Exception('Instance has no active Parent Instance!', E_USER_NOTICE);
+        }
+//        IPS_LogMessage('noexc', print_r($ret, 1));
+        if (!$needResponse)
+        {
+            $this->unlock('RequestSendData');
+            return true;
+        }
+        $ReplayAPIData = $this->WaitForResponse($APIData->APICommand);
+
+        //        IPS_LogMessage('ReplayATData:'.$this->InstanceID,print_r($ReplayATData,1));
+
+        if ($ReplayAPIData === false)
+        {
+            //          Senddata('TX_Status','Timeout');
+            $this->unlock('RequestSendData');
+            throw new Exception('Send Data Timeout', E_USER_NOTICE);
+        }
+        //            Senddata('TX_Status','OK')
+        $this->unlock('RequestSendData');
+        return $ReplayAPIData;
     }
 	
 	

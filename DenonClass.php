@@ -59,20 +59,24 @@ class DENONIPSProfiles extends stdClass
 	public $ptInputMode;
 	public $ptZone2Power;
 	public $ptZone2Mute;
+	public $ptZone2HPF;
 	public $ptZone2Volume;
 	public $ptZone2InputSource;
 	public $ptZone2ChannelSetting;
 	public $ptZone2ChannelVolumeFL;
 	public $ptZone2ChannelVolumeFR;
 	public $ptZone2QuickSelect;
+	public $ptSleepZ2;
 	public $ptZone3Power;
 	public $ptZone3Mute;
+	public $ptZone3HPF;
 	public $ptZone3Volume;
 	public $ptZone3InputSource;
 	public $ptZone3ChannelSetting;
 	public $ptZone3ChannelVolumeFL;
 	public $ptZone3ChannelVolumeFR;
 	public $ptZone3QuickSelect;
+	public $ptSleepZ3;
 	public $ptChannelVolumeFL;
 	public $ptChannelVolumeFR;
 	public $ptChannelVolumeC;
@@ -124,7 +128,7 @@ class DENONIPSProfiles extends stdClass
 	public function SetupVarDenonBool($profile)
 	{
 		//Ident, Name, Profile, Position 
-		$profiles = array (
+		$profilesMainZone = array (
 		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", 1),
 		$this->ptMainZonePower => array(DENON_API_Commands::ZM, "MainZonePower", "~Switch", 2),
 		$this->ptMainMute => array(DENON_API_Commands::MU, "MainMute", "~Switch", 3),
@@ -141,6 +145,38 @@ class DENONIPSProfiles extends stdClass
 		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", 14 )
 		);
 		
+		$profilesZone2 = array (
+		$this->ptZone2Power => array(DENON_API_Commands::Z2, "Zone 2 Power", "~Switch", 1),
+		$this->ptZone2Mute => array(DENON_API_Commands::Z2MU, "Zone 2 Mute", "~Switch", 1),
+		$this->ptZone2HPF => array(DENON_API_Commands::Z2HPF, "Zone 2 HPF", "~Switch", 1)
+		);
+		
+		$profilesZone3 = array (
+		$this->ptZone2Power => array(DENON_API_Commands::Z3, "Zone 3 Power", "~Switch", 1),
+		$this->ptZone2Mute => array(DENON_API_Commands::Z3MU, "Zone 3 Mute", "~Switch", 1),
+		$this->ptZone2HPF => array(DENON_API_Commands::Z3HPF, "Zone 3 HPF", "~Switch", 1)
+		);
+		
+		if($this->Zone == 0)
+		{
+			$profilebool = $this->sendprofilebool($profilesMainZone);
+			return $profilebool;
+		}
+		elseif ($this->Zone == 1)
+		{
+			$profilebool = $this->sendprofilebool($profilesZone2);
+			return $profilebool;
+		}
+		elseif ($this->Zone == 2)
+		{
+			$profilebool = $this->sendprofilebool($profilesZone3);
+			return $profilebool;
+		}
+		
+	}
+	
+	private function sendprofilebool($profiles)
+	{
 		foreach($profiles as $ptName => $profilvar)
 		{
 			if($ptName == $profile)
@@ -158,14 +194,42 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	public function SetupVarDenonInteger($profile)
+	protected function SetupVarDenonInteger($profile)
 	{
 		//Sichtbare variablen profil suchen
-		$profiles = array(
+		$profilesMainZone = array(
         $this->ptSleep => array(DENON_API_Commands::SLP, "Sleep", "Intensity",  "", "", 0, 120, 10, 0),
 		$this->ptDimension => array(DENON_API_Commands::PSDIM, "Dimension", "Intensity",  "", "", 0, 6, 1, 0)
 		);
 		
+		$profilesZone2 = array(
+        $this->ptSleepZ2 => array(DENON_API_Commands::Z2SLP, "Sleep", "Intensity",  "", "", 0, 120, 10, 0)
+		);
+		
+		$profilesZone3 = array(
+        $this->ptSleepZ3 => array(DENON_API_Commands::Z3SLP, "Sleep", "Intensity",  "", "", 0, 120, 10, 0)
+		);
+		
+		if($this->Zone == 0)
+		{
+			$profileinteger = $this->sendprofileinteger($profilesMainZone);
+			return $profileinteger;
+		}
+		elseif ($this->Zone == 1)
+		{
+			$profileinteger = $this->sendprofileinteger($profilesZone2);
+			return $profileinteger;
+		}
+		elseif ($this->Zone == 2)
+		{
+			$profileinteger = $this->sendprofileinteger($profilesZone3);
+			return $profileinteger;
+		}
+		
+	}
+	
+	private function sendprofileinteger($profiles)
+	{
 		foreach($profiles as $ptName => $profilvar)
 		{
 			if($ptName == $profile)
@@ -191,7 +255,7 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	public function SetupVarDenonIntegerAss($profile)
+	protected function SetupVarDenonIntegerAss($profile)
 	{
 		//Sichtbare variablen profil suchen
 		//Associations
@@ -643,105 +707,61 @@ class DENONIPSProfiles extends stdClass
 		
 		if($this->Zone == 0)
 		{
-			foreach($ProfilAssociationsMainZone as $ptName => $profilvar)
-			{
-				if($ptName == $profile)
-				{
-					$pos = $this->getpos($profile);
-				    $profilesettings = $profilvar["Profilesettings"];
-					$Ident = $profilvar["Ident"];
-					$Name = $profilvar["Name"];
-					$profileintegerass = array(
-					"ProfilName" => $ptName,
-					"Ident" => $Ident,
-					"Name" => $Name,
-					"Icon" => $profilesettings[0],
-					"Prefix" => $profilesettings[1],
-					"Suffix" => $profilesettings[2],
-					"MinValue" => $profilesettings[3],
-					"MaxValue" => $profilesettings[4],
-					"Stepsize" => $profilesettings[5],
-					"Digits" => $profilesettings[6],
-					"Associations" => $profilvar["Associations"],
-					"Position" => $pos
-				   );
-				   
-				   return $profileintegerass;
-				}
-
-			}	
+			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsMainZone);
+			return $profileintegerass;
 		}
-		elseif($this->Zone == 1)
+		elseif ($this->Zone == 1)
 		{
-			foreach($ProfilAssociationsZone2 as $ptName => $profilvar)
-			{
-				if($ptName == $profile)
-				{
-					$pos = $this->getpos($profile);
-				    $profilesettings = $profilvar["Profilesettings"];
-					$Ident = $profilvar["Ident"];
-					$Name = $profilvar["Name"];
-					$profileintegerass = array(
-					"ProfilName" => $ptName,
-					"Ident" => $Ident,
-					"Name" => $Name,
-					"Icon" => $profilesettings[0],
-					"Prefix" => $profilesettings[1],
-					"Suffix" => $profilesettings[2],
-					"MinValue" => $profilesettings[3],
-					"MaxValue" => $profilesettings[4],
-					"Stepsize" => $profilesettings[5],
-					"Digits" => $profilesettings[6],
-					"Associations" => $profilvar["Associations"],
-					"Position" => $pos
-				   );
-				   
-				   return $profileintegerass;
-				}
-
-			}	
+			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsZone2);
+			return $profileintegerass;
 		}
-		if($this->Zone == 2)
+		elseif ($this->Zone == 2)
 		{
-			foreach($ProfilAssociationsZone3 as $ptName => $profilvar)
-			{
-				if($ptName == $profile)
-				{
-					$pos = $this->getpos($profile);
-				    $profilesettings = $profilvar["Profilesettings"];
-					$Ident = $profilvar["Ident"];
-					$Name = $profilvar["Name"];
-					$profileintegerass = array(
-					"ProfilName" => $ptName,
-					"Ident" => $Ident,
-					"Name" => $Name,
-					"Icon" => $profilesettings[0],
-					"Prefix" => $profilesettings[1],
-					"Suffix" => $profilesettings[2],
-					"MinValue" => $profilesettings[3],
-					"MaxValue" => $profilesettings[4],
-					"Stepsize" => $profilesettings[5],
-					"Digits" => $profilesettings[6],
-					"Associations" => $profilvar["Associations"],
-					"Position" => $pos
-				   );
-				   
-				   return $profileintegerass;
-				}
-
-			}	
+			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsZone3);
+			return $profileintegerass;
 		}
 		
 		
 	}
 	
-	public function SetupVarDenonFloat($profile)
+	private function sendprofileintegerass($ProfilAssociationsZone)
+	{
+		foreach($ProfilAssociationsZone as $ptName => $profilvar)
+			{
+				if($ptName == $profile)
+				{
+					$pos = $this->getpos($profile);
+				    $profilesettings = $profilvar["Profilesettings"];
+					$Ident = $profilvar["Ident"];
+					$Name = $profilvar["Name"];
+					$profileintegerass = array(
+					"ProfilName" => $ptName,
+					"Ident" => $Ident,
+					"Name" => $Name,
+					"Icon" => $profilesettings[0],
+					"Prefix" => $profilesettings[1],
+					"Suffix" => $profilesettings[2],
+					"MinValue" => $profilesettings[3],
+					"MaxValue" => $profilesettings[4],
+					"Stepsize" => $profilesettings[5],
+					"Digits" => $profilesettings[6],
+					"Associations" => $profilvar["Associations"],
+					"Position" => $pos
+				   );
+				   
+				   return $profileintegerass;
+				}
+
+			}	
+	}
+	
+	
+	protected function SetupVarDenonFloat($profile)
 	{
 		//Sichtbare variablen profil suchen
-		$profiles = array(
+		$profilesMainzone = array(
 		$this->ptMasterVolume => array(DENON_API_Commands::MV, "MasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptChannelVolumeFL => array("CVFL", "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		//$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "ChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "ChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW, "ChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
@@ -769,11 +789,41 @@ class DENONIPSProfiles extends stdClass
 		$this->ptEnhancer => array(DENON_API_Commands::PVENH, "Enhancer", "Intensity", "", "", 0, 12, 1, 0),
 		$this->ptStageHeight => array(DENON_API_Commands::PSSTH, "StageHeight", "Intensity", "", "", -10, 10, 1, 0),
 		$this->ptStageWidth => array(DENON_API_Commands::PSSTW, "StageWidth", "Intensity", "", "", -10, 10, 1, 0)
-
-
+		);
+				
+		$profilesZone2 = array(
+		$this->ptZone2Volume => array(DENON_API_Commands::Z2, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone2ChannelVolumeFL", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
+		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone2ChannelVolumeFR", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
 		);
 		
-		foreach($profiles as $ptName => $profilvar)
+		$profilesZone3 = array(
+		$this->ptZone3Volume => array(DENON_API_Commands::Z3, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume FL", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
+		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume FR", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
+		);
+		
+		if ($this->Zone == 0)
+		{
+			$profilefloat = $this->sendprofilefloat($profilesMainzone);
+			return $profilefloat;
+		}
+		elseif ($this->Zone == 1)
+		{
+			$profilefloat = $this->sendprofilefloat($profilesZone2);
+			return $profilefloat;
+		}
+		elseif ($this->Zone == 2)
+		{
+			$profilefloat = $this->sendprofilefloat($profilesZone3);
+			return $profilefloat;
+		}
+	}
+
+	
+	private function sendprofilefloat($profilesZone)
+	{
+		foreach($profilesZone as $ptName => $profilvar)
 		{
 			if($ptName == $profile)
 			{
@@ -801,11 +851,8 @@ class DENONIPSProfiles extends stdClass
 
 		}	
 	}
-
 	
-	
-	
-	function getpos($profile)
+	private function getpos($profile)
 	{
 		$positions = array 
 						( 
@@ -915,6 +962,373 @@ class DENONIPSProfiles extends stdClass
 	}
 }
 
+class DENON_StatusHTML extends stdClass
+{
+	//Status
+	public function getStates ($Zone, $Info)
+	{
+		if ($Zone == 0) //Main
+		{
+			if ($Info == "MainZoneXml")
+			{
+				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml"));
+				
+				if ($xml)
+					{
+					//echo "Datei wurde gefunden";
+					$MainZoneXml = $this->MainZoneXml($xml);
+					return $MainZoneXml;
+					
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+						
+			}
+			elseif ($Info == "MainZoneXmlStatus")
+			{
+				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXmlStatus.xml"));
+				
+				if ($xml)
+					{
+					//echo "Datei wurde gefunden";
+					$MainZoneXmlStatus = $this->MainZoneXmlStatus($xml);
+					return $MainZoneXmlStatus;
+					
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+						
+			}
+			elseif ($Info == "NetAudioStatusXml")
+			{
+				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_NetAudioStatusXml.xml"));
+				
+				if ($xml)
+					{
+					//echo "Datei wurde gefunden";
+					$NetAudioStatusXml = $this->NetAudioStatusXml($xml);
+					return $NetAudioStatusXml;
+					
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+						
+			}
+			elseif ($Info == "Deviceinfo")
+			{
+				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_Deviceinfo.xml"));
+				
+				if ($xml)
+					{
+					//echo "Datei wurde gefunden";
+					$Deviceinfo = $this->Deviceinfo($xml);
+					return $Deviceinfo;
+					
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+						
+			}
+		}
+		elseif ($Zone == 1) // Zone 2
+		{
+			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
+		}
+		elseif ($Zone == 2) // Zone 3
+		{
+			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
+		}
+	}
+	
+	protected function MainZoneXml($xml)
+	{
+	$MainZoneXml = array();
+	
+		//FriendlyName
+		$FriendlyName = $xml->xpath('.//FriendlyName');
+		if ($FriendlyName)
+		{
+			$MainZone["FriendlyName"]["Name"] = "FriendlyName";
+			$MainZone["FriendlyName"]["Value"] = (string)$FriendlyName[0]->value;
+			$MainZone["FriendlyName"]["Profile"] = $this->ptFriendlyname;
+		}
+
+		//Power
+		$AVRPower = $xml->xpath('.//Power');
+		if ($AVRPower)
+		{
+			$MainZone["Power"]["Name"] = "Power";
+			$MainZone["Power"]["Value"] = (string)$AVRPower[0]->value;
+			$MainZone["Power"]["Profile"] = $this->ptPower;
+		}
+
+
+		//Zone Power
+		$ZonePower = $xml->xpath('.//ZonePower');
+		if ($ZonePower)
+		{
+			$MainZone["MainZonePower"]["Name"] = "MainZonePower";
+			$MainZone["MainZonePower"]["Value"] = (string)$ZonePower[0]->value;
+			$MainZone["MainZonePower"]["Profile"] = $this->ptMainZonePower;
+		}
+
+		//RenameZone
+		$RenameZone = $xml->xpath('.//RenameZone');
+		if ($RenameZone)
+		{
+			$MainZone["MainZoneName"]["Name"] = "MainZoneName";
+			$MainZone["MainZoneName"]["Value"] = (string)$RenameZone[0]->value;
+			$MainZone["MainZoneName"]["Profile"] = 3; //Vartype String
+		}
+
+
+
+		//TopMenuLink
+		$TopMenuLink = $xml->xpath('.//TopMenuLink');
+		if ($TopMenuLink)
+		{
+			$MainZone["TopMenuLink"]["Name"] = "TopMenuLink";
+			$MainZone["TopMenuLink"]["Value"] = (string)$TopMenuLink[0]->value;
+			$MainZone["TopMenuLink"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//ModelId
+		$ModelId = $xml->xpath('.//ModelId');
+		if ($ModelId)
+		{
+			$MainZone["ModelId"]["Name"] = "ModelId";
+			$MainZone["ModelId"]["Value"] = (string)$ModelId[0]->value;
+			$MainZone["ModelId"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//SalesArea
+		$SalesArea = $xml->xpath('.//SalesArea');
+		if ($SalesArea)
+		{
+			$MainZone["SalesArea"]["Name"] = "SalesArea";
+			$MainZone["SalesArea"]["Value"] = (string)$SalesArea[0]->value;
+			$MainZone["SalesArea"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//InputFuncSelect
+		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
+		if ($InputFuncSelect)
+		{
+			$MainZone["InputFuncSelect"]["Name"] = "InputFuncSelect";
+			$MainZone["InputFuncSelect"]["Value"] = (string)$InputFuncSelect[0]->value;
+			$MainZone["InputFuncSelect"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//NetFuncSelect
+		$NetFuncSelect = $xml->xpath('.//NetFuncSelect');
+		if ($NetFuncSelect)
+		{
+			$MainZone["NetFuncSelect"]["Name"] = "NetFuncSelect";
+			$MainZone["NetFuncSelect"]["Value"] = (string)$NetFuncSelect[0]->value;
+			$MainZone["NetFuncSelect"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//InputFuncSelectMain
+		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
+		if ($InputFuncSelectMain)
+		{
+		   $MainZone["InputFuncSelectMain"]["Name"] = "InputFuncSelectMain";
+			$MainZone["InputFuncSelectMain"]["Value"] = (string)$InputFuncSelectMain[0]->value;
+			$MainZone["InputFuncSelectMain"]["Profile"] = 3; //Vartype String
+		}
+
+		//selectSurround
+		$selectSurround = $xml->xpath('.//selectSurround');
+		if ($selectSurround)
+		{
+			$MainZone["selectSurround"]["Name"] = "selectSurround";
+			$MainZone["selectSurround"]["Value"] = (string)$selectSurround[0]->value;
+			$MainZone["selectSurround"]["Profile"] = 3; //Vartype String
+		}
+
+		//VolumeDisplay
+		$VolumeDisplay = $xml->xpath('.//VolumeDisplay');
+		if ($VolumeDisplay)
+		{
+			$MainZone["VolumeDisplay"]["Name"] = "VolumeDisplay";
+			$MainZone["VolumeDisplay"]["Value"] = (string)$VolumeDisplay[0]->value;
+			$MainZone["VolumeDisplay"]["Profile"] = 3; //Vartype String
+		}
+
+
+
+		//MasterVolume
+		$MasterVolume = $xml->xpath('.//MasterVolume');
+		if ($MasterVolume)
+		{
+			$MainZone["MasterVolume"]["Name"] = "MasterVolume";
+			$MainZone["MasterVolume"]["Value"] = (string)$MasterVolume[0]->value;
+			$MainZone["MasterVolume"]["Profile"] = 2; //Vartype Float
+		}
+
+
+		//Mute
+		$Mute = $xml->xpath('.//Mute');
+		if ($Mute)
+		{
+			$MainZone["Mute"]["Name"] = "Mute";
+			$MainZone["Mute"]["Value"] = (string)$Mute[0]->value;
+			$MainZone["Mute"]["Profile"] = 0; //Vartype Bool
+		}
+
+
+		//RemoteMaintenance
+		$RemoteMaintenance = $xml->xpath('.//RemoteMaintenance');
+		if ($RemoteMaintenance)
+		{
+			$MainZone["RemoteMaintenance"]["Name"] = "RemoteMaintenance";
+			$MainZone["RemoteMaintenance"]["Value"] = (string)$RemoteMaintenance[0]->value;
+			$MainZone["RemoteMaintenance"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//GameSourceDisplay
+		$GameSourceDisplay = $xml->xpath('.//GameSourceDisplay');
+		if ($GameSourceDisplay)
+		{
+			$MainZone["GameSourceDisplay"]["Name"] = "GameSourceDisplay";
+			$MainZone["GameSourceDisplay"]["Value"] = (string)$GameSourceDisplay[0]->value;
+			$MainZone["GameSourceDisplay"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//LastfmDisplay
+		$LastfmDisplay = $xml->xpath('.//LastfmDisplay');
+		if ($LastfmDisplay)
+		{
+			$MainZone["LastfmDisplay"]["Name"] = "LastfmDisplay";
+			$MainZone["LastfmDisplay"]["Value"] = (string)$LastfmDisplay[0]->value;
+			$MainZone["LastfmDisplay"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//SubwooferDisplay
+		$SubwooferDisplay = $xml->xpath('.//SubwooferDisplay');
+		if ($SubwooferDisplay)
+		{
+			$MainZone["SubwooferDisplay"]["Name"] = "SubwooferDisplay";
+			$MainZone["SubwooferDisplay"]["Value"] = (string)$SubwooferDisplay[0]->value;
+			$MainZone["SubwooferDisplay"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//Zone2VolDisp
+		$Zone2VolDisp = $xml->xpath('.//Zone2VolDisp');
+		if ($Zone2VolDisp )
+		{
+			$MainZone["Zone2VolDisp"]["Name"] = "Zone2VolDisp";
+			$MainZone["Zone2VolDisp"]["Value"] = (string)$Zone2VolDisp[0]->value;
+			$MainZone["Zone2VolDisp"]["Profile"] = 3; //Vartype String
+		}
+
+	
+	return $MainZoneXml;
+	}
+	
+	protected function MainZoneXmlStatus($xml)
+	{
+		$MainZoneStatus = array();
+
+		//RestorerMode
+		$RestorerMode = $xml->xpath('.//RestorerMode');
+		if ($RestorerMode)
+		{
+			$MainZoneStatus["RestorerMode"]["Name"] = "RestorerMode";
+			$MainZoneStatus["RestorerMode"]["Value"] = (string)$RestorerMode[0]->value;
+			$MainZoneStatus["RestorerMode"]["Profile"] = 3; //Vartype String
+		}
+
+
+		//SurrMode
+		$SurrMode = $xml->xpath('.//SurrMode');
+		if ($SurrMode )
+		{
+			$MainZoneStatus["SurrMode"]["Name"] = "SurrMode";
+			$MainZoneStatus["SurrMode"]["Value"] = (string)$SurrMode[0]->value;
+			$MainZoneStatus["SurrMode"]["Profile"] = 3; //Vartype String
+		}
+
+		//Inputs
+		$InputFuncList = $xml->xpath('.//InputFuncList');
+		if ($InputFuncList)
+		{
+			$countinput = count($InputFuncList[0]->value);
+			$RenameSource = $xml->xpath('.//RenameSource');
+			$SourceDelete = $xml->xpath('.//SourceDelete');
+			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
+			$countUse = count($SourceDeleteUse);
+			$MainZoneStatus["Inputs"]["Name"] = "Inputs";
+			$Inputs = array();
+
+			for ($i = 0; $i <= $countinput-1; $i++)
+				{
+					if ((string)$SourceDelete[0]->value[$i] == "USE")
+					{
+						if ((string)$RenameSource[0]->value[$i] != "")
+							{
+							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
+							}
+						else
+							{
+							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
+						   }
+					}
+			   }
+			$MainZoneStatus["Inputs"]["Value"] = $Inputs;
+			$MainZoneStatus["Inputs"]["MaxValue"] = $countUse; //Number
+			
+		}
+
+		return $MainZoneStatus;
+	}
+	
+	protected function NetAudioStatusXml($xml)
+	{
+		$NetAudioStatus = array();
+
+		//Modell
+		$szLine = $xml->xpath('.//szLine');
+		$NetAudioStatus["Modell"]["Name"] = "Modell";
+		$NetAudioStatus["Modell"]["Value"] = (string)$szLine[0]->value;
+		$NetAudioStatus["Modell"]["Vartype"] = 3; //Vartype String
+		
+
+		return $NetAudioStatus;
+	}
+	
+	protected function Deviceinfo($xml)
+	{
+		$Deviceinfo = array();
+
+		//ModelName
+		$ModelName = $xml->xpath('.//ModelName');
+		//var_dump($ModelName);
+		$Deviceinfo["ModelName"]["Name"] = "ModelName";
+		$Deviceinfo["ModelName"]["Value"] = (string)$ModelName[0];
+		$Deviceinfo["ModelName"]["Vartype"] = 3; //Vartype String
+
+		return $Deviceinfo;
+	}
+}
+
 class DENON_Zone extends stdClass
 {
 
@@ -1005,18 +1419,22 @@ class DENON_Zone extends stdClass
             DENON_API_Commands::Z2,
             DENON_API_Commands::Z2MU,
 			DENON_API_Commands::Z2CS,
-			DENON_API_Commands::Z2CV,
+			DENON_API_Commands::Z2CVFL,
+			DENON_API_Commands::Z2CVFR,
 			DENON_API_Commands::Z2HPF,
-			DENON_API_Commands::Z2PS,
+			DENON_API_Commands::Z2PSBAS,
+			DENON_API_Commands::Z2PSTRE,
 			DENON_API_Commands::Z2SLP
         ),
         DENON_Zone::Zone3 => array(
             DENON_API_Commands::Z3,
 			DENON_API_Commands::Z3MU,
 			DENON_API_Commands::Z3CS,
-			DENON_API_Commands::Z3CV,
+			DENON_API_Commands::Z3CVFL,
+			DENON_API_Commands::Z3CVFR,
 			DENON_API_Commands::Z3HPF,
-			DENON_API_Commands::Z3PS,
+			DENON_API_Commands::Z3PSBAS,
+			DENON_API_Commands::Z3PSTRE,
             DENON_API_Commands::Z3SLP
         )
 		
@@ -1131,9 +1549,11 @@ class DENON_API_Commands extends stdClass
 	const Z2 = "Z2"; // Zone 2
 	const Z2MU = "Z2MU"; // Zone 2 Mute
 	const Z2CS = "Z2CS"; // Zone 2 Channel Setting
-	const Z2CV = "Z2CV"; // Zone 2 Channel Volume
+	const Z2CV = "Z2CVFL"; // Zone 2 Channel Volume FL
+	const Z2CV = "Z2CVFR"; // Zone 2 Channel Volume FR
 	const Z2HPF = "Z2HPF"; // Zone 2 HPF
-	const Z2PS = "Z2PS"; // Zone 2 Parameter
+	const Z2PSBAS = "Z2PSBAS"; // Zone 2 Parameter Bass
+	const Z2PSTRE = "Z2PSTRE"; // Zone 2 Parameter Treble
 	const Z2SLP = "Z2SLP"; // Zone 2 Sleep Timer
 	const Z2QUICK = "Z2QUICK"; // Zone 2 Quick
 	
@@ -1141,9 +1561,11 @@ class DENON_API_Commands extends stdClass
 	const Z3 = "Z3"; // Zone 3
 	const Z3MU = "Z3MU"; // Zone 3 Mute
 	const Z3CS = "Z3CS"; // Zone 3 Channel Setting
-	const Z3CV = "Z3CV"; // Zone 3 Channel Volume
+	const Z3CV = "Z3CVFL"; // Zone 3 Channel Volume FL
+	const Z3CV = "Z3CVFR"; // Zone 3 Channel Volume FR
 	const Z3HPF = "Z3HPF"; // Zone 3 HPF
-	const Z3PS = "Z3PS"; // Zone 3 Parameter
+	const Z3PSBAS = "Z3PSBAS"; // Zone 3 Parameter Bass
+	const Z3PSTRE = "Z3PSTRE"; // Zone 3 Parameter Treble
 	const Z3SLP = "Z3SLP"; // Zone 3 Sleep Timer
 	const Z3QUICK = "Z3QUICK"; // Zone 3 Quick
 	

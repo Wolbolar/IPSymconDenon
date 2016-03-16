@@ -24,7 +24,8 @@
 						"options": [
 									{ "value": 0, "label": "Main Zone" },
 									{ "value": 1, "label": "Zone 2" },
-									{ "value": 2, "label": "Zone 3" }
+									{ "value": 2, "label": "Zone 3" },
+									{ "value": 6, "label": "Zone Wählen" }
 								  ]
 				},
 				
