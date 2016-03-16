@@ -121,7 +121,7 @@ class DenonAVRTelnet extends IPSModule
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
-			$Type = GetAVRType();
+			$Type = $this->GetAVRType();
 			//Type und Zone
 			$DenonAVRVar->Type = $Type;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
