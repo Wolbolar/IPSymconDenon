@@ -1549,8 +1549,8 @@ class DENON_API_Commands extends stdClass
 	const Z2 = "Z2"; // Zone 2
 	const Z2MU = "Z2MU"; // Zone 2 Mute
 	const Z2CS = "Z2CS"; // Zone 2 Channel Setting
-	const Z2CV = "Z2CVFL"; // Zone 2 Channel Volume FL
-	const Z2CV = "Z2CVFR"; // Zone 2 Channel Volume FR
+	const Z2CVFL = "Z2CVFL"; // Zone 2 Channel Volume FL
+	const Z2CVFR = "Z2CVFR"; // Zone 2 Channel Volume FR
 	const Z2HPF = "Z2HPF"; // Zone 2 HPF
 	const Z2PSBAS = "Z2PSBAS"; // Zone 2 Parameter Bass
 	const Z2PSTRE = "Z2PSTRE"; // Zone 2 Parameter Treble
@@ -1561,8 +1561,8 @@ class DENON_API_Commands extends stdClass
 	const Z3 = "Z3"; // Zone 3
 	const Z3MU = "Z3MU"; // Zone 3 Mute
 	const Z3CS = "Z3CS"; // Zone 3 Channel Setting
-	const Z3CV = "Z3CVFL"; // Zone 3 Channel Volume FL
-	const Z3CV = "Z3CVFR"; // Zone 3 Channel Volume FR
+	const Z3CVFL = "Z3CVFL"; // Zone 3 Channel Volume FL
+	const Z3CVFR = "Z3CVFR"; // Zone 3 Channel Volume FR
 	const Z3HPF = "Z3HPF"; // Zone 3 HPF
 	const Z3PSBAS = "Z3PSBAS"; // Zone 3 Parameter Bass
 	const Z3PSTRE = "Z3PSTRE"; // Zone 3 Parameter Treble
