@@ -585,7 +585,7 @@ class DenonAVRTelnet extends IPSModule
         try
         {
             $payload = $APIData->APICommand.$APIData->APISubCommand;
-			$this->SendCommand($payload)
+			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);
         } catch (Exception $ex)
         {
