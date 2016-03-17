@@ -429,7 +429,7 @@ class DenonAVRTelnet extends IPSModule
 		$TypeInt = $this->ReadPropertyInteger('Type');
 		
 		$Types = array(
-				0 => "AVR 4311",
+				0 => "AVR-4311",
 				1 => "AVR-X4000",
 				2 => "AVR-S700",
 				3 => "AVR-S900",
