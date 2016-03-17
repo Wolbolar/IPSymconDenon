@@ -1514,21 +1514,21 @@ class DenonAVRTelnet extends IPSModule
 	{
 		$Value = (intval($Value) +50);
 		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSBAS ".$Value.chr(13));
+		CSCK_SendText($id, "PSBAS".$Value.chr(13));
 	}
 
 	public function LFELevel($Value)
 	{
 		$Value = (intval($Value) +10);
 		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSLFE ".$Value.chr(13));
+		CSCK_SendText($id, "PSLFE".$Value.chr(13));
 	}
 
 	public function TrebleLevel($Value)
 	{
 		$Value = (intval($Value) +50);
 		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSTRE ".$Value.chr(13));
+		CSCK_SendText($id, "PSTRE".$Value.chr(13));
 	}
 
 	public function ChannelVolume($Value) // setzen Korrekturlevel pro LS-Kanal
@@ -1610,11 +1610,11 @@ class DenonAVRTelnet extends IPSModule
 
 	public function CinEQ($Value) // Cinema Equilizer ON/OFF
 	{
-	  CSCK_SendText($id, "PSCINEMA EQ.".$Value.chr(13));
+	  CSCK_SendText($id, "PSCINEMA_EQ.".$Value.chr(13));
 	}
 	public function MultiEQMode($Value) // MultiEquilizer AUDYSSEE/BYP.LR/FLAT/MANUELL/OFF
 	{
-	  CSCK_SendText($id, "PSMULTEQ:".$Value.chr(13));
+	  CSCK_SendText($id, "PSMULTEQ".$Value.chr(13));
 	}
 
 	public function DynVol($Value) // Dynamic Volume NGT(EVE/DAY
