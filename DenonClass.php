@@ -1912,43 +1912,7 @@ class DENON_API_Commands extends stdClass
         )
     );
 	
-	public $VarMapping = array
-	(
-        //Power
-		DENON_API_Commands::PW
-        => array(
-            "VarType" => DENONIPSVarType::vtBoolean,
-            "EnableAction" => true,
-            "Profile" => $DENONIPSProfiles->ptPower,
-            "IsVariable" => true,
-            "VarName" => 'Power',
-            "RequestValue" => true,
-            "ValueMapping" => array("QS 1" => 1, "QS 2" => 2, "QS 3" => 3, "QS 4" => 4, "QS 5" => 5)
-        ),
-		//MainZonePower
-		DENON_API_Commands::MV
-        => array(
-            "VarType" => DENONIPSVarType::vtBoolean,
-            "EnableAction" => true,
-            "Profile" => $DENONIPSProfiles->ptMasterVolume,
-            "IsVariable" => true,
-            "VarName" => 'MasterVolume',
-            "RequestValue" => true,
-            "ValueMapping" => array("QS 1" => 1, "QS 2" => 2, "QS 3" => 3, "QS 4" => 4, "QS 5" => 5)
-        ),
-		//MainMute
-		DENON_API_Commands::MU
-        => array(
-            "VarType" => DENONIPSVarType::vtBoolean,
-            "EnableAction" => true,
-            "Profile" => $DENONIPSProfiles->ptMainMute,
-            "IsVariable" => true,
-            "VarName" => 'MainMute',
-            "RequestValue" => true,
-            "ValueMapping" => array("QS 1" => 1, "QS 2" => 2, "QS 3" => 3, "QS 4" => 4, "QS 5" => 5)
-        )
-	);
-	
+		
 	// Nur für alle CMDs, welche keine SubCommands sind.
     /*
 	static $VarMapping = array
