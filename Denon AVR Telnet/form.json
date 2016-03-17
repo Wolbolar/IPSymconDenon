@@ -68,7 +68,7 @@
 				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "DynamicVolume" },
 				{ "type": "CheckBox", "name": "RoomSize", "caption": "RoomSize" },
 				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "DynamicCompressor" },
-				{ "type": "CheckBox", "name": "CWidth", "caption": "CenterWidth" },
+				{ "type": "CheckBox", "name": "CenterWidth", "caption": "CenterWidth" },
 				{ "type": "CheckBox", "name": "DynamicRange", "caption": "DynamicRange" },
 				{ "type": "CheckBox", "name": "VideoSelect", "caption": "VideoSelect" },
 				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "SurroundBackMode" },
