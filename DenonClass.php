@@ -1912,6 +1912,43 @@ class DENON_API_Commands extends stdClass
         )
     );
 	
+	public $VarMapping = array
+	(
+        //Power
+		DENON_API_Commands::PW
+        => array(
+            "VarType" => DENONIPSVarType::vtBoolean,
+            "EnableAction" => true,
+            "Profile" => $DENONIPSProfiles->ptPower,
+            "IsVariable" => true,
+            "VarName" => 'Power',
+            "RequestValue" => true,
+            "ValueMapping" => array("QS 1" => 1, "QS 2" => 2, "QS 3" => 3, "QS 4" => 4, "QS 5" => 5)
+        ),
+		//MainZonePower
+		DENON_API_Commands::MV
+        => array(
+            "VarType" => DENONIPSVarType::vtBoolean,
+            "EnableAction" => true,
+            "Profile" => $DENONIPSProfiles->ptMasterVolume,
+            "IsVariable" => true,
+            "VarName" => 'MasterVolume',
+            "RequestValue" => true,
+            "ValueMapping" => array("QS 1" => 1, "QS 2" => 2, "QS 3" => 3, "QS 4" => 4, "QS 5" => 5)
+        ),
+		//MainMute
+		DENON_API_Commands::MU
+        => array(
+            "VarType" => DENONIPSVarType::vtBoolean,
+            "EnableAction" => true,
+            "Profile" => $DENONIPSProfiles->ptMainMute,
+            "IsVariable" => true,
+            "VarName" => 'MainMute',
+            "RequestValue" => true,
+            "ValueMapping" => array("QS 1" => 1, "QS 2" => 2, "QS 3" => 3, "QS 4" => 4, "QS 5" => 5)
+        )
+	);
+	
 	// Nur für alle CMDs, welche keine SubCommands sind.
     /*
 	static $VarMapping = array
@@ -2502,13 +2539,58 @@ class DenonAVRCP_API_Data extends stdClass
         $SendData->APISubCommand = $this->APISubCommand;
         return json_encode($SendData);
     }
+	
+	public function GetSubCommand($Cmd, $Value) 
+    {
+		$VarMapping = array
+				(
+					//Power
+					DENON_API_Commands::PW
+					=> array(
+						"VarType" => "vtBoolean",
+						"ValueMapping" => array("ON" => true, "STANDBY" => false)
+					),
+					//MainZonePower
+					DENON_API_Commands::ZM
+					=> array(
+						"VarType" => "vtBoolean",
+						"ValueMapping" => array("ON" => true, "OFF" => false)
+					),
+					//MainMute
+					DENON_API_Commands::MU
+					=> array(
+						"VarType" => "vtBoolean",
+						"ValueMapping" => array("ON" => true, "OFF" => false)
+					)
+				);
 
+		if (array_key_exists($Cmd, $VarMapping))
+        {
+			foreach($VarMapping as $Command => $ValMap)
+			{
+				if($Command == $Cmd)
+				{
+				    $ValueMapping = $ValMap["ValueMapping"];
+				    foreach($ValueMapping as $SubCommand => $SubCommandValue)
+				    {
+						if($SubCommandValue == $Value)
+							{
+								return $SubCommand;
+							}
+					}
+				}
+			}
+        }
+        else
+            return null;
+    }
+	
     public function GetMapping()
     {
         $this->Mapping = DENON_API_Data_Mapping::GetMapping($this->APICommand);
     }
 
-    public function GetSubCommand()
+    public function GetSubCommandold()
     {
 //        IPS_LogMessage('GetSubCommand', print_r(ISCP_API_Command_Mapping::GetMapping($this->APICommand), 1));
         $this->APISubCommand = (object) DENON_API_Command_Mapping::GetMapping($this->APICommand);

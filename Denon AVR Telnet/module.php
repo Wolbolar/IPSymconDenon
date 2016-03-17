@@ -554,7 +554,8 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function RequestAction($Ident, $Value)
     {
-        try
+        /*
+		try
         {
             $this->GetZone();
         } catch (Exception $ex)
@@ -563,27 +564,29 @@ class DenonAVRTelnet extends IPSModule
             echo $ex->getMessage();
             return false;
         }
-		
+		*/
 		
 		$APIData = new DenonAVRCP_API_Data();
-		// Command aus Ident auslesen
 		$APIData->APICommand = $Ident;
-        //$APIData->APICommand = substr($Ident, 0, 3);
         $APIData->Data = $Value;
-        if (!$this->DenonZone->CmdAvaiable($APIData))
+        //Prüfen ob Command vorhanden
+		/*
+		if (!$this->DenonZone->CmdAvaiable($APIData))
         {
 //            trigger_error("Illegal Command in this Zone.", E_USER_WARNING);
             echo "Illegal Command in this Zone";
             return false;
         }
-        // Mapping holen
-        $APIData->GetMapping();
-        $APIData->APICommand = $Ident;
-        IPS_LogMessage('RequestValueMapping', print_r($APIData, 1));
+		*/
+        // Subcommand holen
+        $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APICommand, $APIData->Data);
+        IPS_LogMessage('Denon Subcommand', $APIData->APISubCommand);
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
-            $this->SendAPIData($APIData);
+            $payload = $APIData->APICommand.$APIData->APISubCommand;
+			$this->SendCommand($payload)
+			//$this->SendAPIData($APIData);
         } catch (Exception $ex)
         {
 //            trigger_error($ex->getMessage(), $ex->getCode());
@@ -1125,7 +1128,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function SendAPIData(DenonAVRCP_API_Data $APIData)
     {
-        
+        $ret = $this->Send($APIData);
 		/*
 		$DualType = substr($APIData->APICommand, 3, 1);
         $APIData->APICommand = substr($APIData->APICommand, 0, 3);
@@ -1220,9 +1223,12 @@ class DenonAVRTelnet extends IPSModule
 		*/
     }
 
-    private function Send(DenonAVRCP_API_Data $APIData, $needResponse = true)
+    //private function Send(DenonAVRCP_API_Data $APIData, $needResponse = true)
+	private function Send(DenonAVRCP_API_Data $APIData)
     {
-        if (!$this->DenonZone->CmdAvaiable($APIData))
+        //Validate
+		/*
+		if (!$this->DenonZone->CmdAvaiable($APIData))
             throw new Exception("Command not available at this Zone.", E_USER_NOTICE);
         if (!$this->HasActiveParent())
             throw new Exception("Instance has no active Parent.", E_USER_NOTICE);
@@ -1241,8 +1247,10 @@ class DenonAVRTelnet extends IPSModule
             SetValueString($ReplyAPIDataID, '');
             $this->unlock('ReplyAPIData');
         }
+		*/
         $ret = $this->SendDataToParent($APIData);
-        if ($ret === false)
+        /*
+		if ($ret === false)
         {
 //            IPS_LogMessage('exc',print_r($ret,1));
             $this->unlock('RequestSendData');
@@ -1267,6 +1275,7 @@ class DenonAVRTelnet extends IPSModule
         //            Senddata('TX_Status','OK')
         $this->unlock('RequestSendData');
         return $ReplayAPIData;
+		*/
     }
 	
 	
