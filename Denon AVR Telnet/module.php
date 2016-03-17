@@ -458,6 +458,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
+				$DenonAVRVar->profile = $ptBool;
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
 				//Ident, Name, Profile, Position 
 				$this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -475,6 +476,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
+				$DenonAVRVar->profile = $ptInteger;
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"]);
 				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -492,6 +494,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
+				$DenonAVRVar->profile = $ptIntegerAss;
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
 				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -510,6 +513,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
+				$DenonAVRVar->profile = $ptFloat;
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 				$this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);

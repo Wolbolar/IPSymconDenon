@@ -123,6 +123,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptVerticalStretch;
 	public $ptDolbyVolume;
 	
+	public $profile;
 	
 	
 	public function SetupVarDenonBool($profile)
@@ -179,7 +180,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		foreach($profiles as $ptName => $profilvar)
 		{
-			if($ptName == $profile)
+			if($ptName == $this->profile)//!
 			{
 			   $profilebool = array(
 			   "Name" => $profilvar[1],
@@ -232,7 +233,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		foreach($profiles as $ptName => $profilvar)
 		{
-			if($ptName == $profile)
+			if($ptName == $this->profile)
 			{
 				$pos = $this->getpos($profile);
 				$profileinteger = array(
@@ -728,7 +729,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		foreach($ProfilAssociationsZone as $ptName => $profilvar)
 			{
-				if($ptName == $profile)
+				if($ptName == $this->profile)
 				{
 					$pos = $this->getpos($profile);
 				    $profilesettings = $profilvar["Profilesettings"];
@@ -825,7 +826,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		foreach($profilesZone as $ptName => $profilvar)
 		{
-			if($ptName == $profile)
+			if($ptName == $this->profile)
 			{
 				$pos = $this->getpos($profile);
 				$Ident = $profilvar[0];
