@@ -195,7 +195,7 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	protected function SetupVarDenonInteger($profile)
+	public function SetupVarDenonInteger($profile)
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainZone = array(
@@ -256,7 +256,7 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	protected function SetupVarDenonIntegerAss($profile)
+	public function SetupVarDenonIntegerAss($profile)
 	{
 		//Sichtbare variablen profil suchen
 		//Associations
@@ -757,7 +757,7 @@ class DENONIPSProfiles extends stdClass
 	}
 	
 	
-	protected function SetupVarDenonFloat($profile)
+	public function SetupVarDenonFloat($profile)
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainzone = array(
