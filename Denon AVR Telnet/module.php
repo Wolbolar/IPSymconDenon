@@ -478,7 +478,7 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$DenonAVRVar->profile = $ptInteger;
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
-				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"]);
+				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]); 
 				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
 				$this->EnableAction($profile["Ident"]);
 			}	
