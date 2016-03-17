@@ -285,7 +285,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptStageWidth => $this->ReadPropertyBoolean('StageWidth')
 				);
 				
-			$this->SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat);		
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);		
 		}
 		elseif ($Zone == 1) //Zone 2
 		{
@@ -337,7 +337,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptZone2ChannelVolumeFR => true
 				);
 			
-			$this->SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat);
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
@@ -389,7 +389,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptZone3ChannelVolumeFR => true
 				);
 			
-			$this->SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat);
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);
 		}
 		
 		
@@ -450,7 +450,7 @@ class DenonAVRTelnet extends IPSModule
 		}		
 	}
 	
-	private function SetupVarDenon($vBoolean, $vInteger, $vIntegerAss, $vFloat)
+	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat)
 	{
 		//Sichtbare Variablen anlegen
 		foreach ($vBoolean as $ptBool => $visible)
