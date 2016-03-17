@@ -235,7 +235,7 @@ class DENONIPSProfiles extends stdClass
 		{
 			if($ptName == $this->profile)
 			{
-				$pos = $this->getpos($profile);
+				$pos = $this->getpos($this->profile);
 				$profileinteger = array(
 				"ProfilName" => $ptName,
 				"Name" => $profilvar[1],
@@ -731,7 +731,7 @@ class DENONIPSProfiles extends stdClass
 			{
 				if($ptName == $this->profile)
 				{
-					$pos = $this->getpos($profile);
+					$pos = $this->getpos($this->profile);
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
@@ -828,7 +828,7 @@ class DENONIPSProfiles extends stdClass
 		{
 			if($ptName == $this->profile)
 			{
-				$pos = $this->getpos($profile);
+				$pos = $this->getpos($this->profile);
 				$Ident = $profilvar[0];
 				$Name = $profilvar[1];
 				$profilefloat = array(
