@@ -131,19 +131,19 @@ class DENONIPSProfiles extends stdClass
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
 		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", $this->getpos($profile)),
-		$this->ptMainZonePower => array(DENON_API_Commands::ZM, "MainZonePower", "~Switch", $this->getpos($profile)),
-		$this->ptMainMute => array(DENON_API_Commands::MU, "MainMute", "~Switch", $this->getpos($profile)),
-		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ, "CinemaEQ", "~Switch", $this->getpos($profile)),
-		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ, "DynamicEQ", "~Switch", $this->getpos($profile)),
-		$this->ptFrontHeight => array(DENON_API_Commands::PSFH, "FrontHeight", "~Switch", $this->getpos($profile)),
+		$this->ptMainZonePower => array(DENON_API_Commands::ZM, "MainZone Power", "~Switch", $this->getpos($profile)),
+		$this->ptMainMute => array(DENON_API_Commands::MU, "Main Mute", "~Switch", $this->getpos($profile)),
+		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ, "Cinema EQ", "~Switch", $this->getpos($profile)),
+		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ, "Dynamic EQ", "~Switch", $this->getpos($profile)),
+		$this->ptFrontHeight => array(DENON_API_Commands::PSFH, "Front Height", "~Switch", $this->getpos($profile)),
 		$this->ptPanorama => array(DENON_API_Commands::PSPAN, "Panorama", "~Switch", $this->getpos($profile)),
-		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE, "ToneCTRL", "~Switch", $this->getpos($profile)),
-		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "VerticalStretch", "~Switch", $this->getpos($profile)),
-		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "DolbyVolume", "~Switch", $this->getpos($profile)),
+		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE, "Tone CTRL", "~Switch", $this->getpos($profile)),
+		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "Vertical Stretch", "~Switch", $this->getpos($profile)),
+		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "Dolby Volume", "~Switch", $this->getpos($profile)),
 		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", $this->getpos($profile)),
 		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", $this->getpos($profile)),
 		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", $this->getpos($profile)),
-		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", $this->getpos($profile))
+		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "Subwoofer ATT", "~Switch", $this->getpos($profile))
 		);
 		
 		$profilesZone2 = array (
@@ -204,11 +204,11 @@ class DENONIPSProfiles extends stdClass
 		);
 		
 		$profilesZone2 = array(
-        $this->ptSleepZ2 => array(DENON_API_Commands::Z2SLP, "Sleep", "Intensity",  "", "", 0, 120, 10, 0)
+        $this->ptSleepZ2 => array(DENON_API_Commands::Z2SLP, "Sleep Zone 2", "Intensity",  "", "", 0, 120, 10, 0)
 		);
 		
 		$profilesZone3 = array(
-        $this->ptSleepZ3 => array(DENON_API_Commands::Z3SLP, "Sleep", "Intensity",  "", "", 0, 120, 10, 0)
+        $this->ptSleepZ3 => array(DENON_API_Commands::Z3SLP, "Sleep Zone 3", "Intensity",  "", "", 0, 120, 10, 0)
 		);
 		
 		if($this->Zone == 0)
@@ -352,7 +352,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptSurroundPlayMode => array(
 				"Ident" => DENON_API_Commands::PSMODE,
-				"Name" => "SurroundPlayMode",
+				"Name" => "Surround PlayMode",
 				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
 				"Associations" => Array(
 				Array(0, "CINEMA",  "", -1),
@@ -630,7 +630,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptZone2ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z2CS,
-				"Name" => "",
+				"Name" => "Zone 2 Channel Setting",
 				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
 				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
@@ -657,7 +657,7 @@ class DENONIPSProfiles extends stdClass
 		(
 			$this->ptZone3InputSource => array(
 				"Ident" => DENON_API_Commands::Z3,
-				"Name" => "Input Source",
+				"Name" => "Zone 3 Input Source",
 				"Profilesettings" => Array("Database", "", "", 0, 19, 1, 0),
 				"Associations" => Array(
 				Array(0, "Phono",  "", -1),
@@ -684,7 +684,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptZone3ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z3CS,
-				"Name" => "Channel Setting",
+				"Name" => "Zone 3 Channel Setting",
 				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
 				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
@@ -693,7 +693,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptZone3QuickSelect => array(
 				"Ident" => DENON_API_Commands::Z3QUICK,
-				"Name" => "Quick Select",
+				"Name" => "Zone 3 Quick Select",
 				"Profilesettings" => Array("Database", "", "", 0, 5, 1, 0),
 				"Associations" => Array(
 				Array(0, "NONE",  "", -1),
@@ -761,47 +761,47 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainzone = array(
-		$this->ptMasterVolume => array(DENON_API_Commands::MV, "MasterVolume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "ChannelVolumeFL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "ChannelVolumeFR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "ChannelVolumeC", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW, "ChannelVolumeSW", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2, "ChannelVolumeSW2", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL, "ChannelVolumeSL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR, "ChannelVolumeSR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL, "ChannelVolumeSBL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR, "ChannelVolumeSBR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeSB => array(DENON_API_Commands::CVSB, "ChannelVolumeSB", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL, "ChannelVolumeFHL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR, "ChannelVolumeFHR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL, "ChannelVolumeFWL", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR, "ChannelVolumeFWR", "Intensity", "", " dB", -12, 12, 1.0, 0),
-		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL, "AudioDelay", "Intensity", "", " ms", 0, 200, 0, 0),
-		$this->ptLFELevel => array(DENON_API_Commands::PSLFE, "LFELevel", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
-		$this->ptBassLevel => array(DENON_API_Commands::PSBAS, "BassLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
-		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE, "TrebleLevel", "Intensity", "", " dB", -6, 6, 1.0, 0),
-		$this->ptCenterWidth => array(DENON_API_Commands::PSDCO, "CenterWidth", "Intensity",  "", "", 0, 7, 1, 0),
-		$this->ptEffectLevel => array(DENON_API_Commands::PSEFF, "EffectLevel", "Intensity", "", "", 0, 15, 1, 0),
-		$this->ptCenterImage => array(DENON_API_Commands::PSCEN, "CenterImage", "Intensity", "", "", 0.0, 1.0, 0.1, 0),
+		$this->ptMasterVolume => array(DENON_API_Commands::MV, "Master Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "Channel Volume Front Left", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "Channel Volume Front Right", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "Channel Volume Center", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW => array(DENON_API_Commands::CVSW, "Channel Volume Subwoofer", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSW2 => array(DENON_API_Commands::CVSW2, "Channel Volume Subwoofer 2", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSL => array(DENON_API_Commands::CVSL, "Channel Volume Surround Left", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSR => array(DENON_API_Commands::CVSR, "Channel Volume Surround Right", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBL => array(DENON_API_Commands::CVSBL, "Channel Volume Surround Back Left", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSBR => array(DENON_API_Commands::CVSBR, "Channel Volume Surround Back Right", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeSB => array(DENON_API_Commands::CVSB, "Channel Volume Surround Back", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHL => array(DENON_API_Commands::CVFHL, "Channel Volume Front Height Left", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR, "Channel Volume Front Height Right", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL, "Channel Volume Front Wide Left", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR, "Channel Volume Front Wide Right", "Intensity", "", " dB", -12, 12, 1.0, 0),
+		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL, "Audio Delay", "Intensity", "", " ms", 0, 200, 0, 0),
+		$this->ptLFELevel => array(DENON_API_Commands::PSLFE, "LFE Level", "Intensity", "", " dB", -10.0, 0.0, 0.5, 1),
+		$this->ptBassLevel => array(DENON_API_Commands::PSBAS, "Bass Level", "Intensity", "", " dB", -6, 6, 1.0, 0),
+		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE, "Treble Level", "Intensity", "", " dB", -6, 6, 1.0, 0),
+		$this->ptCenterWidth => array(DENON_API_Commands::PSDCO, "Center Width", "Intensity",  "", "", 0, 7, 1, 0),
+		$this->ptEffectLevel => array(DENON_API_Commands::PSEFF, "Effect Level", "Intensity", "", "", 0, 15, 1, 0),
+		$this->ptCenterImage => array(DENON_API_Commands::PSCEN, "Center Image", "Intensity", "", "", 0.0, 1.0, 0.1, 0),
 		$this->ptContrast => array(DENON_API_Commands::PVCN, "Contrast", "Intensity", "", "", -6, 6, 1, 0),
 		$this->ptBrightness => array(DENON_API_Commands::PVBR, "Brightness", "Intensity", "", "", 0, 12, 1, 0),
-		$this->ptChromalevel => array(DENON_API_Commands::PVCM, "Chromalevel", "Intensity", "", "", -6, 6, 1, 0),
+		$this->ptChromalevel => array(DENON_API_Commands::PVCM, "Chroma Level", "Intensity", "", "", -6, 6, 1, 0),
 		$this->ptHue => array(DENON_API_Commands::PVHUE, "Hue", "Intensity", "", "", -6, 6, 1, 0),
 		$this->ptEnhancer => array(DENON_API_Commands::PVENH, "Enhancer", "Intensity", "", "", 0, 12, 1, 0),
-		$this->ptStageHeight => array(DENON_API_Commands::PSSTH, "StageHeight", "Intensity", "", "", -10, 10, 1, 0),
-		$this->ptStageWidth => array(DENON_API_Commands::PSSTW, "StageWidth", "Intensity", "", "", -10, 10, 1, 0)
+		$this->ptStageHeight => array(DENON_API_Commands::PSSTH, "Stage Height", "Intensity", "", "", -10, 10, 1, 0),
+		$this->ptStageWidth => array(DENON_API_Commands::PSSTW, "Stage Width", "Intensity", "", "", -10, 10, 1, 0)
 		);
 				
 		$profilesZone2 = array(
 		$this->ptZone2Volume => array(DENON_API_Commands::Z2, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone2ChannelVolumeFL", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
-		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone2ChannelVolumeFR", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
+		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
+		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone 2 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
 		);
 		
 		$profilesZone3 = array(
 		$this->ptZone3Volume => array(DENON_API_Commands::Z3, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
-		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume FL", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
-		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume FR", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
+		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
+		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
 		);
 		
 		if ($this->Zone == 0)
@@ -1471,7 +1471,7 @@ class DENON_API_Commands extends stdClass
 	const CVFR = "CVFR"; // Channel Volume Front Right
 	const CVC = "CVC"; // Channel Volume Center
 	const CVSW = "CVSW"; // Channel Volume Subwoofer
-	const CVSW2 = "CVSW2 "; // Channel Volume Subwoofer2
+	const CVSW2 = "CVSW2"; // Channel Volume Subwoofer2
 	const CVSL = "CVSL"; // Channel Volume Surround Left
 	const CVSR = "CVSR"; // Channel Volume Surround Right
 	const CVSBL = "CVSBL"; // Channel Volume Surround Back Left
