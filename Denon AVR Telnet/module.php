@@ -467,13 +467,14 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
 				//Ident, Name, Profile, Position 
-				$this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variable '.$profile["Name"].' angelegt:', 'ObjektID:'.$id);
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				 $this->removeVariableAction($profile["Ident"], $links); 
+				 $this->removeVariableAction($profile["Ident"], $links, $ptBool); 
 			}
 		}
 		
@@ -483,14 +484,16 @@ class DenonAVRTelnet extends IPSModule
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
-				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]); 
-				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
+				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);	
+				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variable '.$profile["Name"].' angelegt:', 'ObjektID:'.$id);
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$this->removeVariableAction($profile["Ident"], $links); 
+				$this->removeVariableAction($profile["Ident"], $links, $ptInteger); 
 			}
 		}
 		
@@ -501,14 +504,16 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
-				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
+				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variable '.$profile["Name"].' angelegt:', 'ObjektID:'.$id);
 				$this->EnableAction($profile["Ident"]);
 				
 			}	
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$this->removeVariableAction($profile["Ident"], $links); 
+				$this->removeVariableAction($profile["Ident"], $links, $ptIntegerAss); 
 			}
 		}
 		
@@ -519,13 +524,15 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				$this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
+				$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variable '.$profile["Name"].' angelegt:', 'ObjektID:'.$id);
 				$this->EnableAction($profile["Ident"]);
 			}
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$this->removeVariableAction($profile["Ident"], $links); 
+				$this->removeVariableAction($profile["Ident"], $links, $ptFloat); 
 			}
 		}
 		
@@ -539,7 +546,8 @@ class DenonAVRTelnet extends IPSModule
 		//$this->SetStatus(102);
 	}
 	
-	protected function removeVariableAction($Ident, $links){
+	protected function removeVariableAction($Ident, $links, $Profile)
+	{
         $vid = @$this->GetIDForIdent($Ident);
         if ($vid){
             // delete links to Variable
@@ -549,6 +557,10 @@ class DenonAVRTelnet extends IPSModule
             }
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
+			IPS_LogMessage('Variable gelöscht:', 'ObjektID'.$vid);
+			//delete Profile
+			IPS_DeleteVariableProfile($Profile);
+			IPS_LogMessage('Variablenprofil gelöscht:', $Profile);
         }
     }
 		
