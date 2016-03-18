@@ -48,6 +48,7 @@
 				{ "type": "CheckBox", "name": "FWR", "caption": "Front Wide Right" },
 				
 				{ "type": "Label", "label": "Angezeigte Befehle:" },
+				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
 				{ "type": "CheckBox", "name": "CinemaEQ", "caption": "Cinema EQ" },
 				{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
 				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },
@@ -100,8 +101,8 @@
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
 				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
 				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
-				{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" },
-				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" }		
+				{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" }
+						
             ],
     "actions":
             [
