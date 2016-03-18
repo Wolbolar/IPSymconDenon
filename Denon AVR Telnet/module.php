@@ -555,14 +555,14 @@ class DenonAVRTelnet extends IPSModule
         $vid = @$this->GetIDForIdent($Ident);
         if ($vid !== false)
 		{
-            // delete links to Variable
+            $Name = IPS_GetName ($vid);
+			// delete links to Variable
             foreach( $links as $key=>$value ){
                 if ( $value['TargetID'] === $vid )
                      IPS_DeleteLink($value['LinkID']);
             }
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
-			$Name = IPS_GetName ($vid);
 			IPS_LogMessage('Variable gelöscht:', $Name.', [ObjektID: '.$vid.']');
 			//delete Profile
 			if (IPS_VariableProfileExists ($Profile))
