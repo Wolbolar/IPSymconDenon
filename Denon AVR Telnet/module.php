@@ -474,6 +474,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
+				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
 				 $this->removeVariableAction($profile["Ident"], $links, $ptBool); 
 			}
 		}
@@ -493,6 +494,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
+				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
 				$this->removeVariableAction($profile["Ident"], $links, $ptInteger); 
 			}
 		}
@@ -513,6 +515,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
+				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
 				$this->removeVariableAction($profile["Ident"], $links, $ptIntegerAss); 
 			}
 		}
@@ -532,6 +535,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
+				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
 				$this->removeVariableAction($profile["Ident"], $links, $ptFloat); 
 			}
 		}
