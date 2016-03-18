@@ -452,13 +452,19 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat)
 	{
+		// Add/Remove according to feature activation
+        // create link list for deletion of links if target is deleted
+        $links = Array();
+        foreach( IPS_GetLinkList() as $key=>$LinkID ){
+            $links[] =  Array( ('LinkID') => $LinkID, ('TargetID') =>  IPS_GetLink($LinkID)['TargetID'] );
+        }
+		
 		//Sichtbare Variablen anlegen
 		foreach ($vBoolean as $ptBool => $visible)
 		{
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$DenonAVRVar->profile = $ptBool;
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
 				//Ident, Name, Profile, Position 
 				$this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -467,7 +473,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				//löschfunktion aufrufen
+				 $this->removeVariableAction($profile["Ident"], $links); 
 			}
 		}
 		
@@ -476,7 +482,6 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$DenonAVRVar->profile = $ptInteger;
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]); 
 				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -485,7 +490,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				//löschfunktion aufrufen
+				$this->removeVariableAction($profile["Ident"], $links); 
 			}
 		}
 		
@@ -494,7 +499,6 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$DenonAVRVar->profile = $ptIntegerAss;
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
 				$this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -504,7 +508,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				//löschfunktion aufrufen
+				$this->removeVariableAction($profile["Ident"], $links); 
 			}
 		}
 		
@@ -513,7 +517,6 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$DenonAVRVar->profile = $ptFloat;
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 				$this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -522,7 +525,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				//löschfunktion aufrufen
+				$this->removeVariableAction($profile["Ident"], $links); 
 			}
 		}
 		
@@ -536,16 +539,16 @@ class DenonAVRTelnet extends IPSModule
 		//$this->SetStatus(102);
 	}
 	
-	protected function removeVariableAction($name, $links){
-        $vid = @$this->GetIDForIdent($name);
+	protected function removeVariableAction($Ident, $links){
+        $vid = @$this->GetIDForIdent($Ident);
         if ($vid){
             // delete links to Variable
             foreach( $links as $key=>$value ){
                 if ( $value['TargetID'] === $vid )
                      IPS_DeleteLink($value['LinkID']);
             }
-            $this->DisableAction($name);
-            $this->UnregisterVariable($name);
+            $this->DisableAction($Ident);
+            $this->UnregisterVariable($Ident);
         }
     }
 		

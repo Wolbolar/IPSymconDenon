@@ -123,64 +123,64 @@ class DENONIPSProfiles extends stdClass
 	public $ptVerticalStretch;
 	public $ptDolbyVolume;
 	
-	public $profile;
+	
 	
 	
 	public function SetupVarDenonBool($profile)
 	{
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
-		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", 1),
-		$this->ptMainZonePower => array(DENON_API_Commands::ZM, "MainZonePower", "~Switch", 2),
-		$this->ptMainMute => array(DENON_API_Commands::MU, "MainMute", "~Switch", 3),
-		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ, "CinemaEQ", "~Switch", 4),
-		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ, "DynamicEQ", "~Switch", 8),
-		$this->ptFrontHeight => array(DENON_API_Commands::PSFH, "FrontHeight", "~Switch", 6),
-		$this->ptPanorama => array(DENON_API_Commands::PSPAN, "Panorama", "~Switch", 5),
-		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE, "ToneCTRL", "~Switch", 7),
-		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "VerticalStretch", "~Switch", 9),
-		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "DolbyVolume", "~Switch", 10),
-		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", 11),
-		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", 12),
-		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", 13),
-		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", 14 )
+		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", $this->getpos($profile)),
+		$this->ptMainZonePower => array(DENON_API_Commands::ZM, "MainZonePower", "~Switch", $this->getpos($profile)),
+		$this->ptMainMute => array(DENON_API_Commands::MU, "MainMute", "~Switch", $this->getpos($profile)),
+		$this->ptCinemaEQ => array(DENON_API_Commands::PSCINEMAEQ, "CinemaEQ", "~Switch", $this->getpos($profile)),
+		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ, "DynamicEQ", "~Switch", $this->getpos($profile)),
+		$this->ptFrontHeight => array(DENON_API_Commands::PSFH, "FrontHeight", "~Switch", $this->getpos($profile)),
+		$this->ptPanorama => array(DENON_API_Commands::PSPAN, "Panorama", "~Switch", $this->getpos($profile)),
+		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE, "ToneCTRL", "~Switch", $this->getpos($profile)),
+		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "VerticalStretch", "~Switch", $this->getpos($profile)),
+		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "DolbyVolume", "~Switch", $this->getpos($profile)),
+		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", $this->getpos($profile)),
+		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", $this->getpos($profile)),
+		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", $this->getpos($profile)),
+		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "SubwooferATT", "~Switch", $this->getpos($profile))
 		);
 		
 		$profilesZone2 = array (
-		$this->ptZone2Power => array(DENON_API_Commands::Z2, "Zone 2 Power", "~Switch", 1),
-		$this->ptZone2Mute => array(DENON_API_Commands::Z2MU, "Zone 2 Mute", "~Switch", 1),
-		$this->ptZone2HPF => array(DENON_API_Commands::Z2HPF, "Zone 2 HPF", "~Switch", 1)
+		$this->ptZone2Power => array(DENON_API_Commands::Z2, "Zone 2 Power", "~Switch", $this->getpos($profile)),
+		$this->ptZone2Mute => array(DENON_API_Commands::Z2MU, "Zone 2 Mute", "~Switch", $this->getpos($profile)),
+		$this->ptZone2HPF => array(DENON_API_Commands::Z2HPF, "Zone 2 HPF", "~Switch", $this->getpos($profile))
 		);
 		
 		$profilesZone3 = array (
-		$this->ptZone2Power => array(DENON_API_Commands::Z3, "Zone 3 Power", "~Switch", 1),
-		$this->ptZone2Mute => array(DENON_API_Commands::Z3MU, "Zone 3 Mute", "~Switch", 1),
-		$this->ptZone2HPF => array(DENON_API_Commands::Z3HPF, "Zone 3 HPF", "~Switch", 1)
+		$this->ptZone3Power => array(DENON_API_Commands::Z3, "Zone 3 Power", "~Switch", $this->getpos($profile)),
+		$this->ptZone3Mute => array(DENON_API_Commands::Z3MU, "Zone 3 Mute", "~Switch", $this->getpos($profile)),
+		$this->ptZone3HPF => array(DENON_API_Commands::Z3HPF, "Zone 3 HPF", "~Switch", $this->getpos($profile))
 		);
 		
 		if($this->Zone == 0)
 		{
-			$profilebool = $this->sendprofilebool($profilesMainZone);
+			$profilebool = $this->sendprofilebool($profilesMainZone, $profile);
 			return $profilebool;
 		}
 		elseif ($this->Zone == 1)
 		{
-			$profilebool = $this->sendprofilebool($profilesZone2);
+			$profilebool = $this->sendprofilebool($profilesZone2, $profile);
 			return $profilebool;
 		}
 		elseif ($this->Zone == 2)
 		{
-			$profilebool = $this->sendprofilebool($profilesZone3);
+			$profilebool = $this->sendprofilebool($profilesZone3, $profile);
 			return $profilebool;
 		}
 		
 	}
 	
-	private function sendprofilebool($profiles)
+	private function sendprofilebool($profiles, $profile)
 	{
 		foreach($profiles as $ptName => $profilvar)
 		{
-			if($ptName == $this->profile)//!
+			if($ptName == $profile)
 			{
 			   $profilebool = array(
 			   "Name" => $profilvar[1],
@@ -213,29 +213,29 @@ class DENONIPSProfiles extends stdClass
 		
 		if($this->Zone == 0)
 		{
-			$profileinteger = $this->sendprofileinteger($profilesMainZone);
+			$profileinteger = $this->sendprofileinteger($profilesMainZone, $profile);
 			return $profileinteger;
 		}
 		elseif ($this->Zone == 1)
 		{
-			$profileinteger = $this->sendprofileinteger($profilesZone2);
+			$profileinteger = $this->sendprofileinteger($profilesZone2, $profile);
 			return $profileinteger;
 		}
 		elseif ($this->Zone == 2)
 		{
-			$profileinteger = $this->sendprofileinteger($profilesZone3);
+			$profileinteger = $this->sendprofileinteger($profilesZone3, $profile);
 			return $profileinteger;
 		}
 		
 	}
 	
-	private function sendprofileinteger($profiles)
+	private function sendprofileinteger($profiles, $profile)
 	{
 		foreach($profiles as $ptName => $profilvar)
 		{
 			if($ptName == $this->profile)
 			{
-				$pos = $this->getpos($this->profile);
+				$pos = $this->getpos($profile);
 				$profileinteger = array(
 				"ProfilName" => $ptName,
 				"Name" => $profilvar[1],
@@ -708,30 +708,30 @@ class DENONIPSProfiles extends stdClass
 		
 		if($this->Zone == 0)
 		{
-			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsMainZone);
+			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsMainZone, $profile);
 			return $profileintegerass;
 		}
 		elseif ($this->Zone == 1)
 		{
-			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsZone2);
+			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsZone2, $profile);
 			return $profileintegerass;
 		}
 		elseif ($this->Zone == 2)
 		{
-			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsZone3);
+			$profileintegerass = $this->sendprofileintegerass($ProfilAssociationsZone3, $profile);
 			return $profileintegerass;
 		}
 		
 		
 	}
 	
-	private function sendprofileintegerass($ProfilAssociationsZone)
+	private function sendprofileintegerass($ProfilAssociationsZone, $profile)
 	{
 		foreach($ProfilAssociationsZone as $ptName => $profilvar)
 			{
 				if($ptName == $this->profile)
 				{
-					$pos = $this->getpos($this->profile);
+					$pos = $this->getpos($profile);
 				    $profilesettings = $profilvar["Profilesettings"];
 					$Ident = $profilvar["Ident"];
 					$Name = $profilvar["Name"];
@@ -806,29 +806,29 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($this->Zone == 0)
 		{
-			$profilefloat = $this->sendprofilefloat($profilesMainzone);
+			$profilefloat = $this->sendprofilefloat($profilesMainzone, $profile);
 			return $profilefloat;
 		}
 		elseif ($this->Zone == 1)
 		{
-			$profilefloat = $this->sendprofilefloat($profilesZone2);
+			$profilefloat = $this->sendprofilefloat($profilesZone2, $profile);
 			return $profilefloat;
 		}
 		elseif ($this->Zone == 2)
 		{
-			$profilefloat = $this->sendprofilefloat($profilesZone3);
+			$profilefloat = $this->sendprofilefloat($profilesZone3, $profile);
 			return $profilefloat;
 		}
 	}
 
 	
-	private function sendprofilefloat($profilesZone)
+	private function sendprofilefloat($profilesZone, $profile)
 	{
 		foreach($profilesZone as $ptName => $profilvar)
 		{
 			if($ptName == $this->profile)
 			{
-				$pos = $this->getpos($this->profile);
+				$pos = $this->getpos($profile);
 				$Ident = $profilvar[0];
 				$Name = $profilvar[1];
 				$profilefloat = array(
@@ -948,9 +948,9 @@ class DENONIPSProfiles extends stdClass
 							$this->ptDolbyVolumeModeler => 99,
 							$this->ptPLIIZHeightGain => 100,
 							$this->ptVerticalStretch => 101,
-							$this->ptDolbyVolume => 102
-							
-							
+							$this->ptDolbyVolume => 102,
+							$this->ptZone2HPF => 103,
+							$this->ptZone3HPF => 104
 						);
 		foreach($positions as $ptName => $position)
 		{
