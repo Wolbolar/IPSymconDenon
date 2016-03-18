@@ -548,8 +548,9 @@ class DenonAVRTelnet extends IPSModule
 	
 	protected function removeVariableAction($Ident, $links, $Profile)
 	{
-        $vid = @$this->GetIDForIdent($Ident);
-        if ($vid){
+        $vid = $this->GetIDForIdent($Ident);
+        if ($vid !== false)
+		{
             // delete links to Variable
             foreach( $links as $key=>$value ){
                 if ( $value['TargetID'] === $vid )
