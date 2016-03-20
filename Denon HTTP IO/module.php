@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . "/../DenonClass.php");  // diverse Klassen
 
-class DenonSplitterHTTP extends IPSModule
+class DenonAVRIOHTTP extends IPSModule
 {
 
     public function Create()
