@@ -2263,10 +2263,12 @@ class DenonAVRHTTP extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
+		print_r($data->Buffer);
 		IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer));
-	 
+		 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
-		SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+		print_r($data->Buffer);
+		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
 	 
 	}
 	
