@@ -1076,6 +1076,8 @@ class DenonAVRHTTP extends IPSModule
         try
         {
             $payload = $APIData->APICommand.$APIData->APISubCommand;
+			//Befehl für URL Codieren
+			$payload = urlencode ($payload);
 			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);
         } catch (Exception $ex)
