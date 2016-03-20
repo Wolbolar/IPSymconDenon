@@ -65,11 +65,14 @@ class DenonSplitterHTTP extends IPSModule
 						$this->SetStatus(202);
 					$ParentOpen = false;
 				}
+				//IO Denon HTTP Open gelöscht
+				/*
 				if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen)
 				{
 					IPS_SetProperty($ParentID, 'Open', $ParentOpen);
 					$change = true;
 				}
+				*/
 				if ($change)
 					@IPS_ApplyChanges($ParentID);
 			}	
