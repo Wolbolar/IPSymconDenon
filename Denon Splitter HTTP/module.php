@@ -13,10 +13,11 @@ class DenonSplitterHTTP extends IPSModule
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
 		// ClientSocket benötigt
-        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR HTTP"); //Clientsocket
+        //$this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR HTTP"); //Clientsocket
+		$this->RequireParent("{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}", "DenonAVR HTTP"); //Denon HTTP Socket	
 
         $this->RegisterPropertyString("Host", "192.168.x.x");
-		$this->RegisterPropertyInteger("Port", 80);
+		//$this->RegisterPropertyInteger("Port", 80);
         $this->RegisterPropertyBoolean("Open", false);
      
     }
@@ -45,11 +46,13 @@ class DenonSplitterHTTP extends IPSModule
 					IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
 					$change = true;
 				}
+				/*
 				if (IPS_GetProperty($ParentID, 'Port') <> $this->ReadPropertyInteger('Port'))
 				{
 					IPS_SetProperty($ParentID, 'Port', $this->ReadPropertyInteger('Port'));
 					$change = true;
 				}
+				*/
 				$ParentOpen = $this->ReadPropertyBoolean('Open');
 				
 		// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
