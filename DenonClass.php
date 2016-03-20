@@ -1345,6 +1345,7 @@ class DENON_Zone extends stdClass
     const Mainzone = 0;
     const Zone2 = 1;
     const Zone3 = 2;
+	const None = 6;
     
     public $thisZone;
 	static $ZoneCMDs = array(
@@ -1514,7 +1515,7 @@ class DENON_API_Commands extends stdClass
 	const PSATT = "PSATT"; // SW ATT
 	const PSTONE = "PSTONE"; // Tone Control
 	const PSSB = "PSSB"; // Surround Back SP Mode
-	const PSCINEMAEQ = "CINEMA_EQ"; // Cinema EQ
+	const PSCINEMAEQ = "PSCINEMA_EQ"; // Cinema EQ
 	const PSMODE = "PSMODE"; // Mode Music
 	const PSDOLVOL = "PSDOLVOL"; // Dolby Volume direct change
 	const PSVOLLEV = "PSVOLLEV"; // Dolby Volume Leveler direct change
@@ -1932,6 +1933,11 @@ class DENON_HTTP_GET
 	public $ModelId;
 	public $MasterVolume;
 	public $Mute;
+	
+	public function GetStateHTTP
+	{
+		
+	}
 }
 
 class DENON_API_Command_Mapping extends stdClass
@@ -2021,7 +2027,7 @@ class DenonAVRCP_API_Data extends stdClass
         return json_encode($SendData);
     }
 	
-	public function GetSubCommand($Cmd, $Value) 
+	public function GetCommand($Cmd, $Value) 
     {
 		$VarMapping = array
 				(
@@ -2628,7 +2634,9 @@ class DenonAVRCP_API_Data extends stdClass
 				    {
 						if($SubCommandValue == $Value)
 							{
-								return $SubCommand;
+								$Command = str_replace("_", " ", $Command);
+								$DenonCommand = $Command.$SubCommand;
+								return $DenonCommand;
 							}
 					}
 				}

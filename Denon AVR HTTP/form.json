@@ -26,12 +26,7 @@
 									{ "value": 1, "label": "Zone 2" },
 									{ "value": 2, "label": "Zone 3" }
 								  ]
-				},
-				
-				
-				{ "type": "CheckBox", "name": "Display", "caption": "Display anzeigen" }, 
-				{ "type": "CheckBox", "name": "Control", "caption": "Steuerung anzeigen" }
-				
+				}
             ],
     "actions":
             [

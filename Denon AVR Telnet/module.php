@@ -594,9 +594,11 @@ class DenonAVRTelnet extends IPSModule
             return false;
         }
 		*/
+		//Command aus Ident
+		$Command = $Ident; 
 		
 		$APIData = new DenonAVRCP_API_Data();
-		$APIData->APICommand = $Ident;
+		$APIData->APICommand = $Command;
         $APIData->Data = $Value;
         //Prüfen ob Command vorhanden
 		/*
@@ -1077,8 +1079,10 @@ class DenonAVRTelnet extends IPSModule
     }
 	
 	//Get Status HTTP 
-	protected function GetStateHTTP(){
-		
+	public function GetStateHTTP()
+	{
+		$DenonGet = new DENON_HTTP_GET;
+		$state = $DenonGet->GetStateHTTP();
 		return $state;
 	}
 	
