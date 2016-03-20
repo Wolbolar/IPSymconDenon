@@ -1934,7 +1934,7 @@ class DENON_HTTP_GET
 	public $MasterVolume;
 	public $Mute;
 	
-	public function GetStateHTTP
+	public function GetStateHTTP ()
 	{
 		
 	}
