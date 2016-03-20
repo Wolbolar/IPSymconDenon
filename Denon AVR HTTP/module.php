@@ -15,7 +15,7 @@ class DenonAVRHTTP extends IPSModule
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
 		$this->RegisterPropertyInteger("Type", 0);
-		$this->RegisterPropertyInteger("Zone", 0);
+		$this->RegisterPropertyInteger("Zone", 6);
 		
     }
 
@@ -131,7 +131,7 @@ class DenonAVRHTTP extends IPSModule
 				(
 				$DenonAVRVar->ptPower => true,
 				$DenonAVRVar->ptMainZonePower => true,
-				$DenonAVRVar->ptMainMute => true,
+				$DenonAVRVar->ptMainMute => true
 				/*
 				$DenonAVRVar->ptCinemaEQ => $this->ReadPropertyBoolean('CinemaEQ'),
 				$DenonAVRVar->ptDynamicEQ => $this->ReadPropertyBoolean('DynamicEQ'),
@@ -150,7 +150,8 @@ class DenonAVRHTTP extends IPSModule
 			//Integer
 			$vInteger = array
 				(
-				$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep')
+				$DenonAVRVar->ptSleep => true
+				//$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep'),
 				//$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension')
 				);
 			
