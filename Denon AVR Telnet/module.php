@@ -981,50 +981,35 @@ class DenonAVRTelnet extends IPSModule
 		*/
     }
 	
-	/*
-	public function RequestAction($Ident, $Value)
+	// Wertet Response aus und setzt Variable
+	private function UpdateVariable($data)
     {
-        try
+        //PWSTANDBY
+		$APIData = new DenonAVRCP_API_Data();
+		$APIData->Data = $data;
+		$SetCommandValue = $APIData->GetCommandResponse($APIData->Data);
+        $Command = $SetCommandValue["Command"];
+		$VarType = $SetCommandValue["VarType"];
+		$Subcommand = $SetCommandValue["Subcommand"];
+		$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
+		$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
+		
+        switch ($VarType)
         {
-            $this->GetZone();
-        } catch (Exception $ex)
-        {
-//            trigger_error($ex->getMessage(), $ex->getCode());
-            echo $ex->getMessage();
-            return false;
+            case 0: //Boolean
+                SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;
+            case 1: //Integer
+                SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;
+			case 2: //Float
+                SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;     
+            case 3: //String
+                SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;
         }
-        $APIData = new ISCP_API_Data();
-        $APIData->APICommand = substr($Ident, 0, 3);
-        $APIData->Data = $Value;
-        if (!$this->OnkyoZone->CmdAvaiable($APIData))
-        {
-//            trigger_error("Illegal Command in this Zone.", E_USER_WARNING);
-            echo "Illegal Command in this Zone";
-            return false;
-        }
-        // Mapping holen
-        $APIData->GetMapping();
-        $APIData->APICommand = $Ident;
-        IPS_LogMessage('RequestValueMapping', print_r($APIData, 1));
-        // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
-        try
-        {
-            $this->SendAPIData($APIData);
-        } catch (Exception $ex)
-        {
-//            trigger_error($ex->getMessage(), $ex->getCode());
-            echo $ex->getMessage();
-            return false;
-//            return;
-        }
-
-        /*        if ($ret === false)
-          {
-          echo "Error on Send.";
-          return;
-          } */
-    //}
-	
+    }
 	
 	protected function GetParent()
     {
@@ -1048,6 +1033,7 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+		$this->UpdateVariable($data->Buffer);
 	 
 	}	
 
@@ -1315,33 +1301,34 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	//Denon Commands
-	public function Power(string $Value) // STANDBY oder ON
+	public function Power(boolean $Value) // false (Standby) oder true (On)
 	{
 		if ($Value == false)
 			{
-				$command = DENON_API_Commands::STANDBY;
+				$subcommand = DENON_API_Commands::STANDBY;
+				
 			}
-		else
+		elseif ($Value == true)
 			{
-				$command = DENON_API_Commands::ON;
+				$subcommand = DENON_API_Commands::ON;
 			}
-		
-		$payload = DENON_API_Commands::PW.$command.chr(13);
+		//$command = str_replace("_", " ", DENON_API_Commands::PW); //Bei Ident mit _ Leerzeichen einsetzten
+		$payload = DENON_API_Commands::PW.$subcommand.chr(13);
 		$this->SendCommand($payload);
 	}
 	
-	public function MainZonePower(string $Value) // MainZone "ON" or "OFF"
+	public function MainZonePower(boolean $Value) // MainZone true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
-				$command = DENON_API_Commands::OFF;
+				$subcommand = DENON_API_Commands::OFF;
 			}
-		else
+		elseif ($Value == true)
 			{
-				$command = DENON_API_Commands::ON;
+				$subcommand = DENON_API_Commands::ON;
 			}
 		
-		$payload = DENON_API_Commands::ZM.$command.chr(13);
+		$payload = DENON_API_Commands::ZM.$subcommand.chr(13);
 		$this->SendCommand($payload);
 	}
 	

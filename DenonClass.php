@@ -2007,30 +2007,8 @@ class DenonAVRCP_API_Data extends stdClass
     public $Data;
     public $Mapping = null;
     public $APISubCommand = null;
-
-    public function GetDataFromJSONObject($Data)
-    {
-        $this->APICommand = $Data->APICommand;
-        $this->Data = utf8_decode($Data->Data);
-        if (property_exists($Data, 'APISubCommand'))
-            $this->APISubCommand = $Data->APISubCommand;
-    }
-
-    public function ToJSONString($GUID)
-    {
-        $SendData = new stdClass;
-        $SendData->DataID = $GUID;
-        $SendData->APICommand = $this->APICommand;
-        $SendData->Data = utf8_encode($this->Data);
-//        if (is_array($this->APISubCommand))
-//        if ($this->APISubCommand <> null)        
-        $SendData->APISubCommand = $this->APISubCommand;
-        return json_encode($SendData);
-    }
 	
-	public function GetSubCommand($Ident, $Value) 
-    {
-		$VarMapping = array
+	public $VarMapping = array
 				(
 					//Boolean
 					//Power
@@ -2624,7 +2602,29 @@ class DenonAVRCP_API_Data extends stdClass
 					)
 				);
 
-		if (array_key_exists($Ident, $VarMapping))
+    public function GetDataFromJSONObject($Data)
+    {
+        $this->APICommand = $Data->APICommand;
+        $this->Data = utf8_decode($Data->Data);
+        if (property_exists($Data, 'APISubCommand'))
+            $this->APISubCommand = $Data->APISubCommand;
+    }
+
+    public function ToJSONString($GUID)
+    {
+        $SendData = new stdClass;
+        $SendData->DataID = $GUID;
+        $SendData->APICommand = $this->APICommand;
+        $SendData->Data = utf8_encode($this->Data);
+//        if (is_array($this->APISubCommand))
+//        if ($this->APISubCommand <> null)        
+        $SendData->APISubCommand = $this->APISubCommand;
+        return json_encode($SendData);
+    }
+	
+	public function GetSubCommand($Ident, $Value) 
+    {
+		if (array_key_exists($Ident, $this->VarMapping))
         {
 			foreach($VarMapping as $Command => $ValMap)
 			{
@@ -2644,6 +2644,36 @@ class DenonAVRCP_API_Data extends stdClass
         else
             return null;
     }
+	
+	public function GetCommandResponse ($data)
+	{
+		foreach($this->VarMapping as $Command => $ValMap)
+			{
+				$pos = stripos($data, $Command);
+				if ($pos !== false) {
+				    $lengthCommand = strlen($Command);
+				    $ResponseSubCommand = substr($data, $lengthCommand);
+				    $ValueMapping = $ValMap["ValueMapping"];
+				    $VarType = $ValMap["VarType"];
+				    foreach($ValueMapping as $SubCommand => $SubCommandValue)
+				    {
+						if($SubCommand == $ResponseSubCommand)
+							{
+								$SetCommandValue = array(
+								"VarType" => $VarType,
+								"Command" => $Command,
+								"Subcommand" => $ResponseSubCommand,
+								"Subcommandvalue" => $SubCommandValue
+								);
+								return $SetCommandValue;
+							}
+					}
+				    
+				}
+				
+			}
+  
+	}
 	
     public function GetMapping()
     {

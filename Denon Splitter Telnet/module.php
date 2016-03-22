@@ -85,18 +85,6 @@ class DenonSplitterTelnet extends IPSModule
             //Instanz aktiv
         }
 		
-// Eigene Profile
-      
-// Eigene Variablen
-		//Firmware und Featureset vom Gateway auslesen
-		//$this->RegisterVariableString("Firmware", "");
-		//$this->RegisterVariableString("Featureset", "");
-        /*
-        // Eigene Scripte
-        $ID = $this->RegisterScript("WebHookAIOGateway", "WebHookAIOGateway", $this->CreateWebHookScript(), -8);
-        IPS_SetHidden($ID, true);
-        $this->RegisterHook('/hook/AIOGateway' . $this->InstanceID, $ID);
-		*/
     }
 
 		/**
@@ -1886,54 +1874,9 @@ class DenonSplitterTelnet extends IPSModule
 	
 	}
 	
-	//Beispiel
-	/*
 
 ################## Datapoints
 
-    public function ReceiveData($JSONString)
-    {
-        $Data = json_decode($JSONString);
-//IPS_LogMessage('ReceiveData',print_r($Data,true));
-        if ($Data->DataID <> '{43E4B48E-2345-4A9A-B506-3E8E7A964757}')
-            return false;
-        try
-        {
-            $this->GetZone();
-        } catch (Exception $ex)
-        {
-            unset($ex);
-            return false;
-        }
-
-
-        $APIData = new ISCP_API_Data();
-        $APIData->GetDataFromJSONObject($Data);
-//        IPS_LogMessage('ReceiveAPIData1', print_r($APIData, true));
-
-        if ($this->OnkyoZone->CmdAvaiable($APIData) === false)
-        {
-//            IPS_LogMessage('CmdAvaiable', 'false');
-
-            if ($this->OnkyoZone->SubCmdAvaiable($APIData) === false)
-            {
-//                IPS_LogMessage('SubCmdAvaiable', 'false');
-                return false;
-            } else
-            {
-                $APIData->GetMapping();
-                $APIData->APICommand = $APIData->APISubCommand->{$this->OnkyoZone->thisZone};
-                IPS_LogMessage('APISubCommand', $APIData->APICommand);
-            }
-        } else
-            $APIData->GetMapping();
-
-//        IPS_LogMessage('ReceiveAPIData2', print_r($APIData, true));
-
-
-        $this->ReceiveAPIData($APIData);
-    }
-	*/
 	
 	// Data an Child weitergeben
 	public function ReceiveData($JSONString)
@@ -1964,7 +1907,11 @@ class DenonSplitterTelnet extends IPSModule
 		// z.B. CRC prüfen, in Einzelteile zerlegen
 		try
 		{
-			//
+			// Weiterleiten zur I/O Instanz
+			$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUID
+			
+			// Test Daten speichern
+			SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
 		}
 		catch (Exception $ex)
 		{
@@ -1972,42 +1919,13 @@ class DenonSplitterTelnet extends IPSModule
 			echo ' in '.$ex->getFile().' line: '.$ex->getLine().'.';
 		}
 	 
-		// Weiterleiten zur I/O Instanz
-		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUID
 		
-		// Test Daten speichern
-		SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
 		
 		// Weiterverarbeiten und durchreichen
 		return $resultat;
 	 
 	}
 	
-	
-	/*
-    public function ForwardData($JSONString)
-    {
-        $Data = json_decode($JSONString);
-        if ($Data->DataID <> "{8F47273A-0B69-489E-AF36-F391AE5FBEC0}")
-            return false;
-        $APIData = new ISCP_API_Data();
-        $APIData->GetDataFromJSONObject($Data);
-        try
-        {
-            $this->ForwardDataFromDevice($APIData);
-            
-        } catch (Exception $ex)
-        {
-            trigger_error($ex->getMessage(), $ex->getCode());
-            return false;
-        }
-        return true;
-    }
-	*/
-	
-	
-	
-
 }
 
 ?>
