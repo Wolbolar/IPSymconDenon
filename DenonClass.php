@@ -974,14 +974,14 @@ class DENONIPSProfiles extends stdClass
 
 class DENON_StatusHTML extends stdClass
 {
-	
+	public $ipdenon;	
 	//Status
 	public function getStates (integer $Zone)
 	{
 		if ($Zone == 0) //Main
 		{
 			
-			$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml"));
+			$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml"));
 				
 			if ($xmlMainZone)
 				{
@@ -995,7 +995,7 @@ class DENON_StatusHTML extends stdClass
 				exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
 				}
 		
-			$xmlMainZoneStatus = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXmlStatus.xml"));
+			$xmlMainZoneStatus = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXmlStatus.xml"));
 				
 			if ($xml)
 				{
@@ -1010,7 +1010,7 @@ class DENON_StatusHTML extends stdClass
 				}
 						
 		
-			$xmlNetAudioStatus = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_NetAudioStatusXml.xml"));
+			$xmlNetAudioStatus = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_NetAudioStatusXml.xml"));
 				
 			if ($xmlNetAudioStatus)
 				{
@@ -1026,7 +1026,7 @@ class DENON_StatusHTML extends stdClass
 						
 			
 			
-			$xmlDeviceinfo = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_Deviceinfo.xml"));
+			$xmlDeviceinfo = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_Deviceinfo.xml"));
 				
 			if ($xmlDeviceinfo)
 				{
@@ -1051,7 +1051,7 @@ class DENON_StatusHTML extends stdClass
 		}
 		elseif ($Zone == 1) // Zone 2
 		{
-			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
+			$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
 			if ($xml)
 					{
 					//echo "Datei wurde gefunden";
@@ -1067,7 +1067,7 @@ class DENON_StatusHTML extends stdClass
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
-			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
+			$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
 			if ($xml)
 					{
 					//echo "Datei wurde gefunden";
