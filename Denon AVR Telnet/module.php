@@ -993,6 +993,8 @@ class DenonAVRTelnet extends IPSModule
 		$Subcommand = $SetCommandValue["Subcommand"];
 		$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
 		$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
+		IPS_LogMessage("ReceiveData Denon Telnet Splitter", "ObjektID(".$Ident."), Typ: ".$VarType.", Wert: ".$Subcommandvalue );
+
 		
         switch ($VarType)
         {
