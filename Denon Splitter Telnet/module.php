@@ -108,42 +108,6 @@ class DenonSplitterTelnet extends IPSModule
     
 
 
-    private function RegisterHook($WebHook, $TargetID)
-    {
-        $ids = IPS_GetInstanceListByModuleID("{015A6EB8-D6E5-4B93-B496-0D3F77AE9FE1}");
-        if (sizeof($ids) > 0)
-        {
-            $hooks = json_decode(IPS_GetProperty($ids[0], "Hooks"), true);
-            $found = false;
-            foreach ($hooks as $index => $hook)
-            {
-                if ($hook['Hook'] == $WebHook)
-                {
-                    if ($hook['TargetID'] == $TargetID)
-                        return;
-                    $hooks[$index]['TargetID'] = $TargetID;
-                    $found = true;
-                }
-            }
-            if (!$found)
-            {
-                $hooks[] = Array("Hook" => $WebHook, "TargetID" => $TargetID);
-            }
-            IPS_SetProperty($ids[0], "Hooks", json_encode($hooks));
-            IPS_ApplyChanges($ids[0]);
-        }
-    }
-
-    private function CreateWebHookScript()
-    {
-        $Script = '<?
-		//Test
-           ?>
-';
-        return $Script;
-    }
-
-
 ################## DUMMYS / WOARKAROUNDS - protected
 
     protected function GetParent()
@@ -2010,7 +1974,10 @@ class DenonSplitterTelnet extends IPSModule
 	 
 		// Weiterleiten zur I/O Instanz
 		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUID
-	 
+		
+		// Test Daten speichern
+		SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
+		
 		// Weiterverarbeiten und durchreichen
 		return $resultat;
 	 

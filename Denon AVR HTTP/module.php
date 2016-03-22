@@ -1528,10 +1528,7 @@ class DenonAVRHTTP extends IPSModule
         
     }
 	
-	public function SendCommand($payload)
-		{
-			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $payload)));
-		}
+	
 	
 	
 	//Funktionsscript von Raketenschnecke
@@ -2253,6 +2250,11 @@ class DenonAVRHTTP extends IPSModule
 	*/
 	 		
 	public function Send($payload)
+		{
+			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $payload))); //Denon AVR HTTP Interface GUI
+		}
+	
+	public function SendCommand($payload)
 		{
 			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $payload))); //Denon AVR HTTP Interface GUI
 		}

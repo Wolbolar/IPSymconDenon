@@ -105,6 +105,7 @@ class DenonAVRIOHTTP extends IPSModule
 		$command = urlencode ($command);
 		echo $command;
 		//$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
+		IPS_LogMessage("Status Denon AVR Receiver", $command." gesendet."); 
 		//print_r($response);
 		
 		$this->GetStatus ();
