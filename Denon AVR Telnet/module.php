@@ -992,7 +992,7 @@ class DenonAVRTelnet extends IPSModule
 		$VarType = $SetCommandValue["VarType"];
 		$Subcommand = $SetCommandValue["Subcommand"];
 		$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
-		IPS_LogMessage("ReceiveData Denon", "Command(".$Command."), Typ: ".$VarType.", Wert: ".$Subcommandvalue );
+		IPS_LogMessage("ReceiveData Denon", "Command(".$Command."), Typ: ".$VarType );
 		//$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
 		//IPS_LogMessage("ReceiveData Denon", "ObjektID(".$Ident."), Typ: ".$VarType.", Wert: ".$Subcommandvalue );
 
