@@ -1884,7 +1884,7 @@ class DenonSplitterTelnet extends IPSModule
 	 
 		// Empfangene Daten vom I/O
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($data->Buffer));
+		//IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($data->Buffer));
 	 
 		// Hier werden die Daten verarbeitet
 		//echo utf8_decode($data->Buffer);

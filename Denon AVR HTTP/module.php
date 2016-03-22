@@ -2199,56 +2199,7 @@ class DenonAVRHTTP extends IPSModule
 	   $Value = $Value + 50;
 		CSCK_SendText($id, "Z3CVFR ".$Value.chr(13));
 	}
-
-	/*
-	################## Datapoints
-
-    public function ReceiveData($JSONString)
-    {
-        $Data = json_decode($JSONString);
-//IPS_LogMessage('ReceiveData',print_r($Data,true));
-        if ($Data->DataID <> '{43E4B48E-2345-4A9A-B506-3E8E7A964757}')
-            return false;
-        try
-        {
-            $this->GetZone();
-        } catch (Exception $ex)
-        {
-            unset($ex);
-            return false;
-        }
-
-
-        $APIData = new ISCP_API_Data();
-        $APIData->GetDataFromJSONObject($Data);
-//        IPS_LogMessage('ReceiveAPIData1', print_r($APIData, true));
-
-        if ($this->OnkyoZone->CmdAvaiable($APIData) === false)
-        {
-//            IPS_LogMessage('CmdAvaiable', 'false');
-
-            if ($this->OnkyoZone->SubCmdAvaiable($APIData) === false)
-            {
-//                IPS_LogMessage('SubCmdAvaiable', 'false');
-                return false;
-            } else
-            {
-                $APIData->GetMapping();
-                $APIData->APICommand = $APIData->APISubCommand->{$this->OnkyoZone->thisZone};
-                IPS_LogMessage('APISubCommand', $APIData->APICommand);
-            }
-        } else
-            $APIData->GetMapping();
-
-//        IPS_LogMessage('ReceiveAPIData2', print_r($APIData, true));
-
-
-        $this->ReceiveAPIData($APIData);
-    }
-	
-	
-	*/
-	 		
+ 		
 	public function Send($payload)
 		{
 			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $payload))); //Denon AVR HTTP Interface GUI
@@ -2265,181 +2216,41 @@ class DenonAVRHTTP extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-		//print_r($data->Buffer);
-		//IPS_LogMessage("ReceiveData Denon HTTP", utf8_decode($data->Buffer));
-		 
-		// Hier werden die Daten verarbeitet und in Variablen geschrieben
-		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
-		//$this->UpdateVariable($data->Buffer);
+				
+		$this->UpdateVariable($data->Buffer);
 	 		
 	}
 	
 	// Wertet Response aus und setzt Variable
 	private function UpdateVariable($data)
     {
-        //PWSTANDBY
-		/*
-		$APIData = new DenonAVRCP_API_Data();
-		$APIData->Data = $data;
-		$SetCommandValue = $APIData->GetCommandResponse($APIData->Data);
-        $Command = $SetCommandValue["Command"];
-		$VarType = $SetCommandValue["VarType"];
-		$Subcommand = $SetCommandValue["Subcommand"];
-		$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
-		IPS_LogMessage("Update Denon", "Command(".$Command."), Typ: ".$VarType );
-		*/
-		//$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
-		//IPS_LogMessage("Update Denon", "ObjektID(".$Ident."));
-
-		/*
-        switch ($VarType)
-        {
-            case 0: //Boolean
-                SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-                break;
-            case 1: //Integer
-                SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-                break;
-			case 2: //Float
-                SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-                break;     
-            case 3: //String
-                SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-                break;
-        }
-		*/
+        foreach($data as $Ident => $Values)
+			{
+				$Name = $Values->Name."\n";
+				$VarType = $Values->VarType."\n";
+				$Subcommandvalue = $Values->Value."\n\n";
+				switch ($VarType)
+				{
+					case 0: //Boolean
+						SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						break;
+					case 1: //Integer
+						SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						break;
+					case 2: //Float
+						SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						break;     
+					case 3: //String
+						SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						break;
+				}	
+			}
     }
 		
-	################## DATAPOINTS PARENT
-/*
-    public function ReceiveData($JSONString)
-    {
-        $data = json_decode($JSONString);
-        //IPS_LogMessage('ReceiveDataFrom???:'.$this->InstanceID,  print_r($data,1));
-        $this->CheckParents();
-        if ($this->Mode === false){
-    trigger_error("Wrong IO-Parent",E_USER_WARNING);
-//            echo "Wrong IO-Parent";
-            return false;
-        }
-        $bufferID = $this->GetIDForIdent("BufferIN");
-        // Empfangs Lock setzen
-        if (!$this->lock("ReceiveLock"))
-        {
-            trigger_error("ReceiveBuffer is locked",E_USER_NOTICE);
-            return false;
-
-//            throw new Exception("ReceiveBuffer is locked",E_USER_NOTICE);
-        }
-        // Datenstream zusammenfügen
-        $head = GetValueString($bufferID);
-        SetValueString($bufferID, '');
-        // Stream in einzelne Pakete schneiden
-        $stream = $head . utf8_decode($data->Buffer);
-        if ($this->Mode == ISCPSplitter::LAN)
-        {
-            $minTail = 24;
-
-            $start = strpos($stream, 'ISCP');
-            if ($start === false)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame without ISCP');
-                $stream = '';
-            }
-            elseif ($start > 0)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame start not with ISCP');
-                $stream = substr($stream, $start);
-            }
-            //Paket suchen
-            if (strlen($stream) < $minTail)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame to short');
-                SetValueString($bufferID, $stream);
-                $this->unlock("ReceiveLock");
-                return;
-            }
-            $header_len = ord($stream[6]) * 256 + ord($stream[7]);
-            $frame_len = ord($stream[10]) * 256 + ord($stream[11]);
-//             IPS_LogMessage('ISCP Gateway', 'LANFrame info ' . $header_len. '+'. $frame_len . ' Bytes.');            
-            if (strlen($stream) < $header_len + $frame_len)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame must have ' . $header_len . '+' . $frame_len . ' Bytes. ' . strlen($stream) . ' Bytes given.');
-                SetValueString($bufferID, $stream);
-                $this->unlock("ReceiveLock");
-                return;
-            }
-            $header = substr($stream, 0, $header_len);
-            $frame = substr($stream, $header_len, $frame_len);
-            //EOT wegschneiden von reschts, aber nur wenn es einer der letzten drei zeichen ist
-            $end = strrpos($frame, chr(0x1A));
-            if ($end >= $frame_len - 3)
-                $frame = substr($frame, 0, $end);
-            //EOT wegschneiden von reschts, aber nur wenn es einer der letzten drei zeichen ist
-            $end = strrpos($frame, chr(0x0D));
-            if ($end >= $frame_len - 3)
-                $frame = substr($frame, 0, $end);
-            //EOT wegschneiden von reschts, aber nur wenn es einer der letzten drei zeichen ist
-            $end = strrpos($frame, chr(0x0A));
-            if ($end >= $frame_len - 3)
-                $frame = substr($frame, 0, $end);
-//                IPS_LogMessage('ISCP Gateway', 'LAN $header:' . $header);
-//                IPS_LogMessage('ISCP Gateway', 'LAN $frame:' . $frame);
-// 49 53 43 50  // ISCP
-// 00 00 00 10  // HEADERLEN
-// 00 00 00 0B  // DATALEN
-// 01 00 00 00  // Version
-// 21 31 4E 4C  // !1NL
-// 53 43 2D 50  // SC-P
-// 1A 0D 0A     // EOT CR LF
-            $tail = substr($stream, $header_len + $frame_len);
-            if ($this->eISCPVersion <> ord($header[12]))
-            {
-                $frame = false;
-                trigger_error("Wrong eISCP Version",E_USER_NOTICE);
-            }
-        }
-        else
-        {
-            $minTail = 6;
-            $start = strpos($stream, '!');
-            if ($start === false)
-            {
-                IPS_LogMessage('ISCP Gateway', 'eISCP Frame without !');
-                $stream = '';
-            }
-            elseif ($start > 0)
-            {
-                IPS_LogMessage('ISCP Gateway', 'eISCP Frame do not start with !');
-                $stream = substr($stream, $start);
-            }
-            //Paket suchen
-            $end = strpos($stream, chr(0x1A));
-            if (($end === false) or ( strlen($stream) < $minTail)) // Kein EOT oder zu klein
-            {
-                IPS_LogMessage('ISCP Gateway', 'eISCP Frame to short');
-                SetValueString($bufferID, $stream);
-                $this->unlock("ReceiveLock");
-                return;
-            }
-            $frame = substr($stream, $start, $end - $start);
-            // Ende wieder in den Buffer werfen
-            $tail = ltrim(substr($stream, $end));
-        }
-        if ($tail === false)
-            $tail = '';
-        SetValueString($bufferID, $tail);
-        $this->unlock("ReceiveLock");
-        if ($frame !== false)
-            $this->DecodeData($frame);
-        // Ende war länger als 6 / 23 ? Dann nochmal Packet suchen.
-        if (strlen($tail) >= $minTail)
-            $this->ReceiveData(json_encode(array('Buffer' => '')));
-        return true;
-    }
-	*/
-	
-	
 
 }
 

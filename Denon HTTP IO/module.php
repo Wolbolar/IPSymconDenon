@@ -84,22 +84,21 @@ class DenonAVRIOHTTP extends IPSModule
 		// Empfangene Daten vom Denon AVR Receiver
 		//Daten abholen
 		
-		$data = "";
-		$this->SendJSON($data);
+		//Valuewert für Variable übergeben
+		
+		$data = array(
+		'PW' => array('VarType' => 0, 'Value' => false, 'Name' => 'Power'),
+		'ZM' => array('VarType' => 0, 'Value' => false, 'Name' => 'MainZonePower')
+		);
+
+		$JSONString = json_encode($data);
+		$this->SendJSON($JSONString);
 	}
 	
-	protected function SendJSON ($data)
+	protected function SendJSON ($JSONString)
 	{
-		
-		
-		//JSON zusammenbauen
-		$JSONString = '{"PW":true,"SI":6}';
-		IPS_LogMessage("Status Denon AVR", utf8_decode($JSONString)); //utf8_decode muss string sein
 		$data = json_decode($JSONString);
 		
-	 
-		
-	 
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "Buffer" => $data))); //Denon I/O HTTP RX GUI
 	}
