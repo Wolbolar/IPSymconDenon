@@ -980,81 +980,74 @@ class DENON_StatusHTML extends stdClass
 	{
 		if ($Zone == 0) //Main
 		{
-			if ($Info == "MainZoneXml")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml"));
+			
+			$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml"));
 				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$MainZoneXml = $this->MainZoneXml($xml);
-					//return $MainZoneXml;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
+			if ($xmlMainZone)
+				{
+				//echo "Datei wurde gefunden";
+				$MainZoneXml = $this->MainZoneXml($xmlMainZone);
+				//return $MainZoneXml;
+				
+				}
+			else
+				{
+				exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
+				}
+		
+			$xmlMainZoneStatus = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXmlStatus.xml"));
+				
+			if ($xml)
+				{
+				//echo "Datei wurde gefunden";
+				$MainZoneXmlStatus = $this->MainZoneXmlStatus($xmlMainZoneStatus);
+				//return $MainZoneXmlStatus;
+				
+				}
+			else
+				{
+				exit("Datei ".$xmlMainZoneStatus." konnte nicht geöffnet werden.");
+				}
 						
-			}
-			elseif ($Info == "MainZoneXmlStatus")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXmlStatus.xml"));
+		
+			$xmlNetAudioStatus = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_NetAudioStatusXml.xml"));
 				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$MainZoneXmlStatus = $this->MainZoneXmlStatus($xml);
-					//return $MainZoneXmlStatus;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
+			if ($xmlNetAudioStatus)
+				{
+				//echo "Datei wurde gefunden";
+				$NetAudioStatusXml = $this->NetAudioStatusXml($xmlNetAudioStatus);
+				//return $NetAudioStatusXml;
+				
+				}
+			else
+				{
+				exit("Datei ".$xmlNetAudioStatus." konnte nicht geöffnet werden.");
+				}
 						
-			}
-			elseif ($Info == "NetAudioStatusXml")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_NetAudioStatusXml.xml"));
+			
+			
+			$xmlDeviceinfo = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_Deviceinfo.xml"));
 				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$NetAudioStatusXml = $this->NetAudioStatusXml($xml);
-					//return $NetAudioStatusXml;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
-						
-			}
-			elseif ($Info == "Deviceinfo")
-			{
-				$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_Deviceinfo.xml"));
+			if ($xmlDeviceinfo)
+				{
+				//echo "Datei wurde gefunden";
+				$Deviceinfo = $this->Deviceinfo($xmlDeviceinfo);
+				//return $Deviceinfo;
 				
-				if ($xml)
-					{
-					//echo "Datei wurde gefunden";
-					$Deviceinfo = $this->Deviceinfo($xml);
-					//return $Deviceinfo;
-					
-					}
-				else
-					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
+				}
+			else
+				{
+				exit("Datei ".$xmlDeviceinfo." konnte nicht geöffnet werden.");
+				}
 				
-				$states = array(
-					"MainZoneXml" => $MainZoneXml,
-					"MainZoneXmlStatus" => $MainZoneXmlStatus,
-					"NetAudioStatusXml" => $NetAudioStatusXml,
-					"Deviceinfo" => $Deviceinfo
-					);
-				return $states;		
-			}
+			$states = array(
+				"MainZoneXml" => $MainZoneXml,
+				"MainZoneXmlStatus" => $MainZoneXmlStatus,
+				"NetAudioStatusXml" => $NetAudioStatusXml,
+				"Deviceinfo" => $Deviceinfo
+				);
+			return $states;		
+			
 		}
 		elseif ($Zone == 1) // Zone 2
 		{
