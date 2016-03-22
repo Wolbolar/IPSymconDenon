@@ -1073,8 +1073,8 @@ class DenonAVRTelnet extends IPSModule
 	//Get Status HTTP 
 	public function GetStateHTTP()
 	{
-		$DenonGet = new DENON_HTTP_GET;
-		$state = $DenonGet->GetStateHTTP();
+		$DenonGet = new DENON_StatusHTML;
+		$state = $DenonGet->getStates (0);
 		return $state;
 	}
 	

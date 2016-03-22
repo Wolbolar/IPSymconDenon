@@ -77,14 +77,7 @@ class DenonAVRIOHTTP extends IPSModule
 	 
 	 
 	}
-	
-	public function testget()
-	{
-		$Zone = 0;
-		$state = $this->getStates (integer $Zone);
-		return $state;
-	}
-	
+		
 	protected function GetStatus ()
 	{
 		// Empfangene Daten vom Denon AVR Receiver
