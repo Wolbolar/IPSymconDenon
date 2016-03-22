@@ -2647,6 +2647,7 @@ class DenonAVRCP_API_Data extends stdClass
 	
 	public function GetCommandResponse (string $data)
 	{
+		
 		foreach($this->VarMapping as $Command => $ValMap)
 			{
 				$pos = stripos($data, $Command);

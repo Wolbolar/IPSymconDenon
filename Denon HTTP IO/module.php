@@ -62,7 +62,12 @@ class DenonAVRIOHTTP extends IPSModule
 		// z.B. CRC prüfen, in Einzelteile zerlegen
 		try
 		{
-			//
+			// Absenden an Denon AVR
+		
+			SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
+		
+			$command = $data->Buffer;
+			$this->SendCommand ($command);
 		}
 		catch (Exception $ex)
 		{
@@ -70,15 +75,6 @@ class DenonAVRIOHTTP extends IPSModule
 			echo ' in '.$ex->getFile().' line: '.$ex->getLine().'.';
 		}
 	 
-		// Absenden an Denon AVR
-		//$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUI
-		SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
-		
-		$command = $data->Buffer;
-		$this->SendCommand ($command);
-		
-		// Weiterverarbeiten und durchreichen
-		//return $resultat;
 	 
 	}
 	
@@ -103,9 +99,9 @@ class DenonAVRIOHTTP extends IPSModule
 		$ip = $this->ReadPropertyString("Host");
 		//Ins URL Format bringen
 		$command = urlencode ($command);
-		echo $command;
-		//$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
-		IPS_LogMessage("Status Denon AVR Receiver", $command." gesendet."); 
+		//echo $command;
+		$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
+		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
 		//print_r($response);
 		
 		$this->GetStatus ();
