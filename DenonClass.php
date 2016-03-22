@@ -1001,7 +1001,7 @@ class DENON_StatusHTML extends stdClass
 		
 			$xmlMainZoneStatus = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXmlStatus.xml"));
 				
-			if ($xml)
+			if ($xmlMainZoneStatus)
 				{
 				//echo "Datei wurde gefunden";
 				$MainZoneXmlStatus = $this->MainZoneXmlStatus($xmlMainZoneStatus);
