@@ -992,10 +992,11 @@ class DenonAVRTelnet extends IPSModule
 		$VarType = $SetCommandValue["VarType"];
 		$Subcommand = $SetCommandValue["Subcommand"];
 		$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
-		$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
-		IPS_LogMessage("ReceiveData Denon Telnet Splitter", "ObjektID(".$Ident."), Typ: ".$VarType.", Wert: ".$Subcommandvalue );
+		IPS_LogMessage("ReceiveData Denon", "Command(".$Command."), Typ: ".$VarType.", Wert: ".$Subcommandvalue );
+		//$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
+		//IPS_LogMessage("ReceiveData Denon", "ObjektID(".$Ident."), Typ: ".$VarType.", Wert: ".$Subcommandvalue );
 
-		
+		/*
         switch ($VarType)
         {
             case 0: //Boolean
@@ -1011,6 +1012,7 @@ class DenonAVRTelnet extends IPSModule
                 SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
                 break;
         }
+		*/
     }
 	
 	protected function GetParent()
@@ -1031,7 +1033,7 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData Denon Telnet Splitter", utf8_decode($data->Buffer));
+		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($data->Buffer));
 	 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		SetValue($this->GetIDForIdent("Response"), $data->Buffer);

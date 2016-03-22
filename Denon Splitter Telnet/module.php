@@ -1901,7 +1901,7 @@ class DenonSplitterTelnet extends IPSModule
 	 
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ForwardData Denon Telnet Splitter", utf8_decode($data->Buffer));
+		IPS_LogMessage("ForwardData Denon Telnet", utf8_decode($data->Buffer));
 	 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
