@@ -2675,7 +2675,7 @@ class DenonAVRCP_API_Data extends stdClass
 				{
 					$SetCommandValue = array(
 								"VarType" => 0,
-								"Command" => "Nicht Gefunden",
+								"Command" => $data,
 								"Subcommand" => "Nicht gefunden",
 								"Subcommandvalue" => "Nicht gefunden"
 								);
