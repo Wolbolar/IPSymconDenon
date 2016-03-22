@@ -974,8 +974,9 @@ class DENONIPSProfiles extends stdClass
 
 class DENON_StatusHTML extends stdClass
 {
+	
 	//Status
-	public function getStates ($Zone, $Info)
+	public function getStates (integer $Zone)
 	{
 		if ($Zone == 0) //Main
 		{
@@ -987,7 +988,7 @@ class DENON_StatusHTML extends stdClass
 					{
 					//echo "Datei wurde gefunden";
 					$MainZoneXml = $this->MainZoneXml($xml);
-					return $MainZoneXml;
+					//return $MainZoneXml;
 					
 					}
 				else
@@ -1004,7 +1005,7 @@ class DENON_StatusHTML extends stdClass
 					{
 					//echo "Datei wurde gefunden";
 					$MainZoneXmlStatus = $this->MainZoneXmlStatus($xml);
-					return $MainZoneXmlStatus;
+					//return $MainZoneXmlStatus;
 					
 					}
 				else
@@ -1021,7 +1022,7 @@ class DENON_StatusHTML extends stdClass
 					{
 					//echo "Datei wurde gefunden";
 					$NetAudioStatusXml = $this->NetAudioStatusXml($xml);
-					return $NetAudioStatusXml;
+					//return $NetAudioStatusXml;
 					
 					}
 				else
@@ -1038,23 +1039,54 @@ class DENON_StatusHTML extends stdClass
 					{
 					//echo "Datei wurde gefunden";
 					$Deviceinfo = $this->Deviceinfo($xml);
-					return $Deviceinfo;
+					//return $Deviceinfo;
 					
 					}
 				else
 					{
 					exit("Datei ".$xml." konnte nicht geöffnet werden.");
 					}
-						
+				
+				$states = array(
+					"MainZoneXml" => $MainZoneXml,
+					"MainZoneXmlStatus" => $MainZoneXmlStatus,
+					"NetAudioStatusXml" => $NetAudioStatusXml,
+					"Deviceinfo" => $Deviceinfo
+					);
+				return $states;		
 			}
 		}
 		elseif ($Zone == 1) // Zone 2
 		{
 			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
+			if ($xml)
+					{
+					//echo "Datei wurde gefunden";
+					$StateZone2 = $this->StateZone2($xml);
+					//return $Deviceinfo;
+					
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+			return $StateZone2; 		
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
 			$xml = new SimpleXMLElement(file_get_contents("http://".$this->GetIPDenon()."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
+			if ($xml)
+					{
+					//echo "Datei wurde gefunden";
+					$StateZone3 = $this->StateZone3($xml);
+					//return $Deviceinfo;
+					
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+			return $StateZone3;
 		}
 	}
 	
