@@ -187,7 +187,7 @@ class DenonSplitterHTTP extends IPSModule
 	 
 		// Empfangene Daten vom Denon HTTP I/O
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer));
+		//IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer)); //utf8_decode geht nur bei string
 	 
 		// Hier werden die Daten verarbeitet
 	 
