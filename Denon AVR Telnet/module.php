@@ -594,11 +594,10 @@ class DenonAVRTelnet extends IPSModule
             return false;
         }
 		*/
-		//Command aus Ident
-		$Command = $Ident; 
+		
 		
 		$APIData = new DenonAVRCP_API_Data();
-		$APIData->APICommand = $Command;
+		$APIData->APIIdent = $Ident;
         $APIData->Data = $Value;
         //Prüfen ob Command vorhanden
 		/*
@@ -610,12 +609,15 @@ class DenonAVRTelnet extends IPSModule
         }
 		*/
         // Subcommand holen
-        $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APICommand, $APIData->Data);
+        $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data);
         IPS_LogMessage('Denon Subcommand', $APIData->APISubCommand);
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
-            $payload = $APIData->APICommand.$APIData->APISubCommand;
+            //Command aus Ident
+			$APIData->APICommand = str_replace("_", " ", $Ident); 
+		
+			$payload = $APIData->APICommand.$APIData->APISubCommand;
 			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);
         } catch (Exception $ex)

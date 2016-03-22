@@ -2003,6 +2003,7 @@ class DenonAVRCP_API_Data extends stdClass
 {
 
     public $APICommand;
+	public $APIIdent;
     public $Data;
     public $Mapping = null;
     public $APISubCommand = null;
@@ -2027,7 +2028,7 @@ class DenonAVRCP_API_Data extends stdClass
         return json_encode($SendData);
     }
 	
-	public function GetCommand($Cmd, $Value) 
+	public function GetSubCommand($Ident, $Value) 
     {
 		$VarMapping = array
 				(
@@ -2634,9 +2635,10 @@ class DenonAVRCP_API_Data extends stdClass
 				    {
 						if($SubCommandValue == $Value)
 							{
-								$Command = str_replace("_", " ", $Command);
-								$DenonCommand = $Command.$SubCommand;
-								return $DenonCommand;
+								//$Command = str_replace("_", " ", $Command);
+								//$DenonCommand = $Command.$SubCommand;
+								//return $DenonCommand;
+								return $SubCommand;
 							}
 					}
 				}
