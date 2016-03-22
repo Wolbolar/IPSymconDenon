@@ -2645,12 +2645,13 @@ class DenonAVRCP_API_Data extends stdClass
             return null;
     }
 	
-	public function GetCommandResponse ($data)
+	public function GetCommandResponse (string $data)
 	{
 		foreach($this->VarMapping as $Command => $ValMap)
 			{
 				$pos = stripos($data, $Command);
-				if ($pos !== false) {
+				if ($pos !== false)
+				{
 				    $lengthCommand = strlen($Command);
 				    $ResponseSubCommand = substr($data, $lengthCommand);
 				    $ValueMapping = $ValMap["ValueMapping"];
@@ -2670,7 +2671,16 @@ class DenonAVRCP_API_Data extends stdClass
 					}
 				    
 				}
-				
+				else 
+				{
+					$SetCommandValue = array(
+								"VarType" => 0,
+								"Command" => "Nicht Gefunden",
+								"Subcommand" => "Nicht gefunden",
+								"Subcommandvalue" => "Nicht gefunden"
+								);
+								return $SetCommandValue;
+				}
 			}
   
 	}
