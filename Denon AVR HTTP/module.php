@@ -123,6 +123,10 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptPLIIZHeightGain = "DENON.".$DenonAVRVar->Type.".PLIIZHeightGain";
 			$DenonAVRVar->ptVerticalStretch = "DENON.".$DenonAVRVar->Type.".VerticalStretch";
 			$DenonAVRVar->ptDolbyVolume = "DENON.".$DenonAVRVar->Type.".DolbyVolume";
+			$DenonAVRVar->ptFriendlyname = "DENON.".$DenonAVRVar->Type.".Friendlyname";
+			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
+			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
+			$DenonAVRVar->ptModelId = "DENON.".$DenonAVRVar->Type.".ModelId";
 			
 			//Variablen						
 	
@@ -1441,7 +1445,14 @@ class DenonAVRHTTP extends IPSModule
 		*/
     }
 	
-	
+	//Get Status HTTP 
+	public function GetStateHTTP()
+	{
+		$DenonGet = new DENON_StatusHTML;
+		$DenonGet->ipdenon = $this->GetIPDenon();
+		$state = $DenonGet->getStates (0);
+		return $state;
+	}
 	
 	protected function GetParent()
     {

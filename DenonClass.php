@@ -122,6 +122,10 @@ class DENONIPSProfiles extends stdClass
 	public $ptPLIIZHeightGain;
 	public $ptVerticalStretch;
 	public $ptDolbyVolume;
+	public $ptFriendlyname;
+	public $ptMainZoneName;
+	public $ptTopMenuLink;
+	public $ptModelId;
 	
 	
 	
@@ -1093,7 +1097,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["FriendlyName"]["Name"] = "FriendlyName";
 			$MainZone["FriendlyName"]["Value"] = (string)$FriendlyName[0]->value;
-			$MainZone["FriendlyName"]["Profile"] = $this->ptFriendlyname;
+			//$MainZone["FriendlyName"]["Profile"] = $DenonAVRVar->ptFriendlyname;
 		}
 
 		//Power
@@ -1102,7 +1106,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["Power"]["Name"] = "Power";
 			$MainZone["Power"]["Value"] = (string)$AVRPower[0]->value;
-			$MainZone["Power"]["Profile"] = $this->ptPower;
+			//$MainZone["Power"]["Profile"] = $DenonAVRVar->ptPower;
 		}
 
 
@@ -1112,7 +1116,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["MainZonePower"]["Name"] = "MainZonePower";
 			$MainZone["MainZonePower"]["Value"] = (string)$ZonePower[0]->value;
-			$MainZone["MainZonePower"]["Profile"] = $this->ptMainZonePower;
+			//$MainZone["MainZonePower"]["Profile"] = $DenonAVRVar->ptMainZonePower;
 		}
 
 		//RenameZone
@@ -1121,7 +1125,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["MainZoneName"]["Name"] = "MainZoneName";
 			$MainZone["MainZoneName"]["Value"] = (string)$RenameZone[0]->value;
-			$MainZone["MainZoneName"]["Profile"] = 3; //Vartype String
+			//$MainZone["MainZoneName"]["Profile"] = $DenonAVRVar->ptMainZoneName;
 		}
 
 
@@ -1132,7 +1136,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["TopMenuLink"]["Name"] = "TopMenuLink";
 			$MainZone["TopMenuLink"]["Value"] = (string)$TopMenuLink[0]->value;
-			$MainZone["TopMenuLink"]["Profile"] = 3; //Vartype String
+			//$MainZone["TopMenuLink"]["Profile"] = $DenonAVRVar->ptTopMenuLink;
 		}
 
 
@@ -1142,7 +1146,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["ModelId"]["Name"] = "ModelId";
 			$MainZone["ModelId"]["Value"] = (string)$ModelId[0]->value;
-			$MainZone["ModelId"]["Profile"] = 3; //Vartype String
+			//$MainZone["ModelId"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1152,7 +1156,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["SalesArea"]["Name"] = "SalesArea";
 			$MainZone["SalesArea"]["Value"] = (string)$SalesArea[0]->value;
-			$MainZone["SalesArea"]["Profile"] = 3; //Vartype String
+			//$MainZone["SalesArea"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1162,7 +1166,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["InputFuncSelect"]["Name"] = "InputFuncSelect";
 			$MainZone["InputFuncSelect"]["Value"] = (string)$InputFuncSelect[0]->value;
-			$MainZone["InputFuncSelect"]["Profile"] = 3; //Vartype String
+			//$MainZone["InputFuncSelect"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1172,7 +1176,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["NetFuncSelect"]["Name"] = "NetFuncSelect";
 			$MainZone["NetFuncSelect"]["Value"] = (string)$NetFuncSelect[0]->value;
-			$MainZone["NetFuncSelect"]["Profile"] = 3; //Vartype String
+			//$MainZone["NetFuncSelect"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1180,9 +1184,9 @@ class DENON_StatusHTML extends stdClass
 		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
 		if ($InputFuncSelectMain)
 		{
-		   $MainZone["InputFuncSelectMain"]["Name"] = "InputFuncSelectMain";
+			$MainZone["InputFuncSelectMain"]["Name"] = "InputFuncSelectMain";
 			$MainZone["InputFuncSelectMain"]["Value"] = (string)$InputFuncSelectMain[0]->value;
-			$MainZone["InputFuncSelectMain"]["Profile"] = 3; //Vartype String
+			//$MainZone["InputFuncSelectMain"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 		//selectSurround
@@ -1191,7 +1195,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["selectSurround"]["Name"] = "selectSurround";
 			$MainZone["selectSurround"]["Value"] = (string)$selectSurround[0]->value;
-			$MainZone["selectSurround"]["Profile"] = 3; //Vartype String
+			//$MainZone["selectSurround"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 		//VolumeDisplay
@@ -1200,7 +1204,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["VolumeDisplay"]["Name"] = "VolumeDisplay";
 			$MainZone["VolumeDisplay"]["Value"] = (string)$VolumeDisplay[0]->value;
-			$MainZone["VolumeDisplay"]["Profile"] = 3; //Vartype String
+			//$MainZone["VolumeDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1211,7 +1215,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["MasterVolume"]["Name"] = "MasterVolume";
 			$MainZone["MasterVolume"]["Value"] = (string)$MasterVolume[0]->value;
-			$MainZone["MasterVolume"]["Profile"] = 2; //Vartype Float
+			//$MainZone["MasterVolume"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1221,7 +1225,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["Mute"]["Name"] = "Mute";
 			$MainZone["Mute"]["Value"] = (string)$Mute[0]->value;
-			$MainZone["Mute"]["Profile"] = 0; //Vartype Bool
+			//$MainZone["Mute"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1231,7 +1235,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["RemoteMaintenance"]["Name"] = "RemoteMaintenance";
 			$MainZone["RemoteMaintenance"]["Value"] = (string)$RemoteMaintenance[0]->value;
-			$MainZone["RemoteMaintenance"]["Profile"] = 3; //Vartype String
+			//$MainZone["RemoteMaintenance"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1241,7 +1245,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["GameSourceDisplay"]["Name"] = "GameSourceDisplay";
 			$MainZone["GameSourceDisplay"]["Value"] = (string)$GameSourceDisplay[0]->value;
-			$MainZone["GameSourceDisplay"]["Profile"] = 3; //Vartype String
+			//$MainZone["GameSourceDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1251,7 +1255,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["LastfmDisplay"]["Name"] = "LastfmDisplay";
 			$MainZone["LastfmDisplay"]["Value"] = (string)$LastfmDisplay[0]->value;
-			$MainZone["LastfmDisplay"]["Profile"] = 3; //Vartype String
+			//$MainZone["LastfmDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1261,7 +1265,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["SubwooferDisplay"]["Name"] = "SubwooferDisplay";
 			$MainZone["SubwooferDisplay"]["Value"] = (string)$SubwooferDisplay[0]->value;
-			$MainZone["SubwooferDisplay"]["Profile"] = 3; //Vartype String
+			//$MainZone["SubwooferDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 
@@ -1271,7 +1275,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZone["Zone2VolDisp"]["Name"] = "Zone2VolDisp";
 			$MainZone["Zone2VolDisp"]["Value"] = (string)$Zone2VolDisp[0]->value;
-			$MainZone["Zone2VolDisp"]["Profile"] = 3; //Vartype String
+			//$MainZone["Zone2VolDisp"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
 	
@@ -1288,7 +1292,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZoneStatus["RestorerMode"]["Name"] = "RestorerMode";
 			$MainZoneStatus["RestorerMode"]["Value"] = (string)$RestorerMode[0]->value;
-			$MainZoneStatus["RestorerMode"]["Profile"] = 3; //Vartype String
+			//$MainZoneStatus["RestorerMode"]["Profile"] = 3; //Vartype String
 		}
 
 
@@ -1298,7 +1302,7 @@ class DENON_StatusHTML extends stdClass
 		{
 			$MainZoneStatus["SurrMode"]["Name"] = "SurrMode";
 			$MainZoneStatus["SurrMode"]["Value"] = (string)$SurrMode[0]->value;
-			$MainZoneStatus["SurrMode"]["Profile"] = 3; //Vartype String
+			//$MainZoneStatus["SurrMode"]["Profile"] = 3; //Vartype String
 		}
 
 		//Inputs
