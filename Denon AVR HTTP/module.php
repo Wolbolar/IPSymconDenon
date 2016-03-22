@@ -2226,26 +2226,26 @@ class DenonAVRHTTP extends IPSModule
     {
         foreach($data as $Ident => $Values)
 			{
-				$Name = $Values->Name."\n";
-				$VarType = $Values->VarType."\n";
-				$Subcommandvalue = $Values->Value."\n\n";
+				$Name = $Values->Name;
+				$VarType = $Values->VarType;
+				$Subcommandvalue = $Values->Value;
 				switch ($VarType)
 				{
 					case 0: //Boolean
 						SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
 						break;
 					case 1: //Integer
 						SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
 						break;
 					case 2: //Float
 						SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
 						break;     
 					case 3: //String
 						SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$Ident.")");
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
 						break;
 				}	
 			}
