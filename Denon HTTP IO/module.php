@@ -79,7 +79,7 @@ class DenonAVRIOHTTP extends IPSModule
 	}
 	
 	
-	protected GetStatus ()
+	protected function GetStatus ()
 	{
 		// Empfangene Daten vom Denon AVR Receiver
 		//Daten abholen
