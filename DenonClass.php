@@ -1159,7 +1159,37 @@ class DENON_StatusHTML extends stdClass
 			//$MainZone["SalesArea"]["Profile"] = $DenonAVRVar->ptModelId;
 		}
 
+		//Inputs
+		$InputFuncList = $xml->xpath('.//InputFuncList');
+		if ($InputFuncList)
+		{
+			$countinput = count($InputFuncList[0]->value);
+			$RenameSource = $xml->xpath('.//RenameSource');
+			$SourceDelete = $xml->xpath('.//SourceDelete');
+			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
+			$countUse = count($SourceDeleteUse);
+			$MainZoneStatus["Inputs"]["Name"] = "Inputs";
+			$Inputs = array();
 
+			for ($i = 0; $i <= $countinput-1; $i++)
+				{
+					if ((string)$SourceDelete[0]->value[$i] == "USE")
+					{
+						if ((string)$RenameSource[0]->value[$i] != "")
+							{
+							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
+							}
+						else
+							{
+							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
+						   }
+					}
+			   }
+			$MainZoneStatus["Inputs"]["Value"] = $Inputs;
+			$MainZoneStatus["Inputs"]["MaxValue"] = $countUse; //Number
+			
+		}
+		
 		//InputFuncSelect
 		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 		if ($InputFuncSelect)
@@ -1305,36 +1335,7 @@ class DENON_StatusHTML extends stdClass
 			//$MainZoneStatus["SurrMode"]["Profile"] = 3; //Vartype String
 		}
 
-		//Inputs
-		$InputFuncList = $xml->xpath('.//InputFuncList');
-		if ($InputFuncList)
-		{
-			$countinput = count($InputFuncList[0]->value);
-			$RenameSource = $xml->xpath('.//RenameSource');
-			$SourceDelete = $xml->xpath('.//SourceDelete');
-			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
-			$countUse = count($SourceDeleteUse);
-			$MainZoneStatus["Inputs"]["Name"] = "Inputs";
-			$Inputs = array();
-
-			for ($i = 0; $i <= $countinput-1; $i++)
-				{
-					if ((string)$SourceDelete[0]->value[$i] == "USE")
-					{
-						if ((string)$RenameSource[0]->value[$i] != "")
-							{
-							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
-							}
-						else
-							{
-							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
-						   }
-					}
-			   }
-			$MainZoneStatus["Inputs"]["Value"] = $Inputs;
-			$MainZoneStatus["Inputs"]["MaxValue"] = $countUse; //Number
-			
-		}
+		
 
 		return $MainZoneStatus;
 	}
