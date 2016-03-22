@@ -2266,14 +2266,49 @@ class DenonAVRHTTP extends IPSModule
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
 		print_r($data->Buffer);
-		IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer));
+		IPS_LogMessage("ReceiveData Denon HTTP", utf8_decode($data->Buffer));
 		 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
-		print_r($data->Buffer);
-		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
-	 
+		SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+		$this->UpdateVariable($data->Buffer);
+	 		
 	}
 	
+	// Wertet Response aus und setzt Variable
+	private function UpdateVariable($data)
+    {
+        //PWSTANDBY
+		/*
+		$APIData = new DenonAVRCP_API_Data();
+		$APIData->Data = $data;
+		$SetCommandValue = $APIData->GetCommandResponse($APIData->Data);
+        $Command = $SetCommandValue["Command"];
+		$VarType = $SetCommandValue["VarType"];
+		$Subcommand = $SetCommandValue["Subcommand"];
+		$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
+		IPS_LogMessage("Update Denon", "Command(".$Command."), Typ: ".$VarType );
+		*/
+		//$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
+		//IPS_LogMessage("Update Denon", "ObjektID(".$Ident."));
+
+		/*
+        switch ($VarType)
+        {
+            case 0: //Boolean
+                SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;
+            case 1: //Integer
+                SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;
+			case 2: //Float
+                SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;     
+            case 3: //String
+                SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
+                break;
+        }
+		*/
+    }
 		
 	################## DATAPOINTS PARENT
 /*
