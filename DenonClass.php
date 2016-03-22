@@ -2626,7 +2626,7 @@ class DenonAVRCP_API_Data extends stdClass
     {
 		if (array_key_exists($Ident, $this->VarMapping))
         {
-			foreach($VarMapping as $Command => $ValMap)
+			foreach($this->VarMapping as $Command => $ValMap)
 			{
 				if($Command == $Ident)
 				{
