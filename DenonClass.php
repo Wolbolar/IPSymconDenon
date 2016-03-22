@@ -2624,20 +2624,17 @@ class DenonAVRCP_API_Data extends stdClass
 					)
 				);
 
-		if (array_key_exists($Cmd, $VarMapping))
+		if (array_key_exists($Ident, $VarMapping))
         {
 			foreach($VarMapping as $Command => $ValMap)
 			{
-				if($Command == $Cmd)
+				if($Command == $Ident)
 				{
 				    $ValueMapping = $ValMap["ValueMapping"];
 				    foreach($ValueMapping as $SubCommand => $SubCommandValue)
 				    {
 						if($SubCommandValue == $Value)
 							{
-								//$Command = str_replace("_", " ", $Command);
-								//$DenonCommand = $Command.$SubCommand;
-								//return $DenonCommand;
 								return $SubCommand;
 							}
 					}
