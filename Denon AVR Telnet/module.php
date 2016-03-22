@@ -617,7 +617,7 @@ class DenonAVRTelnet extends IPSModule
             //Command aus Ident
 			$APIData->APICommand = str_replace("_", " ", $Ident); 
 		
-			$payload = $APIData->APICommand.$APIData->APISubCommand;
+			$payload = $APIData->APICommand.$APIData->APISubCommand.chr(13);
 			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);
         } catch (Exception $ex)
