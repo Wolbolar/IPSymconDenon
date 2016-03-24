@@ -195,7 +195,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
-		$this->ptFriendlyname => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile)),
+		$this->ptFriendlyName => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile)),
 		$this->ptMainZoneName => array("MainZoneName", "MainZoneName", "~String", $this->getpos($profile)),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile)),
 		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile)),
@@ -1045,10 +1045,10 @@ class DENONIPSProfiles extends stdClass
 							$this->ptPLIIZHeightGain => 100,
 							$this->ptVerticalStretch => 101,
 							
-							$this->ptFriendlyname => 102,
+							$this->ptFriendlyName => 102,
 							$this->ptMainZoneName => 103,
 							$this->ptTopMenuLink => 104,
-							$this->ptModelId => 105,
+							$this->ptModel => 105,
 							
 							$this->ptZone2Power => 201,
 							$this->ptZone2Mute => 202,

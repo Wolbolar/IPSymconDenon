@@ -16,7 +16,6 @@ class DenonAVRHTTP extends IPSModule
 		
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 6);
-		$this->RegisterPropertyString('InputsSources', "");
     }
 
 
@@ -133,8 +132,7 @@ class DenonAVRHTTP extends IPSModule
 			//Variablen						
 			$DenonAVRVar->DenonIP => $this->GetIPDenon();
 			$this->InputSources = $DenonAVRVar->GetInputSources();
-			//IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
-			//IPS_ApplyChanges($this->InstanceID); 
+			
 			
 			//Boolean
 			$vBoolean = array
@@ -416,11 +414,10 @@ class DenonAVRHTTP extends IPSModule
         }
 		
 		//Inputs anlegen
-		//$inputsourcesprofile = $this->ReadPropertyInteger("InputsSources");
-		$inputsourcesprofile = $this->InputsSources;
+		$inputsourcesprofile = $this->InputSources;
 		$id = $this->RegisterVariableString ($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
-		$this->EnableAction($profile["Ident"]);
+		$this->EnableAction($inputsourcesprofile["Ident"]);
 		
 		//Sichtbare Variablen anlegen
 		foreach ($vBoolean as $ptBool => $visible)
