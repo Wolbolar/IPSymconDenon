@@ -212,7 +212,7 @@ class DenonAVRTelnet extends IPSModule
 	
 			
 			//Variablen
-			$DenonAVRVar->DenonIP => $this->GetIPDenon();
+			$DenonAVRVar->DenonIP = $this->GetIPDenon();
 			IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
 			IPS_ApplyChanges($this->InstanceID); 
 			
