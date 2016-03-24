@@ -200,6 +200,9 @@ class DENONIPSProfiles extends stdClass
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile)),
 		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile)),
 		);
+		
+		$profilestring = $this->sendprofilestring($profilesMainZone, $profile);
+		return $profilestring;
 	}
 	
 	private function sendprofilestring($profiles, $profile)
@@ -208,14 +211,14 @@ class DENONIPSProfiles extends stdClass
 		{
 			if($ptName == $profile)
 			{
-			   $profilebool = array(
+			   $profilestring = array(
 			   "Name" => $profilvar[1],
 			   "Ident" => $profilvar[0],
 			   "ProfilName" => $profilvar[2],
 			   "Position" => $profilvar[3]
 			   );
 			   
-			   return $profilebool;
+			   return $profilestring;
 			}
 
 		}	
