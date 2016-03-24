@@ -16,6 +16,7 @@ class DenonAVRHTTP extends IPSModule
 		
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 6);
+		
     }
 
 

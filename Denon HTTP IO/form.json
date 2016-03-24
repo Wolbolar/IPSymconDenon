@@ -11,7 +11,8 @@
                     "name": "Host",
                     "type": "ValidationTextBox",
                     "caption": "IP Adresse"
-                }
+                },
+				{ "name": "UpdateInterval", "type": "IntervalBox", "caption": "Sekunden" }
             ],
     "status":
             [

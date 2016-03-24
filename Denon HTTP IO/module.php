@@ -14,6 +14,8 @@ class DenonAVRIOHTTP extends IPSModule
         //You cannot use variables here. Just static values.
 		
         $this->RegisterPropertyString("Host", "");
+		$this->RegisterPropertyInteger("UpdateInterval", 5);
+		
              
     }
 
@@ -38,7 +40,7 @@ class DenonAVRIOHTTP extends IPSModule
 			{
 			$this->SetStatus(204); //IP Adresse ist ungültig 
 			}
-
+	$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
 
 
@@ -88,12 +90,12 @@ class DenonAVRIOHTTP extends IPSModule
 		$Zone = 0;
 		$data = getStates ($Zone);
 		//Valuewert für Variable übergeben
-		
+		/*
 		$data = array(
 		'PW' => array('VarType' => 0, 'Value' => false, 'Name' => 'Power'),
 		'ZM' => array('VarType' => 0, 'Value' => false, 'Name' => 'MainZonePower')
 		);
-
+		*/
 		$JSONString = json_encode($data);
 		$this->SendJSON($JSONString);
 	}
