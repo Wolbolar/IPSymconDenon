@@ -353,9 +353,7 @@ class DENONIPSProfiles extends stdClass
 	
 	public function SetupVarDenonIntegerAss($profile)
 	{
-		//InputSources generieren
-		$this->
-		
+				
 		//Sichtbare variablen profil suchen
 		//Associations
 		//Associations Value, Association, Icon, Color
