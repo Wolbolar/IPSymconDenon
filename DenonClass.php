@@ -9,7 +9,7 @@ class DENONIPSVarType extends stdClass
     const vtInteger = 1;
     const vtFloat = 2;
     const vtString = 3;
-    const vtDualInteger = 10;
+    
 
 }
 
@@ -122,13 +122,104 @@ class DENONIPSProfiles extends stdClass
 	public $ptPLIIZHeightGain;
 	public $ptVerticalStretch;
 	public $ptDolbyVolume;
-	public $ptFriendlyname;
+	public $ptFriendlyName;
 	public $ptMainZoneName;
 	public $ptTopMenuLink;
-	public $ptModelId;
+	public $ptModel;
+	public $UsedInputSources;
+	public $DenonIP;
 	
+	public function GetInputSources()
+	{
+		$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml"));
+
+		if ($xmlMainZone)
+			{
+			//echo "Datei wurde gefunden";
+			$Inputsources = $this->ReadInputSources($xmlMainZone);
+			return $Inputsources;
+			}
+		else
+			{
+			exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
+			}
+	}
+
+	protected function ReadInputSources($xml)
+	{
+		//Inputs
+		$InputFuncList = $xml->xpath('.//InputFuncList');
+		if ($InputFuncList)
+		{
+			$countinput = count($InputFuncList[0]->value);
+			$RenameSource = $xml->xpath('.//RenameSource');
+			$SourceDelete = $xml->xpath('.//SourceDelete');
+			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
+			$countUse = count($SourceDeleteUse);
+			$Inputs = array();
+
+			for ($i = 0; $i <= $countinput-1; $i++)
+				{
+					if ((string)$SourceDelete[0]->value[$i] == "USE")
+					{
+						if ((string)$RenameSource[0]->value[$i] != "")
+							{
+							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
+							}
+						else
+							{
+							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
+						   }
+					}
+			   }
+		}
+		$MaxValue = ($countUse-1);
+		$UsedInputSources = array(
+			"Ident" => DENON_API_Commands::SI,
+			"Name" => "Input Source",
+			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+		);
+		$Associations = array();
+		foreach ($Inputs as $Value => $Input)
+		{
+		$Input = str_replace(" ", "", $Input);
+		$Associations[] = array(($Value-1), $Input,  "", -1);
+		}
+		$UsedInputSources["Associations"] = $Associations;
+		
+		$this->UsedInputSources = $UsedInputSources;
+		return $UsedInputSources;
+	}	
+
+	public function SetupVarDenonString($profile)
+	{
+		//Ident, Name, Profile, Position 
+		$profilesMainZone = array (
+		$this->ptFriendlyname => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile)),
+		$this->ptMainZoneName => array("MainZoneName", "MainZoneName", "~String", $this->getpos($profile)),
+		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile)),
+		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile)),
+		);
+	}
 	
-	
+	private function sendprofilestring($profiles, $profile)
+	{
+		foreach($profiles as $ptName => $profilvar)
+		{
+			if($ptName == $profile)
+			{
+			   $profilebool = array(
+			   "Name" => $profilvar[1],
+			   "Ident" => $profilvar[0],
+			   "ProfilName" => $profilvar[2],
+			   "Position" => $profilvar[3]
+			   );
+			   
+			   return $profilebool;
+			}
+
+		}	
+	}
 	
 	public function SetupVarDenonBool($profile)
 	{
@@ -262,6 +353,9 @@ class DENONIPSProfiles extends stdClass
 	
 	public function SetupVarDenonIntegerAss($profile)
 	{
+		//InputSources generieren
+		$this->
+		
 		//Sichtbare variablen profil suchen
 		//Associations
 		//Associations Value, Association, Icon, Color
@@ -280,33 +374,6 @@ class DENONIPSProfiles extends stdClass
 				Array(4, "Enter",  "", -1),
 				Array(5, "Return",  "", -1)
 				)		
-			),
-			$this->ptInputSource => array(
-				"Ident" => DENON_API_Commands::SI,
-				"Name" => "Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, 19, 0, 0),
-				"Associations" => array(
-				Array(0, "Phono",  "", -1),
-				Array(1, "CD",  "", -1),
-				Array(2, "Tuner",  "", -1),
-				Array(3, "DVD",  "", -1),
-				Array(4, "BD",  "", -1),
-				Array(5, "TV",  "", -1),
-				Array(6, "Sat/CBL",  "", -1),
-				Array(7, "DVR",  "", -1),
-				Array(8, "Game",  "", -1),
-				Array(9, "V.Aux",  "", -1),
-				Array(10, "Dock",  "", -1),
-				Array(11, "IPod",  "", -1),
-				Array(12, "Net/USB",  "", -1),
-				Array(13, "Napster",  "", -1),
-				Array(14, "LastFM",  "", -1),
-				Array(15, "Flickr",  "", -1),
-				Array(16, "Favorites",  "", -1),
-				Array(17, "IRadio",  "", -1),
-				Array(18, "Server",  "", -1),
-				Array(19, "USB/IPod",  "", -1)
-				)
 			),
 			$this->ptQuickSelect => array(
 				"Ident" => DENON_API_Commands::MSQUICK,
@@ -602,6 +669,40 @@ class DENONIPSProfiles extends stdClass
 				)
 			)
 		);
+		
+		$ProfilAssociationsMainZone[$this->ptInputSource] = $this->UsedInputSources;
+			/*	
+				array(
+				"Ident" => DENON_API_Commands::SI,
+				"Name" => "Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, 19, 0, 0),
+				"Associations" => array(
+				Array(0, "Phono",  "", -1),
+				Array(1, "CD",  "", -1),
+				Array(2, "Tuner",  "", -1),
+				Array(3, "DVD",  "", -1),
+				Array(4, "BD",  "", -1),
+				Array(5, "TV",  "", -1),
+				Array(6, "Sat/CBL",  "", -1),
+				Array(7, "DVR",  "", -1),
+				Array(8, "Game",  "", -1),
+				Array(9, "V.Aux",  "", -1),
+				Array(10, "Dock",  "", -1),
+				Array(11, "IPod",  "", -1),
+				Array(12, "Net/USB",  "", -1),
+				Array(13, "Napster",  "", -1),
+				Array(14, "LastFM",  "", -1),
+				Array(15, "Flickr",  "", -1),
+				Array(16, "Favorites",  "", -1),
+				Array(17, "IRadio",  "", -1),
+				Array(18, "Server",  "", -1),
+				Array(19, "USB/IPod",  "", -1)
+				)
+			),*/
+			
+		
+		
+		
 		
 		$ProfilAssociationsZone2 = array
 		(
@@ -944,6 +1045,11 @@ class DENONIPSProfiles extends stdClass
 							$this->ptPLIIZHeightGain => 100,
 							$this->ptVerticalStretch => 101,
 							
+							$this->ptFriendlyname => 102,
+							$this->ptMainZoneName => 103,
+							$this->ptTopMenuLink => 104,
+							$this->ptModelId => 105,
+							
 							$this->ptZone2Power => 201,
 							$this->ptZone2Mute => 202,
 							$this->ptZone2Volume => 203,
@@ -984,13 +1090,13 @@ class DENON_StatusHTML extends stdClass
 	{
 		if ($Zone == 0) //Main
 		{
-			
+			$data = array();
 			$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml"));
 				
 			if ($xmlMainZone)
 				{
 				//echo "Datei wurde gefunden";
-				$MainZoneXml = $this->MainZoneXml($xmlMainZone);
+				$data = $this->MainZoneXml($xmlMainZone, $data);
 				//return $MainZoneXml;
 				
 				}
@@ -1004,7 +1110,7 @@ class DENON_StatusHTML extends stdClass
 			if ($xmlMainZoneStatus)
 				{
 				//echo "Datei wurde gefunden";
-				$MainZoneXmlStatus = $this->MainZoneXmlStatus($xmlMainZoneStatus);
+				$data = $this->MainZoneXmlStatus($xmlMainZoneStatus, $data);
 				//return $MainZoneXmlStatus;
 				
 				}
@@ -1019,7 +1125,7 @@ class DENON_StatusHTML extends stdClass
 			if ($xmlNetAudioStatus)
 				{
 				//echo "Datei wurde gefunden";
-				$NetAudioStatusXml = $this->NetAudioStatusXml($xmlNetAudioStatus);
+				$data = $this->NetAudioStatusXml($xmlNetAudioStatus, $data);
 				//return $NetAudioStatusXml;
 				
 				}
@@ -1035,7 +1141,7 @@ class DENON_StatusHTML extends stdClass
 			if ($xmlDeviceinfo)
 				{
 				//echo "Datei wurde gefunden";
-				$Deviceinfo = $this->Deviceinfo($xmlDeviceinfo);
+				$data = $this->Deviceinfo($xmlDeviceinfo, $data);
 				//return $Deviceinfo;
 				
 				}
@@ -1043,23 +1149,18 @@ class DENON_StatusHTML extends stdClass
 				{
 				exit("Datei ".$xmlDeviceinfo." konnte nicht geöffnet werden.");
 				}
-				
-			$states = array(
-				"MainZoneXml" => $MainZoneXml,
-				"MainZoneXmlStatus" => $MainZoneXmlStatus,
-				"NetAudioStatusXml" => $NetAudioStatusXml,
-				"Deviceinfo" => $Deviceinfo
-				);
-			return $states;		
+						
+			return $data;		
 			
 		}
 		elseif ($Zone == 1) // Zone 2
 		{
+			$data = array();
 			$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
 			if ($xml)
 					{
 					//echo "Datei wurde gefunden";
-					$StateZone2 = $this->StateZone2($xml);
+					$data = $this->StateZone2($xml, $data);
 					//return $Deviceinfo;
 					
 					}
@@ -1067,15 +1168,16 @@ class DENON_StatusHTML extends stdClass
 					{
 					exit("Datei ".$xml." konnte nicht geöffnet werden.");
 					}
-			return $StateZone2; 		
+			return $data; 		
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
+			$data = array();
 			$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
 			if ($xml)
 					{
 					//echo "Datei wurde gefunden";
-					$StateZone3 = $this->StateZone3($xml);
+					$data = $this->StateZone3($xml, $data);
 					//return $Deviceinfo;
 					
 					}
@@ -1083,30 +1185,32 @@ class DENON_StatusHTML extends stdClass
 					{
 					exit("Datei ".$xml." konnte nicht geöffnet werden.");
 					}
-			return $StateZone3;
+			return $data;
 		}
 	}
 	
-	protected function MainZoneXml($xml)
+	protected function MainZoneXml($xml, $data)
 	{
-	$MainZoneXml = array();
-	
+		
 		//FriendlyName
 		$FriendlyName = $xml->xpath('.//FriendlyName');
 		if ($FriendlyName)
 		{
-			$MainZone["FriendlyName"]["Name"] = "FriendlyName";
-			$MainZone["FriendlyName"]["Value"] = (string)$FriendlyName[0]->value;
-			//$MainZone["FriendlyName"]["Profile"] = $DenonAVRVar->ptFriendlyname;
+			$data['FriendlyName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$FriendlyName[0]->value, 'Name' => 'Denon AVR Name');
 		}
-
+				
 		//Power
 		$AVRPower = $xml->xpath('.//Power');
 		if ($AVRPower)
-		{
-			$MainZone["Power"]["Name"] = "Power";
-			$MainZone["Power"]["Value"] = (string)$AVRPower[0]->value;
-			//$MainZone["Power"]["Profile"] = $DenonAVRVar->ptPower;
+		{	
+			$AVRPowerMapping = array("ON" => true, "OFF" => false);
+			foreach ($AVRPowerMapping as $Command => $AVRPowerValue)
+			{
+			if ($Command == (string)$AVRPower[0]->value)
+				{
+				$data['PW'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $AVRPowerValue, 'Name' => 'Power');	
+				}
+			}	
 		}
 
 
@@ -1114,18 +1218,21 @@ class DENON_StatusHTML extends stdClass
 		$ZonePower = $xml->xpath('.//ZonePower');
 		if ($ZonePower)
 		{
-			$MainZone["MainZonePower"]["Name"] = "MainZonePower";
-			$MainZone["MainZonePower"]["Value"] = (string)$ZonePower[0]->value;
-			//$MainZone["MainZonePower"]["Profile"] = $DenonAVRVar->ptMainZonePower;
+			$ZonePowerMapping = array("ON" => true, "OFF" => false);
+			foreach ($ZonePowerMapping as $Command => $ZonePowerValue)
+			{
+			if ($Command == (string)$ZonePower[0]->value)
+				{
+				$data['ZM'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $ZonePowerValue, 'Name' => 'MainZone Power');
+				}
+			}	
 		}
 
 		//RenameZone
 		$RenameZone = $xml->xpath('.//RenameZone');
 		if ($RenameZone)
 		{
-			$MainZone["MainZoneName"]["Name"] = "MainZoneName";
-			$MainZone["MainZoneName"]["Value"] = (string)$RenameZone[0]->value;
-			//$MainZone["MainZoneName"]["Profile"] = $DenonAVRVar->ptMainZoneName;
+			$data['MainZoneName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Name' => 'MainZone Name');	
 		}
 
 
@@ -1134,118 +1241,88 @@ class DENON_StatusHTML extends stdClass
 		$TopMenuLink = $xml->xpath('.//TopMenuLink');
 		if ($TopMenuLink)
 		{
-			$MainZone["TopMenuLink"]["Name"] = "TopMenuLink";
-			$MainZone["TopMenuLink"]["Value"] = (string)$TopMenuLink[0]->value;
-			//$MainZone["TopMenuLink"]["Profile"] = $DenonAVRVar->ptTopMenuLink;
+			$data['TopMenuLink'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$TopMenuLink[0]->value, 'Name' => 'TopMenu Link');
 		}
 
 
 		//ModelId
+		/*
 		$ModelId = $xml->xpath('.//ModelId');
 		if ($ModelId)
 		{
-			$MainZone["ModelId"]["Name"] = "ModelId";
-			$MainZone["ModelId"]["Value"] = (string)$ModelId[0]->value;
-			//$MainZone["ModelId"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['ModelId'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelId[0]->value, 'Name' => 'ModelId');
 		}
-
+		*/
 
 		//SalesArea
+		/*
 		$SalesArea = $xml->xpath('.//SalesArea');
 		if ($SalesArea)
 		{
-			$MainZone["SalesArea"]["Name"] = "SalesArea";
-			$MainZone["SalesArea"]["Value"] = (string)$SalesArea[0]->value;
-			//$MainZone["SalesArea"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['SalesArea'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SalesArea[0]->value, 'Name' => 'SalesArea');
 		}
-
-		//Inputs
-		$InputFuncList = $xml->xpath('.//InputFuncList');
-		if ($InputFuncList)
-		{
-			$countinput = count($InputFuncList[0]->value);
-			$RenameSource = $xml->xpath('.//RenameSource');
-			$SourceDelete = $xml->xpath('.//SourceDelete');
-			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
-			$countUse = count($SourceDeleteUse);
-			$MainZoneStatus["Inputs"]["Name"] = "Inputs";
-			$Inputs = array();
-
-			for ($i = 0; $i <= $countinput-1; $i++)
-				{
-					if ((string)$SourceDelete[0]->value[$i] == "USE")
-					{
-						if ((string)$RenameSource[0]->value[$i] != "")
-							{
-							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
-							}
-						else
-							{
-							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
-						   }
-					}
-			   }
-			$MainZoneStatus["Inputs"]["Value"] = $Inputs;
-			$MainZoneStatus["Inputs"]["MaxValue"] = $countUse; //Number
-			
-		}
+		*/
 		
 		//InputFuncSelect
 		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 		if ($InputFuncSelect)
 		{
-			$MainZone["InputFuncSelect"]["Name"] = "InputFuncSelect";
-			$MainZone["InputFuncSelect"]["Value"] = (string)$InputFuncSelect[0]->value;
-			//$MainZone["InputFuncSelect"]["Profile"] = $DenonAVRVar->ptModelId;
+			//Array holen
+			$InputSourceMapping => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
+												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
+			foreach ($InputSourceMapping as $Command => $InputSourceValue)
+			{
+			if ($Command == (string)$InputFuncSelect[0]->value)
+				{
+				$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Name' => 'Input Source');
+				}
+			}	
+			
 		}
 
 
 		//NetFuncSelect
+		/*
 		$NetFuncSelect = $xml->xpath('.//NetFuncSelect');
 		if ($NetFuncSelect)
 		{
-			$MainZone["NetFuncSelect"]["Name"] = "NetFuncSelect";
-			$MainZone["NetFuncSelect"]["Value"] = (string)$NetFuncSelect[0]->value;
-			//$MainZone["NetFuncSelect"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['NetFuncSelect'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$NetFuncSelect[0]->value, 'Name' => 'NetFuncSelect');
 		}
-
+		*/
 
 		//InputFuncSelectMain
+		/*
 		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
 		if ($InputFuncSelectMain)
 		{
-			$MainZone["InputFuncSelectMain"]["Name"] = "InputFuncSelectMain";
-			$MainZone["InputFuncSelectMain"]["Value"] = (string)$InputFuncSelectMain[0]->value;
-			//$MainZone["InputFuncSelectMain"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$InputFuncSelectMain[0]->value, 'Name' => 'Input Source');
 		}
-
+		*/
+		
 		//selectSurround
+		/*
 		$selectSurround = $xml->xpath('.//selectSurround');
 		if ($selectSurround)
 		{
-			$MainZone["selectSurround"]["Name"] = "selectSurround";
-			$MainZone["selectSurround"]["Value"] = (string)$selectSurround[0]->value;
-			//$MainZone["selectSurround"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$selectSurround[0]->value, 'Name' => 'Surround Mode');
 		}
-
-		//VolumeDisplay
+		*/
+		
+		//VolumeDisplay z.B. relative
+		/*
 		$VolumeDisplay = $xml->xpath('.//VolumeDisplay');
 		if ($VolumeDisplay)
 		{
-			$MainZone["VolumeDisplay"]["Name"] = "VolumeDisplay";
-			$MainZone["VolumeDisplay"]["Value"] = (string)$VolumeDisplay[0]->value;
-			//$MainZone["VolumeDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['VolumeDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$VolumeDisplay[0]->value, 'Name' => 'VolumeDisplay');
 		}
-
+		*/
 
 
 		//MasterVolume
 		$MasterVolume = $xml->xpath('.//MasterVolume');
 		if ($MasterVolume)
 		{
-			$MainZone["MasterVolume"]["Name"] = "MasterVolume";
-			$MainZone["MasterVolume"]["Value"] = (string)$MasterVolume[0]->value;
-			//$MainZone["MasterVolume"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (string)$MasterVolume[0]->value, 'Name' => 'NetFuncSelect');
 		}
 
 
@@ -1253,120 +1330,121 @@ class DENON_StatusHTML extends stdClass
 		$Mute = $xml->xpath('.//Mute');
 		if ($Mute)
 		{
-			$MainZone["Mute"]["Name"] = "Mute";
-			$MainZone["Mute"]["Value"] = (string)$Mute[0]->value;
-			//$MainZone["Mute"]["Profile"] = $DenonAVRVar->ptModelId;
+			$MuteMapping = array("ON" => true, "OFF" => false);
+			foreach ($MuteMapping as $Command => $MuteValue)
+			{
+			if ($Command == (string)$Mute[0]->value)
+				{
+				$data['MU'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $MuteValue, 'Name' => 'Main Mute');
+				}
+			}	
 		}
 
 
 		//RemoteMaintenance
+		/*
 		$RemoteMaintenance = $xml->xpath('.//RemoteMaintenance');
 		if ($RemoteMaintenance)
 		{
-			$MainZone["RemoteMaintenance"]["Name"] = "RemoteMaintenance";
-			$MainZone["RemoteMaintenance"]["Value"] = (string)$RemoteMaintenance[0]->value;
-			//$MainZone["RemoteMaintenance"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['RemoteMaintenance'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RemoteMaintenance[0]->value, 'Name' => 'RemoteMaintenance');
 		}
-
+		*/
 
 		//GameSourceDisplay
+		/*
 		$GameSourceDisplay = $xml->xpath('.//GameSourceDisplay');
 		if ($GameSourceDisplay)
 		{
-			$MainZone["GameSourceDisplay"]["Name"] = "GameSourceDisplay";
-			$MainZone["GameSourceDisplay"]["Value"] = (string)$GameSourceDisplay[0]->value;
-			//$MainZone["GameSourceDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['GameSourceDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$GameSourceDisplay[0]->value, 'Name' => 'GameSourceDisplay');
 		}
-
+		*/
 
 		//LastfmDisplay
+		/*
 		$LastfmDisplay = $xml->xpath('.//LastfmDisplay');
 		if ($LastfmDisplay)
 		{
-			$MainZone["LastfmDisplay"]["Name"] = "LastfmDisplay";
-			$MainZone["LastfmDisplay"]["Value"] = (string)$LastfmDisplay[0]->value;
-			//$MainZone["LastfmDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['LastfmDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$LastfmDisplay[0]->value, 'Name' => 'LastfmDisplay');
 		}
-
+		*/
 
 		//SubwooferDisplay
+		/*
 		$SubwooferDisplay = $xml->xpath('.//SubwooferDisplay');
 		if ($SubwooferDisplay)
 		{
-			$MainZone["SubwooferDisplay"]["Name"] = "SubwooferDisplay";
-			$MainZone["SubwooferDisplay"]["Value"] = (string)$SubwooferDisplay[0]->value;
-			//$MainZone["SubwooferDisplay"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['SubwooferDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SubwooferDisplay[0]->value, 'Name' => 'SubwooferDisplay');
 		}
+		*/
 
 
 		//Zone2VolDisp
+		/*
 		$Zone2VolDisp = $xml->xpath('.//Zone2VolDisp');
 		if ($Zone2VolDisp )
 		{
-			$MainZone["Zone2VolDisp"]["Name"] = "Zone2VolDisp";
-			$MainZone["Zone2VolDisp"]["Value"] = (string)$Zone2VolDisp[0]->value;
-			//$MainZone["Zone2VolDisp"]["Profile"] = $DenonAVRVar->ptModelId;
+			$data['Zone2VolDisp'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$Zone2VolDisp[0]->value, 'Name' => 'Zone2VolDisp');
 		}
-
+		*/
+		
 	
-	return $MainZoneXml;
+	return $MainZone;
 	}
 	
-	protected function MainZoneXmlStatus($xml)
+	protected function MainZoneXmlStatus($xml, $data)
 	{
-		$MainZoneStatus = array();
-
+		
 		//RestorerMode
 		$RestorerMode = $xml->xpath('.//RestorerMode');
 		if ($RestorerMode)
 		{
-			$MainZoneStatus["RestorerMode"]["Name"] = "RestorerMode";
-			$MainZoneStatus["RestorerMode"]["Value"] = (string)$RestorerMode[0]->value;
-			//$MainZoneStatus["RestorerMode"]["Profile"] = 3; //Vartype String
+			$data['PSRSTR'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Name' => 'Audio Restorer');
 		}
 
 
 		//SurrMode
 		$SurrMode = $xml->xpath('.//SurrMode');
-		if ($SurrMode )
+		if ($SurrMode)
 		{
-			$MainZoneStatus["SurrMode"]["Name"] = "SurrMode";
-			$MainZoneStatus["SurrMode"]["Value"] = (string)$SurrMode[0]->value;
-			//$MainZoneStatus["SurrMode"]["Profile"] = 3; //Vartype String
+			$SurroundMapping = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+												"VIRTUAL" => 15);
+			foreach ($SurroundMapping as $Command => $SurroundValue)
+			{
+			if ($Command == (string)$SurrMode[0]->value)
+				{
+				$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $SurroundValue, 'Name' => 'Surround Mode');
+				}
+			}	
+			
+			
 		}
 
-		
-
-		return $MainZoneStatus;
+		return $data;
 	}
 	
-	protected function NetAudioStatusXml($xml)
+	protected function NetAudioStatusXml($xml, $data)
 	{
-		$NetAudioStatus = array();
-
-		//Modell
+		//Model
 		$szLine = $xml->xpath('.//szLine');
-		$NetAudioStatus["Modell"]["Name"] = "Modell";
-		$NetAudioStatus["Modell"]["Value"] = (string)$szLine[0]->value;
-		$NetAudioStatus["Modell"]["Vartype"] = 3; //Vartype String
+		if ($szLine)
+			{
+				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$szLine[0]->value, 'Name' => 'Model');
+			}
 		
 
-		return $NetAudioStatus;
+		return $data;
 	}
 	
-	protected function Deviceinfo($xml)
+	protected function Deviceinfo($xml, $data)
 	{
-		$Deviceinfo = array();
-
 		//ModelName
 		$ModelName = $xml->xpath('.//ModelName');
-		//var_dump($ModelName);
-		$Deviceinfo["ModelName"]["Name"] = "ModelName";
-		$Deviceinfo["ModelName"]["Value"] = (string)$ModelName[0];
-		$Deviceinfo["ModelName"]["Vartype"] = 3; //Vartype String
-
-		return $Deviceinfo;
+		$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Name' => 'Model');
+		
+		
+		return $data;
 	}
+	
 }
 
 class DENON_Zone extends stdClass

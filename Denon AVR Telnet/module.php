@@ -86,7 +86,8 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('DolbyVolumeModeler', false);
 		$this->RegisterPropertyBoolean('PLIIZHeightGain', false);
 		$this->RegisterPropertyBoolean('VerticalStretch', false);
-		$this->RegisterPropertyBoolean('DolbyVolume', false);		
+		$this->RegisterPropertyBoolean('DolbyVolume', false);
+		$this->RegisterPropertyString('InputsSources', "");	
 
     }
 
@@ -201,9 +202,29 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptPLIIZHeightGain = "DENON.".$DenonAVRVar->Type.".PLIIZHeightGain";
 			$DenonAVRVar->ptVerticalStretch = "DENON.".$DenonAVRVar->Type.".VerticalStretch";
 			$DenonAVRVar->ptDolbyVolume = "DENON.".$DenonAVRVar->Type.".DolbyVolume";
+			$DenonAVRVar->ptFriendlyName = "DENON.".$DenonAVRVar->Type.".FriendlyName";
+			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
+			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
+			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
-			//Variablen						
+			
+
 	
+			
+			//Variablen
+			$DenonAVRVar->DenonIP => $this->GetIPDenon();
+			IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
+			IPS_ApplyChanges($this->InstanceID); 
+			
+			//String
+			$vString = array
+				(
+				$DenonAVRVar->ptFriendlyName => true,
+				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptTopMenuLink => true,
+				$DenonAVRVar->ptModel => true
+				);
+			
 			//Boolean
 			$vBoolean = array
 				(
@@ -233,7 +254,7 @@ class DenonAVRTelnet extends IPSModule
 			//Integer mit Association
 			$vIntegerAss = array
 				(
-				 $DenonAVRVar->ptInputSource => true,
+				 //$DenonAVRVar->ptInputSource => true,
 				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
 				 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
 				 $DenonAVRVar->ptDigitalInputMode => $this->ReadPropertyBoolean('DigitalInputMode'),
@@ -285,7 +306,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptStageWidth => $this->ReadPropertyBoolean('StageWidth')
 				);
 				
-			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);		
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
 		elseif ($Zone == 1) //Zone 2
 		{
@@ -305,7 +326,16 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptZone2QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone2QuickSelect';
 			
 			//Variablen						
-	
+			
+			//String
+			$vString = array
+				(
+				$DenonAVRVar->ptFriendlyname => true,
+				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptTopMenuLink => true,
+				$DenonAVRVar->ptModelId => true
+				);
+			
 			//Boolean
 			$vBoolean = array
 				(
@@ -337,7 +367,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptZone2ChannelVolumeFR => true
 				);
 			
-			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
@@ -358,6 +388,15 @@ class DenonAVRTelnet extends IPSModule
 			
 			//Variablen						
 	
+			//String
+			$vString = array
+				(
+				$DenonAVRVar->ptFriendlyname => true,
+				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptTopMenuLink => true,
+				$DenonAVRVar->ptModelId => true
+				);
+			
 			//Boolean
 			$vBoolean = array
 				(
@@ -389,7 +428,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptZone3ChannelVolumeFR => true
 				);
 			
-			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
 		
 		
@@ -450,7 +489,7 @@ class DenonAVRTelnet extends IPSModule
 		}		
 	}
 	
-	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat)
+	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString)
 	{
 		// Add/Remove according to feature activation
         // create link list for deletion of links if target is deleted
@@ -459,7 +498,32 @@ class DenonAVRTelnet extends IPSModule
             $links[] =  Array( ('LinkID') => $LinkID, ('TargetID') =>  IPS_GetLink($LinkID)['TargetID'] );
         }
 		
+		//Inputs anlegen
+		$inputsourcesprofile = $this->ReadPropertyInteger("InputsSources");
+		$id = $this->RegisterVariableString ($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
+		$this->EnableAction($profile["Ident"]);
+		
 		//Sichtbare Variablen anlegen
+		foreach ($vString as $ptString => $visible)
+		{
+		//Auswahl Prüfen
+		if ($visible === true)
+			{
+				$profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				//Ident, Name, Profile, Position 
+				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				$this->EnableAction($profile["Ident"]);
+			}	
+		// wenn nicht sichtbar löschen
+		elseif ($visible === false)
+			{
+				 $profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				 $this->removeVariableAction($profile["Ident"], $links, $ptString); 
+			}
+		}
+		
 		foreach ($vBoolean as $ptBool => $visible)
 		{
 		//Auswahl Prüfen

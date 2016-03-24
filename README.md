@@ -10,44 +10,33 @@ Noch nicht funktionsfähig, alpha Test
 1. [Funktionsumfang](#1-funktionsumfang)  
 2. [Voraussetzungen](#2-voraussetzungen)  
 3. [Installation](#3-installation)  
-4. [Funktionsreferenz](#4-funktionsreferenz)  
-5. [Anhang](#5-anhang)  
+4. [Funktionsreferenz](#4-funktionsreferenz)
+5. [Konfiguration](#5-konfiguartion)  
+6. [Anhang](#6-anhang)  
 
 ## 1. Funktionsumfang
 
-Mit Hilfe des AIO Gateways sind Geräte bedienbar, die sonst über IR-Fernbedienungen oder mit Funk 433/868 MHz steuerbar sind.
-Nähere Informationen zu ansteuerbaren Geräten über das AIO Gateway unter
-http://www.mediola.com/recherche-tool-gesamt 
+Mit dem Modul lassen sich Befehle an einen Denon Receiver absenden und die Statusrückmeldung in IP-Symcon (ab Version 4) empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
+Ein Modul nutzt als Kommunikation Port 23 über das Denon AVR Control Protocol. Das zweite Modul nutzt zur Kommunikation HTTP.
+Der Denon AVR kann jeweils nur einen einzige Verbindung auf Port 23 aufbauen. Daher kann, wenn dieses Modul benutzt wird, kein weiterer Client mehr den Denon AVR auf diese Weise über Port 23 steuern.
+Der Vorteil ist jedoch, dass sämtliche dokumentierte Befehle an den Denon AVR geschickt und auch eine Rückmeldung in IP-Symcon dafür empfangen werden kann. Die zweite Möglichkeit ist das Denon HTTP Modul zu benutzten.
+Abhänig nach dem alter des Receivers sind aber nicht für alle Befhle auch eine Rückmeldung verfügbar. Auch mit dem HTTP Modul können aber alle dokumentierten Befhle an den Receiver geschickt werden. Es können auch mehrere Clients über HTTP
+Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
-### IR Code Senden:  
+### Befehle an den Denon AVR senden:  
 
- - Senden eines IR Signals über das AIO Gateway  
+ - Alle dokumentiereten Befehle können an den Denon AVR gesendet werden  
 
-### Intertechno Steckdosen:  
+### Status Rückmeldung:  
 
- - Schalten von Intertechno Steckdosen über das AIO Gateway  
- - An / Aus.    
-
-### FS20 Dimmer:  
-
- - Schalten von FS20 Dimmern über das AIO Gateway.  
- - Befehle: On, Off, Last, Toggle, Dimup, DimDown, 6,25%, 12,50%, 18,75%, 25,00%, 31,25%, 37,50%, 43,75%, 50,00%, 59,25%, 62,50%, 68,75%, 75,00%, 81,25%, 87,50%, 93,75%.
-
-### FS20 Switch:  
-
- - Schalten von einem FS20 Switch über das AIO Gateway.  
- - Ein / Aus
-
-### LED Controller:  
-
- - Schalten von einem LED Controller über das AIO Gateway.  
- - Befehle: 	power, up, down, play_pause, red, green, blue, white, orange, yellow, cyan, purple, auto, jump3, fade3, flash, jump7, fade7, speedUp, speedDown.
-   
+ - Bei dem Modul (Telnet Port 23) sind für alle Befhel auch eine Statusrückmledung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein.  
+ - Bei dem Modul (HTTP) sind abhänig vom Receivertyp und Baujahr eine unterschiedliche Anzhal an Statusrückmeldungen verfügbar. Es können mehrere Clients dem Denon über HTTP Befehle senden und Status erhalten.    
+  
 
 ## 2. Voraussetzungen
 
  - IPS 4.x
- - AIO Gateway im gleichen Netzwerk wie IP-Symcon
+ - Denon AVR mit Netzwerkanschluss. Fernsteuerung des Denon AVR muss aktiviert sein (siehe Handbuch Denon AVR). Ip-Symcon muss im gleichen Netzwerk wie der Denon AVR sein.
 
 ## 3. Installation
 
@@ -55,96 +44,87 @@ http://www.mediola.com/recherche-tool-gesamt
 
    Über das 'Modul Control' in IP-Symcon (Ver. 4.x) folgende URL hinzufügen:
 	
-    `git://github.com/Wolbolar/IPSymconAIOGateway.git`  
+    `git://github.com/Wolbolar/IPSymconDenon.git`  
 
 ### b. Einrichtung in IPS
 
-	In IP-Symcon das gewünschte Device anlegen. Sollte noch kein AIO Gateway angelegt worden sein, wird dies automatisch mit angelegt.
-	Bei dem entsprechenden Device sind jeweils die Werte die im AIO Creator NEO eingetragen sind zu übernehmen.
+	In IP-Symcon das gewünschte Device Denon AV Receiver HTTP Control oder Denon AV Receiver Telnet Control anlegen. Sollte noch kein Denon I/O und Denon Splitter angelegt worden sein, wird dies automatisch mit angelegt.
+	Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon Device sind die gewünschten Befehle auszuwählen die angezeigt werden sollen.
 
 
 ## 4. Funktionsreferenz
 
-### aioGatewaySplitter:
-
-### IR Codes
- Die IR Codes sind aus dem AIO Creator zu kopieren
+### Denon Splitter Telnet:
+	Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt. Bei Öffnen ist ein Haken zu setzten.
+	
+### Denon Splitter  HTTP
+ Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu setzten.
  
-### Intertechno
- Zum Ansteuern der Intertechno Steckdosen ist der Familycode und Devicecode einzutragen.
+### Denon AV Receiver Telnet Control
+ AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
+ Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
  
-### ELRO
- Zum Ansteuern der ELRO Steckdosen ist der Familycode und Devicecode einzutragen. 
+### Denon AV Receiver HTTP Control
+ AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
+ Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
 
-### FS20
- Zum Ansteuern von FS20 ist der HC1, HC2 Wert und die FS20 Adresse aus dem AIO Creator einzutragen. Aus den drei Werten wird ein Wert errechnet der an das AIO Gateway gesendet wird. 
 
 ## 5. Konfiguration:
 
-### aioGatewaySplitter:
+### Denon Splitter Telnet:
 
-| Eigenschaft | Typ     | Standardwert | Funktion                           |
-| :---------: | :-----: | :----------: | :--------------------------------: |
+| Eigenschaft | Typ     | Standardwert | Funktion                                  |
+| :---------: | :-----: | :----------: | :---------------------------------------: |
 | Open        | boolean | true         | Verbindung zum aioGateway aktiv / deaktiv |
-| Host        | string  |              | Adresse des aioGateway                    |
+| Host        | string  |              | IP Adresse des Denon AVR                  |
+| Port        | integer |              | Kommunikationsport 23 (nicht ändern)      |
+
+### Denon Splitter HTTP:
+
+| Eigenschaft | Typ     | Standardwert | Funktion                                  |
+| :---------: | :-----: | :----------: | :---------------------------------------: |
+| Open        | boolean | true         | Verbindung zum aioGateway aktiv / deaktiv |
+| Host        | string  |              | IP Adresse des Denon AVR                  |
 
 
-### FS20:  
-
-| Eigenschaft | Typ     | Standardwert | Funktion                                                              |
-| :---------: | :-----: | :----------: | :-------------------------------------------------------------------: |
-| HC1         | string  |              | HC1 Wert des FS20 Geräts abzulesen im Gerätemanager des AIO Creator   |
-| HC2         | string  |              | HC1 Wert des FS20 Geräts abzulesen im Gerätemanager des AIO Creator   |
-| FS20Adresse | string  |              | FS20Adresse des FS20 Geräts abzulesen im Gerätemanager des AIO Creator|
-
-### Intertechno:  
-
-| Eigenschaft | Typ     | Standardwert | Funktion                                                              |
-| :---------: | :-----: | :----------: | :-------------------------------------------------------------------: |
-| FamilyCode  | string  |              | Familien Code des Geräts abzulesen im Gerätemanager des AIO Creator   |
-| DeviceCode  | string  |              | Geräte Code des Geräts abzulesen im Gerätemanager des AIO Creator     |
-
-### ELRO:  
+### Denon AV Receiver Telnet Control:  
 
 | Eigenschaft | Typ     | Standardwert | Funktion                                                              |
 | :---------: | :-----: | :----------: | :-------------------------------------------------------------------: |
-| FamilyCode  | string  |              | Familien Code des Geräts abzulesen im Gerätemanager des AIO Creator   |
-| DeviceCode  | string  |              | Geräte Code des Geräts abzulesen im Gerätemanager des AIO Creator     |
+| Type        | integer |              | Typ des Denon AVR                                                     |
+| Zone        | integer |              | Zone des Denon AVR                                                    |
+| Befehl      | boolean |              | aktivieren / deaktivieren um den jeweiligen Befehl zu nutzten         |
 
-### Lightmanager:  
+### Denon AV Receiver HTTP Control:  
 
 | Eigenschaft | Typ     | Standardwert | Funktion                                                              |
 | :---------: | :-----: | :----------: | :-------------------------------------------------------------------: |
-| Adresse     | string  |              | Adresse des Geräts abzulesen im Gerätemanager des AIO Creator         |
+| Type        | integer |              | Typ des Denon AVR                                                     |
+| Zone        | integer |              | Zone des Denon AVR                                                    |
+| Befehl      | boolean |              | aktivieren / deaktivieren um den jeweiligen Befehl zu nutzten         |
+
 
 
 ## 6. Anhang
 
 ###  b. GUIDs und Datenaustausch:
 
-#### AIOGatewaySplitter:
+#### Denon AV Receiver Telnet Control:
 
-GUID: `{7E03C651-E5BF-4EC6-B1E8-397234992DB4}` 
+GUID: `{DC733830-533B-43CD-98F5-23FC2E61287F}` 
 
 
-#### AIOITDevice:
+#### Denon AV Receiver HTTP Control:
 
-GUID: `{C45FF6B3-92E9-4930-B722-0A6193C7FFB5}
+GUID: `{5A53A01E-CED5-482F-A28D-331D80874B75}`
 
-#### AIOFS20Device:
+#### Denon Splitter Telnet:
 
-GUID: `{8C7554CA-2530-4E6B-98DB-AC59CD6215A6}
+GUID: `{9AE3087F-DC25-4ADB-AB46-AD7455E71032}`
 
-#### AIOELRODevice:
+#### Denon Splitter HTTP:
 
-GUID: `{1B755DCC-7F12-4136-8D14-2ED86E6609B7}` 
+GUID: `{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}` 
 
-#### AIOIRDevice:
-
-GUID: `{4B0D8167-2932-4AD0-8455-26DC0C74485C}` 
-
-#### Lightmanager:
-
-GUID: `{488F8C6E-9448-44AD-8015-DF9DAD3232F3}` 
 
 

@@ -82,7 +82,11 @@ class DenonAVRIOHTTP extends IPSModule
 	{
 		// Empfangene Daten vom Denon AVR Receiver
 		//Daten abholen
-		
+		$DenonStatus = new DENON_StatusHTML;
+		$ipdenon = $this->ReadPropertyString("IPAddress");
+		$DenonStatus->ipdenon = $ipdenon;
+		$Zone = 0;
+		$data = getStates ($Zone);
 		//Valuewert für Variable übergeben
 		
 		$data = array(
