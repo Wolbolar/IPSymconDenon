@@ -415,7 +415,9 @@ class DenonAVRHTTP extends IPSModule
 		
 		//Inputs anlegen
 		$inputsourcesprofile = $this->InputSources;
-		$id = $this->RegisterVariableString ($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+		$this->RegisterProfileIntegerDenon($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"]);
+		IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);	
+		$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
 		$this->EnableAction($inputsourcesprofile["Ident"]);
 		
