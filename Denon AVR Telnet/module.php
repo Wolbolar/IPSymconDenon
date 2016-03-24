@@ -106,12 +106,8 @@ class DenonAVRTelnet extends IPSModule
     * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:
     *
     */
-				
-	
-	
-	//Optionen
-	//public $visDisplay = $this->ReadPropertyBoolean('Display');
-	
+
+	public 	$InputSources;
 	
 	private function ValidateConfiguration()
 	{
@@ -213,8 +209,9 @@ class DenonAVRTelnet extends IPSModule
 			
 			//Variablen
 			$DenonAVRVar->DenonIP = $this->GetIPDenon();
-			IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
-			IPS_ApplyChanges($this->InstanceID); 
+			$this->InputSources = $DenonAVRVar->GetInputSources();
+			//IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
+			//IPS_ApplyChanges($this->InstanceID); 
 			
 			//String
 			$vString = array
@@ -499,7 +496,8 @@ class DenonAVRTelnet extends IPSModule
         }
 		
 		//Inputs anlegen
-		$inputsourcesprofile = $this->ReadPropertyInteger("InputsSources");
+		//$inputsourcesprofile = $this->ReadPropertyInteger("InputsSources");
+		$inputsourcesprofile = $this->InputsSources;
 		$id = $this->RegisterVariableString ($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
 		$this->EnableAction($profile["Ident"]);

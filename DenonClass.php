@@ -1264,6 +1264,7 @@ class DENON_StatusHTML extends stdClass
 		*/
 		
 		//InputFuncSelect
+		/*
 		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 		if ($InputFuncSelect)
 		{
@@ -1279,7 +1280,7 @@ class DENON_StatusHTML extends stdClass
 			}	
 			
 		}
-
+		*/
 
 		//NetFuncSelect
 		/*

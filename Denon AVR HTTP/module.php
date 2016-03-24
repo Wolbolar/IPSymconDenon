@@ -34,6 +34,8 @@ class DenonAVRHTTP extends IPSModule
     * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:
     *
     */
+	public 	$InputSources;
+	
 	private function ValidateConfiguration()
 	{
 		//Zone prüfen
@@ -130,8 +132,9 @@ class DenonAVRHTTP extends IPSModule
 			
 			//Variablen						
 			$DenonAVRVar->DenonIP => $this->GetIPDenon();
-			IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
-			IPS_ApplyChanges($this->InstanceID); 
+			$this->InputSources = $DenonAVRVar->GetInputSources();
+			//IPS_SetProperty($this->InstanceID, "InputsSources", $DenonAVRVar->GetInputSources()); //Inputs speichern
+			//IPS_ApplyChanges($this->InstanceID); 
 			
 			//Boolean
 			$vBoolean = array
@@ -165,7 +168,7 @@ class DenonAVRHTTP extends IPSModule
 			//Integer mit Association
 			$vIntegerAss = array
 				(
-				 $DenonAVRVar->ptInputSource => true
+				 //$DenonAVRVar->ptInputSource => true
 				 /*
 				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
 				 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
@@ -413,7 +416,8 @@ class DenonAVRHTTP extends IPSModule
         }
 		
 		//Inputs anlegen
-		$inputsourcesprofile = $this->ReadPropertyInteger("InputsSources");
+		//$inputsourcesprofile = $this->ReadPropertyInteger("InputsSources");
+		$inputsourcesprofile = $this->InputsSources;
 		$id = $this->RegisterVariableString ($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
 		$this->EnableAction($profile["Ident"]);
