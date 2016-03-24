@@ -13,6 +13,7 @@ class DenonAVRIOHTTP extends IPSModule
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
 		
+		$this->RegisterPropertyBoolean("Open", false);
         $this->RegisterPropertyString("Host", "");
 		$this->RegisterPropertyInteger("UpdateInterval", 5);
 		
@@ -33,8 +34,10 @@ class DenonAVRIOHTTP extends IPSModule
 		$ip = $this->ReadPropertyString('Host');
 	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 		{
-		$this->SetStatus(102);			
-		
+				
+		IPS_SetProperty($ParentID, 'Open', true);
+		@IPS_ApplyChanges($ParentID);
+		$this->SetStatus(102);	
 		}
 	else
 			{
