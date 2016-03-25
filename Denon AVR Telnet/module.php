@@ -1049,10 +1049,10 @@ class DenonAVRTelnet extends IPSModule
     }
 	
 	// Wertet Response aus und setzt Variable
-	private function UpdateVariable($data, $Type)
+	private function UpdateVariable($data)
     {
-        if ($Type == "HTTP")
-		{
+        //if ($Type == "HTTP")
+		//{
 			foreach($data as $Ident => $Values)
 			{
 				$Name = $Values->Name;
@@ -1078,9 +1078,9 @@ class DenonAVRTelnet extends IPSModule
 						break;
 				}	
 			}
-		}
-		elseif ($Type == "Telnet")
-		{
+		//}
+		//elseif ($Type == "Telnet")
+		//{
 			//PWSTANDBY
 			$APIData = new DenonAVRCP_API_Data();
 			$APIData->Data = $data;
@@ -1110,7 +1110,7 @@ class DenonAVRTelnet extends IPSModule
 					break;
 			}
 			*/
-		}
+		//}
 		
     }
 	
@@ -1136,7 +1136,7 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		SetValue($this->GetIDForIdent("Response"), $data->Buffer);
-		$this->UpdateVariable($data->Buffer, $data->Type);
+		$this->UpdateVariable($data->Buffer);
 	 
 	}	
 
