@@ -637,10 +637,15 @@ class DenonAVRTelnet extends IPSModule
     }
 		
 	
-	protected function GetInputSource()
+	public function GetStates()
 	{
-		$inputsources = array ();
-		return $inputsources;
+		$states  = array ();
+		foreach ($states as $command => $value)
+		{
+			$this->SendCommand($payload);
+		}
+		
+		
 	}
 	
 	public function RequestAction($Ident, $Value)
