@@ -53,7 +53,7 @@ class DenonAVRIOHTTP extends IPSModule
 			{
 			$this->SetStatus(204); //IP Adresse ist ungültig 
 			}
-	//$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
+	$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
 
 
@@ -104,12 +104,6 @@ class DenonAVRIOHTTP extends IPSModule
 		$Zone = 0;
 		$data = $DenonStatus->getStates ($Zone);
 		//Valuewert für Variable übergeben
-		/*
-		$data = array(
-		'PW' => array('VarType' => 0, 'Value' => false, 'Name' => 'Power'),
-		'ZM' => array('VarType' => 0, 'Value' => false, 'Name' => 'MainZonePower')
-		);
-		*/
 		$JSONString = json_encode($data);
 		$this->SendJSON($JSONString);
 		return $data;
@@ -131,7 +125,7 @@ class DenonAVRIOHTTP extends IPSModule
 		$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
 		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
 		
-		IPS_Sleep(600);   
+		IPS_Sleep(900);   
 		$this->GetStatus ();
 	}
 	

@@ -1324,7 +1324,7 @@ class DENON_StatusHTML extends stdClass
 		$MasterVolume = $xml->xpath('.//MasterVolume');
 		if ($MasterVolume)
 		{
-			$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (string)$MasterVolume[0]->value, 'Name' => 'NetFuncSelect');
+			$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (string)$MasterVolume[0]->value, 'Name' => 'Volume');
 		}
 
 
