@@ -43,7 +43,7 @@ class DenonAVRIOHTTP extends IPSModule
 			{
 			$this->SetStatus(204); //IP Adresse ist ungültig 
 			}
-	$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
+	//$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
 
 
@@ -90,8 +90,9 @@ class DenonAVRIOHTTP extends IPSModule
 		$DenonStatus = new DENON_StatusHTML;
 		$ipdenon = $this->ReadPropertyString("IPAddress");
 		$DenonStatus->ipdenon = $ipdenon;
+		//Zone auslesen
 		$Zone = 0;
-		$data = getStates ($Zone);
+		$data = $DenonStatus->getStates ($Zone);
 		//Valuewert für Variable übergeben
 		/*
 		$data = array(
