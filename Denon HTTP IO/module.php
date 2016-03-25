@@ -34,10 +34,21 @@ class DenonAVRIOHTTP extends IPSModule
 		$ip = $this->ReadPropertyString('Host');
 	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 		{
-				
-		//IPS_SetProperty($this->InstanceID, 'Open', true);
-		//@IPS_ApplyChanges($this->InstanceID);
-		//$this->SetStatus(102);	
+		$Open = $this->ReadPropertyBoolean('Open');
+		if (!$ParentOpen)
+			$this->SetStatus(104);
+
+		if ($this->ReadPropertyString('Host') == '')
+					{
+						if ($ParentOpen)
+							$this->SetStatus(202);
+						$ParentOpen = false;
+					}
+		if ($Open)
+			{
+				$this->SetStatus(102);	
+			}
+		
 		}
 	else
 			{
