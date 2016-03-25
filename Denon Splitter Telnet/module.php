@@ -1964,7 +1964,7 @@ class DenonSplitterTelnet extends IPSModule
 			$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUID
 			
 			// Test Daten speichern
-			SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
+			//SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
 		}
 		catch (Exception $ex)
 		{
