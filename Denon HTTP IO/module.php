@@ -93,7 +93,7 @@ class DenonAVRIOHTTP extends IPSModule
 	 
 	}
 		
-	protected function GetStatus ()
+	public function GetStatus ()
 	{
 		// Empfangene Daten vom Denon AVR Receiver
 		//Daten abholen
@@ -112,6 +112,7 @@ class DenonAVRIOHTTP extends IPSModule
 		*/
 		$JSONString = json_encode($data);
 		$this->SendJSON($JSONString);
+		return $data;
 	}
 	
 	protected function SendJSON ($JSONString)
