@@ -1332,7 +1332,7 @@ class DENON_StatusHTML extends stdClass
 		$Mute = $xml->xpath('.//Mute');
 		if ($Mute)
 		{
-			$MuteMapping = array("ON" => true, "OFF" => false);
+			$MuteMapping = array("on" => true, "off" => false);
 			foreach ($MuteMapping as $Command => $MuteValue)
 			{
 			if ($Command == (string)$Mute[0]->value)
@@ -1342,13 +1342,19 @@ class DENON_StatusHTML extends stdClass
 			}	
 		}
 
-
 		//RemoteMaintenance
 		/*
 		$RemoteMaintenance = $xml->xpath('.//RemoteMaintenance');
 		if ($RemoteMaintenance)
 		{
-			$data['RemoteMaintenance'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RemoteMaintenance[0]->value, 'Name' => 'RemoteMaintenance');
+			$RemoteMaintenanceMapping = array("ON" => true, "OFF" => false);
+			foreach ($RemoteMaintenanceMapping as $Command => $RemoteMaintenanceValue)
+			{
+			if ($Command == (string)$RemoteMaintenance[0]->value)
+				{
+				$data['RemoteMaintenance'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $RemoteMaintenanceValue, 'Name' => 'RemoteMaintenance');
+				}
+			}	
 		}
 		*/
 
