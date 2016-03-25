@@ -1390,7 +1390,7 @@ class DENON_StatusHTML extends stdClass
 		*/
 		
 	
-	return $MainZone;
+	return $data;
 	}
 	
 	protected function MainZoneXmlStatus($xml, $data)
@@ -1441,7 +1441,11 @@ class DENON_StatusHTML extends stdClass
 	{
 		//ModelName
 		$ModelName = $xml->xpath('.//ModelName');
-		$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Name' => 'Model');
+		if ($ModelName)
+			{
+				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Name' => 'Model');
+			}
+		
 		
 		
 		return $data;
