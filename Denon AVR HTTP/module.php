@@ -128,12 +128,20 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptFriendlyname = "DENON.".$DenonAVRVar->Type.".Friendlyname";
 			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
-			$DenonAVRVar->ptModelId = "DENON.".$DenonAVRVar->Type.".ModelId";
+			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
 			//Variablen						
 			$DenonAVRVar->DenonIP = $this->GetIPDenon();
 			$this->InputSources = $DenonAVRVar->GetInputSources();
 			
+			//String
+			$vString = array
+				(
+				$DenonAVRVar->ptFriendlyName => false,
+				$DenonAVRVar->ptMainZoneName => false,
+				$DenonAVRVar->ptTopMenuLink => false,
+				$DenonAVRVar->ptModel => true
+				);
 			
 			//Boolean
 			$vBoolean = array
@@ -223,7 +231,7 @@ class DenonAVRHTTP extends IPSModule
 				*/
 				);
 				
-			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);		
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
 		elseif ($Zone == 1) //Zone 2
 		{
@@ -243,7 +251,16 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptZone2QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone2QuickSelect';
 			
 			//Variablen						
-	
+			
+			//String
+			$vString = array
+				(
+				$DenonAVRVar->ptFriendlyName => false,
+				$DenonAVRVar->ptMainZoneName => false,
+				$DenonAVRVar->ptTopMenuLink => false,
+				$DenonAVRVar->ptModel => true
+				);
+			
 			//Boolean
 			$vBoolean = array
 				(
@@ -275,7 +292,7 @@ class DenonAVRHTTP extends IPSModule
 				$DenonAVRVar->ptZone2ChannelVolumeFR => true
 				);
 			
-			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
@@ -296,7 +313,14 @@ class DenonAVRHTTP extends IPSModule
 			
 			//Variablen						
 			
-			
+			//String
+			$vString = array
+				(
+				$DenonAVRVar->ptFriendlyName => false,
+				$DenonAVRVar->ptMainZoneName => false,
+				$DenonAVRVar->ptTopMenuLink => false,
+				$DenonAVRVar->ptModel => true
+				);
 			
 			//Boolean
 			$vBoolean = array
@@ -329,7 +353,7 @@ class DenonAVRHTTP extends IPSModule
 				$DenonAVRVar->ptZone3ChannelVolumeFR => true
 				);
 			
-			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat);
+			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
 		
 		
@@ -426,6 +450,25 @@ class DenonAVRHTTP extends IPSModule
 		$this->EnableAction($inputsourcesprofile["Ident"]);
 		
 		//Sichtbare Variablen anlegen
+		foreach ($vString as $ptString => $visible)
+		{
+		//Auswahl Prüfen
+		if ($visible === true)
+			{
+				$profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				//Ident, Name, Profile, Position 
+				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				$this->EnableAction($profile["Ident"]);
+			}	
+		// wenn nicht sichtbar löschen
+		elseif ($visible === false)
+			{
+				 $profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				 $this->removeVariableAction($profile["Ident"], $links, $ptString); 
+			}
+		}
+		
 		foreach ($vBoolean as $ptBool => $visible)
 		{
 		//Auswahl Prüfen
@@ -2246,14 +2289,16 @@ class DenonAVRHTTP extends IPSModule
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
 				
-		$this->UpdateVariable($data->Buffer);
+		$this->UpdateVariable($data->Buffer, $data->Type);
 	 		
 	}
 	
 	// Wertet Response aus und setzt Variable
-	private function UpdateVariable($data)
+	private function UpdateVariable($data, $Type)
     {
-        foreach($data as $Ident => $Values)
+        if ($Type == "HTTP")
+		{
+			foreach($data as $Ident => $Values)
 			{
 				$Name = $Values->Name;
 				$VarType = $Values->VarType;
@@ -2278,6 +2323,8 @@ class DenonAVRHTTP extends IPSModule
 						break;
 				}	
 			}
+		}
+		
     }
 		
 

@@ -56,7 +56,8 @@ class DenonAVRIOHTTP extends IPSModule
 	$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
 
-	protected function RegisterTimer($ident, $interval, $script) {
+	protected function RegisterTimer($ident, $interval, $script)
+	{
 		$id = @IPS_GetObjectIDByIdent($ident, $this->InstanceID);
 
 		if ($id && IPS_GetEvent($id)['EventType'] <> 1)
@@ -88,7 +89,7 @@ class DenonAVRIOHTTP extends IPSModule
 		  IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, $interval);
 		  IPS_SetEventActive($id, true);
 		}
-	  }
+	}
 
 ################## Datapoints
  
@@ -146,7 +147,7 @@ class DenonAVRIOHTTP extends IPSModule
 		$data = json_decode($JSONString);
 		
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
-		$this->SendDataToChildren(json_encode(Array("DataID" => "{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "Buffer" => $data))); //Denon I/O HTTP RX GUI
+		$this->SendDataToChildren(json_encode(Array("DataID" => "{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "Buffer" => $data), "Type" => "HTTP")); //Denon I/O HTTP RX GUI
 	}
 	
 	protected function SendCommand ($command)
