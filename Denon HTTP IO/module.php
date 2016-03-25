@@ -26,10 +26,10 @@ class DenonAVRIOHTTP extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
-		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
-        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
+        //$this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
+        //IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
+        //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
 	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)

@@ -1150,7 +1150,19 @@ class DENON_StatusHTML extends stdClass
 				{
 				exit("Datei ".$xmlDeviceinfo." konnte nicht geöffnet werden.");
 				}
-						
+			
+			$xmlDeviceSearch = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formiPhoneAppDeviceSearch.xml"));
+				
+			if ($xmlDeviceSearch)
+				{
+				//echo "Datei wurde gefunden";
+				$data = $this->DeviceSearch($xmlDeviceSearch, $data);
+				}
+			else
+				{
+				exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
+				}	
+			
 			return $data;		
 			
 		}
@@ -1265,7 +1277,6 @@ class DENON_StatusHTML extends stdClass
 		*/
 		
 		//InputFuncSelect
-		/*
 		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 		if ($InputFuncSelect)
 		{
@@ -1281,7 +1292,7 @@ class DENON_StatusHTML extends stdClass
 			}	
 			
 		}
-		*/
+		
 
 		//NetFuncSelect
 		/*
@@ -1414,7 +1425,8 @@ class DENON_StatusHTML extends stdClass
 		$SurrMode = $xml->xpath('.//SurrMode');
 		if ($SurrMode)
 		{
-			$SurroundMapping = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+			//Standard(Dolby)
+			$SurroundMapping = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "Standard(Dolby)" => 3, "DOLBY DIGITAL" => 4, "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
 												"VIRTUAL" => 15);
 			foreach ($SurroundMapping as $Command => $SurroundValue)
 			{
@@ -1436,7 +1448,7 @@ class DENON_StatusHTML extends stdClass
 		$szLine = $xml->xpath('.//szLine');
 		if ($szLine)
 			{
-				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$szLine[0]->value, 'Name' => 'Model');
+				$data['ModelDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$szLine[0]->value, 'Name' => 'ModelDisplay');
 			}
 		
 
@@ -1449,11 +1461,25 @@ class DENON_StatusHTML extends stdClass
 		$ModelName = $xml->xpath('.//ModelName');
 		if ($ModelName)
 			{
-				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Name' => 'Model');
+				$data['ModelName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Name' => 'ModelName');
 			}
 		
 		
 		
+		return $data;
+	}
+	
+	protected function DeviceSearch($xml, $data)
+	{
+		//Model
+		$Model = $xml->xpath('.//Model');
+		if ($Model)
+			{
+				$ModelValue = str_replace(" ", "", (string)$Model[0]->value);
+				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => $ModelValue, 'Name' => 'Model');
+			}
+		
+
 		return $data;
 	}
 	

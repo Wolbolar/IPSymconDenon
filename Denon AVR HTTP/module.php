@@ -159,7 +159,7 @@ class DenonAVRHTTP extends IPSModule
 			//Integer
 			$vInteger = array
 				(
-				$DenonAVRVar->ptSleep => true
+				$DenonAVRVar->ptSleep => false
 				//$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep'),
 				//$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension')
 				);
@@ -167,12 +167,12 @@ class DenonAVRHTTP extends IPSModule
 			//Integer mit Association
 			$vIntegerAss = array
 				(
+				 $DenonAVRVar->ptSurroundMode => true
 				 //$DenonAVRVar->ptInputSource => true
 				 /*
 				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
 				 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
 				 $DenonAVRVar->ptDigitalInputMode => $this->ReadPropertyBoolean('DigitalInputMode'),
-				 $DenonAVRVar->ptSurroundMode => $this->ReadPropertyBoolean('SurroundMode'),
 				 $DenonAVRVar->ptSurroundPlayMode => $this->ReadPropertyBoolean('SurroundPlayMode'),
 				 $DenonAVRVar->ptMultiEQMode => $this->ReadPropertyBoolean('MultiEQMode'),
 				 $DenonAVRVar->ptAudioRestorer => $this->ReadPropertyBoolean('AudioRestorer'),
@@ -336,6 +336,7 @@ class DenonAVRHTTP extends IPSModule
 		
 		
 		//TestEmpfangspuffer
+		/*
 		$responseid = @IPS_GetVariableIDByName("Response", $this->InstanceID);
 				if ($responseid === false)
 					{
@@ -350,25 +351,27 @@ class DenonAVRHTTP extends IPSModule
 						//Variable Response existiert bereits
 						
 					}
-					
-				//auf aktive Parent prüfen
-				
-			//Status aktiv
-			$this->SetStatus(102);
+		*/			
+		//auf aktive Parent prüfen
+		$this->HasActiveParent();		
+			
+			
 	}
 	
-	protected function HasActiveParent($ParentID)
+	
+	protected function HasActiveParent()
     {
-        if ($ParentID > 0)
+        $instance = IPS_GetInstance($this->InstanceID);
+		if ($instance['ConnectionID'] > 0)
         {
-            $parent = IPS_GetInstance($ParentID);
+            $parent = IPS_GetInstance($instance['ConnectionID']);
             if ($parent['InstanceStatus'] == 102)
             {
                 $this->SetStatus(102);
                 return true;
             }
         }
-        $this->SetStatus(203);
+        $this->SetStatus(202);
         return false;
     }
 	
