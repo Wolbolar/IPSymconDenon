@@ -432,7 +432,7 @@ class DenonAVRHTTP extends IPSModule
 		}		
 	}
 	
-	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat)
+	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString)
 	{
 		// Add/Remove according to feature activation
         // create link list for deletion of links if target is deleted
