@@ -1051,67 +1051,43 @@ class DenonAVRTelnet extends IPSModule
 	// Wertet Response aus und setzt Variable
 	private function UpdateVariable($data)
     {
-        //if ($Type == "HTTP")
+		$ResponseType = $data->ResponseType;
+		//if($ResponseType == "HTTP")
 		//{
-			foreach($data as $Ident => $Values)
+			$datavalues = $data->Data;
+			foreach($datavalues as $Ident => $Values)
 			{
-				$Name = $Values->Name;
+				$Ident = str_replace(" ", "_", $Ident); //Ident Leerzeichen von Command mit _ ersetzten
+				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
 				switch ($VarType)
 				{
 					case 0: //Boolean
 						SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 						break;
 					case 1: //Integer
 						SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 						break;
 					case 2: //Float
 						SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 						break;     
 					case 3: //String
 						SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 						break;
 				}	
 			}
-		//}
-		//elseif ($Type == "Telnet")
-		//{
-			//PWSTANDBY
-			$APIData = new DenonAVRCP_API_Data();
-			$APIData->Data = $data;
-			$SetCommandValue = $APIData->GetCommandResponse($APIData->Data);
-			$Command = $SetCommandValue["Command"];
-			$VarType = $SetCommandValue["VarType"];
-			$Subcommand = $SetCommandValue["Subcommand"];
-			$Subcommandvalue = $SetCommandValue["Subcommandvalue"];
-			IPS_LogMessage("Update Denon", "Command(".$Command."), Typ: ".$VarType );
-			//$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
-			//IPS_LogMessage("Update Denon", "ObjektID(".$Ident."));
-
-			/*
-			switch ($VarType)
-			{
-				case 0: //Boolean
-					SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-					break;
-				case 1: //Integer
-					SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-					break;
-				case 2: //Float
-					SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-					break;     
-				case 3: //String
-					SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-					break;
-			}
-			*/
-		//}
-		
+		/*
+		}
+		elseif($ResponseType == "TELNET")
+		{
+			
+		}
+		*/
     }
 	
 	protected function GetParent()
@@ -1135,7 +1111,7 @@ class DenonAVRTelnet extends IPSModule
 		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($data->Buffer));
 	 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
-		SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
 		$this->UpdateVariable($data->Buffer);
 	 
 	}	

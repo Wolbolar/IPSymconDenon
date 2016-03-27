@@ -127,6 +127,8 @@ class DENONIPSProfiles extends stdClass
 	public $ptTopMenuLink;
 	public $ptModel;
 	public $UsedInputSources;
+	public $UsedInputSourcesZ2;
+	public $UsedInputSourcesZ3;
 	public $DenonIP;
 	
 	public function GetInputSources()
@@ -189,6 +191,36 @@ class DENONIPSProfiles extends stdClass
 		
 		$this->UsedInputSources = $UsedInputSources;
 		return $UsedInputSources;
+		
+		$UsedInputSourcesZ2 = array(
+			"Ident" => DENON_API_Commands::Z2,
+			"Name" => "Input Source",
+			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+		);
+		$AssociationsZ2 = array();
+		foreach ($Inputs as $Value => $Input)
+		{
+		$Input = str_replace(" ", "", $Input);
+		$AssociationsZ2[] = array(($Value-1), $Input,  "", -1);
+		}
+		$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
+		
+		$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
+		
+		$UsedInputSourcesZ3 = array(
+			"Ident" => DENON_API_Commands::Z3,
+			"Name" => "Input Source",
+			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+		);
+		$AssociationsZ3 = array();
+		foreach ($Inputs as $Value => $Input)
+		{
+		$Input = str_replace(" ", "", $Input);
+		$AssociationsZ3[] = array(($Value-1), $Input,  "", -1);
+		}
+		$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
+		
+		$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
 	}	
 
 	public function SetupVarDenonString($profile)
@@ -707,6 +739,7 @@ class DENONIPSProfiles extends stdClass
 		
 		$ProfilAssociationsZone2 = array
 		(
+			/*
 			$this->ptZone2InputSource => array(
 				"Ident" => DENON_API_Commands::Z2,
 				"Name" => "Zone 2 Input Source",
@@ -734,6 +767,7 @@ class DENONIPSProfiles extends stdClass
 				Array(19, "USB/IPOD",  "", -1)
 				)
 			),
+			*/
 			$this->ptZone2ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z2CS,
 				"Name" => "Zone 2 Channel Setting",
@@ -758,9 +792,11 @@ class DENONIPSProfiles extends stdClass
 			)
 		);
 		
+		$ProfilAssociationsZone2[$this->ptZone2InputSource] = $this->UsedInputSourcesZ2;
 		
 		$ProfilAssociationsZone3 = array
 		(
+			/*
 			$this->ptZone3InputSource => array(
 				"Ident" => DENON_API_Commands::Z3,
 				"Name" => "Zone 3 Input Source",
@@ -788,6 +824,7 @@ class DENONIPSProfiles extends stdClass
 				Array(19, "USB/IPOD",  "", -1)
 				)
 			),
+			*/
 			$this->ptZone3ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z3CS,
 				"Name" => "Zone 3 Channel Setting",
@@ -811,6 +848,8 @@ class DENONIPSProfiles extends stdClass
 				)
 			)
 		);
+		
+		$ProfilAssociationsZone3[$this->ptZone3InputSource] = $this->UsedInputSourcesZ3;
 		
 		if($this->Zone == 0)
 		{
@@ -1163,7 +1202,12 @@ class DENON_StatusHTML extends stdClass
 				exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
 				}	
 			
-			return $data;		
+			$datasend = array(
+			'ResponseType' => 'HTTP',
+			'Data' => $data
+			);
+			
+			return $datasend;		
 			
 		}
 		elseif ($Zone == 1) // Zone 2
@@ -1209,7 +1253,7 @@ class DENON_StatusHTML extends stdClass
 		$FriendlyName = $xml->xpath('.//FriendlyName');
 		if ($FriendlyName)
 		{
-			$data['FriendlyName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$FriendlyName[0]->value, 'Name' => 'Denon AVR Name');
+			$data['FriendlyName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$FriendlyName[0]->value, 'Subcommand' => 'Denon AVR Name');
 		}
 				
 		//Power
@@ -1221,7 +1265,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$AVRPower[0]->value)
 				{
-				$data['PW'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $AVRPowerValue, 'Name' => 'Power');	
+				$data['PW'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $AVRPowerValue, 'Subcommand' => $Command);	
 				}
 			}	
 		}
@@ -1236,7 +1280,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$ZonePower[0]->value)
 				{
-				$data['ZM'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $ZonePowerValue, 'Name' => 'MainZone Power');
+				$data['ZM'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $ZonePowerValue, 'Subcommand' => $Command);
 				}
 			}	
 		}
@@ -1245,7 +1289,7 @@ class DENON_StatusHTML extends stdClass
 		$RenameZone = $xml->xpath('.//RenameZone');
 		if ($RenameZone)
 		{
-			$data['MainZoneName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Name' => 'MainZone Name');	
+			$data['MainZoneName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Subcommand' => 'MainZone Name');	
 		}
 
 
@@ -1254,7 +1298,7 @@ class DENON_StatusHTML extends stdClass
 		$TopMenuLink = $xml->xpath('.//TopMenuLink');
 		if ($TopMenuLink)
 		{
-			$data['TopMenuLink'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$TopMenuLink[0]->value, 'Name' => 'TopMenu Link');
+			$data['TopMenuLink'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$TopMenuLink[0]->value, 'Subcommand' => 'TopMenu Link');
 		}
 
 
@@ -1263,7 +1307,7 @@ class DENON_StatusHTML extends stdClass
 		$ModelId = $xml->xpath('.//ModelId');
 		if ($ModelId)
 		{
-			$data['ModelId'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelId[0]->value, 'Name' => 'ModelId');
+			$data['ModelId'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelId[0]->value, 'Subcommand' => 'ModelId');
 		}
 		*/
 
@@ -1272,7 +1316,7 @@ class DENON_StatusHTML extends stdClass
 		$SalesArea = $xml->xpath('.//SalesArea');
 		if ($SalesArea)
 		{
-			$data['SalesArea'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SalesArea[0]->value, 'Name' => 'SalesArea');
+			$data['SalesArea'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SalesArea[0]->value, 'Subcommand' => 'SalesArea');
 		}
 		*/
 		
@@ -1287,7 +1331,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$InputFuncSelect[0]->value)
 				{
-				$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Name' => 'Input Source');
+				$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
 				}
 			}	
 			
@@ -1299,7 +1343,7 @@ class DENON_StatusHTML extends stdClass
 		$NetFuncSelect = $xml->xpath('.//NetFuncSelect');
 		if ($NetFuncSelect)
 		{
-			$data['NetFuncSelect'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$NetFuncSelect[0]->value, 'Name' => 'NetFuncSelect');
+			$data['NetFuncSelect'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$NetFuncSelect[0]->value, 'Subcommand' => 'NetFuncSelect');
 		}
 		*/
 
@@ -1308,7 +1352,7 @@ class DENON_StatusHTML extends stdClass
 		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
 		if ($InputFuncSelectMain)
 		{
-			$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$InputFuncSelectMain[0]->value, 'Name' => 'Input Source');
+			$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$InputFuncSelectMain[0]->value, 'Subcommand' => 'Input Source');
 		}
 		*/
 		
@@ -1317,7 +1361,7 @@ class DENON_StatusHTML extends stdClass
 		$selectSurround = $xml->xpath('.//selectSurround');
 		if ($selectSurround)
 		{
-			$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$selectSurround[0]->value, 'Name' => 'Surround Mode');
+			$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$selectSurround[0]->value, 'Subcommand' => 'Surround Mode');
 		}
 		*/
 		
@@ -1326,7 +1370,7 @@ class DENON_StatusHTML extends stdClass
 		$VolumeDisplay = $xml->xpath('.//VolumeDisplay');
 		if ($VolumeDisplay)
 		{
-			$data['VolumeDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$VolumeDisplay[0]->value, 'Name' => 'VolumeDisplay');
+			$data['VolumeDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$VolumeDisplay[0]->value, 'Subcommand' => 'VolumeDisplay');
 		}
 		*/
 
@@ -1335,9 +1379,16 @@ class DENON_StatusHTML extends stdClass
 		$MasterVolume = $xml->xpath('.//MasterVolume');
 		if ($MasterVolume)
 		{
-			$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (string)$MasterVolume[0]->value, 'Name' => 'Volume');
+			$MasterVolumeMapping = array("on" => true, "off" => false); //!!!!!!!!!!!!!!!!!Bearbeiten
+			foreach ($MasterVolumeMapping as $Command => $MasterVolumeValue)
+			{
+			if ($Command == (string)$MasterVolume[0]->value)
+				{
+				$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => $MasterVolumeValue, 'Subcommand' => $Command);
+				}
+			}	
 		}
-
+		
 
 		//Mute
 		$Mute = $xml->xpath('.//Mute');
@@ -1348,7 +1399,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$Mute[0]->value)
 				{
-				$data['MU'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $MuteValue, 'Name' => 'Main Mute');
+				$data['MU'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $MuteValue, 'Subcommand' => $Command);
 				}
 			}	
 		}
@@ -1363,7 +1414,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$RemoteMaintenance[0]->value)
 				{
-				$data['RemoteMaintenance'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $RemoteMaintenanceValue, 'Name' => 'RemoteMaintenance');
+				$data['RemoteMaintenance'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $RemoteMaintenanceValue, 'Subcommand' => 'RemoteMaintenance');
 				}
 			}	
 		}
@@ -1374,7 +1425,7 @@ class DENON_StatusHTML extends stdClass
 		$GameSourceDisplay = $xml->xpath('.//GameSourceDisplay');
 		if ($GameSourceDisplay)
 		{
-			$data['GameSourceDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$GameSourceDisplay[0]->value, 'Name' => 'GameSourceDisplay');
+			$data['GameSourceDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$GameSourceDisplay[0]->value, 'Subcommand' => 'GameSourceDisplay');
 		}
 		*/
 
@@ -1383,7 +1434,7 @@ class DENON_StatusHTML extends stdClass
 		$LastfmDisplay = $xml->xpath('.//LastfmDisplay');
 		if ($LastfmDisplay)
 		{
-			$data['LastfmDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$LastfmDisplay[0]->value, 'Name' => 'LastfmDisplay');
+			$data['LastfmDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$LastfmDisplay[0]->value, 'Subcommand' => 'LastfmDisplay');
 		}
 		*/
 
@@ -1392,7 +1443,7 @@ class DENON_StatusHTML extends stdClass
 		$SubwooferDisplay = $xml->xpath('.//SubwooferDisplay');
 		if ($SubwooferDisplay)
 		{
-			$data['SubwooferDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SubwooferDisplay[0]->value, 'Name' => 'SubwooferDisplay');
+			$data['SubwooferDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SubwooferDisplay[0]->value, 'Subcommand' => 'SubwooferDisplay');
 		}
 		*/
 
@@ -1402,7 +1453,7 @@ class DENON_StatusHTML extends stdClass
 		$Zone2VolDisp = $xml->xpath('.//Zone2VolDisp');
 		if ($Zone2VolDisp )
 		{
-			$data['Zone2VolDisp'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$Zone2VolDisp[0]->value, 'Name' => 'Zone2VolDisp');
+			$data['Zone2VolDisp'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$Zone2VolDisp[0]->value, 'Subcommand' => 'Zone2VolDisp');
 		}
 		*/
 		
@@ -1417,7 +1468,7 @@ class DENON_StatusHTML extends stdClass
 		$RestorerMode = $xml->xpath('.//RestorerMode');
 		if ($RestorerMode)
 		{
-			$data['PSRSTR'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Name' => 'Audio Restorer');
+			$data['PSRSTR'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Subcommand' => 'Audio Restorer');
 		}
 
 
@@ -1432,7 +1483,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$SurrMode[0]->value)
 				{
-				$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $SurroundValue, 'Name' => 'Surround Mode');
+				$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $SurroundValue, 'Subcommand' => 'Surround Mode');
 				}
 			}	
 			
@@ -1448,7 +1499,7 @@ class DENON_StatusHTML extends stdClass
 		$szLine = $xml->xpath('.//szLine');
 		if ($szLine)
 			{
-				$data['ModelDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$szLine[0]->value, 'Name' => 'ModelDisplay');
+				$data['ModelDisplay'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$szLine[0]->value, 'Subcommand' => 'ModelDisplay');
 			}
 		
 
@@ -1461,7 +1512,7 @@ class DENON_StatusHTML extends stdClass
 		$ModelName = $xml->xpath('.//ModelName');
 		if ($ModelName)
 			{
-				$data['ModelName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Name' => 'ModelName');
+				$data['ModelName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Subcommand' => 'ModelName');
 			}
 		
 		
@@ -1476,7 +1527,7 @@ class DENON_StatusHTML extends stdClass
 		if ($Model)
 			{
 				$ModelValue = str_replace(" ", "", (string)$Model[0]->value);
-				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => $ModelValue, 'Name' => 'Model');
+				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => $ModelValue, 'Subcommand' => 'Model');
 			}
 		
 
@@ -2791,45 +2842,38 @@ class DenonAVRCP_API_Data extends stdClass
             return null;
     }
 	
-	public function GetCommandResponse (string $data)
+	public function GetCommandResponse ($data)
 	{
-		
-		foreach($this->VarMapping as $Command => $ValMap)
+		$datavalues = array();
+		foreach($data as $key => $response)
 			{
-				$pos = stripos($data, $Command);
-				if ($pos !== false)
+				foreach($this->VarMapping as $Command => $ValMap)
 				{
-				    $lengthCommand = strlen($Command);
-				    $ResponseSubCommand = substr($data, $lengthCommand);
-				    $ValueMapping = $ValMap["ValueMapping"];
-				    $VarType = $ValMap["VarType"];
-				    foreach($ValueMapping as $SubCommand => $SubCommandValue)
-				    {
-						if($SubCommand == $ResponseSubCommand)
-							{
-								$SetCommandValue = array(
-								"VarType" => $VarType,
-								"Command" => $Command,
-								"Subcommand" => $ResponseSubCommand,
-								"Subcommandvalue" => $SubCommandValue
-								);
-								return $SetCommandValue;
-							}
+					$pos = stripos($response, $Command);
+					if ($pos !== false)
+					{
+						$lengthCommand = strlen($Command);
+						$ResponseSubCommand = substr($response, $lengthCommand);
+						$ValueMapping = $ValMap["ValueMapping"];
+						$VarType = $ValMap["VarType"];
+						foreach($ValueMapping as $SubCommand => $SubCommandValue)
+						{
+							if($SubCommand == $ResponseSubCommand)
+								{
+									$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
+									$datavalues[$Ident] =  array('VarType' => $VarType, 'Value' => $SubCommandValue, 'Subcommand' => $ResponseSubCommand);
+								}
+						}
+						
 					}
-				    
-				}
-				else 
-				{
-					$SetCommandValue = array(
-								"VarType" => $pos,
-								"Command" => $data,
-								"Subcommand" => "Nicht gefunden",
-								"Subcommandvalue" => "Nicht gefunden"
-								);
-								return $SetCommandValue;
 				}
 			}
-  
+		$datasend = array(
+			'ResponseType' => 'TELNET',
+			'Data' => $datavalues
+			);
+			
+		return $datasend;	
 	}
 	
     public function GetMapping()

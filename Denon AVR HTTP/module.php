@@ -2296,36 +2296,39 @@ class DenonAVRHTTP extends IPSModule
 	// Wertet Response aus und setzt Variable
 	private function UpdateVariable($data)
     {
-       
-		foreach($data as $Ident => $Values)
-		{
-			$Name = $Values->Name;
-			$VarType = $Values->VarType;
-			$Subcommandvalue = $Values->Value;
-			switch ($VarType)
+       $ResponseType = $data->ResponseType;
+	   //if($ResponseType == "HTTP")
+	   //{
+			$datavalues = $data->Data;
+			foreach($datavalues as $Ident => $Values)
 			{
-				case 0: //Boolean
-					SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-					IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
-					break;
-				case 1: //Integer
-					SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-					IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
-					break;
-				case 2: //Float
-					SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-					IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
-					break;     
-				case 3: //String
-					SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-					IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommandvalue);
-					break;
-			}	
-		}
-		
-		
+				$Ident = str_replace(" ", "_", $Ident); //Ident Leerzeichen von Command mit _ ersetzten
+				$Subcommand = $Values->Subcommand;
+				$VarType = $Values->VarType;
+				$Subcommandvalue = $Values->Value;
+				switch ($VarType)
+				{
+					case 0: //Boolean
+						SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+						break;
+					case 1: //Integer
+						SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+						break;
+					case 2: //Float
+						SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+						break;     
+					case 3: //String
+						SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
+						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+						break;
+				}	
+			} 
+		//}	
     }
-		
+
 
 }
 
