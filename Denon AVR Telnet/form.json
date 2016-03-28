@@ -30,6 +30,7 @@
 				},
 				
 				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
+				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
 				{ "type": "Label", "label": "Lautsprecher:" },
 				{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },

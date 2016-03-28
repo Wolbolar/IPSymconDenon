@@ -18,6 +18,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyInteger("Zone", 6);
 		//$this->RegisterPropertyBoolean("Display", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
+		$this->RegisterPropertyBoolean("ZoneName", false);
 		$this->RegisterPropertyBoolean("FL", false);
 		$this->RegisterPropertyBoolean("FR", false);
 		$this->RegisterPropertyBoolean("C", false);
@@ -200,6 +201,8 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptDolbyVolume = "DENON.".$DenonAVRVar->Type.".DolbyVolume";
 			$DenonAVRVar->ptFriendlyName = "DENON.".$DenonAVRVar->Type.".FriendlyName";
 			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
+			$DenonAVRVar->ptZone2Name = "DENON.".$DenonAVRVar->Type.".Zone2Name";
+			$DenonAVRVar->ptZone3Name = "DENON.".$DenonAVRVar->Type.".Zone3Name";
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
@@ -224,7 +227,7 @@ class DenonAVRTelnet extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
-				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
@@ -335,7 +338,7 @@ class DenonAVRTelnet extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyname => false,
-				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptZone2Name => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
@@ -396,7 +399,7 @@ class DenonAVRTelnet extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyname => false,
-				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptZone3Name => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
@@ -694,8 +697,16 @@ class DenonAVRTelnet extends IPSModule
         try
         {
             //Command aus Ident
-			$APIData->APICommand = str_replace("_", " ", $Ident); 
-		
+			$APIData->APICommand = str_replace("_", " ", $Ident);
+			if($Ident == "Z2POWER" || $Ident == "Z2INPUT" || $Ident == "Z2VOL")
+			{
+				$APIData->APICommand = "Z2";
+			}		
+			elseif($Ident == "Z3POWER" || $Ident == "Z3INPUT" || $Ident == "Z3VOL")
+			{
+				$APIData->APICommand = "Z3";
+			}
+			
 			$payload = $APIData->APICommand.$APIData->APISubCommand.chr(13);
 			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);

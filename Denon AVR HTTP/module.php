@@ -17,6 +17,7 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("Navigation", false);
+		$this->RegisterPropertyBoolean("ZoneName", false);
     }
 
 
@@ -127,6 +128,8 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptDolbyVolume = "DENON.".$DenonAVRVar->Type.".DolbyVolume";
 			$DenonAVRVar->ptFriendlyname = "DENON.".$DenonAVRVar->Type.".Friendlyname";
 			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
+			$DenonAVRVar->ptZone2Name = "DENON.".$DenonAVRVar->Type.".Zone2Name";
+			$DenonAVRVar->ptZone3Name = "DENON.".$DenonAVRVar->Type.".Zone3Name";
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
@@ -145,7 +148,7 @@ class DenonAVRHTTP extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
-				$DenonAVRVar->ptMainZoneName => true,
+				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
@@ -264,7 +267,7 @@ class DenonAVRHTTP extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
-				$DenonAVRVar->ptMainZoneName => false,
+				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
@@ -606,10 +609,7 @@ class DenonAVRHTTP extends IPSModule
             return false;
         }
 		*/
-		//Command aus Ident
-		$Ident = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
-		$Command = $Ident; 
-		
+				
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->APICommand = $Command;
         $APIData->Data = $Value;
@@ -628,7 +628,17 @@ class DenonAVRHTTP extends IPSModule
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
-            $payload = $APIData->APICommand.$APIData->APISubCommand;		
+            //Command aus Ident
+			$APIData->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
+			if($Ident == "Z2POWER" || $Ident == "Z2INPUT" || $Ident == "Z2VOL")
+			{
+				$APIData->APICommand = "Z2";
+			}		
+			elseif($Ident == "Z3POWER" || $Ident == "Z3INPUT" || $Ident == "Z3VOL")
+			{
+				$APIData->APICommand = "Z3";
+			}
+			$payload = $APIData->APICommand.$APIData->APISubCommand;		
 			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);
         } catch (Exception $ex)

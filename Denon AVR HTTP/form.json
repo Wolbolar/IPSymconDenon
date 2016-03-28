@@ -28,7 +28,8 @@
 									{ "value": 6, "label": "Zone Wählen" }
 								  ]
 				},
-				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" }
+				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
+				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen" }
             ],
     "actions":
             [
