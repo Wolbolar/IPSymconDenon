@@ -16,7 +16,7 @@ class DenonAVRHTTP extends IPSModule
 		
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 6);
-		
+		$this->RegisterPropertyBoolean("Navigation", false);
     }
 
 
@@ -135,7 +135,11 @@ class DenonAVRHTTP extends IPSModule
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
 				$this->InputSources = $DenonAVRVar->GetInputSources();
-			}	
+			}
+			else
+			{
+				$this->InputSources = false;
+			}		
 			
 			//String
 			$vString = array
@@ -178,10 +182,11 @@ class DenonAVRHTTP extends IPSModule
 			//Integer mit Association
 			$vIntegerAss = array
 				(
-				 $DenonAVRVar->ptSurroundMode => true
+				 $DenonAVRVar->ptSurroundMode => true,
+				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation')
 				 //$DenonAVRVar->ptInputSource => true
 				 /*
-				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
+				 
 				 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
 				 $DenonAVRVar->ptDigitalInputMode => $this->ReadPropertyBoolean('DigitalInputMode'),
 				 $DenonAVRVar->ptSurroundPlayMode => $this->ReadPropertyBoolean('SurroundPlayMode'),
@@ -445,12 +450,16 @@ class DenonAVRHTTP extends IPSModule
         }
 		
 		//Inputs anlegen
-		$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
-		$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-		IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
-		$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
-		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
-		$this->EnableAction($inputsourcesprofile["Ident"]);
+		if($this->InputSources !== false)
+		{
+			$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
+			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
+			IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
+			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+			IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
+			$this->EnableAction($inputsourcesprofile["Ident"]);
+		}
+		
 		
 		//Sichtbare Variablen anlegen
 		foreach ($vString as $ptString => $visible)

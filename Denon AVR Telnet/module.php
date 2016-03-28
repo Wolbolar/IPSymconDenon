@@ -213,7 +213,10 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
 				$this->InputSources = $DenonAVRVar->GetInputSources();
 			}
-			
+			else
+			{
+				$this->InputSources = false;
+			}
 			
 			
 			
@@ -500,12 +503,16 @@ class DenonAVRTelnet extends IPSModule
         }
 		
 		//Inputs anlegen
-		$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
-		$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-		IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
-		$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
-		IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
-		$this->EnableAction($inputsourcesprofile["Ident"]);
+		if($this->InputSources !== false)
+		{
+			$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
+			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
+			IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
+			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+			IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
+			$this->EnableAction($inputsourcesprofile["Ident"]);
+		}	
+		
 		
 		//Sichtbare Variablen anlegen
 		foreach ($vString as $ptString => $visible)
@@ -1415,6 +1422,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Mainzone Power
 	public function MainZonePower(boolean $Value) // MainZone true (On) or false (Off) 
 	{
 		if ($Value == false)
@@ -1430,6 +1438,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Master Volume
 	public function MasterVolume(string $command) // "UP" or "DOWN" 
 	{
 		$payload = DENON_API_Commands::MV.$command.chr(13);
@@ -1443,6 +1452,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Main Mute
 	public function MainMute(string $command) // "ON" or "OFF"
 	{
 		$payload = DENON_API_Commands::MU.$command.chr(13);
@@ -1589,42 +1599,6 @@ class DenonAVRTelnet extends IPSModule
 	######################### Main Functions #######################################
 	
 	
-	
-	
-	public function PowerHTTP($Value) // STANDBY oder ON
-	{
-		if ($Value == false)
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FSTANDBY&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('Power'), $Value);
-			}
-		else
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('Power'), $Value);
-			}
-		
-	}
-	
-	public function MainZonePowerHTTP($Value) // ON oder OFF
-	{
-		if ($Value == false)
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainZonePower'), $Value);
-			}
-		else
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainZonePower'), $Value);
-			}
-		
-	}
-	
-	public function MasterVolumeFixHTTP($Value) // Volume direct -80(db) bis 18(db)
-	{
-		file_get_contents("http://".$this->GetIPDenon()."MainZone/index.put.asp?cmd0=PutMasterVolumeSet%2F".$Value);
-	}
 
 	public function BassLevel($Value)
 	{
@@ -1647,27 +1621,7 @@ class DenonAVRTelnet extends IPSModule
 		CSCK_SendText($id, "PSTRE".$Value.chr(13));
 	}
 
-	public function ChannelVolume($Value) // setzen Korrekturlevel pro LS-Kanal
-	{
-	 CSCK_SendText($id, "CV".$Value.chr(13));
-	}
-
 	
-	
-	public function MainMuteHTTP($Value) // "ON" or "OFF"
-	{
-		if ($Value == false)
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainMute'), $Value);
-			}
-		else
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Fon&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainMute'), $Value);
-			}
-	}
-
 	
 
 	public function SLEEP($Value) //

@@ -27,7 +27,8 @@
 									{ "value": 2, "label": "Zone 3" },
 									{ "value": 6, "label": "Zone Wählen" }
 								  ]
-				}
+				},
+				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" }
             ],
     "actions":
             [

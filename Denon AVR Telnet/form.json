@@ -108,8 +108,13 @@
             [
                 {
                     "type": "Button",
-                    "label": "Power",
-                    "onClick": "DAVRT_Power($id);"
+                    "label": "Power On",
+                    "onClick": "DAVRT_Power($id, true);"
+                },
+				{
+                    "type": "Button",
+                    "label": "Power Off",
+                    "onClick": "DAVRT_Power($id, false);"
                 }
             ],
     "status":
