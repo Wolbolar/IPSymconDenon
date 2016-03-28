@@ -112,7 +112,7 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 			// Absenden an Denon AVR
 		
-			SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
+			//SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
 		
 			$command = $data->Buffer;
 			$this->SendCommand ($command);
