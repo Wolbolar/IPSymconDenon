@@ -983,7 +983,7 @@ class DenonAVRHTTP extends IPSModule
 		*/
     }
 	
-		
+			
 	protected function GetParent()
     {
         $instance = IPS_GetInstance($this->InstanceID);//array
@@ -992,17 +992,22 @@ class DenonAVRHTTP extends IPSModule
 	
 		
 	//IP Denon 
-	protected function GetIPDenon(){
-		$ParentID = $this->GetParent();
-		$IPDenon = IPS_GetProperty($ParentID, 'Host');
-		if (!filter_var($IPDenon, FILTER_VALIDATE_IP) === false)
+	protected function GetIPDenon()
+	{	
+		if ($this->HasActiveParent())
 		{
-			return $IPDenon;
+			$ParentID = $this->GetParent();	
+			$IPDenon = IPS_GetProperty($ParentID, 'Host');
+			if (!filter_var($IPDenon, FILTER_VALIDATE_IP) === false)
+			{
+				return $IPDenon;
+			}
+			else
+			{
+				return false;
+			}
 		}
-		else
-		{
-			return false;
-		}
+		
 	}
 	
 	

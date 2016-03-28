@@ -1265,7 +1265,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$AVRPower[0]->value)
 				{
-				$data['PW'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $AVRPowerValue, 'Subcommand' => $Command);	
+				$data[DENON_API_Commands::PW] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $AVRPowerValue, 'Subcommand' => $Command);	
 				}
 			}	
 		}
@@ -1280,7 +1280,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$ZonePower[0]->value)
 				{
-				$data['ZM'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $ZonePowerValue, 'Subcommand' => $Command);
+				$data[DENON_API_Commands::ZM] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $ZonePowerValue, 'Subcommand' => $Command);
 				}
 			}	
 		}
@@ -1331,7 +1331,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$InputFuncSelect[0]->value)
 				{
-				$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
+				$data[DENON_API_Commands::SI] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
 				}
 			}	
 			
@@ -1379,7 +1379,7 @@ class DENON_StatusHTML extends stdClass
 		$MasterVolume = $xml->xpath('.//MasterVolume');
 		if ($MasterVolume)
 		{
-			$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (float)$MasterVolume[0]->value, 'Subcommand' => (float)$MasterVolume[0]->value);
+			$data[DENON_API_Commands::MV] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (float)$MasterVolume[0]->value, 'Subcommand' => (float)$MasterVolume[0]->value);
 		}
 		
 
@@ -1392,7 +1392,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$Mute[0]->value)
 				{
-				$data['MU'] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $MuteValue, 'Subcommand' => $Command);
+				$data[DENON_API_Commands::MU] =  array('VarType' => DENONIPSVarType::vtBoolean, 'Value' => $MuteValue, 'Subcommand' => $Command);
 				}
 			}	
 		}
@@ -1461,7 +1461,7 @@ class DENON_StatusHTML extends stdClass
 		$RestorerMode = $xml->xpath('.//RestorerMode');
 		if ($RestorerMode)
 		{
-			$data['PSRSTR'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Subcommand' => 'Audio Restorer');
+			$data[DENON_API_Commands::PSRSTR] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Subcommand' => 'Audio Restorer');
 		}
 
 
@@ -1475,7 +1475,7 @@ class DENON_StatusHTML extends stdClass
 			{
 			if ($Command == (string)$SurrMode[0]->value)
 				{
-				$data['MS'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $SurroundValue, 'Subcommand' => 'Surround Mode');
+				$data[DENON_API_Commands::MS] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $SurroundValue, 'Subcommand' => 'Surround Mode');
 				}
 			}	
 			
