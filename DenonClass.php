@@ -1260,7 +1260,7 @@ class DENON_StatusHTML extends stdClass
 		$AVRPower = $xml->xpath('.//Power');
 		if ($AVRPower)
 		{	
-			$AVRPowerMapping = array("ON" => true, "OFF" => false);
+			$AVRPowerMapping = array("ON" => true, "STANDBY" => false);
 			foreach ($AVRPowerMapping as $Command => $AVRPowerValue)
 			{
 			if ($Command == (string)$AVRPower[0]->value)
@@ -1379,14 +1379,7 @@ class DENON_StatusHTML extends stdClass
 		$MasterVolume = $xml->xpath('.//MasterVolume');
 		if ($MasterVolume)
 		{
-			$MasterVolumeMapping = array("on" => true, "off" => false); //!!!!!!!!!!!!!!!!!Bearbeiten
-			foreach ($MasterVolumeMapping as $Command => $MasterVolumeValue)
-			{
-			if ($Command == (string)$MasterVolume[0]->value)
-				{
-				$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => $MasterVolumeValue, 'Subcommand' => $Command);
-				}
-			}	
+			$data['MV'] =  array('VarType' => DENONIPSVarType::vtFloat, 'Value' => (float)$MasterVolume[0]->value, 'Subcommand' => (float)$MasterVolume[0]->value);
 		}
 		
 
