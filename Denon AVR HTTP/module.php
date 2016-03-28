@@ -1090,6 +1090,7 @@ class DenonAVRHTTP extends IPSModule
 		}
 	
 	//Denon Commands
+	//Power
 	public function Power(boolean $Value) // false (Standby) oder true (On)
 	{
 		if ($Value == false)
@@ -1105,75 +1106,41 @@ class DenonAVRHTTP extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Mainzone Power
+	public function Power(boolean $Value) // false (Off) oder true (On)
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::OFF;
+				
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::ON;
+			}
+		$payload = DENON_API_Commands::ZM.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Master Volume Up/Down
+	public function MasterVolume(string $Subcommand) // "UP" or "DOWN"
+	{
+		$payload = DENON_API_Commands::MV.$Subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Main Mute
+	public function MainMute(string $Subcommand) // "ON" or "OFF"
+	{
+		$payload = DENON_API_Commands::MU.$Subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	
-	//Funktionsscript von Raketenschnecke
-	
-	//--------- DENON AVR 3311 Anbindung V0.95 18.06.11 15:08.53 by Raketenschnecke ---------
 
 	############################ Info ##############################################
-	/*
-	Inital-Autor: philipp, Quelle: http://www.ip-symcon.de/forum/f53/denon-avr-3808-integration-7007/
-
-	Funktionen:
-		*Funktionssammlung aller implementierten DENON-Status und Befehle
-	*/
-
-	//$id clientsocket id
-	// senden an Parent und weiterleitung an socket
-
-	######################### Main Functions #######################################
-	/*
-	public function Power($Value) // STANDBY oder ON
-	{
-		if ($Value == false)
-			{
-				$Value = "STANDBY";
-			}
-		else
-			{
-				$Value = "ON";
-			}
+	
 		
-	 CSCK_SendText($id, "PW".$Value.chr(13));
-	}
-	*/
-	
-	public function PowerHTTP($Value) // STANDBY oder ON
-	{
-		if ($Value == false)
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FSTANDBY&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('Power'), $Value);
-			}
-		else
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutSystem_OnStandby%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('Power'), $Value);
-			}
-		
-	}
-	
-	public function MainZonePowerHTTP($Value) // ON oder OFF
-	{
-		if ($Value == false)
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FOFF&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainZonePower'), $Value);
-			}
-		else
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutZone_OnOff%2FON&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainZonePower'), $Value);
-			}
-		
-	}
-	
-	public function MasterVolume($Value) // "UP" or "DOWN"
-	{
-	 CSCK_SendText($id, "MV".$Value.chr(13));
-	}
-	
 	public function MasterVolumeFix($Value) // Volume direct -80(db) bis 18(db)
 	{
 	 $Value= intval($Value) +80;
@@ -1211,35 +1178,12 @@ class DenonAVRHTTP extends IPSModule
 	 CSCK_SendText($id, "CV".$Value.chr(13));
 	}
 
-	public function MainMute($Value) // "ON" or "OFF"
-	{
-	 CSCK_SendText($id, "MU".$Value.chr(13));
-	}
-	
-	public function MainMuteHTTP($Value) // "ON" or "OFF"
-	{
-		if ($Value == false)
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainMute'), $Value);
-			}
-		else
-			{
-				file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Fon&cmd1=aspMainZone_WebUpdateStatus%2F");
-				SetValueBoolean($this->GetIDForIdent('MainMute'), $Value);
-			}
-	}
-
 	public function Input($Value) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
 	 CSCK_SendText($id, "SI".$Value.chr(13));
 	}
 
-	public function MainZonePower($Value) // MainZone "ON" or "OFF"
-	{
-	  CSCK_SendText($id, "ZM".$Value.chr(13));
-	}
-
+	
 	public function RecSelect($Value) //
 	{
 	 CSCK_SendText($id, "SR".$Value.chr(13)); // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
@@ -1802,25 +1746,29 @@ class DenonAVRHTTP extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				switch ($VarType)
+				if($this->GetIDForIdent($Ident) !== false)
 				{
-					case 0: //Boolean
-						SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;
-					case 1: //Integer
-						SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;
-					case 2: //Float
-						SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;     
-					case 3: //String
-						SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;
-				}	
+					switch ($VarType)
+					{
+						case 0: //Boolean
+							SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;
+						case 1: //Integer
+							SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;
+						case 2: //Float
+							SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;     
+						case 3: //String
+							SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;
+					}	
+				}
+				
 			} 
 		//}	
     }

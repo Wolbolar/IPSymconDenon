@@ -1066,25 +1066,29 @@ class DenonAVRTelnet extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				switch ($VarType)
+				if($this->GetIDForIdent($Ident) !== false)
 				{
-					case 0: //Boolean
-						SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;
-					case 1: //Integer
-						SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;
-					case 2: //Float
-						SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;     
-					case 3: //String
-						SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-						IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
-						break;
-				}	
+					switch ($VarType)
+					{
+						case 0: //Boolean
+							SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;
+						case 1: //Integer
+							SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;
+						case 2: //Float
+							SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;     
+						case 3: //String
+							SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
+							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							break;
+					}		
+				}
+				
 			}
 		/*
 		}
