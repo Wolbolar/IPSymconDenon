@@ -1107,7 +1107,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Mainzone Power
-	public function Power(boolean $Value) // false (Off) oder true (On)
+	public function MainZonePower(boolean $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
