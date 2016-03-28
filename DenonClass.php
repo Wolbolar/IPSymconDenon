@@ -1931,8 +1931,6 @@ class DENON_API_Commands extends stdClass
 	
 	//Zone 2
 	const Z2 = "Z2"; // Zone 2
-	
-	const Z2 = "Z2"; // Zone 2
 	const Z2POWER = "Z2POWER"; // Zone 2 Power Z2 beim Senden
 	const Z2INPUT = "Z2INPUT"; // Zone 2 Input Z2 beim Senden
 	const Z2VOL = "Z2VOL"; // Zone 2 Volume Z2 beim Senden
