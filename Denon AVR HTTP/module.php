@@ -145,7 +145,7 @@ class DenonAVRHTTP extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
-				$DenonAVRVar->ptMainZoneName => false,
+				$DenonAVRVar->ptMainZoneName => true,
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);

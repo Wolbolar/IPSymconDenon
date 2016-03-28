@@ -434,7 +434,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSurroundMode => array(
 				"Ident" => DENON_API_Commands::MS,
 				"Name" => "Surround Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 15, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 15, 0, 0),
 				"Associations" => Array(
 				Array(0, "Direct",  "", -1),
 				Array(1, "Pure Direct",  "", -1),
@@ -1295,12 +1295,13 @@ class DENON_StatusHTML extends stdClass
 
 
 		//TopMenuLink
+		/*
 		$TopMenuLink = $xml->xpath('.//TopMenuLink');
 		if ($TopMenuLink)
 		{
 			$data['TopMenuLink'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$TopMenuLink[0]->value, 'Subcommand' => 'TopMenu Link');
 		}
-
+		*/
 
 		//ModelId
 		/*
@@ -1458,12 +1459,13 @@ class DENON_StatusHTML extends stdClass
 	{
 		
 		//RestorerMode
+		/*
 		$RestorerMode = $xml->xpath('.//RestorerMode');
 		if ($RestorerMode)
 		{
 			$data[DENON_API_Commands::PSRSTR] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Subcommand' => 'Audio Restorer');
 		}
-
+		*/
 
 		//SurrMode
 		$SurrMode = $xml->xpath('.//SurrMode');
