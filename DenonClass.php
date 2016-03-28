@@ -235,10 +235,10 @@ class DENONIPSProfiles extends stdClass
 		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile)),
 		);
 		$profilesZone2 = array (
-		$this->ptMainZoneName => array("MainZoneName", "MainZoneName", "~String", $this->getpos($profile)),
+		$this->ptZone2Name => array("Zone2Name", "Zone2Name", "~String", $this->getpos($profile)),
 		);
 		$profilesZone3 = array (
-		$this->ptMainZoneName => array("MainZoneName", "MainZoneName", "~String", $this->getpos($profile)),
+		$this->ptZone3Name => array("Zone3Name", "Zone3Name", "~String", $this->getpos($profile)),
 		);
 
 		if($this->Zone == 0)
@@ -2692,7 +2692,7 @@ class DenonAVRCP_API_Data extends stdClass
 					),
 					//Zone 2
 					//Zone 2 Input Source
-					DENON_API_Commands::Z2
+					DENON_API_Commands::Z2INPUT
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
 						"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
@@ -2712,7 +2712,7 @@ class DenonAVRCP_API_Data extends stdClass
 					),
 					//Zone 3
 					//Zone 3 Input Source
-					DENON_API_Commands::Z3
+					DENON_API_Commands::Z3INPUT
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
 						"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
