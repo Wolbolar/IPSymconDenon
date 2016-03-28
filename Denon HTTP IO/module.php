@@ -27,8 +27,8 @@ class DenonAVRIOHTTP extends IPSModule
         $change = false;
 
 		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        //$this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-        //IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
+        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
+        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
         //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
@@ -104,7 +104,7 @@ class DenonAVRIOHTTP extends IPSModule
 	 
 		// Empfangene Daten von der Splitter Instanz
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode($data->Buffer));
+		
 	 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
@@ -112,8 +112,9 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 			// Absenden an Denon AVR
 		
-			//SetValue($this->GetIDForIdent("BufferIN"), $data->Buffer);
-		
+			SetValue($this->GetIDForIdent("CommandOut"), json_encode($data->Buffer));
+			IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode(json_encode($data->Buffer)));
+			
 			$command = $data->Buffer;
 			$this->SendCommand ($command);
 		}

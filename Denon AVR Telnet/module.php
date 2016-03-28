@@ -208,8 +208,13 @@ class DenonAVRTelnet extends IPSModule
 	
 			
 			//Variablen
-			$DenonAVRVar->DenonIP = $this->GetIPDenon();
-			$this->InputSources = $DenonAVRVar->GetInputSources();
+			if ($this->GetIPDenon() !== false)
+			{
+				$DenonAVRVar->DenonIP = $this->GetIPDenon();
+				$this->InputSources = $DenonAVRVar->GetInputSources();
+			}
+			
+			
 			
 			
 			//String
@@ -1121,7 +1126,16 @@ class DenonAVRTelnet extends IPSModule
 	protected function GetIPDenon(){
 		$ParentID = $this->GetParent();
 		$IPDenon = IPS_GetProperty($ParentID, 'Host');
-		return $IPDenon;
+			
+		if (!filter_var($IPDenon, FILTER_VALIDATE_IP) === false)
+		{
+			return $IPDenon;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 	
 	 protected function GetVariable($Ident, $VarType, $VarName, $Profile, $EnableAction)

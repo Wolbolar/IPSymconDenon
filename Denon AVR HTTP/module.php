@@ -130,9 +130,12 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
-			//Variablen						
-			$DenonAVRVar->DenonIP = $this->GetIPDenon();
-			$this->InputSources = $DenonAVRVar->GetInputSources();
+			//Variablen
+			if ($this->GetIPDenon() !== false)
+			{
+				$DenonAVRVar->DenonIP = $this->GetIPDenon();
+				$this->InputSources = $DenonAVRVar->GetInputSources();
+			}	
 			
 			//String
 			$vString = array
@@ -1526,7 +1529,14 @@ class DenonAVRHTTP extends IPSModule
 	protected function GetIPDenon(){
 		$ParentID = $this->GetParent();
 		$IPDenon = IPS_GetProperty($ParentID, 'Host');
-		return $IPDenon;
+		if (!filter_var($IPDenon, FILTER_VALIDATE_IP) === false)
+		{
+			return $IPDenon;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	
