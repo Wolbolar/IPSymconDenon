@@ -33,8 +33,13 @@
             [
                 {
                     "type": "Button",
-                    "label": "Power",
-                    "onClick": "DAVRH_Power($id);"
+                    "label": "Power On",
+                    "onClick": "DAVRH_Power($id, true);"
+                },
+				{
+                    "type": "Button",
+                    "label": "Power Off",
+                    "onClick": "DAVRH_Power($id, false);"
                 }
             ],
     "status":
