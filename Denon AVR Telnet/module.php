@@ -89,8 +89,6 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('VerticalStretch', false);
 		$this->RegisterPropertyBoolean('DolbyVolume', false);
 		$this->RegisterPropertyBoolean("Model", false);
-		$this->RegisterPropertyBoolean("Model2", false);
-		$this->RegisterPropertyBoolean("Model3", false);
 		$this->RegisterPropertyBoolean("Z2CVFL", false);
 		$this->RegisterPropertyBoolean("Z2CVFR", false);
 		$this->RegisterPropertyBoolean("Z2HPF", false);
@@ -367,7 +365,7 @@ class DenonAVRTelnet extends IPSModule
 				(
 				$DenonAVRVar->ptZone2Name => $this->ReadPropertyBoolean('ZoneName'),
 				//$DenonAVRVar->ptTopMenuLink => false,
-				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model2')
+				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model')
 				);
 			
 			//Boolean
@@ -444,7 +442,7 @@ class DenonAVRTelnet extends IPSModule
 				(
 				$DenonAVRVar->ptZone3Name => $this->ReadPropertyBoolean('ZoneName'),
 				//$DenonAVRVar->ptTopMenuLink => false,
-				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model3')
+				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model')
 				);
 			
 			//Boolean

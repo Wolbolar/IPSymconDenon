@@ -343,12 +343,14 @@ class DENONIPSProfiles extends stdClass
 		);
 		
 		$profilesZone2 = array (
+		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", $this->getpos($profile)),
 		$this->ptZone2Power => array(DENON_API_Commands::Z2POWER, "Zone 2 Power", "~Switch", $this->getpos($profile)),
 		$this->ptZone2Mute => array(DENON_API_Commands::Z2MU, "Zone 2 Mute", "~Switch", $this->getpos($profile)),
 		$this->ptZone2HPF => array(DENON_API_Commands::Z2HPF, "Zone 2 HPF", "~Switch", $this->getpos($profile))
 		);
 		
 		$profilesZone3 = array (
+		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", $this->getpos($profile)),
 		$this->ptZone3Power => array(DENON_API_Commands::Z3POWER, "Zone 3 Power", "~Switch", $this->getpos($profile)),
 		$this->ptZone3Mute => array(DENON_API_Commands::Z3MU, "Zone 3 Mute", "~Switch", $this->getpos($profile)),
 		$this->ptZone3HPF => array(DENON_API_Commands::Z3HPF, "Zone 3 HPF", "~Switch", $this->getpos($profile))
