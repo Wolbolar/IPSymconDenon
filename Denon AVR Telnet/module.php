@@ -346,9 +346,8 @@ class DenonAVRTelnet extends IPSModule
 			//String
 			$vString = array
 				(
-				$DenonAVRVar->ptFriendlyName => false,
 				$DenonAVRVar->ptZone2Name => $this->ReadPropertyBoolean('ZoneName'),
-				$DenonAVRVar->ptTopMenuLink => false,
+				//$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
 			
@@ -418,9 +417,8 @@ class DenonAVRTelnet extends IPSModule
 			//String
 			$vString = array
 				(
-				$DenonAVRVar->ptFriendlyName => false,
 				$DenonAVRVar->ptZone3Name => $this->ReadPropertyBoolean('ZoneName'),
-				$DenonAVRVar->ptTopMenuLink => false,
+				//$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
 			

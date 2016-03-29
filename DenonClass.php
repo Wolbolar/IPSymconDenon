@@ -234,7 +234,7 @@ class DENONIPSProfiles extends stdClass
 			$UsedInputSourcesZ2 = array
 			(
 			"Ident" => DENON_API_Commands::Z2INPUT,
-			"Name" => "Input Source",
+			"Name" => "Zone 2 Input Source",
 			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
 			);
 			$AssociationsZ2 = array();
@@ -253,7 +253,7 @@ class DENONIPSProfiles extends stdClass
 			$UsedInputSourcesZ3 = array
 			(
 			"Ident" => DENON_API_Commands::Z3INPUT,
-			"Name" => "Input Source",
+			"Name" => "Zone 3 Input Source",
 			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
 			);
 			$AssociationsZ3 = array();
