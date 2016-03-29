@@ -152,7 +152,7 @@ class DENONIPSProfiles extends stdClass
 		{
 			$data = array();
 			$xmlZone2 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
-			if ($xml)
+			if ($xmlZone2)
 					{
 					$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2);
 					return $InputsourcesZ2;	
@@ -167,7 +167,7 @@ class DENONIPSProfiles extends stdClass
 		{
 			$data = array();
 			$xmlZone3 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
-			if ($xml)
+			if ($xmlZone3)
 					{
 					$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3);
 					return $InputsourcesZ3;
