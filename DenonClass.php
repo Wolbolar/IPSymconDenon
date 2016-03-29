@@ -834,6 +834,19 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			*/
+			$this->ptNavigation => array(
+				"Ident" => DENON_API_Commands::MN,
+				"Name" => "Navigation",
+				"Profilesettings" => Array("Move", "", "", 0, 5, 0, 0),
+				"Associations" => array(
+				Array(0, "Left",  "", -1),
+				Array(1, "Down",  "", -1),
+				Array(2, "Up",  "", -1),
+				Array(3, "Right",  "", -1),
+				Array(4, "Enter",  "", -1),
+				Array(5, "Return",  "", -1)
+				)		
+			),
 			$this->ptZone2ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z2CS,
 				"Name" => "Zone 2 Channel Setting",
@@ -891,6 +904,19 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			*/
+			$this->ptNavigation => array(
+				"Ident" => DENON_API_Commands::MN,
+				"Name" => "Navigation",
+				"Profilesettings" => Array("Move", "", "", 0, 5, 0, 0),
+				"Associations" => array(
+				Array(0, "Left",  "", -1),
+				Array(1, "Down",  "", -1),
+				Array(2, "Up",  "", -1),
+				Array(3, "Right",  "", -1),
+				Array(4, "Enter",  "", -1),
+				Array(5, "Return",  "", -1)
+				)		
+			),
 			$this->ptZone3ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z3CS,
 				"Name" => "Zone 3 Channel Setting",
