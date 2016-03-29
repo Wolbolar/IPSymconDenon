@@ -473,7 +473,19 @@ class DenonAVRHTTP extends IPSModule
 		//Inputs anlegen
 		if($this->InputSources !== false)
 		{
-			$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
+			if($DenonAVRVar->Zone == 0)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
+			}
+			elseif($DenonAVRVar->Zone == 1)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone2InputSource);
+			}
+			elseif($DenonAVRVar->Zone == 2)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone3InputSource);
+			}
+			
 			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
 			IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
 			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
@@ -1101,7 +1113,7 @@ class DenonAVRHTTP extends IPSModule
         
     }
 	
-	protected function RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	protected function RegisterProfileFloatDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
 	{
         
         if(!IPS_VariableProfileExists($Name)) {
@@ -1114,6 +1126,7 @@ class DenonAVRHTTP extends IPSModule
         
         IPS_SetVariableProfileIcon($Name, $Icon);
         IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+		IPS_SetVariableProfileDigits($Name, $Digits); //  Nachkommastellen
         IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
         
     }

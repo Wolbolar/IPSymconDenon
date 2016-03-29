@@ -526,7 +526,19 @@ class DenonAVRTelnet extends IPSModule
 		//Inputs anlegen
 		if($this->InputSources !== false)
 		{
-			$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
+			if($DenonAVRVar->Zone == 0)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource);
+			}
+			elseif($DenonAVRVar->Zone == 1)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone2InputSource);
+			}
+			elseif($DenonAVRVar->Zone == 2)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone3InputSource);
+			}
+			
 			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
 			IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
 			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
