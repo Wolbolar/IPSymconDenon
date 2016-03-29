@@ -1130,20 +1130,8 @@ class DenonAVRTelnet extends IPSModule
 	private function UpdateVariable($data)
     {
 		$ResponseType = $data->ResponseType;
-		$Zonedata = $data->Data;
+		$datavalues = $data->Data;
 		$Zone = $this->ReadPropertyInteger('Zone');
-		if($Zone == 0)
-		{
-			$datavalues = $Zonedata->Mainzone;
-		}
-		elseif($Zone == 1)
-		{
-			$datavalues = $Zonedata->Zone2;
-		}
-		elseif($Zone == 2)
-		{
-			$datavalues = $Zonedata->Zone3;
-		}
 		//if($ResponseType == "HTTP")
 		//{
 			
@@ -1204,11 +1192,12 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($data->Buffer));
+		$message = json_encode($data->Buffer->Data);
+		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
 	 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
-		$this->UpdateVariable($data->Buffer);
+		$this->UpdateVariable($data->Buffer->Data);
 	 
 	}	
 
