@@ -1125,6 +1125,36 @@ class DenonAVRTelnet extends IPSModule
 		*/
     }
 	
+	
+	
+	protected function GetParent()
+    {
+        $instance = IPS_GetInstance($this->InstanceID);//array
+		return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;//ConnectionID
+    }
+	
+	//Data Transfer
+	public function SendCommand($payload)
+		{
+			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $payload))); //Denon AVR Telnet Interface GUI
+		}
+	
+	// Daten vom Splitter Instanz
+	public function ReceiveData($JSONString)
+	{
+	 
+		// Empfangene Daten vom Splitter
+		$data = json_decode($JSONString);
+		$message = json_encode($data->Buffer->Data);
+		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
+		$response = json_encode($data->Buffer);
+		SetValueString($this->GetIDForIdent("Response"), $message);
+		// Hier werden die Daten verarbeitet und in Variablen geschrieben
+		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+		$this->UpdateVariable($data->Buffer);
+	 
+	}	
+	
 	// Wertet Response aus und setzt Variable
 	private function UpdateVariable($data)
     {
@@ -1184,34 +1214,6 @@ class DenonAVRTelnet extends IPSModule
 			}
 		
     }
-	
-	protected function GetParent()
-    {
-        $instance = IPS_GetInstance($this->InstanceID);//array
-		return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;//ConnectionID
-    }
-	
-	//Data Transfer
-	public function SendCommand($payload)
-		{
-			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $payload))); //Denon AVR Telnet Interface GUI
-		}
-	
-	// Daten vom Splitter Instanz
-	public function ReceiveData($JSONString)
-	{
-	 
-		// Empfangene Daten vom Splitter
-		$data = json_decode($JSONString);
-		$message = json_encode($data->Buffer->Data);
-		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
-	 
-		// Hier werden die Daten verarbeitet und in Variablen geschrieben
-		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
-		$this->UpdateVariable($data->Buffer);
-	 
-	}	
-
 	
 	//IP Denon 
 	protected function GetIPDenon(){
