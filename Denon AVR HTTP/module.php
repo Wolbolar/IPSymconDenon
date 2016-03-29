@@ -315,6 +315,7 @@ class DenonAVRHTTP extends IPSModule
 			//Integer mit Association
 			$vIntegerAss = array
 				(
+				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
 				 $DenonAVRVar->ptZone2InputSource => true,
 				 $DenonAVRVar->ptZone2ChannelSetting => $this->ReadPropertyBoolean('Z2Channel'),
 				 $DenonAVRVar->ptZone2QuickSelect => $this->ReadPropertyBoolean('Z2Quick')
@@ -388,6 +389,7 @@ class DenonAVRHTTP extends IPSModule
 			//Integer mit Association
 			$vIntegerAss = array
 				(
+				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
 				 $DenonAVRVar->ptZone3InputSource => true,
 				 $DenonAVRVar->ptZone3ChannelSetting => $this->ReadPropertyBoolean('Z3Channel'),
 				 $DenonAVRVar->ptZone3QuickSelect => $this->ReadPropertyBoolean('Z3Quick')

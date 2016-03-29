@@ -274,16 +274,16 @@ class DENONIPSProfiles extends stdClass
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
 		$this->ptFriendlyName => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile)),
-		$this->ptMainZoneName => array("MainZoneName", "MainZoneName", "~String", $this->getpos($profile)),
+		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", "~String", $this->getpos($profile)),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile)),
 		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
 		);
 		$profilesZone2 = array (
-		$this->ptZone2Name => array("Zone2Name", "Zone2Name", "~String", $this->getpos($profile)),
+		$this->ptZone2Name => array("Zone2Name", "Zone2 Name", "~String", $this->getpos($profile)),
 		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
 		);
 		$profilesZone3 = array (
-		$this->ptZone3Name => array("Zone3Name", "Zone3Name", "~String", $this->getpos($profile)),
+		$this->ptZone3Name => array("Zone3Name", "Zone3 Name", "~String", $this->getpos($profile)),
 		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
 		);
 
@@ -1004,7 +1004,7 @@ class DENONIPSProfiles extends stdClass
 		);
 				
 		$profilesZone2 = array(
-		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
+		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 2 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
 		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 1),
 		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone 2 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 1)
 		);
