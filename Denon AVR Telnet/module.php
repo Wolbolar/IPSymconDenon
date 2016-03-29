@@ -1130,11 +1130,29 @@ class DenonAVRTelnet extends IPSModule
 	private function UpdateVariable($data)
     {
 		$ResponseType = $data->ResponseType;
-		$datavalues = $data->Data;
+		
 		$Zone = $this->ReadPropertyInteger('Zone');
-		//if($ResponseType == "HTTP")
-		//{
-			
+		if($ResponseType == "HTTP")
+		{
+			$Zonedata = $data->Data;
+			if($Zone == 0)
+			{
+				$datavalues = $Zonedata->Mainzone;
+			}
+			elseif($Zone == 1)
+			{
+				$datavalues = $Zonedata->Zone2;
+			}
+			elseif($Zone == 2)
+			{
+				$datavalues = $Zonedata->Zone3;
+			}
+		}
+		elseif($ResponseType == "TELNET")
+		{
+			$datavalues = $data->Data;
+		}
+		
 			foreach($datavalues as $Ident => $Values)
 			{
 				$Ident = str_replace(" ", "_", $Ident); //Ident Leerzeichen von Command mit _ ersetzten
@@ -1165,13 +1183,7 @@ class DenonAVRTelnet extends IPSModule
 				}
 				
 			}
-		/*
-		}
-		elseif($ResponseType == "TELNET")
-		{
-			
-		}
-		*/
+		
     }
 	
 	protected function GetParent()
