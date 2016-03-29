@@ -348,6 +348,7 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptZone2Sleep = 'DENON.'.$DenonAVRVar->Type.'.Zone2Sleep';
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
+			$DenonAVRVar->ptNavigation = "DENON.".$DenonAVRVar->Type.".Navigation";
 			
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
@@ -422,6 +423,7 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptZone3Sleep = 'DENON.'.$DenonAVRVar->Type.'.Zone3Sleep';
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
+			$DenonAVRVar->ptNavigation = "DENON.".$DenonAVRVar->Type.".Navigation";
 			
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
