@@ -1272,12 +1272,7 @@ class DENON_StatusHTML extends stdClass
 				exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
 				}	
 			
-			$datasend = array(
-			'ResponseType' => 'HTTP',
-			'Data' => $data
-			);
-			
-			return $datasend;		
+					
 			
 		}
 		elseif ($Zone == 1) // Zone 2
@@ -1294,8 +1289,7 @@ class DENON_StatusHTML extends stdClass
 				else
 					{
 					exit("Datei ".$xml." konnte nicht geöffnet werden.");
-					}
-			return $data; 		
+					}		
 		}
 		elseif ($Zone == 2) // Zone 3
 		{
@@ -1312,8 +1306,14 @@ class DENON_StatusHTML extends stdClass
 					{
 					exit("Datei ".$xml." konnte nicht geöffnet werden.");
 					}
-			return $data;
 		}
+		
+		$datasend = array(
+			'ResponseType' => 'HTTP',
+			'Data' => $data
+			);
+			
+			return $datasend;
 	}
 	
 	protected function MainZoneXml($xml, $data)
