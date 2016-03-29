@@ -665,7 +665,7 @@ class DenonAVRHTTP extends IPSModule
 		*/
 				
 		$APIData = new DenonAVRCP_API_Data();
-		$APIData->APICommand = $Command;
+		$APIData->APIIdent = $Ident;
         $APIData->Data = $Value;
         //Prüfen ob Command vorhanden
 		/*
@@ -676,6 +676,7 @@ class DenonAVRHTTP extends IPSModule
             return false;
         }
 		*/
+		
         // Subcommand holen
         $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APICommand, $APIData->Data);
         IPS_LogMessage('Denon Subcommand', $APIData->APISubCommand);
