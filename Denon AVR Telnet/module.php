@@ -1209,7 +1209,7 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
-		$this->UpdateVariable($data->Buffer->Data);
+		$this->UpdateVariable($data->Buffer);
 	 
 	}	
 
