@@ -336,6 +336,7 @@ class DenonAVRTelnet extends IPSModule
 			//Type und Zone
 			$DenonAVRVar->Type = $Type;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRVar->ptMainZonePower = 'DENON.'.$DenonAVRVar->Type.'.MainZonePower';
 			$DenonAVRVar->ptZone2Power = 'DENON.'.$DenonAVRVar->Type.'.Zone2Power';
 			$DenonAVRVar->ptZone2Mute = 'DENON.'.$DenonAVRVar->Type.'.Zone2Mute';
 			$DenonAVRVar->ptZone2Volume = 'DENON.'.$DenonAVRVar->Type.'.Zone2Volume';
@@ -372,6 +373,7 @@ class DenonAVRTelnet extends IPSModule
 			//Boolean
 			$vBoolean = array
 				(
+				$DenonAVRVar->ptMainZonePower => true,
 				$DenonAVRVar->ptZone2Power => true,
 				$DenonAVRVar->ptZone2Mute => true,
 				$DenonAVRVar->ptZone2HPF => $this->ReadPropertyBoolean('Z2HPF')
@@ -411,6 +413,7 @@ class DenonAVRTelnet extends IPSModule
 			//Type und Zone
 			$DenonAVRVar->Type = $Type;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRVar->ptMainZonePower = 'DENON.'.$DenonAVRVar->Type.'.MainZonePower';
 			$DenonAVRVar->ptZone3Power = 'DENON.'.$DenonAVRVar->Type.'.Zone3Power';
 			$DenonAVRVar->ptZone3Mute = 'DENON.'.$DenonAVRVar->Type.'.Zone3Mute';
 			$DenonAVRVar->ptZone3Volume = 'DENON.'.$DenonAVRVar->Type.'.Zone3Volume';
@@ -447,6 +450,7 @@ class DenonAVRTelnet extends IPSModule
 			//Boolean
 			$vBoolean = array
 				(
+				$DenonAVRVar->ptMainZonePower => true,
 				$DenonAVRVar->ptZone3Power => true,
 				$DenonAVRVar->ptZone3Mute => true,
 				$DenonAVRVar->ptZone3HPF => $this->ReadPropertyBoolean('Z3HPF')
