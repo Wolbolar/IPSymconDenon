@@ -134,19 +134,15 @@ class DenonAVRIOHTTP extends IPSModule
 		$DenonStatus = new DENON_StatusHTML;
 		$ipdenon = $this->ReadPropertyString("Host");
 		$DenonStatus->ipdenon = $ipdenon;
-		//Zone auslesen
-		$Zone = 0;
-		$data = $DenonStatus->getStates ($Zone);
+		
+		$data = $DenonStatus->getStates ();
 		//Valuewert für Variable übergeben
-		$JSONString = json_encode($data);
-		$this->SendJSON($JSONString);
+		$this->SendJSON($data);
 		return $data;
 	}
 	
-	protected function SendJSON ($JSONString)
+	protected function SendJSON ($data)
 	{
-		$data = json_decode($JSONString);
-		
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "Buffer" => $data))); //Denon I/O HTTP RX GUI
 	}

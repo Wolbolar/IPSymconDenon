@@ -161,10 +161,7 @@ class DenonSplitterTelnet extends IPSModule
 		$DenonStatus = new DENON_StatusHTML;
 		$ipdenon = $this->ReadPropertyString("Host");
 		$DenonStatus->ipdenon = $ipdenon;
-		//Zone auslesen
-		$Zone = 0;
-		$data = $DenonStatus->getStates ($Zone);
-		//Valuewert für Variable übergeben
+		$data = $DenonStatus->getStates ();
 		
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI

@@ -1806,10 +1806,24 @@ class DenonAVRHTTP extends IPSModule
 	// Wertet Response aus und setzt Variable
 	private function UpdateVariable($data)
     {
-       $ResponseType = $data->ResponseType;
+		$ResponseType = $data->ResponseType;
+		$Zonedata = $data->Data;
+		$Zone = $this->ReadPropertyInteger('Zone');
+		if($Zone == 0)
+		{
+			$datavalues = $Zonedata->Mainzone;
+		}
+		elseif($Zone == 1)
+		{
+			$datavalues = $Zonedata->Zone2;
+		}
+		elseif($Zone == 2)
+		{
+			$datavalues = $Zonedata->Zone3;
+		}
 	   //if($ResponseType == "HTTP")
 	   //{
-			$datavalues = $data->Data;
+			
 			foreach($datavalues as $Ident => $Values)
 			{
 				$Ident = str_replace(" ", "_", $Ident); //Ident Leerzeichen von Command mit _ ersetzten
