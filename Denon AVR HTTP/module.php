@@ -276,7 +276,7 @@ class DenonAVRHTTP extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
-				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
+				$DenonAVRVar->ptZone2Name => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
@@ -348,7 +348,7 @@ class DenonAVRHTTP extends IPSModule
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
-				$DenonAVRVar->ptMainZoneName => false,
+				$DenonAVRVar->ptZone3Name => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => true
 				);
