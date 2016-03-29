@@ -1271,16 +1271,7 @@ class DENON_StatusHTML extends stdClass
 			exit("Datei ".$xmlDeviceinfo." konnte nicht geöffnet werden.");
 			}
 			
-		$xmlDeviceSearch = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formiPhoneAppDeviceSearch.xml"));
-				
-		if ($xmlDeviceSearch)
-			{
-			$DataMain = $this->DeviceSearch($xmlDeviceSearch, $DataMain);
-			}
-		else
-			{
-			exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
-			}	
+		
 		
 		 // Zone 2
 		
@@ -1293,7 +1284,8 @@ class DENON_StatusHTML extends stdClass
 		else
 			{
 			exit("Datei ".$xml." konnte nicht geöffnet werden.");
-			}		
+			}
+				
 		
 		// Zone 3
 		
@@ -1308,6 +1300,19 @@ class DENON_StatusHTML extends stdClass
 			exit("Datei ".$xml." konnte nicht geöffnet werden.");
 			}
 		
+		//Model
+		$xmlDeviceSearch = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formiPhoneAppDeviceSearch.xml"));
+				
+		if ($xmlDeviceSearch)
+			{
+			$DataMain = $this->DeviceSearch($xmlDeviceSearch, $DataMain);
+			$DataZ2 = $this->DeviceSearch($xmlDeviceSearch, $DataZ2);
+			$DataZ3 = $this->DeviceSearch($xmlDeviceSearch, $DataZ3);
+			}
+		else
+			{
+			exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
+			}	
 		
 		$datasend = array(
 			'ResponseType' => 'HTTP',
