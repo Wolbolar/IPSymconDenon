@@ -201,9 +201,6 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptDolbyVolume = "DENON.".$DenonAVRVar->Type.".DolbyVolume";
 			$DenonAVRVar->ptFriendlyName = "DENON.".$DenonAVRVar->Type.".FriendlyName";
 			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
-			$DenonAVRVar->ptZone2Name = "DENON.".$DenonAVRVar->Type.".Zone2Name";
-			
-			$DenonAVRVar->ptZone3Name = "DENON.".$DenonAVRVar->Type.".Zone3Name";
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
@@ -215,7 +212,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($Zone);
+				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'));
 			}
 			else
 			{
@@ -332,8 +329,19 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptZone2ChannelVolumeFL = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelVolumeFL';
 			$DenonAVRVar->ptZone2ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone2ChannelVolumeFR';
 			$DenonAVRVar->ptZone2QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone2QuickSelect';
+			$DenonAVRVar->ptZone2Name = "DENON.".$DenonAVRVar->Type.".Zone2Name";
+			$DenonAVRVar->ptZone2Sleep = 'DENON.'.$DenonAVRVar->Type.'.Zone2Sleep';
 			
-			//Variablen						
+			//Variablen
+			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			{
+				$DenonAVRVar->DenonIP = $this->GetIPDenon();
+				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'));
+			}
+			else
+			{
+				$this->InputSources = false;
+			}	
 			
 			//String
 			$vString = array
@@ -355,7 +363,7 @@ class DenonAVRTelnet extends IPSModule
 			//Integer
 			$vInteger = array
 				(
-				$DenonAVRVar->ptSleepZ2 => true
+				$DenonAVRVar->ptZone2Sleep => true
 				);
 			
 			//Integer mit Association
@@ -393,8 +401,19 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptZone3ChannelVolumeFL = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFL';
 			$DenonAVRVar->ptZone3ChannelVolumeFR = 'DENON.'.$DenonAVRVar->Type.'.Zone3ChannelVolumeFR';
 			$DenonAVRVar->ptZone3QuickSelect = 'DENON.'.$DenonAVRVar->Type.'.Zone3QuickSelect';
+			$DenonAVRVar->ptZone3Name = "DENON.".$DenonAVRVar->Type.".Zone3Name";
+			$DenonAVRVar->ptZone3Sleep = 'DENON.'.$DenonAVRVar->Type.'.Zone3Sleep';
 			
-			//Variablen						
+			//Variablen
+			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			{
+				$DenonAVRVar->DenonIP = $this->GetIPDenon();
+				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'));
+			}
+			else
+			{
+				$this->InputSources = false;
+			}		
 	
 			//String
 			$vString = array
@@ -416,7 +435,7 @@ class DenonAVRTelnet extends IPSModule
 			//Integer
 			$vInteger = array
 				(
-				$DenonAVRVar->ptSleepZ3 => true
+				$DenonAVRVar->ptZone3Sleep => true
 				);
 			
 			//Integer mit Association

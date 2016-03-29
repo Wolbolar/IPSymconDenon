@@ -66,7 +66,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptZone2ChannelVolumeFL;
 	public $ptZone2ChannelVolumeFR;
 	public $ptZone2QuickSelect;
-	public $ptSleepZ2;
+	public $ptZone2Sleep;
 	public $ptZone3Power;
 	public $ptZone3Mute;
 	public $ptZone3HPF;
@@ -76,7 +76,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptZone3ChannelVolumeFL;
 	public $ptZone3ChannelVolumeFR;
 	public $ptZone3QuickSelect;
-	public $ptSleepZ3;
+	public $ptZone3Sleep;
 	public $ptChannelVolumeFL;
 	public $ptChannelVolumeFR;
 	public $ptChannelVolumeC;
@@ -398,11 +398,11 @@ class DENONIPSProfiles extends stdClass
 		);
 		
 		$profilesZone2 = array(
-        $this->ptSleepZ2 => array(DENON_API_Commands::Z2SLP, "Sleep Zone 2", "Intensity",  "", " Min", 0, 120, 10, 0)
+        $this->ptZone2Sleep => array(DENON_API_Commands::Z2SLP, "Sleep Zone 2", "Intensity",  "", " Min", 0, 120, 10, 0)
 		);
 		
 		$profilesZone3 = array(
-        $this->ptSleepZ3 => array(DENON_API_Commands::Z3SLP, "Sleep Zone 3", "Intensity",  "", " Min", 0, 120, 10, 0)
+        $this->ptZone3Sleep => array(DENON_API_Commands::Z3SLP, "Sleep Zone 3", "Intensity",  "", " Min", 0, 120, 10, 0)
 		);
 		
 		if($this->Zone == 0)
@@ -970,7 +970,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainzone = array(
-		$this->ptMasterVolume => array(DENON_API_Commands::MV, "Master Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptMasterVolume => array(DENON_API_Commands::MV, "Master Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
 		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "Channel Volume Front Left", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "Channel Volume Front Right", "Intensity", "", " dB", -12, 12, 1.0, 0),
 		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "Channel Volume Center", "Intensity", "", " dB", -12, 12, 1.0, 0),
@@ -1002,13 +1002,13 @@ class DENONIPSProfiles extends stdClass
 		);
 				
 		$profilesZone2 = array(
-		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
 		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
 		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone 2 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
 		);
 		
 		$profilesZone3 = array(
-		$this->ptZone3Volume => array(DENON_API_Commands::Z3VOL, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 0),
+		$this->ptZone3Volume => array(DENON_API_Commands::Z3VOL, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
 		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 0),
 		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 0)
 		);
@@ -1164,6 +1164,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptZone2QuickSelect => 208,
 							$this->ptZone2HPF => 209,
 							$this->ptZone2Name => 210,
+							$this->ptZone2Sleep => 211,
 							
 							$this->ptZone3Power => 300,
 							$this->ptZone3Mute => 301,
@@ -1174,7 +1175,8 @@ class DENONIPSProfiles extends stdClass
 							$this->ptZone3ChannelVolumeFR => 306,
 							$this->ptZone3QuickSelect => 307,
 							$this->ptZone3HPF => 308,
-							$this->ptZone3Name => 309
+							$this->ptZone3Name => 309,
+							$this->ptZone3Sleep => 310
 
 						);
 		foreach($positions as $ptName => $position)
