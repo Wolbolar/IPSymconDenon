@@ -43,7 +43,6 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('QuickSelect', false);
 		$this->RegisterPropertyBoolean('Sleep', false);
 		$this->RegisterPropertyBoolean('DigitalInputMode', false);
-		$this->RegisterPropertyBoolean('SurroundMode', false);
 		$this->RegisterPropertyBoolean('SurroundPlayMode', false);
 		$this->RegisterPropertyBoolean('MultiEQMode', false);
 		$this->RegisterPropertyBoolean('AudioRestorer', false);
@@ -273,10 +272,10 @@ class DenonAVRTelnet extends IPSModule
 			$vIntegerAss = array
 				(
 				 //$DenonAVRVar->ptInputSource => true,
+				 $DenonAVRVar->ptSurroundMode => true,
 				 $DenonAVRVar->ptNavigation => $this->ReadPropertyBoolean('Navigation'),
 				 $DenonAVRVar->ptQuickSelect => $this->ReadPropertyBoolean('QuickSelect'),
 				 $DenonAVRVar->ptDigitalInputMode => $this->ReadPropertyBoolean('DigitalInputMode'),
-				 $DenonAVRVar->ptSurroundMode => $this->ReadPropertyBoolean('SurroundMode'),
 				 $DenonAVRVar->ptSurroundPlayMode => $this->ReadPropertyBoolean('SurroundPlayMode'),
 				 $DenonAVRVar->ptMultiEQMode => $this->ReadPropertyBoolean('MultiEQMode'),
 				 $DenonAVRVar->ptAudioRestorer => $this->ReadPropertyBoolean('AudioRestorer'),

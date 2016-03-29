@@ -29,10 +29,10 @@ class DenonSplitterTelnet extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
-		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        //$this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-        //IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
-        //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
+        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
+        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
+        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 	
 		//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
@@ -162,7 +162,8 @@ class DenonSplitterTelnet extends IPSModule
 		$ipdenon = $this->ReadPropertyString("Host");
 		$DenonStatus->ipdenon = $ipdenon;
 		$data = $DenonStatus->getStates ();
-		
+		$message = json_encode($data);
+		SetValueString($this->GetIDForIdent("BufferIN"), $message);
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
 		

@@ -62,7 +62,6 @@
 				{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },
 				{ "type": "CheckBox", "name": "Sleep", "caption": "Sleep" },
 				{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital InputMode" },
-				{ "type": "CheckBox", "name": "SurroundMode", "caption": "Surround Mode" },
 				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
 				{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },
 				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },
