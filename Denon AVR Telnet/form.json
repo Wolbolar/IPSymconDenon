@@ -31,6 +31,7 @@
 				
 				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
 				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen" },
+				{ "type": "Label", "label": "Main Zone:" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
 				{ "type": "Label", "label": "Lautsprecher:" },
 				{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
@@ -102,7 +103,24 @@
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
 				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
 				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
-				{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" }
+				{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" },
+				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen" },
+				{ "type": "Label", "label": "Zone 2:" },
+				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen" },
+				{ "type": "CheckBox", "name": "Z2CVFL", "caption": "Channel Volume Front Left" },
+				{ "type": "CheckBox", "name": "Z2CVFR", "caption": "Channel Volume Front Right" },
+				{ "type": "CheckBox", "name": "Z2HPF", "caption": "Zone 2 HPF" },
+				{ "type": "CheckBox", "name": "Z2Sleep", "caption": "Zone 2 Sleep" },
+				{ "type": "CheckBox", "name": "Z2Channel", "caption": "Zone 2 Channel Setting" },
+				{ "type": "CheckBox", "name": "Z2Quick", "caption": "Zone 2 Quick Selection" },
+				{ "type": "Label", "label": "Zone 3:" },
+				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen" },
+				{ "type": "CheckBox", "name": "Z3CVFL", "caption": "Channel Volume Front Left" },
+				{ "type": "CheckBox", "name": "Z3CVFR", "caption": "Channel Volume Front Right" },
+				{ "type": "CheckBox", "name": "Z3HPF", "caption": "Zone 3 HPF" },
+				{ "type": "CheckBox", "name": "Z3Sleep", "caption": "Zone 3 Sleep" },
+				{ "type": "CheckBox", "name": "Z3Channel", "caption": "Zone 3 Channel Setting" },
+				{ "type": "CheckBox", "name": "Z3Quick", "caption": "Zone 3 Quick Selection" }
 						
             ],
     "actions":

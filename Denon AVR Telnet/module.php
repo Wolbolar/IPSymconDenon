@@ -88,6 +88,19 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('PLIIZHeightGain', false);
 		$this->RegisterPropertyBoolean('VerticalStretch', false);
 		$this->RegisterPropertyBoolean('DolbyVolume', false);
+		$this->RegisterPropertyBoolean("Model", false);
+		$this->RegisterPropertyBoolean("Z2CVFL", false);
+		$this->RegisterPropertyBoolean("Z2CVFR", false);
+		$this->RegisterPropertyBoolean("Z2HPF", false);
+		$this->RegisterPropertyBoolean("Z2Sleep", false);
+		$this->RegisterPropertyBoolean("Z2Channel", false);
+		$this->RegisterPropertyBoolean("Z2Quick", false);
+		$this->RegisterPropertyBoolean("Z3CVFL", false);
+		$this->RegisterPropertyBoolean("Z3CVFR", false);
+		$this->RegisterPropertyBoolean("Z3HPF", false);
+		$this->RegisterPropertyBoolean("Z3Sleep", false);
+		$this->RegisterPropertyBoolean("Z3Channel", false);
+		$this->RegisterPropertyBoolean("Z3Quick", false);
 		
 
     }
@@ -227,7 +240,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptFriendlyName => false,
 				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
-				$DenonAVRVar->ptModel => true
+				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model')
 				);
 			
 			//Boolean
@@ -350,7 +363,7 @@ class DenonAVRTelnet extends IPSModule
 				(
 				$DenonAVRVar->ptZone2Name => $this->ReadPropertyBoolean('ZoneName'),
 				//$DenonAVRVar->ptTopMenuLink => false,
-				$DenonAVRVar->ptModel => true
+				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model')
 				);
 			
 			//Boolean
@@ -358,21 +371,21 @@ class DenonAVRTelnet extends IPSModule
 				(
 				$DenonAVRVar->ptZone2Power => true,
 				$DenonAVRVar->ptZone2Mute => true,
-				$DenonAVRVar->ptZone2HPF => true
+				$DenonAVRVar->ptZone2HPF => $this->ReadPropertyBoolean('Z2HPF')
 				);
 				
 			//Integer
 			$vInteger = array
 				(
-				$DenonAVRVar->ptZone2Sleep => true
+				$DenonAVRVar->ptZone2Sleep => $this->ReadPropertyBoolean('Z2Sleep')
 				);
 			
 			//Integer mit Association
 			$vIntegerAss = array
 				(
 				 $DenonAVRVar->ptZone2InputSource => true,
-				 $DenonAVRVar->ptZone2ChannelSetting => true,
-				 $DenonAVRVar->ptZone2QuickSelect => true
+				 $DenonAVRVar->ptZone2ChannelSetting => $this->ReadPropertyBoolean('Z2Channel'),
+				 $DenonAVRVar->ptZone2QuickSelect => $this->ReadPropertyBoolean('Z2Quick')
 				);
 				
 			//Float
@@ -380,8 +393,8 @@ class DenonAVRTelnet extends IPSModule
 				(
 				//Lautsprecher
 				$DenonAVRVar->ptZone2Volume => true,
-				$DenonAVRVar->ptZone2ChannelVolumeFL => true,
-				$DenonAVRVar->ptZone2ChannelVolumeFR => true
+				$DenonAVRVar->ptZone2ChannelVolumeFL => $this->ReadPropertyBoolean('Z2CVFL'),
+				$DenonAVRVar->ptZone2ChannelVolumeFR => $this->ReadPropertyBoolean('Z2CVFR')
 				);
 			
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
@@ -423,7 +436,7 @@ class DenonAVRTelnet extends IPSModule
 				(
 				$DenonAVRVar->ptZone3Name => $this->ReadPropertyBoolean('ZoneName'),
 				//$DenonAVRVar->ptTopMenuLink => false,
-				$DenonAVRVar->ptModel => true
+				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model')
 				);
 			
 			//Boolean
@@ -431,21 +444,21 @@ class DenonAVRTelnet extends IPSModule
 				(
 				$DenonAVRVar->ptZone3Power => true,
 				$DenonAVRVar->ptZone3Mute => true,
-				$DenonAVRVar->ptZone3HPF => true
+				$DenonAVRVar->ptZone3HPF => $this->ReadPropertyBoolean('Z3HPF')
 				);
 				
 			//Integer
 			$vInteger = array
 				(
-				$DenonAVRVar->ptZone3Sleep => true
+				$DenonAVRVar->ptZone3Sleep => $this->ReadPropertyBoolean('Z3Sleep')
 				);
 			
 			//Integer mit Association
 			$vIntegerAss = array
 				(
 				 $DenonAVRVar->ptZone3InputSource => true,
-				 $DenonAVRVar->ptZone3ChannelSetting => true,
-				 $DenonAVRVar->ptZone3QuickSelect => true
+				 $DenonAVRVar->ptZone3ChannelSetting => $this->ReadPropertyBoolean('Z3Channel'),
+				 $DenonAVRVar->ptZone3QuickSelect => $this->ReadPropertyBoolean('Z3Quick')
 				);
 				
 			//Float
@@ -453,8 +466,8 @@ class DenonAVRTelnet extends IPSModule
 				(
 				//Lautsprecher
 				$DenonAVRVar->ptZone3Volume => true,
-				$DenonAVRVar->ptZone3ChannelVolumeFL => true,
-				$DenonAVRVar->ptZone3ChannelVolumeFR => true
+				$DenonAVRVar->ptZone3ChannelVolumeFL => $this->ReadPropertyBoolean('Z3CVFL'),
+				$DenonAVRVar->ptZone3ChannelVolumeFR => $this->ReadPropertyBoolean('Z3CVFR')
 				);
 			
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
