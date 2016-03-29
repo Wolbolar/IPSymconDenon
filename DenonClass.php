@@ -276,13 +276,15 @@ class DENONIPSProfiles extends stdClass
 		$this->ptFriendlyName => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile)),
 		$this->ptMainZoneName => array("MainZoneName", "MainZoneName", "~String", $this->getpos($profile)),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile)),
-		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile)),
+		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
 		);
 		$profilesZone2 = array (
 		$this->ptZone2Name => array("Zone2Name", "Zone2Name", "~String", $this->getpos($profile)),
+		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
 		);
 		$profilesZone3 = array (
 		$this->ptZone3Name => array("Zone3Name", "Zone3Name", "~String", $this->getpos($profile)),
+		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
 		);
 
 		if($this->Zone == 0)
