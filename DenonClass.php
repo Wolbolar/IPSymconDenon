@@ -133,23 +133,54 @@ class DENONIPSProfiles extends stdClass
 	public $UsedInputSourcesZ3;
 	public $DenonIP;
 	
-	public function GetInputSources()
+	public function GetInputSources(integer $Zone)
 	{
-		$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml"));
-
-		if ($xmlMainZone)
-			{
-			//echo "Datei wurde gefunden";
-			$Inputsources = $this->ReadInputSources($xmlMainZone);
-			return $Inputsources;
-			}
-		else
-			{
-			exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
-			}
+		if ($Zone == 0) // MainZone
+		{
+			$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml"));
+			if ($xmlMainZone)
+				{
+				$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone);
+				return $Inputsources;
+				}
+			else
+				{
+				exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
+				}
+		}		
+		elseif ($Zone == 1) // Zone 2
+		{
+			$data = array();
+			$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
+			if ($xml)
+					{
+					$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlMainZone);
+					return $InputsourcesZ2;	
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+			return $data; 		
+		}
+		elseif ($Zone == 2) // Zone 3
+		{
+			$data = array();
+			$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
+			if ($xml)
+					{
+					$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlMainZone);
+					return $InputsourcesZ3;
+					}
+				else
+					{
+					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					}
+			return $data;
+		}	
 	}
 
-	protected function ReadInputSources($xml)
+	protected function ReadInputSources($Zone, $xml)
 	{
 		//Inputs
 		$InputFuncList = $xml->xpath('.//InputFuncList');
@@ -178,51 +209,64 @@ class DENONIPSProfiles extends stdClass
 			   }
 		}
 		$MaxValue = ($countUse-1);
-		$UsedInputSources = array(
+		
+		if($Zone == 0)
+		{
+			$UsedInputSources = array
+			(
 			"Ident" => DENON_API_Commands::SI,
 			"Name" => "Input Source",
 			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-		);
-		$Associations = array();
-		foreach ($Inputs as $Value => $Input)
-		{
-		$Input = str_replace(" ", "", $Input);
-		$Associations[] = array(($Value-1), $Input,  "", -1);
+			);
+			$Associations = array();
+			foreach ($Inputs as $Value => $Input)
+			{
+			$Input = str_replace(" ", "", $Input);
+			$Associations[] = array(($Value-1), $Input,  "", -1);
+			}
+			$UsedInputSources["Associations"] = $Associations;
+			
+			$this->UsedInputSources = $UsedInputSources;
+			return $UsedInputSources;
 		}
-		$UsedInputSources["Associations"] = $Associations;
-		
-		$this->UsedInputSources = $UsedInputSources;
-		return $UsedInputSources;
-		
-		$UsedInputSourcesZ2 = array(
+		elseif($Zone == 1)
+		{
+			$UsedInputSourcesZ2 = array
+			(
 			"Ident" => DENON_API_Commands::Z2INPUT,
 			"Name" => "Input Source",
 			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-		);
-		$AssociationsZ2 = array();
-		foreach ($Inputs as $Value => $Input)
-		{
-		$Input = str_replace(" ", "", $Input);
-		$AssociationsZ2[] = array(($Value-1), $Input,  "", -1);
+			);
+			$AssociationsZ2 = array();
+			foreach ($Inputs as $Value => $Input)
+			{
+			$Input = str_replace(" ", "", $Input);
+			$AssociationsZ2[] = array(($Value-1), $Input,  "", -1);
+			}
+			$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
+			
+			$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
+			return $UsedInputSourcesZ2;
 		}
-		$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
-		
-		$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
-		
-		$UsedInputSourcesZ3 = array(
+		elseif($Zone == 2)
+		{
+			$UsedInputSourcesZ3 = array
+			(
 			"Ident" => DENON_API_Commands::Z3INPUT,
 			"Name" => "Input Source",
 			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-		);
-		$AssociationsZ3 = array();
-		foreach ($Inputs as $Value => $Input)
-		{
-		$Input = str_replace(" ", "", $Input);
-		$AssociationsZ3[] = array(($Value-1), $Input,  "", -1);
+			);
+			$AssociationsZ3 = array();
+			foreach ($Inputs as $Value => $Input)
+			{
+			$Input = str_replace(" ", "", $Input);
+			$AssociationsZ3[] = array(($Value-1), $Input,  "", -1);
+			}
+			$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
+			
+			$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
+			return $UsedInputSourcesZ3;
 		}
-		$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
-		
-		$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
 	}	
 
 	public function SetupVarDenonString($profile)

@@ -134,10 +134,10 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false)
+			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources();
+				$this->InputSources = $DenonAVRVar->GetInputSources($Zone);
 			}
 			else
 			{
