@@ -3291,6 +3291,7 @@ class DenonAVRCP_API_Data extends stdClass
 		$datavalues = array();
 		foreach($data as $key => $response)
 			{
+				$response = str_replace(" ", "_", $response); //Ident Leerzeichen von Command mit _ ersetzten
 				foreach($this->VarMapping as $Command => $ValMap)
 				{
 					$pos = stripos($response, $Command);
@@ -3304,7 +3305,7 @@ class DenonAVRCP_API_Data extends stdClass
 						{
 							if($SubCommand == $ResponseSubCommand)
 								{
-									$Ident = str_replace(" ", "_", $Command); //Ident Leerzeichen von Command mit _ ersetzten
+									$Ident = $Command; //Ident enthält _
 									$datavalues[$Ident] =  array('VarType' => $VarType, 'Value' => $SubCommandValue, 'Subcommand' => $ResponseSubCommand);
 								}
 						}

@@ -734,6 +734,7 @@ class DenonAVRTelnet extends IPSModule
 			IPS_LogMessage('Denon Update: ', $name);
 			$command = $command.chr(63);
 			$this->SendCommand($command);
+			IPS_Sleep(100);  
 		}
 		
 		
