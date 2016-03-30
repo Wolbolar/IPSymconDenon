@@ -184,8 +184,8 @@ class DenonSplitterHTTP extends IPSModule
 	{
 	 
 		// Empfangene Daten vom Denon HTTP I/O
-		$payload = json_decode($JSONString);
-		$dataio = $payload->Buffer;
+		$data = json_decode($JSONString);
+		$dataio = json_encode($data->Buffer);
 		SetValueString($this->GetIDForIdent("BufferIN"), $dataio);
 		
 		
