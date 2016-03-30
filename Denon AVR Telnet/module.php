@@ -1148,7 +1148,7 @@ class DenonAVRTelnet extends IPSModule
 		$message = json_encode($data->Buffer->Data);
 		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
 		$response = json_encode($data->Buffer);
-		SetValueString($this->GetIDForIdent("Response"), $message);
+		SetValueString($this->GetIDForIdent("Response"), $response);
 		// Hier werden die Daten verarbeitet und in Variablen geschrieben
 		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
 		$this->UpdateVariable($data->Buffer);
