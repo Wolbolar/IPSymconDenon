@@ -34,7 +34,7 @@ class DenonSplitterHTTP extends IPSModule
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
-	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
+		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 		{
 					
 		// Zwangskonfiguration des ClientSocket
@@ -65,14 +65,12 @@ class DenonSplitterHTTP extends IPSModule
 						$this->SetStatus(202);
 					$ParentOpen = false;
 				}
-				//IO Denon HTTP Open gelöscht
-				/*
+				//IO Denon HTTP Open
 				if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen)
 				{
 					IPS_SetProperty($ParentID, 'Open', $ParentOpen);
 					$change = true;
 				}
-				*/
 				if ($change)
 					@IPS_ApplyChanges($ParentID);
 			}	

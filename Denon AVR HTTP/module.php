@@ -450,7 +450,7 @@ class DenonAVRHTTP extends IPSModule
                 return true;
             }
         }
-        $this->SetStatus(202);
+        //$this->SetStatus(202);
         return false;
     }
 	
