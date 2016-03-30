@@ -1938,7 +1938,7 @@ class DenonSplitterTelnet extends IPSModule
 		$payload = json_decode($JSONString);
 		$dataio = json_encode($payload->Buffer);
 		SetValueString($this->GetIDForIdent("IOIN"), $dataio);
-		$data = explode("<CR>", $dataio);
+		$data = explode("\r", $dataio);
 		array_pop($data);
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
