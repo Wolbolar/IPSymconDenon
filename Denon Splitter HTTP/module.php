@@ -28,10 +28,10 @@ class DenonSplitterHTTP extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
-		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        //$this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-        //IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
-        //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
+        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
+        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
+        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
 	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
@@ -186,7 +186,11 @@ class DenonSplitterHTTP extends IPSModule
 	{
 	 
 		// Empfangene Daten vom Denon HTTP I/O
-		$data = json_decode($JSONString);
+		$payload = json_decode($JSONString);
+		$dataio = $payload->Buffer;
+		SetValueString($this->GetIDForIdent("BufferIN"), $dataio);
+		
+		
 		//IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer)); //utf8_decode geht nur bei string
 	 
 		// Hier werden die Daten verarbeitet
@@ -205,6 +209,8 @@ class DenonSplitterHTTP extends IPSModule
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
 		IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode($data->Buffer));
+		$datasend = $data->Buffer;
+		SetValueString($this->GetIDForIdent("CommandOut"), $datasend);
 	 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen

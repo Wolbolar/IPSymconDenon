@@ -52,6 +52,7 @@
 				
 				{ "type": "Label", "label": "Angezeigte Befehle:" },
 				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
+				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
 				{ "type": "CheckBox", "name": "CinemaEQ", "caption": "Cinema EQ" },
 				{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
 				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },
@@ -68,7 +69,7 @@
 				{ "type": "CheckBox", "name": "BassLevel", "caption": "Bass Level" },
 				{ "type": "CheckBox", "name": "TrebleLevel", "caption": "Treble Level" },
 				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },
-				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
+				
 				{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },
 				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },
 				{ "type": "CheckBox", "name": "CenterWidth", "caption": "Center Width" },
