@@ -1936,7 +1936,8 @@ class DenonSplitterTelnet extends IPSModule
 	 
 		// Empfangene Daten vom I/O
 		$payload = json_decode($JSONString);
-		$dataio = json_encode($payload->Buffer);
+		//$dataio = json_encode($payload->Buffer);
+		$dataio = $payload->Buffer;
 		SetValueString($this->GetIDForIdent("IOIN"), $dataio);
 		//$data = explode("\r", $dataio);
 		$data = explode("<CR>", $dataio);
