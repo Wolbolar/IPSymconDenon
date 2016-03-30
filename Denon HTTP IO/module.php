@@ -151,11 +151,11 @@ class DenonAVRIOHTTP extends IPSModule
 	{
 		$ip = $this->ReadPropertyString("Host");
 		//Ins URL Format bringen
-		$command = urlencode ($command);
+		//$command = urlencode ($command);
 		$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
 		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
 		
-		IPS_Sleep(900);   
+		//IPS_Sleep(900);   
 		$this->GetStatus ();
 	}
 	

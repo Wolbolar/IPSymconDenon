@@ -479,7 +479,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptQuickSelect => array(
 				"Ident" => DENON_API_Commands::MSQUICK,
 				"Name" => "Quick Select",
-				"Profilesettings" => Array("Intensity", "", "", 0, 5, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
 				"Associations" => array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "QS 1",  "", -1),
@@ -492,7 +492,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDigitalInputMode => array(
 				"Ident" => DENON_API_Commands::DC,
 				"Name" => "Input Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
 				Array(1, "PCM",  "", -1),
@@ -525,7 +525,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSurroundPlayMode => array(
 				"Ident" => DENON_API_Commands::PSMODE,
 				"Name" => "Surround PlayMode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Cinema",  "", -1),
 				Array(1, "Music",  "", -1),
@@ -536,7 +536,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptMultiEQMode => array(
 				"Ident" => DENON_API_Commands::PSMULTEQ,
 				"Name" => "Multi EQ Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Audyssey",  "", -1),
@@ -548,7 +548,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptAudioRestorer => array(
 				"Ident" => DENON_API_Commands::PSRSTR,
 				"Name" => "Audio Restorer",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Restorer 64",  "", -1),
@@ -559,7 +559,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDynamicVolume => array(
 				"Ident" => DENON_API_Commands::PSDYNVOL,
 				"Name" => "Dynamic Volume",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Midnight",  "", -1),
@@ -570,7 +570,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptRoomSize => array(
 				"Ident" => DENON_API_Commands::PSRSZ,
 				"Name" => "Room Size",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Small",  "", -1),
 				Array(1, "Small/Medium",  "", -1),
@@ -582,7 +582,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDynamicCompressor => array(
 				"Ident" => DENON_API_Commands::PSDCO,
 				"Name" => "Dynamic Compressor",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Low",  "", -1),
@@ -593,7 +593,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDynamicRange => array(
 				"Ident" => DENON_API_Commands::PSDRC,
 				"Name" => "Dynamic Range",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Auto",  "", -1),
@@ -605,7 +605,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptVideoSelect => array(
 				"Ident" => DENON_API_Commands::SV,
 				"Name" => "Video Select",
-				"Profilesettings" => Array("Intensity", "", "", 0, 8, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 8, 0, 0),
 				"Associations" => Array(
 				Array(0, "DVD",  "", -1),
 				Array(1, "BD",  "", -1),
@@ -621,7 +621,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSurroundBackMode => array(
 				"Ident" => DENON_API_Commands::PSSB,
 				"Name" => "Surround Back Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "On",  "", -1),
@@ -633,7 +633,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptHDMIMonitor => array(
 				"Ident" => DENON_API_Commands::VSMONI,
 				"Name" => "HDMI Monitor",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
 				Array(1, "Monitor 1",  "", -1),
@@ -643,7 +643,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSpeakerOutputFront => array(
 				"Ident" => DENON_API_Commands::PSSP,
 				"Name" => "Speaker Output Front",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Front Height",  "", -1),
 				Array(1, "Front Weight",  "", -1),
@@ -654,7 +654,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptReferenceLevel => array(
 				"Ident" => DENON_API_Commands::PSREFLEV,
 				"Name" => "Reference Level",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Offset 0",  "", -1),
 				Array(1, "Offset 5",  "", -1),
@@ -665,7 +665,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptPLIIZHeightGain => array(
 				"Ident" => DENON_API_Commands::PSPHG,
 				"Name" => "PLIIZ Height Gain",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Low",  "", -1),
 				Array(1, "Mid",  "", -1),
@@ -675,7 +675,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDolbyVolumeModeler => array(
 				"Ident" => DENON_API_Commands::PSVOLMOD,
 				"Name" => "Dolby Volume Modeler",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Half",  "", -1),
@@ -685,7 +685,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDolbyVolumeLeveler => array(
 				"Ident" => DENON_API_Commands::PSVOLLEV,
 				"Name" => "Dolby Volume Leveler",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Low",  "", -1),
 				Array(1, "Middle",  "", -1),
@@ -695,7 +695,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptVideoProcessingMode => array(
 				"Ident" => DENON_API_Commands::VSVPM,
 				"Name" => "Video Processing Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
 				Array(1, "Game",  "", -1),
@@ -705,7 +705,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptHDMIAudioOutput => array(
 				"Ident" => DENON_API_Commands::VSAUDIO,
 				"Name" => "HDMI Audio Output",
-				"Profilesettings" => Array("Intensity", "", "", 0, 1, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 1, 0, 0),
 				"Associations" => Array(
 				Array(0, "TV",  "", -1),
 				Array(1, "AMP",  "", -1)
@@ -714,7 +714,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptResolutionHDMI => array(
 				"Ident" => DENON_API_Commands::VSSCH,
 				"Name" => "Resolution HDMI",
-				"Profilesettings" => Array("Intensity", "", "", 0, 5, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
 				"Associations" => Array(
 				Array(0, "480p/576p",  "", -1),
 				Array(1, "1080i",  "", -1),
@@ -727,7 +727,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptResolution => array(
 				"Ident" => DENON_API_Commands::VSSC,
 				"Name" => "Resolution",
-				"Profilesettings" => Array("Intensity", "", "", 0, 5, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
 				"Associations" => Array(
 				Array(0, "480p/576p",  "", -1),
 				Array(1, "1080i",  "", -1),
@@ -740,7 +740,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptASP => array(
 				"Ident" => DENON_API_Commands::VSASP,
 				"Name" => "ASP",
-				"Profilesettings" => Array("Intensity", "", "", 0, 1, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 1, 0, 0),
 				"Associations" => Array(
 				Array(0, "Normal",  "", -1),
 				Array(1, "Full",  "", -1)
@@ -749,7 +749,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDNRDirectChange => array(
 				"Ident" => DENON_API_Commands::PVDNR,
 				"Name" => "DNR Direct Change",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 1, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "OFF",  "", -1),
 				Array(1, "Low",  "", -1),
@@ -760,7 +760,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptInputMode => array(
 				"Ident" => DENON_API_Commands::SD,
 				"Name" => "Input Mode",
-				"Profilesettings" => Array("Database", "", "", 0, 4, 1, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "AUTO",  "", -1),
 				Array(1, "HDMI",  "", -1),
@@ -852,7 +852,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptZone2ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z2CS,
 				"Name" => "Zone 2 Channel Setting",
-				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 1, 0, 0),
 				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
 				Array(1, "Mono",  "", -1)
@@ -861,7 +861,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptZone2QuickSelect => array(
 				"Ident" => DENON_API_Commands::Z2QUICK,
 				"Name" => "Zone 2 Quick Selektion",
-				"Profilesettings" => Array("Database", "", "", 0, 5, 1, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 5, 0, 0),
 				"Associations" => Array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "QS 1",  "", -1),
@@ -922,7 +922,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptZone3ChannelSetting => array(
 				"Ident" => DENON_API_Commands::Z3CS,
 				"Name" => "Zone 3 Channel Setting",
-				"Profilesettings" => Array("Database", "", "", 0, 1, 1, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 1, 0, 0),
 				"Associations" => Array(
 				Array(0, "Stereo",  "", -1),
 				Array(1, "Mono",  "", -1)
@@ -931,7 +931,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptZone3QuickSelect => array(
 				"Ident" => DENON_API_Commands::Z3QUICK,
 				"Name" => "Zone 3 Quick Select",
-				"Profilesettings" => Array("DataMainbase", "", "", 0, 5, 1, 0),
+				"Profilesettings" => Array("DataMainbase", "", "", 0, 5, 0, 0),
 				"Associations" => Array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "QS 1",  "", -1),
