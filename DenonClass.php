@@ -2353,13 +2353,13 @@ class DENON_API_Commands extends stdClass
 	const MNENT = "ENT"; // Cursor Enter
 	const MNRTN = "RTN"; // Cursor Return
 	
-	const MN = "MNMEN"; // GUI Menu
-	const MNON = " ON"; // GUI Menu On
-	const MNOFF = " OFF"; // GUI Menu Off
+	const MNMEN = "MNMEN"; // GUI Menu
+	const MNMENON = " ON"; // GUI Menu On
+	const MNMENOFF = " OFF"; // GUI Menu Off
 	
 	const MNSRC = "MNSRC"; // GUI Menu
-	const MNON = " ON"; // GUI Menu On
-	const MNOFF = " OFF"; // GUI Menu Off
+	const MNSRCON = " ON"; // GUI Menu On
+	const MNSRCOFF = " OFF"; // GUI Menu Off
 	
 	
 	const IsVariable = 0;
