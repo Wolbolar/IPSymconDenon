@@ -1553,7 +1553,7 @@ class DENON_StatusHTML extends stdClass
 		$SurrMode = $xml->xpath('.//SurrMode');
 		if ($SurrMode)
 		{
-			$SurroundMapping = array("Direct" => 0, "Pure_Direct" => 1, "Stereo" => 2, "Standard(Dolby)" => 3, "DOLBY DIGITAL" => 4, "Standard(DTS)" => 5, "Multi_CH_Stereo" => 6, "Wide_Screen" => 7, "Super_Stadium" => 8, "Rock_Arena" => 9, "Jazz_Club" => 10, "Classic_Concert" => 11, "Mono_Movie" => 12, "Matrix" => 13, "Video_Game" => 14,
+			$SurroundMapping = array("Direct" => 0, "Pure_Direct" => 1, "Stereo" => 2, "Standard" => 3, "Standard(Dolby)" => 4, "Standard(DTS)" => 5, "Multi_CH_Stereo" => 6, "Wide_Screen" => 7, "Super_Stadium" => 8, "Rock_Arena" => 9, "Jazz_Club" => 10, "Classic_Concert" => 11, "Mono_Movie" => 12, "Matrix" => 13, "Video_Game" => 14,
 												"Virtual" => 15);
 			foreach ($SurroundMapping as $Command => $SurroundValue)
 			{
