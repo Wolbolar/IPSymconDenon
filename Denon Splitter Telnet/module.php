@@ -166,7 +166,7 @@ class DenonSplitterTelnet extends IPSModule
 		$data = $DenonStatus->getStates ();
 		
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
-		//$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
+		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
 		
 		return $data;
 	}
@@ -1944,7 +1944,6 @@ class DenonSplitterTelnet extends IPSModule
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
 		$SetCommand = $APIData->GetCommandResponse($APIData->Data);
-		print_r($SetCommand);
 		$message = json_encode($SetCommand);
 		SetValueString($this->GetIDForIdent("BufferIN"), $message);
 			 
