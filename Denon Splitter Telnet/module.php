@@ -83,7 +83,7 @@ class DenonSplitterTelnet extends IPSModule
 			
 		// Wenn I/O verbunden ist
         if (($this->ReadPropertyBoolean('Open'))
-                and ( $this->HasActiveParent($ParentID)))
+                and ( $this->HasActiveParent($this->GetParent())))
         {
             //Instanz aktiv
         }
