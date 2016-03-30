@@ -761,7 +761,7 @@ class DenonAVRTelnet extends IPSModule
 				$APIData->APICommand = "Z3";
 			}
 			
-			$payload = $APIData->APICommand.$APIData->APISubCommand.chr(13);
+			$payload = $APIData->APICommand.$APIData->APISubCommand;
 			$this->SendCommand($payload);
 			//$this->SendAPIData($APIData);
         } catch (Exception $ex)
@@ -778,351 +778,6 @@ class DenonAVRTelnet extends IPSModule
           return;
           } */
 		
-		//Type und Zone
-		/*
-		$Type = $this->ReadPropertyInteger('Type');
-		$Zone = $this->ReadPropertyInteger('Zone');
-				
-		
-		if($Zone === 0) //Mainzone
-			{
-			switch($Ident)
-				{
-				case "Power":
-					$this->Power($Value);
-				break;
-
-				case "DigitalInputMode":
-					$this->DigitalInputMode($Value);
-				break;
-
-				case "InputSource":
-					$this->InputSource($Value);
-				break;
-
-				case "InputMode":
-					$this->InputMode($Value);
-				break;
-
-				case "RoomSize":
-					$this->RoomSize($Value);
-				break;
-
-				case "MainMute":
-					$this->MainMute($Value);
-				break;
-
-				case "ToneCTRL":
-					$this->ToneCTRL($Value);
-				break;
-
-				case "ToneDefeat":
-					$this->ToneDefeat($Value);
-				break;
-
-				case "QuickSelect":
-					$this->Quickselect($Value);
-				break;
-
-				case "VideoSelect":
-					$this->VideoSelect($Value);
-				break;
-
-				case "Panorama":
-					$this->Panorama($Value);
-				break;
-
-				case "FrontHeight":
-					$this->FrontHeight($Value);
-				break;
-
-				case "BassLevel":
-					$this->BassLevel($Value);
-				break;
-
-				case "LFELevel":
-					$this->LFELevel($Value);
-				break;
-
-				case "TrebleLevel":
-					$this->TrebleLevel($Value);
-				break;
-
-				case "DynamicEQ":
-					$this->DynamicEQ($Value);
-				break;
-
-				case "DynamicCompressor":
-					$this->DynamicCompressor($Value);
-				break;
-
-				case "DynamicVolume":
-					$this->DynamicVolume($Value);
-				break;
-
-				case "DynamicRange":
-					$this->DynamicCompressor($Value);
-				break;
-
-				case "AudioDelay":
-					$this->AudioDelay($Value);
-				break;
-
-				case "AudioRestorer":
-					$this->AudioRestorer($Value);
-				break;
-
-				case "MasterVolume":
-					$this->MasterVolumeFix($Value);
-				break;
-
-				case "CWidth":
-					$this->CWidth($Value);
-				break;
-
-				case "Dimension":
-					$this->Dimension($Value);
-				break;
-
-				case "SurroundMode":
-					$this->SurroundMode($Value);
-				break;
-
-				case "SurroundPlayMode":
-					$this->SurroundPlayMode($Value);
-				break;
-
-				case "SurroundBackMode":
-					$this->SurroundBackMode($Value);
-				break;
-
-				case "Sleep":
-					$this->Sleep($Value);
-				break;
-
-				case "CinemaEQ":
-					$this->CinemaEQ($Value);
-				break;
-
-				case "MainZonePower":
-					$this->MainZonePower($Value);
-				break;
-
-				case "MultiEQMode":
-					$this->MultiEQMode($Value);
-				break;
-
-				case "Preset":
-					$this->Preset($Value);
-				break;
-
-				case "ChannelVolumeFL":
-					$this->ChannelVolumeFL($Value);
-				break;
-
-				case "ChannelVolumeFR":
-					$this->ChannelVolumeFR($Value);
-				break;
-
-				case "ChannelVolumeC":
-					$this->ChannelVolumeC($Value);
-				break;
-
-				case "ChannelVolumeSW":
-					$this->ChannelVolumeSW($Value);
-				break;
-
-				case "ChannelVolumeSL":
-					$this->ChannelVolumeSL($Value);
-				break;
-
-				case "ChannelVolumeSR":
-					$this->ChannelVolumeSR($Value);
-				break;
-
-				case "ChannelVolumeSBL":
-					$this->ChannelVolumeSBL($Value);
-				break;
-
-				case "ChannelVolumeSBR":
-					$this->ChannelVolumeSBR($Value);
-				break;
-
-				case "ChannelVolumeSB":
-					$this->ChannelVolumeSB($Value);
-				break;
-
-				case "ChannelVolumeFHL":
-					$this->ChannelVolumeFHL($Value);
-				break;
-
-				case "ChannelVolumeFHR":
-					$this->ChannelVolumeFHR($Value);
-				break;
-
-				case "ChannelVolumeFWL":
-					$this->ChannelVolumeFWL($Value);
-				break;
-
-				case "ChannelVolumeFWR":
-					$this->ChannelVolumeFWR($Value);
-				break;
-				
-				#################### Cursorsteuerung #####################################
-			
-				case "CursorUp":
-					$this->CursorUp();
-				break;
-
-				case "CursorDown":
-					$this->CursorDown();
-				break;
-
-				case "CursorLeft":
-					$this->CursorLeft();
-				break;
-
-				case "CursorRight":
-					$this->CursorRight();
-				break;
-
-				case "Enter":
-					$this->Enter();
-				break;
-
-				case "Return":
-					$this->CursorReturn();
-				break;
-					
-				default:
-					throw new Exception("Invalid ident");
-				}
-			}
-		elseif($Zone === 1) //Zone 2
-			{
-			switch($Ident)
-				{
-				case "Zone2Power":
-					$this->Zone2Power($Value);
-				break;
-
-				case "Zone2Volume":
-					$this->Zone2VolumeFix($Value);
-				break;
-
-				case "Zone2Mute":
-					$this->Zone2Mute($Value);
-				break;
-
-				case "Zone2InputSource":
-					$this->Zone2InputSource($Value);
-				break;
-
-				case "Zone2ChannelSetting":
-					$this->Zone2ChannelSetting($Value);
-				break;
-
-				case "Zone2ChannelVolumeFL":
-					$this->Zone2ChannelVolumeFL($Value);
-				break;
-
-				case "Zone2ChannelVolumeFR":
-					$this->Zone2ChannelVolumeFL($Value);
-				break;
-				
-				#################### Cursorsteuerung #####################################
-			
-				case "CursorUp":
-					$this->CursorUp();
-				break;
-
-				case "CursorDown":
-					$this->CursorDown();
-				break;
-
-				case "CursorLeft":
-					$this->CursorLeft();
-				break;
-
-				case "CursorRight":
-					$this->CursorRight();
-				break;
-
-				case "Enter":
-					$this->Enter();
-				break;
-
-				case "Return":
-					$this->CursorReturn();
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-				}
-			}
-		elseif($Zone === 2) //Zone 3
-			{
-			switch($Ident)
-				{
-				case "Zone3Power":
-					$this->Zone3Power($Value);
-				break;
-
-				case "Zone3Volume":
-					$this->Zone3VolumeFix($Value);
-				break;
-
-				case "Zone3Mute":
-					$this->Zone3Mute($Value);
-				break;
-
-				case "Zone3InputSource":
-					$this->Zone3InputSource($Value);
-				break;
-
-				case "Zone3ChannelSetting":
-					$this->Zone3ChannelSetting($Value);
-				break;
-
-				case "Zone3ChannelVolumeFL":
-					$this->Zone3ChannelVolumeFL($Value);
-				break;
-
-				case "Zone3ChannelVolumeFR":
-					$this->Zone3ChannelVolumeFL($Value);
-				break;
-				
-				#################### Cursorsteuerung #####################################
-			
-				case "CursorUp":
-					$this->CursorUp();
-				break;
-
-				case "CursorDown":
-					$this->CursorDown();
-				break;
-
-				case "CursorLeft":
-					$this->CursorLeft();
-				break;
-
-				case "CursorRight":
-					$this->CursorRight();
-				break;
-
-				case "Enter":
-					$this->Enter();
-				break;
-
-				case "Return":
-					$this->CursorReturn();
-				break;
-				
-				default:
-					throw new Exception("Invalid ident");
-				}
-			}	
-		*/
     }
 	
 	
@@ -1136,7 +791,8 @@ class DenonAVRTelnet extends IPSModule
 	//Data Transfer
 	public function SendCommand($payload)
 		{
-			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $payload))); //Denon AVR Telnet Interface GUI
+			$sendcommand = $payload.chr(13);
+			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $sendcommand))); //Denon AVR Telnet Interface GUI
 		}
 	
 	// Daten vom Splitter Instanz
@@ -1500,7 +1156,7 @@ class DenonAVRTelnet extends IPSModule
 				$subcommand = DENON_API_Commands::ON;
 			}
 		//$command = str_replace("_", " ", DENON_API_Commands::PW); //Bei Ident mit _ Leerzeichen einsetzten
-		$payload = DENON_API_Commands::PW.$subcommand.chr(13);
+		$payload = DENON_API_Commands::PW.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
@@ -1516,150 +1172,209 @@ class DenonAVRTelnet extends IPSModule
 				$subcommand = DENON_API_Commands::ON;
 			}
 		
-		$payload = DENON_API_Commands::ZM.$subcommand.chr(13);
+		$payload = DENON_API_Commands::ZM.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
 	//Master Volume
 	public function MasterVolume(string $command) // "UP" or "DOWN" 
 	{
-		$payload = DENON_API_Commands::MV.$command.chr(13);
+		$payload = DENON_API_Commands::MV.$command;
 		$this->SendCommand($payload);
 	}
 	
 	public function MasterVolumeFix(integer $command) // 
 	{
 		//$Value= intval($Value) +80;
-		$payload = DENON_API_Commands::MV.$command.chr(13);
+		$payload = DENON_API_Commands::MV.$command;
 		$this->SendCommand($payload);
 	}
 	
 	//Main Mute
 	public function MainMute(string $command) // "ON" or "OFF"
 	{
-		$payload = DENON_API_Commands::MU.$command.chr(13);
+		$payload = DENON_API_Commands::MU.$command;
 		$this->SendCommand($payload);
 	}
 	
 	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
-		$payload = DENON_API_Commands::SI.$command.chr(13);
+		$payload = DENON_API_Commands::SI.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function RecSelect(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
-		$payload = DENON_API_Commands::SR.$command.chr(13);
+		$payload = DENON_API_Commands::SR.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function SelectDecodeMode(string $command) // AUTO; HDMI; DIGITAL; ANALOG
 	{
-		$payload = DENON_API_Commands::SD.$command.chr(13);
+		$payload = DENON_API_Commands::SD.$command;
 		$this->SendCommand($payload);
 	  
 	}
 
 	public function DecodeMode(string $command) // Auto, PCM, DTS
 	{
-		$payload = DENON_API_Commands::DC.$command.chr(13);
+		$payload = DENON_API_Commands::DC.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function VideoSelect(string $command) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
 	{
-		$payload = DENON_API_Commands::VS.$command.chr(13);
+		$payload = DENON_API_Commands::VS.$command;
 		$this->SendCommand($payload);
 	}
 	
 	public function ChannelVolumeFL(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FL.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FL.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeFR(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FR.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FR.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeC(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::C.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::C.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeSW(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SW.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SW.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeSL(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SL.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SL.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeSR(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SR.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SR.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeSBL(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBL.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBL.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeSBR(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBR.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBR.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeSB(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SB.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::SB.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeFHL(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHL.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHL.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeFHR(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHR.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHR.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeFWL(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWL.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWL.$command;
 		$this->SendCommand($payload);
 	}
 
 	public function ChannelVolumeFWR(integer $command)
 	{
-		//$Value = (intval($Value) +50);
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWR.$command.chr(13);
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	######################## Cursor Steuerung ######################################
+
+	public function CursorUp()
+	{
+		$payload = DENON_API_Commands::MN.DENON_API_Commands::MNCUP;
+		$this->SendCommand($payload);
+	}
+
+	public function CursorDown()
+	{
+		$payload = DENON_API_Commands::MN.DENON_API_Commands::MNCDN;
+		$this->SendCommand($payload);
+	}
+
+	public function CursorLeft()
+	{
+		$payload = DENON_API_Commands::MN.DENON_API_Commands::MNCLT;
+		$this->SendCommand($payload);
+	}
+
+	public function CursorRight()
+	{
+		$payload = DENON_API_Commands::MN.DENON_API_Commands::MNCRT;
+		$this->SendCommand($payload);
+	  CSCK_SendText($id, "MNCRT".chr(13));
+	}
+
+	public function Enter()
+	{
+		$payload = DENON_API_Commands::MN.DENON_API_Commands::MNENT;
+		$this->SendCommand($payload);
+	}
+
+	public function CursorReturn()
+	{
+		$payload = DENON_API_Commands::MN.DENON_API_Commands::MNRTN;
+		$this->SendCommand($payload);
+	}
+	
+	//Levels
+	public function BassLevel(integer $Value)
+	{
+		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSBAS.$Value;
+		$this->SendCommand($payload);
+	}
+
+	public function LFELevel(integer $Value)
+	{
+		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSLFE.$Value;
+		$this->SendCommand($payload);
+	}
+
+	public function TrebleLevel(integer $Value)
+	{
+		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSTRE.$Value;
+		$this->SendCommand($payload);
+	}
+	
+	//Sleep
+	public function SLEEP(integer $Value) // 0 ist aus bis 120
+	{
+		if ($Value == 0)
+		{
+			$payload = DENON_API_Commands::SLP."OFF";
+		}
+		ELSE
+		{
+		$payload = DENON_API_Commands::SLP.$Value;
+		}
 		$this->SendCommand($payload);
 	}
 	
@@ -1682,42 +1397,6 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 
-	public function BassLevel($Value)
-	{
-		$Value = (intval($Value) +50);
-		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSBAS".$Value.chr(13));
-	}
-
-	public function LFELevel($Value)
-	{
-		$Value = (intval($Value) +10);
-		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSLFE".$Value.chr(13));
-	}
-
-	public function TrebleLevel($Value)
-	{
-		$Value = (intval($Value) +50);
-		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSTRE".$Value.chr(13));
-	}
-
-	
-	
-
-	public function SLEEP($Value) //
-	{
-		if ($Value == 0)
-		{
-			CSCK_SendText($id, "SLPOFF".chr(13));
-		}
-		ELSE
-		{
-		$Value = str_pad($Value, 3 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "SLP".$Value.chr(13));
-		}
-	}
 
 	public function ModeSelect($Value) //
 	{
@@ -1993,37 +1672,7 @@ class DenonAVRTelnet extends IPSModule
 
 
 
-	######################## Cursor Steuerung ######################################
-
-	public function CursorUp()
-	{
-	  CSCK_SendText($id, "MNCUP".chr(13));
-	}
-
-	public function CursorDown()
-	{
-	  CSCK_SendText($id, "MNCDN".chr(13));
-	}
-
-	public function CursorLeft()
-	{
-	  CSCK_SendText($id, "MNCLT".chr(13));
-	}
-
-	public function CursorRight()
-	{
-	  CSCK_SendText($id, "MNCRT".chr(13));
-	}
-
-	public function Enter()
-	{
-	  CSCK_SendText($id, "MNENT".chr(13));
-	}
-
-	public function CursorReturn()
-	{
-	  CSCK_SendText($id, "MNRTN".chr(13));
-	}
+	
 
 
 	######################## Zone 2 functions ######################################
@@ -2143,7 +1792,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone3ChannelVolumeFR($Value)
 	{
 	   $Value = $Value + 50;
-		CSCK_SendText($id, "Z3CVFR ".$Value.chr(13));
+		CSCK_SendText($id, "Z3CVFR ".$Value);
 	}
 
 	/*

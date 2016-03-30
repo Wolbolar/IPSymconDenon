@@ -2343,6 +2343,25 @@ class DENON_API_Commands extends stdClass
 	const ATTOFF = "ATT OFF"; // SW ATT OFF
 	const ATT = "ATT ?"; // Return PSATT Status
 	
+	
+	//Cursor
+	const MN = "MN"; // Cursor
+	const MNCUP = "CUP"; // Cursor Up
+	const MNCDN = "CDN"; // Cursor Down
+	const MNCRT = "CRT"; // Cursor Right
+	const MNCLT = "CLT"; // Cursor Left
+	const MNENT = "ENT"; // Cursor Enter
+	const MNRTN = "RTN"; // Cursor Return
+	
+	const MN = "MNMEN"; // GUI Menu
+	const MNON = " ON"; // GUI Menu On
+	const MNOFF = " OFF"; // GUI Menu Off
+	
+	const MNSRC = "MNSRC"; // GUI Menu
+	const MNON = " ON"; // GUI Menu On
+	const MNOFF = " OFF"; // GUI Menu Off
+	
+	
 	const IsVariable = 0;
     const VarType = 1;
     const VarName = 2;
