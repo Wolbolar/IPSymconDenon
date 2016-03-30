@@ -1934,7 +1934,7 @@ class DENON_API_Commands extends stdClass
 	const MS = "MS"; // Select Surround Mode
 	const MSQUICK = "QUICK"; // Quick Select Mode Select
 	const MSQUICKMEMORY = "QUICK"; // Quick Select Mode Memory
-	const MN = "MN"; //Navigation
+	
 	
 	//VS
 	const VSASP = "VSASP"; // ASP
@@ -2345,7 +2345,7 @@ class DENON_API_Commands extends stdClass
 	
 	
 	//Cursor
-	const MN = "MN"; // Cursor
+	const MN = "MN"; // Cursor Navigation
 	const MNCUP = "CUP"; // Cursor Up
 	const MNCDN = "CDN"; // Cursor Down
 	const MNCRT = "CRT"; // Cursor Right
