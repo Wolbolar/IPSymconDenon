@@ -732,6 +732,7 @@ class DenonAVRTelnet extends IPSModule
 		foreach ($states as $name => $command)
 		{
 			IPS_LogMessage('Denon Update: ', $name);
+			$command = $command.chr(63);
 			$this->SendCommand($command);
 		}
 		
