@@ -1932,8 +1932,8 @@ class DENON_API_Commands extends stdClass
 	const SV = "SV"; // Video Select
 	const SLP = "SLP"; // Main Zone Sleep Timer
 	const MS = "MS"; // Select Surround Mode
-	const MSQUICK = "QUICK"; // Quick Select Mode Select
-	const MSQUICKMEMORY = "QUICK"; // Quick Select Mode Memory
+	const MSQUICK = "MSQUICK"; // Quick Select Mode Select
+	const MSQUICKMEMORY = "MEMORY"; // Quick Select Mode Memory
 	
 	
 	//VS
@@ -2333,7 +2333,7 @@ class DENON_API_Commands extends stdClass
 	//PSRSZ Room Size
 	const RSZS = " S";
 	const RSZMS = " MS";
-	const RSZM = " M";
+	const RSZN = " M";
 	const RSZML = " ML";
 	const RSZL = " L";
 	
@@ -2665,7 +2665,7 @@ class DenonAVRCP_API_Data extends stdClass
 					DENON_API_Commands::PSRSZ
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array(" S" => 0, " MS" => 1, " M" => 2, " ML" => 3, " L" => 4)
+						"ValueMapping" => array(" S" => 0, " MS" => 1, " N" => 2, " ML" => 3, " L" => 4)
 					),
 					//Dynamic Compressor
 					DENON_API_Commands::PSDCO
@@ -4029,10 +4029,10 @@ class DenonAVRCP_API_Data extends stdClass
 		$datavalues = array();
 		foreach($data as $key => $response)
 			{
-				$pos = stripos($response, "PSCINEMA EQ.");
+				$pos = stripos($response, "PSCINEMA EQ");
 				if($pos !== false)
 				{
-					$data = str_replace("PSCINEMA EQ.", "PSCINEMA_EQ.", $data);
+					$data = str_replace("PSCINEMA EQ", "PSCINEMA_EQ", $data);
 				}
 				$pos1 = stripos($response, "PSTONE CTRL");
 				if($pos1 !== false)
