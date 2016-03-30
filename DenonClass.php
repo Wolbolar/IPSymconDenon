@@ -3291,7 +3291,12 @@ class DenonAVRCP_API_Data extends stdClass
 		$datavalues = array();
 		foreach($data as $key => $response)
 			{
-				$response = str_replace(" ", "_", $response); //Ident Leerzeichen von Command mit _ ersetzten
+				$pos = stripos($response, "PSCINEMA EQ.");
+				if($pos !== false)
+				{
+					$data = str_replace("PSCINEMA EQ.", "PSCINEMA_EQ.", $data);
+				}
+
 				foreach($this->VarMapping as $Command => $ValMap)
 				{
 					$pos = stripos($response, $Command);

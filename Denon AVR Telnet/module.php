@@ -671,7 +671,6 @@ class DenonAVRTelnet extends IPSModule
 			}
 		}
 		
-		$this->GetStates();
 	}
 	
 	protected function SetupDisplay($Type)

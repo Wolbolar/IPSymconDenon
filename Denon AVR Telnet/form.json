@@ -132,6 +132,11 @@
                     "type": "Button",
                     "label": "Power Off",
                     "onClick": "DAVRT_Power($id, false);"
+                },
+				{
+                    "type": "Button",
+                    "label": "Status Initialisieren",
+                    "onClick": "DAVRT_GetStates($id);"
                 }
             ],
     "status":
