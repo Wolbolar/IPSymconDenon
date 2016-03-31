@@ -499,7 +499,33 @@ class DenonAVRTelnet extends IPSModule
 						//Variable Response existiert bereits
 						
 					}
-		*/			
+		*/	
+
+			// Deaktiviert die Standardaktion der Statusvariablen
+			if($this->ReadPropertyBoolean('ZoneName'))
+			{
+				if($this->ReadPropertyBoolean('Zone') == 0)
+					{
+						$this->DisableAction("MainZoneName");
+					}
+			
+				if($this->ReadPropertyBoolean('Zone') == 1)
+					{
+						$this->DisableAction("Zone2Name");
+					}
+				
+				if($this->ReadPropertyBoolean('Zone') == 2)
+					{
+						$this->DisableAction("Zone3Name");
+					}
+				
+			}
+			if($this->ReadPropertyBoolean('Model'))
+			{
+				$this->DisableAction("Model");
+			}
+			
+			
 			//auf aktive Parent prüfen
 				
 			//Status aktiv
@@ -712,7 +738,7 @@ class DenonAVRTelnet extends IPSModule
 		$states  = array ("Power" => "PW", "Volume" => "MV", "Mute" => "MU", "Channel Volume" => "CV",
 		"Input" => "SI", "Main Zone Power" => "ZM", "Rec Select" => "SR", "Input Mode" => "SD",
 		"Digital Input" => "DC", "Video Select" => "SV", "SLP" => "SLP", "Surround Mode" => "MS",
-		"Quick" => "MS QUICK ", "Monitor Status" => "VSMONI ", "ASP" => "VSASP ", "Video Resolution" => "VSSC ",
+		"Quick" => "MSQUICK ", "Monitor Status" => "VSMONI ", "ASP" => "VSASP ", "Video Resolution" => "VSSC ",
 		"Video Resolution HDMI" => "VSSCH ", "HDMI Audio" => "VSAUDIO ", "Video Processing Mode" => "VSVPM ", "Vertical Stretch" => "VSVST ",
 		"Tone Control" => "PSTONE CTRL ", "Surround Back" => "PSSB: ", "Cinema EQ" => "PSCINEMA EQ. ", "Mode" => "PSMODE: ",
 		"Dolby Volume Direct Change" => "PSDOLVOL ", "Dolby Volume Leveler" => "PSVOLLEV ", "Dolby Volume Modeler" => "PSVOLMOD ", "Front Height" => "PSFH: ",
