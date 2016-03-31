@@ -25,11 +25,11 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Befehle an den Denon AVR senden:  
 
- - Alle dokumentiereten Befehle können an den Denon AVR gesendet werden  
+ - Alle dokumentierten Befehle können an den Denon AVR gesendet werden  
 
 ### Status Rückmeldung:  
 
- - Bei dem Modul (Telnet Port 23) sind für die dokumentierten Befehle auch eine Statusrückmledung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein.  
+ - Bei dem Modul (Telnet Port 23) sind für die dokumentierten Befehle auch eine Statusrückmeldung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein.  
  - Bei dem Modul (HTTP) sind abhänig vom Receivertyp und Baujahr eine unterschiedliche Anzahl an Statusrückmeldungen verfügbar. Es können mehrere Clients dem Denon über HTTP Befehle senden und Status erhalten.    
   
 
@@ -75,7 +75,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 | Eigenschaft | Typ     | Standardwert | Funktion                                  |
 | :---------: | :-----: | :----------: | :---------------------------------------: |
-| Open        | boolean | true         | Verbindung zum aioGateway aktiv / deaktiv |
+| Open        | boolean | true         | Verbindung zum Denon AVR  aktiv / deaktiv |
 | Host        | string  |              | IP Adresse des Denon AVR                  |
 | Port        | integer |              | Kommunikationsport 23 (nicht ändern)      |
 
@@ -83,7 +83,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 | Eigenschaft | Typ     | Standardwert | Funktion                                  |
 | :---------: | :-----: | :----------: | :---------------------------------------: |
-| Open        | boolean | true         | Verbindung zum aioGateway aktiv / deaktiv |
+| Open        | boolean | true         | Verbindung zum Denon AVR  aktiv / deaktiv |
 | Host        | string  |              | IP Adresse des Denon AVR                  |
 
 

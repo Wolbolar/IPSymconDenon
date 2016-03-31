@@ -2148,7 +2148,7 @@ class DENON_API_Commands extends stdClass
 	const MSQUICK3MEMORY = "3 MEMORY"; // Quick Select 3 Mode Memory
 	const MSQUICK4MEMORY = "4 MEMORY"; // Quick Select 4 Mode Memory
 	const MSQUICK5MEMORY = "5 MEMORY"; // Quick Select 5 Mode Memory
-	const MSQUICK = "QUICK ?"; // QUICK ? Return MSQUICK Status
+	const MSQUICKSTATE = "QUICK ?"; // QUICK ? Return MSQUICK Status
 	
 	//VS
 	//VSMONI Set HDMI Monitor
