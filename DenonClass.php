@@ -1015,7 +1015,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptChannelVolumeFHR => array(DENON_API_Commands::CVFHR, "Channel Volume Front Height Right", "Intensity", "", " dB", -12, 12, 0.5, 1),
 		$this->ptChannelVolumeFWL => array(DENON_API_Commands::CVFWL, "Channel Volume Front Wide Left", "Intensity", "", " dB", -12, 12, 0.5, 1),
 		$this->ptChannelVolumeFWR => array(DENON_API_Commands::CVFWR, "Channel Volume Front Wide Right", "Intensity", "", " dB", -12, 12, 0.5, 1),
-		$this->ptAudioDelay => array(DENON_API_Commands::PSDEL, "Audio Delay", "Intensity", "", " ms", 0, 200, 1, 0),
+		$this->ptAudioDelay => array(DENON_API_Commands::PSDELAY, "Audio Delay", "Intensity", "", " ms", 0, 200, 1, 0),
 		$this->ptLFELevel => array(DENON_API_Commands::PSLFE, "LFE Level", "Intensity", "-", " dB", -10.0, 0.0, 0.5, 1),
 		$this->ptBassLevel => array(DENON_API_Commands::PSBAS, "Bass Level", "Intensity", "", " dB", -6, 6, 0.5, 1),
 		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE, "Treble Level", "Intensity", "", " dB", -6, 6, 0.5, 1),
@@ -1883,7 +1883,7 @@ class DENON_Zone extends stdClass
 			DENON_API_Commands::PSDCO,
 			DENON_API_Commands::PSLFE,
 			DENON_API_Commands::PSEFF,
-			DENON_API_Commands::PSDEL,
+			DENON_API_Commands::PSDELAY,
 			DENON_API_Commands::PSAFD,
 			DENON_API_Commands::PSPAN,
 			DENON_API_Commands::PSDIM,
@@ -2012,7 +2012,7 @@ class DENON_API_Commands extends stdClass
 	const PSDCO = "PSDCO"; // D.COMP direct change	
 	const PSLFE = "PSLFE"; // LFE
 	const PSEFF = "PSEFF"; // EFFECT direct change	
-	const PSDEL = "PSDEL"; // Audio DELAY	
+	const PSDELAY = "PSDELAY"; // Audio DELAY	
 	const PSAFD = "PSAFD"; // AFDM	
 	const PSPAN = "PSPAN"; // PANORAMA	
 	const PSDIM = "PSDIM"; // DIMENSION	
@@ -2339,10 +2339,10 @@ class DENON_API_Commands extends stdClass
 	const EFF = " "; // EFFECT ** ---AVR-4311 can be operated from 1 to 15
 
 
-	//PSDEL Delay
-	const DELUP = " UP"; // DELAY UP
-	const DELDOWN = " DOWN"; // DELAY DOWN
-	const DEL = " "; // DELAY ** ---AVR-4311 can be operated from 0 to 300
+	//PSDELAY Delay
+	const PSDELAYUP = " UP"; // DELAY UP
+	const PSDELAYDOWN = " DOWN"; // DELAY DOWN
+	const PSDELAYVAL = " "; // DELAY ** ---AVR-4311 can be operated from 0 to 300
 
 	//PSAFD AFDM
 	const AFDON = " ON"; // AFDM ON
@@ -3199,7 +3199,7 @@ class DenonAVRCP_API_Data extends stdClass
 												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12)
 					),
 					//Audio Delay ***:000 to 300 by ASCII , 000=0ms, 300=300ms
-					DENON_API_Commands::PSDEL
+					DENON_API_Commands::PSDELAY
 					=> array(
 						"VarType" => DENONIPSVarType::vtFloat,
 						"ValueMapping" => array(" 000" => 0, " 001" => 1, " 002" => 2, " 003" => 3, " 004" => 4, " 005" => 5, " 006" => 6, " 007" => 7, " 008" => 8, " 009" => 9, " 010" => 10, " 011" => 11, " 012" => 12,
