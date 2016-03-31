@@ -333,7 +333,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptDynamicEQ => array(DENON_API_Commands::PSDYNEQ, "Dynamic EQ", "~Switch", $this->getpos($profile)),
 		$this->ptFrontHeight => array(DENON_API_Commands::PSFH, "Front Height", "~Switch", $this->getpos($profile)),
 		$this->ptPanorama => array(DENON_API_Commands::PSPAN, "Panorama", "~Switch", $this->getpos($profile)),
-		$this->ptToneCTRL => array(DENON_API_Commands::PSTONE, "Tone CTRL", "~Switch", $this->getpos($profile)),
+		$this->ptToneCTRL => array(DENON_API_Commands::PSTONECTRL, "Tone CTRL", "~Switch", $this->getpos($profile)),
 		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "Vertical Stretch", "~Switch", $this->getpos($profile)),
 		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "Dolby Volume", "~Switch", $this->getpos($profile)),
 		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", $this->getpos($profile)),
@@ -1860,7 +1860,7 @@ class DENON_Zone extends stdClass
 			DENON_API_Commands::VSMONI,
 			DENON_API_Commands::VSVPM,
 			DENON_API_Commands::VSVST,
-			DENON_API_Commands::PSTONE,
+			DENON_API_Commands::PSTONECTRL,
 			DENON_API_Commands::PSSB,
 			DENON_API_Commands::PSCINEMAEQ,
 			DENON_API_Commands::PSMODE,
@@ -1989,7 +1989,7 @@ class DENON_API_Commands extends stdClass
 	const VSVST = "VSVST"; // Set Vertical Stretch
 	//PS
 	const PSATT = "PSATT"; // SW ATT
-	const PSTONE = "PSTONE"; // Tone Control
+	const PSTONECTRL = "PSTONE_CTRL"; // Tone Control
 	const PSSB = "PSSB"; // Surround Back SP Mode
 	const PSCINEMAEQ = "PSCINEMA_EQ"; // Cinema EQ
 	const PSMODE = "PSMODE"; // Mode Music
@@ -2197,9 +2197,9 @@ class DENON_API_Commands extends stdClass
 	
 	//PS Parameter
 	//PSTONE Tone Control
-	const TONECTRLON = " CTRL ON"; // Tone Control On
-	const TONECTRLOFF = " CTRL OFF"; // Tone Control Off
-	const TONECTRL = " CTRL ?"; // TONE CTRL ? Return PSTONE CONTROL Status
+	const PSTONECTRLON = " ON"; // Tone Control On
+	const PSTONECTRLOFF = " OFF"; // Tone Control Off
+	const PSTONECTRLSTATE = " ?"; // TONE CTRL ? Return PSTONE CONTROL Status
 	
 	//PSSB Surround Back SP Mode
 	const SBMTRXON = ":MTRX ON"; // Surround Back SP Mode Matrix
@@ -2527,7 +2527,7 @@ class DenonAVRCP_API_Data extends stdClass
 						"ValueMapping" => array(" ON" => true, " OFF" => false)
 					),
 					//ToneCTRL
-					DENON_API_Commands::PSTONE
+					DENON_API_Commands::PSTONECTRL
 					=> array(
 						"VarType" => DENONIPSVarType::vtBoolean,
 						"ValueMapping" => array(" ON" => true, " OFF" => false)
