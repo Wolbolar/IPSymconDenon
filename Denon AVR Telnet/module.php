@@ -484,6 +484,7 @@ class DenonAVRTelnet extends IPSModule
 		
 		
 		//TestEmpfangspuffer
+		/*
 		$responseid = @IPS_GetVariableIDByName("Response", $this->InstanceID);
 				if ($responseid === false)
 					{
@@ -498,8 +499,8 @@ class DenonAVRTelnet extends IPSModule
 						//Variable Response existiert bereits
 						
 					}
-					
-				//auf aktive Parent prüfen
+		*/			
+			//auf aktive Parent prüfen
 				
 			//Status aktiv
 			$this->SetStatus(102);
@@ -826,9 +827,7 @@ class DenonAVRTelnet extends IPSModule
 		$message = json_encode($data->Buffer->Data);
 		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
 		$response = json_encode($data->Buffer);
-		SetValueString($this->GetIDForIdent("Response"), $response);
-		// Hier werden die Daten verarbeitet und in Variablen geschrieben
-		//SetValue($this->GetIDForIdent("Response"), $data->Buffer);
+		//SetValueString($this->GetIDForIdent("Response"), $response);
 		$this->UpdateVariable($data->Buffer);
 	 
 	}	

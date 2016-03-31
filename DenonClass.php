@@ -4068,21 +4068,25 @@ class DenonAVRCP_API_Data extends stdClass
     }
 	
 	public function GetCommandResponse ($data)
-	{
+	{	
+		$spacecommands = array
+							("PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
+							"PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
+							"PSTONE_CTRL OFF" => "PSTONE CTRL OFF",
+							"PSTONE_CTRL ON" => "PSTONE CTRL ON"
+							);
+		
+		foreach($spacecommands as $spacecommand => $responsesc)
+			{
+				$specialkey = array_search($responsesc, $data);  // false wenn nichts gefunden
+				if($specialkey !== false)
+					{
+						$data[$specialkey] = str_replace($responsesc, $spacecommand, $data[$specialkey]);
+					}
+			}
 		$datavalues = array();
 		foreach($data as $key => $response)
 			{
-				$pos = stripos($response, "PSCINEMA EQ");
-				if($pos !== false)
-				{
-					$data = str_replace("PSCINEMA EQ", "PSCINEMA_EQ", $data);
-				}
-				$pos1 = stripos($response, "PSTONE CTRL");
-				if($pos1 !== false)
-				{
-					$data = str_replace("PSTONE CTRL", "PSTONE_CTRL", $data);
-				}
-
 				foreach($this->VarMapping as $Command => $ValMap)
 				{
 					$pos = stripos($response, $Command);
@@ -4100,7 +4104,6 @@ class DenonAVRCP_API_Data extends stdClass
 									$datavalues[$Ident] =  array('VarType' => $VarType, 'Value' => $SubCommandValue, 'Subcommand' => $ResponseSubCommand);
 								}
 						}
-						
 					}
 				}
 			}
