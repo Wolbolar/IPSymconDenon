@@ -773,7 +773,7 @@ class DenonAVRTelnet extends IPSModule
         try
         {
             //Command aus Ident
-			$APIData->APICommand = str_replace("_", " ", $Ident);
+			$APIData->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
 			if($Ident == "Z2POWER" || $Ident == "Z2INPUT" || $Ident == "Z2VOL")
 			{
 				$APIData->APICommand = "Z2";

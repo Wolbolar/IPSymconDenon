@@ -20,7 +20,7 @@ Mit dem Modul lassen sich Befehle an einen Denon Receiver absenden und die Statu
 Ein Modul nutzt als Kommunikation Port 23 über das Denon AVR Control Protocol. Das zweite Modul nutzt zur Kommunikation HTTP.
 Der Denon AVR kann jeweils nur einen einzige Verbindung auf Port 23 aufbauen. Daher kann, wenn dieses Modul benutzt wird, kein weiterer Client mehr den Denon AVR auf diese Weise über Port 23 steuern.
 Der Vorteil ist jedoch, dass sämtliche dokumentierte Befehle an den Denon AVR geschickt und auch eine Rückmeldung in IP-Symcon dafür empfangen werden kann. Die zweite Möglichkeit ist das Denon HTTP Modul zu benutzten.
-Abhänig nach dem alter des Receivers sind aber nicht für alle Befhle auch eine Rückmeldung verfügbar. Auch mit dem HTTP Modul können aber alle dokumentierten Befhle an den Receiver geschickt werden. Es können auch mehrere Clients über HTTP
+Abhängig vom Baujahr des Receivers sind aber nicht für alle Befehle auch eine Rückmeldung verfügbar. Auch mit dem HTTP Modul können aber alle dokumentierten Befehle an den Receiver geschickt werden. Es können auch mehrere Clients über HTTP
 Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Befehle an den Denon AVR senden:  
@@ -29,8 +29,8 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Status Rückmeldung:  
 
- - Bei dem Modul (Telnet Port 23) sind für alle Befhel auch eine Statusrückmledung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein.  
- - Bei dem Modul (HTTP) sind abhänig vom Receivertyp und Baujahr eine unterschiedliche Anzhal an Statusrückmeldungen verfügbar. Es können mehrere Clients dem Denon über HTTP Befehle senden und Status erhalten.    
+ - Bei dem Modul (Telnet Port 23) sind für die dokumentierten Befehle auch eine Statusrückmledung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein.  
+ - Bei dem Modul (HTTP) sind abhänig vom Receivertyp und Baujahr eine unterschiedliche Anzahl an Statusrückmeldungen verfügbar. Es können mehrere Clients dem Denon über HTTP Befehle senden und Status erhalten.    
   
 
 ## 2. Voraussetzungen

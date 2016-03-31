@@ -112,8 +112,8 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 			// Absenden an Denon AVR
 		
-			SetValue($this->GetIDForIdent("CommandOut"), json_encode($data->Buffer));
-			IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode(json_encode($data->Buffer)));
+			SetValue($this->GetIDForIdent("CommandOut"), $data->Buffer);
+			IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode($data->Buffer));
 			
 			$command = $data->Buffer;
 			$this->SendCommand ($command);

@@ -666,12 +666,12 @@ class DenonAVRHTTP extends IPSModule
         }
 		*/
 				
-		$APIData = new DenonAVRCP_API_Data();
-		$APIData->APIIdent = $Ident;
-        $APIData->Data = $Value;
+		$APIDataHTTP = new DenonAVRCP_API_Data();
+		$APIDataHTTP->APIIdent = $Ident;
+        $APIDataHTTP->Data = $Value;
         //Prüfen ob Command vorhanden
 		/*
-		if (!$this->DenonZone->CmdAvaiable($APIData))
+		if (!$this->DenonZone->CmdAvaiable($APIDataHTTP))
         {
 //            trigger_error("Illegal Command in this Zone.", E_USER_WARNING);
             echo "Illegal Command in this Zone";
@@ -680,24 +680,24 @@ class DenonAVRHTTP extends IPSModule
 		*/
 		
         // Subcommand holen
-        $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APICommand, $APIData->Data);
-        IPS_LogMessage('Denon Subcommand', $APIData->APISubCommand);
+        $APIDataHTTP->APISubCommand = $APIDataHTTP->GetSubCommand($APIDataHTTP->APIIdent, $APIDataHTTP->Data);
+        IPS_LogMessage('Denon Subcommand', $APIDataHTTP->APISubCommand);
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
             //Command aus Ident
-			$APIData->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
+			$APIDataHTTP->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
 			if($Ident == "Z2POWER" || $Ident == "Z2INPUT" || $Ident == "Z2VOL")
 			{
-				$APIData->APICommand = "Z2";
+				$APIDataHTTP->APICommand = "Z2";
 			}		
 			elseif($Ident == "Z3POWER" || $Ident == "Z3INPUT" || $Ident == "Z3VOL")
 			{
-				$APIData->APICommand = "Z3";
+				$APIDataHTTP->APICommand = "Z3";
 			}
-			$payload = $APIData->APICommand.$APIData->APISubCommand;		
+			$payload = $APIDataHTTP->APICommand.$APIDataHTTP->APISubCommand;		
 			$this->SendCommand($payload);
-			//$this->SendAPIData($APIData);
+			//$this->SendAPIData($APIDataHTTP);
         } catch (Exception $ex)
         {
 //            trigger_error($ex->getMessage(), $ex->getCode());
