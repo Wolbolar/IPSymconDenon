@@ -1228,93 +1228,136 @@ class DENON_StatusHTML extends stdClass
 	{
 		//Main
 		$DataMain = array();
-		$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml"));
-				
-		if ($xmlMainZone)
-			{
-			$DataMain = $this->MainZoneXml($xmlMainZone, $DataMain);
+		try { 
+			$xmlMainZone = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml"));
+			if ($xmlMainZone)
+				{
+				$DataMain = $this->MainZoneXml($xmlMainZone, $DataMain);
+				}
+			else
+				{
+				exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
+				}
 			}
-		else
-			{
-			exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
-			}
-		
-		$xmlMainZoneStatus = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXmlStatus.xml"));
-				
-		if ($xmlMainZoneStatus)
-			{
-			$DataMain = $this->MainZoneXmlStatus($xmlMainZoneStatus, $DataMain);
-			}
-		else
-			{
-			exit("Datei ".$xmlMainZoneStatus." konnte nicht geöffnet werden.");
-			}
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
+			} 
 
+		try { 
+			$xmlMainZoneStatus = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXmlStatus.xml"));
+			if ($xmlMainZoneStatus)
+				{
+				$DataMain = $this->MainZoneXmlStatus($xmlMainZoneStatus, $DataMain);
+				}
+			else
+				{
+				exit("Datei ".$xmlMainZoneStatus." konnte nicht geöffnet werden.");
+				}
+			}
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
+			} 	
+
+		try { 
+			$xmlNetAudioStatus = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_NetAudioStatusXml.xml"));
+			if ($xmlNetAudioStatus)
+				{
+				$DataMain = $this->NetAudioStatusXml($xmlNetAudioStatus, $DataMain);
+				}
+			else
+				{
+				exit("Datei ".$xmlNetAudioStatus." konnte nicht geöffnet werden.");
+				}
+			}
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
+			} 	
 		
-		$xmlNetAudioStatus = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_NetAudioStatusXml.xml"));
-				
-		if ($xmlNetAudioStatus)
-			{
-			$DataMain = $this->NetAudioStatusXml($xmlNetAudioStatus, $DataMain);
-			}
-		else
-			{
-			exit("Datei ".$xmlNetAudioStatus." konnte nicht geöffnet werden.");
-			}
-			
-		$xmlDeviceinfo = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_Deviceinfo.xml"));
-			
-		if ($xmlDeviceinfo)
-			{
-			$DataMain = $this->Deviceinfo($xmlDeviceinfo, $DataMain);
-			}
-		else
-			{
-			exit("Datei ".$xmlDeviceinfo." konnte nicht geöffnet werden.");
-			}
-			
 		
-		
+		try { 
+			$xmlDeviceinfo = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_Deviceinfo.xml"));
+			if ($xmlDeviceinfo)
+				{
+				$DataMain = $this->Deviceinfo($xmlDeviceinfo, $DataMain);
+				}
+			else
+				{
+				exit("Datei ".$xmlDeviceinfo." konnte nicht geöffnet werden.");
+				}
+			}
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
+			}	
+
 		 // Zone 2
 		
 		$DataZ2 = array();
-		$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
-		if ($xml)
+		try { 
+			  $xml = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
+			  if ($xml)
 				{
 				$DataZ2 = $this->StateZone2($xml, $DataZ2);
 				}
-		else
-			{
-			exit("Datei ".$xml." konnte nicht geöffnet werden.");
+			else
+				{
+				exit("Datei ".$xml." konnte nicht geöffnet werden.");
+				}
 			}
-				
-		
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
+			}
+	
 		// Zone 3
 		
 		$DataZ3 = array();
-		$xml = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
-		if ($xml)
-			{
-			$DataZ3 = $this->StateZone3($xml, $DataZ3);
+		try { 
+			$xml = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
+			if ($xml)
+				{
+				$DataZ3 = $this->StateZone3($xml, $DataZ3);
+				}
+			else
+				{
+				exit("Datei ".$xml." konnte nicht geöffnet werden.");
+				}
 			}
-		else
-			{
-			exit("Datei ".$xml." konnte nicht geöffnet werden.");
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
 			}
 		
+		
 		//Model
-		$xmlDeviceSearch = new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formiPhoneAppDeviceSearch.xml"));
-				
-		if ($xmlDeviceSearch)
-			{
-			$DataMain = $this->DeviceSearch($xmlDeviceSearch, $DataMain);
-			$DataZ2 = $this->DeviceSearch($xmlDeviceSearch, $DataZ2);
-			$DataZ3 = $this->DeviceSearch($xmlDeviceSearch, $DataZ3);
+		try { 
+			$xmlDeviceSearch = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formiPhoneAppDeviceSearch.xml"));
+			if ($xmlDeviceSearch)
+				{
+				$DataMain = $this->DeviceSearch($xmlDeviceSearch, $DataMain);
+				$DataZ2 = $this->DeviceSearch($xmlDeviceSearch, $DataZ2);
+				$DataZ3 = $this->DeviceSearch($xmlDeviceSearch, $DataZ3);
+				}
+			else
+				{
+				exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
+				}
 			}
-		else
-			{
-			exit("Datei ".$xmlDeviceSearch." konnte nicht geöffnet werden.");
-			}	
+		catch (Exception $e)
+			{ 
+			  echo $e->getMessage();
+			  //echo "bad xml"; 
+			}		
+			
 		
 		$datasend = array(
 			'ResponseType' => 'HTTP',
