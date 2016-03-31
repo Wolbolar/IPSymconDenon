@@ -482,11 +482,11 @@ class DENONIPSProfiles extends stdClass
 				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
 				"Associations" => array(
 				Array(0, "NONE",  "", -1),
-				Array(1, "QS 1",  "", -1),
-				Array(2, "QS 2",  "", -1),
-				Array(3, "QS 3",  "", -1),
-				Array(4, "QS 4",  "", -1),
-				Array(5, "QS 5",  "", -1)
+				Array(1, "Quick Select 1",  "", -1),
+				Array(2, "Quick Select 2",  "", -1),
+				Array(3, "Quick Select 3",  "", -1),
+				Array(4, "Quick Select 4",  "", -1),
+				Array(5, "Quick Select 5",  "", -1)
 				)
 			),
 			$this->ptDigitalInputMode => array(
@@ -2136,19 +2136,19 @@ class DENON_API_Commands extends stdClass
 	const VIDEOGAME = "VIDEO GAME"; // Video Game Mode
 	const VIRTUAL = "VIRTUAL"; // Virtual Mode
 	//Quick Select Mode
-	const QUICK1 = "1"; // Quick Select 1 Mode Select
-	const QUICK2 = "2"; // Quick Select 2 Mode Select
-	const QUICK3 = "3"; // Quick Select 3 Mode Select
-	const QUICK4 = "4"; // Quick Select 4 Mode Select
-	const QUICK5 = "5"; // Quick Select 5 Mode Select
+	const MSQUICK1 = "1"; // Quick Select 1 Mode Select
+	const MSQUICK2 = "2"; // Quick Select 2 Mode Select
+	const MSQUICK3 = "3"; // Quick Select 3 Mode Select
+	const MSQUICK4 = "4"; // Quick Select 4 Mode Select
+	const MSQUICK5 = "5"; // Quick Select 5 Mode Select
 	
 	//MSQUICKMEMORY
-	const QUICK1MEMORY = "1 MEMORY"; // Quick Select 1 Mode Memory
-	const QUICK2MEMORY = "2 MEMORY"; // Quick Select 2 Mode Memory
-	const QUICK3MEMORY = "3 MEMORY"; // Quick Select 3 Mode Memory
-	const QUICK4MEMORY = "4 MEMORY"; // Quick Select 4 Mode Memory
-	const QUICK5MEMORY = "5 MEMORY"; // Quick Select 5 Mode Memory
-	const QUICK = "QUICK ?"; // QUICK ? Return MSQUICK Status
+	const MSQUICK1MEMORY = "1 MEMORY"; // Quick Select 1 Mode Memory
+	const MSQUICK2MEMORY = "2 MEMORY"; // Quick Select 2 Mode Memory
+	const MSQUICK3MEMORY = "3 MEMORY"; // Quick Select 3 Mode Memory
+	const MSQUICK4MEMORY = "4 MEMORY"; // Quick Select 4 Mode Memory
+	const MSQUICK5MEMORY = "5 MEMORY"; // Quick Select 5 Mode Memory
+	const MSQUICK = "QUICK ?"; // QUICK ? Return MSQUICK Status
 	
 	//VS
 	//VSMONI Set HDMI Monitor
@@ -2665,7 +2665,7 @@ class DenonAVRCP_API_Data extends stdClass
 					DENON_API_Commands::MSQUICK
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array(" ?" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5,)
+						"ValueMapping" => array("0" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5,)
 					),
 					//Digital Input Mode
 					DENON_API_Commands::DC
