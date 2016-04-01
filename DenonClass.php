@@ -607,7 +607,7 @@ class DENONIPSProfiles extends stdClass
 				Array(3, "High",  "", -1)
 				)
 			),
-			$this->ptDynamicRange => array(
+			$this->ptDRCDirectChange => array(
 				"Ident" => DENON_API_Commands::PSDRC,
 				"Name" => "Dynamic Range",
 				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
