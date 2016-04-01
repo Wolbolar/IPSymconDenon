@@ -261,7 +261,7 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptAFDM => $this->ReadPropertyBoolean('AFDM'),
 				$DenonAVRVar->ptSubwoofer => $this->ReadPropertyBoolean('Subwoofer'),
 				$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT'),
-				$DenonAVRVar->ptGUISourceSelect => $this->ReadPropertyBoolean('GUIMenu'),
+				$DenonAVRVar->ptGUIMenu => $this->ReadPropertyBoolean('GUIMenu'),
 				$DenonAVRVar->ptGUISourceSelect => $this->ReadPropertyBoolean('GUIMenuSource')		
 				);
 				
