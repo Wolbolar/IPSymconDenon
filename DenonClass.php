@@ -128,6 +128,9 @@ class DENONIPSProfiles extends stdClass
 	public $ptZone3Name;
 	public $ptTopMenuLink;
 	public $ptModel;
+	public $ptGUISourceSelect;
+	public $ptGUIMenu;
+	public $ptSurroundDisplay;
 	public $UsedInputSources;
 	public $UsedInputSourcesZ2;
 	public $UsedInputSourcesZ3;
@@ -276,7 +279,8 @@ class DENONIPSProfiles extends stdClass
 		$this->ptFriendlyName => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile)),
 		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", "~String", $this->getpos($profile)),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile)),
-		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile))
+		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile)),
+		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", "~String", $this->getpos($profile))
 		);
 		$profilesZone2 = array (
 		$this->ptZone2Name => array("Zone2Name", "Zone2 Name", "~String", $this->getpos($profile)),
@@ -339,9 +343,11 @@ class DENONIPSProfiles extends stdClass
 		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", $this->getpos($profile)),
 		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", $this->getpos($profile)),
 		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", $this->getpos($profile)),
-		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "Subwoofer ATT", "~Switch", $this->getpos($profile))
+		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "Subwoofer ATT", "~Switch", $this->getpos($profile)),
+		$this->ptGUIMenu => array(DENON_API_Commands::MNMEN, "GUI Menu", "~Switch", $this->getpos($profile)),
+		$this->ptGUISourceSelect => array(DENON_API_Commands::MNSRC, "GUI Source Select Menu", "~Switch", $this->getpos($profile))
 		);
-		
+
 		$profilesZone2 = array (
 		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", $this->getpos($profile)),
 		$this->ptZone2Power => array(DENON_API_Commands::Z2POWER, "Zone 2 Power", "~Switch", $this->getpos($profile)),
@@ -397,16 +403,16 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainZone = array(
-        $this->ptSleep => array(DENON_API_Commands::SLP, "Sleep", "Intensity",  "", " Min", 0, 120, 10, 0),
+        $this->ptSleep => array(DENON_API_Commands::SLP, "Sleep", "Clock",  "", " Min", 0, 120, 10, 0),
 		$this->ptDimension => array(DENON_API_Commands::PSDIM, "Dimension", "Intensity",  "", "", 0, 6, 1, 0)
 		);
 		
 		$profilesZone2 = array(
-        $this->ptZone2Sleep => array(DENON_API_Commands::Z2SLP, "Sleep Zone 2", "Intensity",  "", " Min", 0, 120, 10, 0)
+        $this->ptZone2Sleep => array(DENON_API_Commands::Z2SLP, "Sleep Zone 2", "Clock",  "", " Min", 0, 120, 10, 0)
 		);
 		
 		$profilesZone3 = array(
-        $this->ptZone3Sleep => array(DENON_API_Commands::Z3SLP, "Sleep Zone 3", "Intensity",  "", " Min", 0, 120, 10, 0)
+        $this->ptZone3Sleep => array(DENON_API_Commands::Z3SLP, "Sleep Zone 3", "Clock",  "", " Min", 0, 120, 10, 0)
 		);
 		
 		if($this->Zone == 0)
@@ -1183,6 +1189,8 @@ class DENONIPSProfiles extends stdClass
 							$this->ptMainZoneName => 103,
 							$this->ptTopMenuLink => 104,
 							$this->ptModel => 105,
+							$this->ptGUIMenu => 106,
+							$this->ptGUISourceSelect => 107,
 							
 							$this->ptZone2Power => 201,
 							$this->ptZone2Mute => 202,
@@ -1899,7 +1907,9 @@ class DENON_Zone extends stdClass
             DENON_API_Commands::PVHUE,
             DENON_API_Commands::PVDNR,
             DENON_API_Commands::PVENH,
-			DENON_API_Commands::MN
+			DENON_API_Commands::MN,
+			DENON_API_Commands::MNMEN,
+			DENON_API_Commands::MNSRC
 
         ),
         DENON_Zone::Zone2 => array(
@@ -2075,12 +2085,12 @@ class DENON_API_Commands extends stdClass
 	//SUB Commands
 	
 	//PW
-	const ON = "ON"; // Power On
-	const STANDBY = "STANDBY"; // Power Standbye
+	const PWON = "ON"; // Power On
+	const PWSTANDBY = "STANDBY"; // Power Standbye
 	
 	//MV
-	const UP = "UP"; // Master Volume Up
-	const DOWN = "DOWN"; // Master Volume Down
+	const MVUP = "UP"; // Master Volume Up
+	const MVDOWN = "DOWN"; // Master Volume Down
 	
 	
 	//SI
@@ -2115,26 +2125,26 @@ class DENON_API_Commands extends stdClass
 	const NO = "NO"; // no Input
 	
 	//DC Digital Input
-	const PCM = "PCM"; // PCM Mode
-	const DTS = "DTS"; // DTS Mode
+	const DCPCM = "PCM"; // PCM Mode
+	const DCDTS = "DTS"; // DTS Mode
 	
 	//MS Surround Mode
-	const DIRECT = "DIRECT"; // Direct Mode
-	const PUREDIRECT = "PURE DIRECT"; // Pure Direct Mode
-	const STEREO = "STEREO"; // Stereo Mode
-	const STANDARD = "STANDARD"; // Standard Mode
-	const DOLBYDIGITAL = "DOLBY DIGITAL"; // Dolby Digital Mode
-	const DTSSUROUND = "DTS SUROUND"; // DTS Suround Mode
-	const MCHSTEREO = "MCH STEREO"; // Multi Channel Stereo Mode
-	const WIDESCREEN = "WIDE SCREEN"; // Wide Screen Mode
-	const SUPERSTADIUM = "SUPER STADIUM"; // Super Stadium Mode
-	const ROCKARENA = "ROCK ARENA"; // Rock Arena Mode
-	const JAZZCLUB = "JAZZ CLUB"; // Jazz Club Mode
-	const CLASSICCONCERT = "CLASSIC CONCERT"; // Classic Concert Mode
-	const MONOMOVIE = "MONO MOVIE"; // Mono Movie Mode
-	const MATRIX = "MATRIX"; // Matrix Mode
-	const VIDEOGAME = "VIDEO GAME"; // Video Game Mode
-	const VIRTUAL = "VIRTUAL"; // Virtual Mode
+	const MSDIRECT = "DIRECT"; // Direct Mode
+	const MSPUREDIRECT = "PURE DIRECT"; // Pure Direct Mode
+	const MSSTEREO = "STEREO"; // Stereo Mode
+	const MSSTANDARD = "STANDARD"; // Standard Mode
+	const MSDOLBYDIGITAL = "DOLBY DIGITAL"; // Dolby Digital Mode
+	const MSDTSSUROUND = "DTS SUROUND"; // DTS Suround Mode
+	const MSMCHSTEREO = "MCH STEREO"; // Multi Channel Stereo Mode
+	const MSWIDESCREEN = "WIDE SCREEN"; // Wide Screen Mode
+	const MSSUPERSTADIUM = "SUPER STADIUM"; // Super Stadium Mode
+	const MSROCKARENA = "ROCK ARENA"; // Rock Arena Mode
+	const MSJAZZCLUB = "JAZZ CLUB"; // Jazz Club Mode
+	const MSCLASSICCONCERT = "CLASSIC CONCERT"; // Classic Concert Mode
+	const MSMONOMOVIE = "MONO MOVIE"; // Mono Movie Mode
+	const MSMATRIX = "MATRIX"; // Matrix Mode
+	const MSVIDEOGAME = "VIDEO GAME"; // Video Game Mode
+	const MSVIRTUAL = "VIRTUAL"; // Virtual Mode
 	//Quick Select Mode
 	const MSQUICK1 = "1"; // Quick Select 1 Mode Select
 	const MSQUICK2 = "2"; // Quick Select 2 Mode Select
@@ -2396,14 +2406,81 @@ class DENON_API_Commands extends stdClass
 	const MNENT = "ENT"; // Cursor Enter
 	const MNRTN = "RTN"; // Cursor Return
 	
+	//GUI Menu
 	const MNMEN = "MNMEN"; // GUI Menu
 	const MNMENON = " ON"; // GUI Menu On
 	const MNMENOFF = " OFF"; // GUI Menu Off
 	
+	//GUI Source Select Menu
 	const MNSRC = "MNSRC"; // GUI Menu
 	const MNSRCON = " ON"; // GUI Menu On
 	const MNSRCOFF = " OFF"; // GUI Menu Off
 	
+	// Surround Modes
+	const MSDSDDIRECT = "MSDSD DIRECT"; // DSD DIRECT
+	const MSMULTICNIN = "MSMULTI CH IN"; // MULTI CH IN
+	const MSMCHINPL2XC = "MSM CH IN+PL2X C"; // M CH IN+PL2X C
+	const MSMCHINPL2XM = "MSM CH IN+PL2X M"; // M CH IN+PL2X M
+	const MSMCHINPL2ZH = "MSM CH IN+PL2Z H"; // M CH IN+PL2Z H
+	const MSMCHINDOLBYEX = "MSM CH IN+DOLBY EX"; // M CH IN+DOLBY EX
+	const MSMULTICHIN71 = "MSMULTI CH IN 7.1"; // MULTI CH IN 7.1
+	const MSDOLBYPROLOGIC = "MSDOLBY PRO LOGIC"; // DOLBY PRO LOGIC
+	const MSDOLBYPL2C = "MSDOLBY PL2 C"; // DOLBY PL2 C
+	const MSDOLBYPL2M = "MSDOLBY PL2 M"; // DOLBY PL2 M
+	const MSDOLBYPL2G = "MSDOLBY PL2 G"; // DOLBY PL2 G
+	const MSDOLBYPL2XC = "MSDOLBY PL2X C"; // DOLBY PL2X C
+	const MSDOLBYPL2XM = "MSDOLBYPL2XM"; // DOLBY PL2X M
+	const MSDOLBYPL2XG = "MSDOLBY PL2X G"; // DOLBY PL2X G
+	const MSDOLBYPL2ZH = "MSDOLBY PL2Z H"; // DOLBY PL2Z H
+	const MSDOLBYDEX = "MSDOLBY D EX"; // DOLBY D EX
+	const MSDOLBYDPL2XC = "MSDOLBY D+PL2X C"; // DOLBY D+PL2X C
+	const MSDOLBYDPL2XM = "MSDOLBY D+PL2X M"; // DOLBY D+PL2X M
+	const MSDOLBYDPL2XH = "MSDOLBY D+PL2X H"; // DOLBY D+PL2X H
+	const MSDTSNEO6C = "MSDTS NEO:6 C"; // DTS NEO:6 C
+	const MSDTSNEO6M = "MSDTS NEO:6 M"; // DTS NEO:6 M
+	const MSDTSESDSCRT61 = "MSDTS ES DSCRT6.1"; // DTS ES DSCRT6.1
+	const MSDTSESMTRX61 = "MSDTS ES MTRX6.1"; // DTS ES MTRX6.1
+	const MSDTSESMTRX61 = "MSDTS ES MTRX6.1"; // DTS ES MTRX6.1
+	const MSDTSPL2XC = "MSDTS+PL2X C"; // DTS+PL2X C
+	const MSDTSPL2XM = "MSDTS+PL2X M"; // DTS+PL2X M	
+	const MSDTSPL2ZH = "MSDTS+PL2Z H"; // DTS+PL2Z H
+	const MSDTSNEO6 = "MSDTS+NEO:6"; // DTS+NEO:6 
+	const MSDTS9624 = "MSDTS96/24"; // DTS96/24
+	const MSDTS96ESMTRX = "MSDTS96 ES MTRX"; // DTS96 ES MTRX
+	const MSDOLBYDPLUS = "MSDOLBY D+"; // DOLBY D+
+	const MSDOLBYDPLUSEX = "MSDOLBY D+ +EX"; // DOLBY D+ +EX
+	const MSDOLBYDPLUSPL2XC = "MSDOLBY D+ +PL2X C"; // DOLBY D+ +PL2X C
+	const MSDOLBYDPLUSPL2XM = "MSDOLBY D+ +PL2X M"; // DOLBY D+ +PL2X M
+	const MSDOLBYDPLUSPL2XH = "MSDOLBY D+ +PL2X H"; // DOLBY D+ +PL2X H
+	const MSDOLBYTRUEHD = "MSDOLBY TRUEHD"; // DOLBY TRUEHD
+	const MSDOLBYHD = "MSDOLBY HD"; // DOLBY HD
+	const MSDOLBYHDEX = "MSDOLBY HD+EX"; // DOLBY HD+EX
+	const MSDOLBYHDPL2XC = "MSDOLBY HD+PL2X C"; // DOLBY HD+PL2X C
+	const MSDOLBYHDPL2XM = "MSDOLBY HD+PL2X M"; // DOLBY HD+PL2X M
+	const MSDOLBYHDPL2XH = "MSDOLBY HD+PL2X H"; // DOLBY HD+PL2X H
+	const MSDTSHD = "MSDTS HD "; // DTS HD 
+	const MSDTSHDMSTR = "MSDTS HD MSTR"; // DTS HD MSTR
+	const MSDTSHDNEO6 = "MSDTS HD+NEO:6"; // DTS HD+NEO:6
+	const MSDTSHDPL2XC = "MSDTS HD+PL2X C"; // DTS HD+PL2X C
+	const MSDTSHDPL2XM = "MSDTS HD+PL2X M"; // DTS HD+PL2X M
+	const MSDTSHDPL2XH = "MSDTS HD+PL2X H"; // DTS HD+PL2X H
+	const MSDTSES8CHDSCRT = "MSDTS ES 8CH DSCRT"; // DTS ES 8CH DSCRT
+	const MSDTSEXPRESS = "MSDTS EXPRESS"; // DTS EXPRESS
+	const MSAUDYSSEY DSX = "MSAUDYSSEY DSX"; // AUDYSSEY DSX
+	const MSPLDSX = "MSPL DSX"; // PL DSX
+	const MSPL2CDSX = "MSPL2 C DSX"; // PL2 C DSX
+	const MSPL2MDSX = "MSPL2 M DSX"; // PL2 M DSX
+	const MSPL2GDSX = "MSPL2 G DSX"; // PL2 G DSX
+	const MSPL2XCDSX = "MSPL2X C DSX"; // PL2X C DSX
+	const MSPL2XMDSX = "MSPL2X M DSX"; // PL2X M DSX
+	const MSPL2XGDSX = "MSPL2X G DSX"; // PL2X G DSX
+	const MSNEO6CDSX = "MSNEO:6 C DSX"; // NEO:6 C DSX
+	const MSNEO6MDSX = "MSNEO:6 M DSX"; // NEO:6 M DSX
+	
+	const SURROUNDDISPLAY = "SurroundDisplay"; // Nur DisplayIdent
+	
+	
+
 	
 	const IsVariable = 0;
     const VarType = 1;
@@ -4021,6 +4098,18 @@ class DenonAVRCP_API_Data extends stdClass
 												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
 												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
 												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12)
+					),
+					//GUI Menu
+					DENON_API_Commands::MNMEN
+					=> array(
+						"VarType" => DENONIPSVarType::vtBoolean,
+						"ValueMapping" => array(" ON" => true, " OFF" => false)
+					),
+					//GUI Source Select Menu
+					DENON_API_Commands::MNSRC
+					=> array(
+						"VarType" => DENONIPSVarType::vtBoolean,
+						"ValueMapping" => array(" ON" => true, " OFF" => false)
 					)
 				);
 
@@ -4069,6 +4158,23 @@ class DenonAVRCP_API_Data extends stdClass
 	
 	public function GetCommandResponse ($data)
 	{	
+		//Surround Display
+		$displaysurround = array("Dolby Pro Logic II C" => "MSDOLBY PL2 C",
+								"Dolby Pro Logic II M" => "MSDOLBY PL2 M",
+								"Dolby Pro Logic II G" => "MSDOLBY PL2 G"								
+								);
+		$showsurrounddisplay = "";						
+		foreach($displaysurround as $showdisplay => $responsedisplay)
+			{
+				$displaykey = array_search($responsedisplay, $data);  // false wenn nichts gefunden
+				if($displaykey !== false)
+					{
+					$showsurrounddisplay = $showdisplay;
+					}
+				
+			
+			}
+		
 		$spacecommands = array
 							("PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
 							"PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
@@ -4109,7 +4215,8 @@ class DenonAVRCP_API_Data extends stdClass
 			}
 		$datasend = array(
 			'ResponseType' => 'TELNET',
-			'Data' => $datavalues
+			'Data' => $datavalues,
+			'SurroundDisplay' => $showsurrounddisplay
 			);
 			
 		return $datasend;	

@@ -16,7 +16,7 @@ class DenonAVRTelnet extends IPSModule
 		
 		$this->RegisterPropertyInteger("Type", 0);
 		$this->RegisterPropertyInteger("Zone", 6);
-		//$this->RegisterPropertyBoolean("Display", false);
+		$this->RegisterPropertyBoolean("SurroundDisplay", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("ZoneName", false);
 		$this->RegisterPropertyBoolean("FL", false);
@@ -88,6 +88,8 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('VerticalStretch', false);
 		$this->RegisterPropertyBoolean('DolbyVolume', false);
 		$this->RegisterPropertyBoolean("Model", false);
+		$this->RegisterPropertyBoolean("GUIMenu", false);
+		$this->RegisterPropertyBoolean("GUIMenuSource", false);
 		$this->RegisterPropertyBoolean("Z2CVFL", false);
 		$this->RegisterPropertyBoolean("Z2CVFR", false);
 		$this->RegisterPropertyBoolean("Z2HPF", false);
@@ -215,10 +217,10 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptMainZoneName = "DENON.".$DenonAVRVar->Type.".MainZoneName";
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
-			
-			
-
-	
+			$DenonAVRVar->ptGUIMenu = "DENON.".$DenonAVRVar->Type.".GUIMenu";
+			$DenonAVRVar->ptGUISourceSelect = "DENON.".$DenonAVRVar->Type.".GUIMenuSourceSelect";
+			$DenonAVRVar->ptSurroundDisplay = "DENON.".$DenonAVRVar->Type.".SurroundDisplay";
+				
 			
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
@@ -232,14 +234,14 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			
-			
 			//String
 			$vString = array
 				(
 				$DenonAVRVar->ptFriendlyName => false,
 				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
-				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model')
+				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model'),
+				$DenonAVRVar->ptSurroundDisplay => $this->ReadPropertyBoolean('SurroundDisplay')
 				);
 			
 			//Boolean
@@ -258,7 +260,9 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptEffect => $this->ReadPropertyBoolean('Effect'),
 				$DenonAVRVar->ptAFDM => $this->ReadPropertyBoolean('AFDM'),
 				$DenonAVRVar->ptSubwoofer => $this->ReadPropertyBoolean('Subwoofer'),
-				$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT')	
+				$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT'),
+				$DenonAVRVar->ptGUISourceSelect => $this->ReadPropertyBoolean('GUIMenu'),
+				$DenonAVRVar->ptGUISourceSelect => $this->ReadPropertyBoolean('GUIMenuSource')		
 				);
 				
 			//Integer
@@ -737,7 +741,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 		$states  = array ("Power" => "PW", "Volume" => "MV", "Mute" => "MU", "Channel Volume" => "CV",
 		"Input" => "SI", "Main Zone Power" => "ZM", "Rec Select" => "SR", "Input Mode" => "SD",
-		"Digital Input" => "DC", "Video Select" => "SV", "SLP" => "SLP", "Surround Mode" => "MS",
+		"Digital Input" => "DC", "Video Select" => "SV", "Sleep" => "SLP", "Surround Mode" => "MS",
 		"Quick" => "MSQUICK ", "Monitor Status" => "VSMONI ", "ASP" => "VSASP ", "Video Resolution" => "VSSC ",
 		"Video Resolution HDMI" => "VSSCH ", "HDMI Audio" => "VSAUDIO ", "Video Processing Mode" => "VSVPM ", "Vertical Stretch" => "VSVST ",
 		"Tone Control" => "PSTONE CTRL ", "Surround Back" => "PSSB: ", "Cinema EQ" => "PSCINEMA EQ. ", "Mode" => "PSMODE: ",
@@ -748,7 +752,7 @@ class DenonAVRTelnet extends IPSModule
 		"AFDM" => "PSAFD ", "Panorama" => "PSPAN ", "Dimension" => "PSDIM ", "Center Width" => "PSCEN ",
 		"Center Image" => "PSCEI ", "Subwoofer ATT" => "PSATT ", "Subwoofer" => "PSSWR ", "Room Size" => "PSRSZ ",
 		"Audio Delay" => "PSDELAY ", "Audio Restorer" => "PSRSTR ", "Contrast" => "PVCN ", "Brightness" => "PVBR ",
-		"Chroma" => "PVCM ", "Hue" => "PVHUE ", "DNR Direct Change" => "PVDNR ", "Enhancer" => "PVENH ",
+		"Chroma" => "PVCM ", "Hue" => "PVHUE ", "DNR Direct Change" => "PVDNR ", "Enhancer" => "PVENH ", "Effect" => "PSEFF ",
 		"Zone 2" => "Z2", "Zone 2 Mute" => "Z2MU", "Zone 2 Channel Setting" => "Z2CS", "Zone 2 Channel Volume" => "Z2CV",
 		"Zone 2 HPF" => "Z2HPF", "Zone 2 Bass" => "Z2PSBAS ", "Zone 2 Treble" => "Z2PSTRE ", "Zone 2 Quick" => "Z2QUICK ",
 		"Zone 2 Sleep" => "Z2SLP",	"Zone 3" => "Z3", "Zone 3 Mute" => "Z3MU", "Zone 3 Channel Setting" => "Z3CS", "Zone 3 Channel Volume" => "Z3CV",
@@ -862,6 +866,11 @@ class DenonAVRTelnet extends IPSModule
 	private function UpdateVariable($data)
     {
 		$ResponseType = $data->ResponseType;
+		$SurroundDisplay = $data->SurroundDisplay;
+		if($SurroundDisplay !== "" && $this->ReadPropertyBoolean('SurroundDisplay') == true)
+		{
+			SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
+		}
 		
 		$Zone = $this->ReadPropertyInteger('Zone');
 		if($ResponseType == "HTTP")
