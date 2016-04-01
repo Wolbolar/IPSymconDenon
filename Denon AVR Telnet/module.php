@@ -75,7 +75,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('ReferenceLevel', false);
 		$this->RegisterPropertyBoolean('DRCDirectChange', false);
 		$this->RegisterPropertyBoolean('SpeakerOutputFront', false);
-		$this->RegisterPropertyBoolean('DCOMPDirectChange', false);
+		//$this->RegisterPropertyBoolean('DCOMPDirectChange', false);
 		$this->RegisterPropertyBoolean('HDMIMonitor', false);
 		$this->RegisterPropertyBoolean('ASP', false);
 		$this->RegisterPropertyBoolean('Resolution', false);
@@ -201,7 +201,7 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptReferenceLevel = "DENON.".$DenonAVRVar->Type.".ReferenceLevel";
 			$DenonAVRVar->ptDRCDirectChange = "DENON.".$DenonAVRVar->Type.".DRCDirectChange";
 			$DenonAVRVar->ptSpeakerOutputFront = "DENON.".$DenonAVRVar->Type.".SpeakerOutputFront";
-			$DenonAVRVar->ptDCOMPDirectChange = "DENON.".$DenonAVRVar->Type.".DCOMPDirectChange";
+			//$DenonAVRVar->ptDCOMPDirectChange = "DENON.".$DenonAVRVar->Type.".DCOMPDirectChange";
 			$DenonAVRVar->ptHDMIMonitor = "DENON.".$DenonAVRVar->Type.".HDMIMonitor";
 			$DenonAVRVar->ptASP = "DENON.".$DenonAVRVar->Type.".ASP";
 			$DenonAVRVar->ptResolution = "DENON.".$DenonAVRVar->Type.".Resolution";
@@ -262,7 +262,8 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptSubwoofer => $this->ReadPropertyBoolean('Subwoofer'),
 				$DenonAVRVar->ptSubwooferATT => $this->ReadPropertyBoolean('SubwooferATT'),
 				$DenonAVRVar->ptGUIMenu => $this->ReadPropertyBoolean('GUIMenu'),
-				$DenonAVRVar->ptGUISourceSelect => $this->ReadPropertyBoolean('GUIMenuSource')		
+				$DenonAVRVar->ptGUISourceSelect => $this->ReadPropertyBoolean('GUIMenuSource'),
+				$DenonAVRVar->ptVerticalStretch => $this->ReadPropertyBoolean('VerticalStretch')	
 				);
 				
 			//Integer
@@ -289,7 +290,21 @@ class DenonAVRTelnet extends IPSModule
 				 $DenonAVRVar->ptDynamicRange => $this->ReadPropertyBoolean('DynamicRange'),
 				 $DenonAVRVar->ptVideoSelect => $this->ReadPropertyBoolean('VideoSelect'),
 				 $DenonAVRVar->ptSurroundBackMode => $this->ReadPropertyBoolean('SurroundBackMode'),
-				 $DenonAVRVar->ptInputMode => $this->ReadPropertyBoolean('Inputmode')
+				 $DenonAVRVar->ptInputMode => $this->ReadPropertyBoolean('Inputmode'),
+				 $DenonAVRVar->ptHDMIMonitor => $this->ReadPropertyBoolean('HDMIMonitor'),
+				 $DenonAVRVar->ptDNRDirectChange => $this->ReadPropertyBoolean('DNRDirectChange'),
+				 $DenonAVRVar->ptAudysseyDSX => $this->ReadPropertyBoolean('AudysseyDSX'),
+				 $DenonAVRVar->ptReferenceLevel => $this->ReadPropertyBoolean('ReferenceLevel'),
+				 $DenonAVRVar->ptDRCDirectChange => $this->ReadPropertyBoolean('DRCDirectChange'),
+				 $DenonAVRVar->ptSpeakerOutputFront => $this->ReadPropertyBoolean('SpeakerOutputFront'),
+				 $DenonAVRVar->ptASP => $this->ReadPropertyBoolean('ASP'),
+				 $DenonAVRVar->ptResolution => $this->ReadPropertyBoolean('Resolution'),
+				 $DenonAVRVar->ptResolutionHDMI => $this->ReadPropertyBoolean('ResolutionHDMI'),
+				 $DenonAVRVar->ptHDMIAudioOutput => $this->ReadPropertyBoolean('HDMIAudioOutput'),
+				 $DenonAVRVar->ptVideoProcessingMode => $this->ReadPropertyBoolean('VideoProcessingMode'),
+				 $DenonAVRVar->ptDolbyVolumeLeveler => $this->ReadPropertyBoolean('DolbyVolumeLeveler'),
+				 $DenonAVRVar->ptDolbyVolumeModeler => $this->ReadPropertyBoolean('DolbyVolumeModeler'),
+				 $DenonAVRVar->ptPLIIZHeightGain => $this->ReadPropertyBoolean('PLIIZHeightGain')		
 				);
 				
 			//Float

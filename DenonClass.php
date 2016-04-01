@@ -110,7 +110,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptReferenceLevel;
 	public $ptDRCDirectChange;
 	public $ptSpeakerOutputFront;
-	public $ptDCOMPDirectChange;
+	//public $ptDCOMPDirectChange;
 	public $ptHDMIMonitor;
 	public $ptASP;
 	public $ptResolution;
@@ -485,7 +485,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptQuickSelect => array(
 				"Ident" => DENON_API_Commands::MSQUICK,
 				"Name" => "Quick Select",
-				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 5, 0, 0),
 				"Associations" => array(
 				Array(0, "NONE",  "", -1),
 				Array(1, "Quick Select 1",  "", -1),
@@ -498,17 +498,28 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDigitalInputMode => array(
 				"Ident" => DENON_API_Commands::DC,
 				"Name" => "Input Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
 				Array(1, "PCM",  "", -1),
 				Array(2, "DTS",  "", -1)
 				)
 			),
+			$this->ptAudysseyDSX => array(
+				"Ident" => DENON_API_Commands::PSDSX,
+				"Name" => "Audyssey DSX",
+				"Profilesettings" => Array("Speaker", "", "", 0, 3, 0, 0),
+				"Associations" => Array(
+				Array(0, "Off",  "", -1),
+				Array(1, "Audyssey DSX On(Wide)",  "", -1),
+				Array(2, "Audyssey DSX On(Height)",  "", -1),
+				Array(3, "Audyssey DSX On(Wide/Height)",  "", -1)
+				)
+			),
 			$this->ptSurroundMode => array(
 				"Ident" => DENON_API_Commands::MS,
 				"Name" => "Surround Mode",
-				"Profilesettings" => Array("Database", "", "", 0, 15, 0, 0),
+				"Profilesettings" => Array("Melody", "", "", 0, 15, 0, 0),
 				"Associations" => Array(
 				Array(0, "Direct",  "", -1),
 				Array(1, "Pure Direct",  "", -1),
@@ -531,7 +542,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSurroundPlayMode => array(
 				"Ident" => DENON_API_Commands::PSMODE,
 				"Name" => "Surround PlayMode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Cinema",  "", -1),
 				Array(1, "Music",  "", -1),
@@ -542,7 +553,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptMultiEQMode => array(
 				"Ident" => DENON_API_Commands::PSMULTEQ,
 				"Name" => "Multi EQ Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Audyssey",  "", -1),
@@ -554,7 +565,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptAudioRestorer => array(
 				"Ident" => DENON_API_Commands::PSRSTR,
 				"Name" => "Audio Restorer",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "Restorer 64",  "", -1),
@@ -576,7 +587,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptRoomSize => array(
 				"Ident" => DENON_API_Commands::PSRSZ,
 				"Name" => "Room Size",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
+				"Profilesettings" => Array("Sofa", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Small",  "", -1),
 				Array(1, "Small/Medium",  "", -1),
@@ -611,7 +622,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptVideoSelect => array(
 				"Ident" => DENON_API_Commands::SV,
 				"Name" => "Video Select",
-				"Profilesettings" => Array("Intensity", "", "", 0, 8, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 8, 0, 0),
 				"Associations" => Array(
 				Array(0, "DVD",  "", -1),
 				Array(1, "BD",  "", -1),
@@ -627,7 +638,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSurroundBackMode => array(
 				"Ident" => DENON_API_Commands::PSSB,
 				"Name" => "Surround Back Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
 				Array(1, "On",  "", -1),
@@ -639,7 +650,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptHDMIMonitor => array(
 				"Ident" => DENON_API_Commands::VSMONI,
 				"Name" => "HDMI Monitor",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
+				"Profilesettings" => Array("TV", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
 				Array(1, "Monitor 1",  "", -1),
@@ -649,7 +660,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptSpeakerOutputFront => array(
 				"Ident" => DENON_API_Commands::PSSP,
 				"Name" => "Speaker Output Front",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
+				"Profilesettings" => Array("Speaker", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Front Height",  "", -1),
 				Array(1, "Front Weight",  "", -1),
@@ -701,7 +712,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptVideoProcessingMode => array(
 				"Ident" => DENON_API_Commands::VSVPM,
 				"Name" => "Video Processing Mode",
-				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
+				"Profilesettings" => Array("Database", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
 				Array(1, "Game",  "", -1),
@@ -711,7 +722,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptHDMIAudioOutput => array(
 				"Ident" => DENON_API_Commands::VSAUDIO,
 				"Name" => "HDMI Audio Output",
-				"Profilesettings" => Array("Intensity", "", "", 0, 1, 0, 0),
+				"Profilesettings" => Array("TV", "", "", 0, 1, 0, 0),
 				"Associations" => Array(
 				Array(0, "TV",  "", -1),
 				Array(1, "AMP",  "", -1)
@@ -720,7 +731,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptResolutionHDMI => array(
 				"Ident" => DENON_API_Commands::VSSCH,
 				"Name" => "Resolution HDMI",
-				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
+				"Profilesettings" => Array("TV", "", "", 0, 5, 0, 0),
 				"Associations" => Array(
 				Array(0, "480p/576p",  "", -1),
 				Array(1, "1080i",  "", -1),
@@ -733,7 +744,7 @@ class DENONIPSProfiles extends stdClass
 			$this->ptResolution => array(
 				"Ident" => DENON_API_Commands::VSSC,
 				"Name" => "Resolution",
-				"Profilesettings" => Array("Intensity", "", "", 0, 5, 0, 0),
+				"Profilesettings" => Array("TV", "", "", 0, 5, 0, 0),
 				"Associations" => Array(
 				Array(0, "480p/576p",  "", -1),
 				Array(1, "1080i",  "", -1),
@@ -1027,7 +1038,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptTrebleLevel => array(DENON_API_Commands::PSTRE, "Treble Level", "Intensity", "", " dB", -6, 6, 0.5, 1),
 		$this->ptCenterWidth => array(DENON_API_Commands::PSCEN, "Center Width", "Intensity",  "", "", 0, 7, 0.5, 1),
 		$this->ptEffectLevel => array(DENON_API_Commands::PSEFF, "Effect Level", "Intensity", "", "", 0, 15, 0.5, 1),
-		$this->ptCenterImage => array(DENON_API_Commands::PSCEN, "Center Image", "Intensity", "", "", 0.0, 1.0, 0.1, 1),
+		$this->ptCenterImage => array(DENON_API_Commands::PSCEI, "Center Image", "Intensity", "", "", 0.0, 1.0, 0.1, 1),
 		$this->ptContrast => array(DENON_API_Commands::PVCN, "Contrast", "Intensity", "", "", -6, 6, 0.5, 1),
 		$this->ptBrightness => array(DENON_API_Commands::PVBR, "Brightness", "Intensity", "", "", 0, 12, 0.5, 1),
 		$this->ptChromalevel => array(DENON_API_Commands::PVCM, "Chroma Level", "Intensity", "", "", -6, 6, 0.5, 1),
@@ -1174,7 +1185,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptReferenceLevel => 88,
 							$this->ptDRCDirectChange => 89,
 							$this->ptSpeakerOutputFront => 90,
-							$this->ptDCOMPDirectChange => 91,
+							//$this->ptDCOMPDirectChange => 91,
 							$this->ptHDMIMonitor => 92,
 							$this->ptASP => 93,
 							$this->ptResolution => 94,
@@ -2293,11 +2304,11 @@ class DENON_API_Commands extends stdClass
 	const DYNVOL = " ?"; // Return PSDYNVOL Status
 	
 	//PSDSX Audyssey DSX ON
-	const DSXONHW = " ONHW"; // Audyssey DSX ON(Height/Wide)
-	const DSXONH = " ONH"; // Audyssey DSX ON(Height)
-	const DSXONW = " ONW"; // Audyssey DSX ON(Wide)
-	const DSXOFF = " OFF"; // Audyssey DSX OFF
-	const DSX = " ?"; // Return PSDSX Status
+	const PSDSXONHW = " ONHW"; // Audyssey DSX ON(Height/Wide)
+	const PSDSXONH = " ONH"; // Audyssey DSX ON(Height)
+	const PSDSXONW = " ONW"; // Audyssey DSX ON(Wide)
+	const PSDSXOFF = " OFF"; // Audyssey DSX OFF
+	const PSDSXSTATUS = " ?"; // Return PSDSX Status
 	
 	//PSSTW Stage Width
 	const STWUP = " UP"; // STAGE WIDTH UP
