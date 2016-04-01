@@ -1191,6 +1191,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptModel => 105,
 							$this->ptGUIMenu => 106,
 							$this->ptGUISourceSelect => 107,
+							$this->ptSurroundDisplay => 108,
 							
 							$this->ptZone2Power => 201,
 							$this->ptZone2Mute => 202,
