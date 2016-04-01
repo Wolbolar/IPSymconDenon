@@ -2430,7 +2430,7 @@ class DENON_API_Commands extends stdClass
 	const MSDOLBYPL2M = "MSDOLBY PL2 M"; // DOLBY PL2 M
 	const MSDOLBYPL2G = "MSDOLBY PL2 G"; // DOLBY PL2 G
 	const MSDOLBYPL2XC = "MSDOLBY PL2X C"; // DOLBY PL2X C
-	const MSDOLBYPL2XM = "MSDOLBYPL2XM"; // DOLBY PL2X M
+	const MSDOLBYPL2XM = "MSDOLBY PL2X M"; // DOLBY PL2X M
 	const MSDOLBYPL2XG = "MSDOLBY PL2X G"; // DOLBY PL2X G
 	const MSDOLBYPL2ZH = "MSDOLBY PL2Z H"; // DOLBY PL2Z H
 	const MSDOLBYDEX = "MSDOLBY D EX"; // DOLBY D EX
@@ -2458,7 +2458,7 @@ class DENON_API_Commands extends stdClass
 	const MSDOLBYHDPL2XC = "MSDOLBY HD+PL2X C"; // DOLBY HD+PL2X C
 	const MSDOLBYHDPL2XM = "MSDOLBY HD+PL2X M"; // DOLBY HD+PL2X M
 	const MSDOLBYHDPL2XH = "MSDOLBY HD+PL2X H"; // DOLBY HD+PL2X H
-	const MSDTSHD = "MSDTS HD "; // DTS HD 
+	const MSDTSHD = "MSDTS HD"; // DTS HD 
 	const MSDTSHDMSTR = "MSDTS HD MSTR"; // DTS HD MSTR
 	const MSDTSHDNEO6 = "MSDTS HD+NEO:6"; // DTS HD+NEO:6
 	const MSDTSHDPL2XC = "MSDTS HD+PL2X C"; // DTS HD+PL2X C
@@ -4159,10 +4159,66 @@ class DenonAVRCP_API_Data extends stdClass
 	public function GetCommandResponse ($data)
 	{	
 		//Surround Display
-		$displaysurround = array("Dolby Pro Logic II C" => "MSDOLBY PL2 C",
-								"Dolby Pro Logic II M" => "MSDOLBY PL2 M",
-								"Dolby Pro Logic II G" => "MSDOLBY PL2 G"								
+		$displaysurround = array("Dolby Pro Logic II Cinema" => "MSDOLBY PL2 C",
+								"Dolby Pro Logic II Music" => "MSDOLBY PL2 M",
+								"Dolby Pro Logic II Height" => "MSDOLBY PL2 H",
+								"Dolby Digital" => "MSDOLBY DIGITAL",
+								"Multi Channel In" => "MSMULTI CH IN",
+								"DSD Direct" => "MSDSD DIRECT",
+								"Multi Channel In + Dolby Pro Logic IIx Cinema" => "MSM CH IN+PL2X C",
+								"Multi Channel In + Dolby Pro Logic IIx Music" => "MSM CH IN+PL2X M",
+								"Multi Channel In + Dolby Pro Logic IIx Height" => "MSM CH IN+PL2X H",
+								"Multi Channel In + Dolby Ex" => "MSM CH IN+DOLBY EX",
+								"Multi Channel In 7.1" => "MSMULTI CH IN 7.1",
+								"Dolby Pro Logic" => "MSDOLBY PRO LOGIC",
+								"Dolby Pro Logic IIx Cinema" => "MSDOLBY PL2X C",
+								"Dolby Pro Logic IIx Music" => "MSDOLBY PL2X M",
+								"Dolby Pro Logic IIx Height" => "MSDOLBY PL2X H",
+								"Dolby Digital Ex" => "MSDOLBY D EX",
+								"Dolby True HD + Pro Logic IIx Cinema" => "MSDOLBY D+PL2X C",
+								"Dolby True HD + Pro Logic IIx Music" => "MSDOLBY D+PL2X M",
+								"Dolby True HD + Pro Logic IIx Height" => "MSDOLBY D+PL2X H",
+								"DTS NEO:6 Music" => "MSDTS NEO:6 C",
+								"DTS NEO:6 Cinema" => "MSDTS NEO:6 M",
+								"DTS ES Discrete 6.1" => "MSDTS ES DSCRT6.1",
+								"DTS ES Matrix 6.1" => "MSDTS ES MTRX6.1",
+								"DTS + Dolby Pro Logic IIx Cinema" => "MSDTS+PL2X C",
+								"DTS + Dolby Pro Logic IIx Music" => "MSDTS+PL2X M",
+								"DTS + Dolby Pro Logic IIx Height" => "MSDTS+PL2Z H",
+								"DTS + NEO:6" => "MSDTS+NEO:6",
+								"DTS 96/24" => "MSDTS96/24",
+								"DTS 96/24 ES Matrix" => "MSDTS96 ES MTRX",
+								"Dolby Digital Plus" => "MSDOLBY D+",
+								"Dolby Digital Plus + EX" => "MSDOLBY D+ +EX",
+								"Dolby Digital Plus + Dolby Pro Logic IIx Cinema" => "MSDOLBY D+ +PL2X C",
+								"Dolby Digital Plus + Dolby Pro Logic IIx Music" => "MSDOLBY D+ +PL2X M",
+								"Dolby Digital Plus + Dolby Pro Logic IIx Height" => "MSDOLBY D+ +PL2X H",
+								"Dolby True HD" => "MSDOLBY TRUEHD",
+								"Dolby HD" => "MSDOLBY HD",
+								"Dolby True HD + Ex" => "MSDOLBY HD+EX",
+								"Dolby True HD + Dolby Pro Logic IIx Cinema" => "MSDOLBY HD+PL2X C",
+								"Dolby True HD + Dolby Pro Logic IIx Music" => "MSDOLBY HD+PL2X M",
+								"Dolby True HD + Dolby Pro Logic IIx Height" => "MSDOLBY HD+PL2X H",
+								"DTS HD" => "MSDTS HD",
+								"DTS HD Master" => "MSDTS HD MSTR",
+								"DTS HD + NEO:6" => "MSDTS HD+NEO:6",
+								"DTS HD + Dolby Pro Logic IIx Cinema" => "MSDTS HD+PL2X C",
+								"DTS HD + Dolby Pro Logic IIx Music" => "MSDTS HD+PL2X M",
+								"DTS HD + Dolby Pro Logic IIx Height" => "MSDTS HD+PL2X H",
+								"DTS HD ES 8 Channel Discrect" => "MSDTS ES 8CH DSCRT",
+								"DTS Express" => "MSDTS EXPRESS",
+								"Audyssey DSX" => "MSAUDYSSEY DSX",
+								"Dolby Pro Logic DSX" => "MSPL DSX",
+								"Dolby Pro Logic II Cinema DSX" => "MSPL2 C DSX",
+								"Dolby Pro Logic II Music DSX" => "MSPL2 M DSX",	
+								"Dolby Pro Logic II Height DSX" => "MSPL2 H DSX",	
+								"Dolby Pro Logic IIx Cinema DSX" => "MSPL2X C DSX",	
+								"Dolby Pro Logic IIx Music DSX" => "MSPL2X M DSX",	
+								"Dolby Pro Logic IIx Height DSX" => "MSPL2X H DSX",	
+								"NEO:6 Cinema DSX" => "MSNEO:6 C DSX",	
+								"NEO:6 Music DSX" => "MSNEO:6 M DSX"								
 								);
+								
 		$showsurrounddisplay = "";						
 		foreach($displaysurround as $showdisplay => $responsedisplay)
 			{
