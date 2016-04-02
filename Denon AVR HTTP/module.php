@@ -438,6 +438,10 @@ class DenonAVRHTTP extends IPSModule
 				if($this->ReadPropertyBoolean('Zone') == 0)
 					{
 						$this->DisableAction("MainZoneName");
+						if($this->ReadPropertyBoolean('SurroundDisplay') == true)
+						{
+							$this->DisableAction("SurroundDisplay");
+						}
 					}
 			
 				if($this->ReadPropertyBoolean('Zone') == 1)
