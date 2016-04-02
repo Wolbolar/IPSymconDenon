@@ -2240,42 +2240,42 @@ class DENON_API_Commands extends stdClass
 	const MODECINEMA = "CINEMA"; // This parameter can change DOLBY PL2,PL2x,NEO:6 mode.
 	const MODEGAME = "GAME"; // SB=ON：PL2x mode / SB=OFF：PL2 mode GAME can change DOLBY PL2 & PL2x mode PSMODE:PRO LOGIC
 	const MODEPROLOGIC = "PRO LOGIC"; // PL can change ONLY DOLBY PL2 mode
-	const MODE = " ?"; // Return PSMODE: Status
+	const MODE = "chr(32).chr(63)"; // Return PSMODE: Status
 	
 	//PSDOLVOL Dolby Volume direct change
 	const DOLVOLON = " ON"; // Dolby Volume direct change on
 	const DOLVOLOFF = " OFF"; // Dolby Volume direct change off
-	const DOLVOL = " ?"; // Return PSDOLVOL Status
+	const DOLVOL = "chr(32).chr(63)"; // Return PSDOLVOL Status
 	
 	//PSVOLLEV Dolby Volume Leveler direct change
 	const VOLLEVLOW = " LOW"; // Dolby Volume Leveler direct change Low
 	const VOLLEVMID = " MID"; // Dolby Volume Leveler direct change Middle
 	const VOLLEVHI = " HI"; // Dolby Volume Leveler direct change High
-	const VOLLEV = " ?"; // Return PSVOLLEV Status
+	const VOLLEV = "chr(32).chr(63)"; // Return PSVOLLEV Status
 	
 	// PSVOLMOD Dolby Volume Modeler direct change
 	const VOLMODHLF = " HLF"; // Dolby Volume Modeler direct change half
 	const VOLMODFUL = " FUL"; // Dolby Volume Modeler direct change full
 	const VOLMODOFF = " OFF"; // Dolby Volume Modeler direct change off
-	const VOLMOD = " ?"; // Return PSVOLMOD Status
+	const VOLMOD = "chr(32).chr(63)"; // Return PSVOLMOD Status
 
 	//PSFH Front Height
-	const FHON = "ON"; // FRONT HEIGHT ON
-	const FHOFF = "OFF"; // FRONT HEIGHT OFF
-	const FH = " ?"; // Return PSFH: Status
+	const PSFHON = "chr(58).chr(79).chr(78)"; // FRONT HEIGHT ON
+	const PSFHOFF = "chr(58).chr(79).chr(70).chr(70)"; // FRONT HEIGHT OFF
+	const PSFH = "chr(58).chr(32).chr(63)"; // Return PSFH: Status
 	
 	//PSPHG PL2z Height Gain direct change
 	const PHGLOW = " LOW"; // PL2z HEIGHT GAIN direct change low
 	const PHGMID = " MID"; // PL2z HEIGHT GAIN direct change middle
 	const PHGHI = " HI"; // PL2z HEIGHT GAIN direct change high
-	const PHG = " ?"; // Return PSPHG Status
+	const PHG = "chr(32).chr(63)"; // Return PSPHG Status
 	
 	//PSSP Speaker Output set
 	const SPFH = "FH"; // Speaker Output set FH
 	const SPFW = "FW"; // Speaker Output set FW
 	const SPHW = "HW"; // Speaker Output set HW
 	const SPOFF = "OFF"; // Speaker Output set off
-	const SP = " ?"; // Return PSSP: Status
+	const SP = "chr(32).chr(63)"; // Return PSSP: Status
 
 	// MulEQ XT 32 mode direct change
 	const MULTEQAUDYSSEY = "AUDYSSEY"; // MultEQ XT 32 mode direct change MULTEQ:AUDYSSEY
@@ -2899,6 +2899,12 @@ class DenonAVRCP_API_Data extends stdClass
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
 						"ValueMapping" => array("AUTO" => 0, "HDMI" => 1, "DIGITAL" => 2, "ANALOG" => 3, "EXT.IN" => 4)
+					),
+					//Audyssey DSX
+					DENON_API_Commands::PSDSX
+					=> array(
+						"VarType" => DENONIPSVarType::vtInteger,
+						"ValueMapping" => array(" OFF" => 0, " ONW" => 1, " ONH" => 2, " ONHW" => 3)
 					),
 					//Zone 2
 					//Zone 2 Input Source
