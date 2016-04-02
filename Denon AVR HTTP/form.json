@@ -16,7 +16,8 @@
 									{ "value": 6, "label": "AVR-X3100" },
 									{ "value": 7, "label": "AVR-X4100" },
 									{ "value": 8, "label": "AVR-X5200" },
-									{ "value": 9, "label": "AVR-X7200" }
+									{ "value": 9, "label": "AVR-X7200" },
+									{ "value": 10, "label": "Marantz NR1605" }
 								  ]
 				},
 				{ "type": "Label", "label": "AV Receiver Zone:" },

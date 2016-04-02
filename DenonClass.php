@@ -210,65 +210,65 @@ class DENONIPSProfiles extends stdClass
 						   }
 					}
 			   }
-		}
-		$MaxValue = ($countUse-1);
-		
-		if($Zone == 0)
-		{
-			$UsedInputSources = array
-			(
-			"Ident" => DENON_API_Commands::SI,
-			"Name" => "Input Source",
-			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-			);
-			$Associations = array();
-			foreach ($Inputs as $Value => $Input)
+			$MaxValue = ($countUse-1);
+			if($Zone == 0)
 			{
-			$Input = str_replace(" ", "", $Input);
-			$Associations[] = array(($Value-1), $Input,  "", -1);
+				$UsedInputSources = array
+				(
+				"Ident" => DENON_API_Commands::SI,
+				"Name" => "Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				);
+				$Associations = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Input = str_replace(" ", "", $Input);
+				$Associations[] = array(($Value-1), $Input,  "", -1);
+				}
+				$UsedInputSources["Associations"] = $Associations;
+				
+				$this->UsedInputSources = $UsedInputSources;
+				return $UsedInputSources;
 			}
-			$UsedInputSources["Associations"] = $Associations;
-			
-			$this->UsedInputSources = $UsedInputSources;
-			return $UsedInputSources;
-		}
-		elseif($Zone == 1)
-		{
-			$UsedInputSourcesZ2 = array
-			(
-			"Ident" => DENON_API_Commands::Z2INPUT,
-			"Name" => "Zone 2 Input Source",
-			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-			);
-			$AssociationsZ2 = array();
-			foreach ($Inputs as $Value => $Input)
+			elseif($Zone == 1)
 			{
-			$Input = str_replace(" ", "", $Input);
-			$AssociationsZ2[] = array(($Value-1), $Input,  "", -1);
+				$UsedInputSourcesZ2 = array
+				(
+				"Ident" => DENON_API_Commands::Z2INPUT,
+				"Name" => "Zone 2 Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				);
+				$AssociationsZ2 = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Input = str_replace(" ", "", $Input);
+				$AssociationsZ2[] = array(($Value-1), $Input,  "", -1);
+				}
+				$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
+				
+				$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
+				return $UsedInputSourcesZ2;
 			}
-			$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
-			
-			$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
-			return $UsedInputSourcesZ2;
-		}
-		elseif($Zone == 2)
-		{
-			$UsedInputSourcesZ3 = array
-			(
-			"Ident" => DENON_API_Commands::Z3INPUT,
-			"Name" => "Zone 3 Input Source",
-			"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-			);
-			$AssociationsZ3 = array();
-			foreach ($Inputs as $Value => $Input)
+			elseif($Zone == 2)
 			{
-			$Input = str_replace(" ", "", $Input);
-			$AssociationsZ3[] = array(($Value-1), $Input,  "", -1);
+				$UsedInputSourcesZ3 = array
+				(
+				"Ident" => DENON_API_Commands::Z3INPUT,
+				"Name" => "Zone 3 Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				);
+				$AssociationsZ3 = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Input = str_replace(" ", "", $Input);
+				$AssociationsZ3[] = array(($Value-1), $Input,  "", -1);
+				}
+				$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
+				
+				$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
+				return $UsedInputSourcesZ3;
 			}
-			$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
 			
-			$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
-			return $UsedInputSourcesZ3;
 		}
 	}	
 
