@@ -609,7 +609,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptDRCDirectChange => array(
 				"Ident" => DENON_API_Commands::PSDRC,
-				"Name" => "Dynamic Range",
+				"Name" => "Dynamic Range Compression",
 				"Profilesettings" => Array("Intensity", "", "", 0, 4, 0, 0),
 				"Associations" => Array(
 				Array(0, "Off",  "", -1),
@@ -765,7 +765,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptDNRDirectChange => array(
 				"Ident" => DENON_API_Commands::PVDNR,
-				"Name" => "DNR Direct Change",
+				"Name" => "Digital Noise Reduction",
 				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "OFF",  "", -1),

@@ -63,7 +63,7 @@
 				{ "type": "CheckBox", "name": "CinemaEQ", "caption": "Cinema EQ" },
 				{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital InputMode" },
 				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },
-				{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "DRC Direct Change" },
+				{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
 				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
 				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
@@ -91,7 +91,7 @@
 				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
 				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },
 				{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" },
-				{ "type": "CheckBox", "name": "VideoProcessingMode", "caption": "Video Processing Mode" },
+				
 				
 				{ "type": "Label", "label": "Level:" },
 				{ "type": "CheckBox", "name": "BassLevel", "caption": "Bass Level" },
@@ -102,12 +102,13 @@
 				{ "type": "CheckBox", "name": "Brightness", "caption": "Brightness" },
 				{ "type": "CheckBox", "name": "Contrast", "caption": "Contrast" },
 				{ "type": "CheckBox", "name": "Chromalevel", "caption": "Chroma Level" },
-				{ "type": "CheckBox", "name": "DNRDirectChange", "caption": "DNR Direct Change" },
+				{ "type": "CheckBox", "name": "DNRDirectChange", "caption": "Digital Noise Reduction" },
 				{ "type": "CheckBox", "name": "Enhancer", "caption": "Enhancer" },
 				{ "type": "CheckBox", "name": "HDMIMonitor", "caption": "HDMI Monitor" },
 				{ "type": "CheckBox", "name": "Hue", "caption": "Hue" },
 				{ "type": "CheckBox", "name": "Resolution", "caption": "Resolution" },
 				{ "type": "CheckBox", "name": "ResolutionHDMI", "caption": "Resolution HDMI" },
+				{ "type": "CheckBox", "name": "VideoProcessingMode", "caption": "Video Processing Mode" },
 				{ "type": "CheckBox", "name": "VideoSelect", "caption": "Video Select" },
 				
 				{ "type": "Label", "label": "GUI:" },
