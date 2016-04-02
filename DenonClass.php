@@ -341,7 +341,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "Vertical Stretch", "~Switch", $this->getpos($profile)),
 		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "Dolby Volume", "~Switch", $this->getpos($profile)),
 		$this->ptEffect => array(DENON_API_Commands::PSEFFSWITCH, "Effect", "~Switch", $this->getpos($profile)),
-		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", $this->getpos($profile)),
+		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "Auto Flag Detect Mode", "~Switch", $this->getpos($profile)),
 		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", $this->getpos($profile)),
 		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "Subwoofer ATT", "~Switch", $this->getpos($profile)),
 		$this->ptGUIMenu => array(DENON_API_Commands::MNMEN, "GUI Menu", "~Switch", $this->getpos($profile)),

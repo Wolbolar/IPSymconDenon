@@ -53,7 +53,7 @@
 				
 				{ "type": "Label", "label": "Angezeigte Befehle:" },
 				{ "type": "Label", "label": "Audio:" },
-				{ "type": "CheckBox", "name": "AFDM", "caption": "AFDM" },
+				{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },
 				{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
 				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },
 				{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },
