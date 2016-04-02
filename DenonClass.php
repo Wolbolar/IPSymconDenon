@@ -340,7 +340,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptToneCTRL => array(DENON_API_Commands::PSTONECTRL, "Tone CTRL", "~Switch", $this->getpos($profile)),
 		$this->ptVerticalStretch => array(DENON_API_Commands::VSVST, "Vertical Stretch", "~Switch", $this->getpos($profile)),
 		$this->ptDolbyVolume => array(DENON_API_Commands::PSDOLVOL, "Dolby Volume", "~Switch", $this->getpos($profile)),
-		$this->ptEffect => array(DENON_API_Commands::PSEFF, "Effect", "~Switch", $this->getpos($profile)),
+		$this->ptEffect => array(DENON_API_Commands::PSEFFSWITCH, "Effect", "~Switch", $this->getpos($profile)),
 		$this->ptAFDM => array(DENON_API_Commands::PSAFD, "AFDM", "~Switch", $this->getpos($profile)),
 		$this->ptSubwoofer => array(DENON_API_Commands::PSSWR, "Subwoofer", "~Switch", $this->getpos($profile)),
 		$this->ptSubwooferATT => array(DENON_API_Commands::PSATT, "Subwoofer ATT", "~Switch", $this->getpos($profile)),
@@ -1119,91 +1119,90 @@ class DENONIPSProfiles extends stdClass
 							$this->ptMasterVolume => 13,
 							$this->ptInputSource => 14,
 							$this->ptSurroundMode => 15,
-							$this->ptNavigation => 16,
-							$this->ptDynamicVolume => 17,
-							$this->ptDolbyVolume => 18,
-							$this->ptDolbyVolumeLeveler => 19,
-							$this->ptDolbyVolumeModeler => 20,
-							$this->ptCinemaEQ => 21,
-							$this->ptPanorama => 22,
-							$this->ptNavigation => 23,
+							$this->ptSurroundDisplay => 16,
+							$this->ptNavigation => 17,
+							$this->ptDynamicVolume => 18,
+							$this->ptDolbyVolume => 19,
+							$this->ptDolbyVolumeLeveler => 20,
+							$this->ptDolbyVolumeModeler => 21,
+							$this->ptDynamicCompressor => 22,
+							$this->ptDynamicRange => 23,
+							$this->ptDRCDirectChange => 24,
+							$this->ptAudysseyDSX => 25,
+							$this->ptCinemaEQ => 26,
+							$this->ptPanorama => 27,
+							$this->ptNavigation => 28,
+							$this->ptDynamicEQ => 29,
+							$this->ptSleep => 30,
+							$this->ptQuickSelect => 31,
+							//Lautsprecher
+							$this->ptChannelVolumeFL => 40,
+							$this->ptChannelVolumeFR => 41,
+							$this->ptChannelVolumeC => 42,
+							$this->ptChannelVolumeSW => 43,
+							$this->ptChannelVolumeSW2 => 44,
+							$this->ptChannelVolumeSL => 45,
+							$this->ptChannelVolumeSR => 46,
+							$this->ptChannelVolumeSBL => 47,
+							$this->ptChannelVolumeSBR => 48,
+							$this->ptChannelVolumeSB => 49,
+							$this->ptChannelVolumeFHL => 50,
+							$this->ptChannelVolumeFHR => 51,
+							$this->ptChannelVolumeFWL => 52,
+							$this->ptChannelVolumeFWR => 53,
+							$this->ptSubwoofer => 54,
+							$this->ptSubwooferATT => 55,
+							$this->ptFrontHeight => 56,
+							$this->ptToneCTRL => 57,
+							$this->ptAudioDelay => 58,
+							$this->ptSpeakerOutputFront => 59,
 							
-							$this->ptChannelVolumeFL => 30,
-							$this->ptChannelVolumeFR => 31,
-							$this->ptChannelVolumeC => 32,
-							$this->ptChannelVolumeSW => 33,
-							$this->ptChannelVolumeSW2 => 34,
-							$this->ptChannelVolumeSL => 35,
-							$this->ptChannelVolumeSR => 36,
-							$this->ptChannelVolumeSBL => 37,
-							$this->ptChannelVolumeSBR => 38,
-							$this->ptChannelVolumeSB => 39,
-							$this->ptChannelVolumeFHL => 40,
-							$this->ptChannelVolumeFHR => 41,
-							$this->ptChannelVolumeFWL => 42,
-							$this->ptChannelVolumeFWR => 43,
-							
-							$this->ptFrontHeight => 50,
-							$this->ptToneCTRL => 51,
-							$this->ptDynamicEQ => 52,
-							$this->ptAudioDelay => 53,
-							$this->ptLFELevel => 54,
-							$this->ptQuickSelect => 55,
-							$this->ptSleep => 56,
-							$this->ptDigitalInputMode => 57,
-							$this->ptSurroundPlayMode => 58,
-							$this->ptMultiEQMode => 59,
-							$this->ptAudioRestorer => 60,
-							$this->ptBassLevel => 61,
-							$this->ptTrebleLevel => 62,
-							$this->ptDimension => 63,
-							$this->ptRoomSize => 64,
-							$this->ptDynamicCompressor => 65,
-							$this->ptCenterWidth => 66,
-							$this->ptDynamicRange => 67,
-							$this->ptVideoSelect => 68,
-							$this->ptSurroundBackMode => 69,
-							$this->ptPreset => 70,
-							$this->ptInputMode => 71,
-							
-							
-							$this->ptContrast => 72,
-							$this->ptBrightness => 73,
-							$this->ptChromalevel => 74,
-							$this->ptHue => 75,
-							$this->ptEnhancer => 76,
-							$this->ptSubwoofer => 77,
-							$this->ptSubwooferATT => 78,
-							$this->ptDNRDirectChange => 79,
-							$this->ptEffect => 80,
-							$this->ptAFDM => 81,
-							$this->ptEffectLevel => 82,
-							$this->ptCenterImage => 84,
-							$this->ptStageWidth => 85,
-							$this->ptStageHeight => 86,
-							$this->ptAudysseyDSX => 87,
-							$this->ptReferenceLevel => 88,
-							$this->ptDRCDirectChange => 89,
-							$this->ptSpeakerOutputFront => 90,
+							$this->ptAFDM => 70,
+							$this->ptASP => 71,
+							$this->ptAudioRestorer => 72,
+							$this->ptCenterImage => 73,
+							$this->ptCenterWidth => 74,
+							$this->ptDigitalInputMode => 75,
+							$this->ptDimension => 76,
+							$this->ptEffect => 77,
+							$this->ptEffectLevel => 78,
+							$this->ptHDMIAudioOutput => 79,
+							$this->ptInputMode => 80,
+							$this->ptMultiEQMode => 81,
+							$this->ptPLIIZHeightGain => 82,
+							$this->ptPreset => 83,
+							$this->ptReferenceLevel => 84,
+							$this->ptRoomSize => 85,
+							$this->ptStageWidth => 86,
+							$this->ptStageHeight => 87,
+							$this->ptSurroundBackMode => 88,
+							$this->ptSurroundPlayMode => 89,
+							$this->ptVerticalStretch => 90,
 							//$this->ptDCOMPDirectChange => 91,
-							$this->ptHDMIMonitor => 92,
-							$this->ptASP => 93,
-							$this->ptResolution => 94,
-							$this->ptResolutionHDMI => 95,
-							$this->ptHDMIAudioOutput => 96,
-							$this->ptVideoProcessingMode => 97,
-							
-							$this->ptPLIIZHeightGain => 100,
-							$this->ptVerticalStretch => 101,
-							
-							$this->ptFriendlyName => 102,
-							$this->ptMainZoneName => 103,
-							$this->ptTopMenuLink => 104,
-							$this->ptModel => 105,
-							$this->ptGUIMenu => 106,
-							$this->ptGUISourceSelect => 107,
-							$this->ptSurroundDisplay => 108,
-							
+							//Level
+							$this->ptBassLevel => 100,
+							$this->ptTrebleLevel => 101,
+							$this->ptLFELevel => 102,
+							//Video
+							$this->ptVideoSelect => 110,
+							$this->ptContrast => 111,
+							$this->ptBrightness => 112,
+							$this->ptChromalevel => 113,
+							$this->ptDNRDirectChange => 114,
+							$this->ptEnhancer => 115,
+							$this->ptHDMIMonitor => 116,
+							$this->ptHue => 117,
+							$this->ptResolution => 118,
+							$this->ptResolutionHDMI => 119,
+							$this->ptVideoProcessingMode => 120,
+							//GUI
+							$this->ptMainZoneName => 130,
+							$this->ptFriendlyName => 131,
+							$this->ptModel => 132,
+							$this->ptGUIMenu => 133,
+							$this->ptGUISourceSelect => 134,
+							$this->ptTopMenuLink => 135,
+							//Zone 2
 							$this->ptZone2Power => 201,
 							$this->ptZone2Mute => 202,
 							$this->ptZone2Volume => 203,
@@ -1215,7 +1214,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptZone2HPF => 209,
 							$this->ptZone2Name => 210,
 							$this->ptZone2Sleep => 211,
-							
+							//Zone 3
 							$this->ptZone3Power => 300,
 							$this->ptZone3Mute => 301,
 							$this->ptZone3Volume => 302,
@@ -2033,7 +2032,8 @@ class DENON_API_Commands extends stdClass
 	const PSDRC = "PSDRC"; // DRC direct change
 	const PSDCO = "PSDCO"; // D.COMP direct change	
 	const PSLFE = "PSLFE"; // LFE
-	const PSEFF = "PSEFF"; // EFFECT direct change	
+	const PSEFF = "PSEFF"; // EFFECT direct change	Level
+	const PSEFFSWITCH = "PSEFF_O"; // EFFECT Switch On / Off
 	const PSDELAY = "PSDELAY"; // Audio DELAY	
 	const PSAFD = "PSAFD"; // AFDM	
 	const PSPAN = "PSPAN"; // PANORAMA	
@@ -2353,12 +2353,12 @@ class DENON_API_Commands extends stdClass
 
 
 	//PSEFF Effect direct change
-	const EFFON = " ON"; // EFFECT ON direct change
-	const EFFOFF = " OFF"; // EFFECT OFF direct change
+	const PSEFFON = "N"; // EFFECT ON direct change
+	const PSEFFOFF = "FF"; // EFFECT OFF direct change
 	
-	const EFFUP = " UP"; // EFFECT UP direct change
-	const EFFDOWN = " DOWN"; // EFFECT DOWN direct change
-	const EFF = " "; // EFFECT ** ---AVR-4311 can be operated from 1 to 15
+	const PSEFFUP = " UP"; // EFFECT UP direct change
+	const PSEFFDOWN = " DOWN"; // EFFECT DOWN direct change
+	const PSEFFSTATUS = " ?"; // EFFECT ** ---AVR-4311 can be operated from 1 to 15
 
 
 	//PSDELAY Delay
@@ -3586,6 +3586,12 @@ class DenonAVRCP_API_Data extends stdClass
 						"ValueMapping" => array(" 00" => 0, " 005" => 0.5, " 01" => 1, " 015" => 1.5, " 02" => 2, " 025" => 2.5, " 03" => 3, " 035" => 3.5, " 04" => 4, " 045" => 4.5,
 												" 05" => 5, " 055" => 5.5, " 06" => 6, " 065" => 6.5, " 07" => 7)
 					),
+					//Effect Level On / Off
+					DENON_API_Commands::PSEFFSWITCH
+					=> array(
+						"VarType" => DENONIPSVarType::vtBoolean,
+						"ValueMapping" => array("N" => true, "FF" => false)
+					),
 					//Effect Level **:00 to 15 by ASCII , 00=0dB, 10=10dB can be operated from 1 to 15
 					DENON_API_Commands::PSEFF
 					=> array(
@@ -4246,7 +4252,9 @@ class DenonAVRCP_API_Data extends stdClass
 							("PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
 							"PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
 							"PSTONE_CTRL OFF" => "PSTONE CTRL OFF",
-							"PSTONE_CTRL ON" => "PSTONE CTRL ON"
+							"PSTONE_CTRL ON" => "PSTONE CTRL ON",
+							"PSEFF_ON" => "PSEFF ON",
+							"PSEFF_OFF" => "PSEFF ON"
 							);
 		
 		foreach($spacecommands as $spacecommand => $responsesc)
