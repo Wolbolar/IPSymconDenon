@@ -70,7 +70,6 @@
 				{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
 				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },
 				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
-				{ "type": "CheckBox", "name": "DynamicRange", "caption": "Dynamic Range" },
 				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
 				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
 				{ "type": "CheckBox", "name": "Enhancer", "caption": "Enhancer" },
