@@ -2262,7 +2262,7 @@ class DENON_API_Commands extends stdClass
 	//PSFH Front Height
 	const PSFHON = "chr(58).chr(79).chr(78)"; // FRONT HEIGHT ON
 	const PSFHOFF = "chr(58).chr(79).chr(70).chr(70)"; // FRONT HEIGHT OFF
-	const PSFH = "chr(58).chr(32).chr(63)"; // Return PSFH: Status
+	const PSFHSTATUS = "chr(58).chr(32).chr(63)"; // Return PSFH: Status
 	
 	//PSPHG PL2z Height Gain direct change
 	const PHGLOW = " LOW"; // PL2z HEIGHT GAIN direct change low
