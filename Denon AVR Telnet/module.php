@@ -888,16 +888,6 @@ class DenonAVRTelnet extends IPSModule
 	private function UpdateVariable($data)
     {
 		$ResponseType = $data->ResponseType;
-		if($this->ReadPropertyBoolean('SurroundDisplay') == true)
-		{
-			$SurroundDisplay = $data->SurroundDisplay;
-			if($SurroundDisplay !== "")
-			{
-				SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
-			}
-		}
-		
-		
 		$Zone = $this->ReadPropertyInteger('Zone');
 		if($ResponseType == "HTTP")
 		{
@@ -918,6 +908,14 @@ class DenonAVRTelnet extends IPSModule
 		elseif($ResponseType == "TELNET")
 		{
 			$datavalues = $data->Data;
+			if($this->ReadPropertyBoolean('SurroundDisplay') == true)
+			{
+				$SurroundDisplay = $data->SurroundDisplay;
+				if($SurroundDisplay !== "")
+				{
+					SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
+				}
+			}
 		}
 		
 			foreach($datavalues as $Ident => $Values)
