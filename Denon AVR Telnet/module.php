@@ -568,7 +568,8 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function GetInputVarmapping()
 	{
-		$InputsMapping = $this->ReadPropertyInteger("Inputsources");
+		$InputsMapping = $this->Inputsources;
+		//$InputsMapping = $this->ReadPropertyInteger("Inputsources");
 		return $InputsMapping;
 	}
 	

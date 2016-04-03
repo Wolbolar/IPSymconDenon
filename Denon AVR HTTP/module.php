@@ -491,6 +491,13 @@ class DenonAVRHTTP extends IPSModule
         return true;
     }
 	
+	public function GetInputVarmapping()
+	{
+		$InputsMapping = $this->Inputsources;
+		//$InputsMapping = $this->ReadPropertyInteger("Inputsources");
+		return $InputsMapping;
+	}
+	
 	private function GetAVRType()
 	{
 		$TypeInt = $this->ReadPropertyInteger('Type');
