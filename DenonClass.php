@@ -138,49 +138,101 @@ class DENONIPSProfiles extends stdClass
 	
 	public function GetInputSources(integer $Zone)
 	{
-		if ($Zone == 0) // MainZone
+		$AVRType = $this->$Type;
+		if($AVRType == "AVR-4311")
 		{
-			$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml"));
-			if ($xmlMainZone)
-				{
-				$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone);
-				return $Inputsources;
-				}
-			else
-				{
-				exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
-				}
-		}		
-		elseif ($Zone == 1) // Zone 2
-		{
-			$data = array();
-			$xmlZone2 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
-			if ($xmlZone2)
+			if ($Zone == 0) // MainZone
+			{
+				$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml"));
+				if ($xmlMainZone)
 					{
-					$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2);
-					return $InputsourcesZ2;	
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone);
+					return $Inputsources;
 					}
 				else
 					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
 					}
-			return $data; 		
+			}		
+			elseif ($Zone == 1) // Zone 2
+			{
+				$data = array();
+				$xmlZone2 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
+				if ($xmlZone2)
+						{
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2);
+						return $InputsourcesZ2;	
+						}
+					else
+						{
+						exit("Datei ".$xml." konnte nicht geöffnet werden.");
+						}
+				return $data; 		
+			}
+			elseif ($Zone == 2) // Zone 3
+			{
+				$data = array();
+				$xmlZone3 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
+				if ($xmlZone3)
+						{
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3);
+						return $InputsourcesZ3;
+						}
+					else
+						{
+						exit("Datei ".$xml." konnte nicht geöffnet werden.");
+						}
+				return $data;
+			}	
 		}
-		elseif ($Zone == 2) // Zone 3
+		elseif($AVRType == "AVR-3808" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
 		{
-			$data = array();
-			$xmlZone3 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
-			if ($xmlZone3)
+			if ($Zone == 0) // MainZone
+			{
+				$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXmlStatus.xml"));
+				if ($xmlMainZone)
 					{
-					$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3);
-					return $InputsourcesZ3;
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone);
+					return $Inputsources;
 					}
 				else
 					{
-					exit("Datei ".$xml." konnte nicht geöffnet werden.");
+					exit("Datei ".$xmlMainZone." konnte nicht geöffnet werden.");
 					}
-			return $data;
+			}		
+			elseif ($Zone == 1) // Zone 2
+			{
+				$data = array();
+				$xmlZone2 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXmlStatus.xml?_=&ZoneName=ZONE2"));
+				if ($xmlZone2)
+						{
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2);
+						return $InputsourcesZ2;	
+						}
+					else
+						{
+						exit("Datei ".$xml." konnte nicht geöffnet werden.");
+						}
+				return $data; 		
+			}
+			elseif ($Zone == 2) // Zone 3
+			{
+				$data = array();
+				$xmlZone3 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXmlStatus.xml?_=&ZoneName=ZONE3"));
+				if ($xmlZone3)
+						{
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3);
+						return $InputsourcesZ3;
+						}
+					else
+						{
+						exit("Datei ".$xml." konnte nicht geöffnet werden.");
+						}
+				return $data;
+			}
 		}	
+		
+		
 	}
 
 	protected function ReadInputSources($Zone, $xml)
