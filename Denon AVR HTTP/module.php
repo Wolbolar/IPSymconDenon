@@ -32,7 +32,6 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Sleep", false);
 		$this->RegisterPropertyBoolean("Z3Channel", false);
 		$this->RegisterPropertyBoolean("Z3Quick", false);
-		$this->RegisterPropertyString("Inputsources", ""); 
     }
 
 
@@ -40,7 +39,8 @@ class DenonAVRHTTP extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-		
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 400);
+        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 		$this->ValidateConfiguration();
 		
 	}

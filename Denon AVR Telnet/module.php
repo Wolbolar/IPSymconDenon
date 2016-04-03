@@ -102,7 +102,6 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Sleep", false);
 		$this->RegisterPropertyBoolean("Z3Channel", false);
 		$this->RegisterPropertyBoolean("Z3Quick", false);
-		$this->RegisterPropertyString("Inputsources", ""); 
 
     }
 
@@ -111,7 +110,8 @@ class DenonAVRTelnet extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-		
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 400);
+        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 		$this->ValidateConfiguration();
 		
 	}
@@ -227,9 +227,8 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
 				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
-				//$MappingInputs = json_encode($this->InputSources);
-				//IPS_SetProperty($this->InstanceID, "Inputsources", $MappingInputs);  
-				//IPS_ApplyChanges($this->InstanceID);
+				$MappingInputs = json_encode($this->InputSources);
+				SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
 			}
 			else
 			{
@@ -568,8 +567,8 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function GetInputVarmapping()
 	{
-		$InputsMapping = $this->InputSources;
-		//$InputsMapping = $this->ReadPropertyInteger("Inputsources");
+		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+		$InputsMapping = json_decode($InputsMapping);
 		return $InputsMapping;
 	}
 	
