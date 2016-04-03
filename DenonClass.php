@@ -254,11 +254,13 @@ class DENONIPSProfiles extends stdClass
 					{
 						if ((string)$RenameSource[0]->value[$i] != "")
 							{
-							$Inputs[$i] = (string)$RenameSource[0]->value[$i];
+							$Inputs[$i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => (string)$RenameSource[0]->value[$i]);	
+							//$Inputs[$i] = (string)$RenameSource[0]->value[$i];
 							}
 						else
 							{
-							$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
+							$Inputs[$i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => (string)$InputFuncList[0]->value[$i]);
+							//$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
 						   }
 					}
 			   }
@@ -274,13 +276,22 @@ class DENONIPSProfiles extends stdClass
 				$Associations = array();
 				foreach ($Inputs as $Value => $Input)
 				{
-				$Input = str_replace(" ", "", $Input);
-				$Associations[] = array(($Value-1), $Input,  "", -1);
+				$RenameSource = $Input["RenameSource"];	
+				$SourceInput = str_replace(" ", "", $RenameSource);
+				$Associations[] = array(($Value-1), $SourceInput,  "", -1);
 				}
 				$UsedInputSources["Associations"] = $Associations;
 				
 				$this->UsedInputSources = $UsedInputSources;
-				return $UsedInputSources;
+				
+				$InputSourcesAVRMainZone = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Source = $Input["Source"];	
+				$SourceInput = str_replace(" ", "", $Source);
+				$InputSourcesAVRMainZone[$SourceInput] = ($Value-1);
+				}
+				return $InputSourcesAVRMainZone;
 			}
 			elseif($Zone == 1)
 			{
@@ -293,13 +304,22 @@ class DENONIPSProfiles extends stdClass
 				$AssociationsZ2 = array();
 				foreach ($Inputs as $Value => $Input)
 				{
-				$Input = str_replace(" ", "", $Input);
-				$AssociationsZ2[] = array(($Value-1), $Input,  "", -1);
+				$RenameSource = $Input["RenameSource"];	
+				$SourceInput = str_replace(" ", "", $RenameSource);
+				$AssociationsZ2[] = array(($Value-1), $SourceInput,  "", -1);
 				}
 				$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
 				
 				$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
-				return $UsedInputSourcesZ2;
+				
+				$InputSourcesAVRZ2 = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Source = $Input["Source"];	
+				$SourceInput = str_replace(" ", "", $Source);
+				$InputSourcesAVRZ2[$SourceInput] = ($Value-1);
+				}
+				return $InputSourcesAVRZ2;
 			}
 			elseif($Zone == 2)
 			{
@@ -312,13 +332,22 @@ class DENONIPSProfiles extends stdClass
 				$AssociationsZ3 = array();
 				foreach ($Inputs as $Value => $Input)
 				{
-				$Input = str_replace(" ", "", $Input);
-				$AssociationsZ3[] = array(($Value-1), $Input,  "", -1);
+				$RenameSource = $Input["RenameSource"];	
+				$SourceInput = str_replace(" ", "", $RenameSource);
+				$AssociationsZ3[] = array(($Value-1), $SourceInput,  "", -1);
 				}
 				$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
 				
 				$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
-				return $UsedInputSourcesZ3;
+				
+				$InputSourcesAVRZ3 = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Source = $Input["Source"];	
+				$SourceInput = str_replace(" ", "", $Source);
+				$InputSourcesAVRZ3[$SourceInput] = ($Value-1);
+				}
+				return $InputSourcesAVRZ3;
 			}
 			
 		}
@@ -1849,6 +1878,8 @@ class DENON_StatusHTML extends stdClass
 		if ($InputFuncSelect)
 		{
 			//Array holen
+			
+			//Ergänzen
 			$InputSourceMapping = array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
 												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19);
 			foreach ($InputSourceMapping as $Command => $InputSourceValue)
@@ -2634,6 +2665,9 @@ class DenonAVRCP_API_Data extends stdClass
     public $Data;
     public $Mapping = null;
     public $APISubCommand = null;
+	public $MapMainzoneInputs;
+	public $MapZ2Inputs;
+	public $MapZ3Inputs;
 	
 	public $VarMapping = array
 				(
