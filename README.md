@@ -49,7 +49,11 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 ### b. Einrichtung in IPS
 
 	In IP-Symcon das gewünschte Device Denon AV Receiver HTTP Control oder Denon AV Receiver Telnet Control anlegen. Sollte noch kein Denon I/O und Denon Splitter angelegt worden sein, wird dies automatisch mit angelegt.
-	Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon Device sind die gewünschten Befehle auszuwählen die angezeigt werden sollen.
+	Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon Device sind die gewünschten Befehle auszuwählen die angezeigt werden sollen. Pro genutzter Zone muss jeweils eine neue Instanz
+	in IP-Symcon angelegt werden. Das Konfigurationsformular sieht technisch durch IPS bedingt immer gleich aus. Es sind dann entsprechend der Auswahl unter AVR Zone nur die entsprechnden Haken zu setzten, die der jeweiligen korrespondierenden Zone entsprechen.
+	Eine Auswahl von Befehlen die nur in der Mainzone verfügbar sind bleibt also z.B. bei anlegen der Instanz und Auswahl AVR Zone 2 unberücksichtigt.
+	Beim HTTP Modul wird der Status automatisch in regelmäßig aktualisiert. Beim Telnet Modul erfolgt ein Update des Status für die entsprechnde Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
+	Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
 
 
 ## 4. Funktionsreferenz
