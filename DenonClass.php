@@ -1017,7 +1017,7 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainzone = array(
-		$this->ptMasterVolume => array(DENON_API_Commands::MV, "Master Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
+		$this->ptMasterVolume => array(DENON_API_Commands::MV, "Master Volume", "Intensity", "", " dB", -80.0, 18.0, 0.5, 1),
 		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "Channel Volume Front Left", "Intensity", "", " dB", -12, 12, 0.5, 1),
 		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "Channel Volume Front Right", "Intensity", "", " dB", -12, 12, 0.5, 1),
 		$this->ptChannelVolumeC => array(DENON_API_Commands::CVC, "Channel Volume Center", "Intensity", "", " dB", -12, 12, 0.5, 1),
