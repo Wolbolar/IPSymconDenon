@@ -152,9 +152,9 @@ class DenonAVRHTTP extends IPSModule
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
 				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
-				$MappingInputs = json_encode($this->InputSources);
-				IPS_SetProperty($this->InstanceID, "Inputsources", $MappingInputs);  
-				IPS_ApplyChanges($this->InstanceID); 
+				//$MappingInputs = json_encode($this->InputSources);
+				//IPS_SetProperty($this->InstanceID, "Inputsources", $MappingInputs);  
+				//IPS_ApplyChanges($this->InstanceID); 
 			}
 			else
 			{
