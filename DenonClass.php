@@ -136,9 +136,9 @@ class DENONIPSProfiles extends stdClass
 	public $UsedInputSourcesZ3;
 	public $DenonIP;
 	
-	public function GetInputSources(integer $Zone)
+	public function GetInputSources(integer $Zone, string $AVRType)
 	{
-		$AVRType = $this->$Type;
+		
 		if($AVRType == "AVR-4311")
 		{
 			if ($Zone == 0) // MainZone

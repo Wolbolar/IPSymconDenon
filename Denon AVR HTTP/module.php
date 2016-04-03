@@ -150,7 +150,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'));
+				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
 			}
 			else
 			{
@@ -284,7 +284,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'));
+				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
 			}
 			else
 			{
@@ -361,7 +361,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'));
+				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
 			}
 			else
 			{
