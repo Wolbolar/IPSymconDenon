@@ -229,7 +229,7 @@ class DenonAVRTelnet extends IPSModule
 				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
 				$MappingInputs = json_encode($this->InputSources);
 				IPS_SetProperty($this->InstanceID, "Inputsources", $MappingInputs);  
-				IPS_ApplyChanges($id);
+				IPS_ApplyChanges($this->InstanceID);
 			}
 			else
 			{
