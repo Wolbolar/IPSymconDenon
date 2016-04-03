@@ -1394,12 +1394,14 @@ class DENON_StatusHTML extends stdClass
 	{
 		
 		//FriendlyName
+		/*
 		$FriendlyName = $xml->xpath('.//FriendlyName');
 		if ($FriendlyName)
 		{
 			$data['FriendlyName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$FriendlyName[0]->value, 'Subcommand' => 'Denon AVR Name');
 		}
-				
+		*/
+		
 		//Power
 		$AVRPower = $xml->xpath('.//Power');
 		if ($AVRPower)
