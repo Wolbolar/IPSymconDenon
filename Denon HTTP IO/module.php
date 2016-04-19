@@ -174,7 +174,7 @@ class DenonAVRIOHTTP extends IPSModule
 		//$command = urlencode ($command);
 		
 		//Semaphore setzen
-        if (lock("HTTPCommandSend"))
+        if ($this->lock("HTTPCommandSend"))
         {
         // Daten senden
 	        try
@@ -187,12 +187,12 @@ class DenonAVRIOHTTP extends IPSModule
 	            $this->unlock("HTTPCommandSend");
 	            throw new Exception($exc);
 	        }
-        unlock("HTTPCommandSend");
+        $this->unlock("HTTPCommandSend");
         }
         else
         {
 			echo "Can not send to parent \n";
-			unlock("HTTPCommandSend");
+			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		  }
 		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
