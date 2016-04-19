@@ -4228,14 +4228,15 @@ class DenonAVRCP_API_Data extends stdClass
 				);
 	
 	//Input Source
-	protected function AVRInputs()
+	protected function VarMapping()
 	{
-		$AVRInputs = array("VarType" => DENONIPSVarType::vtInteger);
-		$AVRInputs["ValueMapping"] = $this->InputMapping;
-		return $AVRInputs;
+		$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+		$AVRInputsArray["ValueMapping"] = $this->InputMapping;
+		$this->VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
+		return $this->Varmapping;
 	}
 	
-	$VarMapping[DENON_API_Commands::SI] = $this->AVRInputs();
+	$this->AVRInputs();
 	
 	/*
 					DENON_API_Commands::SI
@@ -4246,36 +4247,6 @@ class DenonAVRCP_API_Data extends stdClass
 						//						"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
 					),			
 	*/
-	
-	
-	$UsedInputSources = array
-				(
-				"Ident" => DENON_API_Commands::SI,
-				"Name" => "Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
-				);
-				$Associations = array();
-				foreach ($Inputs as $Value => $Input)
-				{
-				$RenameSource = $Input["RenameSource"];	
-				$SourceInput = str_replace(" ", "", $RenameSource);
-				$Associations[] = array(($Value-1), $SourceInput,  "", -1);
-				}
-				$UsedInputSources["Associations"] = $Associations;
-				
-				$this->UsedInputSources = $UsedInputSources;
-				
-				$InputSourcesAVRMainZone = array();
-				foreach ($Inputs as $Value => $Input)
-				{
-				$Source = $Input["Source"];	
-				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesAVRMainZone[$SourceInput] = ($Value-1);
-				}
-	
-	
-	
-	
 	
     public function GetDataFromJSONObject($Data)
     {
@@ -4299,9 +4270,9 @@ class DenonAVRCP_API_Data extends stdClass
 	
 	public function GetSubCommand($Ident, $Value) 
     {
-		if (array_key_exists($Ident, $this->VarMapping))
+		if (array_key_exists($Ident, $this->VarMapping()))
         {
-			foreach($this->VarMapping as $Command => $ValMap)
+			foreach($this->VarMapping() as $Command => $ValMap)
 			{
 				if($Command == $Ident)
 				{
