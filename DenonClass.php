@@ -4236,8 +4236,6 @@ class DenonAVRCP_API_Data extends stdClass
 		return $this->Varmapping;
 	}
 	
-	$this->AVRInputs();
-	
 	/*
 					DENON_API_Commands::SI
 					=> array(
