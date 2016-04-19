@@ -717,7 +717,7 @@ class DenonAVRHTTP extends IPSModule
 		*/
 		
         // Subcommand holen
-        $APIDataHTTP->APISubCommand = $APIDataHTTP->GetSubCommand($APIDataHTTP->APIIdent, $APIDataHTTP->Data);
+        $APIDataHTTP->APISubCommand = $APIDataHTTP->GetSubCommand($APIDataHTTP->APIIdent, $APIDataHTTP->Data, $APIData->InputMapping);
         IPS_LogMessage('Denon Subcommand', $APIDataHTTP->APISubCommand);
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try

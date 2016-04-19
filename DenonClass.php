@@ -4228,11 +4228,11 @@ class DenonAVRCP_API_Data extends stdClass
 				);
 	
 	//Input Source
-	protected function VarMapping()
+	protected function VarMapping($InputMapping)
 	{
 		$VarMapping = $this->VarMapping;
 		$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
-		$AVRInputsArray["ValueMapping"] = $this->InputMapping;
+		$AVRInputsArray["ValueMapping"] = $InputMapping;
 		$VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
 		return $VarMapping;
 	}
@@ -4267,11 +4267,11 @@ class DenonAVRCP_API_Data extends stdClass
         return json_encode($SendData);
     }
 	
-	public function GetSubCommand($Ident, $Value) 
+	public function GetSubCommand($Ident, $Value, $InputMapping) 
     {
-		if (array_key_exists( $Ident, ($this->VarMapping()) ))
+		if (array_key_exists( $Ident, ($this->VarMapping($InputMapping)) ))
         {
-			foreach(($this->VarMapping()) as $Command => $ValMap)
+			foreach(($this->VarMapping($InputMapping)) as $Command => $ValMap)
 			{
 				if($Command == $Ident)
 				{
