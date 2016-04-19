@@ -2677,14 +2677,9 @@ class DenonAVRCP_API_Data extends stdClass
 	public $MapZ2Inputs;
 	public $MapZ3Inputs;
 	public $AVRProtocol;
+	public $InputMapping;
 	
-	protected function GetInputVarmapping()
-	{
-		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-		$InputsMapping = json_decode($InputsMapping);
-		return $InputsMapping;
-	}
-	
+		
 	public $VarMapping = array
 				(
 					//Boolean
@@ -2850,16 +2845,16 @@ class DenonAVRCP_API_Data extends stdClass
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
 						//Funktion zum Variablen Aufbau einbauen
-						"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
+						//"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
+						//						"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
 						//Inputs auslesen
-						//"ValueMapping" => $this->GetInputVarmapping($this->InstanceID) 
+						"ValueMapping" => $this->InputMapping 
 					),
 					//Quick Select
 					DENON_API_Commands::MSQUICK
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array("0" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5,)
+						"ValueMapping" => array("0" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5)
 					),
 					//Digital Input Mode
 					DENON_API_Commands::DC

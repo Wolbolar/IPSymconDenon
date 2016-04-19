@@ -703,6 +703,9 @@ class DenonAVRHTTP extends IPSModule
 		$APIDataHTTP = new DenonAVRCP_API_Data();
 		$APIDataHTTP->APIIdent = $Ident;
         $APIDataHTTP->Data = $Value;
+		//Input übergeben
+		$InputMapping = DAVRST_GetInputVarmapping($this->GetParent());
+		$APIData->InputMapping = $InputMapping;
         //Prüfen ob Command vorhanden
 		/*
 		if (!$this->DenonZone->CmdAvaiable($APIDataHTTP))
