@@ -935,7 +935,7 @@ class DenonAVRTelnet extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				if(!$this->GetIDForIdent($Ident))
+				if(!(@$this->GetIDForIdent($Ident)))
 				{
 					//Var nicht vorhanden
 				}
