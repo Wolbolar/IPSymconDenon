@@ -882,7 +882,7 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-		$datasplitter = json_encode$data->Buffer->Data);
+		$datasplitter = json_encode($data->Buffer->Data);
 		SetValueString($this->GetIDForIdent("BufferIN"), $datasplitter);
 		$message = json_encode($data->Buffer->Data);
 		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
