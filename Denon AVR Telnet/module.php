@@ -942,12 +942,12 @@ class DenonAVRTelnet extends IPSModule
 					{
 						if ($Ident == "MainZoneName" || $Ident == "Model")
 						{
-							SetVarResponse($Ident, $Subcommandvalue, $Subcommand);
+							$this->SetVarResponse($Ident, $Subcommandvalue, $Subcommand);
 						}	
 					}
 					elseif ($ResponseType == "TELNET")
 					{
-						SetVarResponse($Ident, $Subcommandvalue, $Subcommand);
+						$this->SetVarResponse($Ident, $Subcommandvalue, $Subcommand);
 					}	
 				}
 				else
