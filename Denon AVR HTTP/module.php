@@ -152,9 +152,9 @@ class DenonAVRHTTP extends IPSModule
 			{
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
 				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
-				//$MappingInputs = json_encode($this->InputSources);
-				//IPS_SetProperty($this->InstanceID, "Inputsources", $MappingInputs);  
-				//IPS_ApplyChanges($this->InstanceID); 
+				$MappingInputs = json_encode($this->InputSources);
+				//Input ablegen
+				DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs); 
 			}
 			else
 			{
@@ -491,13 +491,7 @@ class DenonAVRHTTP extends IPSModule
         return true;
     }
 	
-	public function GetInputVarmapping()
-	{
-		$InputsMapping = $this->$InputSources;
-		//$InputsMapping = $this->ReadPropertyInteger("Inputsources");
-		return $InputsMapping;
-	}
-	
+		
 	private function GetAVRType()
 	{
 		$TypeInt = $this->ReadPropertyInteger('Type');
@@ -514,7 +508,8 @@ class DenonAVRHTTP extends IPSModule
 				8 => "AVR-X5200",
 				9 => "AVR-X7200",
 				10 => "Marantz-NR1605",
-				11 => "AVR-3808");
+				11 => "AVR-3808",
+				12 => "AVR-X3000");
 		
 		foreach($Types as $TypeID => $Type)
 		{
@@ -1874,7 +1869,7 @@ class DenonAVRHTTP extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				if($this->GetIDForIdent($Ident) !== false)
+				if(!$this->GetIDForIdent($Ident))
 				{
 					switch ($VarType)
 					{

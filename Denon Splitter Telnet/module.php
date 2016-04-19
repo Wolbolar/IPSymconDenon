@@ -35,6 +35,8 @@ class DenonSplitterTelnet extends IPSModule
         IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 		IPS_SetHidden($this->GetIDForIdent('IOIN'), true);
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
+        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 	
 		//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
@@ -132,6 +134,19 @@ class DenonSplitterTelnet extends IPSModule
 		}
 	}
 
+	// Input
+public function SaveInputVarmapping($MappingInputs)
+	{
+		SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
+	}
+
+
+public function GetInputVarmapping()
+	{
+		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+		$InputsMapping = json_decode($InputsMapping);
+		return $InputsMapping;
+	}
 	
 ################## DUMMYS / WOARKAROUNDS - protected
 
@@ -140,7 +155,8 @@ class DenonSplitterTelnet extends IPSModule
         $instance = IPS_GetInstance($this->InstanceID);
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
-
+	
+	
     protected function HasActiveParent($ParentID)
     {
         if ($ParentID > 0)
@@ -247,6 +263,7 @@ class DenonSplitterTelnet extends IPSModule
 		array_pop($data);
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
+		$APIData->AVRProtocol = "Telnet";
 		$SetCommand = $APIData->GetCommandResponse($APIData->Data);
 		$message = json_encode($SetCommand);
 		SetValueString($this->GetIDForIdent("BufferIN"), $message);

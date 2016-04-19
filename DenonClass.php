@@ -185,7 +185,7 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
+		elseif($AVRType == "AVR-3808" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X3000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -622,7 +622,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptSurroundPlayMode => array(
 				"Ident" => DENON_API_Commands::PSMODE,
-				"Name" => "Surround PlayMode",
+				"Name" => "Surround Play Mode",
 				"Profilesettings" => Array("Database", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Cinema",  "", -1),
@@ -1553,8 +1553,9 @@ class DENON_StatusHTML extends stdClass
 		if ($InputFuncSelect)
 		{
 			//Array holen
-			$InputSourceMapping = array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19);
+			$InputSourceMapping = DAVRSH_GetInputVarmapping($this->InstanceID);
+			//$InputSourceMapping = array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
+			//									"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19);
 			foreach ($InputSourceMapping as $Command => $InputSourceValue)
 			{
 			if ($Command == (string)$InputFuncSelect[0]->value)
@@ -2668,6 +2669,7 @@ class DenonAVRCP_API_Data extends stdClass
 	public $MapMainzoneInputs;
 	public $MapZ2Inputs;
 	public $MapZ3Inputs;
+	public $AVRProtocol;
 	
 	public $VarMapping = array
 				(
@@ -2834,8 +2836,10 @@ class DenonAVRCP_API_Data extends stdClass
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
 						//Funktion zum Variablen Aufbau einbauen
-						"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
+						//"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
+						//						"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
+						//Inputs auslesen
+						"ValueMapping" => DAVRT_GetInputVarmapping($this->InstanceID); 
 					),
 					//Quick Select
 					DENON_API_Commands::MSQUICK

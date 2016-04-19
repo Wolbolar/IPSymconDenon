@@ -110,8 +110,6 @@ class DenonAVRTelnet extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 400);
-        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 		$this->ValidateConfiguration();
 		
 	}
@@ -228,7 +226,8 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->DenonIP = $this->GetIPDenon();
 				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
 				$MappingInputs = json_encode($this->InputSources);
-				SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
+				//Input ablegen
+				DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 			}
 			else
 			{
@@ -565,12 +564,7 @@ class DenonAVRTelnet extends IPSModule
         return true;
     }
 	
-	public function GetInputVarmapping()
-	{
-		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-		$InputsMapping = json_decode($InputsMapping);
-		return $InputsMapping;
-	}
+	
 	
 	private function GetAVRType()
 	{
@@ -588,7 +582,8 @@ class DenonAVRTelnet extends IPSModule
 				8 => "AVR-X5200",
 				9 => "AVR-X7200",
 				10 => "Marantz-NR1605",
-				11 => "AVR-3808");
+				11 => "AVR-3808",
+				12 => "AVR-X3000");
 		
 		foreach($Types as $TypeID => $Type)
 		{
@@ -917,13 +912,10 @@ class DenonAVRTelnet extends IPSModule
 		elseif($ResponseType == "TELNET")
 		{
 			$datavalues = $data->Data;
-			if($this->ReadPropertyBoolean('SurroundDisplay') == true)
+			if(($SurroundDisplay !== "") && $this->ReadPropertyBoolean('SurroundDisplay'))
 			{
 				$SurroundDisplay = $data->SurroundDisplay;
-				if($SurroundDisplay !== "")
-				{
-					SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
-				}
+				SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 			}
 		}
 		
@@ -933,7 +925,7 @@ class DenonAVRTelnet extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				if($this->GetIDForIdent($Ident) !== false)
+				if(!$this->GetIDForIdent($Ident))
 				{
 					switch ($VarType)
 					{

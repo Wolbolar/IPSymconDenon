@@ -32,6 +32,9 @@ class DenonSplitterHTTP extends IPSModule
         $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
         IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
+        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+		
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
 		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
@@ -96,7 +99,19 @@ class DenonSplitterHTTP extends IPSModule
         *
         */
 
+// Input
+public function SaveInputVarmapping($MappingInputs)
+	{
+		SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
+	}
 
+
+public function GetInputVarmapping()
+	{
+		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+		$InputsMapping = json_decode($InputsMapping);
+		return $InputsMapping;
+	}
 
 
 ################## DUMMYS / WOARKAROUNDS - protected
