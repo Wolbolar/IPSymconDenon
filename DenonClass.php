@@ -4268,9 +4268,9 @@ class DenonAVRCP_API_Data extends stdClass
 	
 	public function GetSubCommand($Ident, $Value) 
     {
-		if (array_key_exists($Ident, $this->VarMapping()))
+		if (array_key_exists( $Ident, ($this->VarMapping()) ))
         {
-			foreach($this->VarMapping() as $Command => $ValMap)
+			foreach(($this->VarMapping()) as $Command => $ValMap)
 			{
 				if($Command == $Ident)
 				{
