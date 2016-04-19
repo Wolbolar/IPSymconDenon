@@ -817,7 +817,7 @@ class DenonAVRTelnet extends IPSModule
 		$APIData->APIIdent = $Ident;
         $APIData->Data = $Value;
 		//Input übergeben
-		$InputMapping = DAVRST_GetInputVarmapping($this->GetParent());
+		$InputMapping = DAVRST_GetInputVarMapping($this->GetParent());
 		$APIData->InputMapping = $InputMapping;
         //Prüfen ob Command vorhanden
 		/*

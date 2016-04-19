@@ -140,7 +140,7 @@ public function SaveInputVarmapping($MappingInputs)
 		SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
 	}
 
-public function GetInputVarmapping()
+public function GetInputVarMapping()
 	{
 		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 		$InputsMapping = json_decode($InputsMapping);
