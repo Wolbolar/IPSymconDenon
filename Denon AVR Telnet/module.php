@@ -110,8 +110,8 @@ class DenonAVRTelnet extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
+        //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 		$this->ValidateConfiguration();
 		
 	}
@@ -882,8 +882,8 @@ class DenonAVRTelnet extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-		$datasplitter = json_encode($data->Buffer->Data);
-		SetValueString($this->GetIDForIdent("BufferIN"), $datasplitter);
+		//$datasplitter = json_encode($data->Buffer->Data);
+		//SetValueString($this->GetIDForIdent("BufferIN"), $datasplitter);
 		$message = json_encode($data->Buffer->Data);
 		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
 		$response = json_encode($data->Buffer);
