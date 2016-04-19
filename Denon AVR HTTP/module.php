@@ -39,8 +39,8 @@ class DenonAVRHTTP extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 400);
-        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
+        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 		$this->ValidateConfiguration();
 		
 	}
@@ -1837,7 +1837,8 @@ class DenonAVRHTTP extends IPSModule
 	 
 		// Empfangene Daten vom Splitter
 		$data = json_decode($JSONString);
-				
+		$datasplitter = json_encode($data->Buffer);
+		SetValueString($this->GetIDForIdent("BufferIN"), $datasplitter);		
 		$this->UpdateVariable($data->Buffer);
 	 		
 	}
