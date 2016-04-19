@@ -1897,7 +1897,28 @@ class DenonAVRHTTP extends IPSModule
 		//}	
     }
 
+	################## SEMAPHOREN Helper  - private
 
+    private function lock($ident)
+    {
+        for ($i = 0; $i < 3000; $i++)
+        {
+            if (IPS_SemaphoreEnter("DENONAVRT_" . (string) $this->InstanceID . (string) $ident, 1))
+            {
+                return true;
+            }
+            else
+            {
+                IPS_Sleep(mt_rand(1, 5));
+            }
+        }
+        return false;
+    }
+
+    private function unlock($ident)
+    {
+          IPS_SemaphoreLeave("DENONAVRT_" . (string) $this->InstanceID . (string) $ident);
+    }
 }
 
 ?>

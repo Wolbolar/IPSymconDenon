@@ -15,7 +15,7 @@ class DenonAVRIOHTTP extends IPSModule
 		
 		$this->RegisterPropertyBoolean("Open", false);
         $this->RegisterPropertyString("Host", "");
-		$this->RegisterPropertyInteger("UpdateInterval", 5);
+		$this->RegisterPropertyInteger("UpdateInterval", 30);
 		
              
     }
@@ -130,14 +130,34 @@ class DenonAVRIOHTTP extends IPSModule
 	public function GetStatus ()
 	{
 		// Empfangene Daten vom Denon AVR Receiver
-		//Daten abholen
-		$DenonStatus = new DENON_StatusHTML;
-		$ipdenon = $this->ReadPropertyString("Host");
-		$DenonStatus->ipdenon = $ipdenon;
 		
-		$data = $DenonStatus->getStates ();
-		//Valuewert für Variable übergeben
-		$this->SendJSON($data);
+		//Semaphore setzen
+        if (lock("HTTPGetState"))
+        {
+        // Daten senden
+	        try
+	        {
+	            //Daten abholen
+				$DenonStatus = new DENON_StatusHTML;
+				$ipdenon = $this->ReadPropertyString("Host");
+				$DenonStatus->ipdenon = $ipdenon;
+				$data = $DenonStatus->getStates ();
+				$this->SendJSON($data);
+	        }
+	        catch (Exception $exc)
+	        {
+	            // Senden fehlgeschlagen
+	            $this->unlock("HTTPGetState");
+	            throw new Exception($exc);
+	        }
+        unlock("HTTPGetState");
+        }
+        else
+        {
+			echo "Can not send to parent \n";
+			unlock("HTTPGetState");
+			//throw new Exception("Can not send to parent",E_USER_NOTICE);
+		}
 		return $data;
 	}
 	
@@ -152,14 +172,57 @@ class DenonAVRIOHTTP extends IPSModule
 		$ip = $this->ReadPropertyString("Host");
 		//Ins URL Format bringen
 		//$command = urlencode ($command);
-		$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
+		
+		//Semaphore setzen
+        if (lock("HTTPCommandSend"))
+        {
+        // Daten senden
+	        try
+	        {
+	            $response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
+	        }
+	        catch (Exception $exc)
+	        {
+	            // Senden fehlgeschlagen
+	            $this->unlock("HTTPCommandSend");
+	            throw new Exception($exc);
+	        }
+        unlock("HTTPCommandSend");
+        }
+        else
+        {
+			echo "Can not send to parent \n";
+			unlock("HTTPCommandSend");
+			//throw new Exception("Can not send to parent",E_USER_NOTICE);
+		  }
 		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
 		
 		//IPS_Sleep(900);   
 		$this->GetStatus ();
 	}
 	
-	
+	################## SEMAPHOREN Helper  - private
+
+    private function lock($ident)
+    {
+        for ($i = 0; $i < 3000; $i++)
+        {
+            if (IPS_SemaphoreEnter("DENONAVRT_" . (string) $this->InstanceID . (string) $ident, 1))
+            {
+                return true;
+            }
+            else
+            {
+                IPS_Sleep(mt_rand(1, 5));
+            }
+        }
+        return false;
+    }
+
+    private function unlock($ident)
+    {
+          IPS_SemaphoreLeave("DENONAVRT_" . (string) $this->InstanceID . (string) $ident);
+    }
 	
 
 }

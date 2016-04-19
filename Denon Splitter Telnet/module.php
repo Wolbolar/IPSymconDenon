@@ -19,7 +19,7 @@ class DenonSplitterTelnet extends IPSModule
 		$this->RegisterPropertyString("Host", "192.168.x.x");
 		$this->RegisterPropertyInteger("Port", 23);
         $this->RegisterPropertyBoolean("Open", false);
-		$this->RegisterPropertyInteger("UpdateInterval", 5);
+		$this->RegisterPropertyInteger("UpdateInterval", 30);
      
     }
 
@@ -173,15 +173,36 @@ public function GetInputVarmapping()
 	public function GetStatusHTTP ()
 	{
 		// Empfangene Daten vom Denon AVR Receiver
-		//Daten abholen
-		$DenonStatus = new DENON_StatusHTML;
-		$ipdenon = $this->ReadPropertyString("Host");
-		$DenonStatus->ipdenon = $ipdenon;
-		$data = $DenonStatus->getStates ();
 		
-		// Weiterleitung zu allen Gerät-/Device-Instanzen
-		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
-		
+		//Semaphore setzen
+        if (lock("HTTPGetState"))
+        {
+        // Daten senden
+	        try
+	        {
+	            //Daten abholen
+				$DenonStatus = new DENON_StatusHTML;
+				$ipdenon = $this->ReadPropertyString("Host");
+				$DenonStatus->ipdenon = $ipdenon;
+				$data = $DenonStatus->getStates ();
+				
+				// Weiterleitung zu allen Gerät-/Device-Instanzen
+				$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
+	        }
+	        catch (Exception $exc)
+	        {
+	            // Senden fehlgeschlagen
+	            $this->unlock("HTTPGetState");
+	            throw new Exception($exc);
+	        }
+        unlock("HTTPGetState");
+        }
+        else
+        {
+			echo "Can not send to parent \n";
+			unlock("HTTPGetState");
+			//throw new Exception("Can not send to parent",E_USER_NOTICE);
+		}
 		return $data;
 	}
 	
@@ -303,6 +324,31 @@ public function GetInputVarmapping()
 		return $resultat;
 	 
 	}
+	
+	################## SEMAPHOREN Helper  - private
+
+    private function lock($ident)
+    {
+        for ($i = 0; $i < 3000; $i++)
+        {
+            if (IPS_SemaphoreEnter("DENONAVRT_" . (string) $this->InstanceID . (string) $ident, 1))
+            {
+                return true;
+            }
+            else
+            {
+                IPS_Sleep(mt_rand(1, 5));
+            }
+        }
+        return false;
+    }
+
+    private function unlock($ident)
+    {
+          IPS_SemaphoreLeave("DENONAVRT_" . (string) $this->InstanceID . (string) $ident);
+    }
+	
+	
 	
 }
 
