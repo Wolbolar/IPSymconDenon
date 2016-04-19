@@ -140,14 +140,12 @@ public function SaveInputVarmapping($MappingInputs)
 		SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
 	}
 
-
 public function GetInputVarmapping()
 	{
 		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 		$InputsMapping = json_decode($InputsMapping);
 		return $InputsMapping;
-	}
-	
+	}	
 ################## DUMMYS / WOARKAROUNDS - protected
 
     protected function GetParent()
