@@ -637,7 +637,8 @@ class DenonAVRTelnet extends IPSModule
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonString($ptString);
-				//Ident, Name, Profile, Position 
+				//Ident, Name, Profile, Position, Icon
+				$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);				
 				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
 				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
@@ -1064,7 +1065,8 @@ class DenonAVRTelnet extends IPSModule
         
     }
 	
-	protected function RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	//protected function RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
+	protected function RegisterProfileStringDenon($Name, $Icon)
 	{
         
         if(!IPS_VariableProfileExists($Name)) {
@@ -1076,8 +1078,8 @@ class DenonAVRTelnet extends IPSModule
         }
         
         IPS_SetVariableProfileIcon($Name, $Icon);
-        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
-        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+        //IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+        //IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
         
     }
 	
