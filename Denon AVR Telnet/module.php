@@ -935,12 +935,9 @@ class DenonAVRTelnet extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				if(!(@$this->GetIDForIdent($Ident)))
-				{
-					//Var nicht vorhanden
-				}
-				else
-				{
+				$VarID = @$this->GetIDForIdent($Ident); 
+				if ($VarID > 0) 
+				{ 
 					switch ($VarType)
 					{
 						case 0: //Boolean
@@ -959,9 +956,12 @@ class DenonAVRTelnet extends IPSModule
 							SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
 							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 							break;
-					}		
+					}	
 				}
-				
+				else
+				{ 
+				// nicht vorhanden 
+				}  
 			}
 		
     }

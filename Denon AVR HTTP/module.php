@@ -1873,12 +1873,9 @@ class DenonAVRHTTP extends IPSModule
 				$Subcommand = $Values->Subcommand;
 				$VarType = $Values->VarType;
 				$Subcommandvalue = $Values->Value;
-				if(!(@$this->GetIDForIdent($Ident)))
-				{
-					//Var nicht vorhanden
-				}
-				else
-				{
+				$VarID = @$this->GetIDForIdent($Ident); 
+				if ($VarID > 0) 
+				{ 
 					switch ($VarType)
 					{
 						case 0: //Boolean
@@ -1899,7 +1896,10 @@ class DenonAVRHTTP extends IPSModule
 							break;
 					}	
 				}
-				
+				else
+				{ 
+				// nicht vorhanden 
+				}  
 			} 
 		//}	
     }
