@@ -175,7 +175,7 @@ public function GetInputVarmapping()
 		// Empfangene Daten vom Denon AVR Receiver
 		
 		//Semaphore setzen
-        if (lock("HTTPGetState"))
+        if ($this->lock("HTTPGetState"))
         {
         // Daten senden
 	        try
@@ -195,12 +195,12 @@ public function GetInputVarmapping()
 	            $this->unlock("HTTPGetState");
 	            throw new Exception($exc);
 	        }
-        unlock("HTTPGetState");
+        $this->unlock("HTTPGetState");
         }
         else
         {
 			echo "Can not send to parent \n";
-			unlock("HTTPGetState");
+			$this->unlock("HTTPGetState");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		}
 		return $data;
