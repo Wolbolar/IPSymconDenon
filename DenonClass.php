@@ -2840,16 +2840,6 @@ class DenonAVRCP_API_Data extends stdClass
 						"VarType" => DENONIPSVarType::vtInteger,
 						"ValueMapping" => array("CLT" => 0, "CDN" => 1, "CUP" => 2, "CRT" => 3, "ENT" => 4, "RTN" => 5)
 					),
-					//Input Source
-					DENON_API_Commands::SI
-					=> array(
-						"VarType" => DENONIPSVarType::vtInteger,
-						//Funktion zum Variablen Aufbau einbauen
-						//"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-						//						"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
-						//Inputs auslesen
-						"ValueMapping" => $this->InputMapping 
-					),
 					//Quick Select
 					DENON_API_Commands::MSQUICK
 					=> array(
@@ -4236,7 +4226,57 @@ class DenonAVRCP_API_Data extends stdClass
 						"ValueMapping" => array(" ON" => true, " OFF" => false)
 					)
 				);
-
+	
+	//Input Source
+	protected function AVRInputs()
+	{
+		$AVRInputs = array("VarType" => DENONIPSVarType::vtInteger);
+		$AVRInputs["ValueMapping"] = $this->InputMapping;
+		return $AVRInputs;
+	}
+	
+	$VarMapping[DENON_API_Commands::SI] = $this->AVRInputs();
+	
+	/*
+					DENON_API_Commands::SI
+					=> array(
+						"VarType" => DENONIPSVarType::vtInteger,
+						//Funktion zum Variablen Aufbau einbauen
+						//"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
+						//						"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
+					),			
+	*/
+	
+	
+	$UsedInputSources = array
+				(
+				"Ident" => DENON_API_Commands::SI,
+				"Name" => "Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				);
+				$Associations = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$RenameSource = $Input["RenameSource"];	
+				$SourceInput = str_replace(" ", "", $RenameSource);
+				$Associations[] = array(($Value-1), $SourceInput,  "", -1);
+				}
+				$UsedInputSources["Associations"] = $Associations;
+				
+				$this->UsedInputSources = $UsedInputSources;
+				
+				$InputSourcesAVRMainZone = array();
+				foreach ($Inputs as $Value => $Input)
+				{
+				$Source = $Input["Source"];	
+				$SourceInput = str_replace(" ", "", $Source);
+				$InputSourcesAVRMainZone[$SourceInput] = ($Value-1);
+				}
+	
+	
+	
+	
+	
     public function GetDataFromJSONObject($Data)
     {
         $this->APICommand = $Data->APICommand;
