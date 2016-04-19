@@ -921,9 +921,9 @@ class DenonAVRTelnet extends IPSModule
 			$datavalues = $data->Data;
 			if ($this->ReadPropertyBoolean('SurroundDisplay'))
 			{
+				$SurroundDisplay = $data->SurroundDisplay;
 				if($SurroundDisplay !== "")
 				{
-					$SurroundDisplay = $data->SurroundDisplay;
 					SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 				}
 			}
