@@ -4230,7 +4230,7 @@ class DenonAVRCP_API_Data extends stdClass
 	//Input Source
 	protected function VarMapping()
 	{
-		$Varmapping = $this->Varmapping;
+		$VarMapping = $this->VarMapping;
 		$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
 		$AVRInputsArray["ValueMapping"] = $this->InputMapping;
 		$VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
