@@ -146,7 +146,8 @@ class DENONIPSProfiles extends stdClass
 				$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml"));
 				if ($xmlMainZone)
 					{
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone);
+					$RenameType = 1;	
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType);
 					return $Inputsources;
 					}
 				else
@@ -160,7 +161,8 @@ class DENONIPSProfiles extends stdClass
 				$xmlZone2 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
 				if ($xmlZone2)
 						{
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2);
+						$RenameType = 1;
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -175,7 +177,8 @@ class DENONIPSProfiles extends stdClass
 				$xmlZone3 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
 				if ($xmlZone3)
 						{
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3);
+						$RenameType = 1;	
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType);
 						return $InputsourcesZ3;
 						}
 					else
@@ -185,14 +188,15 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X3000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
+		elseif($AVRType == "AVR-3808" || $AVRType == "AVR-3312" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X3000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X2100W" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
 		{
 			if ($Zone == 0) // MainZone
 			{
 				$xmlMainZone = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXmlStatus.xml"));
 				if ($xmlMainZone)
 					{
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone);
+					$RenameType = 2;	
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType);
 					return $Inputsources;
 					}
 				else
@@ -206,7 +210,8 @@ class DENONIPSProfiles extends stdClass
 				$xmlZone2 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXmlStatus.xml?_=&ZoneName=ZONE2"));
 				if ($xmlZone2)
 						{
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2);
+						$RenameType = 2;	
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -221,7 +226,8 @@ class DENONIPSProfiles extends stdClass
 				$xmlZone3 = new SimpleXMLElement(file_get_contents("http://".$this->DenonIP."/goform/formMainZone_MainZoneXmlStatus.xml?_=&ZoneName=ZONE3"));
 				if ($xmlZone3)
 						{
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3);
+						$RenameType = 2;	
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType);
 						return $InputsourcesZ3;
 						}
 					else
@@ -235,7 +241,7 @@ class DENONIPSProfiles extends stdClass
 		
 	}
 
-	protected function ReadInputSources($Zone, $xml)
+	protected function ReadInputSources($Zone, $xml, $RenameType)
 	{
 		//Inputs
 		$InputFuncList = $xml->xpath('.//InputFuncList');
@@ -252,9 +258,17 @@ class DENONIPSProfiles extends stdClass
 				{
 					if ((string)$SourceDelete[0]->value[$i] == "USE")
 					{
-						if ((string)$RenameSource[0]->value[$i] != "")
+						if ($RenameType == 1)
+						{
+							$RenameInput = (string)$RenameSource[0]->value[$i];
+						}
+						elseif ($RenameType == 2)
+						{
+							$RenameInput = (string)$RenameSource[0]->value[$i]->value;
+						}
+						if ($RenameInput != "")
 							{
-							$Inputs[$i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => (string)$RenameSource[0]->value[$i]);	
+							$Inputs[$i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => $RenameInput);	
 							//$Inputs[$i] = (string)$RenameSource[0]->value[$i];
 							}
 						else
