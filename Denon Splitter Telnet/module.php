@@ -283,7 +283,8 @@ public function GetInputVarMapping()
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
 		$APIData->AVRProtocol = "Telnet";
-		$SetCommand = $APIData->GetCommandResponse($APIData->Data);
+		$InputMapping = $this->GetInputVarMapping();
+		$SetCommand = $APIData->GetCommandResponse($APIData->Data, $InputMapping);
 		$message = json_encode($SetCommand);
 		SetValueString($this->GetIDForIdent("BufferIN"), $message);
 			 

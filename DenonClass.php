@@ -4332,7 +4332,7 @@ class DenonAVRCP_API_Data extends stdClass
             return null;
     }
 	
-	public function GetCommandResponse ($data)
+	public function GetCommandResponse ($data, $InputMapping)
 	{	
 		//Surround Display
 		$displaysurround = array("Dolby Pro Logic II Cinema" => "MSDOLBY PL2 C",
@@ -4427,7 +4427,7 @@ class DenonAVRCP_API_Data extends stdClass
 		$datavalues = array();
 		foreach($data as $key => $response)
 			{
-				foreach($this->VarMapping as $Command => $ValMap)
+				foreach(($this->VarMapping($InputMapping)) as $Command => $ValMap)
 				{
 					$pos = stripos($response, $Command);
 					if ($pos !== false)
