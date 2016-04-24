@@ -398,19 +398,19 @@ class DENONIPSProfiles extends stdClass
 	{
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
-		$this->ptFriendlyName => array("FriendlyName", "Name Denon AVR", "~String", $this->getpos($profile), "Information"),
-		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", "~String", $this->getpos($profile), "Information"),
-		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", "~String", $this->getpos($profile), "Information"),
-		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile), "Information"),
-		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", "~String", $this->getpos($profile), "Information")
+		$this->ptFriendlyName => array("FriendlyName", "Name Denon AVR", $this->ptFriendlyName, $this->getpos($profile), "Information"),
+		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", $this->ptMainZoneName, $this->getpos($profile), "Information"),
+		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", $this->ptTopMenuLink, $this->getpos($profile), "Information"),
+		$this->ptModel => array("Model", "Model", $this->ptModel, $this->getpos($profile), "Information"),
+		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", $this->ptSurroundDisplay, $this->getpos($profile), "Information")
 		);
 		$profilesZone2 = array (
-		$this->ptZone2Name => array("Zone2Name", "Zone2 Name", "~String", $this->getpos($profile), "Information"),
-		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile), "Information")
+		$this->ptZone2Name => array("Zone2Name", "Zone2 Name", $this->ptZone2Name, $this->getpos($profile), "Information"),
+		$this->ptModel => array("Model", "Model", $this->ptModel, $this->getpos($profile), "Information")
 		);
 		$profilesZone3 = array (
-		$this->ptZone3Name => array("Zone3Name", "Zone3 Name", "~String", $this->getpos($profile), "Information"),
-		$this->ptModel => array("Model", "Model", "~String", $this->getpos($profile), "Information")
+		$this->ptZone3Name => array("Zone3Name", "Zone3 Name", $this->ptZone3Name, $this->getpos($profile), "Information"),
+		$this->ptModel => array("Model", "Model", $this->ptModel, $this->getpos($profile), "Information")
 		);
 
 		if($this->Zone == 0)
