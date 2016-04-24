@@ -306,7 +306,7 @@ class DENONIPSProfiles extends stdClass
 				{
 				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesMapping[$SourceInput] = $Value;
+				$InputSourcesMapping[$SourceInput] = ($Value-1);
 				}
 				$this->VarMappingInputSources = $InputSourcesMapping;
 				
