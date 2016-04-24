@@ -134,6 +134,9 @@ class DENONIPSProfiles extends stdClass
 	public $UsedInputSources;
 	public $UsedInputSourcesZ2;
 	public $UsedInputSourcesZ3;
+	public $VarMappingInputSources;
+	public $VarMappingInputSourcesZ2;
+	public $VarMappingInputSourcesZ3;
 	public $DenonIP;
 	
 	public function GetInputSources(integer $Zone, string $AVRType)
@@ -298,14 +301,16 @@ class DENONIPSProfiles extends stdClass
 				
 				$this->UsedInputSources = $UsedInputSources;
 				
-				$InputSourcesAVRMainZone = array();
+				$InputSourcesMapping = array();
 				foreach ($Inputs as $Value => $Input)
 				{
-				$Source = $Input["Source"];	
+				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesAVRMainZone[$SourceInput] = ($Value-1);
+				$InputSourcesMapping[$SourceInput] = $Value;
 				}
-				return $InputSourcesAVRMainZone;
+				$this->VarMappingInputSources = $InputSourcesMapping;
+				
+				return $UsedInputSources;
 			}
 			elseif($Zone == 1)
 			{
@@ -326,14 +331,16 @@ class DENONIPSProfiles extends stdClass
 				
 				$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
 				
-				$InputSourcesAVRZ2 = array();
+				$InputSourcesMapping = array();
 				foreach ($Inputs as $Value => $Input)
 				{
-				$Source = $Input["Source"];	
+				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesAVRZ2[$SourceInput] = ($Value-1);
+				$InputSourcesMapping[$SourceInput] = $Value;
 				}
-				return $InputSourcesAVRZ2;
+				$this->VarMappingInputSourcesZ2 = $InputSourcesMapping;
+				
+				return $UsedInputSourcesZ2;
 			}
 			elseif($Zone == 2)
 			{
@@ -354,19 +361,39 @@ class DENONIPSProfiles extends stdClass
 				
 				$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
 				
-				$InputSourcesAVRZ3 = array();
+				$InputSourcesMapping = array();
 				foreach ($Inputs as $Value => $Input)
 				{
-				$Source = $Input["Source"];	
+				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesAVRZ3[$SourceInput] = ($Value-1);
+				$InputSourcesMapping[$SourceInput] = $Value;
 				}
-				return $InputSourcesAVRZ3;
+				$this->VarMappingInputSourcesZ3 = $InputSourcesMapping;
+				
+				return $UsedInputSourcesZ3;
 			}
 			
 		}
 	}	
-
+	
+	public function GetInputVarmapping($Zone)
+	{
+		if ($Zone == 0)
+		{
+			$VarMappingInputSources = $this->VarMappingInputSources;
+		}
+		elseif ($Zone == 1)
+		{
+			$VarMappingInputSources = $this->VarMappingInputSourcesZ2;
+		}
+		elseif ($Zone == 2)
+		{
+			$VarMappingInputSources = $this->VarMappingInputSourcesZ3;
+		}
+	
+		return $VarMappingInputSources;
+	}
+	
 	public function SetupVarDenonString($profile)
 	{
 		//Ident, Name, Profile, Position 

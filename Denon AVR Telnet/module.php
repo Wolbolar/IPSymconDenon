@@ -123,6 +123,7 @@ class DenonAVRTelnet extends IPSModule
     */
 
 	public 	$InputSources;
+	public 	$VarMappingInputs;
 	
 	private function ValidateConfiguration()
 	{
@@ -225,11 +226,7 @@ class DenonAVRTelnet extends IPSModule
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
-				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
-				$MappingInputs = json_encode($this->InputSources);
-				//Input ablegen
-				DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
+				$this->GetInputsAVR($DenonAVRVar);
 			}
 			else
 			{
@@ -373,8 +370,7 @@ class DenonAVRTelnet extends IPSModule
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
-				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
+				$this->GetInputsAVR($DenonAVRVar);
 			}
 			else
 			{
@@ -450,8 +446,7 @@ class DenonAVRTelnet extends IPSModule
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
-				$DenonAVRVar->DenonIP = $this->GetIPDenon();
-				$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
+				$this->GetInputsAVR($DenonAVRVar);
 			}
 			else
 			{
@@ -557,6 +552,17 @@ class DenonAVRTelnet extends IPSModule
 				
 			//Status aktiv
 			$this->SetStatus(102);
+	}
+	
+	private function GetInputsAVR($DenonAVRVar)
+	{
+		$DenonAVRVar->DenonIP = $this->GetIPDenon();
+		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
+		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
+		$Inputs = $this->VarMappingInputs;
+		//Input ablegen
+		$MappingInputs = json_encode($Inputs);
+		DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 	}
 	
 	private function GetZone()
