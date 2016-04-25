@@ -2362,17 +2362,21 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Zone2 Mute 
+	public function Zone2Mute(boolean $Value) // Zone2 Mute  true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z2OFF;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z2ON;
+			}
+		$payload = DENON_API_Commands::Z2MU.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
-	public function Zone2Power($Value) // "ON" or "OFF"
-	{
-		CSCK_SendText($id, "Z2".$Value.chr(13));
-	}
-
-	public function Zone2Mute($Value) // "ON" or "OFF"
-	{
-		CSCK_SendText($id, "Z2MU".$Value.chr(13));
-	}
-
 	public function Zone2InputSource($Value) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR ; TUNER
 	{
 		CSCK_SendText($id, "Z2".$Value.chr(13));
@@ -2422,16 +2426,37 @@ class DenonAVRTelnet extends IPSModule
 		$Value= intval($Value) +80;
 		CSCK_SendText($id, "Z3".$Value.chr(13));
 	}
-
-	public function Zone3Power($Value) // "ON" or "OFF"
+	
+	//Zone3 Power 
+	public function Zone3Power(boolean $Value) // Zone3 Power  true (On) or false (Off) 
 	{
-		CSCK_SendText($id, "Z3".$Value.chr(13));
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z3OFF;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z3ON;
+			}
+		$payload = DENON_API_Commands::Z3.$subcommand;
+		$this->SendCommand($payload);
 	}
-
-	public function Zone3Mute($Value) // "ON" or "OFF"
+	
+	//Zone3 Mute 
+	public function Zone3Mute(boolean $Value) // Zone3 Mute  true (On) or false (Off) 
 	{
-		CSCK_SendText($id, "Z3MU".$Value.chr(13));
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z3OFF;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z3ON;
+			}
+		$payload = DENON_API_Commands::Z3MU.$subcommand;
+		$this->SendCommand($payload);
 	}
+	
 
 	public function Zone3InputSource($Value) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR
 	{
