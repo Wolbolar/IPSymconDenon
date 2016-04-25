@@ -1475,7 +1475,7 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$subcommand = DENON_API_Commands::CINEMAEQOFF;
 			}
-		$payload = DENON_API_Commands::CINEMAEQ.$subcommand;
+		$payload = DENON_API_Commands::CINEMAEQCOMMAND.$subcommand;
 		$this->SendCommand($payload);
 	}
 	

@@ -2375,7 +2375,7 @@ class DENON_API_Commands extends stdClass
 	const SBOFF = ":OFF"; // Surround Back SP Mode off
 	
 	//PSCINEMAEQ Cinema EQ
-	const CINEMAEQ = "PSCINEMA EQ"; // Cinema EQ
+	const CINEMAEQCOMMAND = "PSCINEMA EQ"; // Cinema EQ
 	const CINEMAEQON = ".ON"; // Cinema EQ on
 	const CINEMAEQOFF = ".OFF"; // Cinema EQ off
 	const CINEMAEQ = ". ?"; // Return PSCINEMA EQ.Status
