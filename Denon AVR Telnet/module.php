@@ -2084,11 +2084,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 
 	
-	public function Panorama($Value)
-	{
-	  CSCK_SendText($id, "PSPAN ".$Value.chr(13));
-	}
-
+	
 	public function FrontHeight($Value)
 	{
 	  CSCK_SendText($id, "PSFH:".$Value.chr(13));
