@@ -786,8 +786,8 @@ class DENONIPSProfiles extends stdClass
 				"Profilesettings" => Array("Speaker", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
 				Array(0, "Front Height",  "", -1),
-				Array(1, "Front Weight",  "", -1),
-				Array(2, "HW",  "", -1),
+				Array(1, "Front Wide",  "", -1),
+				Array(2, "Height/Wide",  "", -1),
 				Array(3, "Off",  "", -1)
 				)
 			),
@@ -808,7 +808,7 @@ class DENONIPSProfiles extends stdClass
 				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Low",  "", -1),
-				Array(1, "Mid",  "", -1),
+				Array(1, "Middle",  "", -1),
 				Array(2, "High",  "", -1)
 				)
 			),
@@ -2132,13 +2132,16 @@ class DENON_API_Commands extends stdClass
 	const SI = "SI"; // Select
 	const ZM = "ZM"; // Main Zone
 	const SD = "SD"; // Select Auto/HDMI/Digital/Analog
-	const DC = "DC"; // Select Auto/PCM/DTS
+	const DC = "DC"; // Digital Input Mode Select Auto/PCM/DTS
 	const SV = "SV"; // Video Select
 	const SLP = "SLP"; // Main Zone Sleep Timer
 	const MS = "MS"; // Select Surround Mode
 	const MSQUICK = "MSQUICK"; // Quick Select Mode Select
 	const MSQUICKMEMORY = "MEMORY"; // Quick Select Mode Memory
 	
+	//MU
+	const MUON = "ON"; // Volume Mute ON
+	const MUOFF = "OFF"; // Volume Mute Off
 	
 	//VS
 	const VS = "VS"; // Video Setting
@@ -2166,7 +2169,7 @@ class DENON_API_Commands extends stdClass
 	const PSDYNEQ = "PSDYNEQ"; // Dynamic EQ
 	const PSREFLEV = "PSREFLEV"; // Reference Level Offset
 	const PSDYNVOL = "PSDYNVOL"; // Dynamic Volume
-	const PSDSX = "PSDSX"; // Audyssey DSX ON
+	const PSDSX = "PSDSX"; // Audyssey DSX Change
 	const PSSTW = "PSSTW"; // STAGE WIDTH
 	const PSSTH = "PSSTH"; // STAGE HEIGHT
 	const PSBAS = "PSBAS"; // BASS
@@ -2198,6 +2201,8 @@ class DENON_API_Commands extends stdClass
 	
 	//Zone 2
 	const Z2 = "Z2"; // Zone 2
+	const Z2ON = "ON"; // Zone 2 On
+	const Z2OFF = "OFF"; // Zone 2 Off
 	const Z2POWER = "Z2POWER"; // Zone 2 Power Z2 beim Senden
 	const Z2INPUT = "Z2INPUT"; // Zone 2 Input Z2 beim Senden
 	const Z2VOL = "Z2VOL"; // Zone 2 Volume Z2 beim Senden
@@ -2213,6 +2218,8 @@ class DENON_API_Commands extends stdClass
 	
 	//Zone 3
 	const Z3 = "Z3"; // Zone 3
+	const Z3ON = "ON"; // Zone 3 On
+	const Z3OFF = "OFF"; // Zone 3 Off
 	const Z3POWER = "Z3POWER"; // Zone 3 Power Z3 beim Senden
 	const Z3INPUT = "Z3INPUT"; // Zone 3 Input Z3 beim Senden
 	const Z3VOL = "Z2VOL"; // Zone 3 Volume Z3 beim Senden
@@ -2280,6 +2287,7 @@ class DENON_API_Commands extends stdClass
 	const NO = "NO"; // no Input
 	
 	//DC Digital Input
+	const DCAUTO = "AUTO"; // Auto Mode
 	const DCPCM = "PCM"; // PCM Mode
 	const DCDTS = "DTS"; // DTS Mode
 	
@@ -2317,8 +2325,9 @@ class DENON_API_Commands extends stdClass
 	
 	//VS
 	//VSMONI Set HDMI Monitor
-	const MONI1 = "1"; // 1
-	const MONI2 = "2"; // 2
+	const VSMONIAUTO = "AUTO"; // 1
+	const VSMONI1 = "1"; // 1
+	const VSMONI2 = "2"; // 2
 	
 	
 	//VSASP
@@ -2416,10 +2425,10 @@ class DENON_API_Commands extends stdClass
 	const PHG = "chr(32).chr(63)"; // Return PSPHG Status
 	
 	//PSSP Speaker Output set
-	const SPFH = "FH"; // Speaker Output set FH
-	const SPFW = "FW"; // Speaker Output set FW
-	const SPHW = "HW"; // Speaker Output set HW
-	const SPOFF = "OFF"; // Speaker Output set off
+	const SPFH = ":FH"; // Speaker Output set FH
+	const SPFW = ":FW"; // Speaker Output set FW
+	const SPHW = ":HW"; // Speaker Output set HW
+	const SPOFF = ":OFF"; // Speaker Output set off
 	const SP = "chr(32).chr(63)"; // Return PSSP: Status
 
 	// MulEQ XT 32 mode direct change
@@ -2480,7 +2489,7 @@ class DENON_API_Commands extends stdClass
 	const DRCLOW = " LOW"; // DRC Low
 	const DRCMID = " MID"; // DRC Middle
 	const DRCHI = " HI"; // DRC High
-	const DRCOFF = "OFF"; // DRC off
+	const DRCOFF = " OFF"; // DRC off
 	const DRC = " ?"; // Return PSDRC Status
 	
 
@@ -2543,7 +2552,7 @@ class DENON_API_Commands extends stdClass
 	//PSRSZ Room Size
 	const RSZS = " S";
 	const RSZMS = " MS";
-	const RSZN = " M";
+	const RSZM = " M";
 	const RSZML = " ML";
 	const RSZL = " L";
 	
@@ -2557,6 +2566,12 @@ class DENON_API_Commands extends stdClass
 	const PSSWRON = " ON"; // SW ATT ON
 	const PSSWROFF = " OFF"; // SW ATT OFF
 	const SWR = " ?"; // Return PSATT Status
+	
+	//Audio Restorer
+	const PSRSTROFF = " OFF"; //Audio Restorer Off
+	const PSRSTRMODE1 = " MODE1"; //Audio Restorer 64
+	const PSRSTRMODE2 = " MODE2"; //Audio Restorer 96
+	const PSRSTRMODE3 = " MODE3"; //Audio Restorer HQ
 	
 	//Cursor
 	const MN = "MN"; // Cursor Navigation

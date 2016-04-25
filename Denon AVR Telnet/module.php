@@ -1422,12 +1422,22 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Main Mute
-	public function MainMute(string $command) // "ON" or "OFF"
+	public function MainMute(boolean $Value) // Main Mute true (On) or false (Off) 
 	{
-		$payload = DENON_API_Commands::MU.$command;
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::MUOFF;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::MUON;
+			}
+		
+		$payload = DENON_API_Commands::MU.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
+		
 	//Input
 	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
@@ -1436,18 +1446,35 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Dynamic Volume
-	
+	public function DynamicVolume(string $Value) // Dynamic Volume Midnight / Evening / Day
+	{
+		if ($Value == "Midnight")
+			{
+				$subcommand = DENON_API_Commands::DYNVOLNGT;
+			}
+		elseif ($Value == "Evening")
+			{
+				$subcommand = DENON_API_Commands::DYNVOLEVE;
+			}
+		elseif ($Value == "Day")
+			{
+				$subcommand = DENON_API_Commands::DYNVOLDAY;
+			}
+			
+		$payload = DENON_API_Commands::PSDYNVOL.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Dolby Volume
 	public function DolbyVolume(boolean $Value) // Dolby Volume true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::DOLVOLON;
+				$subcommand = DENON_API_Commands::DOLVOLOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::DOLVOLOFF;
+				$subcommand = DENON_API_Commands::DOLVOLON;
 			}
 		
 		$payload = DENON_API_Commands::PS.$subcommand;
@@ -1455,25 +1482,131 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Dolby Volume Modeler
+	public function DolbyVolumeModeler(string $Value) // Dolby Volume Modeler Off / Half / Full
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::VOLMODOFF;
+			}
+		elseif ($Value == "Half")
+			{
+				$subcommand = DENON_API_Commands::VOLMODHLF;
+			}
+		elseif ($Value == "Full")
+			{
+				$subcommand = DENON_API_Commands::VOLMODFUL;
+			}
+			
+		$payload = DENON_API_Commands::PSVOLMOD.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Dolby Volume Leveler
+	public function DolbyVolumeLeveler(string $Value) // Dolby Volume Leveler Low / Middle / High
+	{
+		if ($Value == "Low")
+			{
+				$subcommand = DENON_API_Commands::DYNVOLNGT;
+			}
+		elseif ($Value == "Middle")
+			{
+				$subcommand = DENON_API_Commands::DYNVOLEVE;
+			}
+		elseif ($Value == "High")
+			{
+				$subcommand = DENON_API_Commands::DYNVOLDAY;
+			}
+			
+		$payload = DENON_API_Commands::PSVOLLEV.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Dynamic Compressor
+	public function DynamicCompressor(string $Value) // Dynamic Compressor Off / Low / Middle / High
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::DCOOFF;
+			}
+		elseif ($Value == "Low")
+			{
+				$subcommand = DENON_API_Commands::DCOLOW;
+			}	
+		elseif ($Value == "Middle")
+			{
+				$subcommand = DENON_API_Commands::DCOMID;
+			}
+		elseif ($Value == "High")
+			{
+				$subcommand = DENON_API_Commands::DCOHIGH;
+			}
+			
+		$payload = DENON_API_Commands::PSDCO.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Dynamic Range Compression
+	public function DynamicCompressor(string $Value) // Dynamic Compressor Off / Auto / Low / Middle / High
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::DRCOFF;
+			}
+		elseif ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::DRCAUTO;
+			}		
+		elseif ($Value == "Low")
+			{
+				$subcommand = DENON_API_Commands::DRCLOW;
+			}	
+		elseif ($Value == "Middle")
+			{
+				$subcommand = DENON_API_Commands::DRCMID;
+			}
+		elseif ($Value == "High")
+			{
+				$subcommand = DENON_API_Commands::DRCHI;
+			}
+			
+		$payload = DENON_API_Commands::PSDRC.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Audyssey DSX
-	
+	public function AudysseyDSX(string $Value) // Audyssey DSX Off / Wide (Audyssey DSX ON(Wide)) / Height (Audyssey DSX ON(Height)) / Height/Wide (Audyssey DSX ON(Height/Wide))
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::PSDSXOFF;
+			}
+		elseif ($Value == "Wide")
+			{
+				$subcommand = DENON_API_Commands::PSDSXONW;
+			}	
+		elseif ($Value == "Height")
+			{
+				$subcommand = DENON_API_Commands::PSDSXONH;
+			}
+		elseif ($Value == "Height/Wide")
+			{
+				$subcommand = DENON_API_Commands::PSDSXONHW;
+			}
+			
+		$payload = DENON_API_Commands::PSDSX.$subcommand;
+		$this->SendCommand($payload);
+	}
+		
 	//CinemaEQ
 	public function CinemaEQ(boolean $Value) // CinemaEQ true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::CINEMAEQON;
+				$subcommand = DENON_API_Commands::CINEMAEQOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::CINEMAEQOFF;
+				$subcommand = DENON_API_Commands::CINEMAEQON;
 			}
 		$payload = DENON_API_Commands::CINEMAEQCOMMAND.$subcommand;
 		$this->SendCommand($payload);
@@ -1484,11 +1617,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::PANON;
+				$subcommand = DENON_API_Commands::PANOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::PANOFF;
+				$subcommand = DENON_API_Commands::PANON;
 			}
 		$payload = DENON_API_Commands::PS.$subcommand;
 		$this->SendCommand($payload);
@@ -1499,11 +1632,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::DYNEQON;
+				$subcommand = DENON_API_Commands::DYNEQOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::DYNEQOFF;
+				$subcommand = DENON_API_Commands::DYNEQON;
 			}
 		$payload = DENON_API_Commands::PSDYNEQ.$subcommand;
 		$this->SendCommand($payload);
@@ -1620,11 +1753,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::PSSWRON;
+				$subcommand = DENON_API_Commands::PSSWROFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::PSSWROFF;
+				$subcommand = DENON_API_Commands::PSSWRON;
 			}
 		$payload = DENON_API_Commands::PSSWR.$subcommand;
 		$this->SendCommand($payload);
@@ -1635,11 +1768,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::ATTON;
+				$subcommand = DENON_API_Commands::ATTOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::ATTOFF;
+				$subcommand = DENON_API_Commands::ATTON;
 			}
 		$payload = DENON_API_Commands::PS.$subcommand;
 		$this->SendCommand($payload);
@@ -1650,11 +1783,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::PSFHON;
+				$subcommand = DENON_API_Commands::PSFHOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::PSFHOFF;
+				$subcommand = DENON_API_Commands::PSFHON;
 			}
 		$payload = DENON_API_Commands::PSFH.$subcommand;
 		$this->SendCommand($payload);
@@ -1665,44 +1798,126 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::PSTONECTRLON;
+				$subcommand = DENON_API_Commands::PSTONECTRLOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::PSTONECTRLOFF;
+				$subcommand = DENON_API_Commands::PSTONECTRLON;
 			}
 		$payload = DENON_API_Commands::TONECTRL.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
 	//Audio Delay
+	public function AudioDelay(integer $command) // can be operated from 0 to 300
+	{
+		$payload = DENON_API_Commands::CV.DENON_API_Commands::PSDELAY.$command;
+		$this->SendCommand($payload);
+	}
 	
-	//Speaker Output Front
+	//Speaker Output Front 
+	public function SpeakerOutputFront(string $Value) // Speaker Output Front Off / Wide / Height / Height/Wide
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::SPOFF;
+			}
+		elseif ($Value == "Wide")
+			{
+				$subcommand = DENON_API_Commands::SPFW;
+			}	
+		elseif ($Value == "Height")
+			{
+				$subcommand = DENON_API_Commands::SPHW;
+			}
+		elseif ($Value == "Height/Wide")
+			{
+				$subcommand = DENON_API_Commands::SPHW;
+			}
+			
+		$payload = DENON_API_Commands::PSSP.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Auto Flag Detect Mode
 	public function AutoFlagDetectMode(boolean $Value) // Auto Flag Detect Mode true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::AFDON;
+				$subcommand = DENON_API_Commands::AFDOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::AFDOFF;
+				$subcommand = DENON_API_Commands::AFDON;
 			}
 		$payload = DENON_API_Commands::PSAFD.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
 	//ASP
+	public function SpeakerOutputFront(string $Value) // ASP Normal / Full
+	{
+		if ($Value == "Normal")
+			{
+				$subcommand = DENON_API_Commands::ASPNRM;
+			}
+		elseif ($Value == "Full")
+			{
+				$subcommand = DENON_API_Commands::ASPFUL;
+			}	
+					
+		$payload = DENON_API_Commands::VSASP.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Audio Restorer
+	public function AudioRestorer(string $Value) // Audio Restorer Off / 64 / 96 / HQ
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::PSRSTROFF;
+			}
+		elseif ($Value == "64")
+			{
+				$subcommand = DENON_API_Commands::PSRSTRMODE1;
+			}	
+		elseif ($Value == "96")
+			{
+				$subcommand = DENON_API_Commands::PSRSTRMODE2;
+			}
+		elseif ($Value == "HQ")
+			{
+				$subcommand = DENON_API_Commands::PSRSTRMODE3;
+			}
+			
+		$payload = DENON_API_Commands::PSRSTR.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Center Image
 	
 	//Center Width
 	
-	//Input Mode
+	//Digital Input Mode
+	public function DigitalInputMode(string $Value) // Digital Input Mode Auto / PCM / DTS
+	{
+		if ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::DCAUTO;
+			}
+		elseif ($Value == "PCM")
+			{
+				$subcommand = DENON_API_Commands::DCPCM;
+			}	
+		elseif ($Value == "DTS")
+			{
+				$subcommand = DENON_API_Commands::DCDTS;
+			}
+			
+		$payload = DENON_API_Commands::DC.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
 	
 	//Dimension
 	
@@ -1711,11 +1926,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::PSEFFON;
+				$subcommand = DENON_API_Commands::PSEFFOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::PSEFFOFF;
+				$subcommand = DENON_API_Commands::PSEFFON;
 			}
 		$payload = DENON_API_Commands::PSEFF.$subcommand;
 		$this->SendCommand($payload);
@@ -1724,14 +1939,120 @@ class DenonAVRTelnet extends IPSModule
 	//Effect Level
 	
 	//HDMI Audio Output
+	public function HDMIAudioOutput(string $Value) // HDMI Audio Output TV / AMP
+	{
+		if ($Value == "TV")
+			{
+				$subcommand = DENON_API_Commands::AUDIOTV;
+			}
+		elseif ($Value == "AMP")
+			{
+				$subcommand = DENON_API_Commands::AUDIOAMP;
+			}	
+			
+		$payload = DENON_API_Commands::VSAUDIO.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Multi EQ Mode
+	public function MultiEQMode(string $Value) // Multi EQ Mode Audyssey / BYP.LR / Flat / Manual / Off
+	{
+		if ($Value == "Audyssey")
+			{
+				$subcommand = DENON_API_Commands::MULTEQAUDYSSEY;
+			}
+		elseif ($Value == "BYP.LR")
+			{
+				$subcommand = DENON_API_Commands::MULTEQBYPLR;
+			}	
+		elseif ($Value == "Flat")
+			{
+				$subcommand = DENON_API_Commands::MULTEQFLAT;
+			}
+		elseif ($Value == "Manual")
+			{
+				$subcommand = DENON_API_Commands::MULTEQMANUAL;
+			}
+		elseif ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::MULTEQOFF;
+			}		
+		
+		$payload = DENON_API_Commands::PSMULTEQ.chr(32).$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//PLIIZHeightGain
+	public function PLIIZHeightGain(string $Value) // PLIIZHeightGain Low / Middle / High
+	{
+		if ($Value == "Low")
+			{
+				$subcommand = DENON_API_Commands::PHGLOW;
+			}
+		elseif ($Value == "Middle")
+			{
+				$subcommand = DENON_API_Commands::PHGMID;
+			}	
+		elseif ($Value == "High")
+			{
+				$subcommand = DENON_API_Commands::PHGHI;
+			}	
+		
+		$payload = DENON_API_Commands::PSPHG.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Reference Level
+	public function ReferenceLevel(integer $Value) // Reference Level 0 / 5 / 10 / 15
+	{
+		if ($Value == 0)
+			{
+				$subcommand = DENON_API_Commands::REFLEV0;
+			}
+		elseif ($Value == 5)
+			{
+				$subcommand = DENON_API_Commands::REFLEV5;
+			}	
+		elseif ($Value == 10)
+			{
+				$subcommand = DENON_API_Commands::REFLEV10;
+			}
+		elseif ($Value == 15)
+			{
+				$subcommand = DENON_API_Commands::REFLEV15;
+			}		
+		
+		$payload = DENON_API_Commands::PSREFLEV.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Room Size
+	public function RoomSize(string $Value) // Room Size Small / Small/Medium / Medium / Medium/Large / Large
+	{
+		if ($Value == "Small")
+			{
+				$subcommand = DENON_API_Commands::RSZS;
+			}
+		elseif ($Value == "Small/Medium")
+			{
+				$subcommand = DENON_API_Commands::RSZMS;
+			}	
+		elseif ($Value == "Medium")
+			{
+				$subcommand = DENON_API_Commands::RSZM;
+			}
+		elseif ($Value == "Medium/Large")
+			{
+				$subcommand = DENON_API_Commands::RSZML;
+			}
+		elseif ($Value == "Large")
+			{
+				$subcommand = DENON_API_Commands::RSZL;
+			}		
+		
+		$payload = DENON_API_Commands::PSRSZ.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Stage Width
 	
@@ -1740,17 +2061,39 @@ class DenonAVRTelnet extends IPSModule
 	//Surround Back Mode
 	
 	//Surround Play Mode
+	public function SurroundPlayMode(string $Value) // Surround Play Mode Music / Cinema / Game / Pro Logic
+	{
+		if ($Value == "Music")
+			{
+				$subcommand = DENON_API_Commands::MODEMUSIC;
+			}
+		elseif ($Value == "Cinema")
+			{
+				$subcommand = DENON_API_Commands::MODECINEMA;
+			}	
+		elseif ($Value == "Game")
+			{
+				$subcommand = DENON_API_Commands::MODEGAME;
+			}
+		elseif ($Value == "Pro Logic")
+			{
+				$subcommand = DENON_API_Commands::MODEPROLOGIC;
+			}
+		
+		$payload = DENON_API_Commands::PSMODE.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Vertical Stretch
 	public function VerticalStretch(boolean $Value) // VerticalStretch true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::VSTON;
+				$subcommand = DENON_API_Commands::VSTOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::VSTOFF;
+				$subcommand = DENON_API_Commands::VSTON;
 			}
 		$payload = DENON_API_Commands::VSVST.$subcommand;
 		$this->SendCommand($payload);
@@ -1772,25 +2115,122 @@ class DenonAVRTelnet extends IPSModule
 	//Enhancer
 	
 	//HDMI Monitor
+	public function HDMIMonitor(string $Value) // HDMI Monitor Auto / Monitor 1 / Monitor 2 
+	{
+		if ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::VSMONIAUTO;
+			}
+		elseif ($Value == "Monitor 1")
+			{
+				$subcommand = DENON_API_Commands::VSMONI1;
+			}	
+		elseif ($Value == "Monitor 2")
+			{
+				$subcommand = DENON_API_Commands::VSMONI2;
+			}
+		
+		$payload = DENON_API_Commands::VSMONI.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
 	
 	//Hue
 	
 	//Resolution
-	
+	public function Resolution(string $Value) // Resolution 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto
+	{
+		if ($Value == "480p/576p")
+			{
+				$subcommand = DENON_API_Commands::SC48P;
+			}
+		elseif ($Value == "1080i")
+			{
+				$subcommand = DENON_API_Commands::SC10I;
+			}	
+		elseif ($Value == "720p")
+			{
+				$subcommand = DENON_API_Commands::SC72P;
+			}
+		elseif ($Value == "1080p")
+			{
+				$subcommand = DENON_API_Commands::SC10P;
+			}
+		elseif ($Value == "1080p:24Hz")
+			{
+				$subcommand = DENON_API_Commands::SC10P24;
+			}
+		elseif ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::SCAUTO;
+			}	
+		
+		$payload = DENON_API_Commands::VSSC.$subcommand;
+		$this->SendCommand($payload);
+	}
+		
 	//Resolution HDMI
+	public function ResolutionHDMI(string $Value) //Resolution HDMI 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto
+	{
+		if ($Value == "480p/576p")
+			{
+				$subcommand = DENON_API_Commands::SCH48P;
+			}
+		elseif ($Value == "1080i")
+			{
+				$subcommand = DENON_API_Commands::SCH10I;
+			}	
+		elseif ($Value == "720p")
+			{
+				$subcommand = DENON_API_Commands::SCH72P;
+			}
+		elseif ($Value == "1080p")
+			{
+				$subcommand = DENON_API_Commands::SCH10P;
+			}
+		elseif ($Value == "1080p:24Hz")
+			{
+				$subcommand = DENON_API_Commands::SCH10P24;
+			}
+		elseif ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::SCHAUTO;
+			}		
+		
+		$payload = DENON_API_Commands::VSSCH.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Video Processing Mode
+	public function VideoProcessingMode(string $Value) // Video Processing Mode Auto / Monitor 1 / Monitor 2 
+	{
+		if ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::VSMONIAUTO;
+			}
+		elseif ($Value == "Monitor 1")
+			{
+				$subcommand = DENON_API_Commands::VSMONI1;
+			}	
+		elseif ($Value == "Monitor 2")
+			{
+				$subcommand = DENON_API_Commands::VSMONI2;
+			}
+		
+		$payload = DENON_API_Commands::VSMONI.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//GUI Menu
 	public function GUIMenu(boolean $Value) // GUI Menu true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::MNMENON;
+				$subcommand = DENON_API_Commands::MNMENOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::MNMENOFF;
+				$subcommand = DENON_API_Commands::MNMENON;
 			}
 		$payload = DENON_API_Commands::MNMEN.$subcommand;
 		$this->SendCommand($payload);
@@ -1801,11 +2241,11 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::MNSRCON;
+				$subcommand = DENON_API_Commands::MNSRCOFF;
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::MNSRCOFF;
+				$subcommand = DENON_API_Commands::MNSRCON;
 			}
 		$payload = DENON_API_Commands::MNSRC.$subcommand;
 		$this->SendCommand($payload);
@@ -1818,6 +2258,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+		
 	
 	######################## Cursor Steuerung ######################################
 
@@ -1891,226 +2332,6 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
-	
-
-	
-	
-	
-
-
-	public function ModeSelect($Value) //
-	{
-	 CSCK_SendText($id, "MS".$Value.chr(13));
-	}
-
-	
-
-	
-
-	public function ParaVideo($Value) //
-	{
-	 CSCK_SendText($id, "PV".$Value.chr(13));
-	}
-
-	public function QuickSelect($Value) // 1-5
-	{
-	  CSCK_SendText($id, "MSQUICK".$Value.chr(13));
-	}
-
-	public function Preset($Value) //
-	{
-		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "NSB".$Value.chr(13));
-	}
-
-	public function NSE_Request($id) // fragt NSE-Werte ab
-	{
-	  CSCK_SendText($id, "NSE".chr(13));
-	}
-	
-	public function MultiEQMode($Value) // MultiEquilizer AUDYSSEE/BYP.LR/FLAT/MANUELL/OFF
-	{
-	  CSCK_SendText($id, "PSMULTEQ".$Value.chr(13));
-	}
-
-	public function DynVol($Value) // Dynamic Volume NGT(EVE/DAY
-	{
-	  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
-	}
-
-	public function AudioDelay($Value) // Audio Delay 0-200 ms
-	{
-		$Value = str_pad($Value, 3 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSDELAY ".$Value.chr(13));
-	}
-
-	public function Dimension($Value) // Audio Delay 0-200 ms
-	{
-		$Value = str_pad($Value, 2 ,"0", STR_PAD_LEFT);
-		CSCK_SendText($id, "PSDIM ".$Value.chr(13));
-	}
-
-	public function DynamicCompressor($Value) // Dynamic Compressor OFF/LOW/MID/HIGH
-	{
-	  CSCK_SendText($id, "PSDCO ".$Value.chr(13));
-	}
-
-	public function ToneDefeat($Value) // Tone Defeat (AVR3809) ON/OFF
-	{
-	  CSCK_SendText($id, "PSTONE DEFEAT ".$Value.chr(13));
-	}
-
-	
-
-	public function AudioRestorer($Value) // Audio Restorer OFF/MODE1/MODE2/MODE3
-	{
-		switch ($Value)
-		{
-		   case 0:
-			  $Value = "OFF";
-			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
-			break;
-
-			case 1:
-			  $Value = "MODE1";
-			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
-			break;
-
-			case 2:
-			  $Value = "MODE2";
-			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
-			break;
-
-			case 3:
-			  $Value = "MODE2";
-			  CSCK_SendText($id, "PSRSTR ".$Value.chr(13));
-			break;
-
-		}
-	}
-
-	public function DigitalInputMode($Value) // Digital Input Mode AUTO/PCM/DTS
-	{
-	  CSCK_SendText($id, "DC".$Value.chr(13));
-	}
-
-	public function InputMode($Value) // Input Mode AUTO/HDMI/DIGITALANALOG/ARC/NO
-	{
-	  CSCK_SendText($id, "SD".$Value.chr(13));
-	}
-	
-
-	public function DynamicRange($Value) // DynamicRange
-	{
-	  CSCK_SendText($id, "PSDRC ".$Value.chr(13));
-	}
-
-	
-
-	public function DynamicVolume($Value)
-	{
-		switch ($Value)
-			{
-			   case 0:
-				  $Value = "OFF";
-				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
-				break;
-
-				case 1:
-				  $Value = "NGT";
-				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
-				break;
-
-				case 2:
-				  $Value = "EVE";
-				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
-				break;
-
-				case 3:
-				  $Value = "DAY";
-				  CSCK_SendText($id, "PSDYNVOL ".$Value.chr(13));
-				break;
-
-			}
-	}
-
-	public function RoomSize($Value)
-	{
-		switch ($Value)
-			{
-			   case 0:
-				  $Value = "N";
-				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
-				break;
-
-				case 1:
-				  $Value = "S";
-				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
-				break;
-
-				case 2:
-				  $Value = "MS";
-				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
-				break;
-
-				case 3:
-				  $Value = "M";
-				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
-				break;
-
-				case 4:
-				  $Value = "MS";
-				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
-				break;
-
-				case 5:
-				  $Value = "L";
-				  CSCK_SendText($id, "PSRSZ ".$Value.chr(13));
-				break;
-
-			}
-	}
-
-	public function SurroundBackMode($Value)
-	{
-	  CSCK_SendText($id, "PSSB:".$Value.chr(13));
-	}
-
-	public function CWidth($Value)
-	{
-	  CSCK_SendText($id, "PSCEN ".$Value.chr(13));
-	}
-
-	public function SurroundMode($Value)
-	{
-	  CSCK_SendText($id, "MS".$Value.chr(13));
-	}
-
-	public function SurroundPlayMode($Value)
-	{
-	  CSCK_SendText($id, "PSMODE:".$Value.chr(13));
-	}
-
-
-	public function NSE_DisplayRequest()
-	{
-	  CSCK_SendText($id, "NSE".chr(13));
-	}
-
-	public function NSA_DisplayRequest()
-	{
-	  CSCK_SendText($id, "NSA".chr(13));
-	}
-
-	public function PresetRequest()
-	{
-	  CSCK_SendText($id, "NSH".chr(13));
-	}
-
-
-
-	
-
 
 	######################## Zone 2 functions ######################################
 
@@ -2125,6 +2346,22 @@ class DenonAVRTelnet extends IPSModule
 		CSCK_SendText($id, "Z2".$Value.chr(13));
 	}
 
+	//Zone2 Power 
+	public function Zone2Power(boolean $Value) // Zone2 Power  true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z2OFF;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z2ON;
+			}
+		$payload = DENON_API_Commands::Z2.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	
 	public function Zone2Power($Value) // "ON" or "OFF"
 	{
 		CSCK_SendText($id, "Z2".$Value.chr(13));
