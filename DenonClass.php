@@ -2903,9 +2903,10 @@ class DenonAVRCP_API_Data extends stdClass
 					DENON_API_Commands::MS
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DTS SURROUND" => 5, "DTS NEO:6 C" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+						"ValueMapping" => array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DOLBY PL2 C" => 4, "DOLBY PL2 M" => 4, "MSDOLBY PL2 H" => 4,  "DTS SURROUND" => 5, "DTS NEO:6 C" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
 												"VIRTUAL" => 15)
 					),
+					
 					//Surround Play Mode
 					DENON_API_Commands::PSMODE
 					=> array(
