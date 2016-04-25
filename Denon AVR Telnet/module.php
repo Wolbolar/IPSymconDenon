@@ -1919,16 +1919,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 	  CSCK_SendText($id, "NSE".chr(13));
 	}
-
-	public function DynEQ($Value) // Dynamic Equilizer ON/OFF
-	{
-	  CSCK_SendText($id, "PSDYNEQ ".$Value.chr(13));
-	}
-
-	public function CinEQ($Value) // Cinema Equilizer ON/OFF
-	{
-	  CSCK_SendText($id, "PSCINEMA_EQ.".$Value.chr(13));
-	}
+	
 	public function MultiEQMode($Value) // MultiEquilizer AUDYSSEE/BYP.LR/FLAT/MANUELL/OFF
 	{
 	  CSCK_SendText($id, "PSMULTEQ".$Value.chr(13));
@@ -2006,10 +1997,7 @@ class DenonAVRTelnet extends IPSModule
 	  CSCK_SendText($id, "PSDRC ".$Value.chr(13));
 	}
 
-	public function DynamicEQ($Value)
-	{
-	  CSCK_SendText($id, "PSDYNEQ ".$Value.chr(13));
-	}
+	
 
 	public function DynamicVolume($Value)
 	{
@@ -2095,11 +2083,7 @@ class DenonAVRTelnet extends IPSModule
 	  CSCK_SendText($id, "PSMODE:".$Value.chr(13));
 	}
 
-	public function CinemaEQ($Value)
-	{
-	  CSCK_SendText($id, "PSCINEMA EQ.".$Value.chr(13));
-	}
-
+	
 	public function Panorama($Value)
 	{
 	  CSCK_SendText($id, "PSPAN ".$Value.chr(13));
