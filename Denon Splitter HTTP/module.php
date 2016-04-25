@@ -106,7 +106,7 @@ public function SaveInputVarmapping($MappingInputs, $AVRType)
 
 public function GetInputVarMapping()
 	{
-		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+		$InputsMapping = DAVRIO_GetInputVarMapping();
 		$InputsMapping = json_decode($InputsMapping);
 		return $InputsMapping;
 	}
