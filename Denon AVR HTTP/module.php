@@ -469,8 +469,7 @@ class DenonAVRHTTP extends IPSModule
 		$Inputs = $this->VarMappingInputs;
 		//Input ablegen
 		$MappingInputs = json_encode($Inputs);
-		$AVRType = $this->GetAVRType();
-		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $AVRType);
+		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRVar->Type);
 	}
 	
 				 

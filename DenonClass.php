@@ -1365,7 +1365,8 @@ class DENONIPSProfiles extends stdClass
 class DENON_StatusHTML extends stdClass
 {
 	public $ipdenon;
-	public $InputMapping;	
+	public $InputMapping;
+	public $Type;	
 	//Status
 	public function getStates ($InputMapping, $AVRType)
 	{
