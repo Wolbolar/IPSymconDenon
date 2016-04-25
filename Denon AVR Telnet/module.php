@@ -604,7 +604,7 @@ class DenonAVRTelnet extends IPSModule
 		//Input ablegen
 		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$MappingInputs = json_encode($this->VarMappingInputs);
-		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRUpdate->Type);
+		DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRUpdate->Type);
 	}
 	
 	private function GetAVRType()
