@@ -476,6 +476,7 @@ class DenonAVRHTTP extends IPSModule
 		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
 		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
 		$DenonAVRUpdate->Type = $this->GetAVRType();
+		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Inputsource';
 		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->Type);
 		
 		//Inputs anlegen
