@@ -150,6 +150,11 @@
                 },
 				{
                     "type": "Button",
+                    "label": "Update Inputs",
+                    "onClick": "DAVRT_UpdateInputProfile($id);"
+                },
+				{
+                    "type": "Button",
                     "label": "Status Initialisieren",
                     "onClick": "DAVRT_GetStates($id);"
                 }

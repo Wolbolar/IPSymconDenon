@@ -63,6 +63,11 @@
                     "type": "Button",
                     "label": "Power Off",
                     "onClick": "DAVRH_Power($id, false);"
+                },
+				{
+                    "type": "Button",
+                    "label": "Update Inputs",
+                    "onClick": "DAVRH_UpdateInputProfile($id);"
                 }
             ],
     "status":

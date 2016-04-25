@@ -470,6 +470,39 @@ class DenonAVRHTTP extends IPSModule
 		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRVar->Type);
 	}
 	
+	public function UpdateInputProfile()
+	{
+		$DenonAVRUpdate = new DENONIPSProfiles;
+		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
+		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
+		$DenonAVRUpdate->Type = $this->GetAVRType();
+		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->Type);
+		
+		//Inputs anlegen
+		if($this->InputSources !== false)
+		{
+			if($DenonAVRUpdate->Zone == 0)
+			{
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptInputSource);
+			}
+			elseif($DenonAVRUpdate->Zone == 1)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource);
+			}
+			elseif($DenonAVRUpdate->Zone == 2)
+			{
+				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource);
+			}
+			
+			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
+			IPS_LogMessage('Variablenprofil Update:', $inputsourcesprofile["ProfilName"]);
+		}
+		
+		//Input ablegen
+		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
+		$MappingInputs = json_encode($this->VarMappingInputs);
+		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRUpdate->Type);
+	}
 	
 	protected function HasActiveParent()
     {
@@ -1164,6 +1197,42 @@ class DenonAVRHTTP extends IPSModule
         }
         
     }
+	
+	protected function WriteUpdateProfileInputs($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Digits, $Associations)
+	{
+		if ( sizeof($Associations) === 0 ){
+            $MinValue = 0;
+            $MaxValue = 0;
+        } else {
+            $MinValue = $Associations[0][0];
+            $MaxValue = $Associations[sizeof($Associations)-1][0];
+        }
+        
+		if(!IPS_VariableProfileExists($Name))
+			{
+            IPS_CreateVariableProfile($Name, 1);
+			}
+		elseif(IPS_VariableProfileExists($Name))
+			{
+				IPS_DeleteVariableProfile($Name);
+				IPS_CreateVariableProfile($Name, 1);
+			}
+		else
+			{
+            $profile = IPS_GetVariableProfile($Name);
+            if($profile['ProfileType'] != 1)
+            throw new Exception("Variable profile type does not match for profile ".$Name);
+			}
+        
+        IPS_SetVariableProfileIcon($Name, $Icon);
+        IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
+		IPS_SetVariableProfileDigits($Name, $Digits); //  Nachkommastellen
+        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+        
+        foreach($Associations as $Association) {
+            IPS_SetVariableProfileAssociation($Name, $Association[0], $Association[1], $Association[2], $Association[3]);
+        }
+	}
 	
 	//protected function RegisterProfileStringDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize)
 	protected function RegisterProfileStringDenon($Name, $Icon)
