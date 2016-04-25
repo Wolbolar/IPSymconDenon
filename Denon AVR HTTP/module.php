@@ -1228,7 +1228,7 @@ class DenonAVRHTTP extends IPSModule
         IPS_SetVariableProfileIcon($Name, $Icon);
         IPS_SetVariableProfileText($Name, $Prefix, $Suffix);
 		IPS_SetVariableProfileDigits($Name, $Digits); //  Nachkommastellen
-        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+        IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $Stepsize);
         
         foreach($Associations as $Association) {
             IPS_SetVariableProfileAssociation($Name, $Association[0], $Association[1], $Association[2], $Association[3]);
