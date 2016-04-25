@@ -1547,7 +1547,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Dynamic Range Compression
-	public function DynamicCompressor(string $Value) // Dynamic Compressor Off / Auto / Low / Middle / High
+	public function DynamicRangeCompression(string $Value) // Dynamic Range Compression Off / Auto / Low / Middle / High
 	{
 		if ($Value == "Off")
 			{
