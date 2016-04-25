@@ -2266,7 +2266,8 @@ class DENON_API_Commands extends stdClass
 	const SERVER = "SERVER"; // Select Input Source Server
 	
 	//ZM Mainzone
-	const OFF = "OFF"; // Power Off
+	const ZMOFF = "OFF"; // Power Off
+	const ZMON = "ON"; // Power On
 	
 	//SD
 	const AUTO = "AUTO"; // Auto Mode

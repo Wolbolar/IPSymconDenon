@@ -1284,12 +1284,12 @@ class DenonAVRHTTP extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::STANDBY;
+				$subcommand = DENON_API_Commands::PWSTANDBY;
 				
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::ON;
+				$subcommand = DENON_API_Commands::PWON;
 			}
 		$payload = DENON_API_Commands::PW.$subcommand;
 		$this->SendCommand($payload);
@@ -1300,12 +1300,12 @@ class DenonAVRHTTP extends IPSModule
 	{
 		if ($Value == false)
 			{
-				$subcommand = DENON_API_Commands::OFF;
+				$subcommand = DENON_API_Commands::ZMOFF;
 				
 			}
 		elseif ($Value == true)
 			{
-				$subcommand = DENON_API_Commands::ON;
+				$subcommand = DENON_API_Commands::ZMON;
 			}
 		$payload = DENON_API_Commands::ZM.$subcommand;
 		$this->SendCommand($payload);
