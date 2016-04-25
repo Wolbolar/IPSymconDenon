@@ -1856,7 +1856,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//ASP
-	public function SpeakerOutputFront(string $Value) // ASP Normal / Full
+	public function ASP(string $Value) // ASP Normal / Full
 	{
 		if ($Value == "Normal")
 			{
