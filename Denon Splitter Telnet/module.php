@@ -37,6 +37,8 @@ class DenonSplitterTelnet extends IPSModule
 		IPS_SetHidden($this->GetIDForIdent('IOIN'), true);
 		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
         IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
+        IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	
 		//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
@@ -135,9 +137,10 @@ class DenonSplitterTelnet extends IPSModule
 	}
 
 	// Input
-public function SaveInputVarmapping($MappingInputs)
+public function SaveInputVarmapping($MappingInputs, $AVRType)
 	{
-		SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs); 
+		SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+		SetValue($this->GetIDForIdent("AVRType"), $AVRType); 	
 	}
 
 public function GetInputVarMapping()
@@ -184,8 +187,10 @@ public function GetInputVarMapping()
 				$DenonStatus = new DENON_StatusHTML;
 				$ipdenon = $this->ReadPropertyString("Host");
 				$DenonStatus->ipdenon = $ipdenon;
-				$data = $DenonStatus->getStates ();
-				
+				$AVRType = $this->GetAVRType();
+				$InputMapping = $this->GetInputVarMapping();
+				$data = $DenonStatus->getStates ($InputMapping, $AVRType);
+								
 				// Weiterleitung zu allen Gerät-/Device-Instanzen
 				$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
 	        }
@@ -261,7 +266,13 @@ public function GetInputVarMapping()
         if ($InstanceStatus <> IPS_GetInstance($this->InstanceID)['InstanceStatus'])
             parent::SetStatus($InstanceStatus);
     }
-
+	
+	protected function GetAVRType()
+		{
+			$GetAVRType = GetValue($this->GetIDForIdent("AVRType"));
+			return $GetAVRType;
+		}
+	
 	// Display NSE, NSA, NSH noch ergänzen
 	
 	//Tuner ergänzen
