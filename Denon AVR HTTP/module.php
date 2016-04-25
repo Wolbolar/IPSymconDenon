@@ -497,6 +497,7 @@ class DenonAVRHTTP extends IPSModule
 			
 			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
 			IPS_LogMessage('Variablenprofil Update:', $inputsourcesprofile["ProfilName"]);
+			IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
 		}
 		
 		//Input ablegen
