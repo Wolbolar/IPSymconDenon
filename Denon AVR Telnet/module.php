@@ -1951,11 +1951,6 @@ class DenonAVRTelnet extends IPSModule
 		CSCK_SendText($id, "PSDIM ".$Value.chr(13));
 	}
 
-	public function InputSource($Value) // Input Source
-	{
-	  CSCK_SendText($id, "SI".$Value.chr(13));
-	}
-
 	public function DynamicCompressor($Value) // Dynamic Compressor OFF/LOW/MID/HIGH
 	{
 	  CSCK_SendText($id, "PSDCO ".$Value.chr(13));
@@ -1966,10 +1961,7 @@ class DenonAVRTelnet extends IPSModule
 	  CSCK_SendText($id, "PSTONE DEFEAT ".$Value.chr(13));
 	}
 
-	public function ToneCTRL($Value) // Tone Control (AVR 3311) ON/OFF
-	{
-	  CSCK_SendText($id, "PSTONE CTRL ".$Value.chr(13));
-	}
+	
 
 	public function AudioRestorer($Value) // Audio Restorer OFF/MODE1/MODE2/MODE3
 	{
@@ -2008,29 +2000,6 @@ class DenonAVRTelnet extends IPSModule
 	  CSCK_SendText($id, "SD".$Value.chr(13));
 	}
 	
-	public function InputModeHTTP($Value) // Input Mode HTTP
-	{
-		switch ($Value)
-		{
-		   case 0:
-			  //BD
-			  file_get_contents("http://".$this->GetIPDenon()."/MainZone/index.put.asp?cmd0=PutVolumeMute%2Foff&cmd1=aspMainZone_WebUpdateStatus%2F");
-			break;
-
-			case 1:
-			  
-			break;
-
-			case 2:
-			  
-			break;
-
-			case 3:
-			  
-			break;
-
-		}
-	}
 
 	public function DynamicRange($Value) // DynamicRange
 	{
