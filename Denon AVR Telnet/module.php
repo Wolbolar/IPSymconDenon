@@ -1757,6 +1757,11 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Contrast
+	public function Contrast(string $subcommand) // Contrast
+	{
+		$payload = DENON_API_Commands::PS.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Brightness
 	
@@ -1806,6 +1811,12 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//PS
+	public function ParameterSettings(string $subcommand) // PS
+	{
+		$payload = DENON_API_Commands::PS.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	
 	######################## Cursor Steuerung ######################################
@@ -1894,10 +1905,7 @@ class DenonAVRTelnet extends IPSModule
 
 	
 
-	public function ParaSettings($Value) // S
-	{
-	 CSCK_SendText($id, "PS".$Value.chr(13));
-	}
+	
 
 	public function ParaVideo($Value) //
 	{
@@ -2083,12 +2091,6 @@ class DenonAVRTelnet extends IPSModule
 	  CSCK_SendText($id, "PSMODE:".$Value.chr(13));
 	}
 
-	
-	
-	public function FrontHeight($Value)
-	{
-	  CSCK_SendText($id, "PSFH:".$Value.chr(13));
-	}
 
 	public function NSE_DisplayRequest()
 	{
