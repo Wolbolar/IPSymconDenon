@@ -1364,9 +1364,10 @@ class DENONIPSProfiles extends stdClass
 
 class DENON_StatusHTML extends stdClass
 {
-	public $ipdenon;	
+	public $ipdenon;
+	public $InputMapping;	
 	//Status
-	public function getStates ()
+	public function getStates ($InputMapping, $AVRType)
 	{
 		//Main
 		$DataMain = array();
@@ -1374,7 +1375,7 @@ class DENON_StatusHTML extends stdClass
 			$xmlMainZone = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml"));
 			if ($xmlMainZone)
 				{
-				$DataMain = $this->MainZoneXml($xmlMainZone, $DataMain);
+				$DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $InputMapping, $AVRType);
 				}
 			else
 				{
@@ -1391,7 +1392,7 @@ class DENON_StatusHTML extends stdClass
 			$xmlMainZoneStatus = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXmlStatus.xml"));
 			if ($xmlMainZoneStatus)
 				{
-				$DataMain = $this->MainZoneXmlStatus($xmlMainZoneStatus, $DataMain);
+				$DataMain = $this->MainZoneXmlStatus($xmlMainZoneStatus, $DataMain, $InputMapping, $AVRType);
 				}
 			else
 				{
@@ -1446,7 +1447,7 @@ class DENON_StatusHTML extends stdClass
 			  $xml = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE2"));
 			  if ($xml)
 				{
-				$DataZ2 = $this->StateZone2($xml, $DataZ2);
+				$DataZ2 = $this->StateZone2($xml, $DataZ2, $InputMapping, $AVRType);
 				}
 			else
 				{
@@ -1466,7 +1467,7 @@ class DENON_StatusHTML extends stdClass
 			$xml = @new SimpleXMLElement(file_get_contents("http://".$this->ipdenon."/goform/formMainZone_MainZoneXml.xml?_=&ZoneName=ZONE3"));
 			if ($xml)
 				{
-				$DataZ3 = $this->StateZone3($xml, $DataZ3);
+				$DataZ3 = $this->StateZone3($xml, $DataZ3, $InputMapping, $AVRType);
 				}
 			else
 				{
@@ -1513,7 +1514,7 @@ class DENON_StatusHTML extends stdClass
 			return $datasend;
 	}
 	
-	protected function MainZoneXml($xml, $data)
+	protected function MainZoneXml($xml, $data, $InputMapping, $AVRType)
 	{
 		
 		//FriendlyName
@@ -1591,22 +1592,22 @@ class DENON_StatusHTML extends stdClass
 		*/
 		
 		//InputFuncSelect
-		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
-		if ($InputFuncSelect)
+		if ($AVRType == "AVR-4311")
 		{
-			//Array holen
-			//$InputSourceMapping = $this->GetInputVarmapping();
-			$InputSourceMapping = array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19);
-			foreach ($InputSourceMapping as $Command => $InputSourceValue)
+			$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
+			if ($InputFuncSelect)
 			{
-			if ($Command == (string)$InputFuncSelect[0]->value)
+				foreach ($InputMapping as $Command => $InputSourceValue)
 				{
-				$data[DENON_API_Commands::SI] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
-				}
-			}	
-			
+				if ($Command == (string)$InputFuncSelect[0]->value)
+					{
+					$data[DENON_API_Commands::SI] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
+					}
+				}	
+				
+			}
 		}
+		
 		
 
 		//NetFuncSelect
@@ -1725,14 +1726,7 @@ class DENON_StatusHTML extends stdClass
 	return $data;
 	}
 	
-	protected function GetInputVarmapping()
-	{
-		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-		$InputsMapping = json_decode($InputsMapping);
-		return $InputsMapping;
-	}
-	
-	protected function MainZoneXmlStatus($xml, $data)
+	protected function MainZoneXmlStatus($xml, $data, $InputMapping, $AVRType)
 	{
 		
 		//RestorerMode
@@ -1743,7 +1737,25 @@ class DENON_StatusHTML extends stdClass
 			$data[DENON_API_Commands::PSRSTR] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Subcommand' => 'Audio Restorer');
 		}
 		*/
-
+		
+		//InputFuncSelect
+		/*
+		if ($AVRType == "AVR-4311")
+		{
+			$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
+			if ($InputFuncSelect)
+			{
+				foreach ($InputMapping as $Command => $InputSourceValue)
+				{
+				if ($Command == (string)$InputFuncSelect[0]->value)
+					{
+					$data[DENON_API_Commands::SI] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
+					}
+				}	
+				
+			}
+		}
+		*/
 		//SurrMode
 		$SurrMode = $xml->xpath('.//SurrMode');
 		if ($SurrMode)
@@ -1805,7 +1817,7 @@ class DENON_StatusHTML extends stdClass
 		return $data;
 	}
 	
-	protected function StateZone2($xml, $data)
+	protected function StateZone2($xml, $data, $InputMapping, $AVRType)
 	{
 		//Power
 		$AVRPower = $xml->xpath('.//Power');
@@ -1847,10 +1859,7 @@ class DENON_StatusHTML extends stdClass
 		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 		if ($InputFuncSelect)
 		{
-			//Array holen
-			$InputSourceMapping = array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19);
-			foreach ($InputSourceMapping as $Command => $InputSourceValue)
+			foreach ($InputMapping as $Command => $InputSourceValue)
 			{
 			if ($Command == (string)$InputFuncSelect[0]->value)
 				{
@@ -1885,7 +1894,7 @@ class DENON_StatusHTML extends stdClass
 	return $data;
 	}
 	
-	protected function StateZone3($xml, $data)
+	protected function StateZone3($xml, $data, $InputMapping, $AVRType)
 	{
 		//Power
 		$AVRPower = $xml->xpath('.//Power');
@@ -1927,12 +1936,7 @@ class DENON_StatusHTML extends stdClass
 		$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 		if ($InputFuncSelect)
 		{
-			//Array holen
-			
-			//Ergänzen
-			$InputSourceMapping = array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19);
-			foreach ($InputSourceMapping as $Command => $InputSourceValue)
+			foreach ($InputMapping as $Command => $InputSourceValue)
 			{
 			if ($Command == (string)$InputFuncSelect[0]->value)
 				{

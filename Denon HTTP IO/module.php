@@ -30,6 +30,10 @@ class DenonAVRIOHTTP extends IPSModule
         $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
         IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
         //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
+        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
+        IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
 	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
@@ -141,7 +145,9 @@ class DenonAVRIOHTTP extends IPSModule
 				$DenonStatus = new DENON_StatusHTML;
 				$ipdenon = $this->ReadPropertyString("Host");
 				$DenonStatus->ipdenon = $ipdenon;
-				$data = $DenonStatus->getStates ();
+				$AVRType = GetAVRType();
+				$InputMapping = GetInputVarMapping();
+				$data = $DenonStatus->getStates ($InputMapping, $AVRType);
 				$this->SendJSON($data);
 	        }
 	        catch (Exception $exc)
@@ -197,9 +203,29 @@ class DenonAVRIOHTTP extends IPSModule
 		  }
 		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
 		
-		//IPS_Sleep(900);   
+		IPS_Sleep(100);   
 		$this->GetStatus ();
 	}
+	
+	// Input
+	public function SaveInputVarmapping($MappingInputs, $AVRType)
+		{
+			SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+			SetValue($this->GetIDForIdent("AVRType"), $AVRType);	
+		}
+
+	public function GetInputVarMapping()
+		{
+			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+			$InputsMapping = json_decode($InputsMapping);
+			return $InputsMapping;
+		}
+	
+	protected function GetAVRType()
+		{
+			$GetAVRType = GetValue($this->GetIDForIdent("AVRType"));
+			return $GetAVRType;
+		}	
 	
 	################## SEMAPHOREN Helper  - private
 
