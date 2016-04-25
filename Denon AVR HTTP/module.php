@@ -61,9 +61,8 @@ class DenonAVRHTTP extends IPSModule
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
-			$Type = $this->GetAVRType();
 			//Type und Zone
-			$DenonAVRVar->Type = $Type;
+			$DenonAVRVar->Type = $this->GetAVRType();
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptChannelVolumeFL = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFL";
 			$DenonAVRVar->ptChannelVolumeFR = "DENON.".$DenonAVRVar->Type.".ChannelVolumeFR";
@@ -466,14 +465,11 @@ class DenonAVRHTTP extends IPSModule
 		$DenonAVRVar->DenonIP = $this->GetIPDenon();
 		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->Type);
 		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
-		$Inputs = $this->VarMappingInputs;
 		//Input ablegen
-		$MappingInputs = json_encode($Inputs);
+		$MappingInputs = json_encode($this->VarMappingInputs);
 		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRVar->Type);
 	}
 	
-				 
-			
 	
 	protected function HasActiveParent()
     {

@@ -1593,8 +1593,8 @@ class DENON_StatusHTML extends stdClass
 		*/
 		
 		//InputFuncSelect
-		if ($AVRType == "AVR-4311")
-		{
+		//if ($AVRType == "AVR-4311")
+		//{
 			$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 			if ($InputFuncSelect)
 			{
@@ -1607,7 +1607,7 @@ class DENON_StatusHTML extends stdClass
 				}	
 				
 			}
-		}
+		//}
 		
 		
 
