@@ -203,8 +203,28 @@ class DenonAVRIOHTTP extends IPSModule
 		  }
 		IPS_LogMessage("Denon AVR Command:", $command." gesendet."); 
 		
-		IPS_Sleep(100);   
-		$this->GetStatus ();
+		IPS_Sleep(100);
+		if ($this->lock("HTTPCommandSend"))
+        {
+        // Response abholen
+	        try
+	        {
+	            $this->GetStatus ();
+	        }
+	        catch (Exception $exc)
+	        {
+	            $this->unlock("HTTPCommandSend");
+	            throw new Exception($exc);
+	        }
+        $this->unlock("HTTPCommandSend");
+        }
+        else
+        {
+			echo "Can not get response \n";
+			$this->unlock("HTTPCommandSend");
+			//throw new Exception("Can not send to parent",E_USER_NOTICE);
+		}	
+		
 	}
 	
 	// Input
