@@ -1372,7 +1372,9 @@ class DenonAVRTelnet extends IPSModule
     }
 	
 	
-	//Denon Commands
+	
+	######################### Denon Commands #######################################
+	//Power
 	public function Power(boolean $Value) // false (Standby) oder true (On)
 	{
 		if ($Value == false)
@@ -1426,37 +1428,88 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Input
 	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
 		$payload = DENON_API_Commands::SI.$command;
 		$this->SendCommand($payload);
 	}
-
-	public function RecSelect(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
+	
+	//Dynamic Volume
+	
+	
+	//Dolby Volume
+	public function DolbyVolume(boolean $Value) // Dolby Volume true (On) or false (Off) 
 	{
-		$payload = DENON_API_Commands::SR.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function SelectDecodeMode(string $command) // AUTO; HDMI; DIGITAL; ANALOG
-	{
-		$payload = DENON_API_Commands::SD.$command;
-		$this->SendCommand($payload);
-	  
-	}
-
-	public function DecodeMode(string $command) // Auto, PCM, DTS
-	{
-		$payload = DENON_API_Commands::DC.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function VideoSelect(string $command) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
-	{
-		$payload = DENON_API_Commands::VS.$command;
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::DOLVOLON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::DOLVOLOFF;
+			}
+		
+		$payload = DENON_API_Commands::PS.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
+	//Dolby Volume Modeler
+	
+	//Dolby Volume Leveler
+	
+	//Dynamic Compressor
+	
+	//Dynamic Range Compression
+	
+	//Audyssey DSX
+	
+	//CinemaEQ
+	public function CinemaEQ(boolean $Value) // CinemaEQ true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::CINEMAEQON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::CINEMAEQOFF;
+			}
+		$payload = DENON_API_Commands::CINEMAEQ.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Panorama
+	public function Panorama(boolean $Value) // Panorama true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::PANON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::PANOFF;
+			}
+		$payload = DENON_API_Commands::PS.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Dynamic EQ
+	public function DynamicEQ(boolean $Value) // Dynamic EQ true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::DYNEQON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::DYNEQOFF;
+			}
+		$payload = DENON_API_Commands::PSDYNEQ.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Channel Volume
 	public function ChannelVolumeFL(integer $command)
 	{
 		$payload = DENON_API_Commands::CV.DENON_API_Commands::FL.$command;
@@ -1535,6 +1588,226 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//RecSelect
+	public function RecSelect(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
+	{
+		$payload = DENON_API_Commands::SR.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function SelectDecodeMode(string $command) // AUTO; HDMI; DIGITAL; ANALOG
+	{
+		$payload = DENON_API_Commands::SD.$command;
+		$this->SendCommand($payload);
+	  
+	}
+
+	public function DecodeMode(string $command) // Auto, PCM, DTS
+	{
+		$payload = DENON_API_Commands::DC.$command;
+		$this->SendCommand($payload);
+	}
+	
+	//Video Select
+	public function VideoSelect(string $command) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
+	{
+		$payload = DENON_API_Commands::VS.$command;
+		$this->SendCommand($payload);
+	}
+	
+	//Subwoofer
+	public function Subwoofer(boolean $Value) // Subwoofer true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::PSSWRON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::PSSWROFF;
+			}
+		$payload = DENON_API_Commands::PSSWR.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Subwoofer ATT
+	public function SubwooferATT(boolean $Value) // Subwoofer ATT true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::ATTON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::ATTOFF;
+			}
+		$payload = DENON_API_Commands::PS.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Front Height
+	public function FrontHeight(boolean $Value) // Front Height true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::PSFHON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::PSFHOFF;
+			}
+		$payload = DENON_API_Commands::PSFH.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Tone CTRL
+	public function ToneCTRL(boolean $Value) // Tone CTRL true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::PSTONECTRLON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::PSTONECTRLOFF;
+			}
+		$payload = DENON_API_Commands::TONECTRL.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Audio Delay
+	
+	//Speaker Output Front
+	
+	//Auto Flag Detect Mode
+	public function AutoFlagDetectMode(boolean $Value) // Auto Flag Detect Mode true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::AFDON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::AFDOFF;
+			}
+		$payload = DENON_API_Commands::PSAFD.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//ASP
+	
+	//Audio Restorer
+	
+	//Center Image
+	
+	//Center Width
+	
+	//Input Mode
+	
+	//Dimension
+	
+	//Effect
+	public function Effect(boolean $Value) // Effect true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::PSEFFON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::PSEFFOFF;
+			}
+		$payload = DENON_API_Commands::PSEFF.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Effect Level
+	
+	//HDMI Audio Output
+	
+	//Multi EQ Mode
+	
+	//PLIIZHeightGain
+	
+	//Reference Level
+	
+	//Room Size
+	
+	//Stage Width
+	
+	//Stage Height
+	
+	//Surround Back Mode
+	
+	//Surround Play Mode
+	
+	//Vertical Stretch
+	public function VerticalStretch(boolean $Value) // VerticalStretch true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::VSTON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::VSTOFF;
+			}
+		$payload = DENON_API_Commands::VSVST.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Contrast
+	
+	//Brightness
+	
+	//Chroma Level
+	
+	//Digital Noise Reduction
+	
+	//Enhancer
+	
+	//HDMI Monitor
+	
+	//Hue
+	
+	//Resolution
+	
+	//Resolution HDMI
+	
+	//Video Processing Mode
+	
+	//GUI Menu
+	public function GUIMenu(boolean $Value) // GUI Menu true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::MNMENON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::MNMENOFF;
+			}
+		$payload = DENON_API_Commands::MNMEN.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//GUI Source Select Menu 
+	public function GUISourceSelectMenu(boolean $Value) // GUI Source Select Menu true (On) or false (Off) 
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::MNSRCON;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::MNSRCOFF;
+			}
+		$payload = DENON_API_Commands::MNSRC.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	
+	
 	######################## Cursor Steuerung ######################################
 
 	public function CursorUp()
@@ -1607,22 +1880,9 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
-	//Funktionsscript von Raketenschnecke
 	
-	//--------- DENON AVR 3311 Anbindung V0.95 18.06.11 15:08.53 by Raketenschnecke ---------
 
-	############################ Info ##############################################
-	/*
-	Inital-Autor: philipp, Quelle: http://www.ip-symcon.de/forum/f53/denon-avr-3808-integration-7007/
-
-	Funktionen:
-		*Funktionssammlung aller implementierten DENON-Status und Befehle
-	*/
-
-	//$id clientsocket id
-	// senden an Parent und weiterleitung an socket
-
-	######################### Main Functions #######################################
+	
 	
 	
 
@@ -1632,10 +1892,7 @@ class DenonAVRTelnet extends IPSModule
 	 CSCK_SendText($id, "MS".$Value.chr(13));
 	}
 
-	public function VideoSet($Value) //
-	{
-	 CSCK_SendText($id, "VS".$Value.chr(13));
-	}
+	
 
 	public function ParaSettings($Value) // S
 	{
@@ -2024,183 +2281,6 @@ class DenonAVRTelnet extends IPSModule
 		CSCK_SendText($id, "Z3CVFR ".$Value);
 	}
 
-	/*
-	################## Datapoints
-
-    public function ReceiveData($JSONString)
-    {
-        $Data = json_decode($JSONString);
-//IPS_LogMessage('ReceiveData',print_r($Data,true));
-        if ($Data->DataID <> '{43E4B48E-2345-4A9A-B506-3E8E7A964757}')
-            return false;
-        try
-        {
-            $this->GetZone();
-        } catch (Exception $ex)
-        {
-            unset($ex);
-            return false;
-        }
-
-
-        $APIData = new ISCP_API_Data();
-        $APIData->GetDataFromJSONObject($Data);
-//        IPS_LogMessage('ReceiveAPIData1', print_r($APIData, true));
-
-        if ($this->OnkyoZone->CmdAvaiable($APIData) === false)
-        {
-//            IPS_LogMessage('CmdAvaiable', 'false');
-
-            if ($this->OnkyoZone->SubCmdAvaiable($APIData) === false)
-            {
-//                IPS_LogMessage('SubCmdAvaiable', 'false');
-                return false;
-            } else
-            {
-                $APIData->GetMapping();
-                $APIData->APICommand = $APIData->APISubCommand->{$this->OnkyoZone->thisZone};
-                IPS_LogMessage('APISubCommand', $APIData->APICommand);
-            }
-        } else
-            $APIData->GetMapping();
-
-//        IPS_LogMessage('ReceiveAPIData2', print_r($APIData, true));
-
-
-        $this->ReceiveAPIData($APIData);
-    }
-	
-	
-	*/
-	
-	################## DATAPOINTS PARENT
-/*
-    public function ReceiveData($JSONString)
-    {
-        $data = json_decode($JSONString);
-        //IPS_LogMessage('ReceiveDataFrom???:'.$this->InstanceID,  print_r($data,1));
-        $this->CheckParents();
-        if ($this->Mode === false){
-    trigger_error("Wrong IO-Parent",E_USER_WARNING);
-//            echo "Wrong IO-Parent";
-            return false;
-        }
-        $bufferID = $this->GetIDForIdent("BufferIN");
-        // Empfangs Lock setzen
-        if (!$this->lock("ReceiveLock"))
-        {
-            trigger_error("ReceiveBuffer is locked",E_USER_NOTICE);
-            return false;
-
-//            throw new Exception("ReceiveBuffer is locked",E_USER_NOTICE);
-        }
-        // Datenstream zusammenfügen
-        $head = GetValueString($bufferID);
-        SetValueString($bufferID, '');
-        // Stream in einzelne Pakete schneiden
-        $stream = $head . utf8_decode($data->Buffer);
-        if ($this->Mode == ISCPSplitter::LAN)
-        {
-            $minTail = 24;
-
-            $start = strpos($stream, 'ISCP');
-            if ($start === false)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame without ISCP');
-                $stream = '';
-            }
-            elseif ($start > 0)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame start not with ISCP');
-                $stream = substr($stream, $start);
-            }
-            //Paket suchen
-            if (strlen($stream) < $minTail)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame to short');
-                SetValueString($bufferID, $stream);
-                $this->unlock("ReceiveLock");
-                return;
-            }
-            $header_len = ord($stream[6]) * 256 + ord($stream[7]);
-            $frame_len = ord($stream[10]) * 256 + ord($stream[11]);
-//             IPS_LogMessage('ISCP Gateway', 'LANFrame info ' . $header_len. '+'. $frame_len . ' Bytes.');            
-            if (strlen($stream) < $header_len + $frame_len)
-            {
-                IPS_LogMessage('ISCP Gateway', 'LANFrame must have ' . $header_len . '+' . $frame_len . ' Bytes. ' . strlen($stream) . ' Bytes given.');
-                SetValueString($bufferID, $stream);
-                $this->unlock("ReceiveLock");
-                return;
-            }
-            $header = substr($stream, 0, $header_len);
-            $frame = substr($stream, $header_len, $frame_len);
-            //EOT wegschneiden von reschts, aber nur wenn es einer der letzten drei zeichen ist
-            $end = strrpos($frame, chr(0x1A));
-            if ($end >= $frame_len - 3)
-                $frame = substr($frame, 0, $end);
-            //EOT wegschneiden von reschts, aber nur wenn es einer der letzten drei zeichen ist
-            $end = strrpos($frame, chr(0x0D));
-            if ($end >= $frame_len - 3)
-                $frame = substr($frame, 0, $end);
-            //EOT wegschneiden von reschts, aber nur wenn es einer der letzten drei zeichen ist
-            $end = strrpos($frame, chr(0x0A));
-            if ($end >= $frame_len - 3)
-                $frame = substr($frame, 0, $end);
-//                IPS_LogMessage('ISCP Gateway', 'LAN $header:' . $header);
-//                IPS_LogMessage('ISCP Gateway', 'LAN $frame:' . $frame);
-// 49 53 43 50  // ISCP
-// 00 00 00 10  // HEADERLEN
-// 00 00 00 0B  // DATALEN
-// 01 00 00 00  // Version
-// 21 31 4E 4C  // !1NL
-// 53 43 2D 50  // SC-P
-// 1A 0D 0A     // EOT CR LF
-            $tail = substr($stream, $header_len + $frame_len);
-            if ($this->eISCPVersion <> ord($header[12]))
-            {
-                $frame = false;
-                trigger_error("Wrong eISCP Version",E_USER_NOTICE);
-            }
-        }
-        else
-        {
-            $minTail = 6;
-            $start = strpos($stream, '!');
-            if ($start === false)
-            {
-                IPS_LogMessage('ISCP Gateway', 'eISCP Frame without !');
-                $stream = '';
-            }
-            elseif ($start > 0)
-            {
-                IPS_LogMessage('ISCP Gateway', 'eISCP Frame do not start with !');
-                $stream = substr($stream, $start);
-            }
-            //Paket suchen
-            $end = strpos($stream, chr(0x1A));
-            if (($end === false) or ( strlen($stream) < $minTail)) // Kein EOT oder zu klein
-            {
-                IPS_LogMessage('ISCP Gateway', 'eISCP Frame to short');
-                SetValueString($bufferID, $stream);
-                $this->unlock("ReceiveLock");
-                return;
-            }
-            $frame = substr($stream, $start, $end - $start);
-            // Ende wieder in den Buffer werfen
-            $tail = ltrim(substr($stream, $end));
-        }
-        if ($tail === false)
-            $tail = '';
-        SetValueString($bufferID, $tail);
-        $this->unlock("ReceiveLock");
-        if ($frame !== false)
-            $this->DecodeData($frame);
-        // Ende war länger als 6 / 23 ? Dann nochmal Packet suchen.
-        if (strlen($tail) >= $minTail)
-            $this->ReceiveData(json_encode(array('Buffer' => '')));
-        return true;
-    }
-	*/
 	
 	################## SEMAPHOREN Helper  - private
 

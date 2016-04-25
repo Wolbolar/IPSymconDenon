@@ -2141,6 +2141,7 @@ class DENON_API_Commands extends stdClass
 	
 	
 	//VS
+	const VS = "VS"; // Video Setting
 	const VSASP = "VSASP"; // ASP
 	const VSSC = "VSSC"; // Set Resolution
 	const VSSCH = "VSSCH"; // Set Resolution HDMI
@@ -2149,6 +2150,7 @@ class DENON_API_Commands extends stdClass
 	const VSVPM = "VSVPM"; // Set Video Processing Mode
 	const VSVST = "VSVST"; // Set Vertical Stretch
 	//PS
+	const PS = "PS"; // Parameter Setting
 	const PSATT = "PSATT"; // SW ATT
 	const PSTONECTRL = "PSTONE_CTRL"; // Tone Control
 	const PSSB = "PSSB"; // Surround Back SP Mode
@@ -2175,7 +2177,7 @@ class DENON_API_Commands extends stdClass
 	const PSEFF = "PSEFF"; // EFFECT direct change	Level
 	const PSEFFSWITCH = "PSEFF_O"; // EFFECT Switch On / Off
 	const PSDELAY = "PSDELAY"; // Audio DELAY	
-	const PSAFD = "PSAFD"; // AFDM	
+	const PSAFD = "PSAFD"; // Auto Flag Detect Mode	
 	const PSPAN = "PSPAN"; // PANORAMA	
 	const PSDIM = "PSDIM"; // DIMENSION	
 	const PSCEN = "PSCEN"; // CENTER WIDTH	
@@ -2360,6 +2362,7 @@ class DENON_API_Commands extends stdClass
 	
 	//PS Parameter
 	//PSTONE Tone Control
+	const TONECTRL = "PSTONE CTRL"; // Tone Control On
 	const PSTONECTRLON = " ON"; // Tone Control On
 	const PSTONECTRLOFF = " OFF"; // Tone Control Off
 	const PSTONECTRLSTATE = " ?"; // TONE CTRL ? Return PSTONE CONTROL Status
@@ -2372,6 +2375,7 @@ class DENON_API_Commands extends stdClass
 	const SBOFF = ":OFF"; // Surround Back SP Mode off
 	
 	//PSCINEMAEQ Cinema EQ
+	const CINEMAEQ = "PSCINEMA EQ"; // Cinema EQ
 	const CINEMAEQON = ".ON"; // Cinema EQ on
 	const CINEMAEQOFF = ".OFF"; // Cinema EQ off
 	const CINEMAEQ = ". ?"; // Return PSCINEMA EQ.Status
@@ -2507,7 +2511,7 @@ class DENON_API_Commands extends stdClass
 	const PSDELAYDOWN = " DOWN"; // DELAY DOWN
 	const PSDELAYVAL = " "; // DELAY ** ---AVR-4311 can be operated from 0 to 300
 
-	//PSAFD AFDM
+	//PSAFD Auto Flag Detection Mode
 	const AFDON = " ON"; // AFDM ON
 	const AFDOFF = " OFF"; // AFDM OFF
 	const AFD = " "; // Return PSAFD Status
@@ -2544,11 +2548,15 @@ class DENON_API_Commands extends stdClass
 	const RSZL = " L";
 	
 	
-	//SW ATT
+	//PSSW ATT
 	const ATTON = "ATT ON"; // SW ATT ON
 	const ATTOFF = "ATT OFF"; // SW ATT OFF
 	const ATT = "ATT ?"; // Return PSATT Status
 	
+	//PSSWR
+	const PSSWRON = " ON"; // SW ATT ON
+	const PSSWROFF = " OFF"; // SW ATT OFF
+	const SWR = " ?"; // Return PSATT Status
 	
 	//Cursor
 	const MN = "MN"; // Cursor Navigation
