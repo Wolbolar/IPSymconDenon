@@ -2537,15 +2537,12 @@ class DenonAVRTelnet extends IPSModule
 		$Name = IPS_GetName($ObjektID);
 		$KatID = $this->ReadPropertyInteger('NEOToggleCategoryID');
 		$ScriptName = $InstanzName." ".$Name."_toggle";
+		$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
 		if ($Ident == "PW")
 		{
-			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
 			if ($SkriptID === false)
 			{
-            	$ScriptID = IPS_CreateScript(0);
-				IPS_SetName($ScriptID, $ScriptName);
-				IPS_SetParent($ScriptID, $KatID);
-				$contentPowertoggle = '
+            	$Content = '
 <?
 $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
@@ -2560,9 +2557,8 @@ elseif ($status == true)// Ausschalten
 	}
 
 ?>';
-			IPS_SetScriptContent($ScriptID, $contentPowertoggle);
-
-			return $ScriptID;
+				$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+				return $ScriptID;
 			}
 		}
 		
@@ -2571,10 +2567,7 @@ elseif ($status == true)// Ausschalten
 			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
 			if ($SkriptID === false)
 			{
-            	$ScriptID = IPS_CreateScript(0);
-				IPS_SetName($ScriptID, $ScriptName);
-				IPS_SetParent($ScriptID, $KatID);
-				$contentPowertoggle = '
+				$Content = '
 <?
 $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
@@ -2589,21 +2582,17 @@ elseif ($status == true)// Ausschalten
 	}
 
 ?>';
-			IPS_SetScriptContent($ScriptID, $contentPowertoggle);
-
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
 			return $ScriptID;
 			}
 		}
 		
-		if ($Ident == "PW")
+		if ($Ident == "MU")
 		{
 			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
 			if ($SkriptID === false)
 			{
-            	$ScriptID = IPS_CreateScript(0);
-				IPS_SetName($ScriptID, $ScriptName);
-				IPS_SetParent($ScriptID, $KatID);
-				$contentPowertoggle = '
+				$Content = '
 <?
 $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
@@ -2618,11 +2607,344 @@ elseif ($status == true)// Ausschalten
 	}
 
 ?>';
-			IPS_SetScriptContent($ScriptID, $contentPowertoggle);
-
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
 			return $ScriptID;
 			}
 		}
+		
+		if ($Ident == "PSDOLVOL")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_DolbyVolume('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Dolby Volume einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_DolbyVolume('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Dolby Volume ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSCINEMA_EQ")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_CinemaEQ('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "CinemaEQ einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_CinemaEQ('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "CinemaEQ ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSPAN")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_Panorama('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Panorama einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_Panorama('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Panorama ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSDYNEQ")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_DynamicEQ('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "DynamicEQ einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_DynamicEQ('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "DynamicEQ ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSSWR")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_Subwoofer('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Subwoofer einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_Subwoofer('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Subwoofer ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSATT")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_SubwooferATT('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "SubwooferATT einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_SubwooferATT('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "SubwooferATT ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSFH")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_FrontHeight('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "FrontHeight einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_FrontHeight('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "FrontHeight ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSTONE_CTRL")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_ToneCTRL('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "ToneCTRL einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_ToneCTRL('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "ToneCTRL ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSAFD")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_AutoFlagDetectMode('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Auto Flag Detect Mode einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_AutoFlagDetectMode('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Auto Flag Detect Mode ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PSEFF_O")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_Effect('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Effect einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_Effect('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Effect ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "VSVST")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_VerticalStretch('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Vertical Stretch einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_VerticalStretch('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Vertical Stretch ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "MNMEN")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_GUIMenu('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "GUI Menu einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_GUIMenu('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "GUI Menu ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "MNSRC")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_GUISourceSelectMenu('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "GUI Source Select Menu einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_GUISourceSelectMenu('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "GUI Source Select Menu ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+	}
+	
+	protected function WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content)
+	{
+		$ScriptID = IPS_CreateScript(0);
+		IPS_SetName($ScriptID, $ScriptName);
+		IPS_SetParent($ScriptID, $KatID);
+		IPS_SetScriptContent($ScriptID, $Content);
+		return $ScriptID;
 	}
 		
 	################## SEMAPHOREN Helper  - private
