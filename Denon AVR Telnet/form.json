@@ -66,7 +66,7 @@
 				{ "type": "CheckBox", "name": "CenterImage", "caption": "Center Image" },
 				{ "type": "CheckBox", "name": "CenterWidth", "caption": "Center Width" },
 				{ "type": "CheckBox", "name": "CinemaEQ", "caption": "Cinema EQ" },
-				{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital InputMode" },
+				{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
 				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },
 				{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },

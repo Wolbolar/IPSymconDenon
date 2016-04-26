@@ -620,7 +620,7 @@ class DENONIPSProfiles extends stdClass
 			),
 			$this->ptDigitalInputMode => array(
 				"Ident" => DENON_API_Commands::DC,
-				"Name" => "Input Mode",
+				"Name" => "Digital Input Mode",
 				"Profilesettings" => Array("Database", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
 				Array(0, "Auto",  "", -1),
