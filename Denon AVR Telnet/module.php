@@ -102,6 +102,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Sleep", false);
 		$this->RegisterPropertyBoolean("Z3Channel", false);
 		$this->RegisterPropertyBoolean("Z3Quick", false);
+		$this->RegisterPropertyBoolean("NEOToggle", false);
 
     }
 
@@ -610,6 +611,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$MappingInputs = json_encode($this->VarMappingInputs);
 		DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRUpdate->Type);
+		return $this->InputSources;
 	}
 	
 	private function GetAVRType()
@@ -1375,7 +1377,6 @@ class DenonAVRTelnet extends IPSModule
         return $ReplayAPIData;
 		*/
     }
-	
 	
 	
 	######################### Denon Commands #######################################

@@ -51,7 +51,10 @@
 				{ "type": "CheckBox", "name": "Z3HPF", "caption": "Zone 3 HPF" },
 				{ "type": "CheckBox", "name": "Z3Sleep", "caption": "Zone 3 Sleep" },
 				{ "type": "CheckBox", "name": "Z3Channel", "caption": "Zone 3 Channel Setting" },
-				{ "type": "CheckBox", "name": "Z3Quick", "caption": "Zone 3 Quick Selection" }
+				{ "type": "CheckBox", "name": "Z3Quick", "caption": "Zone 3 Quick Selection" },
+				
+				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
+				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" }
             ],
     "actions":
             [

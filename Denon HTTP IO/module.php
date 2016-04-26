@@ -185,7 +185,9 @@ class DenonAVRIOHTTP extends IPSModule
         // Daten senden
 	        try
 	        {
-	            $response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$command);
+	            //Command für URL Codieren
+				$payload = rawurlencode($command);
+				$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload);
 	        }
 	        catch (Exception $exc)
 	        {
