@@ -1,7 +1,7 @@
 # IPSymconDenonAVR
 
 Modul für IP-Symcon ab Version 4. Ermöglicht die Kommunikation mit einem Denon AV Receiver.
-Noch nicht funktionsfähig, alpha Test
+Beta Test
 
 ## Dokumentation
 
@@ -29,14 +29,15 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Status Rückmeldung:  
 
- - Bei dem Modul (Telnet Port 23) sind für die dokumentierten Befehle auch eine Statusrückmeldung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein.  
+ - Bei dem Modul (Telnet Port 23) sind für die dokumentierten Befehle auch eine Statusrückmeldung verfügbar. Es kann nur ein Client auf Port 23 verbunden sein. 
+ - Zur Zeit sind nicht für alle Receivertypen alle Befehle hinterlegt, diese werden nach und nach bei Bedarf ergänzt.
  - Bei dem Modul (HTTP) sind abhänig vom Receivertyp und Baujahr eine unterschiedliche Anzahl an Statusrückmeldungen verfügbar. Es können mehrere Clients dem Denon über HTTP Befehle senden und Status erhalten.    
   
 
 ## 2. Voraussetzungen
 
  - IPS 4.x
- - Denon AVR mit Netzwerkanschluss. Fernsteuerung des Denon AVR muss aktiviert sein (siehe Handbuch Denon AVR). Ip-Symcon muss im gleichen Netzwerk wie der Denon AVR sein.
+ - Denon AVR mit Netzwerkanschluss. Fernsteuerung des Denon AVR muss aktiviert sein (siehe Handbuch Denon AVR). IP-Symcon muss im gleichen Netzwerk wie der Denon AVR sein.
 
 ## 3. Installation
 
@@ -44,7 +45,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
    Über das 'Modul Control' in IP-Symcon (Ver. 4.x) folgende URL hinzufügen:
 	
-    `git://github.com/Wolbolar/IPSymconDenon.git`  
+    `https://gitlab.com/Fonzo/ipsymcondenon.git`  
 
 ### b. Einrichtung in IPS
 
@@ -52,7 +53,8 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 	Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon Device sind die gewünschten Befehle auszuwählen die angezeigt werden sollen. Pro genutzter Zone muss jeweils eine neue Instanz
 	in IP-Symcon angelegt werden. Das Konfigurationsformular sieht technisch durch IPS bedingt immer gleich aus. Es sind dann entsprechend der Auswahl unter AVR Zone nur die entsprechnden Haken zu setzten, die der jeweiligen korrespondierenden Zone entsprechen.
 	Eine Auswahl von Befehlen die nur in der Mainzone verfügbar sind bleibt also z.B. bei anlegen der Instanz und Auswahl AVR Zone 2 unberücksichtigt.
-	Beim HTTP Modul wird der Status automatisch in regelmäßig aktualisiert. Beim Telnet Modul erfolgt ein Update des Status für die entsprechnde Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
+	Beim HTTP Modul wird der Status automatisch in regelmäßig alle 30 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
+	Beim Telnet Modul erfolgt ein Update des Status für die entsprechnde Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
 	Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
 
 
@@ -65,7 +67,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
  Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu setzten.
  
 ### Denon AV Receiver Telnet Control
- AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
+ AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen auswählen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
  Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
  
 ### Denon AV Receiver HTTP Control
@@ -110,6 +112,88 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 
 ## 6. Anhang
+
+###  a. Funktionen:
+
+#### Denon HTTP Modul:
+
+`DAVRH_Power(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten 
+Parameter $Value false / true
+
+`DAVRH_MainZonePower(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Mainzone
+Parameter $Value false / true
+
+`DAVRH_MainMute(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten MainMute
+Parameter $Value false / true
+
+#### Denon Telnet Modul:
+
+`DAVRT_Power(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten 
+Parameter $Value false / true
+
+`DAVRT_MainZonePower(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Mainzone
+Parameter $Value false / true
+
+`DAVRT_MainMute(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten MainMute
+Parameter $Value false / true
+
+`DAVRT_DolbyVolume(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Dolby Volume
+Parameter $Value false / true
+
+`DAVRT_CinemaEQ(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten CinemaEQ
+Parameter $Value false / true
+
+`DAVRT_Panorama(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Panorama
+Parameter $Value false / true
+
+`DAVRT_DynamicEQ(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Dynamic EQ
+Parameter $Value false / true
+
+`DAVRT_Subwoofer(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Subwoofer
+Parameter $Value false / true
+
+`DAVRT_SubwooferATT(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten SubwooferATT
+Parameter $Value false / true
+
+`DAVRT_FrontHeight(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten FrontHeight
+Parameter $Value false / true
+
+`DAVRT_ToneCTRL(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten ToneCTRL
+Parameter $Value false / true
+
+`DAVRT_AutoFlagDetectMode(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Auto Flag Detect Mode
+Parameter $Value false / true
+
+`DAVRT_Effect(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Effect
+Parameter $Value false / true
+
+`DAVRT_VerticalStretch(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten Vertical Stretch
+Parameter $Value false / true
+
+`DAVRT_GUIMenu(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten GUI Menü
+Parameter $Value false / true
+
+`DAVRT_GUISourceSelectMenu(integer $InstanceID, boolean $Value)`
+Einschalten / Ausschalten GUI Source Select Menü
+Parameter $Value false / true
 
 ###  b. GUIDs und Datenaustausch:
 
