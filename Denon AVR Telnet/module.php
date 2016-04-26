@@ -56,7 +56,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean('DynamicRange', false);
 		$this->RegisterPropertyBoolean('VideoSelect', false);
 		$this->RegisterPropertyBoolean('SurroundBackMode', false);
-		$this->RegisterPropertyBoolean('Inputmode', false);
+		$this->RegisterPropertyBoolean('InputMode', false);
 		$this->RegisterPropertyBoolean('Contrast', false);
 		$this->RegisterPropertyBoolean('Brightness', false);
 		$this->RegisterPropertyBoolean('Chromalevel', false);
@@ -290,7 +290,7 @@ class DenonAVRTelnet extends IPSModule
 				 $DenonAVRVar->ptDynamicRange => $this->ReadPropertyBoolean('DynamicRange'),
 				 $DenonAVRVar->ptVideoSelect => $this->ReadPropertyBoolean('VideoSelect'),
 				 $DenonAVRVar->ptSurroundBackMode => $this->ReadPropertyBoolean('SurroundBackMode'),
-				 $DenonAVRVar->ptInputMode => $this->ReadPropertyBoolean('Inputmode'),
+				 $DenonAVRVar->ptInputMode => $this->ReadPropertyBoolean('InputMode'),
 				 $DenonAVRVar->ptHDMIMonitor => $this->ReadPropertyBoolean('HDMIMonitor'),
 				 $DenonAVRVar->ptDNRDirectChange => $this->ReadPropertyBoolean('DNRDirectChange'),
 				 $DenonAVRVar->ptAudysseyDSX => $this->ReadPropertyBoolean('AudysseyDSX'),
@@ -1898,6 +1898,8 @@ class DenonAVRTelnet extends IPSModule
 	//Center Image
 	
 	//Center Width
+	
+	//Input Mode
 	
 	//Digital Input Mode
 	public function DigitalInputMode(string $Value) // Digital Input Mode Auto / PCM / DTS
