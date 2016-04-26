@@ -519,7 +519,7 @@ class DenonAVRTelnet extends IPSModule
 		*/	
 
 			// Deaktiviert die Standardaktion der Statusvariablen
-			if($this->ReadPropertyBoolean('ZoneName'))
+		if($this->ReadPropertyBoolean('ZoneName'))
 			{
 				if($this->ReadPropertyBoolean('Zone') == 0)
 					{
@@ -542,10 +542,14 @@ class DenonAVRTelnet extends IPSModule
 					}
 				
 			}
-			if($this->ReadPropertyBoolean('Model'))
+		if ($this->ReadPropertyBoolean('Zone') !== 6)
 			{
-				$this->DisableAction("Model");
+				if($this->ReadPropertyBoolean('Model'))
+				{
+					$this->DisableAction("Model");
+				}
 			}
+			
 			
 			
 			//auf aktive Parent prüfen
