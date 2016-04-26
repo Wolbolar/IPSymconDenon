@@ -4,7 +4,7 @@
 				{ "type": "Label", "label": "AV Receiver Ansteuerung Telnet" },
 				{ "type": "Label", "label": "Telnet Steuerung funktoniert nur von einem einzigen Client aus, mehr Funktionsumfang als HTTP." },
 				{ "type": "Label", "label": "Denon AV Receiver"},
-				{ "type": "Label", "label": "AV Reciever Typ:" },
+				{ "type": "Label", "label": "AV Receiver Typ:" },
 				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
 						"options": [
 									{ "value": 15, "label": "AVR-2313" },

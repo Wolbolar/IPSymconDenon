@@ -1507,7 +1507,7 @@ class DenonAVRTelnet extends IPSModule
 				$subcommand = DENON_API_Commands::DOLVOLON;
 			}
 		
-		$payload = DENON_API_Commands::PS.$subcommand;
+		$payload = DENON_API_Commands::PSDOLVOL.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
