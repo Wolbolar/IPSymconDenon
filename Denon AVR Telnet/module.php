@@ -103,6 +103,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Channel", false);
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
+		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
 
     }
 
@@ -130,6 +131,24 @@ class DenonAVRTelnet extends IPSModule
 	{
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
+		
+		//Import Kategorie NEO
+		$vNEOToggle = $this->ReadPropertyBoolean('NEOToggle');
+		if ($vNEOToggle)
+		{
+			$NEOCategoryID = $this->ReadPropertyInteger('NEOToggleCategoryID');
+			if ( $NEOCategoryID === 0)
+				{
+					// Status Error Kategorie zum Import auswählen
+					$this->SetStatus(211);
+				}
+			elseif ( $NEOCategoryID !== 0)	
+				{
+					// AktivStatus Error Kategorie zum Import auswählen
+					$this->SetStatus(102);
+				}
+		}
+		
 		
 		if ($Zone == 0) //Mainzone
 		{
@@ -710,6 +729,11 @@ class DenonAVRTelnet extends IPSModule
 				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
 				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
+				//NEO Toggle Skript anlegen
+				if ($this->ReadPropertyBoolean('NEOToggle'))
+				{
+					$this->NEOToggle($id);
+				}
 			}	
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
@@ -2501,8 +2525,106 @@ class DenonAVRTelnet extends IPSModule
 	   $Value = $Value + 50;
 		CSCK_SendText($id, "Z3CVFR ".$Value);
 	}
-
 	
+	############################ NEO Toggle Workarround ##############################################
+	
+	public function NEOToggle($ObjektID)
+	{
+		$Ident = IPS_GetObject ($ObjektID)["ObjectIdent"];
+		$InstanzID = IPS_GetParent($ObjektID);
+		$ParentID = IPS_GetParent($InstanzID);
+		$InstanzName = IPS_GetName($InstanzID);
+		$Name = IPS_GetName($ObjektID);
+		$KatID = $this->ReadPropertyInteger('NEOToggleCategoryID');
+		$ScriptName = $InstanzName." ".$Name."_toggle";
+		if ($Ident == "PW")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+            	$ScriptID = IPS_CreateScript(0);
+				IPS_SetName($ScriptID, $ScriptName);
+				IPS_SetParent($ScriptID, $KatID);
+				$contentPowertoggle = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_Power('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Power einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_Power('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Standby schalten" );
+	}
+
+?>';
+			IPS_SetScriptContent($ScriptID, $contentPowertoggle);
+
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "ZM")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+            	$ScriptID = IPS_CreateScript(0);
+				IPS_SetName($ScriptID, $ScriptName);
+				IPS_SetParent($ScriptID, $KatID);
+				$contentPowertoggle = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_MainZonePower('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "MainZonePower einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_MainZonePower('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "MainZonePower ausschalten" );
+	}
+
+?>';
+			IPS_SetScriptContent($ScriptID, $contentPowertoggle);
+
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "PW")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+            	$ScriptID = IPS_CreateScript(0);
+				IPS_SetName($ScriptID, $ScriptName);
+				IPS_SetParent($ScriptID, $KatID);
+				$contentPowertoggle = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRT_MainMute('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Mute einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRT_MainMute('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Mute ausschalten" );
+	}
+
+?>';
+			IPS_SetScriptContent($ScriptID, $contentPowertoggle);
+
+			return $ScriptID;
+			}
+		}
+	}
+		
 	################## SEMAPHOREN Helper  - private
 
     private function lock($ident)

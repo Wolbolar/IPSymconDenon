@@ -54,7 +54,9 @@
 				{ "type": "CheckBox", "name": "Z3Quick", "caption": "Zone 3 Quick Selection" },
 				
 				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
-				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" }
+				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },
+				{ "type": "Label", "label": "Kategorie zum Anlegen der NEO Skripte:" },
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "Kategorie zum Anlegen der Skripte" }
             ],
     "actions":
             [
@@ -95,6 +97,11 @@
                     "code": 202,
                     "icon": "inactive",
                     "caption": "Denon AVR Splitter konfigurieren."
+                },
+				{
+                    "code": 211,
+                    "icon": "error",
+                    "caption": "Kategorie zum Import auswählen."
                 }
             ]
 }
