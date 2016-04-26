@@ -79,6 +79,7 @@
 				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
 				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },
 				{ "type": "CheckBox", "name": "HDMIAudioOutput", "caption": "HDMI Audio Output" },
+				{ "type": "CheckBox", "name": "InputMode", "caption": "Input Mode" },
 				{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },			
 				{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
 				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
