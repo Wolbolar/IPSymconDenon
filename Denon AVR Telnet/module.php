@@ -943,17 +943,15 @@ class DenonAVRTelnet extends IPSModule
 			//Commands ohne automatischen Response
 			if ($APIData->APICommand == "PSVOLLEV")
 			{
-				IPS_Sleep(30);
-				$SubCommand = chr(32).chr(63);
-				$payload = $APIData->APICommand.$SubCommand;
-				$this->SendCommand($payload);
+				$this->SendRequest($APIData->APICommand);
 			}
 			elseif ($APIData->APICommand == "PSVOLMOD")
 			{
-				IPS_Sleep(30);
-				$SubCommand = chr(32).chr(63);
-				$payload = $APIData->APICommand.$SubCommand;
-				$this->SendCommand($payload);
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSDCO")
+			{
+				$this->SendRequest($APIData->APICommand);
 			}
 			
         } catch (Exception $ex)
@@ -972,7 +970,13 @@ class DenonAVRTelnet extends IPSModule
 		
     }
 	
-	
+	protected function SendRequest($APICommand)
+	{
+		IPS_Sleep(30);
+		$APISubCommand = chr(32).chr(63);
+		$payload = $APICommand.$APISubCommand;
+		$this->SendCommand($payload);
+	}
 	
 	protected function GetParent()
     {
