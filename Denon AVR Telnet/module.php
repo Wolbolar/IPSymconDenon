@@ -890,6 +890,8 @@ class DenonAVRTelnet extends IPSModule
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->APIIdent = $Ident;
         $APIData->Data = $Value;
+		$APIData->AVRType = $this->GetAVRType();
+		$APIData->AVRZone = $this->ReadPropertyInteger('Zone');
 		//Input übergeben
 		$APIData->InputMapping = DAVRST_GetInputVarMapping($this->GetParent());
         //Prüfen ob Command vorhanden
@@ -908,7 +910,7 @@ class DenonAVRTelnet extends IPSModule
         try
         {
             //Command aus Ident
-			$APIData->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
+			$APIData->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Leerzeichen ersetzten
 			if($Ident == "Z2POWER" || $Ident == "Z2INPUT" || $Ident == "Z2VOL")
 			{
 				$APIData->APICommand = "Z2";

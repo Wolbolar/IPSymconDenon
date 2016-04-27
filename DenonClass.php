@@ -2749,7 +2749,8 @@ class DenonAVRCP_API_Data extends stdClass
 	public $MapZ3Inputs;
 	public $AVRProtocol;
 	public $InputMapping;
-	
+	public $AVRType;
+	public $AVRZone;
 		
 	public $VarMapping = array
 				(
@@ -2923,14 +2924,6 @@ class DenonAVRCP_API_Data extends stdClass
 						"VarType" => DENONIPSVarType::vtInteger,
 						"ValueMapping" => array("AUTO" => 0, "PCM" => 1, "DTS" => 2)
 					),
-					//Surround Mode
-					DENON_API_Commands::MS
-					=> array(
-						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DOLBY PL2 C" => 4, "DOLBY PL2 M" => 4, "MSDOLBY PL2 H" => 4,  "DTS SURROUND" => 5, "DTS NEO:6 C" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
-												"VIRTUAL" => 15)
-					),
-					
 					//Surround Play Mode
 					DENON_API_Commands::PSMODE
 					=> array(
@@ -3070,13 +3063,7 @@ class DenonAVRCP_API_Data extends stdClass
 						"ValueMapping" => array(" OFF" => 0, " ONW" => 1, " ONH" => 2, " ONHW" => 3)
 					),
 					//Zone 2
-					//Zone 2 Input Source
-					DENON_API_Commands::Z2INPUT
-					=> array(
-						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
-					),					
+								
 					//Zone 2 Channel Setting
 					DENON_API_Commands::Z2CS
 					=> array(
@@ -3090,13 +3077,7 @@ class DenonAVRCP_API_Data extends stdClass
 						"ValueMapping" => array(" ?" => 0, "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5)
 					),
 					//Zone 3
-					//Zone 3 Input Source
-					DENON_API_Commands::Z3INPUT
-					=> array(
-						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array("PHONO" => 0, "CD" => 1, "TUNER" => 2, "DVD" => 3, "BD" => 4, "TV" => 5, "SAT/CBL" => 6, "DVR" => 7, "GAME" => 8, "V.AUX" => 9, "DOCK" => 10, "IPOD" => 11, "NET/USB" => 12, "NAPSTER" => 13, "LASTFM" => 14,
-												"FLICKR" => 15, "FAVORITES" => 16, "IRADIO" => 17, "SERVER" => 18, "USB/IPOD" => 19)
-					),
+					
 					//Zone 3 Channel Setting
 					DENON_API_Commands::Z3CS
 					=> array(
@@ -4300,12 +4281,46 @@ class DenonAVRCP_API_Data extends stdClass
 				);
 	
 	//Input Source
-	protected function VarMapping($InputMapping)
+	protected function VarMapping($InputMapping, $CommunicationType)
 	{
+		$Zone = $this->AVRZone;
+		$AVRType = $this->AVRType;
 		$VarMapping = $this->VarMapping;
-		$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
-		$AVRInputsArray["ValueMapping"] = $InputMapping;
-		$VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
+		if ($Zone == 0) //Main Zone
+		{
+			$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRInputsArray["ValueMapping"] = $InputMapping;
+			$VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
+		}
+		elseif ($Zone == 1) //Zone 1
+		{
+			$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRInputsArray["ValueMapping"] = $InputMapping;
+			$VarMapping[DENON_API_Commands::Z2INPUT] = $AVRInputsArray;
+		}
+		elseif ($Zone == 2) //Zone 2
+		{
+			$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRInputsArray["ValueMapping"] = $InputMapping;
+			$VarMapping[DENON_API_Commands::Z3INPUT] = $AVRInputsArray;
+		}
+		if ($CommunicationType == "Send") //Send 
+		{
+			//Surround Mode
+			$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+												"VIRTUAL" => 15);
+			$VarMapping[DENON_API_Commands::MS] = $AVRSurroundModeArray;		
+		}
+		elseif($CommunicationType == "Response") //Response
+		{
+			//Surround Mode
+			$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DOLBY PL2 C" => 4, "DOLBY PL2 M" => 4, "MSDOLBY PL2 H" => 4,  "DTS SURROUND" => 5, "DTS NEO:6 C" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+												"VIRTUAL" => 15);
+			$VarMapping[DENON_API_Commands::MS] = $AVRSurroundModeArray;		
+		}
+		
 		return $VarMapping;
 	}
 	
@@ -4331,9 +4346,10 @@ class DenonAVRCP_API_Data extends stdClass
 	
 	public function GetSubCommand($Ident, $Value, $InputMapping) 
     {
-		if (array_key_exists( $Ident, ($this->VarMapping($InputMapping)) ))
+		$CommunicationType = "Send";
+		if (array_key_exists( $Ident, ($this->VarMapping($InputMapping, $CommunicationType)) ))
         {
-			foreach(($this->VarMapping($InputMapping)) as $Command => $ValMap)
+			foreach(($this->VarMapping($InputMapping, $CommunicationType)) as $Command => $ValMap)
 			{
 				if($Command == $Ident)
 				{
@@ -4445,9 +4461,10 @@ class DenonAVRCP_API_Data extends stdClass
 					}
 			}
 		$datavalues = array();
+		$CommunicationType = "Response";
 		foreach($data as $key => $response)
 			{
-				foreach(($this->VarMapping($InputMapping)) as $Command => $ValMap)
+				foreach(($this->VarMapping($InputMapping, $CommunicationType)) as $Command => $ValMap)
 				{
 					$pos = stripos($response, $Command);
 					if ($pos !== false)

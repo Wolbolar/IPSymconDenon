@@ -769,6 +769,8 @@ class DenonAVRHTTP extends IPSModule
 		$APIDataHTTP = new DenonAVRCP_API_Data();
 		$APIDataHTTP->APIIdent = $Ident;
         $APIDataHTTP->Data = $Value;
+		$APIData->AVRType = $this->GetAVRType();
+		$APIData->AVRZone = $this->ReadPropertyInteger('Zone');
 		//Input übergeben
 		$APIDataHTTP->InputMapping = DAVRSH_GetInputVarMapping($this->GetParent());
         //Prüfen ob Command vorhanden
@@ -788,7 +790,7 @@ class DenonAVRHTTP extends IPSModule
         try
         {
             //Command aus Ident
-			$APIDataHTTP->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Lerrezeichen ersetzten
+			$APIDataHTTP->APICommand = str_replace("_", " ", $Ident); //Ident _ von Ident mit Leerzeichen ersetzten
 			if($Ident == "Z2POWER" || $Ident == "Z2INPUT" || $Ident == "Z2VOL")
 			{
 				$APIDataHTTP->APICommand = "Z2";
