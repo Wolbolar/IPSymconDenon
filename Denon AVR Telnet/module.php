@@ -941,31 +941,31 @@ class DenonAVRTelnet extends IPSModule
 					
 			
 			//Commands ohne automatischen Response
-			if ($APIData->APICommand == "PSVOLLEV")
+			if ($APIData->APICommand == "PSVOLLEV")// Dolby Volume Leveler
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSVOLMOD")
+			elseif ($APIData->APICommand == "PSVOLMOD")// Dolby Volume Modeler
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSDCO")
+			elseif ($APIData->APICommand == "PSDCO")// Dynamic Compressor
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSDRC")
+			elseif ($APIData->APICommand == "PSDRC")// Dynamic Range Compression
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSPAN")
+			elseif ($APIData->APICommand == "PSPAN")//Panorama
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSDYNEQ")
+			elseif ($APIData->APICommand == "PSDYNEQ")//Dynamic EQ
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSAFD")
+			elseif ($APIData->APICommand == "PSAFD")//
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
@@ -973,19 +973,23 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "PSRSZ")
+			elseif ($APIData->APICommand == "PSRSZ")// Room Size
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "VSSCH")
+			elseif ($APIData->APICommand == "VSSC")//Resolution
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "VSSCH")
+			elseif ($APIData->APICommand == "VSSCH")//Resolution HDMI
 			{
 				$this->SendRequest($APIData->APICommand, true);
 			}
-			elseif ($APIData->APICommand == "CV")
+			elseif ($APIData->APICommand == "CV")//Channel Volume
+			{
+				$this->SendRequest($APIData->APICommand, false);
+			}
+			elseif ($APIData->APICommand == "PSSWR")//Subwoofer
 			{
 				$this->SendRequest($APIData->APICommand, false);
 			}
