@@ -991,6 +991,38 @@ class DenonAVRHTTP extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Zone 2 Power
+	public function Zone2Power(boolean $Value) // false (Off) oder true (On)
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z2OFF;
+				
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z2ON;
+			}
+		$payload = DENON_API_Commands::Z2.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Zone 3 Power
+	public function Zone3Power(boolean $Value) // false (Off) oder true (On)
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z3OFF;
+				
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z3ON;
+			}
+		$payload = DENON_API_Commands::Z3.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
 	//Master Volume Up/Down
 	public function MasterVolume(string $Subcommand) // "UP" or "DOWN"
 	{
@@ -999,9 +1031,50 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Main Mute
-	public function MainMute(string $Subcommand) // "ON" or "OFF"
+	public function MainMute(boolean $Value) // false (Off) oder true (On)
 	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::MUOFF;
+				
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::MUON;
+			}
 		$payload = DENON_API_Commands::MU.$Subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Zone2 Mute
+	public function Zone2Mute(boolean $Value) // false (Off) oder true (On)
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z2OFF;
+				
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z2ON;
+			}
+		$payload = DENON_API_Commands::Z2MU.$Subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Zone3 Mute
+	public function Zone3Mute(boolean $Value) // false (Off) oder true (On)
+	{
+		if ($Value == false)
+			{
+				$subcommand = DENON_API_Commands::Z3OFF;
+				
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::Z3ON;
+			}
+		$payload = DENON_API_Commands::Z3MU.$Subcommand;
 		$this->SendCommand($payload);
 	}
 	
@@ -1172,6 +1245,105 @@ elseif ($status == true)// Ausschalten
 			}
 		}
 		
+		if ($Ident == "Z2POWER")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRH_Zone2Power('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Zone2Power einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRH_Zone2Power('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Zone2Power ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "Z3POWER")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRH_Zone3Power('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Zone3Power einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRH_Zone3Power('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Zone3Power ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "Z2MU")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRH_Zone2Mute('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Zone 2 Mute einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRH_Zone2Mute('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Zone 2 Mute ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
+		
+		if ($Ident == "Z3MU")
+		{
+			$SkriptID = @IPS_GetScriptIDByName($ScriptName, $KatID);
+			if ($SkriptID === false)
+			{
+				$Content = '
+<?
+$status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
+if ($status == false)// Einschalten
+	{
+	DAVRH_Zone3Mute('.$InstanzID.', true);
+	IPS_LogMessage( "Denon AVR:" , "Zone 3 Mute einschalten" );
+   }
+elseif ($status == true)// Ausschalten
+	{
+   DAVRH_Zone3Mute('.$InstanzID.', false);
+   IPS_LogMessage( "Denon AVR:" , "Zone 3 Mute ausschalten" );
+	}
+
+?>';
+			$ScriptID = $this->WriteNEOToggle($ScriptName, $KatID, $ObjektID, $InstanzID, $Content);
+			return $ScriptID;
+			}
+		}
 		
 	}
 	
