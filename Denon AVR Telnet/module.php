@@ -953,6 +953,34 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$this->SendRequest($APIData->APICommand);
 			}
+			elseif ($APIData->APICommand == "PSDRC")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSPAN")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSDYNEQ")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSAFD")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "VSAUDIO")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSRSZ")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "VSSCH")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
 			
         } catch (Exception $ex)
         {
