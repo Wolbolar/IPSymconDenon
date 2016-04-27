@@ -699,12 +699,11 @@ class DENONIPSProfiles extends stdClass
 			$this->ptDynamicVolume => array(
 				"Ident" => DENON_API_Commands::PSDYNVOL,
 				"Name" => "Dynamic Volume",
-				"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
+				"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
 				"Associations" => Array(
-				Array(0, "Off",  "", -1),
-				Array(1, "Midnight",  "", -1),
-				Array(2, "Evening",  "", -1),
-				Array(3, "Day",  "", -1)
+				Array(0, "Midnight",  "", -1),
+				Array(1, "Evening",  "", -1),
+				Array(2, "Day",  "", -1)
 				)
 			),
 			$this->ptRoomSize => array(
@@ -2953,7 +2952,7 @@ class DenonAVRCP_API_Data extends stdClass
 					DENON_API_Commands::PSDYNVOL
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array(" ?" => 0, " NGT" => 1, " EVE" => 2, " DAY" => 3)
+						"ValueMapping" => array(" NGT" => 0, " EVE" => 1, " DAY" => 2)
 					),
 					//Room Size
 					DENON_API_Commands::PSRSZ
