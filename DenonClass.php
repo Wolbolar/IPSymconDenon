@@ -191,7 +191,7 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808" || $AVRType == "AVR-3312" || $AVRType == "AVR-2313" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X3000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X2100W" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
+		elseif($AVRType == "AVR-3808" || $AVRType == "AVR-3312" || $AVRType == "AVR-2313" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X2100W" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -909,6 +909,11 @@ class DENONIPSProfiles extends stdClass
 				)
 			)
 		);
+		
+		if ($this->Type == "AVR-X4100W")
+		{
+			
+		}
 		
 		$ProfilAssociationsMainZone[$this->ptInputSource] = $this->UsedInputSources;
 			/*	
