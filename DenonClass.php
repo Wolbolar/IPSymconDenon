@@ -1853,7 +1853,7 @@ class DENON_StatusHTML extends stdClass
 		$RenameZone = $xml->xpath('.//RenameZone');
 		if ($RenameZone)
 		{
-			$data['Zone2Name'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Subcommand' => 'MainZone Name');	
+			$data['Zone2Name'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Subcommand' => 'Zone2 Name');	
 		}
 		
 		//InputFuncSelect
@@ -1930,7 +1930,7 @@ class DENON_StatusHTML extends stdClass
 		$RenameZone = $xml->xpath('.//RenameZone');
 		if ($RenameZone)
 		{
-			$data['Zone3Name'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Subcommand' => 'MainZone Name');	
+			$data['Zone3Name'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Subcommand' => 'Zone3 Name');	
 		}
 		
 		//InputFuncSelect
