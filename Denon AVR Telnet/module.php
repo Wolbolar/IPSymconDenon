@@ -1438,39 +1438,7 @@ class DenonAVRTelnet extends IPSModule
 		$payload = DENON_API_Commands::ZM.$subcommand;
 		$this->SendCommand($payload);
 	}
-	
-	//Zone 2 Power
-	public function Zone2Power(boolean $Value) // false (Off) oder true (On)
-	{
-		if ($Value == false)
-			{
-				$subcommand = DENON_API_Commands::Z2OFF;
-				
-			}
-		elseif ($Value == true)
-			{
-				$subcommand = DENON_API_Commands::Z2ON;
-			}
-		$payload = DENON_API_Commands::Z2.$subcommand;
-		$this->SendCommand($payload);
-	}
-	
-	//Zone 3 Power
-	public function Zone3Power(boolean $Value) // false (Off) oder true (On)
-	{
-		if ($Value == false)
-			{
-				$subcommand = DENON_API_Commands::Z3OFF;
-				
-			}
-		elseif ($Value == true)
-			{
-				$subcommand = DENON_API_Commands::Z3ON;
-			}
-		$payload = DENON_API_Commands::Z3.$subcommand;
-		$this->SendCommand($payload);
-	}
-	
+		
 	//Master Volume
 	public function MasterVolume(string $command) // "UP" or "DOWN" 
 	{
@@ -1498,38 +1466,6 @@ class DenonAVRTelnet extends IPSModule
 				$subcommand = DENON_API_Commands::MUON;
 			}
 		$payload = DENON_API_Commands::MU.$Subcommand;
-		$this->SendCommand($payload);
-	}
-	
-	//Zone2 Mute
-	public function Zone2Mute(boolean $Value) // false (Off) oder true (On)
-	{
-		if ($Value == false)
-			{
-				$subcommand = DENON_API_Commands::Z2OFF;
-				
-			}
-		elseif ($Value == true)
-			{
-				$subcommand = DENON_API_Commands::Z2ON;
-			}
-		$payload = DENON_API_Commands::Z2MU.$Subcommand;
-		$this->SendCommand($payload);
-	}
-	
-	//Zone3 Mute
-	public function Zone3Mute(boolean $Value) // false (Off) oder true (On)
-	{
-		if ($Value == false)
-			{
-				$subcommand = DENON_API_Commands::Z3OFF;
-				
-			}
-		elseif ($Value == true)
-			{
-				$subcommand = DENON_API_Commands::Z3ON;
-			}
-		$payload = DENON_API_Commands::Z3MU.$Subcommand;
 		$this->SendCommand($payload);
 	}
 	
