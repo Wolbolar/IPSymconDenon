@@ -596,6 +596,19 @@ class DenonAVRTelnet extends IPSModule
         return true;
     }
 	
+	public function GetInputSources()
+	{
+		$DenonAVRUpdate = new DENONIPSProfiles;
+		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
+		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
+		$DenonAVRUpdate->Type = $this->GetAVRType();
+		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Inputsource';
+		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Zone2InputSource';
+		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Zone3InputSource';
+		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->Type);
+		return $InputSources;
+	}
+	
 	public function UpdateInputProfile()
 	{
 		$DenonAVRUpdate = new DENONIPSProfiles;
@@ -603,6 +616,8 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
 		$DenonAVRUpdate->Type = $this->GetAVRType();
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Inputsource';
+		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Zone2InputSource';
+		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Zone3InputSource';
 		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->Type);
 		
 		//Inputs anlegen
@@ -922,8 +937,51 @@ class DenonAVRTelnet extends IPSModule
 			
 			$payload = $APIData->APICommand.$APIData->APISubCommand;
 			$this->SendCommand($payload);
-			//$this->SendAPIData($APIData);
-        } catch (Exception $ex)
+			
+			//Commands ohne automatischen Response
+			if ($APIData->APICommand == "PSVOLLEV")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSVOLMOD")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSDCO")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSDRC")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSPAN")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSDYNEQ")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSAFD")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "VSAUDIO")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "PSRSZ")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			elseif ($APIData->APICommand == "VSSCH")
+			{
+				$this->SendRequest($APIData->APICommand);
+			}
+			
+        } 
+		catch (Exception $ex)
         {
 //            trigger_error($ex->getMessage(), $ex->getCode());
             echo $ex->getMessage();
