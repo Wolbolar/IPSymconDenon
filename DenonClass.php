@@ -784,10 +784,10 @@ class DENONIPSProfiles extends stdClass
 				"Name" => "Speaker Output Front",
 				"Profilesettings" => Array("Speaker", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
-				Array(0, "Off",  "", -1)
+				Array(0, "Off",  "", -1),
 				Array(1, "Front Height",  "", -1),
 				Array(2, "Front Wide",  "", -1),
-				Array(3, "Height/Wide",  "", -1),
+				Array(3, "Height/Wide",  "", -1)
 				)
 			),
 			$this->ptReferenceLevel => array(
