@@ -890,6 +890,8 @@ class DenonAVRTelnet extends IPSModule
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->APIIdent = $Ident;
         $APIData->Data = $Value;
+		$APIData->AVRType = $this->GetAVRType();
+		$APIData->AVRZone = $this->ReadPropertyInteger('Zone');
 		//Input übergeben
 		$APIData->InputMapping = DAVRST_GetInputVarMapping($this->GetParent());
         //Prüfen ob Command vorhanden
