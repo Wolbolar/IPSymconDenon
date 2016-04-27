@@ -991,7 +991,7 @@ class DenonAVRTelnet extends IPSModule
 			}
 			elseif ($APIData->APICommand == "PSSWR")//Subwoofer
 			{
-				$this->SendRequest($APIData->APICommand, false);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			
         } 
