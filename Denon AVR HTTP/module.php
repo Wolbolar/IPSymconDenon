@@ -489,6 +489,19 @@ class DenonAVRHTTP extends IPSModule
 		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRVar->Type);
 	}
 	
+	public function GetInputSources()
+	{
+		$DenonAVRUpdate = new DENONIPSProfiles;
+		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
+		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
+		$DenonAVRUpdate->Type = $this->GetAVRType();
+		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Inputsource';
+		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Zone2InputSource';
+		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->Type.'.Zone3InputSource';
+		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->Type);
+		return $InputSources;
+	}
+	
 	public function UpdateInputProfile()
 	{
 		$DenonAVRUpdate = new DENONIPSProfiles;
