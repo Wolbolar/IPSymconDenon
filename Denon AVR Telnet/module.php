@@ -1015,7 +1015,7 @@ class DenonAVRTelnet extends IPSModule
 				{ 
 					if ($ResponseType == "HTTP")
 					{
-						if ($Ident == "MainZoneName" || $Ident == "Model")
+						if ($Ident == "MainZoneName" || $Ident == "Zone2Name" || $Ident == "Zone3Name" || $Ident == "Model")
 						{
 							switch ($VarType)
 							{
