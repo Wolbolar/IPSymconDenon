@@ -4428,7 +4428,7 @@ class DenonAVRCP_API_Data extends stdClass
 		
 		$spacecommands = array
 							("PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
-							"PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
+							"PSCINEMA_EQ.ON" => "PSCINEMA EQ.ON",
 							"PSTONE_CTRL OFF" => "PSTONE CTRL OFF",
 							"PSTONE_CTRL ON" => "PSTONE CTRL ON",
 							"PSEFF_ON" => "PSEFF ON",
