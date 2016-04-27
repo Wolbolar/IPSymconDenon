@@ -784,10 +784,10 @@ class DENONIPSProfiles extends stdClass
 				"Name" => "Speaker Output Front",
 				"Profilesettings" => Array("Speaker", "", "", 0, 3, 0, 0),
 				"Associations" => Array(
-				Array(0, "Front Height",  "", -1),
-				Array(1, "Front Wide",  "", -1),
-				Array(2, "Height/Wide",  "", -1),
-				Array(3, "Off",  "", -1)
+				Array(0, "Off",  "", -1)
+				Array(1, "Front Height",  "", -1),
+				Array(2, "Front Wide",  "", -1),
+				Array(3, "Height/Wide",  "", -1),
 				)
 			),
 			$this->ptReferenceLevel => array(
@@ -2987,7 +2987,7 @@ class DenonAVRCP_API_Data extends stdClass
 					DENON_API_Commands::PSSP
 					=> array(
 						"VarType" => DENONIPSVarType::vtInteger,
-						"ValueMapping" => array(":FH" => 0, ":FW" => 1, ":HW" => 2, ":OFF" => 3)
+						"ValueMapping" => array(":OFF" => 0, ":FH" => 1, ":FW" => 2, ":HW" => 3)
 					),
 					//Reference Level
 					DENON_API_Commands::PSREFLEV

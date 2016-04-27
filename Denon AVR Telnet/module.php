@@ -937,8 +937,7 @@ class DenonAVRTelnet extends IPSModule
 			
 			$payload = $APIData->APICommand.$APIData->APISubCommand;
 			$this->SendCommand($payload);
-			//$this->SendAPIData($APIData);
-			
+					
 			
 			//Commands ohne automatischen Response
 			if ($APIData->APICommand == "PSVOLLEV")
@@ -982,7 +981,8 @@ class DenonAVRTelnet extends IPSModule
 				$this->SendRequest($APIData->APICommand);
 			}
 			
-        } catch (Exception $ex)
+        } 
+		catch (Exception $ex)
         {
 //            trigger_error($ex->getMessage(), $ex->getCode());
             echo $ex->getMessage();
