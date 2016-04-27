@@ -310,6 +310,10 @@ class DENONIPSProfiles extends stdClass
 				{
 				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
+				if ($SourceInput == "CBL/SAT")
+				{
+					$SourceInput = "SAT/CBL";
+				}
 				$InputSourcesMapping[$SourceInput] = ($Value-1);
 				}
 				$this->VarMappingInputSources = $InputSourcesMapping;
