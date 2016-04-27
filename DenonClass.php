@@ -295,6 +295,10 @@ class DENONIPSProfiles extends stdClass
 				{
 				$RenameSource = $Input["RenameSource"];	
 				$SourceInput = str_replace(" ", "", $RenameSource);
+				if ($SourceInput == "CBL/SAT")
+				{
+					$SourceInput = "SAT/CBL";
+				}
 				$Associations[] = array(($Value-1), $SourceInput,  "", -1);
 				}
 				$UsedInputSources["Associations"] = $Associations;
