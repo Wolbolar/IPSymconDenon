@@ -668,7 +668,8 @@ class DenonAVRTelnet extends IPSModule
 				12 => "AVR-X3000",
 				13 => "AVR-X2100W",
 				14 => "AVR-3312",
-				15 => "AVR-2313");
+				15 => "AVR-2313",
+				16 => "AVR-X4100W");
 		
 		foreach($Types as $TypeID => $Type)
 		{
@@ -941,43 +942,51 @@ class DenonAVRTelnet extends IPSModule
 			//Commands ohne automatischen Response
 			if ($APIData->APICommand == "PSVOLLEV")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSVOLMOD")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSDCO")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSDRC")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSPAN")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSDYNEQ")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSAFD")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "VSAUDIO")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "PSRSZ")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
 			}
 			elseif ($APIData->APICommand == "VSSCH")
 			{
-				$this->SendRequest($APIData->APICommand);
+				$this->SendRequest($APIData->APICommand, true);
+			}
+			elseif ($APIData->APICommand == "VSSCH")
+			{
+				$this->SendRequest($APIData->APICommand, true);
+			}
+			elseif ($APIData->APICommand == "CV")
+			{
+				$this->SendRequest($APIData->APICommand, false);
 			}
 			
         } 
@@ -997,7 +1006,20 @@ class DenonAVRTelnet extends IPSModule
 		
     }
 	
-	
+	protected function SendRequest($APICommand, $Space)
+	{
+		IPS_Sleep(30);
+		if ($Space)
+		{
+			$APISubCommand = chr(32).chr(63);
+		}
+		elseif (!$Space)
+		{
+			$APISubCommand = chr(63);
+		}
+		$payload = $APICommand.$APISubCommand;
+		$this->SendCommand($payload);
+	}
 	
 	protected function GetParent()
     {

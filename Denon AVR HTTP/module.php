@@ -584,7 +584,8 @@ class DenonAVRHTTP extends IPSModule
 				12 => "AVR-X3000",
 				13 => "AVR-X2100W",
 				14 => "AVR-3312",
-				15 => "AVR-2313");
+				15 => "AVR-2313",
+				16 => "AVR-X4100W");
 		
 		foreach($Types as $TypeID => $Type)
 		{
