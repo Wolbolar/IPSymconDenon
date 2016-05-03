@@ -180,7 +180,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlMainZone)
 					{
 					$RenameType = 1;	
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType);
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType);
 					return $Inputsources;
 					}
 				else
@@ -195,7 +195,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone2)
 						{
 						$RenameType = 1;
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType);
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -211,7 +211,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone3)
 						{
 						$RenameType = 1;	
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType);
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType);
 						return $InputsourcesZ3;
 						}
 					else
@@ -229,7 +229,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlMainZone)
 					{
 					$RenameType = 2;	
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType);
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType);
 					return $Inputsources;
 					}
 				else
@@ -244,7 +244,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone2)
 						{
 						$RenameType = 2;	
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType);
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -260,7 +260,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone3)
 						{
 						$RenameType = 2;	
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType);
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType);
 						return $InputsourcesZ3;
 						}
 					else
@@ -274,7 +274,7 @@ class DENONIPSProfiles extends stdClass
 		
 	}
 
-	protected function ReadInputSources($Zone, $xml, $RenameType)
+	protected function ReadInputSources($Zone, $xml, $RenameType, $AVRType)
 	{
 		//Inputs
 		$InputFuncList = $xml->xpath('.//InputFuncList');
@@ -344,7 +344,10 @@ class DENONIPSProfiles extends stdClass
 				$RenameSourceInput = str_replace(" ", "", $RenameSource);
 				$InputSourcesMapping[$Value] = array ("Source" => $SourceInput, "RenameSource" => $RenameSourceInput) ;
 				}
-				$this->VarMappingInputSources = $InputSourcesMapping;
+				
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
+				
+				$this->VarMappingInputSources = $InputMapping;
 				
 				return $UsedInputSources;
 			}
@@ -374,7 +377,8 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $Source);
 				$InputSourcesMapping[$SourceInput] = $Value;
 				}
-				$this->VarMappingInputSourcesZ2 = $InputSourcesMapping;
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
+				$this->VarMappingInputSourcesZ2 = $InputMapping;
 				
 				return $UsedInputSourcesZ2;
 			}
@@ -404,6 +408,7 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $Source);
 				$InputSourcesMapping[$SourceInput] = $Value;
 				}
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputMapping, "writeprotected" => false );
 				$this->VarMappingInputSourcesZ3 = $InputSourcesMapping;
 				
 				return $UsedInputSourcesZ3;
