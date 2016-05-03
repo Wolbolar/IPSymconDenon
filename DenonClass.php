@@ -2798,9 +2798,9 @@ class DENON_API_Commands extends stdClass
 
 
 	//PSDIM Dimension
-	const DIMUP = " UP"; // DIMENSION UP
-	const DIMDOWN = " DOWN"; // DIMENSION DOWN
-	const DIM = " "; // ---AVR-4311 can be operated from 0 to 6
+	const PSDIMUP = " UP"; // DIMENSION UP
+	const PSDIMDOWN = " DOWN"; // DIMENSION DOWN
+	const PSDIMSET = " "; // ---AVR-4311 can be operated from 0 to 6
 
 
 	//PSCEN Center Width
