@@ -14,7 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
-		$this->RegisterPropertyInteger("Type", 0);
+		$this->RegisterPropertyInteger("Type", 3);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("SurroundDisplay", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
@@ -104,7 +104,38 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
-
+		
+		//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+		$this->RegisterPropertyBoolean("GraphicEQ", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+		$this->RegisterPropertyBoolean("Centerspread", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W 
+		$this->RegisterPropertyBoolean("AuroMatic3DPreset", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W
+		$this->RegisterPropertyBoolean("AuroMatic3DStrength", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W
+		$this->RegisterPropertyBoolean("ZONE2AutoStandbySetting", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W
+		$this->RegisterPropertyBoolean("ZONE3AutoStandbySetting", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W
+		$this->RegisterPropertyBoolean("Dimmer", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+		$this->RegisterPropertyBoolean("DialogLevelAdjust", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+		$this->RegisterPropertyBoolean("MAINZONEAutoStandbySetting", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+		$this->RegisterPropertyBoolean("MAINZONEECOModeSetting", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+		$this->RegisterPropertyBoolean("SurroundHeightLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W
+		$this->RegisterPropertyBoolean("SurroundHeightRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W
+		$this->RegisterPropertyBoolean("TopSurround", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W
+		
+		$this->RegisterPropertyBoolean("TopFrontLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("TopFrontRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("TopMiddleLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("TopMiddleRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("TopRearLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("TopRearRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("RearHeightLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("RearHeightRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("FrontDolbyLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("FrontDolbyRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("SurroundDolbyLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("SurroundDolbyRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("BackDolbyLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		$this->RegisterPropertyBoolean("BackDolbyRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W
+		
+		
     }
 
 
@@ -241,6 +272,42 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptGUIMenu = "DENON.".$DenonAVRVar->Type.".GUIMenu";
 			$DenonAVRVar->ptGUISourceSelect = "DENON.".$DenonAVRVar->Type.".GUIMenuSourceSelect";
 			$DenonAVRVar->ptSurroundDisplay = "DENON.".$DenonAVRVar->Type.".SurroundDisplay";
+			
+			//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$DenonAVRVar->ptGraphicEQ = "DENON.".$DenonAVRVar->Type.".GraphicEQ";
+				$DenonAVRVar->ptDimmer = "DENON.".$DenonAVRVar->Type.".Dimmer";
+				$DenonAVRVar->ptDialogLevelAdjust = "DENON.".$DenonAVRVar->Type.".DialogLevelAdjust";
+				$DenonAVRVar->ptMAINZONEAutoStandbySetting = "DENON.".$DenonAVRVar->Type.".MAINZONEAutoStandbySetting";
+				$DenonAVRVar->ptMAINZONEECOModeSetting = "DENON.".$DenonAVRVar->Type.".MAINZONEECOModeSetting";
+			}
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$DenonAVRVar->ptCenterspread = "DENON.".$DenonAVRVar->Type.".Centerspread";
+				$DenonAVRVar->ptAuroMatic3DPreset = "DENON.".$DenonAVRVar->Type.".AuroMatic3DPreset";
+				$DenonAVRVar->ptAuroMatic3DStrength = "DENON.".$DenonAVRVar->Type.".AuroMatic3DStrength";
+				$DenonAVRVar->ptSurroundHeightLch = "DENON.".$DenonAVRVar->Type.".SurroundHeightLch";
+				$DenonAVRVar->ptSurroundHeightRch = "DENON.".$DenonAVRVar->Type.".SurroundHeightRch";
+				$DenonAVRVar->ptTopSurround = "DENON.".$DenonAVRVar->Type.".TopSurround";
+			}
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W")
+			{
+				$DenonAVRVar->ptTopFrontLch = "DENON.".$DenonAVRVar->Type.".TopFrontLch";
+				$DenonAVRVar->ptTopFrontRch = "DENON.".$DenonAVRVar->Type.".TopFrontRch";
+				$DenonAVRVar->ptTopMiddleLch = "DENON.".$DenonAVRVar->Type.".TopMiddleLch";
+				$DenonAVRVar->ptTopMiddleRch = "DENON.".$DenonAVRVar->Type.".TopMiddleRch";
+				$DenonAVRVar->ptTopRearLch = "DENON.".$DenonAVRVar->Type.".TopRearLch";
+				$DenonAVRVar->ptTopRearRch = "DENON.".$DenonAVRVar->Type.".TopRearRch";
+				$DenonAVRVar->ptRearHeightLch = "DENON.".$DenonAVRVar->Type.".RearHeightLch";
+				$DenonAVRVar->ptRearHeightRch = "DENON.".$DenonAVRVar->Type.".RearHeightRch";
+				$DenonAVRVar->ptFrontDolbyLch = "DENON.".$DenonAVRVar->Type.".FrontDolbyLch";
+				$DenonAVRVar->ptFrontDolbyRch = "DENON.".$DenonAVRVar->Type.".FrontDolbyRch";
+				$DenonAVRVar->ptSurroundDolbyLch = "DENON.".$DenonAVRVar->Type.".SurroundDolbyLch";
+				$DenonAVRVar->ptSurroundDolbyRch = "DENON.".$DenonAVRVar->Type.".SurroundDolbyRch";
+				$DenonAVRVar->ptBackDolbyLch = "DENON.".$DenonAVRVar->Type.".BackDolbyLch";
+				$DenonAVRVar->ptBackDolbyRch = "DENON.".$DenonAVRVar->Type.".BackDolbyRch";
+			}
 				
 			
 			//Variablen
@@ -286,12 +353,27 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptVerticalStretch => $this->ReadPropertyBoolean('VerticalStretch')	
 				);
 				
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$vBoolean[$DenonAVRVar->ptGraphicEQ] = $this->ReadPropertyBoolean('GraphicEQ');
+				$vBoolean[$DenonAVRVar->ptDialogLevelAdjust] = $this->ReadPropertyBoolean('DialogLevelAdjust');
+			}		
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$vBoolean[$DenonAVRVar->ptCenterspread] = $this->ReadPropertyBoolean('Centerspread');
+			}
+
 			//Integer
 			$vInteger = array
 				(
 				$DenonAVRVar->ptSleep => $this->ReadPropertyBoolean('Sleep'),
 				$DenonAVRVar->ptDimension => $this->ReadPropertyBoolean('Dimension')
 				);
+			
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$vInteger[$DenonAVRVar->ptAuroMatic3DStrength] = $this->ReadPropertyBoolean('AuroMatic3DStrength');
+			}
 			
 			//Integer mit Association
 			$vIntegerAss = array
@@ -327,6 +409,18 @@ class DenonAVRTelnet extends IPSModule
 				 $DenonAVRVar->ptPLIIZHeightGain => $this->ReadPropertyBoolean('PLIIZHeightGain')		
 				);
 				
+				
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$vIntegerAss[$DenonAVRVar->ptAuroMatic3DPreset] = $this->ReadPropertyBoolean('AuroMatic3DPreset');		
+			}
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$vIntegerAss[$DenonAVRVar->ptMAINZONEAutoStandbySetting] = $this->ReadPropertyBoolean('MAINZONEAutoStandbySetting');
+				$vIntegerAss[$DenonAVRVar->ptMAINZONEECOModeSetting] = $this->ReadPropertyBoolean('MAINZONEECOModeSetting');
+				$vIntegerAss[$DenonAVRVar->ptDimmer] = $this->ReadPropertyBoolean('Dimmer');	
+			}
+
 			//Float
 			$vFloat = array
 				(
@@ -361,7 +455,31 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptStageHeight => $this->ReadPropertyBoolean('StageHeight'),
 				$DenonAVRVar->ptStageWidth => $this->ReadPropertyBoolean('StageWidth')
 				);
-				
+			
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$vFloat[$DenonAVRVar->ptSurroundHeightLch] = $this->ReadPropertyBoolean('SurroundHeightLch');
+				$vFloat[$DenonAVRVar->ptSurroundHeightRch] = $this->ReadPropertyBoolean('SurroundHeightRch');
+				$vFloat[$DenonAVRVar->ptTopSurround] = $this->ReadPropertyBoolean('TopSurround');		
+			}
+			
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W")
+			{
+				$vFloat[$DenonAVRVar->ptTopFrontLch] = $this->ReadPropertyBoolean('TopFrontLch');
+				$vFloat[$DenonAVRVar->ptTopFrontRch] = $this->ReadPropertyBoolean('TopFrontRch');
+				$vFloat[$DenonAVRVar->ptTopMiddleLch] = $this->ReadPropertyBoolean('ptTopMiddleLch');
+				$vFloat[$DenonAVRVar->ptTopMiddleRch] = $this->ReadPropertyBoolean('TopMiddleRch');
+				$vFloat[$DenonAVRVar->ptTopRearLch] = $this->ReadPropertyBoolean('TopRearLch');
+				$vFloat[$DenonAVRVar->ptTopRearRch] = $this->ReadPropertyBoolean('TopRearRch');
+				$vFloat[$DenonAVRVar->ptRearHeightLch] = $this->ReadPropertyBoolean('RearHeightLch');
+				$vFloat[$DenonAVRVar->ptRearHeightRch] = $this->ReadPropertyBoolean('RearHeightRch');
+				$vFloat[$DenonAVRVar->ptFrontDolbyLch] = $this->ReadPropertyBoolean('FrontDolbyLch');
+				$vFloat[$DenonAVRVar->ptFrontDolbyRch] = $this->ReadPropertyBoolean('FrontDolbyRch');
+				$vFloat[$DenonAVRVar->ptSurroundDolbyLch] = $this->ReadPropertyBoolean('SurroundDolbyLch');
+				$vFloat[$DenonAVRVar->ptSurroundDolbyRch] = $this->ReadPropertyBoolean('SurroundDolbyRch');
+				$vFloat[$DenonAVRVar->ptBackDolbyLch] = $this->ReadPropertyBoolean('BackDolbyLch]');
+				$vFloat[$DenonAVRVar->ptBackDolbyRch] = $this->ReadPropertyBoolean('BackDolbyRch');
+			}	
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
 		elseif ($Zone == 1) //Zone 2
@@ -386,6 +504,12 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			$DenonAVRVar->ptNavigation = "DENON.".$DenonAVRVar->Type.".Navigation";
+			//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W")
+			{
+				$DenonAVRVar->ptZONE2AutoStandbySetting = "DENON.".$DenonAVRVar->Type.".ZONE2AutoStandbySetting";
+			}
+			
 			
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
@@ -429,6 +553,11 @@ class DenonAVRTelnet extends IPSModule
 				 $DenonAVRVar->ptZone2QuickSelect => $this->ReadPropertyBoolean('Z2Quick')
 				);
 				
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$vIntegerAss[$DenonAVRVar->ptZONE2AutoStandbySetting] = $this->ReadPropertyBoolean('ZONE2AutoStandbySetting');
+			}	
+				
 			//Float
 			$vFloat = array
 				(
@@ -462,6 +591,11 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptTopMenuLink = "DENON.".$DenonAVRVar->Type.".TopMenuLink";
 			$DenonAVRVar->ptModel = "DENON.".$DenonAVRVar->Type.".Model";
 			$DenonAVRVar->ptNavigation = "DENON.".$DenonAVRVar->Type.".Navigation";
+			//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W")
+			{
+				$DenonAVRVar->ptZONE3AutoStandbySetting = "DENON.".$DenonAVRVar->Type.".ZONE3AutoStandbySetting";
+			}
 			
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
@@ -504,7 +638,12 @@ class DenonAVRTelnet extends IPSModule
 				 $DenonAVRVar->ptZone3ChannelSetting => $this->ReadPropertyBoolean('Z3Channel'),
 				 $DenonAVRVar->ptZone3QuickSelect => $this->ReadPropertyBoolean('Z3Quick')
 				);
-				
+			
+			if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$vIntegerAss[$DenonAVRVar->ptZONE3AutoStandbySetting] = $this->ReadPropertyBoolean('ZONE3AutoStandbySetting');
+			}	
+			
 			//Float
 			$vFloat = array
 				(
@@ -653,23 +792,29 @@ class DenonAVRTelnet extends IPSModule
 		$TypeInt = $this->ReadPropertyInteger('Type');
 		
 		$Types = array(
-				0 => "AVR-4311",
-				1 => "AVR-X4000",
-				2 => "AVR-S700",
-				3 => "AVR-S900",
-				4 => "AVR-X1100",
-				5 => "AVR-X2100",
-				6 => "AVR-X3100",
-				7 => "AVR-X4100",
-				8 => "AVR-X5200",
-				9 => "AVR-X7200",
-				10 => "Marantz-NR1605",
-				11 => "AVR-3808",
-				12 => "AVR-X3000",
-				13 => "AVR-X2100W",
-				14 => "AVR-3312",
-				15 => "AVR-2313",
-				16 => "AVR-X4100W");
+				0 => "AVR-2313",
+				1 => "AVR-3312",
+				2 => "AVR-3808",
+				3 => "AVR-4311",
+				4 => "AVR-S700",
+				5 => "AVR-S900",
+				6 => "AVR-X1100",
+				7 => "AVR-X1100W",
+				8 => "AVR-X2100",
+				9 => "AVR-X2100W",
+				10 => "AVR-X3000",
+				11 => "AVR-X3100",
+				12 => "AVR-X3100W",
+				13 => "AVR-X4000",
+				14 => "AVR-X4100",
+				15 => "AVR-X4100W",
+				16 => "AVR-X5200",
+				17 => "AVR-X5200W",
+				18 => "AVR-X7200",
+				19 => "AVR-X7200W",
+				20 => "Marantz NR1605",
+				21 => "S-700W",
+				22 => "S-900W");
 		
 		foreach($Types as $TypeID => $Type)
 		{
@@ -683,6 +828,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString)
 	{
+		$Type = $this->GetAVRType();
 		// Add/Remove according to feature activation
         // create link list for deletion of links if target is deleted
         $links = Array();
@@ -720,7 +866,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				$profile = $DenonAVRVar->SetupVarDenonString($ptString, $Type);
 				//Ident, Name, Profile, Position, Icon
 				$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);				
 				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -730,7 +876,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				 $profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				 $profile = $DenonAVRVar->SetupVarDenonString($ptString, $Type);
 				 $this->removeVariableAction($profile["Ident"], $links, $ptString); 
 			}
 		}
@@ -740,7 +886,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
+				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $Type);
 				//Ident, Name, Profile, Position 
 				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
 				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
@@ -754,7 +900,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
+				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $Type);
 				 $this->removeVariableAction($profile["Ident"], $links, $ptBool); 
 			}
 		}
@@ -764,7 +910,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
+				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $Type);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);	
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -774,7 +920,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
+				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $Type);
 				$this->removeVariableAction($profile["Ident"], $links, $ptInteger); 
 			}
 		}
@@ -784,7 +930,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
+				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $Type);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
 				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -795,7 +941,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
+				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $Type);
 				$this->removeVariableAction($profile["Ident"], $links, $ptIntegerAss); 
 			}
 		}
@@ -805,7 +951,7 @@ class DenonAVRTelnet extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
+				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $Type);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
 				$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -815,7 +961,7 @@ class DenonAVRTelnet extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
+				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $Type);
 				$this->removeVariableAction($profile["Ident"], $links, $ptFloat); 
 			}
 		}

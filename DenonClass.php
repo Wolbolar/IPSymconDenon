@@ -139,6 +139,36 @@ class DENONIPSProfiles extends stdClass
 	public $VarMappingInputSourcesZ3;
 	public $DenonIP;
 	
+	//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W
+	public $ptGraphicEQ;
+	public $ptDimmer;
+	public $ptDialogLevelAdjust;
+	public $ptMAINZONEAutoStandbySetting;
+	public $ptMAINZONEECOModeSetting;
+	public $ptCenterspread;
+	public $ptAuroMatic3DPreset;
+	public $ptAuroMatic3DStrength;
+	public $ptSurroundHeightLch;
+	public $ptSurroundHeightRch;
+	public $ptTopSurround;
+	public $ptTopFrontLch;
+	public $ptTopFrontRch;
+	public $ptTopMiddleLch;
+	public $ptTopMiddleRch;
+	public $ptTopRearLch;
+	public $ptTopRearRch;
+	public $ptRearHeightLch;
+	public $ptRearHeightRch;
+	public $ptFrontDolbyLch;
+	public $ptFrontDolbyRch;
+	public $ptSurroundDolbyLch;
+	public $ptSurroundDolbyRch;
+	public $ptBackDolbyLch;
+	public $ptBackDolbyRch;
+	public $ptZONE2AutoStandbySetting;
+	public $ptZONE3AutoStandbySetting;
+	
+	
 	public function GetInputSources(integer $Zone, string $AVRType)
 	{
 		
@@ -256,11 +286,14 @@ class DENONIPSProfiles extends stdClass
 			$SourceDeleteUse = $xml->xpath('.//SourceDelete/value[. ="USE"]');
 			$countUse = count($SourceDeleteUse);
 			$Inputs = array();
-
+			$MinValue = array();
+			$UsedInput_i = -1;
 			for ($i = 0; $i <= $countinput-1; $i++)
 				{
 					if ((string)$SourceDelete[0]->value[$i] == "USE")
 					{
+						$UsedInput_i++;
+						$MinValue[$UsedInput_i] = $UsedInput_i;
 						if ($RenameType == 1)
 						{
 							$RenameInput = (string)$RenameSource[0]->value[$i];
@@ -271,16 +304,17 @@ class DENONIPSProfiles extends stdClass
 						}
 						if ($RenameInput != "")
 							{
-							$Inputs[$i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => $RenameInput);	
+							$Inputs[$UsedInput_i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => $RenameInput);	
 							//$Inputs[$i] = (string)$RenameSource[0]->value[$i];
 							}
 						else
 							{
-							$Inputs[$i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => (string)$InputFuncList[0]->value[$i]);
+							$Inputs[$UsedInput_i] = array( "Source" => (string)$InputFuncList[0]->value[$i], "RenameSource" => (string)$InputFuncList[0]->value[$i]);
 							//$Inputs[$i] = (string)$InputFuncList[0]->value[$i];
 						   }
 					}
 			   }
+			$MinValue = array_shift($MinValue);
 			$MaxValue = ($countUse-1);
 			if($Zone == 0)
 			{
@@ -288,17 +322,13 @@ class DENONIPSProfiles extends stdClass
 				(
 				"Ident" => DENON_API_Commands::SI,
 				"Name" => "Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				"Profilesettings" => Array("Database", "", "", $MinValue, $MaxValue, 0, 0),
 				);
 				$Associations = array();
 				foreach ($Inputs as $Value => $Input)
 				{
 				$RenameSource = $Input["RenameSource"];	
 				$SourceInput = str_replace(" ", "", $RenameSource);
-				if ($SourceInput == "CBL/SAT")
-				{
-					$SourceInput = "SAT/CBL";
-				}
 				$Associations[] = array(($Value-1), $SourceInput,  "", -1);
 				}
 				$UsedInputSources["Associations"] = $Associations;
@@ -310,11 +340,9 @@ class DENONIPSProfiles extends stdClass
 				{
 				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				if ($SourceInput == "CBL/SAT")
-				{
-					$SourceInput = "SAT/CBL";
-				}
-				$InputSourcesMapping[$SourceInput] = ($Value-1);
+				$RenameSource = $Input["RenameSource"];
+				$RenameSourceInput = str_replace(" ", "", $RenameSource);
+				$InputSourcesMapping[$Value] = array ("Source" => $SourceInput, "RenameSource" => $RenameSourceInput) ;
 				}
 				$this->VarMappingInputSources = $InputSourcesMapping;
 				
@@ -402,7 +430,7 @@ class DENONIPSProfiles extends stdClass
 		return $VarMappingInputSources;
 	}
 	
-	public function SetupVarDenonString($profile)
+	public function SetupVarDenonString($profile, $Type)
 	{
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
@@ -457,7 +485,7 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	public function SetupVarDenonBool($profile)
+	public function SetupVarDenonBool($profile, $Type)
 	{
 		//Ident, Name, Profile, Position 
 		$profilesMainZone = array (
@@ -478,6 +506,16 @@ class DENONIPSProfiles extends stdClass
 		$this->ptGUIMenu => array(DENON_API_Commands::MNMEN, "GUI Menu", "~Switch", $this->getpos($profile)),
 		$this->ptGUISourceSelect => array(DENON_API_Commands::MNSRC, "GUI Source Select Menu", "~Switch", $this->getpos($profile))
 		);
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$profilesMainZone[$this->ptGraphicEQ] = array(DENON_API_Commands::PSGRAPHICEQ, "Graphic EQ", "~Switch", $this->getpos($profile));
+				$profilesMainZone[$this->ptDialogLevelAdjust] = array(DENON_API_Commands::PSDIL, "Dialog Level Adjust", "~Switch", $this->getpos($profile));
+			}		
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$profilesMainZone[$this->ptCenterspread] = array(DENON_API_Commands::PSCES, "Center Spread", "~Switch", $this->getpos($profile));
+			}
+		
 
 		$profilesZone2 = array (
 		$this->ptPower => array(DENON_API_Commands::PW, "Power", "~Switch", $this->getpos($profile)),
@@ -530,13 +568,18 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	public function SetupVarDenonInteger($profile)
+	public function SetupVarDenonInteger($profile, $Type)
 	{
 		//Sichtbare variablen profil suchen
 		$profilesMainZone = array(
         $this->ptSleep => array(DENON_API_Commands::SLP, "Sleep", "Clock",  "", " Min", 0, 120, 10, 0),
 		$this->ptDimension => array(DENON_API_Commands::PSDIM, "Dimension", "Intensity",  "", "", 0, 6, 1, 0)
 		);
+
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$profilesMainZone[$DenonAVRVar->ptAuroMatic3DStrength] = array(DENON_API_Commands::PSAUROST, "Auromatic 3D Strength", "Intensity", "", "", 1, 16, 1, 0);	
+			}
 		
 		$profilesZone2 = array(
         $this->ptZone2Sleep => array(DENON_API_Commands::Z2SLP, "Sleep Zone 2", "Clock",  "", " Min", 0, 120, 10, 0)
@@ -591,7 +634,7 @@ class DENONIPSProfiles extends stdClass
 		}	
 	}
 	
-	public function SetupVarDenonIntegerAss($profile)
+	public function SetupVarDenonIntegerAss($profile, $Type)
 	{
 				
 		//Sichtbare variablen profil suchen
@@ -917,11 +960,59 @@ class DENONIPSProfiles extends stdClass
 				)
 			)
 		);
+	
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+			{
+				$ProfilAssociationsZone[$DenonAVRVar->ptAuroMatic3DPreset] = array(
+												"Ident" => DENON_API_Commands::PSAUROPR,
+												"Name" => "Auro-Matic 3D Preset",
+												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
+												"Associations" => Array(
+												Array(0, "Small", "", -1),
+												Array(1, "Medium", "", -1),
+												Array(2, "Large", "", -1),
+												Array(3, "SPE", "", -1)
+												)
+												);
+			}	
 		
-		if ($this->Type == "AVR-X4100W")
-		{
-			
-		}
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$ProfilAssociationsZone[$DenonAVRVar->ptMAINZONEAutoStandbySetting] = array(
+												"Ident" => DENON_API_Commands::STBY,
+												"Name" => "Mainzone Auto Standby",
+												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
+												"Associations" => Array(
+												Array(0, "Off", "", -1),
+												Array(1, "15 Min", "", -1),
+												Array(2, "30 Min", "", -1),
+												Array(3, "60 Min", "", -1)
+												)
+												);
+												
+				$ProfilAssociationsZone[$DenonAVRVar->ptMAINZONEECOModeSetting] = array(
+												"Ident" => DENON_API_Commands::ECO,
+												"Name" => "Mainzone ECO Mode",
+												"Profilesettings" => Array("Intensity",  "", "", 0, 2, 1, 0),
+												"Associations" => Array(
+												Array(0, "Off", "", -1),
+												Array(1, "Auto", "", -1),
+												Array(2, "On", "", -1)
+												)
+												);
+
+				$ProfilAssociationsZone[$DenonAVRVar->ptDimmer] = array(
+												"Ident" => DENON_API_Commands::DIM,
+												"Name" => "Dimmer",
+												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
+												"Associations" => Array(
+												Array(0, "Off", "", -1),
+												Array(1, "Dark", "", -1),
+												Array(2, "Dim", "", -1),
+												Array(3, "Bright", "", -1)
+												)
+												);									
+			}
 		
 		$ProfilAssociationsMainZone[$this->ptInputSource] = $this->UsedInputSources;
 			/*	
@@ -1025,6 +1116,21 @@ class DENONIPSProfiles extends stdClass
 			)
 		);
 		
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$ProfilAssociationsZone2[$DenonAVRVar->ptZONE2AutoStandbySetting] = array(
+												"Ident" => DENON_API_Commands::Z2STBY,
+												"Name" => "Zone 2 Auto Standby",
+												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
+												"Associations" => Array(
+												Array(0, "Off", "", -1),
+												Array(1, "2 h", "", -1),
+												Array(2, "4 h", "", -1),
+												Array(3, "8 h", "", -1)
+												)
+												);				
+			}
+		
 		$ProfilAssociationsZone2[$this->ptZone2InputSource] = $this->UsedInputSourcesZ2;
 		
 		$ProfilAssociationsZone3 = array
@@ -1095,6 +1201,21 @@ class DENONIPSProfiles extends stdClass
 			)
 		);
 		
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				$ProfilAssociationsZone3[$DenonAVRVar->ptZONE3AutoStandbySetting] = array(
+												"Ident" => DENON_API_Commands::Z2STBY,
+												"Name" => "Zone 3 Auto Standby",
+												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
+												"Associations" => Array(
+												Array(0, "Off", "", -1),
+												Array(1, "2 h", "", -1),
+												Array(2, "4 h", "", -1),
+												Array(3, "8 h", "", -1)
+												)
+												);				
+			}
+		
 		$ProfilAssociationsZone3[$this->ptZone3InputSource] = $this->UsedInputSourcesZ3;
 		
 		if($this->Zone == 0)
@@ -1148,10 +1269,10 @@ class DENONIPSProfiles extends stdClass
 	}
 	
 	
-	public function SetupVarDenonFloat($profile)
+	public function SetupVarDenonFloat($profile, $Type)
 	{
 		//Sichtbare variablen profil suchen
-		$profilesMainzone = array(
+		$profilesMainZone = array(
 		$this->ptMasterVolume => array(DENON_API_Commands::MV, "Master Volume", "Intensity", "", " dB", -80.0, 18.0, 0.5, 1),
 		$this->ptChannelVolumeFL => array(DENON_API_Commands::CVFL, "Channel Volume Front Left", "Intensity", "", " dB", -12, 12, 0.5, 1),
 		$this->ptChannelVolumeFR => array(DENON_API_Commands::CVFR, "Channel Volume Front Right", "Intensity", "", " dB", -12, 12, 0.5, 1),
@@ -1182,7 +1303,101 @@ class DENONIPSProfiles extends stdClass
 		$this->ptStageHeight => array(DENON_API_Commands::PSSTH, "Stage Height", "Intensity", "", "", -10, 10, 0.5, 1),
 		$this->ptStageWidth => array(DENON_API_Commands::PSSTW, "Stage Width", "Intensity", "", "", -10, 10, 0.5, 1)
 		);
+		
+		
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W")
+		{
+			$profilesMainZone[$DenonAVRVar->ptSurroundHeightLch] = array(
+												DENON_API_Commands::CVSHL,
+												"Surround Height Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+						
+			$profilesMainZone[$DenonAVRVar->ptSurroundHeightRch] = array(
+												DENON_API_Commands::CVSHR,
+												"Surround Height Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+												
+			$profilesMainZone[$DenonAVRVar->ptTopSurround] = array(
+												DENON_API_Commands::CVTS,
+												"Top Surround",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);																		
+		}
+		
+		
+			
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W")
+		{
+			$profilesMainZone[$DenonAVRVar->ptTopFrontLch] = array(
+												DENON_API_Commands::CVTFL,
+												"Top Front Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+			
+			$profilesMainZone[$DenonAVRVar->ptTopFrontRch] = array(
+												DENON_API_Commands::CVTFR,
+												"Top Front Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+			
+			$profilesMainZone[$DenonAVRVar->ptTopMiddleLch] = array(
+												DENON_API_Commands::CVTML,
+												"Top Middle Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+			
+			$profilesMainZone[$DenonAVRVar->ptTopMiddleRch] = array(
+												DENON_API_Commands::CVTMR,
+												"Top Middle Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+			
+			$profilesMainZone[$DenonAVRVar->ptTopRearLch] = array(
+												DENON_API_Commands::CVTRL,
+												"Top Rear Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);
+
+			$profilesMainZone[$DenonAVRVar->ptTopRearRch] = array(
+												DENON_API_Commands::CVTRR,
+												"Top Rear Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);										
+			
+			$profilesMainZone[$DenonAVRVar->ptRearHeightLch] = array(
+												DENON_API_Commands::CVRHL,
+												"Rear Height Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+
+			$profilesMainZone[$DenonAVRVar->ptRearHeightRch] = array(
+												DENON_API_Commands::CVRHR,
+												"Rear Height Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);											
 				
+			$profilesMainZone[$DenonAVRVar->ptFrontDolbyLch] = array(
+												DENON_API_Commands::CVFDL,
+												"Front Dolby Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+			
+			$profilesMainZone[$DenonAVRVar->ptFrontDolbyRch] = array(
+												DENON_API_Commands::CVFDR,
+												"Front Dolby Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+			
+			$profilesMainZone[$DenonAVRVar->ptSurroundDolbyLch] = array(
+												DENON_API_Commands::CVSDL,
+												"Surround Dolby Left",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+			
+			$profilesMainZone[$DenonAVRVar->ptSurroundDolbyRch] = array(
+												DENON_API_Commands::CVSDR,
+												"Surround Dolby Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+			
+			$profilesMainZone[$DenonAVRVar->ptBackDolbyLch] = array(
+												DENON_API_Commands::CVBDL,
+												"Front Dolby Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+												
+			$profilesMainZone[$DenonAVRVar->ptBackDolbyRch] = array(
+												DENON_API_Commands::CVBDR,
+												"Front Dolby Right",
+												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
+			}	
+		
 		$profilesZone2 = array(
 		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 2 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
 		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 1),
@@ -1197,7 +1412,7 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($this->Zone == 0)
 		{
-			$profilefloat = $this->sendprofilefloat($profilesMainzone, $profile);
+			$profilefloat = $this->sendprofilefloat($profilesMainZone, $profile);
 			return $profilefloat;
 		}
 		elseif ($this->Zone == 1)
@@ -1285,39 +1500,61 @@ class DENONIPSProfiles extends stdClass
 							$this->ptChannelVolumeFHR => 51,
 							$this->ptChannelVolumeFWL => 52,
 							$this->ptChannelVolumeFWR => 53,
-							$this->ptSubwoofer => 54,
-							$this->ptSubwooferATT => 55,
-							$this->ptFrontHeight => 56,
-							$this->ptToneCTRL => 57,
-							$this->ptAudioDelay => 58,
-							$this->ptSpeakerOutputFront => 59,
 							
-							$this->ptAFDM => 70,
-							$this->ptASP => 71,
-							$this->ptAudioRestorer => 72,
-							$this->ptCenterImage => 73,
-							$this->ptCenterWidth => 74,
-							$this->ptDigitalInputMode => 75,
-							$this->ptDimension => 76,
-							$this->ptEffect => 77,
-							$this->ptEffectLevel => 78,
-							$this->ptHDMIAudioOutput => 79,
-							$this->ptInputMode => 80,
-							$this->ptMultiEQMode => 81,
-							$this->ptPLIIZHeightGain => 82,
-							$this->ptPreset => 83,
-							$this->ptReferenceLevel => 84,
-							$this->ptRoomSize => 85,
-							$this->ptStageWidth => 86,
-							$this->ptStageHeight => 87,
-							$this->ptSurroundBackMode => 88,
-							$this->ptSurroundPlayMode => 89,
-							$this->ptVerticalStretch => 90,
-							//$this->ptDCOMPDirectChange => 91,
+							$this->ptTopFrontLch => 54,
+							$this->ptTopFrontRch => 55,
+							$this->ptTopMiddleLch => 56,
+							$this->ptTopMiddleRch => 57,
+							$this->ptTopRearLch => 58,
+							$this->ptTopRearRch => 59,
+							$this->ptRearHeightLch => 60,
+							$this->ptRearHeightRch => 61,
+							$this->ptFrontDolbyLch => 62,
+							$this->ptFrontDolbyRch => 63,
+							$this->ptSurroundDolbyLch => 64,
+							$this->ptSurroundDolbyRch => 65,
+							$this->ptBackDolbyLch => 66,
+							$this->ptBackDolbyRch => 67,
+							$this->ptSurroundDolbyLch => 68,
+							$this->ptSurroundDolbyRch => 69,
+							$this->ptTopSurround => 70,
+											
+							$this->ptSubwoofer => 71,
+							$this->ptSubwooferATT => 72,
+							$this->ptFrontHeight => 73,
+							$this->ptToneCTRL => 74,
+							$this->ptAudioDelay => 75,
+							$this->ptSpeakerOutputFront => 76,
+							$this->ptGraphicEQ => 77,
+							$this->ptDialogLevelAdjust => 78,
+							$this->ptCenterspread => 79,
+														
+							$this->ptAFDM => 80,
+							$this->ptASP => 81,
+							$this->ptAudioRestorer => 82,
+							$this->ptCenterImage => 83,
+							$this->ptCenterWidth => 84,
+							$this->ptDigitalInputMode => 85,
+							$this->ptDimension => 86,
+							$this->ptEffect => 87,
+							$this->ptEffectLevel => 88,
+							$this->ptHDMIAudioOutput => 89,
+							$this->ptInputMode => 90,
+							$this->ptMultiEQMode => 91,
+							$this->ptPLIIZHeightGain => 92,
+							$this->ptPreset => 93,
+							$this->ptReferenceLevel => 94,
+							$this->ptRoomSize => 95,
+							$this->ptStageWidth => 96,
+							$this->ptStageHeight => 97,
+							$this->ptSurroundBackMode => 98,
+							$this->ptSurroundPlayMode => 99,
+							$this->ptVerticalStretch => 100,
+							
 							//Level
-							$this->ptBassLevel => 100,
-							$this->ptTrebleLevel => 101,
-							$this->ptLFELevel => 102,
+							$this->ptBassLevel => 101,
+							$this->ptTrebleLevel => 102,
+							$this->ptLFELevel => 103,
 							//Video
 							$this->ptVideoSelect => 110,
 							$this->ptContrast => 111,
@@ -1337,6 +1574,16 @@ class DENONIPSProfiles extends stdClass
 							$this->ptGUIMenu => 133,
 							$this->ptGUISourceSelect => 134,
 							$this->ptTopMenuLink => 135,
+							$this->ptGraphicEQ => 136,
+							
+							$this->ptDialogLevelAdjust => 137,
+							$this->ptCenterspread => 138,
+							$this->ptAuroMatic3DStrength => 139,
+							$this->ptAuroMatic3DPreset => 140,
+							$this->ptMAINZONEAutoStandbySetting => 141,
+							$this->ptMAINZONEECOModeSetting => 142,
+							$this->ptDimmer => 143,
+							
 							//Zone 2
 							$this->ptZone2Power => 201,
 							$this->ptZone2Mute => 202,
@@ -1349,6 +1596,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptZone2HPF => 209,
 							$this->ptZone2Name => 210,
 							$this->ptZone2Sleep => 211,
+							$this->ptZONE2AutoStandbySetting => 212,
 							//Zone 3
 							$this->ptZone3Power => 300,
 							$this->ptZone3Mute => 301,
@@ -1360,7 +1608,8 @@ class DENONIPSProfiles extends stdClass
 							$this->ptZone3QuickSelect => 307,
 							$this->ptZone3HPF => 308,
 							$this->ptZone3Name => 309,
-							$this->ptZone3Sleep => 310
+							$this->ptZone3Sleep => 310,
+							$this->ptZONE3AutoStandbySetting => 311
 
 						);
 		foreach($positions as $ptName => $position)
@@ -2353,6 +2602,8 @@ class DENON_API_Commands extends stdClass
 	const SC72P = "72P"; // Set Resolution to 720p
 	const SC10P = "10P"; // Set Resolution to 1080p
 	const SC10P24 = "10P24"; // Set Resolution to 1080p:24Hz
+	const SC4K = "4K"; // Set Resolution to 4K
+	const SC4KF = "4KF"; // Set Resolution to 4K (60/50)
 	const SCAUTO = "AUTO"; // Set Resolution to Auto
 	const SC = " ?"; // SC ? Return VSSC Status
 	
@@ -2362,6 +2613,8 @@ class DENON_API_Commands extends stdClass
 	const SCH72P = "72P"; // Set Resolution to 720p HDMI
 	const SCH10P = "10P"; // Set Resolution to 1080p HDMI
 	const SCH10P24 = "10P24"; // Set Resolution to 1080p:24Hz HDMI
+	const SCH4K = "4K"; // Set Resolution to 4K
+	const SCH4KF = "4KF"; // Set Resolution to 4K (60/50)
 	const SCHAUTO = "AUTO"; // Set Resolution to Auto HDMI
 	const SCH = " ?"; // SCH ? Return VSSCH Status(HDMI)
 	
@@ -2666,8 +2919,58 @@ class DENON_API_Commands extends stdClass
 	
 	const SURROUNDDISPLAY = "SurroundDisplay"; // Nur DisplayIdent
 	
+	// AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-X2100W / S900W / AVR-X1100W / S700W
+	const PSGRAPHICEQ = "PSGEQ"; // Graphic EQ
+	const PSGRAPHICEQON = " ON"; // Graphic EQ On
+	const PSGRAPHICEQOFF = " OFF"; // Graphic EQ Off
 	
+	const PSDIL = "PSDIL"; // Dialog Level Adjust
+	const PSDILON = " ON"; // Dialog Level Adjust On
+	const PSDILOFF = " OFF"; // Dialog Level Adjust Off
+	
+	const STBY = "STBY"; // Mainzone Auto Standby
+	const Z2STBY = "Z2STBY"; // Zone 2 Auto Standby
+	const Z3STBY = "Z3STBY"; // Zone 3 Auto Standby
+	const ECO = "ECO"; // ECO Mode
+	const DIM = "DIM"; // Dimmer
+	const DIMBRI = " BRI"; // Bright
+	const DIMDIM = " DIM"; // DIM
+	const DIMDAR = " DAR"; // Dark
+	const DIMOFF = " OFF"; // Dimmer off
 
+	// AVR-X7200W / AVR-X5200W / AVR-X4100W
+	const PSCES = "PSCES"; // Center Spread
+	const PSCESON = " ON"; // Center Spread On
+	const PSCESOFF = " OFF"; // Center Spread Off
+	const PSAUROST = "PSAUROPR"; // Auro Matic 3D Strength
+	const PSAUROSTUP = " UP"; // Auro Matic 3D Strength Up
+	const PSAUROSTDOWN = " DOWN"; // Auro Matic 3D Strength Down
+	
+	const PSAUROPR = "PSAUROPR"; // Auro Matic 3D Present
+	const PSAUROPRSMA = " SMA"; // Auro Matic 3D Present Small
+	const PSAUROPRMED = " MED"; // Auro Matic 3D Present Medium
+	const PSAUROPRLAR = " LAR"; // Auro Matic 3D Present Large
+	const PSAUROPRSPE = " SPE"; // Auro Matic 3D Present SPE
+	
+	const CVSHL = "CVSHL"; // Surround Height Left
+	const CVSHR = "CVSHR"; // Surround Height Right
+	const CVTS = "CVTS"; // Top Surround
+	
+	const CVTFL = "CVTFL"; // Top Front Left
+	const CVTFR = "CVTFR"; // Top Front Right
+	const CVTML = "CVTML"; // Top Middle Left
+	const CVTMR = "CVTMR"; // Top Middle Right
+	const CVTRL = "CVTRL"; // Top Rear Left
+	const CVTRR = "CVTRR"; // Top Rear Right
+	const CVRHL = "CVRHL"; // Top Height Left
+	const CVRHR = "CVRHR"; // Top Height Right
+	const CVFDL = "CVFDL"; // Front Dolby Left
+	const CVFDR = "CVFDR"; // Front Dolby Right
+	const CVSDL = "CVSDL"; // Surround Dolby Left
+	const CVSDR = "CVSDR"; // Surround Dolby Right
+	const CVBDL = "CVBDL"; // Back Dolby Left
+	const CVBDR = "CVBDR"; // Back Dolby Right
+	
 	
 	const IsVariable = 0;
     const VarType = 1;
@@ -4332,8 +4635,138 @@ class DenonAVRCP_API_Data extends stdClass
 												"VIRTUAL" => 15);
 			$VarMapping[DENON_API_Commands::MS] = $AVRSurroundModeArray;		
 		}
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W")
+		{
+			// Channel Volume TFL **:38 to 62 by ASCII , 50=0dB
+			$AVRTFLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTFLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTFL] = $AVRTFLArray;	
+			
+			// Channel Volume TFR **:38 to 62 by ASCII , 50=0dB
+			$AVRTFRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTFRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTFR] = $AVRTFRArray;
+
+			// Channel Volume TML **:38 to 62 by ASCII , 50=0dB
+			$AVRTMLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTMLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTML] = $AVRTMLArray;	
+
+			// Channel Volume TMR **:38 to 62 by ASCII , 50=0dB
+			$AVRTMRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTMRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTMR] = $AVRTMRArray;		
+			
+			// Channel Volume TRL **:38 to 62 by ASCII , 50=0dB
+			$AVRTRLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTRLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTRL] = $AVRTRLArray;
+
+			// Channel Volume TRR **:38 to 62 by ASCII , 50=0dB
+			$AVRTRRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTRRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTRR] = $AVRTRRArray;
+
+			// Channel Volume RHL **:38 to 62 by ASCII , 50=0dB
+			$AVRRHLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRRHLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVRHL] = $AVRRHLArray;	
+
+			// Channel Volume RHR **:38 to 62 by ASCII , 50=0dB
+			$AVRRHRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRRHRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVRHR] = $AVRRHRArray;
+
+			// Channel Volume FDL **:38 to 62 by ASCII , 50=0dB
+			$AVRFDLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRFDLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVFDL] = $AVRFDLArray;
+
+			// Channel Volume FDR **:38 to 62 by ASCII , 50=0dB
+			$AVRFDRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRFDRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVFDR] = $AVRFDRArray;
+
+			// Channel Volume SDL **:38 to 62 by ASCII , 50=0dB
+			$AVRSDLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRSDLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVSDL] = $AVRSDLArray;	
+
+			// Channel Volume SDR **:38 to 62 by ASCII , 50=0dB
+			$AVRSDRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRSDRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVSDR] = $AVRSDRArray;
+
+			// Channel Volume BDL **:38 to 62 by ASCII , 50=0dB
+			$AVRBDLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRBDLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVBDL] = $AVRBDLArray;
+
+			// Channel Volume BDR **:38 to 62 by ASCII , 50=0dB
+			$AVRBDRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRBDRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVBDR] = $AVRBDRArray;		
+		}
 		
 		return $VarMapping;
+		
+		
 	}
 	
     public function GetDataFromJSONObject($Data)

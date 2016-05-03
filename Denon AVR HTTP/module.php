@@ -14,7 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
-		$this->RegisterPropertyInteger("Type", 0);
+		$this->RegisterPropertyInteger("Type", 3);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("ZoneName", false);
@@ -569,23 +569,29 @@ class DenonAVRHTTP extends IPSModule
 		$TypeInt = $this->ReadPropertyInteger('Type');
 		
 		$Types = array(
-				0 => "AVR-4311",
-				1 => "AVR-X4000",
-				2 => "AVR-S700",
-				3 => "AVR-S900",
-				4 => "AVR-X1100",
-				5 => "AVR-X2100",
-				6 => "AVR-X3100",
-				7 => "AVR-X4100",
-				8 => "AVR-X5200",
-				9 => "AVR-X7200",
-				10 => "Marantz-NR1605",
-				11 => "AVR-3808",
-				12 => "AVR-X3000",
-				13 => "AVR-X2100W",
-				14 => "AVR-3312",
-				15 => "AVR-2313",
-				16 => "AVR-X4100W");
+				0 => "AVR-2313",
+				1 => "AVR-3312",
+				2 => "AVR-3808",
+				3 => "AVR-4311",
+				4 => "AVR-S700",
+				5 => "AVR-S900",
+				6 => "AVR-X1100",
+				7 => "AVR-X1100W",
+				8 => "AVR-X2100",
+				9 => "AVR-X2100W",
+				10 => "AVR-X3000",
+				11 => "AVR-X3100",
+				12 => "AVR-X3100W",
+				13 => "AVR-X4000",
+				14 => "AVR-X4100",
+				15 => "AVR-X4100W",
+				16 => "AVR-X5200",
+				17 => "AVR-X5200W",
+				18 => "AVR-X7200",
+				19 => "AVR-X7200W",
+				20 => "Marantz NR1605",
+				21 => "S-700W",
+				22 => "S-900W");
 		
 		foreach($Types as $TypeID => $Type)
 		{
@@ -599,6 +605,7 @@ class DenonAVRHTTP extends IPSModule
 	
 	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString)
 	{
+		$Type = $this->GetAVRType();
 		// Add/Remove according to feature activation
         // create link list for deletion of links if target is deleted
         $links = Array();
@@ -636,7 +643,7 @@ class DenonAVRHTTP extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				$profile = $DenonAVRVar->SetupVarDenonString($ptString, $Type);
 				//Ident, Name, Profile, Position
 				$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);		
 				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -646,7 +653,7 @@ class DenonAVRHTTP extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				 $profile = $DenonAVRVar->SetupVarDenonString($ptString);
+				 $profile = $DenonAVRVar->SetupVarDenonString($ptString, $Type);
 				 $this->removeVariableAction($profile["Ident"], $links, $ptString); 
 			}
 		}
@@ -656,7 +663,7 @@ class DenonAVRHTTP extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
+				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $Type);
 				//Ident, Name, Profile, Position 
 				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
 				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
@@ -670,7 +677,7 @@ class DenonAVRHTTP extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool);
+				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $Type);
 				 $this->removeVariableAction($profile["Ident"], $links, $ptBool); 
 			}
 		}
@@ -680,7 +687,7 @@ class DenonAVRHTTP extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
+				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $Type);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);	
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -690,7 +697,7 @@ class DenonAVRHTTP extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger);
+				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $Type);
 				$this->removeVariableAction($profile["Ident"], $links, $ptInteger); 
 			}
 		}
@@ -700,7 +707,7 @@ class DenonAVRHTTP extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
+				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $Type);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
 				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -711,7 +718,7 @@ class DenonAVRHTTP extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss);
+				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $Type);
 				$this->removeVariableAction($profile["Ident"], $links, $ptIntegerAss); 
 			}
 		}
@@ -721,7 +728,7 @@ class DenonAVRHTTP extends IPSModule
 		//Auswahl Prüfen
 		if ($visible === true)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
+				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $Type);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
 				$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
@@ -731,7 +738,7 @@ class DenonAVRHTTP extends IPSModule
 		// wenn nicht sichtbar löschen
 		elseif ($visible === false)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat);
+				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $Type);
 				$this->removeVariableAction($profile["Ident"], $links, $ptFloat); 
 			}
 		}

@@ -232,15 +232,55 @@ class DenonAVRIOHTTP extends IPSModule
 	// Input
 	public function SaveInputVarmapping($MappingInputs, $AVRType)
 		{
-			SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
-			SetValue($this->GetIDForIdent("AVRType"), $AVRType);	
+			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+			if ($InputsMapping == "")
+			{
+				$InputsMapping = json_decode($InputsMapping);
+				$AVRType = $InputsMapping->AVRType;
+				$writeprotected = $InputsMapping->writeprotected;
+				if(!$writeprotected)
+				{
+					SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+				}
+			}
+			SetValue($this->GetIDForIdent("AVRType"), $AVRType); 		
 		}
 
 	public function GetInputVarMapping()
 		{
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 			$InputsMapping = json_decode($InputsMapping);
-			return $InputsMapping;
+			//Varmapping generieren
+			$AVRType = $InputsMapping->AVRType;
+			$writeprotected = $InputsMapping->writeprotected;
+			$Inputs = $InputsMapping->Inputs;
+			$Varmapping = array();
+			foreach ($Inputs as $Key => $Input)
+				{
+				$Command = $Input->Source;
+				if ($Command == "CBL/SAT")
+				{
+					$Command = "SAT/CBL";
+				}
+				elseif ($Command == "MediaPlayer")
+				{
+					$Command = "MPLAY";
+				}
+				elseif ($Command == "iPod/USB")
+				{
+					$Command = "USB/IPOD";
+				}
+				elseif ($Command == "TVAUDIO")
+				{
+					$Command = "TV";
+				}
+				elseif ($Command == "Bluetooth")
+				{
+					$Command = "BT";
+				}
+				$Varmapping[$Command] = $Key;
+				}
+			return $Varmapping;
 		}
 	
 	protected function GetAVRType()
