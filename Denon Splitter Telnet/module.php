@@ -152,6 +152,10 @@ public function SaveInputVarmapping($MappingInputs, $AVRType)
 					SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
 				}
 			}
+			else
+			{
+				SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+			}	
 			
 		}
 					
