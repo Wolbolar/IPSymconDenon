@@ -1863,10 +1863,31 @@ class DENON_StatusHTML extends stdClass
 		//{
 			$InputFuncSelect = $xml->xpath('.//InputFuncSelect');
 			if ($InputFuncSelect)
-			{
+			{	
+				$InputSelected = (string)$InputFuncSelect[0]->value;
+				if ($InputSelected == "CBL/SAT")
+				{
+					$InputSelected = "SAT/CBL";
+				}
+				elseif ($InputSelected == "MediaPlayer")
+				{
+					$InputSelected = "MPLAY";
+				}
+				elseif ($InputSelected == "iPod/USB")
+				{
+					$InputSelected = "USB/IPOD";
+				}
+				elseif ($InputSelected == "TVAUDIO")
+				{
+					$InputSelected = "TV";
+				}
+				elseif ($InputSelected == "Bluetooth")
+				{
+					$InputSelected = "BT";
+				}
 				foreach ($InputMapping as $Command => $InputSourceValue)
 				{
-				if ($Command == (string)$InputFuncSelect[0]->value)
+				if ($Command == $InputSelected)
 					{
 					$data[DENON_API_Commands::SI] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
 					}
