@@ -14,7 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
-		$this->RegisterPropertyInteger("Type", 3);
+		$this->RegisterPropertyInteger("Type", 2);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("ZoneName", false);
@@ -569,29 +569,28 @@ class DenonAVRHTTP extends IPSModule
 		$TypeInt = $this->ReadPropertyInteger('Type');
 		
 		$Types = array(
-				0 => "AVR-2313",
-				1 => "AVR-3312",
-				2 => "AVR-3808",
-				3 => "AVR-4311",
-				4 => "AVR-S700",
-				5 => "AVR-S900",
-				6 => "AVR-X1100",
-				7 => "AVR-X1100W",
-				8 => "AVR-X2100",
-				9 => "AVR-X2100W",
-				10 => "AVR-X3000",
-				11 => "AVR-X3100",
-				12 => "AVR-X3100W",
-				13 => "AVR-X4000",
-				14 => "AVR-X4100",
-				15 => "AVR-X4100W",
-				16 => "AVR-X5200",
-				17 => "AVR-X5200W",
-				18 => "AVR-X7200",
-				19 => "AVR-X7200W",
-				20 => "Marantz NR1605",
-				21 => "S-700W",
-				22 => "S-900W");
+				0 => "AVR-3313",
+				1 => "AVR-4310",
+				2 => "AVR-4311",
+				3 => "AVR-X1000",
+				4 => "AVR-X1100W",
+				5 => "AVR-X1200W",
+				6 => "AVR-X2000",
+				7 => "AVR-X2100W",
+				8 => "AVR-X2200W",
+				9 => "AVR-X3000",
+				10 => "AVR-X3100W",
+				11 => "AVR-X3200W",
+				12 => "AVR-X4000",
+				13 => "AVR-X4100W",
+				14 => "AVR-X4200W",
+				15 => "AVR-X5200W",
+				16 => "AVR-X6200W",
+				17 => "AVR-X7200W",
+				18 => "AVR-X7200WA",
+				19 => "Marantz NR1605",
+				20 => "S-700W",
+				21 => "S-900W");
 		
 		foreach($Types as $TypeID => $Type)
 		{

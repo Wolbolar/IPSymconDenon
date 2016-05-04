@@ -14,7 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
-		$this->RegisterPropertyInteger("Type", 3);
+		$this->RegisterPropertyInteger("Type", 6);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("SurroundDisplay", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
@@ -794,27 +794,38 @@ class DenonAVRTelnet extends IPSModule
 		$Types = array(
 				0 => "AVR-2313",
 				1 => "AVR-3312",
-				2 => "AVR-3808",
-				3 => "AVR-4311",
-				4 => "AVR-S700",
-				5 => "AVR-S900",
-				6 => "AVR-X1100",
-				7 => "AVR-X1100W",
-				8 => "AVR-X2100",
-				9 => "AVR-X2100W",
-				10 => "AVR-X3000",
-				11 => "AVR-X3100",
-				12 => "AVR-X3100W",
-				13 => "AVR-X4000",
-				14 => "AVR-X4100",
-				15 => "AVR-X4100W",
-				16 => "AVR-X5200",
-				17 => "AVR-X5200W",
-				18 => "AVR-X7200",
-				19 => "AVR-X7200W",
-				20 => "Marantz NR1605",
-				21 => "S-700W",
-				22 => "S-900W");
+				2 => "AVR-3313",
+				3 => "AVR-3808A",
+				4 => "AVR-4308A",
+				5 => "AVR-4310",
+				6 => "AVR-4311",
+				7 => "AVR-X1000",
+				8 => "AVR-X1100W",
+				9 => "AVR-X1200W",
+				10 => "AVR-X2000",
+				11 => "AVR-X2100W",
+				12 => "AVR-X2200W",
+				13 => "AVR-X3000",
+				14 => "AVR-X3100W",
+				15 => "AVR-X3200W",
+				16 => "AVR-X4000",
+				17 => "AVR-X4100W",
+				18 => "AVR-X4200W",
+				19 => "AVR-X5200W",
+				20 => "AVR-X6200W",
+				21 => "AVR-X7200W",
+				22 => "AVR-X7200WA",
+				23 => "Marantz NR1605",
+				24 => "S-700W",
+				25 => "S-900W");
+		
+		/*AVR-1311,AVR-1312,AVR-1507,AVR-1508,AVR-1509,AVR-1513,AVR-1610,AVR-1611,AVR-1705,AVR-1706,AVR-1707,AVR-1708,
+		AVR-1713,AVR-1905,AVR-1906,AVR-1907,AVR-1908,AVR-1909,AVR-1910,AVR-1911,AVR-1912,AVR-2105,AVR-2106,AVR-2113,
+		AVR-2307,AVR-2308,AVR-2309,AVR-2310,AVR-2311,AVR-2312,AVR-2313,AVR-2805,AVR-2807,AVR-2808,AVR-2809,AVR-3310,
+		AVR-3311,AVR-3312,AVR-3313,AVR-3805,AVR-3806,AVR-3808A,AVR-4306,AVR-4308A,AVR-4310,AVR-4311,AVR-4520,AVR-4810,
+		AVR-A100,AVR-X1000,AVR-X1100W,AVR-X2000,AVR-X2100W,AVR-X3000,AVR-X3100W,AVR-X4000,AVR-X4100W,AVR-X500,AVR-X7200W,
+		AVR-X7200WA,AVR-X6200W,AVR-X5200W,AVR-X4200W,AVR-X3200W,AVR-X2200W,AVR-X1200W*/
+		
 		
 		foreach($Types as $TypeID => $Type)
 		{

@@ -194,6 +194,10 @@ public function GetInputVarMapping()
 			{
 				$Command = "BT";
 			}
+			elseif ($Command == "Blu-ray")
+			{
+				$Command = "BD";
+			}
 			$Varmapping[$Command] = $Key;
 			}
 		return $Varmapping;

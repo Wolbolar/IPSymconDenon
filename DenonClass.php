@@ -221,6 +221,11 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
+		elseif($AVRType == "AVR-3808A")
+		{
+			$Inputsources = $this->StandardInputSources($AVRType);
+			return $Inputsources;
+		}
 		elseif($AVRType == "AVR-3808" || $AVRType == "AVR-3312" || $AVRType == "AVR-2313" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3000" || $AVRType == "AVR-S700" || $AVRType == "AVR-S900" || $AVRType == "AVR-X1100" || $AVRType == "AVR-X2100" || $AVRType == "AVR-X2100W" || $AVRType == "AVR-X3100" || $AVRType == "AVR-X4100" || $AVRType == "AVR-X5200" || $AVRType == "AVR-X7200")
 		{
 			if ($Zone == 0) // MainZone
@@ -274,6 +279,66 @@ class DENONIPSProfiles extends stdClass
 		
 	}
 
+	protected function StandardInputSources($AVRType)
+	{
+		$UsedInputSources =  array(
+				"Ident" => "SI",
+				"Name" => "Input Source",
+				"Profilesettings" => Array("Database", "", "", 0, 19, 0, 0),
+				"Associations" => array(
+									Array(0, "Phono",  "", -1),
+									Array(1, "CD",  "", -1),
+									Array(2, "Tuner",  "", -1),
+									Array(3, "DVD",  "", -1),
+									Array(4, "BD",  "", -1),
+									Array(5, "TV",  "", -1),
+									Array(6, "Sat/CBL",  "", -1),
+									Array(7, "DVR",  "", -1),
+									Array(8, "Game",  "", -1),
+									Array(9, "V.Aux",  "", -1),
+									Array(10, "Dock",  "", -1),
+									Array(11, "IPod",  "", -1),
+									Array(12, "Net/USB",  "", -1),
+									Array(13, "Napster",  "", -1),
+									Array(14, "LastFM",  "", -1),
+									Array(15, "Flickr",  "", -1),
+									Array(16, "Favorites",  "", -1),
+									Array(17, "IRadio",  "", -1),
+									Array(18, "Server",  "", -1),
+									Array(19, "USB/IPod",  "", -1)
+									)
+									);
+
+				$this->UsedInputSources = $UsedInputSources;
+
+				$InputSourcesMapping = array(
+                                 array ("Source" => "PHONO", "RenameSource" => "Phono"),
+                                 array ("Source" => "CD", "RenameSource" => "CD"),
+                                 array ("Source" => "TUNER", "RenameSource" => "Tuner"),
+                                 array ("Source" => "DVD", "RenameSource" => "DVD"),
+                                 array ("Source" => "BD", "RenameSource" => "Blu-ray"),
+                                 array ("Source" => "TV", "RenameSource" => "TV"),
+                                 array ("Source" => "SAT/CBL", "RenameSource" => "Sat/CBL"),
+                                 array ("Source" => "DVR", "RenameSource" => "DVR"),
+                                 array ("Source" => "GAME", "RenameSource" => "Game"),
+                                 array ("Source" => "V.AUX", "RenameSource" => "V.Aux"),
+                                 array ("Source" => "DOCK", "RenameSource" => "Dock"),
+                                 array ("Source" => "IPOD", "RenameSource" => "Ipod"),
+                                 array ("Source" => "NET/USB", "RenameSource" => "Net/USB"),
+                                 array ("Source" => "NAPSTER", "RenameSource" => "Napster"),
+                                 array ("Source" => "LASTFM", "RenameSource" => "LastFM"),
+                                 array ("Source" => "FLICKR", "RenameSource" => "Flickr"),
+                                 array ("Source" => "FAVORITES", "RenameSource" => "Favorites"),
+                                 array ("Source" => "IRADIO", "RenameSource" => "IRadio"),
+                                 array ("Source" => "SERVER", "RenameSource" => "Server"),
+                                 array ("Source" => "USB/IPOD", "RenameSource" => "USB/iPod")
+				);
+				
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
+				$this->VarMappingInputSources = $InputMapping;
+				return $UsedInputSources;	
+	}
+	
 	protected function ReadInputSources($Zone, $xml, $RenameType, $AVRType)
 	{
 		//Inputs
@@ -1884,6 +1949,10 @@ class DENON_StatusHTML extends stdClass
 				elseif ($InputSelected == "Bluetooth")
 				{
 					$InputSelected = "BT";
+				}
+				elseif ($InputSelected == "Blu-ray")
+				{
+					$InputSelected = "BD";
 				}
 				foreach ($InputMapping as $Command => $InputSourceValue)
 				{
