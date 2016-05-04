@@ -2955,9 +2955,24 @@ class DENON_API_Commands extends stdClass
 	const PSDILOFF = " OFF"; // Dialog Level Adjust Off
 	
 	const STBY = "STBY"; // Mainzone Auto Standby
+	const STBY15M = "15M"; // Mainzone Auto Standby 15 Minuten
+	const STBY30M = "30M"; // Mainzone Auto Standby 30 Minuten
+	const STBY60M = "60M"; // Mainzone Auto Standby 60 Minuten
+	const STBYOFF = "OFF"; // Mainzone Auto Standby Off
 	const Z2STBY = "Z2STBY"; // Zone 2 Auto Standby
+	const Z2STBY2H = "2H"; // Zone 2 Auto Standby 2h
+	const Z2STBY4H = "4H"; // Zone 2 Auto Standby 4h
+	const Z2STBY8H = "8H"; // Zone 2 Auto Standby 8h
+	const Z2STBYOFF = "OFF"; // Zone 2 Auto Standby Off
 	const Z3STBY = "Z3STBY"; // Zone 3 Auto Standby
+	const Z3STBY2H = "2H"; // Zone 3 Auto Standby 2H
+	const Z3STBY4H = "4H"; // Zone 3 Auto Standby 4h
+	const Z3STBY8H = "8H"; // Zone 3 Auto Standby 8h
+	const Z3STBYOFF = "OFF"; // Zone 3 Auto Standby Off
 	const ECO = "ECO"; // ECO Mode
+	const ECOON = "ON"; // ECO Mode On
+	const ECOAUTO = "AUTO"; // ECO Mode Auto
+	const ECOOFF = "OFF"; // ECO Mode Off
 	const DIM = "DIM"; // Dimmer
 	const DIMBRI = " BRI"; // Bright
 	const DIMDIM = " DIM"; // DIM
@@ -4789,6 +4804,88 @@ class DenonAVRCP_API_Data extends stdClass
 												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
 			$VarMapping[DENON_API_Commands::CVBDR] = $AVRBDRArray;		
 		}
+		
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W")
+		{
+			// Channel Volume SHL **:38 to 62 by ASCII , 50=0dB
+			$AVRSHLArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRSHLArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVSHL] = $AVRSHLArray;	
+			
+			// Channel Volume SHR **:38 to 62 by ASCII , 50=0dB
+			$AVRSHRArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRSHRArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVSHR] = $AVRSHRArray;
+
+			// Channel Volume TS **:38 to 62 by ASCII , 50=0dB
+			$AVRTSArray = array("VarType" => DENONIPSVarType::vtFloat);
+			$AVRTSArray["ValueMapping"] = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+												" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+												" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+												" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+												" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+			$VarMapping[DENON_API_Commands::CVTS] = $AVRTSArray;		
+		}
+		
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W")
+		{
+			// AuroMatic3DPreset AUROPR 
+			$AVRAUROPRArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRAUROPRArray["ValueMapping"] = array(DENON_API_Commands::PSAUROPRSMA => 0, DENON_API_Commands::PSAUROPRMED => 1, DENON_API_Commands::PSAUROPRLAR => 2, DENON_API_Commands::PSAUROPRSPE => 3);
+			$VarMapping[DENON_API_Commands::PSAUROPR] = $AVRAUROPRArray;
+			
+			// Center Spread PSCES
+			$AVRPSCESArray = array("VarType" => DENONIPSVarType::vtBoolean);
+			$AVRPSCESArray["ValueMapping"] = array(DENON_API_Commands::PSCESON => true, DENON_API_Commands::PSCESOFF => false);
+			$VarMapping[DENON_API_Commands::PSGRAPHICEQ] = $AVRPSCESArray;
+
+			// AuroMatic3DStrength AUROST 
+			$AVRAUROSTArray = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRAUROSTArray["ValueMapping"] = array("01" => 1, "02" => 2, "03" => 3, "04" => 4, "05" => 5, "06" => 6, "07" => 7, "08" => 8, "09" => 9, "10" => 10, "11" => 11, "12" => 12, "13" => 13, "14" => 14,
+													"15" => 15, "16" => 16);
+			$VarMapping[DENON_API_Commands::PSAUROST] = $AVRAUROSTArray;	
+		}
+				
+		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+			{
+				// Mainzone Auto Standby STBY 
+				$AVRSTBYArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSTBYArray["ValueMapping"] = array(DENON_API_Commands::STBYOFF => 0, DENON_API_Commands::STBY15M => 1, DENON_API_Commands::STBY30M => 2, DENON_API_Commands::STBY60M => 3);
+				$VarMapping[DENON_API_Commands::STBY] = $AVRSTBYArray;
+				
+				// Mainzone ECO Mode ECO 
+				$AVRECOArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRECOArray["ValueMapping"] = array(DENON_API_Commands::ECOOFF => 0, DENON_API_Commands::ECOAUTO => 1, DENON_API_Commands::ECOON => 2);
+				$VarMapping[DENON_API_Commands::ECO] = $AVRECOArray;
+				
+				// Dimmer DIM
+				$AVRDIMArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRDIMArray["ValueMapping"] = array(DENON_API_Commands::DIMOFF => 0, DENON_API_Commands::DIMDAR => 1, DENON_API_Commands::DIMDIM => 2, DENON_API_Commands::DIMBRI => 3);
+				$VarMapping[DENON_API_Commands::DIM] = $AVRDIMArray;
+
+				// Graphic EQ PSGRAPHICEQ
+				$AVRPSGRAPHICEQArray = array("VarType" => DENONIPSVarType::vtBoolean);
+				$AVRPSGRAPHICEQArray["ValueMapping"] = array(DENON_API_Commands::PSGRAPHICEQON => true, DENON_API_Commands::PSGRAPHICEQOFF => false);
+				$VarMapping[DENON_API_Commands::PSGRAPHICEQ] = $AVRPSGRAPHICEQArray;
+				
+				// Zone 2 Auto Standby Z2STBY 
+				$AVRZ2STBYArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRZ2STBYArray["ValueMapping"] = array(DENON_API_Commands::Z2STBYOFF => 0, DENON_API_Commands::Z2STBY2H => 1, DENON_API_Commands::Z2STBY4H => 2, DENON_API_Commands::Z2STBY8H => 3);
+				$VarMapping[DENON_API_Commands::STBY] = $AVRZ2STBYArray;
+				
+				// Zone 3 Auto Standby Z3STBY 
+				$AVRZ3STBYArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRZ3STBYArray["ValueMapping"] = array(DENON_API_Commands::Z3STBYOFF => 0, DENON_API_Commands::Z3STBY2H => 1, DENON_API_Commands::Z3STBY4H => 2, DENON_API_Commands::Z3STBY8H => 3);
+				$VarMapping[DENON_API_Commands::STBY] = $AVRZ3STBYArray;	
+			}
 		
 		return $VarMapping;
 		
