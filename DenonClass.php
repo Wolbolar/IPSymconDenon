@@ -4923,7 +4923,7 @@ class DenonAVRCP_API_Data extends stdClass
 			$VarMapping[DENON_API_Commands::PSAUROST] = $AVRAUROSTArray;	
 		}
 				
-		if ($Type == "AVR-X7200W" || $Type == "AVR-X5200W" || $Type == "AVR-X4100W" || $Type == "AVR-X3100W" || $Type == "AVR-X2100W" || $Type == "S900W" || $Type == "AVR-X1100W" || $Type == "S700W")
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W")
 			{
 				// Mainzone Auto Standby STBY 
 				$AVRSTBYArray = array("VarType" => DENONIPSVarType::vtInteger);
