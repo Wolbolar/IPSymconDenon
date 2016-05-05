@@ -150,16 +150,16 @@ public function SaveInputVarmapping($MappingInputs)
 				if(!$writeprotected)
 				{
 					$AVRType = $MappingInputs["AVRType"];
-					$JSONInputsMapping = json_encode($InputMapping);
-					SetValue($this->GetIDForIdent("InputMapping"), $JSONInputs);
+					$JSONInputsMapping = json_encode($MappingInputs);
+					SetValue($this->GetIDForIdent("InputMapping"), $JSONInputsMapping);
 					SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 				}
 			}
 			else
 			{
 				$AVRType = $MappingInputs["AVRType"];
-				$JSONInputsMapping = json_encode($InputMapping);
-				SetValue($this->GetIDForIdent("InputMapping"), $JSONInputs);
+				$JSONInputsMapping = json_encode($MappingInputs);
+				SetValue($this->GetIDForIdent("InputMapping"), $JSONInputsMapping);
 				SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 			}	
 			
