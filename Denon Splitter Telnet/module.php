@@ -197,7 +197,7 @@ public function GetInputVarMapping()
 		$Varmapping = array();
 		foreach ($Inputs as $Key => $Input)
 			{
-			$Command = $Input->Source;
+			$Command = $Key;
 			if ($Command == "CBL/SAT")
 			{
 				$Command = "SAT/CBL";
@@ -230,7 +230,7 @@ public function GetInputVarMapping()
 			{
 				$Command = "NET";
 			}
-			$Varmapping[$Command] = $Key;
+			$Varmapping[$Command] = $Input;
 			}
 		return $Varmapping;
 	}	
