@@ -214,6 +214,10 @@ public function GetInputVarMapping()
 			{
 				$Command = "TV";
 			}
+			elseif ($Command == "TV AUDIO")
+				{
+					$Command = "TV";
+				}
 			elseif ($Command == "Bluetooth")
 			{
 				$Command = "BT";

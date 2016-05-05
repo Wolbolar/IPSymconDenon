@@ -247,7 +247,7 @@ class DenonAVRIOHTTP extends IPSModule
 	}
 	
 	// Input
-	public function SaveInputVarmapping($MappingInputs, $AVRType)
+	public function SaveInputVarmapping($MappingInputs)
 		{
 			if ($this->GetIDForIdent("InputMapping"))
 			{
@@ -255,21 +255,23 @@ class DenonAVRIOHTTP extends IPSModule
 				if ($InputsMapping !== "")
 				{
 					$InputsMapping = json_decode($InputsMapping);
-					$AVRType = $InputsMapping->AVRType;
 					$writeprotected = $InputsMapping->writeprotected;
 					if(!$writeprotected)
 					{
+						$MappingInputsArr = json_decode($MappingInputs);
+						$AVRType = $MappingInputsArr->AVRType;
 						SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+						SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 					}
 				}
 				else
 				{
+					$MappingInputsArr = json_decode($MappingInputs);
+					$AVRType = $MappingInputsArr->AVRType;
 					SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
-				}	
-				
+					SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+				}		
 			}
-					
-			SetValue($this->GetIDForIdent("AVRType"), $AVRType); 		
 		}
 
 	public function GetInputVarMapping()
@@ -297,6 +299,10 @@ class DenonAVRIOHTTP extends IPSModule
 					$Command = "USB/IPOD";
 				}
 				elseif ($Command == "TVAUDIO")
+				{
+					$Command = "TV";
+				}
+				elseif ($Command == "TV AUDIO")
 				{
 					$Command = "TV";
 				}
