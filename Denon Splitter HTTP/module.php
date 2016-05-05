@@ -99,9 +99,9 @@ class DenonSplitterHTTP extends IPSModule
         */
 
 // Input
-public function SaveInputVarmapping($MappingInputs, $AVRType)
+public function SaveInputVarmapping($MappingInputs)
 	{
-		DAVRIO_SaveInputVarmapping($this->GetParent(), $MappingInputs, $AVRType);
+		DAVRIO_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 	}
 
 public function GetInputVarMapping()
