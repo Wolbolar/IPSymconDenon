@@ -162,6 +162,24 @@ public function SaveInputVarmapping($MappingInputs, $AVRType)
 		SetValue($this->GetIDForIdent("AVRType"), $AVRType); 	
 	}
 
+public function GetInputArrayStatus()
+	{
+		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+		$InputsMapping = json_decode($InputsMapping);
+		//Varmapping generieren
+		$AVRType = $InputsMapping->AVRType;
+		$writeprotected = $InputsMapping->writeprotected;
+		$Inputs = $InputsMapping->Inputs;
+		$Varmapping = array();
+		foreach ($Inputs as $Key => $Input)
+			{
+			$Command = $Input->Source;
+			$Varmapping[$Command] = $Key;
+			}
+		$InputArray	= array("AVRType" => $AVRType, "Writeprotected" => $writeprotected, "Inputs" => $Inputs);
+		return $InputArray;
+	}	
+	
 public function GetInputVarMapping()
 	{
 		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
