@@ -198,6 +198,10 @@ public function GetInputVarMapping()
 			{
 				$Command = "BD";
 			}
+			elseif ($Command == "Online Music")
+			{
+				$Command = "NET";
+			}
 			$Varmapping[$Command] = $Key;
 			}
 		return $Varmapping;

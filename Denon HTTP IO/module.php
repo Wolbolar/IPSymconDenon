@@ -287,6 +287,14 @@ class DenonAVRIOHTTP extends IPSModule
 				{
 					$Command = "BT";
 				}
+				elseif ($Command == "Blu-ray")
+				{
+					$Command = "BD";
+				}
+				elseif ($Command == "Online Music")
+				{
+					$Command = "NET";
+				}
 				$Varmapping[$Command] = $Key;
 				}
 			return $Varmapping;
