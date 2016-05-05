@@ -285,7 +285,7 @@ class DenonAVRIOHTTP extends IPSModule
 			$Varmapping = array();
 			foreach ($Inputs as $Key => $Input)
 				{
-				$Command = $Input->Source;
+				$Command = $Key;
 				if ($Command == "CBL/SAT")
 				{
 					$Command = "SAT/CBL";
@@ -318,7 +318,7 @@ class DenonAVRIOHTTP extends IPSModule
 				{
 					$Command = "NET";
 				}
-				$Varmapping[$Command] = $Key;
+				$Varmapping[$Command] = $Input;
 				}
 			return $Varmapping;
 		}
