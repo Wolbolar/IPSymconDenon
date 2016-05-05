@@ -486,7 +486,7 @@ class DenonAVRHTTP extends IPSModule
 		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		//Input ablegen
 		$MappingInputs = json_encode($this->VarMappingInputs);
-		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRVar->AVRType);
+		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 	}
 	
 	public function GetInputSources()
@@ -537,7 +537,7 @@ class DenonAVRHTTP extends IPSModule
 		//Input ablegen
 		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$MappingInputs = json_encode($this->VarMappingInputs);
-		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs, $DenonAVRUpdate->AVRType);
+		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 	}
 	
 	protected function HasActiveParent()
