@@ -95,6 +95,23 @@ class DenonAVRIOHTTP extends IPSModule
 		}
 	}
 
+	public function GetInputArrayStatus()
+	{
+		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+		$InputsMapping = json_decode($InputsMapping);
+		//Varmapping generieren
+		$AVRType = $InputsMapping->AVRType;
+		$writeprotected = $InputsMapping->writeprotected;
+		$Inputs = $InputsMapping->Inputs;
+		$Varmapping = array();
+		foreach ($Inputs as $Key => $Input)
+			{
+			$Command = $Input->Source;
+			$Varmapping[$Command] = $Key;
+			}
+		$InputArray	= array("AVRType" => $AVRType, "Writeprotected" => $writeprotected, "Inputs" => $Inputs);
+		return $InputArray;
+	}		
 ################## Datapoints
  
 	
@@ -230,17 +247,76 @@ class DenonAVRIOHTTP extends IPSModule
 	}
 	
 	// Input
-	public function SaveInputVarmapping($MappingInputs, $AVRType)
+	public function SaveInputVarmapping($MappingInputs)
 		{
-			SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
-			SetValue($this->GetIDForIdent("AVRType"), $AVRType);	
+			if ($this->GetIDForIdent("InputMapping"))
+			{
+				$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
+				if ($InputsMapping !== "")
+				{
+					$InputsMapping = json_decode($InputsMapping);
+					$writeprotected = $InputsMapping->writeprotected;
+					if(!$writeprotected)
+					{
+						$MappingInputsArr = json_decode($MappingInputs);
+						$AVRType = $MappingInputsArr->AVRType;
+						SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+						SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+					}
+				}
+				else
+				{
+					$MappingInputsArr = json_decode($MappingInputs);
+					$AVRType = $MappingInputsArr->AVRType;
+					SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+					SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+				}		
+			}
 		}
 
 	public function GetInputVarMapping()
 		{
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 			$InputsMapping = json_decode($InputsMapping);
-			return $InputsMapping;
+			//Varmapping generieren
+			$AVRType = $InputsMapping->AVRType;
+			$writeprotected = $InputsMapping->writeprotected;
+			$Inputs = $InputsMapping->Inputs;
+			$Varmapping = array();
+			foreach ($Inputs as $Key => $Input)
+				{
+				$Command = $Input->Source;
+				if ($Command == "CBL/SAT")
+				{
+					$Command = "SAT/CBL";
+				}
+				elseif ($Command == "MediaPlayer")
+				{
+					$Command = "MPLAY";
+				}
+				elseif ($Command == "iPod/USB")
+				{
+					$Command = "USB/IPOD";
+				}
+				elseif ($Command == "TVAUDIO")
+				{
+					$Command = "TV";
+				}
+				elseif ($Command == "Bluetooth")
+				{
+					$Command = "BT";
+				}
+				elseif ($Command == "Blu-ray")
+				{
+					$Command = "BD";
+				}
+				elseif ($Command == "Online Music")
+				{
+					$Command = "NET";
+				}
+				$Varmapping[$Command] = $Key;
+				}
+			return $Varmapping;
 		}
 	
 	protected function GetAVRType()
@@ -275,4 +351,4 @@ class DenonAVRIOHTTP extends IPSModule
 
 }
 
-?>
+?> 
