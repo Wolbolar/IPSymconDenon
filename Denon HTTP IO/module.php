@@ -302,6 +302,10 @@ class DenonAVRIOHTTP extends IPSModule
 				{
 					$Command = "TV";
 				}
+				elseif ($Command == "TV AUDIO")
+				{
+					$Command = "TV";
+				}
 				elseif ($Command == "Bluetooth")
 				{
 					$Command = "BT";
@@ -351,4 +355,4 @@ class DenonAVRIOHTTP extends IPSModule
 
 }
 
-?> 
+?>
