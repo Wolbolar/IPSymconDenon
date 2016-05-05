@@ -137,7 +137,7 @@ class DenonSplitterTelnet extends IPSModule
 	}
 
 	// Input
-public function SaveInputVarmapping($MappingInputs, $AVRType)
+public function SaveInputVarmapping($MappingInputs)
 	{
 		if ($this->GetIDForIdent("InputMapping"))
 		{
@@ -145,21 +145,25 @@ public function SaveInputVarmapping($MappingInputs, $AVRType)
 			if ($InputsMapping !== "")
 			{
 				$InputsMapping = json_decode($InputsMapping);
-				$AVRType = $InputsMapping->AVRType;
+				//$AVRType = $InputsMapping->AVRType;
 				$writeprotected = $InputsMapping->writeprotected;
 				if(!$writeprotected)
 				{
 					SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+					$AVRType = $MappingInputs["AVRType"];
+					SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 				}
 			}
 			else
 			{
 				SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+				$AVRType = $MappingInputs["AVRType"];
+				SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 			}	
 			
 		}
 					
-		SetValue($this->GetIDForIdent("AVRType"), $AVRType); 	
+		 	
 	}
 
 public function GetInputArrayStatus()
