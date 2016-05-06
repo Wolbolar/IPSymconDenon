@@ -320,7 +320,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
-				$this->UpdateInputProfile();
+				//$this->UpdateInputProfile();
 			}
 			else
 			{
