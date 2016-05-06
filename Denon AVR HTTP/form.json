@@ -44,7 +44,7 @@
 				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen" },
 				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen" },
 				
-				{ "type": "Label", "label": "Weitere Inputs":" },
+				{ "type": "Label", "label": "Weitere Inputs:" },
 				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
 				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
 				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
