@@ -172,7 +172,7 @@ class DENONIPSProfiles extends stdClass
 	public function GetInputSources(integer $Zone, string $AVRType, boolean $FAVORITES, boolean $IRADIO, boolean $SERVER)
 	{
 		
-		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310")
+		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310" || "AVR-1912")
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -221,7 +221,7 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808A" || "AVR-1912")
+		elseif($AVRType == "AVR-3808A")
 		{
 			$Inputsources = $this->StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER);
 			return $Inputsources;
