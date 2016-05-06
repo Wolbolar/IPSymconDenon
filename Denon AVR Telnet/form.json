@@ -31,7 +31,7 @@
 									{ "value": 20, "label": "AVR-6200W" },
 									{ "value": 21, "label": "AVR-7200W" },
 									{ "value": 22, "label": "AVR-7200WA" },
-									{ "value": 23, "label": "Marantz NR1605" },
+									{ "value": 23, "label": "Marantz-NR1605" },
 									{ "value": 24, "label": "S-700W" },
 									{ "value": 25, "label": "S-900W" }
 								  ]
@@ -50,7 +50,7 @@
 				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
 				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
 				
-				{ "type": "Label", "label": "Ergänzende Inputs":" },
+				{ "type": "Label", "label": "Weitere Inputs":" },
 				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
 				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
 				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
