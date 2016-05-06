@@ -318,7 +318,7 @@ class DenonAVRIOHTTP extends IPSModule
 				{
 					$Command = "NET";
 				}
-				$Varmapping[$Input] = $Command;
+				$Varmapping[$Key] = $Command;
 				}
 			return $Varmapping;
 		}

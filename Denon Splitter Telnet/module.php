@@ -230,7 +230,7 @@ public function GetInputVarMapping()
 			{
 				$Command = "NET";
 			}
-			$Varmapping[$Command] = $Input;
+			$Varmapping[$Key] = $Command;
 			}
 		return $Varmapping;
 	}	
