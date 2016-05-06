@@ -320,13 +320,13 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				$this->UpdateInputProfile();
 			}
 			else
 			{
 				$this->InputSources = false;
 			}
-			
-			
+						
 			//String
 			$vString = array
 				(
@@ -521,6 +521,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				$this->UpdateInputProfile();
 			}
 			else
 			{
@@ -607,6 +608,7 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				$this->UpdateInputProfile();
 			}
 			else
 			{

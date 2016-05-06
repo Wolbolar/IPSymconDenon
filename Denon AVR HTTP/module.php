@@ -177,6 +177,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				$this->UpdateInputProfile();
 			}
 			else
 			{
@@ -309,7 +310,8 @@ class DenonAVRHTTP extends IPSModule
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
-				$this->GetInputsAVR($DenonAVRVar); 
+				$this->GetInputsAVR($DenonAVRVar);
+				$this->UpdateInputProfile();				
 			}
 			else
 			{
@@ -386,6 +388,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				$this->UpdateInputProfile();
 			}
 			else
 			{
