@@ -48,6 +48,9 @@
 				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
 				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
 				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
+				{ "type": "CheckBox", "name": "NAPSTER", "caption": "Napster" },
+				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
+				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
 				
 				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },

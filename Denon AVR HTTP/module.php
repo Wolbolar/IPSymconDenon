@@ -39,6 +39,9 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyBoolean("FAVORITES", false);
 		$this->RegisterPropertyBoolean("IRADIO", false);
 		$this->RegisterPropertyBoolean("SERVER", false);
+		$this->RegisterPropertyBoolean("NAPSTER", false);
+		$this->RegisterPropertyBoolean("LASTFM", false);
+		$this->RegisterPropertyBoolean("FLICKR", false);
     }
 
 
@@ -490,7 +493,10 @@ class DenonAVRHTTP extends IPSModule
 		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
 		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
 		$SERVER = $this->ReadPropertyBoolean('SERVER');
-		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType, $FAVORITES, $IRADIO, $SERVER);
+		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		//Input ablegen
 		$MappingInputs = json_encode($this->VarMappingInputs);
@@ -509,7 +515,10 @@ class DenonAVRHTTP extends IPSModule
 		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
 		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
 		$SERVER = $this->ReadPropertyBoolean('SERVER');
-		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER);
+		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 		return $InputSources;
 	}
 	
@@ -525,7 +534,10 @@ class DenonAVRHTTP extends IPSModule
 		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
 		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
 		$SERVER = $this->ReadPropertyBoolean('SERVER');
-		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER);
+		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 		
 		//Inputs anlegen
 		if($this->InputSources !== false)
