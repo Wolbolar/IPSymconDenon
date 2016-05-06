@@ -197,7 +197,7 @@ public function GetInputVarMapping()
 		$Varmapping = array();
 		foreach ($Inputs as $Key => $Input)
 			{
-			$Command = $Key;
+			$Command = $Input->Source;
 			if ($Command == "CBL/SAT")
 			{
 				$Command = "SAT/CBL";

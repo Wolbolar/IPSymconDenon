@@ -45,7 +45,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
    Über das 'Modul Control' in IP-Symcon (Ver. 4.x) folgende URL hinzufügen:
 	
-    `https://gitlab.com/Fonzo/ipsymcondenon.git`  
+    `https://github.com/Wolbolar/IPSymconDenon`  
 
 ### b. Einrichtung in IPS
 
