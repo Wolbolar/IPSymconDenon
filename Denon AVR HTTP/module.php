@@ -34,6 +34,14 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
+		
+		//Zusätzliche Inputs
+		$this->RegisterPropertyBoolean("FAVORITES", false);
+		$this->RegisterPropertyBoolean("IRADIO", false);
+		$this->RegisterPropertyBoolean("SERVER", false);
+		$this->RegisterPropertyBoolean("NAPSTER", false);
+		$this->RegisterPropertyBoolean("LASTFM", false);
+		$this->RegisterPropertyBoolean("FLICKR", false);
     }
 
 
@@ -169,6 +177,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				//$this->UpdateInputProfile();
 			}
 			else
 			{
@@ -301,7 +310,8 @@ class DenonAVRHTTP extends IPSModule
 			//Variablen
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
-				$this->GetInputsAVR($DenonAVRVar); 
+				$this->GetInputsAVR($DenonAVRVar);
+				//$this->UpdateInputProfile();				
 			}
 			else
 			{
@@ -378,6 +388,7 @@ class DenonAVRHTTP extends IPSModule
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
+				//$this->UpdateInputProfile();
 			}
 			else
 			{
@@ -482,7 +493,13 @@ class DenonAVRHTTP extends IPSModule
 	private function GetInputsAVR($DenonAVRVar)
 	{
 		$DenonAVRVar->DenonIP = $this->GetIPDenon();
-		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		//Input ablegen
 		$MappingInputs = json_encode($this->VarMappingInputs);
@@ -498,7 +515,13 @@ class DenonAVRHTTP extends IPSModule
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Inputsource';
 		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
 		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 		return $InputSources;
 	}
 	
@@ -511,7 +534,13 @@ class DenonAVRHTTP extends IPSModule
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Inputsource';
 		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
 		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 		
 		//Inputs anlegen
 		if($this->InputSources !== false)

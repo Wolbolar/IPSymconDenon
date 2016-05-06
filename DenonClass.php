@@ -169,10 +169,10 @@ class DENONIPSProfiles extends stdClass
 	public $ptZONE3AutoStandbySetting;
 	
 	
-	public function GetInputSources(integer $Zone, string $AVRType)
+	public function GetInputSources(integer $Zone, string $AVRType, boolean $FAVORITES, boolean $IRADIO, boolean $SERVER, boolean $NAPSTER, boolean $LASTFM, boolean $FLICKR)
 	{
 		
-		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310")
+		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310" || "AVR-1912")
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -180,7 +180,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlMainZone)
 					{
 					$RenameType = 1;	
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType);
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 					return $Inputsources;
 					}
 				else
@@ -195,7 +195,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone2)
 						{
 						$RenameType = 1;
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType);
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -211,7 +211,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone3)
 						{
 						$RenameType = 1;	
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType);
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 						return $InputsourcesZ3;
 						}
 					else
@@ -221,9 +221,9 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808A" || "AVR-1912")
+		elseif($AVRType == "AVR-3808A")
 		{
-			$Inputsources = $this->StandardInputSources($AVRType);
+			$Inputsources = $this->StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 			return $Inputsources;
 		}
 		elseif($AVRType == "AVR-3312" || $AVRType == "AVR-2313" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
@@ -234,7 +234,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlMainZone)
 					{
 					$RenameType = 2;	
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType);
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 					return $Inputsources;
 					}
 				else
@@ -249,7 +249,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone2)
 						{
 						$RenameType = 2;	
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType);
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -265,7 +265,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone3)
 						{
 						$RenameType = 2;	
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType);
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 						return $InputsourcesZ3;
 						}
 					else
@@ -279,7 +279,7 @@ class DENONIPSProfiles extends stdClass
 		
 	}
 
-	protected function StandardInputSources($AVRType)
+	protected function StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR)
 	{
 		$UsedInputSources =  array(
 				"Ident" => "SI",
@@ -339,7 +339,7 @@ class DENONIPSProfiles extends stdClass
 				return $UsedInputSources;	
 	}
 	
-	protected function ReadInputSources($Zone, $xml, $RenameType, $AVRType)
+	protected function ReadInputSources($Zone, $xml, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR)
 	{
 		//Inputs
 		$InputFuncList = $xml->xpath('.//InputFuncList');
@@ -396,6 +396,38 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $RenameSource);
 				$Associations[] = array($Value, $SourceInput,  "", -1);
 				}
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countAssociations = count($Associations);
+						$Associations[$countAssociations] = array($countAssociations, "Favoriten",  "", -1);
+					}
+				if($IRADIO)
+					{
+						$countAssociations = count($Associations);
+						$Associations[$countAssociations] = array($countAssociations, "Internet Radio",  "", -1);
+					}
+				if($SERVER)
+					{
+						$countAssociations = count($Associations);
+						$Associations[ $countAssociations] = array($countAssociations, "Server",  "", -1);
+					}
+				if($NAPSTER)
+					{
+						$countAssociations = count($Associations);
+						$Associations[$countAssociations] = array($countAssociations, "Napster",  "", -1);
+					}
+				if($LASTFM)
+					{
+						$countAssociations = count($Associations);
+						$Associations[$countAssociations] = array($countAssociations, "LastFM",  "", -1);
+					}
+				if($FLICKR)
+					{
+						$countAssociations = count($Associations);
+						$Associations[$countAssociations] = array($countAssociations, "Flickr",  "", -1);
+					}
+				
 				$UsedInputSources["Associations"] = $Associations;
 				
 				$this->UsedInputSources = $UsedInputSources;
@@ -409,7 +441,38 @@ class DENONIPSProfiles extends stdClass
 				$RenameSourceInput = str_replace(" ", "", $RenameSource);
 				$InputSourcesMapping[$Value] = array ("Source" => $SourceInput, "RenameSource" => $RenameSourceInput) ;
 				}
-				
+				//Zusätzliche Inputs
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countInputSourcesMapping = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "FAVORITES", "RenameSource" => "Favoriten");
+					}
+				if($IRADIO)
+					{
+						$countInputSourcesMapping = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "IRADIO", "RenameSource" => "Internet Radio");
+					}
+				if($SERVER)
+					{
+						$countInputSourcesMapping = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "SERVER", "RenameSource" => "Server");
+					}
+				if($NAPSTER)
+					{
+						$countInputSourcesMapping = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "NAPSTER", "RenameSource" => "Napster");
+					}
+				if($LASTFM)
+					{
+						$countInputSourcesMapping = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "LASTFM", "RenameSource" => "LastFM");
+					}
+				if($FLICKR)
+					{
+						$countInputSourcesMapping = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "FLICKR", "RenameSource" => "Flickr");
+					}
 				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
 				
 				$this->VarMappingInputSources = $InputMapping;

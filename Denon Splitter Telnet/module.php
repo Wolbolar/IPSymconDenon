@@ -145,7 +145,6 @@ public function SaveInputVarmapping($MappingInputs)
 			if ($InputsMapping !== "")
 			{
 				$InputsMapping = json_decode($InputsMapping);
-				//$AVRType = $InputsMapping->AVRType;
 				$writeprotected = $InputsMapping->writeprotected;
 				if(!$writeprotected)
 				{
