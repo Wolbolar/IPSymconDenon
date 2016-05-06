@@ -7,6 +7,7 @@
 				{ "type": "Label", "label": "AV Receiver Typ:" },
 				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
 						"options": [
+									{ "value": 26, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-2313" },
 									{ "value": 1, "label": "AVR-3312" },
 									{ "value": 2, "label": "AVR-3313" },
