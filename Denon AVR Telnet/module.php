@@ -1013,6 +1013,47 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function GetStates()
 	{
+		if (IPS_HasChildren($this->InstanceID))
+		{
+		$AVRVarIDs = IPS_GetChildrenIDs ($this->InstanceID);
+		//Hidden nicht abfragen
+		foreach ($AVRVarIDs as $id => $ObjektID)
+			{
+			$ObjektIDInfo = IPS_GetObject($ObjektID);
+			$hidden = $ObjektIDInfo["ObjectIsHidden"];
+				if ($hidden)
+				{
+				unset($AVRVarIDs[$id]);
+				}
+			}
+		//Array Ident erzeugen
+		$AVRCommands = array_flip($AVRVarIDs);
+		
+		foreach ($AVRCommands as $ObjektID => $id)
+			{
+			$ObjektIDInfo = IPS_GetObject($ObjektID);
+			$Ident = $ObjektIDInfo["ObjectIdent"];
+			$AVRCommands[$ObjektID] = $Ident;
+			}
+
+		//$timestamp = time();
+		foreach ($AVRCommands as $ObjektID => $Ident)
+			{
+				$Name = IPS_GetName($ObjektID);
+				IPS_LogMessage('Denon Update: ', $Name);
+				if ($Ident == "PSCINEMA_EQ")
+				{
+					$Ident = "PSCINEMA EQ.";
+				}
+				$command = $Ident.chr(63);
+				$this->SendCommand($command);
+				IPS_Sleep(100);  
+				}
+		
+		}
+		
+		
+		/*
 		$states  = array ("Power" => "PW", "Volume" => "MV", "Mute" => "MU", "Channel Volume" => "CV",
 		"Input" => "SI", "Main Zone Power" => "ZM", "Rec Select" => "SR", "Input Mode" => "SD",
 		"Digital Input" => "DC", "Video Select" => "SV", "Sleep" => "SLP", "Surround Mode" => "MS",
@@ -1032,15 +1073,7 @@ class DenonAVRTelnet extends IPSModule
 		"Zone 2 Sleep" => "Z2SLP",	"Zone 3" => "Z3", "Zone 3 Mute" => "Z3MU", "Zone 3 Channel Setting" => "Z3CS", "Zone 3 Channel Volume" => "Z3CV",
 		"Zone 3 HPF" => "Z3HPF", "Zone 3 Bass" => "Z3PSBAS ", "Zone 3 Treble" => "Z3PSTRE ", "Zone 3 Quick" => "Z3QUICK "
 		);
-		
-		foreach ($states as $name => $command)
-		{
-			IPS_LogMessage('Denon Update: ', $name);
-			$command = $command.chr(63);
-			$this->SendCommand($command);
-			IPS_Sleep(100);  
-		}
-		
+		*/
 		
 	}
 	
