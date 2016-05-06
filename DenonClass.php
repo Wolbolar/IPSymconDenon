@@ -169,7 +169,7 @@ class DENONIPSProfiles extends stdClass
 	public $ptZONE3AutoStandbySetting;
 	
 	
-	public function GetInputSources(integer $Zone, string $AVRType)
+	public function GetInputSources(integer $Zone, string $AVRType, boolean $FAVORITES, boolean $IRADIO, boolean $SERVER)
 	{
 		
 		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310")
@@ -180,7 +180,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlMainZone)
 					{
 					$RenameType = 1;	
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType);
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER);
 					return $Inputsources;
 					}
 				else
@@ -195,7 +195,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone2)
 						{
 						$RenameType = 1;
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType);
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -211,7 +211,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone3)
 						{
 						$RenameType = 1;	
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType);
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER);
 						return $InputsourcesZ3;
 						}
 					else
@@ -223,7 +223,7 @@ class DENONIPSProfiles extends stdClass
 		}
 		elseif($AVRType == "AVR-3808A" || "AVR-1912")
 		{
-			$Inputsources = $this->StandardInputSources($AVRType);
+			$Inputsources = $this->StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER);
 			return $Inputsources;
 		}
 		elseif($AVRType == "AVR-3312" || $AVRType == "AVR-2313" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
@@ -234,7 +234,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlMainZone)
 					{
 					$RenameType = 2;	
-					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType);
+					$Inputsources = $this->ReadInputSources($Zone, $xmlMainZone, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER);
 					return $Inputsources;
 					}
 				else
@@ -249,7 +249,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone2)
 						{
 						$RenameType = 2;	
-						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType);
+						$InputsourcesZ2 = $this->ReadInputSources($Zone, $xmlZone2, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER);
 						return $InputsourcesZ2;	
 						}
 					else
@@ -265,7 +265,7 @@ class DENONIPSProfiles extends stdClass
 				if ($xmlZone3)
 						{
 						$RenameType = 2;	
-						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType);
+						$InputsourcesZ3 = $this->ReadInputSources($Zone, $xmlZone3, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER);
 						return $InputsourcesZ3;
 						}
 					else
@@ -279,7 +279,7 @@ class DENONIPSProfiles extends stdClass
 		
 	}
 
-	protected function StandardInputSources($AVRType)
+	protected function StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER)
 	{
 		$UsedInputSources =  array(
 				"Ident" => "SI",
@@ -339,7 +339,7 @@ class DENONIPSProfiles extends stdClass
 				return $UsedInputSources;	
 	}
 	
-	protected function ReadInputSources($Zone, $xml, $RenameType, $AVRType)
+	protected function ReadInputSources($Zone, $xml, $RenameType, $AVRType, $FAVORITES, $IRADIO, $SERVER)
 	{
 		//Inputs
 		$InputFuncList = $xml->xpath('.//InputFuncList');

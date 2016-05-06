@@ -44,6 +44,10 @@
 				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen" },
 				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen" },
 				
+				{ "type": "Label", "label": "Ergänzende Inputs":" },
+				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
+				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
+				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
 				
 				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },

@@ -34,6 +34,11 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
+		
+		//Zusätzliche Inputs
+		$this->RegisterPropertyBoolean("FAVORITES", false);
+		$this->RegisterPropertyBoolean("IRADIO", false);
+		$this->RegisterPropertyBoolean("SERVER", false);
     }
 
 
@@ -482,7 +487,10 @@ class DenonAVRHTTP extends IPSModule
 	private function GetInputsAVR($DenonAVRVar)
 	{
 		$DenonAVRVar->DenonIP = $this->GetIPDenon();
-		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType, $FAVORITES, $IRADIO, $SERVER);
 		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		//Input ablegen
 		$MappingInputs = json_encode($this->VarMappingInputs);
@@ -498,7 +506,10 @@ class DenonAVRHTTP extends IPSModule
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Inputsource';
 		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
 		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER);
 		return $InputSources;
 	}
 	
@@ -511,7 +522,10 @@ class DenonAVRHTTP extends IPSModule
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Inputsource';
 		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
 		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER);
 		
 		//Inputs anlegen
 		if($this->InputSources !== false)

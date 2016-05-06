@@ -49,6 +49,12 @@
 				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
 				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
 				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
+				
+				{ "type": "Label", "label": "Ergänzende Inputs":" },
+				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
+				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
+				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
+				
 				{ "type": "Label", "label": "Main Zone:" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
 				{ "type": "Label", "label": "Lautsprecher:" },

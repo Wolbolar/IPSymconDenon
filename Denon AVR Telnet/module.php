@@ -135,6 +135,11 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("BackDolbyLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W
 		$this->RegisterPropertyBoolean("BackDolbyRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W
 		
+		//Zusätzliche Inputs
+		$this->RegisterPropertyBoolean("FAVORITES", false);
+		$this->RegisterPropertyBoolean("IRADIO", false);
+		$this->RegisterPropertyBoolean("SERVER", false);
+		
 		
     }
 	
@@ -310,6 +315,7 @@ class DenonAVRTelnet extends IPSModule
 				
 			
 			//Variablen
+			//Get Inputs
 			if ($this->GetIPDenon() !== false && $Zone !== 6)
 			{
 				$this->GetInputsAVR($DenonAVRVar);
@@ -719,7 +725,10 @@ class DenonAVRTelnet extends IPSModule
 	private function GetInputsAVR($DenonAVRVar)
 	{
 		$DenonAVRVar->DenonIP = $this->GetIPDenon();
-		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$this->InputSources = $DenonAVRVar->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRVar->AVRType, $FAVORITES, $IRADIO, $SERVER);
 		$this->VarMappingInputs = $DenonAVRVar->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$Inputs = $this->VarMappingInputs;
 		//Input ablegen
@@ -743,7 +752,10 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Inputsource';
 		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
 		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER);
 		return $InputSources;
 	}
 	
@@ -756,7 +768,10 @@ class DenonAVRTelnet extends IPSModule
 		$DenonAVRUpdate->ptInputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Inputsource';
 		$DenonAVRUpdate->ptZone2InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
 		$DenonAVRUpdate->ptZone3InputSource = 'DENON.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType);
+		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+		$SERVER = $this->ReadPropertyBoolean('SERVER');
+		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER);
 		
 		//Inputs anlegen
 		if($this->InputSources !== false)
@@ -814,7 +829,7 @@ class DenonAVRTelnet extends IPSModule
 				20 => "AVR-X6200W",
 				21 => "AVR-X7200W",
 				22 => "AVR-X7200WA",
-				23 => "Marantz NR1605",
+				23 => "Marantz-NR1605",
 				24 => "S-700W",
 				25 => "S-900W",
 				26 => "AVR-1912");
