@@ -221,7 +221,7 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808A")
+		elseif($AVRType == "AVR-3808A" || "AVR-1912")
 		{
 			$Inputsources = $this->StandardInputSources($AVRType);
 			return $Inputsources;

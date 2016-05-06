@@ -816,10 +816,11 @@ class DenonAVRTelnet extends IPSModule
 				22 => "AVR-X7200WA",
 				23 => "Marantz NR1605",
 				24 => "S-700W",
-				25 => "S-900W");
+				25 => "S-900W",
+				26 => "AVR-1912");
 		
 		/*AVR-1311,AVR-1312,AVR-1507,AVR-1508,AVR-1509,AVR-1513,AVR-1610,AVR-1611,AVR-1705,AVR-1706,AVR-1707,AVR-1708,
-		AVR-1713,AVR-1905,AVR-1906,AVR-1907,AVR-1908,AVR-1909,AVR-1910,AVR-1911,AVR-1912,AVR-2105,AVR-2106,AVR-2113,
+		AVR-1713,AVR-1905,AVR-1906,AVR-1907,AVR-1908,AVR-1909,AVR-1910,AVR-1911, AVR-2105,AVR-2106,AVR-2113,
 		AVR-2307,AVR-2308,AVR-2309,AVR-2310,AVR-2311,AVR-2312,AVR-2313,AVR-2805,AVR-2807,AVR-2808,AVR-2809,AVR-3310,
 		AVR-3311,AVR-3312,AVR-3313,AVR-3805,AVR-3806,AVR-3808A,AVR-4306,AVR-4308A,AVR-4310,AVR-4311,AVR-4520,AVR-4810,
 		AVR-A100,AVR-X1000,AVR-X1100W,AVR-X2000,AVR-X2100W,AVR-X3000,AVR-X3100W,AVR-X4000,AVR-X4100W,AVR-X500,AVR-X7200W,
@@ -1013,6 +1014,47 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function GetStates()
 	{
+		if (IPS_HasChildren($this->InstanceID))
+		{
+		$AVRVarIDs = IPS_GetChildrenIDs ($this->InstanceID);
+		//Hidden nicht abfragen
+		foreach ($AVRVarIDs as $id => $ObjektID)
+			{
+			$ObjektIDInfo = IPS_GetObject($ObjektID);
+			$hidden = $ObjektIDInfo["ObjectIsHidden"];
+				if ($hidden)
+				{
+				unset($AVRVarIDs[$id]);
+				}
+			}
+		//Array Ident erzeugen
+		$AVRCommands = array_flip($AVRVarIDs);
+		
+		foreach ($AVRCommands as $ObjektID => $id)
+			{
+			$ObjektIDInfo = IPS_GetObject($ObjektID);
+			$Ident = $ObjektIDInfo["ObjectIdent"];
+			$AVRCommands[$ObjektID] = $Ident;
+			}
+
+		//$timestamp = time();
+		foreach ($AVRCommands as $ObjektID => $Ident)
+			{
+				$Name = IPS_GetName($ObjektID);
+				IPS_LogMessage('Denon Update: ', $Name);
+				if ($Ident == "PSCINEMA_EQ")
+				{
+					$Ident = "PSCINEMA EQ.";
+				}
+				$command = $Ident.chr(63);
+				$this->SendCommand($command);
+				IPS_Sleep(100);  
+				}
+		
+		}
+		
+		
+		/*
 		$states  = array ("Power" => "PW", "Volume" => "MV", "Mute" => "MU", "Channel Volume" => "CV",
 		"Input" => "SI", "Main Zone Power" => "ZM", "Rec Select" => "SR", "Input Mode" => "SD",
 		"Digital Input" => "DC", "Video Select" => "SV", "Sleep" => "SLP", "Surround Mode" => "MS",
@@ -1032,15 +1074,7 @@ class DenonAVRTelnet extends IPSModule
 		"Zone 2 Sleep" => "Z2SLP",	"Zone 3" => "Z3", "Zone 3 Mute" => "Z3MU", "Zone 3 Channel Setting" => "Z3CS", "Zone 3 Channel Volume" => "Z3CV",
 		"Zone 3 HPF" => "Z3HPF", "Zone 3 Bass" => "Z3PSBAS ", "Zone 3 Treble" => "Z3PSTRE ", "Zone 3 Quick" => "Z3QUICK "
 		);
-		
-		foreach ($states as $name => $command)
-		{
-			IPS_LogMessage('Denon Update: ', $name);
-			$command = $command.chr(63);
-			$this->SendCommand($command);
-			IPS_Sleep(100);  
-		}
-		
+		*/
 		
 	}
 	
