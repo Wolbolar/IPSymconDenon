@@ -494,6 +494,37 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $RenameSource);
 				$AssociationsZ2[] = array(($Value-1), $SourceInput,  "", -1);
 				}
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Favoriten",  "", -1);
+					}
+				if($IRADIO)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Internet Radio",  "", -1);
+					}
+				if($SERVER)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[ $countAssociationsZ2] = array($countAssociationsZ2, "Server",  "", -1);
+					}
+				if($NAPSTER)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Napster",  "", -1);
+					}
+				if($LASTFM)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "LastFM",  "", -1);
+					}
+				if($FLICKR)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Flickr",  "", -1);
+					}
 				$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
 				
 				$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
@@ -503,8 +534,42 @@ class DENONIPSProfiles extends stdClass
 				{
 				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesMapping[$SourceInput] = $Value;
+				$RenameSource = $Input["RenameSource"];
+				$RenameSourceInput = str_replace(" ", "", $RenameSource);
+				$InputSourcesMapping[$Value] = array ("Source" => $SourceInput, "RenameSource" => $RenameSourceInput) ;		
 				}
+				//Zusätzliche Inputs
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "FAVORITES", "RenameSource" => "Favoriten");
+					}
+				if($IRADIO)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "IRADIO", "RenameSource" => "Internet Radio");
+					}
+				if($SERVER)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "SERVER", "RenameSource" => "Server");
+					}
+				if($NAPSTER)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "NAPSTER", "RenameSource" => "Napster");
+					}
+				if($LASTFM)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "LASTFM", "RenameSource" => "LastFM");
+					}
+				if($FLICKR)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "FLICKR", "RenameSource" => "Flickr");
+					}
 				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
 				$this->VarMappingInputSourcesZ2 = $InputMapping;
 				
@@ -525,6 +590,37 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $RenameSource);
 				$AssociationsZ3[] = array(($Value-1), $SourceInput,  "", -1);
 				}
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Favoriten",  "", -1);
+					}
+				if($IRADIO)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Internet Radio",  "", -1);
+					}
+				if($SERVER)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[ $countAssociationsZ3] = array($countAssociationsZ3, "Server",  "", -1);
+					}
+				if($NAPSTER)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Napster",  "", -1);
+					}
+				if($LASTFM)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "LastFM",  "", -1);
+					}
+				if($FLICKR)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Flickr",  "", -1);
+					}
 				$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
 				
 				$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
@@ -536,8 +632,40 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $Source);
 				$InputSourcesMapping[$SourceInput] = $Value;
 				}
-				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputMapping, "Writeprotected" => false );
-				$this->VarMappingInputSourcesZ3 = $InputSourcesMapping;
+				//Zusätzliche Inputs
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "FAVORITES", "RenameSource" => "Favoriten");
+					}
+				if($IRADIO)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "IRADIO", "RenameSource" => "Internet Radio");
+					}
+				if($SERVER)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "SERVER", "RenameSource" => "Server");
+					}
+				if($NAPSTER)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "NAPSTER", "RenameSource" => "Napster");
+					}
+				if($LASTFM)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "LASTFM", "RenameSource" => "LastFM");
+					}
+				if($FLICKR)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "FLICKR", "RenameSource" => "Flickr");
+					}
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
+				$this->VarMappingInputSourcesZ3 = $InputMapping;
 				
 				return $UsedInputSourcesZ3;
 			}
