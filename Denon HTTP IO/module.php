@@ -255,8 +255,8 @@ class DenonAVRIOHTTP extends IPSModule
 				if ($InputsMapping !== "")
 				{
 					$InputsMapping = json_decode($InputsMapping);
-					$writeprotected = $InputsMapping->writeprotected;
-					if(!$writeprotected)
+					$Writeprotected = $InputsMapping->Writeprotected;
+					if(!$Writeprotected)
 					{
 						$MappingInputsArr = json_decode($MappingInputs);
 						$AVRType = $MappingInputsArr->AVRType;
@@ -280,7 +280,7 @@ class DenonAVRIOHTTP extends IPSModule
 			$InputsMapping = json_decode($InputsMapping);
 			//Varmapping generieren
 			$AVRType = $InputsMapping->AVRType;
-			$writeprotected = $InputsMapping->writeprotected;
+			$Writeprotected = $InputsMapping->Writeprotected;
 			$Inputs = $InputsMapping->Inputs;
 			$Varmapping = array();
 			foreach ($Inputs as $Key => $Input)
