@@ -86,10 +86,10 @@ class DenonSplitterTelnet extends IPSModule
 			}
 			
 		// Wenn I/O verbunden ist
-        if (($this->ReadPropertyBoolean('Open'))
-                and ( $this->HasActiveParent($this->GetParent())))
+        if ( ($this->ReadPropertyBoolean('Open')) and ($this->HasActiveParent($this->GetParent())) and ($change == true))
         {
             //Instanz aktiv
+			$this->SetStatus(102);
         }
 		$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRST_GetStatusHTTP($id)');
     }
@@ -249,7 +249,7 @@ public function GetInputVarMapping()
             $parent = IPS_GetInstance($ParentID);
             if ($parent['InstanceStatus'] == 102)
             {
-                $this->SetStatus(102);
+                
                 return true;
             }
         }
