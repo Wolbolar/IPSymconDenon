@@ -77,20 +77,17 @@ class DenonAVRHTTP extends IPSModule
 				{
 					// Status Error Kategorie zum Import auswählen
 					$this->SetStatus(211);
-					$this->SetStatus(104);
 				}
 		}
 		if ($Zone == 6)
 		{
 			// Error Zone auswählen
 			$this->SetStatus(212);
-			$this->SetStatus(104);
 		}
 		if ($AVRType == 50)
 		{
 			// Error AVR Type auswählen
 			$this->SetStatus(213);
-			$this->SetStatus(104);
 		}
 		
 		if ($Zone == 0) //Mainzone
@@ -586,7 +583,7 @@ class DenonAVRHTTP extends IPSModule
             $parent = IPS_GetInstance($instance['ConnectionID']);
             if ($parent['InstanceStatus'] == 102)
             {
-                $this->SetStatus(102);
+                //$this->SetStatus(102);
                 return true;
             }
         }
