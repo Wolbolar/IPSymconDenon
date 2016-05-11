@@ -179,11 +179,6 @@ class DenonAVRTelnet extends IPSModule
 					// Status Error Kategorie zum Import auswählen
 					$this->SetStatus(211);
 				}
-			elseif ( $NEOCategoryID !== 0)	
-				{
-					// AktivStatus Error Kategorie zum Import auswählen
-					$this->SetStatus(102);
-				}
 		}
 		if ($Zone == 6)
 		{

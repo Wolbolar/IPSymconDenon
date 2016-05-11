@@ -78,11 +78,6 @@ class DenonAVRHTTP extends IPSModule
 					// Status Error Kategorie zum Import auswählen
 					$this->SetStatus(211);
 				}
-			elseif ( $NEOCategoryID !== 0)	
-				{
-					// Aktiv
-					$this->SetStatus(102);
-				}
 		}
 		if ($Zone == 6)
 		{
