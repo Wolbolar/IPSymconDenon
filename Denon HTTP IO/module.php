@@ -15,7 +15,7 @@ class DenonAVRIOHTTP extends IPSModule
 		
 		$this->RegisterPropertyBoolean("Open", false);
         $this->RegisterPropertyString("Host", "");
-		$this->RegisterPropertyInteger("UpdateInterval", 30);
+		$this->RegisterPropertyInteger("UpdateInterval", 10);
 		
              
     }
