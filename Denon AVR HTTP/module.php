@@ -51,7 +51,6 @@ class DenonAVRHTTP extends IPSModule
         parent::ApplyChanges();
 		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
         //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
-		$this->SetStatus(101);
 		$this->ValidateConfiguration();
 		
 	}
@@ -65,6 +64,7 @@ class DenonAVRHTTP extends IPSModule
 	
 	private function ValidateConfiguration()
 	{
+		$this->SetStatus(101);
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
 		$AVRType = $this->ReadPropertyInteger('AVRType');
