@@ -14,7 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
-		$this->RegisterPropertyInteger("AVRType", 6);
+		$this->RegisterPropertyInteger("AVRType", 50);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("SurroundDisplay", false);
 		$this->RegisterPropertyBoolean("Navigation", false);

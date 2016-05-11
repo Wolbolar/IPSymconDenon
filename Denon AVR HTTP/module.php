@@ -14,7 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
-		$this->RegisterPropertyInteger("AVRType", 2);
+		$this->RegisterPropertyInteger("AVRType", 50);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("ZoneName", false);
