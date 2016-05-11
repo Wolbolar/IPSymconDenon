@@ -82,7 +82,8 @@ class DenonSplitterTelnet extends IPSModule
 			}	
 		else
 			{
-			$this->SetStatus(204); //IP Adresse ist ungültig 
+			$this->SetStatus(204); //IP Adresse ist ungültig
+			$this->SetStatus(104);	
 			}
 			
 		// Wenn I/O verbunden ist
