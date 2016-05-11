@@ -252,7 +252,7 @@ class DenonAVRIOHTTP extends IPSModule
 			if ($this->GetIDForIdent("InputMapping"))
 			{
 				$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-				if ($InputsMapping !== "")
+				if (($InputsMapping !== "") && ($InputsMapping !== "null"))
 				{
 					$InputsMapping = json_decode($InputsMapping);
 					$Writeprotected = $InputsMapping->Writeprotected;
