@@ -805,11 +805,11 @@ class DenonAVRTelnet extends IPSModule
 			}
 			elseif($DenonAVRUpdate->Zone == 1)
 			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
 			}
 			elseif($DenonAVRUpdate->Zone == 2)
 			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
 			}
 			
 			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
@@ -821,7 +821,8 @@ class DenonAVRTelnet extends IPSModule
 		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$MappingInputs = json_encode($this->VarMappingInputs);
 		DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
-		return $this->InputSources;
+		$Inputs = array( "Inputprofile" => $this->InputSources, "Varmapping" => $MappingInputs)
+		return $Inputs;
 	}
 	
 	private function GetAVRType()
