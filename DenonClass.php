@@ -5338,7 +5338,7 @@ class DenonAVRCP_API_Data extends stdClass
 			{
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2G => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
 															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
 															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
 															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
@@ -5359,7 +5359,7 @@ class DenonAVRCP_API_Data extends stdClass
 			{
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2G => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
 															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
 															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
 															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
