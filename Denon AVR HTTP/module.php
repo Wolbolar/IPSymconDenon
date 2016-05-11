@@ -64,7 +64,6 @@ class DenonAVRHTTP extends IPSModule
 	
 	private function ValidateConfiguration()
 	{
-		$this->SetStatus(101);
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
 		$AVRType = $this->ReadPropertyInteger('AVRType');
