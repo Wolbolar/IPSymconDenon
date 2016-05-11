@@ -150,6 +150,7 @@ class DenonAVRTelnet extends IPSModule
         parent::ApplyChanges();
 		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
         //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		$this->SetStatus(101);
 		$this->ValidateConfiguration();
 		
 	}
@@ -191,7 +192,7 @@ class DenonAVRTelnet extends IPSModule
 			$this->SetStatus(213);
 		}
 		
-		if ($Zone == 0) //Mainzone
+		if (($Zone == 0) && ($AVRType !== 50)) //Mainzone
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -322,10 +323,11 @@ class DenonAVRTelnet extends IPSModule
 			
 			//Variablen
 			//Get Inputs
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -493,7 +495,7 @@ class DenonAVRTelnet extends IPSModule
 			}	
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
-		elseif ($Zone == 1) //Zone 2
+		elseif (($Zone == 1) && ($AVRType !== 50)) //Zone 2
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -524,10 +526,11 @@ class DenonAVRTelnet extends IPSModule
 			
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -582,7 +585,7 @@ class DenonAVRTelnet extends IPSModule
 			
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
-		elseif ($Zone == 2) // Zone 3
+		elseif (($Zone == 2) && ($AVRType !== 50)) // Zone 3
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -612,10 +615,11 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
