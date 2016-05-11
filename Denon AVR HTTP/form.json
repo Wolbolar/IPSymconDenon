@@ -5,7 +5,7 @@
 				{ "type": "Label", "label": "http Steuerung funktioniert bei Modellen ab 2011 beinhaltet aber nicht alle Befehle." },
 				{ "type": "Label", "label": "Denon AV Receiver"},
 				{ "type": "Label", "label": "AV Reciever Typ:" },
-				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
+				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
 						"options": [
 									{ "value": 0, "label": "AVR-3313" },
 									{ "value": 1, "label": "AVR-4310" },

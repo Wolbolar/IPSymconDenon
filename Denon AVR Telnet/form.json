@@ -5,7 +5,7 @@
 				{ "type": "Label", "label": "Telnet Steuerung funktoniert nur von einem einzigen Client aus, mehr Funktionsumfang als HTTP." },
 				{ "type": "Label", "label": "Denon AV Receiver"},
 				{ "type": "Label", "label": "AV Receiver Typ:" },
-				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
+				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
 						"options": [
 									{ "value": 26, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-2313" },

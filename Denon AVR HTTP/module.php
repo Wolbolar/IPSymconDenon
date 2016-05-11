@@ -14,7 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
-		$this->RegisterPropertyInteger("Type", 2);
+		$this->RegisterPropertyInteger("AVRType", 2);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("ZoneName", false);
@@ -88,7 +88,7 @@ class DenonAVRHTTP extends IPSModule
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
-			//Type und Zone
+			//AVRType und Zone
 			$DenonAVRVar->AVRType = $this->GetAVRType();
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptChannelVolumeFL = "DENON.".$DenonAVRVar->AVRType.".ChannelVolumeFL";
@@ -289,7 +289,7 @@ class DenonAVRHTTP extends IPSModule
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
 			$AVRType = $this->GetAVRType();
-			//Type und Zone
+			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->AVRType.'.Power';
@@ -366,7 +366,7 @@ class DenonAVRHTTP extends IPSModule
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
 			$AVRType = $this->GetAVRType();
-			//Type und Zone
+			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->AVRType.'.Power';
@@ -595,7 +595,7 @@ class DenonAVRHTTP extends IPSModule
 		
 	private function GetAVRType()
 	{
-		$TypeInt = $this->ReadPropertyInteger('Type');
+		$TypeInt = $this->ReadPropertyInteger('AVRType');
 		
 		$Types = array(
 				0 => "AVR-3313",
@@ -621,11 +621,11 @@ class DenonAVRHTTP extends IPSModule
 				20 => "S-700W",
 				21 => "S-900W");
 		
-		foreach($Types as $TypeID => $Type)
+		foreach($Types as $TypeID => $AVRType)
 		{
 			if($TypeID == $TypeInt)
 			{
-			   return $Type;
+			   return $AVRType;
 			}
 
 		}		
@@ -800,8 +800,8 @@ class DenonAVRHTTP extends IPSModule
 	
 	public function RequestAction($Ident, $Value)
     {
-        //Type und Zone
-		$AVRType = $this->ReadPropertyInteger('Type');
+        //AVRType und Zone
+		$AVRType = $this->ReadPropertyInteger('AVRType');
 		$Zone = $this->ReadPropertyInteger('Zone');
 		
 		

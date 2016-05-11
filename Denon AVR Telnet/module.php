@@ -14,7 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
-		$this->RegisterPropertyInteger("Type", 6);
+		$this->RegisterPropertyInteger("AVRType", 6);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("SurroundDisplay", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
@@ -191,7 +191,7 @@ class DenonAVRTelnet extends IPSModule
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
 			$AVRType = $this->GetAVRType();
-			//Type und Zone
+			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptChannelVolumeFL = "DENON.".$DenonAVRVar->AVRType.".ChannelVolumeFL";
@@ -493,7 +493,7 @@ class DenonAVRTelnet extends IPSModule
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
 			$AVRType = $this->GetAVRType();
-			//Type und Zone
+			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->AVRType.'.Power';
@@ -581,7 +581,7 @@ class DenonAVRTelnet extends IPSModule
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
 			$AVRType = $this->GetAVRType();
-			//Type und Zone
+			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptPower = 'DENON.'.$DenonAVRVar->AVRType.'.Power';
@@ -815,7 +815,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function GetAVRType()
 	{
-		$TypeInt = $this->ReadPropertyInteger('Type');
+		$TypeInt = $this->ReadPropertyInteger('AVRType');
 		
 		$Types = array(
 				0 => "AVR-2313",
@@ -854,11 +854,11 @@ class DenonAVRTelnet extends IPSModule
 		AVR-X7200WA,AVR-X6200W,AVR-X5200W,AVR-X4200W,AVR-X3200W,AVR-X2200W,AVR-X1200W*/
 		
 		
-		foreach($Types as $TypeID => $Type)
+		foreach($Types as $TypeID => $AVRType)
 		{
 			if($TypeID == $TypeInt)
 			{
-			   return $Type;
+			   return $AVRType;
 			}
 
 		}		
