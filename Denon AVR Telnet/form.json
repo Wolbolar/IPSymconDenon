@@ -5,7 +5,7 @@
 				{ "type": "Label", "label": "Telnet Steuerung funktoniert nur von einem einzigen Client aus, mehr Funktionsumfang als HTTP." },
 				{ "type": "Label", "label": "Denon AV Receiver"},
 				{ "type": "Label", "label": "AV Receiver Typ:" },
-				{ "type": "Select", "name": "Type", "caption": "Typ AVR",
+				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
 						"options": [
 									{ "value": 26, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-2313" },
@@ -49,6 +49,7 @@
 				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
 				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
 				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
+				{ "type": "CheckBox", "name": "SurroundDisplay", "caption": "Detail Anzeige Surround" },
 				
 				{ "type": "Label", "label": "Weitere Inputs:" },
 				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
@@ -138,7 +139,6 @@
 				{ "type": "CheckBox", "name": "Subwoofer", "caption": "Subwoofer" },
 				{ "type": "CheckBox", "name": "SubwooferATT", "caption": "Subwoofer ATT" },
 				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },
-				{ "type": "CheckBox", "name": "SurroundDisplay", "caption": "Detail Anzeige Surround" },
 				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
 				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },
 				{ "type": "CheckBox", "name": "TopSurround", "caption": "Top Surround (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },

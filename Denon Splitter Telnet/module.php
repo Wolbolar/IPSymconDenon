@@ -145,8 +145,8 @@ public function SaveInputVarmapping($MappingInputs)
 			if ($InputsMapping !== "")
 			{
 				$InputsMapping = json_decode($InputsMapping);
-				$writeprotected = $InputsMapping->writeprotected;
-				if(!$writeprotected)
+				$Writeprotected = $InputsMapping->Writeprotected;
+				if(!$Writeprotected)
 				{
 					$MappingInputsArr = json_decode($MappingInputs);
 					$AVRType = $MappingInputsArr->AVRType;
@@ -173,7 +173,7 @@ public function GetInputArrayStatus()
 		$InputsMapping = json_decode($InputsMapping);
 		//Varmapping generieren
 		$AVRType = $InputsMapping->AVRType;
-		$writeprotected = $InputsMapping->writeprotected;
+		$Writeprotected = $InputsMapping->Writeprotected;
 		$Inputs = $InputsMapping->Inputs;
 		$Varmapping = array();
 		foreach ($Inputs as $Key => $Input)
@@ -181,7 +181,7 @@ public function GetInputArrayStatus()
 			$Command = $Input->Source;
 			$Varmapping[$Command] = $Key;
 			}
-		$InputArray	= array("AVRType" => $AVRType, "Writeprotected" => $writeprotected, "Inputs" => $Inputs);
+		$InputArray	= array("AVRType" => $AVRType, "Writeprotected" => $Writeprotected, "Inputs" => $Inputs);
 		return $InputArray;
 	}	
 	
@@ -191,7 +191,7 @@ public function GetInputVarMapping()
 		$InputsMapping = json_decode($InputsMapping);
 		//Varmapping generieren
 		$AVRType = $InputsMapping->AVRType;
-		$writeprotected = $InputsMapping->writeprotected;
+		$Writeprotected = $InputsMapping->Writeprotected;
 		$Inputs = $InputsMapping->Inputs;
 		$Varmapping = array();
 		foreach ($Inputs as $Key => $Input)

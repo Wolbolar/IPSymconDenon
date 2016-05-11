@@ -217,7 +217,7 @@ public function GetInputVarMapping()
 	 
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
-		IPS_LogMessage("ForwardData Denon HTTP Splitter", utf8_decode($data->Buffer));
+		IPS_LogMessage("Forward Data Denon HTTP Splitter", utf8_decode($data->Buffer));
 		$datasend = $data->Buffer;
 		SetValueString($this->GetIDForIdent("CommandOut"), $datasend);
 	 

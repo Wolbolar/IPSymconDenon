@@ -334,7 +334,7 @@ class DENONIPSProfiles extends stdClass
                                  array ("Source" => "USB/IPOD", "RenameSource" => "USB/iPod")
 				);
 				
-				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
 				$this->VarMappingInputSources = $InputMapping;
 				return $UsedInputSources;	
 	}
@@ -473,7 +473,7 @@ class DENONIPSProfiles extends stdClass
 						$countInputSourcesMapping = count($InputSourcesMapping);
 						$InputSourcesMapping[$countInputSourcesMapping] = array ("Source" => "FLICKR", "RenameSource" => "Flickr");
 					}
-				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
 				
 				$this->VarMappingInputSources = $InputMapping;
 				
@@ -494,6 +494,37 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $RenameSource);
 				$AssociationsZ2[] = array(($Value-1), $SourceInput,  "", -1);
 				}
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Favoriten",  "", -1);
+					}
+				if($IRADIO)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Internet Radio",  "", -1);
+					}
+				if($SERVER)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[ $countAssociationsZ2] = array($countAssociationsZ2, "Server",  "", -1);
+					}
+				if($NAPSTER)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Napster",  "", -1);
+					}
+				if($LASTFM)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "LastFM",  "", -1);
+					}
+				if($FLICKR)
+					{
+						$countAssociationsZ2 = count($AssociationsZ2);
+						$Associations[$countAssociationsZ2] = array($countAssociationsZ2, "Flickr",  "", -1);
+					}
 				$UsedInputSourcesZ2["Associations"] = $AssociationsZ2;
 				
 				$this->UsedInputSourcesZ2 = $UsedInputSourcesZ2;
@@ -503,9 +534,43 @@ class DENONIPSProfiles extends stdClass
 				{
 				$Source = $Input["Source"];
 				$SourceInput = str_replace(" ", "", $Source);
-				$InputSourcesMapping[$SourceInput] = $Value;
+				$RenameSource = $Input["RenameSource"];
+				$RenameSourceInput = str_replace(" ", "", $RenameSource);
+				$InputSourcesMapping[$Value] = array ("Source" => $SourceInput, "RenameSource" => $RenameSourceInput) ;		
 				}
-				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "writeprotected" => false );
+				//Zusätzliche Inputs
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "FAVORITES", "RenameSource" => "Favoriten");
+					}
+				if($IRADIO)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "IRADIO", "RenameSource" => "Internet Radio");
+					}
+				if($SERVER)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "SERVER", "RenameSource" => "Server");
+					}
+				if($NAPSTER)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "NAPSTER", "RenameSource" => "Napster");
+					}
+				if($LASTFM)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "LASTFM", "RenameSource" => "LastFM");
+					}
+				if($FLICKR)
+					{
+						$countInputSourcesMappingZ2 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ2] = array ("Source" => "FLICKR", "RenameSource" => "Flickr");
+					}
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
 				$this->VarMappingInputSourcesZ2 = $InputMapping;
 				
 				return $UsedInputSourcesZ2;
@@ -525,6 +590,37 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $RenameSource);
 				$AssociationsZ3[] = array(($Value-1), $SourceInput,  "", -1);
 				}
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Favoriten",  "", -1);
+					}
+				if($IRADIO)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Internet Radio",  "", -1);
+					}
+				if($SERVER)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[ $countAssociationsZ3] = array($countAssociationsZ3, "Server",  "", -1);
+					}
+				if($NAPSTER)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Napster",  "", -1);
+					}
+				if($LASTFM)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "LastFM",  "", -1);
+					}
+				if($FLICKR)
+					{
+						$countAssociationsZ3 = count($AssociationsZ3);
+						$Associations[$countAssociationsZ3] = array($countAssociationsZ3, "Flickr",  "", -1);
+					}
 				$UsedInputSourcesZ3["Associations"] = $AssociationsZ3;
 				
 				$this->UsedInputSourcesZ3 = $UsedInputSourcesZ3;
@@ -536,8 +632,40 @@ class DENONIPSProfiles extends stdClass
 				$SourceInput = str_replace(" ", "", $Source);
 				$InputSourcesMapping[$SourceInput] = $Value;
 				}
-				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputMapping, "writeprotected" => false );
-				$this->VarMappingInputSourcesZ3 = $InputSourcesMapping;
+				//Zusätzliche Inputs
+				//zusätzliche Inputs bei Auswahl
+				if($FAVORITES)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "FAVORITES", "RenameSource" => "Favoriten");
+					}
+				if($IRADIO)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "IRADIO", "RenameSource" => "Internet Radio");
+					}
+				if($SERVER)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "SERVER", "RenameSource" => "Server");
+					}
+				if($NAPSTER)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "NAPSTER", "RenameSource" => "Napster");
+					}
+				if($LASTFM)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "LASTFM", "RenameSource" => "LastFM");
+					}
+				if($FLICKR)
+					{
+						$countInputSourcesMappingZ3 = count($InputSourcesMapping);
+						$InputSourcesMapping[$countInputSourcesMappingZ3] = array ("Source" => "FLICKR", "RenameSource" => "Flickr");
+					}
+				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
+				$this->VarMappingInputSourcesZ3 = $InputMapping;
 				
 				return $UsedInputSourcesZ3;
 			}
@@ -1214,12 +1342,12 @@ class DENONIPSProfiles extends stdClass
 				$ProfilAssociationsMainZone[$DenonAVRVar->ptSurroundMode] = array(
 												"Ident" => DENON_API_Commands::MS,
 												"Name" => "Surround Mode",
-												"Profilesettings" => Array("Melody", "", "", 0, 17, 0, 0),
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
 												"Associations" => Array(
 												Array(0, "Direct",  "", -1),
 												Array(1, "Pure Direct",  "", -1),
 												Array(2, "Stereo",  "", -1),
-												Array(3, "Standard",  "", -1),
+												Array(3, "Auto",  "", -1),
 												Array(4, "Dolby Digital",  "", -1),
 												Array(5, "DTS Surround",  "", -1),
 												Array(6, "Auro 3D",  "", -1),
@@ -1233,7 +1361,10 @@ class DENONIPSProfiles extends stdClass
 												Array(14, "Mono Movie",  "", -1),
 												Array(15, "Matrix",  "", -1),
 												Array(16, "Video Game",  "", -1),
-												Array(17, "Virtual",  "", -1)
+												Array(17, "Virtual",  "", -1),
+												Array(18, "Movie",  "", -1),
+												Array(19, "Music",  "", -1),
+												Array(20, "Game",  "", -1)
 												)
 											);
 			}
@@ -1303,6 +1434,29 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			*/
+			$this->ptSurroundMode => array(
+				"Ident" => DENON_API_Commands::MS,
+				"Name" => "Surround Mode",
+				"Profilesettings" => Array("Melody", "", "", 0, 15, 0, 0),
+				"Associations" => Array(
+				Array(0, "Direct",  "", -1),
+				Array(1, "Pure Direct",  "", -1),
+				Array(2, "Stereo",  "", -1),
+				Array(3, "Standard",  "", -1),
+				Array(4, "Dolby Digital",  "", -1),
+				Array(5, "DTS Surround",  "", -1),
+				Array(6, "Multichannel Stereo",  "", -1),
+				Array(7, "Widescreen",  "", -1),
+				Array(8, "Superstadium",  "", -1),
+				Array(9, "Rock Arena",  "", -1),
+				Array(10, "Jazz Club",  "", -1),
+				Array(11, "Classic Concert",  "", -1),
+				Array(12, "Mono Movie",  "", -1),
+				Array(13, "Matrix",  "", -1),
+				Array(14, "Video Game",  "", -1),
+				Array(15, "Virtual",  "", -1)
+				)
+			),
 			$this->ptNavigation => array(
 				"Ident" => DENON_API_Commands::MN,
 				"Name" => "Navigation",
@@ -1352,7 +1506,35 @@ class DENONIPSProfiles extends stdClass
 												Array(2, "4 h", "", -1),
 												Array(3, "8 h", "", -1)
 												)
-												);				
+												);
+				$ProfilAssociationsZone2[$DenonAVRVar->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Auro 3D",  "", -1),
+												Array(7, "Auro 2D Surround",  "", -1),
+												Array(8, "Multichannel Stereo",  "", -1),
+												Array(9, "Widescreen",  "", -1),
+												Array(10, "Superstadium",  "", -1),
+												Array(11, "Rock Arena",  "", -1),
+												Array(12, "Jazz Club",  "", -1),
+												Array(13, "Classic Concert",  "", -1),
+												Array(14, "Mono Movie",  "", -1),
+												Array(15, "Matrix",  "", -1),
+												Array(16, "Video Game",  "", -1),
+												Array(17, "Virtual",  "", -1),
+												Array(18, "Movie",  "", -1),
+												Array(19, "Music",  "", -1),
+												Array(20, "Game",  "", -1)
+												)
+											);									
 			}
 		
 		$ProfilAssociationsZone2[$this->ptZone2InputSource] = $this->UsedInputSourcesZ2;
@@ -1388,6 +1570,29 @@ class DENONIPSProfiles extends stdClass
 				)
 			),
 			*/
+			$this->ptSurroundMode => array(
+				"Ident" => DENON_API_Commands::MS,
+				"Name" => "Surround Mode",
+				"Profilesettings" => Array("Melody", "", "", 0, 15, 0, 0),
+				"Associations" => Array(
+				Array(0, "Direct",  "", -1),
+				Array(1, "Pure Direct",  "", -1),
+				Array(2, "Stereo",  "", -1),
+				Array(3, "Standard",  "", -1),
+				Array(4, "Dolby Digital",  "", -1),
+				Array(5, "DTS Surround",  "", -1),
+				Array(6, "Multichannel Stereo",  "", -1),
+				Array(7, "Widescreen",  "", -1),
+				Array(8, "Superstadium",  "", -1),
+				Array(9, "Rock Arena",  "", -1),
+				Array(10, "Jazz Club",  "", -1),
+				Array(11, "Classic Concert",  "", -1),
+				Array(12, "Mono Movie",  "", -1),
+				Array(13, "Matrix",  "", -1),
+				Array(14, "Video Game",  "", -1),
+				Array(15, "Virtual",  "", -1)
+				)
+			),
 			$this->ptNavigation => array(
 				"Ident" => DENON_API_Commands::MN,
 				"Name" => "Navigation",
@@ -1437,7 +1642,35 @@ class DENONIPSProfiles extends stdClass
 												Array(2, "4 h", "", -1),
 												Array(3, "8 h", "", -1)
 												)
-												);				
+												);
+				$ProfilAssociationsZone3[$DenonAVRVar->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Auro 3D",  "", -1),
+												Array(7, "Auro 2D Surround",  "", -1),
+												Array(8, "Multichannel Stereo",  "", -1),
+												Array(9, "Widescreen",  "", -1),
+												Array(10, "Superstadium",  "", -1),
+												Array(11, "Rock Arena",  "", -1),
+												Array(12, "Jazz Club",  "", -1),
+												Array(13, "Classic Concert",  "", -1),
+												Array(14, "Mono Movie",  "", -1),
+												Array(15, "Matrix",  "", -1),
+												Array(16, "Video Game",  "", -1),
+												Array(17, "Virtual",  "", -1),
+												Array(18, "Movie",  "", -1),
+												Array(19, "Music",  "", -1),
+												Array(20, "Game",  "", -1)
+												)
+											);											
 			}
 		
 		$ProfilAssociationsZone3[$this->ptZone3InputSource] = $this->UsedInputSourcesZ3;
@@ -3111,7 +3344,7 @@ class DENON_API_Commands extends stdClass
 	const MNSRCON = " ON"; // GUI Menu On
 	const MNSRCOFF = " OFF"; // GUI Menu Off
 	
-	// Surround Modes
+	// Surround Modes Response
 	
 	//Dolby Digital
 	const MSDOLBYPROLOGIC = "MSDOLBY PRO LOGIC"; // DOLBY PRO LOGIC
@@ -3122,7 +3355,9 @@ class DENON_API_Commands extends stdClass
 	const MSDOLBYPL2XM = "MSDOLBY PL2X M"; // DOLBY PL2X M
 	const MSDOLBYPL2XG = "MSDOLBY PL2X G"; // DOLBY PL2X G
 	const MSDOLBYPL2ZH = "MSDOLBY PL2Z H"; // DOLBY PL2Z H
+	const MSDOLBYPL2XH = "MSDOLBY PL2X H"; // DOLBY PL2X H"
 	const MSDOLBYDEX = "MSDOLBY D EX"; // DOLBY D EX
+	const MSDOLBYD = "MSDOLBY D+"; // MSDOLBY D+
 	const MSDOLBYDPL2XC = "MSDOLBY D+PL2X C"; // DOLBY D+PL2X C
 	const MSDOLBYDPL2XM = "MSDOLBY D+PL2X M"; // DOLBY D+PL2X M
 	const MSDOLBYDPL2XH = "MSDOLBY D+PL2X H"; // DOLBY D+PL2X H
@@ -3142,74 +3377,27 @@ class DENON_API_Commands extends stdClass
 	const MSMULTICNIN = "MSMULTI CH IN"; // MULTI CH IN
 	const MSMCHINPL2XC = "MSM CH IN+PL2X C"; // M CH IN+PL2X C
 	const MSMCHINPL2XM = "MSM CH IN+PL2X M"; // M CH IN+PL2X M
-	const MSMCHINPL2ZH = "MSM CH IN+PL2Z H"; // M CH IN+PL2Z H
+	const MSMCHINPL2XH = "MSM CH IN+PL2X H"; // M CH IN+PL2X H
 	const MSDOLBYDPLUS = "MSDOLBY D+"; // DOLBY D+
 	const MSDOLBYDPLUSEX = "MSDOLBY D+ +EX"; // DOLBY D+ +EX
 	const MSDOLBYTRUEHD = "MSDOLBY TRUEHD"; // DOLBY TRUEHD
 	const MSDOLBYHD = "MSDOLBY HD"; // DOLBY HD
 	const MSDOLBYHDEX = "MSDOLBY HD+EX"; // DOLBY HD+EX
+	const MSDOLBYPL2H = "MSDOLBY PL2 H"; // MSDOLBY PL2 H
 	
 	const MSDOLBYSURROUND = "MSDOLBY SURROUND"; // MSDOLBY SURROUND
 	const MSDOLBYATMOS = "MSDOLBY ATMOS"; // MSDOLBY ATMOS
 	const MSDOLBYDIGITALRES = "MSDOLBY DIGITAL"; // MSDOLBY DIGITAL
 	const MSDOLBYDDS = "MSDOLBY D+DS"; // MSDOLBY D+DS
-	/*
-MSDOLBY D+NEO:X C<CR>
-MSDOLBY D+NEO:X M<CR>
-MSDOLBY D+NEO:X G<CR>
-MSDTS SURROUND<CR>
-MSDTS ES DSCRT6.1<CR>
-MSDTS ES MTRX6.1<CR>
-MSDTS+PL2X C<CR>
-MSDTS+PL2X M<CR>
-MSDTS+PL2Z H<CR>
-MSDTS+DS<CR>
-MSDTS96/24<CR>
-MSDTS96 ES MTRX<CR>
-MSDTS+NEO:6<CR>
-MSDTS+NEO:X C<CR>
-MSDTS+NEO:X M<CR>
-MSDTS+NEO:X G<CR>
-MSMULTI CH IN<CR>
-
-
-MSM CH IN+DS<CR>
-
-MSM CH IN+NEO:X C<CR>
-MSM CH IN+NEO:X M<CR>
-MSM CH IN+NEO:X G<CR>
-
-
-MSDOLBY D+ +DS<CR>
-MSDOLBY D+ +NEO:X C<CR>
-MSDOLBY D+ +NEO:X M<CR>
-MSDOLBY D+ +NEO:X G<CR>
-
-
-MSDOLBY HD+DS<CR>
-MSDOLBY HD+NEO:X C<CR>
-MSDOLBY HD+NEO:X M<CR>
-MSDOLBY HD+NEO:X G<CR>
-
-
-MSDTS HD+DS<CR>
-MSDTS HD+NEO:X C<CR>
-MSDTS HD+NEO:X M<CR>
-MSDTS HD+NEO:X G<CR>
-
-
-MSMPEG2 AAC<CR>
-MSAAC+DOLBY EX<CR>
-MSAAC+PL2X C<CR>
-MSAAC+PL2X M<CR>
-MSAAC+PL2Z H<CR>
-MSAAC+DS<CR>
-MSAAC+NEO:X C<CR>
-MSAAC+NEO:X M<CR>
-MSAAC+NEO:X G<CR>
-
-
-	*/
+	const MSMPEG2AAC = "MSMPEG2 AAC"; // MSMPEG2 AAC
+	const MSAACDOLBYEX = "MSAAC+DOLBY EX"; // MSAAC+DOLBY EX
+	const MSAACPL2XC = "MSAAC+PL2X C"; // MSAAC+PL2X C
+	const MSAACPL2XM = "MSAAC+PL2X M"; // MSAAC+PL2X M
+	const MSAACPL2XH = "MSAAC+PL2X H"; // MSAAC+PL2X H
+	const MSAACDS = "MSAAC+DS"; // MSAAC+DS
+	const MSAACNEOXC = "MSAAC+NEO:X C"; // MSAAC+NEO:X C
+	const MSAACNEOXM = "MSAAC+NEO:X M"; // MSAAC+NEO:X M
+	const MSAACNEOXG = "MSAAC+NEO:X G"; // MSAAC+NEO:X G
 	
 	//DTS Surround
 	const MSDTSSURROUNDRES = "MSDTS SURROUND"; // MSDTS SURROUND
@@ -3237,67 +3425,24 @@ MSAAC+NEO:X G<CR>
 	const MSDTSES8CHDSCRT = "MSDTS ES 8CH DSCRT"; // DTS ES 8CH DSCRT
 	const MSDTSEXPRESS = "MSDTS EXPRESS"; // DTS EXPRESS
 	const MSDTSDS = "MSDTS+DS"; // MSDTS+DS
-	/*
-
-
-MSDTS96/24<CR>
-MSDTS96 ES MTRX<CR>
-MSDTS+NEO:6<CR>
-MSDTS+NEO:X C<CR>
-MSDTS+NEO:X M<CR>
-MSDTS+NEO:X G<CR>
-
-
-MSDOLBY D EX<CR>
-MSDOLBY D+PL2X C<CR>
-MSDOLBY D+PL2X M<CR>
-MSDOLBY D+PL2Z H<CR>
-
-MSDOLBY D+NEO:X C<CR>
-MSDOLBY D+NEO:X M<CR>
-MSDOLBY D+NEO:X G<CR>
-MSMULTI CH IN<CR>
-
-
-MSM CH IN+DS<CR>
-
-MSM CH IN+NEO:X C<CR>
-MSM CH IN+NEO:X M<CR>
-MSM CH IN+NEO:X G<CR>
-
-
-
-MSDOLBY D+ +DS<CR>
-MSDOLBY D+ +NEO:X C<CR>
-MSDOLBY D+ +NEO:X M<CR>
-MSDOLBY D+ +NEO:X G<CR>
-
-
-
-MSDOLBY HD+DS<CR>
-MSDOLBY HD+NEO:X C<CR>
-MSDOLBY HD+NEO:X M<CR>
-MSDOLBY HD+NEO:X G<CR>
-
-
-MSDTS HD+DS<CR>
-
-MSDTS HD+NEO:X C<CR>
-MSDTS HD+NEO:X M<CR>
-MSDTS HD+NEO:X G<CR>
-
-
-MSMPEG2 AAC<CR>
-MSAAC+DOLBY EX<CR>
-MSAAC+PL2X C<CR>
-MSAAC+PL2X M<CR>
-MSAAC+PL2Z H<CR>
-MSAAC+DS<CR>
-MSAAC+NEO:X C<CR>
-MSAAC+NEO:X M<CR>
-MSAAC+NEO:X G<CR>
-
-	*/
+	const MSDOLBYDNEOXC = "MSDOLBY D+NEO:X C"; // MSDOLBY D+NEO:X C
+	const MSDOLBYDNEOXM = "MSDOLBY D+NEO:X M"; // MSDOLBY D+NEO:X M
+	const MSDOLBYDNEOXG = "MSDOLBY D+NEO:X G"; // MSDOLBY D+NEO:X G
+	const MSMCHINDS = "MSM CH IN+DS"; // MSM CH IN+DS
+	const MSMCHINNEOXC = "MSM CH IN+NEO:X C"; // MSM CH IN+NEO:X C
+	const MSMCHINNEOXM = "MSM CH IN+NEO:X M"; // MSM CH IN+NEO:X M
+	const MSMCHINNEOXG = "MSM CH IN+NEO:X G"; // MSM CH IN+NEO:G C
+	const MSDOLBYDNEWNEOXC = "MSDOLBY D+ +NEO:X C"; // MSDOLBY D+ +NEO:X C
+	const MSDOLBYDNEWNEOXM = "MSDOLBY D+ +NEO:X M"; // MSDOLBY D+ +NEO:X M
+	const MSDOLBYDNEWNEOXG = "MSDOLBY D+ +NEO:X G"; // MSDOLBY D+ +NEO:X G
+	const MSDOLBYHDDS = "MSDOLBY HD+DS"; // MSDOLBY HD+DS
+	const MSDOLBYHDNEOXC = "MSDOLBY HD+NEO:X C"; // MSDOLBY HD+NEO:X C
+	const MSDOLBYHDNEOXM = "MSDOLBY HD+NEO:X M"; // MSDOLBY HD+NEO:X M
+	const MSDOLBYHDNEOXG = "MSDOLBY HD+NEO:X G"; // MSDOLBY HD+NEO:X G
+	const MSDTSHDDS = "MSDTS HD+DS"; // MSDTS HD+DS
+	const MSDTSHDNEOXC = "MSDTS HD+NEO:X C"; // MSDTS HD+NEO:X C
+	const MSDTSHDNEOXM = "MSDTS HD+NEO:X M"; // MSDTS HD+NEO:X M
+	const MSDTSHDNEOXG = "MSDTS HD+NEO:X G"; // MSDTS HD+NEO:X G
 	
 	//Auro 3D
 	const MSAURO3D = "MSAURO3D"; //MSAURO3D
@@ -3310,6 +3455,116 @@ MSAAC+NEO:X G<CR>
 
 	const MSAUDYSSEYDSX = "MSAUDYSSEY DSX"; // AUDYSSEY DSX
 	
+	// Surround Modes Varmapping
+	
+	//Dolby Digital
+	const DOLBYPROLOGIC = "DOLBY PRO LOGIC"; // DOLBY PRO LOGIC
+	const DOLBYPL2C = "DOLBY PL2 C"; // DOLBY PL2 C
+	const DOLBYPL2M = "DOLBY PL2 M"; // DOLBY PL2 M
+	const DOLBYPL2G = "DOLBY PL2 G"; // DOLBY PL2 G
+	const DOLBYPL2XC = "DOLBY PL2X C"; // DOLBY PL2X C
+	const DOLBYPL2XM = "DOLBY PL2X M"; // DOLBY PL2X M
+	const DOLBYPL2XG = "DOLBY PL2X G"; // DOLBY PL2X G
+	const DOLBYPL2ZH = "DOLBY PL2Z H"; // DOLBY PL2Z H
+	const DOLBYPL2XH = "DOLBY PL2X H"; // DOLBY PL2X H"
+	const DOLBYDEX = "DOLBY D EX"; // DOLBY D EX
+	const DOLBYD = "DOLBY D+"; // MSDOLBY D+
+	const DOLBYDPL2XC = "DOLBY D+PL2X C"; // DOLBY D+PL2X C
+	const DOLBYDPL2XM = "DOLBY D+PL2X M"; // DOLBY D+PL2X M
+	const DOLBYDPL2XH = "DOLBY D+PL2X H"; // DOLBY D+PL2X H
+	const PLDSX = "PL DSX"; // PL DSX
+	const PL2CDSX = "PL2 C DSX"; // PL2 C DSX
+	const PL2MDSX = "PL2 M DSX"; // PL2 M DSX
+	const PL2GDSX = "PL2 G DSX"; // PL2 G DSX
+	const PL2XCDSX = "PL2X C DSX"; // PL2X C DSX
+	const PL2XMDSX = "PL2X M DSX"; // PL2X M DSX
+	const PL2XGDSX = "PL2X G DSX"; // PL2X G DSX
+	const DOLBYDPLUSPL2XC = "DOLBY D+ +PL2X C"; // DOLBY D+ +PL2X C
+	const DOLBYDPLUSPL2XM = "DOLBY D+ +PL2X M"; // DOLBY D+ +PL2X M
+	const DOLBYDPLUSPL2XH = "DOLBY D+ +PL2X H"; // DOLBY D+ +PL2X H
+	const DOLBYHDPL2XC = "DOLBY HD+PL2X C"; // DOLBY HD+PL2X C
+	const DOLBYHDPL2XM = "DOLBY HD+PL2X M"; // DOLBY HD+PL2X M
+	const DOLBYHDPL2XH = "DOLBY HD+PL2X H"; // DOLBY HD+PL2X H
+	const MULTICNIN = "MULTI CH IN"; // MULTI CH IN
+	const MCHINPL2XC = "M CH IN+PL2X C"; // M CH IN+PL2X C
+	const MCHINPL2XM = "M CH IN+PL2X M"; // M CH IN+PL2X M
+	const MCHINPL2XH = "M CH IN+PL2X H"; // M CH IN+PL2X H
+	const DOLBYDPLUS = "DOLBY D+"; // DOLBY D+
+	const DOLBYDPLUSEX = "DOLBY D+ +EX"; // DOLBY D+ +EX
+	const DOLBYTRUEHD = "DOLBY TRUEHD"; // DOLBY TRUEHD
+	const DOLBYHD = "DOLBY HD"; // DOLBY HD
+	const DOLBYHDEX = "DOLBY HD+EX"; // DOLBY HD+EX
+	const DOLBYPL2H = "DOLBY PL2 H"; // MSDOLBY PL2 H
+	
+	const DOLBYSURROUND = "DOLBY SURROUND"; // MSDOLBY SURROUND
+	const DOLBYATMOS = "DOLBY ATMOS"; // MSDOLBY ATMOS
+	const DOLBYDIGITALRES = "DOLBY DIGITAL"; // MSDOLBY DIGITAL
+	const DOLBYDDS = "DOLBY D+DS"; // MSDOLBY D+DS
+	const MPEG2AAC = "MPEG2 AAC"; // MSMPEG2 AAC
+	const AACDOLBYEX = "AAC+DOLBY EX"; // MSAAC+DOLBY EX
+	const AACPL2XC = "AAC+PL2X C"; // MSAAC+PL2X C
+	const AACPL2XM = "AAC+PL2X M"; // MSAAC+PL2X M
+	const AACPL2XH = "AAC+PL2X H"; // MSAAC+PL2X H
+	const AACDS = "AAC+DS"; // MSAAC+DS
+	const AACNEOXC = "AAC+NEO:X C"; // MSAAC+NEO:X C
+	const AACNEOXM = "AAC+NEO:X M"; // MSAAC+NEO:X M
+	const AACNEOXG = "AAC+NEO:X G"; // MSAAC+NEO:X G
+	
+	//DTS Surround
+	const DTSSURROUNDRES = "DTS SURROUND"; // MSDTS SURROUND
+	const DTSNEO6C = "DTS NEO:6 C"; // DTS NEO:6 C
+	const DTSNEO6M = "DTS NEO:6 M"; // DTS NEO:6 M
+	const DTSNEOXC = "DTS NEO:X C"; // DTS NEO:X C
+	const DTSNEOXM = "DTS NEO:X M"; // DTS NEO:X M
+	const DTSNEOXG = "DTS NEO:X G"; // DTS NEO:X G
+	const DTSESDSCRT61 = "DTS ES DSCRT6.1"; // DTS ES DSCRT6.1
+	const DTSESMTRX61 = "DTS ES MTRX6.1"; // DTS ES MTRX6.1
+	const DTSPL2XC = "DTS+PL2X C"; // DTS+PL2X C
+	const DTSPL2XM = "DTS+PL2X M"; // DTS+PL2X M	
+	const DTSPL2ZH = "DTS+PL2Z H"; // DTS+PL2Z H
+	const DTSNEO6 = "DTS+NEO:6"; // DTS+NEO:6 
+	const DTS9624 = "DTS96/24"; // DTS96/24
+	const DTS96ESMTRX = "DTS96 ES MTRX"; // DTS96 ES MTRX
+	const DTSHDPL2XC = "DTS HD+PL2X C"; // DTS HD+PL2X C
+	const DTSHDPL2XM = "DTS HD+PL2X M"; // DTS HD+PL2X M
+	const DTSHDPL2XH = "DTS HD+PL2X H"; // DTS HD+PL2X H
+	const NEO6CDSX = "NEO:6 C DSX"; // NEO:6 C DSX
+	const NEO6MDSX = "NEO:6 M DSX"; // NEO:6 M DSX
+	const DTSHD = "DTS HD"; // DTS HD 
+	const DTSHDMSTR = "DTS HD MSTR"; // DTS HD MSTR
+	const DTSHDNEO6 = "DTS HD+NEO:6"; // DTS HD+NEO:6
+	const DTSES8CHDSCRT = "DTS ES 8CH DSCRT"; // DTS ES 8CH DSCRT
+	const DTSEXPRESS = "DTS EXPRESS"; // DTS EXPRESS
+	const DTSDS = "DTS+DS"; // MSDTS+DS
+	const DOLBYDNEOXC = "DOLBY D+NEO:X C"; // MSDOLBY D+NEO:X C
+	const DOLBYDNEOXM = "DOLBY D+NEO:X M"; // MSDOLBY D+NEO:X M
+	const DOLBYDNEOXG = "DOLBY D+NEO:X G"; // MSDOLBY D+NEO:X G
+	const MCHINDS = "M CH IN+DS"; // MSM CH IN+DS
+	const MCHINNEOXC = "M CH IN+NEO:X C"; // MSM CH IN+NEO:X C
+	const MCHINNEOXM = "M CH IN+NEO:X M"; // MSM CH IN+NEO:X M
+	const MCHINNEOXG = "M CH IN+NEO:X G"; // MSM CH IN+NEO:G C
+	const DOLBYDNEWNEOXC = "DOLBY D+ +NEO:X C"; // MSDOLBY D+ +NEO:X C
+	const DOLBYDNEWNEOXM = "DOLBY D+ +NEO:X M"; // MSDOLBY D+ +NEO:X M
+	const DOLBYDNEWNEOXG = "DOLBY D+ +NEO:X G"; // MSDOLBY D+ +NEO:X G
+	const DOLBYHDDS = "DOLBY HD+DS"; // MSDOLBY HD+DS
+	const DOLBYHDNEOXC = "DOLBY HD+NEO:X C"; // MSDOLBY HD+NEO:X C
+	const DOLBYHDNEOXM = "DOLBY HD+NEO:X M"; // MSDOLBY HD+NEO:X M
+	const DOLBYHDNEOXG = "DOLBY HD+NEO:X G"; // MSDOLBY HD+NEO:X G
+	const DTSHDDS = "DTS HD+DS"; // MSDTS HD+DS
+	const DTSHDNEOXC = "DTS HD+NEO:X C"; // MSDTS HD+NEO:X C
+	const DTSHDNEOXM = "DTS HD+NEO:X M"; // MSDTS HD+NEO:X M
+	const DTSHDNEOXG = "DTS HD+NEO:X G"; // MSDTS HD+NEO:X G
+	
+	//Auro 3D
+	const AURO3D = "AURO3D"; //MSAURO3D
+	const AURO2DSURR = "AURO2DSURR";//MSAURO2DSURR
+
+	const DSDDIRECT = "DSD DIRECT"; // DSD DIRECT
+	
+	const MCHINDOLBYEX = "M CH IN+DOLBY EX"; // M CH IN+DOLBY EX
+	const MULTICHIN71 = "MULTI CH IN 7.1"; // MULTI CH IN 7.1
+
+	const AUDYSSEYDSX = "AUDYSSEY DSX"; // AUDYSSEY DSX
 	
 	
 	const SURROUNDDISPLAY = "SurroundDisplay"; // Nur DisplayIdent
@@ -5036,14 +5291,21 @@ class DenonAVRCP_API_Data extends stdClass
 			{
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "AURO3D" => 6, "AURO2DSURR" => 7, "MCH STEREO" => 8, "WIDESCREEN" => 9, "SUPERSTADIUM" => 10, "ROCK ARENA" => 11, "JAZZ CLUB" => 12, "CLASSICCONCERT" => 13, "MONO MOVIE" => 14, "MATRIX" => 15, "VIDEO GAME" => 16,
-													"VIRTUAL" => 17);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "AUTO" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "AURO3D" => 6, "AURO2DSURR" => 7, "MCH STEREO" => 8, "WIDE SCREEN" => 9, "SUPER STADIUM" => 10, "ROCK ARENA" => 11, "JAZZ CLUB" => 12, "CLASSIC CONCERT" => 13, "MONO MOVIE" => 14, "MATRIX" => 15, "VIDEO GAME" => 16,
+													"VIRTUAL" => 17, "MOVIE" => 18, "MUSIC" => 19, "GAME" => 20);
+			}
+			elseif ($AVRType == "AVR-4311")
+			{
+				//Surround Mode
+				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDE SCREEN" => 7, "SUPER STADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSIC CONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+													"VIRTUAL" => 15);
 			}
 			else
 			{
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "MCH STEREO" => 6, "WIDE SCREEN" => 7, "SUPER STADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSIC CONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
 													"VIRTUAL" => 15);
 			}
 			
@@ -5055,15 +5317,64 @@ class DenonAVRCP_API_Data extends stdClass
 			{
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DOLBY PL2 C" => 4, "DOLBY PL2 M" => 4, "MSDOLBY PL2 H" => 4,  "DTS SURROUND" => 5, "DTS NEO:6 C" => 5, "AURO3D" => 6, "AURO2DSURR" => 7, "MCH STEREO" => 8, "WIDESCREEN" => 9, "SUPERSTADIUM" => 10, "ROCK ARENA" => 11, "JAZZ CLUB" => 12, "CLASSICCONCERT" => 13, "MONO MOVIE" => 14, "MATRIX" => 15, "VIDEO GAME" => 16,
-													"VIRTUAL" => 17);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "AUTO" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
+															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
+															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
+															DENON_API_Commands::DOLBYHDPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4, DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::MULTICNIN => 4, DENON_API_Commands::MCHINPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4,
+															DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::DOLBYDPLUS => 4, DENON_API_Commands::DOLBYDPLUSEX => 4, DENON_API_Commands::DOLBYTRUEHD => 4, DENON_API_Commands::DOLBYHD => 4, DENON_API_Commands::DOLBYHDEX => 4,
+															DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYSURROUND => 4, DENON_API_Commands::DOLBYATMOS => 4, DENON_API_Commands::DOLBYDDS => 4, DENON_API_Commands::MPEG2AAC => 4, DENON_API_Commands::AACDOLBYEX => 4,
+															DENON_API_Commands::AACPL2XC => 4, DENON_API_Commands::AACPL2XM => 4, DENON_API_Commands::AACPL2XH => 4, DENON_API_Commands::AACDS => 4, DENON_API_Commands::AACNEOXC => 4, DENON_API_Commands::AACNEOXM => 4, DENON_API_Commands::AACNEOXG => 4,
+															DENON_API_Commands::DTSSURROUNDRES => 5, DENON_API_Commands::DTSNEO6C => 5, DENON_API_Commands::DTSNEO6M => 5, DENON_API_Commands::DTSNEOXM => 5, DENON_API_Commands::DTSNEOXG => 5, DENON_API_Commands::DTSESDSCRT61 => 5,
+															DENON_API_Commands::DTSESMTRX61 => 5, DENON_API_Commands::DTSPL2XC => 5, DENON_API_Commands::DTSPL2XM => 5, DENON_API_Commands::DTSPL2ZH => 5, DENON_API_Commands::DTSNEO6 => 5, DENON_API_Commands::DTS9624 => 5, DENON_API_Commands::DTS96ESMTRX => 5,
+															DENON_API_Commands::DTSHDPL2XC => 5, DENON_API_Commands::DTSHDPL2XM => 5, DENON_API_Commands::DTSHDPL2XH => 5, DENON_API_Commands::NEO6CDSX => 5, DENON_API_Commands::NEO6MDSX => 5, DENON_API_Commands::DTSHD => 5, DENON_API_Commands::DTSHDMSTR => 5,
+															DENON_API_Commands::DTSHDNEO6 => 5, DENON_API_Commands::DTSES8CHDSCRT => 5, DENON_API_Commands::DTSEXPRESS => 5, DENON_API_Commands::DTSDS => 5, DENON_API_Commands::DOLBYDNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5,
+															DENON_API_Commands::MCHINDS => 5, DENON_API_Commands::MCHINNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5, DENON_API_Commands::DOLBYDNEWNEOXC => 5, DENON_API_Commands::DOLBYDNEWNEOXM => 5, DENON_API_Commands::DOLBYDNEWNEOXG => 5,
+															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
+															DENON_API_Commands::DTSHDNEOXG => 5, DENON_API_Commands::AURO3D => 6, DENON_API_Commands::AURO2DSURR => 7, "MCH STEREO" => 8, "WIDE SCREEN" => 9, "SUPER STADIUM" => 10, "ROCK ARENA" => 11, "JAZZ CLUB" => 12, "CLASSIC CONCERT" => 13, "MONO MOVIE" => 14, "MATRIX" => 15, "VIDEO GAME" => 16,
+															"VIRTUAL" => 17, DENON_API_Commands::DOLBYPL2C => 18, DENON_API_Commands::DOLBYPL2M => 19, DENON_API_Commands::DOLBYPL2G => 20);
+			}
+			elseif($AVRType == "AVR-4311")
+			{
+				//Surround Mode
+				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2G => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
+															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
+															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
+															DENON_API_Commands::DOLBYHDPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4, DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::MULTICNIN => 4, DENON_API_Commands::MCHINPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4,
+															DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::DOLBYDPLUS => 4, DENON_API_Commands::DOLBYDPLUSEX => 4, DENON_API_Commands::DOLBYTRUEHD => 4, DENON_API_Commands::DOLBYHD => 4, DENON_API_Commands::DOLBYHDEX => 4,
+															DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYSURROUND => 4, DENON_API_Commands::DOLBYATMOS => 4, DENON_API_Commands::DOLBYDDS => 4, DENON_API_Commands::MPEG2AAC => 4, DENON_API_Commands::AACDOLBYEX => 4,
+															DENON_API_Commands::AACPL2XC => 4, DENON_API_Commands::AACPL2XM => 4, DENON_API_Commands::AACPL2XH => 4, DENON_API_Commands::AACDS => 4, DENON_API_Commands::AACNEOXC => 4, DENON_API_Commands::AACNEOXM => 4, DENON_API_Commands::AACNEOXG => 4,
+															DENON_API_Commands::DTSSURROUNDRES => 5, DENON_API_Commands::DTSNEO6C => 5, DENON_API_Commands::DTSNEO6M => 5, DENON_API_Commands::DTSNEOXM => 5, DENON_API_Commands::DTSNEOXG => 5, DENON_API_Commands::DTSESDSCRT61 => 5,
+															DENON_API_Commands::DTSESMTRX61 => 5, DENON_API_Commands::DTSPL2XC => 5, DENON_API_Commands::DTSPL2XM => 5, DENON_API_Commands::DTSPL2ZH => 5, DENON_API_Commands::DTSNEO6 => 5, DENON_API_Commands::DTS9624 => 5, DENON_API_Commands::DTS96ESMTRX => 5,
+															DENON_API_Commands::DTSHDPL2XC => 5, DENON_API_Commands::DTSHDPL2XM => 5, DENON_API_Commands::DTSHDPL2XH => 5, DENON_API_Commands::NEO6CDSX => 5, DENON_API_Commands::NEO6MDSX => 5, DENON_API_Commands::DTSHD => 5, DENON_API_Commands::DTSHDMSTR => 5,
+															DENON_API_Commands::DTSHDNEO6 => 5, DENON_API_Commands::DTSES8CHDSCRT => 5, DENON_API_Commands::DTSEXPRESS => 5, DENON_API_Commands::DTSDS => 5, DENON_API_Commands::DOLBYDNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5,
+															DENON_API_Commands::MCHINDS => 5, DENON_API_Commands::MCHINNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5, DENON_API_Commands::DOLBYDNEWNEOXC => 5, DENON_API_Commands::DOLBYDNEWNEOXM => 5, DENON_API_Commands::DOLBYDNEWNEOXG => 5,
+															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
+															DENON_API_Commands::DTSHDNEOXG => 5, "MCH STEREO" => 6, "WIDE SCREEN" => 7, "SUPER STADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSIC CONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+															"VIRTUAL" => 15);
 			}
 			else
 			{
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, "DOLBY DIGITAL" => 4, "DOLBY PL2 C" => 4, "DOLBY PL2 M" => 4, "MSDOLBY PL2 H" => 4,  "DTS SURROUND" => 5, "DTS NEO:6 C" => 5, "MCH STEREO" => 6, "WIDESCREEN" => 7, "SUPERSTADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSICCONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
-													"VIRTUAL" => 15);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2G => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
+															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
+															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
+															DENON_API_Commands::DOLBYHDPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4, DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::MULTICNIN => 4, DENON_API_Commands::MCHINPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4,
+															DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::DOLBYDPLUS => 4, DENON_API_Commands::DOLBYDPLUSEX => 4, DENON_API_Commands::DOLBYTRUEHD => 4, DENON_API_Commands::DOLBYHD => 4, DENON_API_Commands::DOLBYHDEX => 4,
+															DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYSURROUND => 4, DENON_API_Commands::DOLBYATMOS => 4, DENON_API_Commands::DOLBYDDS => 4, DENON_API_Commands::MPEG2AAC => 4, DENON_API_Commands::AACDOLBYEX => 4,
+															DENON_API_Commands::AACPL2XC => 4, DENON_API_Commands::AACPL2XM => 4, DENON_API_Commands::AACPL2XH => 4, DENON_API_Commands::AACDS => 4, DENON_API_Commands::AACNEOXC => 4, DENON_API_Commands::AACNEOXM => 4, DENON_API_Commands::AACNEOXG => 4,
+															DENON_API_Commands::DTSSURROUNDRES => 5, DENON_API_Commands::DTSNEO6C => 5, DENON_API_Commands::DTSNEO6M => 5, DENON_API_Commands::DTSNEOXM => 5, DENON_API_Commands::DTSNEOXG => 5, DENON_API_Commands::DTSESDSCRT61 => 5,
+															DENON_API_Commands::DTSESMTRX61 => 5, DENON_API_Commands::DTSPL2XC => 5, DENON_API_Commands::DTSPL2XM => 5, DENON_API_Commands::DTSPL2ZH => 5, DENON_API_Commands::DTSNEO6 => 5, DENON_API_Commands::DTS9624 => 5, DENON_API_Commands::DTS96ESMTRX => 5,
+															DENON_API_Commands::DTSHDPL2XC => 5, DENON_API_Commands::DTSHDPL2XM => 5, DENON_API_Commands::DTSHDPL2XH => 5, DENON_API_Commands::NEO6CDSX => 5, DENON_API_Commands::NEO6MDSX => 5, DENON_API_Commands::DTSHD => 5, DENON_API_Commands::DTSHDMSTR => 5,
+															DENON_API_Commands::DTSHDNEO6 => 5, DENON_API_Commands::DTSES8CHDSCRT => 5, DENON_API_Commands::DTSEXPRESS => 5, DENON_API_Commands::DTSDS => 5, DENON_API_Commands::DOLBYDNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5,
+															DENON_API_Commands::MCHINDS => 5, DENON_API_Commands::MCHINNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5, DENON_API_Commands::DOLBYDNEWNEOXC => 5, DENON_API_Commands::DOLBYDNEWNEOXM => 5, DENON_API_Commands::DOLBYDNEWNEOXG => 5,
+															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
+															DENON_API_Commands::DTSHDNEOXG => 5, "MCH STEREO" => 6, "WIDE SCREEN" => 7, "SUPER STADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSIC CONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
+															"VIRTUAL" => 15);
 			}
 			$VarMapping[DENON_API_Commands::MS] = $AVRSurroundModeArray;		
 		}
@@ -5300,70 +5611,123 @@ class DenonAVRCP_API_Data extends stdClass
 	public function GetCommandResponse ($data, $InputMapping)
 	{	
 		//Surround Display
-		$displaysurround = array("Dolby Pro Logic II Cinema" => "MSDOLBY PL2 C",
-								"Dolby Pro Logic II Music" => "MSDOLBY PL2 M",
-								"Dolby Pro Logic II Height" => "MSDOLBY PL2 H",
-								"Dolby Digital" => "MSDOLBY DIGITAL",
-								"Multi Channel In" => "MSMULTI CH IN",
-								"DSD Direct" => "MSDSD DIRECT",
-								"Multi Channel In + Dolby Pro Logic IIx Cinema" => "MSM CH IN+PL2X C",
-								"Multi Channel In + Dolby Pro Logic IIx Music" => "MSM CH IN+PL2X M",
-								"Multi Channel In + Dolby Pro Logic IIx Height" => "MSM CH IN+PL2X H",
-								"Multi Channel In + Dolby Ex" => "MSM CH IN+DOLBY EX",
-								"Multi Channel In 7.1" => "MSMULTI CH IN 7.1",
-								"Dolby Pro Logic" => "MSDOLBY PRO LOGIC",
-								"Dolby Pro Logic IIx Cinema" => "MSDOLBY PL2X C",
-								"Dolby Pro Logic IIx Music" => "MSDOLBY PL2X M",
-								"Dolby Pro Logic IIx Height" => "MSDOLBY PL2X H",
-								"Dolby Digital Ex" => "MSDOLBY D EX",
-								"Dolby True HD + Pro Logic IIx Cinema" => "MSDOLBY D+PL2X C",
-								"Dolby True HD + Pro Logic IIx Music" => "MSDOLBY D+PL2X M",
-								"Dolby True HD + Pro Logic IIx Height" => "MSDOLBY D+PL2X H",
-								"DTS NEO:6 Music" => "MSDTS NEO:6 C",
-								"DTS NEO:6 Cinema" => "MSDTS NEO:6 M",
-								"DTS ES Discrete 6.1" => "MSDTS ES DSCRT6.1",
-								"DTS ES Matrix 6.1" => "MSDTS ES MTRX6.1",
-								"DTS + Dolby Pro Logic IIx Cinema" => "MSDTS+PL2X C",
-								"DTS + Dolby Pro Logic IIx Music" => "MSDTS+PL2X M",
-								"DTS + Dolby Pro Logic IIx Height" => "MSDTS+PL2Z H",
-								"DTS + NEO:6" => "MSDTS+NEO:6",
-								"DTS 96/24" => "MSDTS96/24",
-								"DTS 96/24 ES Matrix" => "MSDTS96 ES MTRX",
-								"Dolby Digital Plus" => "MSDOLBY D+",
-								"Dolby Digital Plus + EX" => "MSDOLBY D+ +EX",
-								"Dolby Digital Plus + Dolby Pro Logic IIx Cinema" => "MSDOLBY D+ +PL2X C",
-								"Dolby Digital Plus + Dolby Pro Logic IIx Music" => "MSDOLBY D+ +PL2X M",
-								"Dolby Digital Plus + Dolby Pro Logic IIx Height" => "MSDOLBY D+ +PL2X H",
-								"Dolby True HD" => "MSDOLBY TRUEHD",
-								"Dolby HD" => "MSDOLBY HD",
-								"Dolby True HD + Ex" => "MSDOLBY HD+EX",
-								"Dolby True HD + Dolby Pro Logic IIx Cinema" => "MSDOLBY HD+PL2X C",
-								"Dolby True HD + Dolby Pro Logic IIx Music" => "MSDOLBY HD+PL2X M",
-								"Dolby True HD + Dolby Pro Logic IIx Height" => "MSDOLBY HD+PL2X H",
-								"DTS HD" => "MSDTS HD",
-								"DTS HD Master" => "MSDTS HD MSTR",
-								"DTS HD + NEO:6" => "MSDTS HD+NEO:6",
-								"DTS HD + Dolby Pro Logic IIx Cinema" => "MSDTS HD+PL2X C",
-								"DTS HD + Dolby Pro Logic IIx Music" => "MSDTS HD+PL2X M",
-								"DTS HD + Dolby Pro Logic IIx Height" => "MSDTS HD+PL2X H",
-								"DTS HD ES 8 Channel Discrect" => "MSDTS ES 8CH DSCRT",
-								"DTS Express" => "MSDTS EXPRESS",
-								"Audyssey DSX" => "MSAUDYSSEY DSX",
-								"Dolby Pro Logic DSX" => "MSPL DSX",
-								"Dolby Pro Logic II Cinema DSX" => "MSPL2 C DSX",
-								"Dolby Pro Logic II Music DSX" => "MSPL2 M DSX",	
-								"Dolby Pro Logic II Height DSX" => "MSPL2 H DSX",	
-								"Dolby Pro Logic IIx Cinema DSX" => "MSPL2X C DSX",	
-								"Dolby Pro Logic IIx Music DSX" => "MSPL2X M DSX",	
-								"Dolby Pro Logic IIx Height DSX" => "MSPL2X H DSX",	
-								"NEO:6 Cinema DSX" => "MSNEO:6 C DSX",	
-								"NEO:6 Music DSX" => "MSNEO:6 M DSX"								
+		$displaysurround = array(
+								//Dolby Digital
+								"Dolby Digital" => DENON_API_Commands::MSDOLBYDIGITALRES,
+								"Dolby Pro Logic" => DENON_API_Commands::MSDOLBYPROLOGIC,
+								"Dolby Pro Logic II Cinema" => DENON_API_Commands::MSDOLBYPL2C,
+								"Dolby Pro Logic II Music" => DENON_API_Commands::MSDOLBYPL2M,
+								"Dolby Pro Logic II Height" => DENON_API_Commands::MSDOLBYPL2H,
+								"Dolby Pro Logic II Game" => DENON_API_Commands::MSDOLBYPL2G, 
+								"Dolby Pro Logic IIx Cinema" => DENON_API_Commands::MSDOLBYPL2XC,
+								"Dolby Pro Logic IIx Music" => DENON_API_Commands::MSDOLBYPL2XM,
+								"Dolby Pro Logic IIx Height" => DENON_API_Commands::MSDOLBYPL2XH,
+								"Dolby Pro Logic IIx Game" => DENON_API_Commands::MSDOLBYPL2XG,
+								"Dolby Surround" => DENON_API_Commands::MSDOLBYSURROUND,
+								"Dolby Atmos" => DENON_API_Commands::MSDOLBYATMOS,
+								"Dolby Digital Ex" => DENON_API_Commands::MSDOLBYDEX,
+								"Dolby True HD + Pro Logic IIx Cinema" => DENON_API_Commands::MSDOLBYDPL2XC,
+								"Dolby True HD + Pro Logic IIx Music" => DENON_API_Commands::MSDOLBYDPL2XM,
+								"Dolby True HD + Pro Logic IIx Height" => DENON_API_Commands::MSDOLBYDPL2XH,
+								"Dolby Digital + DS" => DENON_API_Commands::MSDOLBYDDS,
+								"Dolby Digital + NEO:X Cinema" => DENON_API_Commands::MSDOLBYDNEOXC,
+								"Dolby Digital + NEO:X Music" => DENON_API_Commands::MSDOLBYDNEOXM,
+								"Dolby Digital + NEO:X Game" => DENON_API_Commands::MSDOLBYDNEOXG,
+								"Dolby Digital Plus + NEO:X Cinema" => DENON_API_Commands::MSDOLBYDNEWNEOXC,
+								"Dolby Digital Plus + NEO:X Music" => DENON_API_Commands::MSDOLBYDNEWNEOXM,
+								"Dolby Digital Plus + NEO:X Game" => DENON_API_Commands::MSDOLBYDNEWNEOXG,
+								"DTS Surround" => DENON_API_Commands::MSDTSSUROUND,
+								"DTS ES Discrete 6.1" => DENON_API_Commands::MSDTSESDSCRT61,
+								"DTS ES Matrix 6.1" => DENON_API_Commands::MSDTSESMTRX61,
+								"DTS + Dolby Pro Logic IIx Cinema" => DENON_API_Commands::MSDTSPL2XC,
+								"DTS + Dolby Pro Logic IIx Music" => DENON_API_Commands::MSDTSPL2XM,
+								"DTS + Dolby Pro Logic IIx Height" => DENON_API_Commands::MSDTSPL2ZH,
+								"DTS + Dolby Surround" => DENON_API_Commands::MSDTSDS,
+								"DTS 96/24" => DENON_API_Commands::MSDTS9624,
+								"DTS 96/24 ES Matrix" => DENON_API_Commands::MSDTS96ESMTRX,
+								"DTS + NEO:6" => DENON_API_Commands::MSDTSNEO6,
+								"DTS + NEO:X Cinema" => DENON_API_Commands::MSDTSNEOXC,
+								"DTS + NEO:X Music" => DENON_API_Commands::MSDTSNEOXM,
+								"DTS + NEO:X Game" => DENON_API_Commands::MSDTSNEOXG,
+								"Multi Channel In" => DENON_API_Commands::MSMULTICNIN,
+								"Multi Channel In 7.1" => DENON_API_Commands::MSMULTICHIN71,
+								"Multi Channel In + Dolby Ex" => DENON_API_Commands::MSMCHINDOLBYEX,
+								"Multi Channel In + Dolby Pro Logic IIx Cinema" => DENON_API_Commands::MSMCHINPL2XC,
+								"Multi Channel In + Dolby Pro Logic IIx Music" => DENON_API_Commands::MSMCHINPL2XM,
+								"Multi Channel In + Dolby Pro Logic IIx Height" => DENON_API_Commands::MSMCHINPL2XH,
+								"Multi Channel In + Dolby Surround" => DENON_API_Commands::MSMCHINDS,
+								"Multi Channel In + NEO:X Cinema" => DENON_API_Commands::MSMCHINNEOXC,
+								"Multi Channel In + NEO:X Music" => DENON_API_Commands::MSMCHINNEOXM,
+								"Multi Channel In + NEO:X Game" => DENON_API_Commands::MSMCHINNEOXG,
+								"Dolby Digital Plus" => DENON_API_Commands::MSDOLBYD,
+								"Dolby Digital Plus + EX" => DENON_API_Commands::MSDOLBYDEX,
+								"Dolby Digital Plus + Dolby Pro Logic IIx Cinema" => DENON_API_Commands::MSDOLBYDPL2XC,
+								"Dolby Digital Plus + Dolby Pro Logic IIx Music" => DENON_API_Commands::MSDOLBYDPL2XM,
+								"Dolby Digital Plus + Dolby Pro Logic IIx Height" => DENON_API_Commands::MSDOLBYDPL2XH,
+								"Dolby Digital Plus + Dolby Surround" => DENON_API_Commands::MSDOLBYDDS,
+								"Dolby True HD" => DENON_API_Commands::MSDOLBYTRUEHD,
+								"Dolby HD" => DENON_API_Commands::MSDOLBYHD,
+								"Dolby True HD + Ex" => DENON_API_Commands::MSDOLBYHDEX,
+								"Dolby True HD + Dolby Pro Logic IIx Cinema" => DENON_API_Commands::MSDOLBYHDPL2XC,
+								"Dolby True HD + Dolby Pro Logic IIx Music" => DENON_API_Commands::MSDOLBYHDPL2XM,
+								"Dolby True HD + Dolby Pro Logic IIx Height" => DENON_API_Commands::MSDOLBYHDPL2XH,
+								"Dolby True HD + Dolby Surround" => DENON_API_Commands::MSDOLBYHDDS,
+								"Dolby True HD + NEO:X Cinema" => DENON_API_Commands::MSDOLBYHDNEOXC,
+								"Dolby True HD + NEO:X Music" => DENON_API_Commands::MSDOLBYHDNEOXM,
+								"Dolby True HD + NEO:X Game" => DENON_API_Commands::MSDOLBYHDNEOXG,
+								"DTS HD" => DENON_API_Commands::MSDTSHD,
+								"DTS HD Master" => DENON_API_Commands::MSDTSHDMSTR,
+								"DTS HD + NEO:6" => DENON_API_Commands::MSDTSHDNEO6,
+								"DTS HD + Dolby Pro Logic IIx Cinema" => DENON_API_Commands::MSDTSHDPL2XC,
+								"DTS HD + Dolby Pro Logic IIx Music" => DENON_API_Commands::MSDTSHDPL2XM,
+								"DTS HD + Dolby Pro Logic IIx Height" => DENON_API_Commands::MSDTSHDPL2XH,
+								"DTS HD ES 8 Channel Discrect" => DENON_API_Commands::MSDTSES8CHDSCRT,
+								"DTS HD + Dolby Surround" => DENON_API_Commands::MSDTSHDDS,
+								"DTS HD + NEO:X Cinema" => DENON_API_Commands::MSDTSNEOXC,
+								"DTS HD + NEO:X Music" => DENON_API_Commands::MSDTSNEOXM,
+								"DTS HD + NEO:X Game" => DENON_API_Commands::MSDTSNEOXG,
+								"DTS Express" => DENON_API_Commands::MSDTSEXPRESS,
+								"DTS ES 8 CH Discrete" => DENON_API_Commands::MSDTSES8CHDSCRT,
+								"MPEG2 AAC" => DENON_API_Commands::MSMPEG2AAC,
+								"AAC + Dolby EX" => DENON_API_Commands::MSAACDOLBYEX,
+								"AAC + PL2X Cinema" => DENON_API_Commands::MSAACPL2XC,
+								"AAC + PL2X Music" => DENON_API_Commands::MSAACPL2XM,
+								"AAC + PL2X Height" => DENON_API_Commands::MSAACPL2XH,
+								"AAC + Dolby Surround" => DENON_API_Commands::MSAACDS,
+								"AAC + NEO:X Cinema" => DENON_API_Commands::MSAACNEOXC,
+								"AAC + NEO:X Music" => DENON_API_Commands::MSAACNEOXM,
+								"AAC + NEO:X Game" => DENON_API_Commands::MSAACNEOXG,
+								"Dolby Pro Logic DSX" => DENON_API_Commands::MSPLDSX,
+								"Dolby Pro Logic II Cinema DSX" => DENON_API_Commands::MSPL2CDSX,
+								"Dolby Pro Logic II Music DSX" => DENON_API_Commands::MSPL2MDSX,	
+								"Dolby Pro Logic II Height DSX" => DENON_API_Commands::MSPL2GDSX,	
+								"Dolby Pro Logic IIx Cinema DSX" => DENON_API_Commands::MSPL2XCDSX,	
+								"Dolby Pro Logic IIx Music DSX" => DENON_API_Commands::MSPL2XMDSX,	
+								"Dolby Pro Logic IIx Game DSX" => DENON_API_Commands::MSPL2XGDSX,	
+								"Audyssey DSX" => DENON_API_Commands::MSAUDYSSEYDSX,
+								// DTS SURROUND
+								"NEO:6 Cinema DSX" => DENON_API_Commands::MSNEO6CDSX,	
+								"NEO:6 Music DSX" => DENON_API_Commands::MSNEO6MDSX,
+								"DTS NEO:6 Cinema" => DENON_API_Commands::MSDTSNEO6C,
+								"DTS NEO:6 Music" => DENON_API_Commands::MSDTSNEO6M,
+								"DSD Direct" => DENON_API_Commands::MSDSDDIRECT,
+								"DTS NEO:X Cinema" => DENON_API_Commands::MSDTSNEOXC,
+								"DTS NEO:X Music" => DENON_API_Commands::MSDTSNEOXM,
+								"DTS NEO:X Game" => DENON_API_Commands::MSDTSNEOXG,
+								"Dolby Digital EX" => DENON_API_Commands::MSDOLBYDEX,
+								"Multi Channel In + Dolby EX" => DENON_API_Commands::MSMCHINDOLBYEX,
+								"DTS HD + NEO:6" => DENON_API_Commands::MSDTSHDNEO6,
+								"NEO:6 Cinema DSX" => DENON_API_Commands::MSNEO6CDSX,
+								"NEO:6 Music DSX" => DENON_API_Commands::MSNEO6MDSX,
+								// Auro
+								"Auro 3D" => DENON_API_Commands::MSAURO3D,		
+								"Auro 2D Surround" => DENON_API_Commands::MSAURO2DSURR
 								);
 								
 		$showsurrounddisplay = "";						
 		foreach($displaysurround as $showdisplay => $responsedisplay)
 			{
-				$displaykey = array_search($responsedisplay, $data);  // false wenn nichts gefunden
+				$displaykey = array_search($responsedisplay, $data);  // durchsucht data, false wenn nichts gefunden
 				if($displaykey !== false)
 					{
 					$showsurrounddisplay = $showdisplay;
@@ -5393,10 +5757,10 @@ class DenonAVRCP_API_Data extends stdClass
 		$CommunicationType = "Response";
 		foreach($data as $key => $response)
 			{
-				foreach(($this->VarMapping($InputMapping, $CommunicationType)) as $Command => $ValMap)
+				foreach(($this->VarMapping($InputMapping, $CommunicationType)) as $Command => $ValMap) //Zuordung suchen
 				{
 					$pos = stripos($response, $Command);
-					if ($pos !== false)
+					if ($pos !== false) // Subcommand ermitteln
 					{
 						$lengthCommand = strlen($Command);
 						$ResponseSubCommand = substr($response, $lengthCommand);
