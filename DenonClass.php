@@ -172,7 +172,7 @@ class DENONIPSProfiles extends stdClass
 	public function GetInputSources(integer $Zone, string $AVRType, boolean $FAVORITES, boolean $IRADIO, boolean $SERVER, boolean $NAPSTER, boolean $LASTFM, boolean $FLICKR)
 	{
 		
-		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310" || "AVR-1912")
+		if(($AVRType == "AVR-4311") || ($AVRType == "AVR-4310") || ($AVRType == "AVR-1912"))
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -221,15 +221,15 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808A" || $AVRType == "AVR-4308A")
+		elseif(($AVRType == "AVR-3808A") || ($AVRType == "AVR-4308A"))
 		{
 			$Inputsources = $this->StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 			return $Inputsources;
 		}
 		
-		elseif($AVRType == "S700W" || $AVRType == "S900W" || $AVRType == "AVR-2313" || $AVRType == "AVR-3313" ||  $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X1000" || $AVRType == "AVR-X1100W" || $AVRType == "AVR-X1200W" || $AVRType == "AVR-X2000"
-							||$AVRType == "AVR-X2100W" || $AVRType == "AVR-X2200W" || $AVRType == "AVR-X3000" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X3200W" || $AVRType == "AVR-X4000" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X4200W"
-							|| $AVRType == "AVR-X5200W" || $AVRType == "AVR-6200W" ||||$AVRType == "AVR-X7200W" || $AVRType == "AVR-7200WA")
+		elseif(($AVRType == "S700W") || ($AVRType == "S900W") || ($AVRType == "AVR-2313") || ($AVRType == "AVR-3313") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "AVR-X1000") || ($AVRType == "AVR-X1100W") || ($AVRType == "AVR-X1200W") || ($AVRType == "AVR-X2000")
+							|| ($AVRType == "AVR-X2100W") || ($AVRType == "AVR-X2200W") || ($AVRType == "AVR-X3000") || ($AVRType == "AVR-X3100W") || ($AVRType == "AVR-X3200W") || ($AVRType == "AVR-X4000") || ($AVRType == "AVR-X4100W") || ($AVRType == "AVR-X4200W")
+							|| ($AVRType == "AVR-X5200W") || ($AVRType == "AVR-6200W") || ($AVRType == "AVR-X7200W") || ($AVRType == "AVR-7200WA"))
 		{
 			if ($Zone == 0) // MainZone
 			{
