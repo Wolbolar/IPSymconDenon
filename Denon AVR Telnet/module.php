@@ -167,6 +167,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
+		$AVRType = $this->ReadPropertyInteger('AVRType');
 		
 		//Import Kategorie NEO
 		$vNEOToggle = $this->ReadPropertyBoolean('NEOToggle');
@@ -184,7 +185,16 @@ class DenonAVRTelnet extends IPSModule
 					$this->SetStatus(102);
 				}
 		}
-		
+		if ($Zone == 6)
+		{
+			// Error Zone auswählen
+			$this->SetStatus(212);
+		}
+		if ($AVRType == 50)
+		{
+			// Error AVR Type auswählen
+			$this->SetStatus(213);
+		}
 		
 		if ($Zone == 0) //Mainzone
 		{
