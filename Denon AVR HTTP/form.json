@@ -8,6 +8,7 @@
 				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
 						"options": [
 									{ "value": 50, "label": "AVR Modell auswählen" },
+									{ "value": 22, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-3313" },
 									{ "value": 1, "label": "AVR-4310" },
 									{ "value": 2, "label": "AVR-4311" },
