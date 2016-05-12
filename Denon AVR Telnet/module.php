@@ -929,6 +929,11 @@ class DenonAVRTelnet extends IPSModule
 						$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);
 					}
 				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				if ($profile["Ident"] == "Display")
+					{
+						$DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
+						SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);
+					}
 				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
 			}	
@@ -1330,12 +1335,53 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->ReadPropertyBoolean('Display'))
 			{
 				$NSADisplay = $data->NSADisplay;
-				$DisplayHTML = "";
+				$DisplayHTML = GetValue($this->GetIDForIdent("Display"));
+				$doc = new DOMDocument();
+				$doc->loadHTML($DisplayHTML);
 				foreach ($NSADisplay as $row => $content)
 				{
-					$DisplayHTML .= '<div>'.$content.'</div>';
+					if($row == 0)
+						{
+							$doc->getElementById('NSARow0')->nodeValue = $content;
+						}
+					if($row == 1)
+						{
+							$doc->getElementById('NSARow1')->nodeValue = $content;
+						}
+					if($row == 2)
+						{
+							$doc->getElementById('NSARow2')->nodeValue = $content;
+						}
+					if($row == 3)
+						{
+							$doc->getElementById('NSARow3')->nodeValue = $content;
+						}
+					if($row == 4)
+						{
+							$doc->getElementById('NSARow4')->nodeValue = $content;
+						}
+					if($row == 5)
+						{
+							$doc->getElementById('NSARow5')->nodeValue = $content;
+						}
+					if($row == 6)
+						{
+							$doc->getElementById('NSARow6')->nodeValue = $content;
+						}
+					if($row == 7)
+						{
+							$doc->getElementById('NSARow7')->nodeValue = $content;
+						}
+					if($row == 8)
+						{
+							$doc->getElementById('NSARow8')->nodeValue = $content;
+						}
+					if($row == 9)
+						{
+							$doc->getElementById('NSARow9')->nodeValue = $content;
+						}	
 				}
-				SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);	
+				SetValueString($this->GetIDForIdent("Display"), $doc->saveHTML());	
 			}
 		}
 		
@@ -1803,12 +1849,24 @@ class DenonAVRTelnet extends IPSModule
 		$payload = DENON_API_Commands::MU.$Subcommand;
 		$this->SendCommand($payload);
 	}
-	
 		
 	//Input
 	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
 		$payload = DENON_API_Commands::SI.$command;
+		$this->SendCommand($payload);
+	}
+	
+	//Get Display NSADisplay
+	public function NSADisplay()
+	{
+		$payload = DENON_API_Commands::NSA.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function NSEDisplay()
+	{
+		$payload = DENON_API_Commands::NSE.$command;
 		$this->SendCommand($payload);
 	}
 	

@@ -5828,6 +5828,8 @@ class DenonAVRCP_API_Data extends stdClass
 						{
 						$response = str_replace("NSA8", "", $response);
 						}
+					$response = str_replace("<LF>", "", $response);
+					$response = str_replace("<STX>", "", $response);
 					$response = str_replace("<NUL>", "", $response);
 					$response = trim($response);
 					$NSADisplay[$NSARow] = $response;
