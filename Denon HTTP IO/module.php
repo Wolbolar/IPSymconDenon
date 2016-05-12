@@ -274,6 +274,18 @@ class DenonAVRIOHTTP extends IPSModule
 			}
 		}
 
+	// Input MappingInputs als JSON	
+	public function SaveOwnInputVarmapping(string $MappingInputs)
+		{
+			if ($this->GetIDForIdent("InputMapping"))
+			{
+				$MappingInputsArr = json_decode($MappingInputs);
+				$AVRType = $MappingInputsArr->AVRType;
+				SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+				SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+			} 	
+		}		
+		
 	public function GetInputVarMapping()
 		{
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));

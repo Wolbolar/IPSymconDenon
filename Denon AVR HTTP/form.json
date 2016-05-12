@@ -54,6 +54,7 @@
 				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
 				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
 				
+				
 				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },
 				{ "type": "Label", "label": "Kategorie zum Anlegen der NEO Skripte:" },

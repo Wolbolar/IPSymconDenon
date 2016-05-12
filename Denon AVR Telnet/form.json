@@ -60,6 +60,9 @@
 				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
 				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
 				
+				{ "type": "Label", "label": "Display: (Testmode)" },
+				{ "type": "CheckBox", "name": "Display", "caption": "Display" },
+				
 				{ "type": "Label", "label": "Main Zone:" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
 				{ "type": "Label", "label": "Lautsprecher:" },

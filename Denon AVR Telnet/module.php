@@ -104,6 +104,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
+		$this->RegisterPropertyBoolean("Display", false);
 		
 		//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
 		$this->RegisterPropertyBoolean("GraphicEQ", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
@@ -283,6 +284,7 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptGUIMenu = "DENON.".$DenonAVRVar->AVRType.".GUIMenu";
 			$DenonAVRVar->ptGUISourceSelect = "DENON.".$DenonAVRVar->AVRType.".GUIMenuSourceSelect";
 			$DenonAVRVar->ptSurroundDisplay = "DENON.".$DenonAVRVar->AVRType.".SurroundDisplay";
+			$DenonAVRVar->ptDisplay = "DENON.".$DenonAVRVar->AVRType.".Display";
 			
 			//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
 			if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
@@ -341,7 +343,8 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model'),
-				$DenonAVRVar->ptSurroundDisplay => $this->ReadPropertyBoolean('SurroundDisplay')
+				$DenonAVRVar->ptSurroundDisplay => $this->ReadPropertyBoolean('SurroundDisplay'),
+				$DenonAVRVar->ptDisplay => $this->ReadPropertyBoolean('Display')				
 				);
 			
 			//Boolean
@@ -1308,6 +1311,7 @@ class DenonAVRTelnet extends IPSModule
 		elseif($ResponseType == "TELNET")
 		{
 			$datavalues = $data->Data;
+			//Surround Display
 			if ($this->ReadPropertyBoolean('SurroundDisplay'))
 			{
 				$SurroundDisplay = $data->SurroundDisplay;
@@ -1315,6 +1319,17 @@ class DenonAVRTelnet extends IPSModule
 				{
 					SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 				}
+			}
+			// Display
+			if ($this->ReadPropertyBoolean('Display'))
+			{
+				$NSADisplay = $data->NSADisplay;
+				$DisplayHTML = "";
+				foreach ($NSADisplay as $row => $content)
+				{
+					$DisplayHTML .= '<div>'.$content.'</div>';
+				}
+				SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);	
 			}
 		}
 		

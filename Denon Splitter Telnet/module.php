@@ -36,7 +36,7 @@ class DenonSplitterTelnet extends IPSModule
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 		IPS_SetHidden($this->GetIDForIdent('IOIN'), true);
 		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
-        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+        //IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	
@@ -137,16 +137,16 @@ class DenonSplitterTelnet extends IPSModule
 	}
 
 	// Input MappingInputs als JSON
-public function SaveInputVarmapping($MappingInputs)
+public function SaveInputVarmapping(string $MappingInputs)
 	{
 		if ($this->GetIDForIdent("InputMapping"))
 		{
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-			if (($InputsMapping !== "") && ($InputsMapping !== "null"))
+			if (($InputsMapping !== "") && ($InputsMapping !== "null")) //Auslesen wenn Variable nicht leer
 			{
 				$InputsMapping = json_decode($InputsMapping);
 				$Writeprotected = $InputsMapping->Writeprotected;
-				if(!$Writeprotected)
+				if(!$Writeprotected) // Auf Schreibschutz prüfen
 				{
 					$MappingInputsArr = json_decode($MappingInputs);
 					$AVRType = $MappingInputsArr->AVRType;
@@ -154,7 +154,7 @@ public function SaveInputVarmapping($MappingInputs)
 					SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 				}
 			}
-			else
+			else // Schreiben wenn Variable noch nicht gesetzt
 			{
 				$MappingInputsArr = json_decode($MappingInputs);
 				$AVRType = $MappingInputsArr->AVRType;
@@ -162,10 +162,20 @@ public function SaveInputVarmapping($MappingInputs)
 				SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 			}	
 			
-		}
-					
-		 	
+		}	
 	}
+
+// Input MappingInputs als JSON	
+public function SaveOwnInputVarmapping(string $MappingInputs)
+	{
+		if ($this->GetIDForIdent("InputMapping"))
+		{
+			$MappingInputsArr = json_decode($MappingInputs);
+			$AVRType = $MappingInputsArr->AVRType;
+			SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+			SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+		} 	
+	}	
 
 public function GetInputArrayStatus()
 	{

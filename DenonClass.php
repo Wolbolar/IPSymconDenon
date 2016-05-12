@@ -138,6 +138,7 @@ class DENONIPSProfiles extends stdClass
 	public $VarMappingInputSourcesZ2;
 	public $VarMappingInputSourcesZ3;
 	public $DenonIP;
+	public $ptDisplay;
 	
 	//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
 	public $ptGraphicEQ;
@@ -702,7 +703,8 @@ class DENONIPSProfiles extends stdClass
 		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", $this->ptMainZoneName, $this->getpos($profile), "Information"),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", $this->ptTopMenuLink, $this->getpos($profile), "Information"),
 		$this->ptModel => array("Model", "Model", $this->ptModel, $this->getpos($profile), "Information"),
-		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", $this->ptSurroundDisplay, $this->getpos($profile), "Information")
+		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", $this->ptSurroundDisplay, $this->getpos($profile), "Information"),
+		$this->ptDisplay => array(DENON_API_Commands::DISPLAY, "Display", "~HTMLBox", $this->getpos($profile), "TV")
 		);
 		$profilesZone2 = array (
 		$this->ptZone2Name => array("Zone2Name", "Zone2 Name", $this->ptZone2Name, $this->getpos($profile), "Information"),
@@ -1945,6 +1947,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptDynamicEQ => 29,
 							$this->ptSleep => 30,
 							$this->ptQuickSelect => 31,
+							$this->ptDisplay => 32,
 							//Lautsprecher
 							$this->ptChannelVolumeFL => 40,
 							$this->ptChannelVolumeFR => 41,
@@ -2989,8 +2992,31 @@ class DENON_API_Commands extends stdClass
 	const TR = "TR"; // Trigger
 	const SY = "SY"; // Remote Lock
 	const UG = "UG"; // Upgrade ID Display
+	
+	//Display 
+	const DISPLAY = "Display"; // Display zur Anzeige
 	const NSA = "NSA"; // Network Audio Extended
+	const NSA0 = "NSA0"; // Network Audio Extended Line 0
+	const NSA1 = "NSA1"; // Network Audio Extended Line 1
+	const NSA2 = "NSA2"; // Network Audio Extended Line 2
+	const NSA3 = "NSA3"; // Network Audio Extended Line 3
+	const NSA4 = "NSA4"; // Network Audio Extended Line 4
+	const NSA5 = "NSA5"; // Network Audio Extended Line 5
+	const NSA6 = "NSA6"; // Network Audio Extended Line 6
+	const NSA7 = "NSA7"; // Network Audio Extended Line 7
+	const NSA0 = "NSA8"; // Network Audio Extended Line 8
+	
 	const NSE = "NSE"; // Network Audio Onscreen Display Information
+	const NSE0 = "NSE0"; // Network Audio Onscreen Display Information Line 0
+	const NSE1 = "NSE1"; // Network Audio Onscreen Display Information Line 1
+	const NSE2 = "NSE2"; // Network Audio Onscreen Display Information Line 2
+	const NSE3 = "NSE3"; // Network Audio Onscreen Display Information Line 3
+	const NSE4 = "NSE4"; // Network Audio Onscreen Display Information Line 4
+	const NSE5 = "NSE5"; // Network Audio Onscreen Display Information Line 5
+	const NSE6 = "NSE6"; // Network Audio Onscreen Display Information Line 6
+	const NSE0 = "NSE7"; // Network Audio Onscreen Display Information Line 7
+	const NSE0 = "NSE8"; // Network Audio Onscreen Display Information Line 8
+	const NSE0 = "NSE9"; // Network Audio Onscreen Display Information Line 9
 	
 	//SUB Commands
 	
@@ -3571,6 +3597,7 @@ class DENON_API_Commands extends stdClass
 	
 	
 	const SURROUNDDISPLAY = "SurroundDisplay"; // Nur DisplayIdent
+	
 	
 	// AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-X2100W / S900W / AVR-X1100W / S700W
 	const PSGRAPHICEQ = "PSGEQ"; // Graphic EQ
@@ -5760,6 +5787,52 @@ class DenonAVRCP_API_Data extends stdClass
 		$CommunicationType = "Response";
 		foreach($data as $key => $response)
 			{
+				$NSADisplay = array();
+				$NSAResponse = stripos($response, "NSA");
+				if ($NSAResponse !== false) //Display auslesen
+					{
+					$NSARow = substr($response, 3, 1);
+					if ($NSARow == 0)
+						{
+						$response = str_replace("NSA0", "", $response);
+						}
+					if ($NSARow == 1)
+						{
+						$response = str_replace("NSA1", "", $response);
+						}
+					if ($NSARow == 2)
+						{
+						$response = str_replace("NSA2", "", $response);
+						}
+					if ($NSARow == 3)
+						{
+						$response = str_replace("NSA3", "", $response);
+						}
+					if ($NSARow == 4)
+						{
+						$response = str_replace("NSA4", "", $response);
+						}
+					if ($NSARow == 5)
+						{
+						$response = str_replace("NSA5", "", $response);
+						}
+					if ($NSARow == 6)
+						{
+						$response = str_replace("NSA6", "", $response);
+						}
+					if ($NSARow == 7)
+						{
+						$response = str_replace("NSA7", "", $response);
+						}
+					if ($NSARow == 8)
+						{
+						$response = str_replace("NSA8", "", $response);
+						}
+					$response = str_replace("<NUL>", "", $response);
+					$response = trim($response);
+					$NSADisplay[$NSARow] = $response;
+					}
+
 				foreach(($this->VarMapping($InputMapping, $CommunicationType)) as $Command => $ValMap) //Zuordung suchen
 				{
 					$pos = stripos($response, $Command);
@@ -5783,7 +5856,8 @@ class DenonAVRCP_API_Data extends stdClass
 		$datasend = array(
 			'ResponseType' => 'TELNET',
 			'Data' => $datavalues,
-			'SurroundDisplay' => $showsurrounddisplay
+			'SurroundDisplay' => $showsurrounddisplay,
+			'NSADisplay' => $NSADisplay
 			);
 			
 		return $datasend;	

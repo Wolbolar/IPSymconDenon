@@ -34,7 +34,7 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
-		
+				
 		//Zusätzliche Inputs
 		$this->RegisterPropertyBoolean("FAVORITES", false);
 		$this->RegisterPropertyBoolean("IRADIO", false);
