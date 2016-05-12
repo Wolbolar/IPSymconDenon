@@ -3004,7 +3004,7 @@ class DENON_API_Commands extends stdClass
 	const NSA5 = "NSA5"; // Network Audio Extended Line 5
 	const NSA6 = "NSA6"; // Network Audio Extended Line 6
 	const NSA7 = "NSA7"; // Network Audio Extended Line 7
-	const NSA0 = "NSA8"; // Network Audio Extended Line 8
+	const NSA8 = "NSA8"; // Network Audio Extended Line 8
 	
 	const NSE = "NSE"; // Network Audio Onscreen Display Information
 	const NSE0 = "NSE0"; // Network Audio Onscreen Display Information Line 0
@@ -3014,9 +3014,9 @@ class DENON_API_Commands extends stdClass
 	const NSE4 = "NSE4"; // Network Audio Onscreen Display Information Line 4
 	const NSE5 = "NSE5"; // Network Audio Onscreen Display Information Line 5
 	const NSE6 = "NSE6"; // Network Audio Onscreen Display Information Line 6
-	const NSE0 = "NSE7"; // Network Audio Onscreen Display Information Line 7
-	const NSE0 = "NSE8"; // Network Audio Onscreen Display Information Line 8
-	const NSE0 = "NSE9"; // Network Audio Onscreen Display Information Line 9
+	const NSE7 = "NSE7"; // Network Audio Onscreen Display Information Line 7
+	const NSE8 = "NSE8"; // Network Audio Onscreen Display Information Line 8
+	const NSE9 = "NSE9"; // Network Audio Onscreen Display Information Line 9
 	
 	//SUB Commands
 	
