@@ -1860,13 +1860,13 @@ class DenonAVRTelnet extends IPSModule
 	//Get Display NSADisplay
 	public function NSADisplay()
 	{
-		$payload = DENON_API_Commands::NSA.$command;
+		$payload = DENON_API_Commands::NSA;
 		$this->SendCommand($payload);
 	}
 	
 	public function NSEDisplay()
 	{
-		$payload = DENON_API_Commands::NSE.$command;
+		$payload = DENON_API_Commands::NSE;
 		$this->SendCommand($payload);
 	}
 	
