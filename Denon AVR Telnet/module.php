@@ -709,7 +709,10 @@ class DenonAVRTelnet extends IPSModule
 						{
 							$this->DisableAction("SurroundDisplay");
 						}
-						
+						if($this->ReadPropertyBoolean('Display') == true)
+						{
+							$this->DisableAction("Display");
+						}
 					}
 			
 				if($this->ReadPropertyBoolean('Zone') == 1)
