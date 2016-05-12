@@ -1335,6 +1335,8 @@ class DenonAVRTelnet extends IPSModule
 			if ($this->ReadPropertyBoolean('Display'))
 			{
 				$NSADisplay = $data->NSADisplay;
+				$NSADisplayLog = json_encode($NSADisplay);
+				IPS_LogMessage("Denon Telnet Display", $NSADisplayLog);
 				$DisplayHTML = GetValue($this->GetIDForIdent("Display"));
 				$doc = new DOMDocument();
 				$doc->loadHTML($DisplayHTML);
