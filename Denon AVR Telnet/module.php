@@ -921,7 +921,10 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
 				//Ident, Name, Profile, Position, Icon
-				$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);				
+				if ($profile["ProfilName"] !== "~HTMLBox")
+					{
+						$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);
+					}
 				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
 				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
