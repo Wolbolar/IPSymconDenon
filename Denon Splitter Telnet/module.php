@@ -393,7 +393,7 @@ public function GetInputVarMapping()
 		$data = preg_split('/\r/', $dataio);
 		array_pop($data);
 		$datamessage = json_encode($data);
-		IPS_LogMessage("Denon Telnet Received Data", $datamessage);
+		IPS_LogMessage("Denon Telnet Splitter", "Received Data: ".$datamessage);
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
 		$APIData->AVRProtocol = "Telnet";
