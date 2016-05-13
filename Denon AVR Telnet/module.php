@@ -1069,7 +1069,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if (IPS_HasChildren($this->InstanceID))
 		{
-		$AVRVarIDs = IPS_GetChildrenIDs ($parent);
+		$AVRVarIDs = IPS_GetChildrenIDs ($this->InstanceID);
 		
 		//Array Ident erzeugen
 		$AVRCommands = array_flip($AVRVarIDs);
