@@ -5784,10 +5784,10 @@ class DenonAVRCP_API_Data extends stdClass
 					}
 			}
 		$datavalues = array();
+		$NSADisplay = array();
 		$CommunicationType = "Response";
 		foreach($data as $key => $response)
 			{
-				$NSADisplay = array();
 				$NSAResponse = stripos($response, "NSA");
 				if ($NSAResponse !== false) //Display auslesen
 					{
