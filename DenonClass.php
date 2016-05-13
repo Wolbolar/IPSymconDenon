@@ -5861,7 +5861,10 @@ class DenonAVRCP_API_Data extends stdClass
 			'SurroundDisplay' => $showsurrounddisplay,
 			'NSADisplay' => $NSADisplay
 			);
-			
+		//Debug Log
+		$NSADisplayMessage = json_encode($NSADisplay);
+		IPS_LogMessage('Denon Class','NSADisplay:'.$NSADisplayMessage);	
+		
 		return $datasend;	
 	}
 	
