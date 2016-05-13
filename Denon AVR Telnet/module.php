@@ -1069,38 +1069,196 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if (IPS_HasChildren($this->InstanceID))
 		{
-		$AVRVarIDs = IPS_GetChildrenIDs ($this->InstanceID);
-		//Hidden nicht abfragen
-		foreach ($AVRVarIDs as $id => $ObjektID)
-			{
-			$ObjektIDInfo = IPS_GetObject($ObjektID);
-			$hidden = $ObjektIDInfo["ObjectIsHidden"];
-				if ($hidden)
-				{
-				unset($AVRVarIDs[$id]);
-				}
-			}
+		$AVRVarIDs = IPS_GetChildrenIDs ($parent);
+		
 		//Array Ident erzeugen
 		$AVRCommands = array_flip($AVRVarIDs);
 		
+		//Hidden nicht abfragen
 		foreach ($AVRCommands as $ObjektID => $id)
+		{
+		$ObjektIDInfo = IPS_GetObject($ObjektID);
+		$Name = $ObjektIDInfo["ObjectName"];
+		$hidden = $ObjektIDInfo["ObjectIsHidden"];
+			if ($hidden)
 			{
-			$ObjektIDInfo = IPS_GetObject($ObjektID);
-			$Ident = $ObjektIDInfo["ObjectIdent"];
+			unset($AVRCommands[$ObjektID]);
+			}
+		$Ident = $ObjektIDInfo["ObjectIdent"];
+		if($Ident == "MN" || $Ident == "Display" || $Ident == "MainZoneName" || $Ident == "Model" || $Ident == "SurroundDisplay")
+			{
+			unset($AVRCommands[$ObjektID]);
+			}
+		if($Ident !== "MN" && $Ident !== "Display" && $Ident !=="MainZoneName" && $Ident !=="Model" && $Ident !=="SurroundDisplay")
+			{
 			$AVRCommands[$ObjektID] = $Ident;
 			}
 
+		}
+		
 		//$timestamp = time();
 		foreach ($AVRCommands as $ObjektID => $Ident)
 			{
 				$Name = IPS_GetName($ObjektID);
 				IPS_LogMessage('Denon Telnet AVR ', "Update: ".$Name);
-				if ($Ident == "PSCINEMA_EQ")
-				{
-					$Ident = "PSCINEMA EQ.";
-				}
-				$command = $Ident.chr(63);
-				$this->SendCommand($command);
+				if ($Ident == "CVFL" || $Ident == "CVFR" || $Ident == "CVC" || $Ident == "CVSW" || $Ident == "CVSL" || $Ident == "CVSR")
+					{
+						$Command = "CV";
+					}
+				elseif($Ident == "PSDYNVOL")//Dynamic Volume
+					{
+						$Command = "PSDYNVOL ";
+					}
+				elseif($Ident == "PSVOLLEV")//Dolby Volume Leveler
+					{
+						$Command = "PSVOLLEV ";
+					}
+				elseif($Ident == "PSVOLMOD")//Dolby Volume Modeler
+					{
+						$Command = "PSVOLMOD ";
+					}
+				elseif($Ident == "PSDOLVOL")//Dolby Volume
+					{
+						$Command = "PSDOLVOL ";
+					}
+				elseif($Ident == "PSPAN")//Panorama
+					{
+						$Command = "PSPAN ";
+					}
+				elseif($Ident == "PSMULTEQ")//PSMULTEQ
+					{
+						$Command = "PSMULTEQ: ";
+					}
+				elseif($Ident == "PVCM")//Chroma Level
+					{
+						$Command = "PVCM ";
+					}
+				elseif($Ident == "PSSWR")//Subwoofer
+					{
+						$Command = "PSSWR ";
+					}
+				elseif($Ident == "PSEFF")//Effekt
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "PVCN")//Contrast
+					{
+						$Command = "PVCN ";
+					}
+				elseif($Ident == "PVENH")//Enhancer
+					{
+						$Command = "PVENH ";
+					}
+				elseif($Ident == "PSSWR")//Subwoofer
+					{
+						$Command = "PSSWR ";
+					}
+				elseif($Ident == "PSEFF") //Effekt Level
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "VSVST") //Vertical Stretch
+					{
+						$Command = "VSVST ";
+					}
+				elseif($Ident == "PSRSZ") //Room Size
+					{
+						$Command = "PSRSZ ";
+					}
+				elseif($Ident == "PSCINEMA_EQ") //Cinema EQ
+					{
+						$Command = "PSCINEMA EQ. ";
+					}
+				elseif($Ident == "PSTONE_CTRL") //Tone CTRL
+					{
+						$Command = "PSTONE CTRL ";
+					}
+				elseif($Ident == "PSDELAY") //Audio Delay
+					{
+						$Command = "PSDELAY ";
+					}
+				elseif($Ident == "MSQUICK") //MSQUICK
+					{
+						$Command = "MSQUICK ";
+					}
+				elseif($Ident == "PSSB") //Surround Back Mode
+					{
+						$Command = "PSSB: ";
+					}
+				elseif($Ident == "PVBR") //Brightness
+					{
+						$Command = "PVBR ";
+					}
+				elseif($Ident == "PVHUE") //Hue
+					{
+						$Command = "PVHUE ";
+					}
+				elseif($Ident == "PSATT") //Subwoofer ATT
+					{
+						$Command = "PSATT ";
+					}
+				elseif($Ident == "PSSTW") //Stage Width
+					{
+						$Command = "PSSTW ";
+					}
+				elseif($Ident == "PSSTH") //Stage Height
+					{
+						$Command = "PSSTH ";
+					}
+				elseif($Ident == "PSMODE") //Surround Play Mode
+					{
+						$Command = "PSMODE: ";
+					}
+				elseif($Ident == "PSAFD") //AFDM
+					{
+						$Command = "PSAFD ";
+					}
+				elseif($Ident == "PSSP") // Speaker Output Front
+					{
+						$Command = "PSSP".chr(58).chr(32);
+					}
+				elseif($Ident == "VSASP") //ASP
+					{
+						$Command = "VSASP ";
+					}
+				elseif($Ident == "PSCEI") //Center Image
+					{
+						$Command = "PSCEI ";
+					}
+				elseif($Ident == "PVCN") //Contrast
+					{
+						$Command = "PVCN ";
+					}
+				elseif($Ident == "PSREFLEV") //Reference Level
+					{
+						$Command = "PSREFLEV ";
+					}
+				elseif($Ident == "VSSCH") //HDMI Audio
+					{
+						$Command = "VSSCH ";
+					}
+				elseif($Ident == "VSAUDIO") //HDMI Audio Output
+					{
+						$Command = "VSAUDIO ";
+					}
+				elseif($Ident == "PSEFF") //Effect Level
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "PSEFF_O") //Effect
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "PSDSX") //Audyssey DSX
+					{
+						$Command = "PSDSX ";
+					}
+				else
+					{
+						$Command = $Ident;
+					}
+				$request = $Command.chr(63);
+				$this->SendCommand($request);
 				IPS_Sleep(100);  
 				}
 		
