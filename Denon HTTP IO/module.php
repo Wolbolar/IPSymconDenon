@@ -55,7 +55,7 @@ class DenonAVRIOHTTP extends IPSModule
 		}
 	else
 			{
-			$this->SetStatus(204); //IP Adresse ist ungültig 
+			$this->SetStatus(204); //IP Adresse ist ungültig	
 			}
 	$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
@@ -252,7 +252,7 @@ class DenonAVRIOHTTP extends IPSModule
 			if ($this->GetIDForIdent("InputMapping"))
 			{
 				$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-				if ($InputsMapping !== "")
+				if (($InputsMapping !== "") && ($InputsMapping !== "null"))
 				{
 					$InputsMapping = json_decode($InputsMapping);
 					$Writeprotected = $InputsMapping->Writeprotected;
@@ -274,6 +274,18 @@ class DenonAVRIOHTTP extends IPSModule
 			}
 		}
 
+	// Input MappingInputs als JSON	
+	public function SaveOwnInputVarmapping(string $MappingInputs)
+		{
+			if ($this->GetIDForIdent("InputMapping"))
+			{
+				$MappingInputsArr = json_decode($MappingInputs);
+				$AVRType = $MappingInputsArr->AVRType;
+				SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+				SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+			} 	
+		}		
+		
 	public function GetInputVarMapping()
 		{
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));

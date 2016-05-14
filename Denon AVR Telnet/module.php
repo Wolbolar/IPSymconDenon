@@ -14,7 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
-		$this->RegisterPropertyInteger("AVRType", 6);
+		$this->RegisterPropertyInteger("AVRType", 50);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("SurroundDisplay", false);
 		$this->RegisterPropertyBoolean("Navigation", false);
@@ -104,6 +104,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
+		$this->RegisterPropertyBoolean("Display", false);
 		
 		//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
 		$this->RegisterPropertyBoolean("GraphicEQ", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
@@ -150,6 +151,7 @@ class DenonAVRTelnet extends IPSModule
         parent::ApplyChanges();
 		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
         //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
+		
 		$this->ValidateConfiguration();
 		
 	}
@@ -167,6 +169,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
+		$AVRType = $this->ReadPropertyInteger('AVRType');
 		
 		//Import Kategorie NEO
 		$vNEOToggle = $this->ReadPropertyBoolean('NEOToggle');
@@ -178,15 +181,19 @@ class DenonAVRTelnet extends IPSModule
 					// Status Error Kategorie zum Import auswählen
 					$this->SetStatus(211);
 				}
-			elseif ( $NEOCategoryID !== 0)	
-				{
-					// AktivStatus Error Kategorie zum Import auswählen
-					$this->SetStatus(102);
-				}
+		}
+		if ($Zone == 6)
+		{
+			// Error Zone auswählen
+			$this->SetStatus(212);
+		}
+		if ($AVRType == 50)
+		{
+			// Error AVR Type auswählen
+			$this->SetStatus(213);
 		}
 		
-		
-		if ($Zone == 0) //Mainzone
+		if (($Zone == 0) && ($AVRType !== 50)) //Mainzone
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -277,6 +284,7 @@ class DenonAVRTelnet extends IPSModule
 			$DenonAVRVar->ptGUIMenu = "DENON.".$DenonAVRVar->AVRType.".GUIMenu";
 			$DenonAVRVar->ptGUISourceSelect = "DENON.".$DenonAVRVar->AVRType.".GUIMenuSourceSelect";
 			$DenonAVRVar->ptSurroundDisplay = "DENON.".$DenonAVRVar->AVRType.".SurroundDisplay";
+			$DenonAVRVar->ptDisplay = "DENON.".$DenonAVRVar->AVRType.".Display";
 			
 			//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
 			if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
@@ -317,10 +325,11 @@ class DenonAVRTelnet extends IPSModule
 			
 			//Variablen
 			//Get Inputs
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -334,7 +343,8 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptMainZoneName => $this->ReadPropertyBoolean('ZoneName'),
 				$DenonAVRVar->ptTopMenuLink => false,
 				$DenonAVRVar->ptModel => $this->ReadPropertyBoolean('Model'),
-				$DenonAVRVar->ptSurroundDisplay => $this->ReadPropertyBoolean('SurroundDisplay')
+				$DenonAVRVar->ptSurroundDisplay => $this->ReadPropertyBoolean('SurroundDisplay'),
+				$DenonAVRVar->ptDisplay => $this->ReadPropertyBoolean('Display')				
 				);
 			
 			//Boolean
@@ -488,7 +498,7 @@ class DenonAVRTelnet extends IPSModule
 			}	
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
-		elseif ($Zone == 1) //Zone 2
+		elseif (($Zone == 1) && ($AVRType !== 50)) //Zone 2
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -519,10 +529,11 @@ class DenonAVRTelnet extends IPSModule
 			
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -577,7 +588,7 @@ class DenonAVRTelnet extends IPSModule
 			
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
-		elseif ($Zone == 2) // Zone 3
+		elseif (($Zone == 2) && ($AVRType !== 50)) // Zone 3
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -607,10 +618,11 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -697,7 +709,10 @@ class DenonAVRTelnet extends IPSModule
 						{
 							$this->DisableAction("SurroundDisplay");
 						}
-						
+						if($this->ReadPropertyBoolean('Display') == true)
+						{
+							$this->DisableAction("Display");
+						}
 					}
 			
 				if($this->ReadPropertyBoolean('Zone') == 1)
@@ -724,7 +739,7 @@ class DenonAVRTelnet extends IPSModule
 			//auf aktive Parent prüfen
 				
 			//Status aktiv
-			$this->SetStatus(102);
+			//$this->SetStatus(102);
 	}
 	
 	private function GetInputsAVR($DenonAVRVar)
@@ -796,15 +811,15 @@ class DenonAVRTelnet extends IPSModule
 			}
 			elseif($DenonAVRUpdate->Zone == 1)
 			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
 			}
 			elseif($DenonAVRUpdate->Zone == 2)
 			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
 			}
 			
 			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			IPS_LogMessage('Variablenprofil Update:', $inputsourcesprofile["ProfilName"]);
+			IPS_LogMessage('Denon Telnet AVR','Variablenprofil Update:'. $inputsourcesprofile["ProfilName"]);
 			IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
 		}
 		
@@ -812,7 +827,8 @@ class DenonAVRTelnet extends IPSModule
 		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$MappingInputs = json_encode($this->VarMappingInputs);
 		DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
-		return $this->InputSources;
+		$Inputs = array( "Inputprofile" => $this->InputSources, "Varmapping" => $MappingInputs);
+		return $Inputs;
 	}
 	
 	private function GetAVRType()
@@ -893,9 +909,9 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			IPS_LogMessage('Variablenprofil angelegt:', $inputsourcesprofile["ProfilName"]);
+			IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
 			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
-			IPS_LogMessage('Variable angelegt:', $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
+			IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
 			$this->EnableAction($inputsourcesprofile["Ident"]);
 		}	
 		
@@ -908,9 +924,17 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
 				//Ident, Name, Profile, Position, Icon
-				$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);				
+				if ($profile["ProfilName"] !== "~HTMLBox")
+					{
+						$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);
+					}
 				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				if ($profile["Ident"] == "Display")
+					{
+						$DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
+						SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);
+					}
+				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
@@ -929,7 +953,7 @@ class DenonAVRTelnet extends IPSModule
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
 				//Ident, Name, Profile, Position 
 				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
 				//NEO Toggle Skript anlegen
 				if ($this->ReadPropertyBoolean('NEOToggle'))
@@ -952,9 +976,9 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);	
+				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);	
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
@@ -972,9 +996,9 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
-				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
+				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
 				
 			}	
@@ -993,9 +1017,9 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				IPS_LogMessage('Variablenprofil angelegt:', $profile["ProfilName"]);
+				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
 				$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Variable angelegt:', $profile["Name"].', [ObjektID: '.$id.']');
+				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
 				$this->EnableAction($profile["Ident"]);
 			}
 		// wenn nicht sichtbar löschen
@@ -1011,7 +1035,7 @@ class DenonAVRTelnet extends IPSModule
 	protected function SetupDisplay($AVRType)
 	{	
 		$this->RegisterVariableString("Display", "Display", "~HTMLBox", 32);
-		$this->EnableAction("Display");
+		//$this->EnableAction("Display");
 		// Status aktiv
 		//$this->SetStatus(102);
 	}
@@ -1029,12 +1053,12 @@ class DenonAVRTelnet extends IPSModule
             }
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
-			IPS_LogMessage('Variable gelöscht:', $Name.', [ObjektID: '.$vid.']');
+			IPS_LogMessage('Denon Telnet AVR','Variable gelöscht: '.$Name.', [ObjektID: '.$vid.']');
 			//delete Profile
 			if (IPS_VariableProfileExists ($Profile))
 			{
 				IPS_DeleteVariableProfile($Profile);
-				IPS_LogMessage('Variablenprofil gelöscht:', $Profile);
+				IPS_LogMessage('Denon Telnet AVR','Variablenprofil gelöscht:'.$Profile);
 			}
 			
         }
@@ -1046,37 +1070,195 @@ class DenonAVRTelnet extends IPSModule
 		if (IPS_HasChildren($this->InstanceID))
 		{
 		$AVRVarIDs = IPS_GetChildrenIDs ($this->InstanceID);
-		//Hidden nicht abfragen
-		foreach ($AVRVarIDs as $id => $ObjektID)
-			{
-			$ObjektIDInfo = IPS_GetObject($ObjektID);
-			$hidden = $ObjektIDInfo["ObjectIsHidden"];
-				if ($hidden)
-				{
-				unset($AVRVarIDs[$id]);
-				}
-			}
+		
 		//Array Ident erzeugen
 		$AVRCommands = array_flip($AVRVarIDs);
 		
+		//Hidden nicht abfragen
 		foreach ($AVRCommands as $ObjektID => $id)
+		{
+		$ObjektIDInfo = IPS_GetObject($ObjektID);
+		$Name = $ObjektIDInfo["ObjectName"];
+		$hidden = $ObjektIDInfo["ObjectIsHidden"];
+			if ($hidden)
 			{
-			$ObjektIDInfo = IPS_GetObject($ObjektID);
-			$Ident = $ObjektIDInfo["ObjectIdent"];
+			unset($AVRCommands[$ObjektID]);
+			}
+		$Ident = $ObjektIDInfo["ObjectIdent"];
+		if($Ident == "MN" || $Ident == "Display" || $Ident == "MainZoneName" || $Ident == "Model" || $Ident == "SurroundDisplay")
+			{
+			unset($AVRCommands[$ObjektID]);
+			}
+		if($Ident !== "MN" && $Ident !== "Display" && $Ident !=="MainZoneName" && $Ident !=="Model" && $Ident !=="SurroundDisplay")
+			{
 			$AVRCommands[$ObjektID] = $Ident;
 			}
 
+		}
+		
 		//$timestamp = time();
 		foreach ($AVRCommands as $ObjektID => $Ident)
 			{
 				$Name = IPS_GetName($ObjektID);
-				IPS_LogMessage('Denon Update: ', $Name);
-				if ($Ident == "PSCINEMA_EQ")
-				{
-					$Ident = "PSCINEMA EQ.";
-				}
-				$command = $Ident.chr(63);
-				$this->SendCommand($command);
+				IPS_LogMessage('Denon Telnet AVR ', "Update: ".$Name);
+				if ($Ident == "CVFL" || $Ident == "CVFR" || $Ident == "CVC" || $Ident == "CVSW" || $Ident == "CVSL" || $Ident == "CVSR")
+					{
+						$Command = "CV";
+					}
+				elseif($Ident == "PSDYNVOL")//Dynamic Volume
+					{
+						$Command = "PSDYNVOL ";
+					}
+				elseif($Ident == "PSVOLLEV")//Dolby Volume Leveler
+					{
+						$Command = "PSVOLLEV ";
+					}
+				elseif($Ident == "PSVOLMOD")//Dolby Volume Modeler
+					{
+						$Command = "PSVOLMOD ";
+					}
+				elseif($Ident == "PSDOLVOL")//Dolby Volume
+					{
+						$Command = "PSDOLVOL ";
+					}
+				elseif($Ident == "PSPAN")//Panorama
+					{
+						$Command = "PSPAN ";
+					}
+				elseif($Ident == "PSMULTEQ")//PSMULTEQ
+					{
+						$Command = "PSMULTEQ: ";
+					}
+				elseif($Ident == "PVCM")//Chroma Level
+					{
+						$Command = "PVCM ";
+					}
+				elseif($Ident == "PSSWR")//Subwoofer
+					{
+						$Command = "PSSWR ";
+					}
+				elseif($Ident == "PSEFF")//Effekt
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "PVCN")//Contrast
+					{
+						$Command = "PVCN ";
+					}
+				elseif($Ident == "PVENH")//Enhancer
+					{
+						$Command = "PVENH ";
+					}
+				elseif($Ident == "PSSWR")//Subwoofer
+					{
+						$Command = "PSSWR ";
+					}
+				elseif($Ident == "PSEFF") //Effekt Level
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "VSVST") //Vertical Stretch
+					{
+						$Command = "VSVST ";
+					}
+				elseif($Ident == "PSRSZ") //Room Size
+					{
+						$Command = "PSRSZ ";
+					}
+				elseif($Ident == "PSCINEMA_EQ") //Cinema EQ
+					{
+						$Command = "PSCINEMA EQ. ";
+					}
+				elseif($Ident == "PSTONE_CTRL") //Tone CTRL
+					{
+						$Command = "PSTONE CTRL ";
+					}
+				elseif($Ident == "PSDELAY") //Audio Delay
+					{
+						$Command = "PSDELAY ";
+					}
+				elseif($Ident == "MSQUICK") //MSQUICK
+					{
+						$Command = "MSQUICK ";
+					}
+				elseif($Ident == "PSSB") //Surround Back Mode
+					{
+						$Command = "PSSB: ";
+					}
+				elseif($Ident == "PVBR") //Brightness
+					{
+						$Command = "PVBR ";
+					}
+				elseif($Ident == "PVHUE") //Hue
+					{
+						$Command = "PVHUE ";
+					}
+				elseif($Ident == "PSATT") //Subwoofer ATT
+					{
+						$Command = "PSATT ";
+					}
+				elseif($Ident == "PSSTW") //Stage Width
+					{
+						$Command = "PSSTW ";
+					}
+				elseif($Ident == "PSSTH") //Stage Height
+					{
+						$Command = "PSSTH ";
+					}
+				elseif($Ident == "PSMODE") //Surround Play Mode
+					{
+						$Command = "PSMODE: ";
+					}
+				elseif($Ident == "PSAFD") //AFDM
+					{
+						$Command = "PSAFD ";
+					}
+				elseif($Ident == "PSSP") // Speaker Output Front
+					{
+						$Command = "PSSP".chr(58).chr(32);
+					}
+				elseif($Ident == "VSASP") //ASP
+					{
+						$Command = "VSASP ";
+					}
+				elseif($Ident == "PSCEI") //Center Image
+					{
+						$Command = "PSCEI ";
+					}
+				elseif($Ident == "PVCN") //Contrast
+					{
+						$Command = "PVCN ";
+					}
+				elseif($Ident == "PSREFLEV") //Reference Level
+					{
+						$Command = "PSREFLEV ";
+					}
+				elseif($Ident == "VSSCH") //HDMI Audio
+					{
+						$Command = "VSSCH ";
+					}
+				elseif($Ident == "VSAUDIO") //HDMI Audio Output
+					{
+						$Command = "VSAUDIO ";
+					}
+				elseif($Ident == "PSEFF") //Effect Level
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "PSEFF_O") //Effect
+					{
+						$Command = "PSEFF ";
+					}
+				elseif($Ident == "PSDSX") //Audyssey DSX
+					{
+						$Command = "PSDSX ";
+					}
+				else
+					{
+						$Command = $Ident;
+					}
+				$request = $Command.chr(63);
+				$this->SendCommand($request);
 				IPS_Sleep(100);  
 				}
 		
@@ -1140,7 +1322,7 @@ class DenonAVRTelnet extends IPSModule
 		*/
         // Subcommand holen
         $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
-        IPS_LogMessage('Denon Subcommand', $APIData->APISubCommand);
+        IPS_LogMessage('Denon Telnet AVR', "Denon Subcommand: ".$APIData->APISubCommand);
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
@@ -1267,7 +1449,7 @@ class DenonAVRTelnet extends IPSModule
 		//$datasplitter = json_encode($data->Buffer->Data);
 		//SetValueString($this->GetIDForIdent("BufferIN"), $datasplitter);
 		$message = json_encode($data->Buffer->Data);
-		IPS_LogMessage("ReceiveData Denon Telnet", utf8_decode($message));
+		IPS_LogMessage("Denon Telnet AVR", "Received Data:".utf8_decode($message));
 		$response = json_encode($data->Buffer);
 		//SetValueString($this->GetIDForIdent("Response"), $response);
 		$this->UpdateVariable($data->Buffer);
@@ -1298,6 +1480,7 @@ class DenonAVRTelnet extends IPSModule
 		elseif($ResponseType == "TELNET")
 		{
 			$datavalues = $data->Data;
+			//Surround Display
 			if ($this->ReadPropertyBoolean('SurroundDisplay'))
 			{
 				$SurroundDisplay = $data->SurroundDisplay;
@@ -1305,6 +1488,60 @@ class DenonAVRTelnet extends IPSModule
 				{
 					SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 				}
+			}
+			// Display
+			if ($this->ReadPropertyBoolean('Display'))
+			{
+				$NSADisplay = $data->NSADisplay;
+				$NSADisplayLog = json_encode($NSADisplay);
+				IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
+				$DisplayHTML = GetValue($this->GetIDForIdent("Display"));
+				$doc = new DOMDocument();
+				$doc->loadHTML($DisplayHTML);
+				foreach ($NSADisplay as $row => $content)
+				{
+					if($row == 0)
+						{
+							$doc->getElementById('NSARow0')->nodeValue = $content;
+						}
+					if($row == 1)
+						{
+							$doc->getElementById('NSARow1')->nodeValue = $content;
+						}
+					if($row == 2)
+						{
+							$doc->getElementById('NSARow2')->nodeValue = $content;
+						}
+					if($row == 3)
+						{
+							$doc->getElementById('NSARow3')->nodeValue = $content;
+						}
+					if($row == 4)
+						{
+							$doc->getElementById('NSARow4')->nodeValue = $content;
+						}
+					if($row == 5)
+						{
+							$doc->getElementById('NSARow5')->nodeValue = $content;
+						}
+					if($row == 6)
+						{
+							$doc->getElementById('NSARow6')->nodeValue = $content;
+						}
+					if($row == 7)
+						{
+							$doc->getElementById('NSARow7')->nodeValue = $content;
+						}
+					if($row == 8)
+						{
+							$doc->getElementById('NSARow8')->nodeValue = $content;
+						}
+					if($row == 9)
+						{
+							$doc->getElementById('NSARow9')->nodeValue = $content;
+						}	
+				}
+				SetValueString($this->GetIDForIdent("Display"), $doc->saveHTML());	
 			}
 		}
 		
@@ -1325,19 +1562,19 @@ class DenonAVRTelnet extends IPSModule
 							{
 								case 0: //Boolean
 									SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-									IPS_LogMessage("Update Denon HTTP", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+									IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 									break;
 								case 1: //Integer
 									SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-									IPS_LogMessage("Update Denon HTTP", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+									IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 									break;
 								case 2: //Float
 									SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-									IPS_LogMessage("Update Denon HTTP", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+									IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 									break;     
 								case 3: //String
 									SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-									IPS_LogMessage("Update Denon HTTP", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+									IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 									break;
 							}	
 							
@@ -1350,19 +1587,19 @@ class DenonAVRTelnet extends IPSModule
 						{
 							case 0: //Boolean
 								SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-								IPS_LogMessage("Update Denon Telnet", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+								IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 								break;
 							case 1: //Integer
 								SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-								IPS_LogMessage("Update Denon Telnet", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+								IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 								break;
 							case 2: //Float
 								SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-								IPS_LogMessage("Update Denon Telnet", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+								IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 								break;     
 							case 3: //String
 								SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-								IPS_LogMessage("Update Denon Telnet", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+								IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
 								break;
 						}	
 						
@@ -1772,12 +2009,24 @@ class DenonAVRTelnet extends IPSModule
 		$payload = DENON_API_Commands::MU.$Subcommand;
 		$this->SendCommand($payload);
 	}
-	
 		
 	//Input
 	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
 		$payload = DENON_API_Commands::SI.$command;
+		$this->SendCommand($payload);
+	}
+	
+	//Get Display NSADisplay
+	public function NSADisplay()
+	{
+		$payload = DENON_API_Commands::NSA;
+		$this->SendCommand($payload);
+	}
+	
+	public function NSEDisplay()
+	{
+		$payload = DENON_API_Commands::NSE;
 		$this->SendCommand($payload);
 	}
 	
@@ -2854,12 +3103,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Power('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Power einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Power einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Power('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Standby schalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Standby schalten" );
 	}
 
 ?>';
@@ -2879,12 +3128,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_MainZonePower('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "MainZonePower einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "MainZonePower einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_MainZonePower('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "MainZonePower ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "MainZonePower ausschalten" );
 	}
 
 ?>';
@@ -2904,12 +3153,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_MainMute('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Mute einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Mute einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_MainMute('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Mute ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Mute ausschalten" );
 	}
 
 ?>';
@@ -2929,12 +3178,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone2Power('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Zone2Power einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Zone2Power einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Zone2Power('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Zone2Power ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Zone2Power ausschalten" );
 	}
 
 ?>';
@@ -2954,12 +3203,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone3Power('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Zone3Power einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Zone3Power einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Zone3Power('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Zone3Power ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Zone3Power ausschalten" );
 	}
 
 ?>';
@@ -2979,12 +3228,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone2Mute('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Zone 2 Mute einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Zone 2 Mute einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Zone2Mute('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Zone 2 Mute ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Zone 2 Mute ausschalten" );
 	}
 
 ?>';
@@ -3004,12 +3253,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone3Mute('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Zone 3 Mute einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Zone 3 Mute einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Zone3Mute('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Zone 3 Mute ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Zone 3 Mute ausschalten" );
 	}
 
 ?>';
@@ -3029,12 +3278,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_DolbyVolume('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Dolby Volume einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Dolby Volume einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_DolbyVolume('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Dolby Volume ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Dolby Volume ausschalten" );
 	}
 
 ?>';
@@ -3054,12 +3303,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_CinemaEQ('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "CinemaEQ einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "CinemaEQ einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_CinemaEQ('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "CinemaEQ ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "CinemaEQ ausschalten" );
 	}
 
 ?>';
@@ -3079,12 +3328,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Panorama('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Panorama einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Panorama einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Panorama('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Panorama ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Panorama ausschalten" );
 	}
 
 ?>';
@@ -3104,12 +3353,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_DynamicEQ('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "DynamicEQ einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "DynamicEQ einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_DynamicEQ('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "DynamicEQ ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "DynamicEQ ausschalten" );
 	}
 
 ?>';
@@ -3129,12 +3378,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Subwoofer('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Subwoofer einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Subwoofer einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Subwoofer('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Subwoofer ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Subwoofer ausschalten" );
 	}
 
 ?>';
@@ -3154,12 +3403,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_SubwooferATT('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "SubwooferATT einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "SubwooferATT einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_SubwooferATT('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "SubwooferATT ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "SubwooferATT ausschalten" );
 	}
 
 ?>';
@@ -3179,12 +3428,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_FrontHeight('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "FrontHeight einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "FrontHeight einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_FrontHeight('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "FrontHeight ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "FrontHeight ausschalten" );
 	}
 
 ?>';
@@ -3204,12 +3453,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_ToneCTRL('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "ToneCTRL einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "ToneCTRL einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_ToneCTRL('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "ToneCTRL ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "ToneCTRL ausschalten" );
 	}
 
 ?>';
@@ -3229,12 +3478,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_AutoFlagDetectMode('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Auto Flag Detect Mode einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Auto Flag Detect Mode einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_AutoFlagDetectMode('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Auto Flag Detect Mode ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Auto Flag Detect Mode ausschalten" );
 	}
 
 ?>';
@@ -3254,12 +3503,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Effect('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Effect einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Effect einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_Effect('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Effect ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Effect ausschalten" );
 	}
 
 ?>';
@@ -3279,12 +3528,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_VerticalStretch('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "Vertical Stretch einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "Vertical Stretch einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_VerticalStretch('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "Vertical Stretch ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "Vertical Stretch ausschalten" );
 	}
 
 ?>';
@@ -3304,12 +3553,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_GUIMenu('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "GUI Menu einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "GUI Menu einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_GUIMenu('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "GUI Menu ausschalten" );
+   IPS_LogMessage( "Denon Telnet AVR" , "GUI Menu ausschalten" );
 	}
 
 ?>';
@@ -3329,12 +3578,12 @@ $status = GetValueBoolean('.$ObjektID.'); // Status des Geräts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_GUISourceSelectMenu('.$InstanzID.', true);
-	IPS_LogMessage( "Denon AVR:" , "GUI Source Select Menu einschalten" );
+	IPS_LogMessage( "Denon Telnet AVR" , "GUI Source Select Menu einschalten" );
    }
 elseif ($status == true)// Ausschalten
 	{
    DAVRT_GUISourceSelectMenu('.$InstanzID.', false);
-   IPS_LogMessage( "Denon AVR:" , "GUI Source Select Menu ausschalten" );
+   IPS_LogMessage("Denon Telnet AVR", "GUI Source Select Menu ausschalten" );
 	}
 
 ?>';

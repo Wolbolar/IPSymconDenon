@@ -14,7 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
-		$this->RegisterPropertyInteger("AVRType", 2);
+		$this->RegisterPropertyInteger("AVRType", 50);
 		$this->RegisterPropertyInteger("Zone", 6);
 		$this->RegisterPropertyBoolean("Navigation", false);
 		$this->RegisterPropertyBoolean("ZoneName", false);
@@ -34,7 +34,7 @@ class DenonAVRHTTP extends IPSModule
 		$this->RegisterPropertyBoolean("Z3Quick", false);
 		$this->RegisterPropertyBoolean("NEOToggle", false);
 		$this->RegisterPropertyInteger("NEOToggleCategoryID", 0);
-		
+				
 		//Zusätzliche Inputs
 		$this->RegisterPropertyBoolean("FAVORITES", false);
 		$this->RegisterPropertyBoolean("IRADIO", false);
@@ -66,6 +66,7 @@ class DenonAVRHTTP extends IPSModule
 	{
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
+		$AVRType = $this->ReadPropertyInteger('AVRType');
 		
 		//Import Kategorie NEO
 		$vNEOToggle = $this->ReadPropertyBoolean('NEOToggle');
@@ -77,14 +78,19 @@ class DenonAVRHTTP extends IPSModule
 					// Status Error Kategorie zum Import auswählen
 					$this->SetStatus(211);
 				}
-			elseif ( $NEOCategoryID !== 0)	
-				{
-					// AktivStatus Error Kategorie zum Import auswählen
-					$this->SetStatus(102);
-				}
+		}
+		if ($Zone == 6)
+		{
+			// Error Zone auswählen
+			$this->SetStatus(212);
+		}
+		if ($AVRType == 50)
+		{
+			// Error AVR Type auswählen
+			$this->SetStatus(213);
 		}
 		
-		if ($Zone == 0) //Mainzone
+		if (($Zone == 0) && ($AVRType !== 50)) //Mainzone
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -174,10 +180,11 @@ class DenonAVRHTTP extends IPSModule
 			
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -284,7 +291,7 @@ class DenonAVRHTTP extends IPSModule
 				
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
-		elseif ($Zone == 1) //Zone 2
+		elseif (($Zone == 1) && ($AVRType !== 50)) //Zone 2
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -308,10 +315,11 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptNavigation = "DENON.".$DenonAVRVar->AVRType.".Navigation";
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
-				//$this->UpdateInputProfile();				
+				//$this->UpdateInputProfile();
+				$this->SetStatus(102);		
 			}
 			else
 			{
@@ -361,7 +369,7 @@ class DenonAVRHTTP extends IPSModule
 			
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
-		elseif ($Zone == 2) // Zone 3
+		elseif (($Zone == 2) && ($AVRType !== 50)) // Zone 3
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -385,10 +393,11 @@ class DenonAVRHTTP extends IPSModule
 			$DenonAVRVar->ptNavigation = "DENON.".$DenonAVRVar->AVRType.".Navigation";
 			
 			//Variablen
-			if ($this->GetIPDenon() !== false && $Zone !== 6)
+			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
+				$this->SetStatus(102);
 			}
 			else
 			{
@@ -551,11 +560,11 @@ class DenonAVRHTTP extends IPSModule
 			}
 			elseif($DenonAVRUpdate->Zone == 1)
 			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
 			}
 			elseif($DenonAVRUpdate->Zone == 2)
 			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
+				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
 			}
 			
 			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
@@ -567,6 +576,8 @@ class DenonAVRHTTP extends IPSModule
 		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
 		$MappingInputs = json_encode($this->VarMappingInputs);
 		DAVRSH_SaveInputVarmapping($this->GetParent(), $MappingInputs);
+		$Inputs = array( "Inputprofile" => $this->InputSources, "Varmapping" => $MappingInputs);
+		return $Inputs;
 	}
 	
 	protected function HasActiveParent()
@@ -577,7 +588,7 @@ class DenonAVRHTTP extends IPSModule
             $parent = IPS_GetInstance($instance['ConnectionID']);
             if ($parent['InstanceStatus'] == 102)
             {
-                $this->SetStatus(102);
+                //$this->SetStatus(102);
                 return true;
             }
         }
@@ -619,7 +630,8 @@ class DenonAVRHTTP extends IPSModule
 				18 => "AVR-X7200WA",
 				19 => "Marantz NR1605",
 				20 => "S-700W",
-				21 => "S-900W");
+				21 => "S-900W",
+				22 => "AVR-1912");
 		
 		foreach($Types as $TypeID => $AVRType)
 		{

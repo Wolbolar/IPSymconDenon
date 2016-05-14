@@ -36,7 +36,7 @@ class DenonSplitterTelnet extends IPSModule
         IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
 		IPS_SetHidden($this->GetIDForIdent('IOIN'), true);
 		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
-        IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+        //IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	
@@ -82,14 +82,14 @@ class DenonSplitterTelnet extends IPSModule
 			}	
 		else
 			{
-			$this->SetStatus(204); //IP Adresse ist ungültig 
+			$this->SetStatus(204); //IP Adresse ist ungültig
 			}
 			
 		// Wenn I/O verbunden ist
-        if (($this->ReadPropertyBoolean('Open'))
-                and ( $this->HasActiveParent($this->GetParent())))
+        if ( ($this->ReadPropertyBoolean('Open')) and ($this->HasActiveParent($this->GetParent())) and ($change == true))
         {
             //Instanz aktiv
+			$this->SetStatus(102);
         }
 		$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRST_GetStatusHTTP($id)');
     }
@@ -137,16 +137,16 @@ class DenonSplitterTelnet extends IPSModule
 	}
 
 	// Input MappingInputs als JSON
-public function SaveInputVarmapping($MappingInputs)
+public function SaveInputVarmapping(string $MappingInputs)
 	{
 		if ($this->GetIDForIdent("InputMapping"))
 		{
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
-			if ($InputsMapping !== "")
+			if (($InputsMapping !== "") && ($InputsMapping !== "null")) //Auslesen wenn Variable nicht leer
 			{
 				$InputsMapping = json_decode($InputsMapping);
 				$Writeprotected = $InputsMapping->Writeprotected;
-				if(!$Writeprotected)
+				if(!$Writeprotected) // Auf Schreibschutz prüfen
 				{
 					$MappingInputsArr = json_decode($MappingInputs);
 					$AVRType = $MappingInputsArr->AVRType;
@@ -154,7 +154,7 @@ public function SaveInputVarmapping($MappingInputs)
 					SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 				}
 			}
-			else
+			else // Schreiben wenn Variable noch nicht gesetzt
 			{
 				$MappingInputsArr = json_decode($MappingInputs);
 				$AVRType = $MappingInputsArr->AVRType;
@@ -162,10 +162,20 @@ public function SaveInputVarmapping($MappingInputs)
 				SetValue($this->GetIDForIdent("AVRType"), $AVRType);
 			}	
 			
-		}
-					
-		 	
+		}	
 	}
+
+// Input MappingInputs als JSON	
+public function SaveOwnInputVarmapping(string $MappingInputs)
+	{
+		if ($this->GetIDForIdent("InputMapping"))
+		{
+			$MappingInputsArr = json_decode($MappingInputs);
+			$AVRType = $MappingInputsArr->AVRType;
+			SetValue($this->GetIDForIdent("InputMapping"), $MappingInputs);
+			SetValue($this->GetIDForIdent("AVRType"), $AVRType);
+		} 	
+	}	
 
 public function GetInputArrayStatus()
 	{
@@ -249,7 +259,7 @@ public function GetInputVarMapping()
             $parent = IPS_GetInstance($ParentID);
             if ($parent['InstanceStatus'] == 102)
             {
-                $this->SetStatus(102);
+                
                 return true;
             }
         }
@@ -382,6 +392,8 @@ public function GetInputVarMapping()
 		SetValueString($this->GetIDForIdent("IOIN"), $dataio);
 		$data = preg_split('/\r/', $dataio);
 		array_pop($data);
+		$datamessage = json_encode($data);
+		IPS_LogMessage("Denon Telnet Splitter", "Received Data: ".$datamessage);
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
 		$APIData->AVRProtocol = "Telnet";

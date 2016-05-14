@@ -138,6 +138,7 @@ class DENONIPSProfiles extends stdClass
 	public $VarMappingInputSourcesZ2;
 	public $VarMappingInputSourcesZ3;
 	public $DenonIP;
+	public $ptDisplay;
 	
 	//Zusatz ab AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W /	AVR-X2100W / S900W / AVR-X1100W / S700W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W / AVR-2200W / AVR-1200W
 	public $ptGraphicEQ;
@@ -172,7 +173,7 @@ class DENONIPSProfiles extends stdClass
 	public function GetInputSources(integer $Zone, string $AVRType, boolean $FAVORITES, boolean $IRADIO, boolean $SERVER, boolean $NAPSTER, boolean $LASTFM, boolean $FLICKR)
 	{
 		
-		if($AVRType == "AVR-4311" || $AVRType == "AVR-4310" || "AVR-1912")
+		if(($AVRType == "AVR-4311") || ($AVRType == "AVR-4310") || ($AVRType == "AVR-1912"))
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -221,12 +222,15 @@ class DENONIPSProfiles extends stdClass
 				return $data;
 			}	
 		}
-		elseif($AVRType == "AVR-3808A")
+		elseif(($AVRType == "AVR-3808A") || ($AVRType == "AVR-4308A"))
 		{
 			$Inputsources = $this->StandardInputSources($AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 			return $Inputsources;
 		}
-		elseif($AVRType == "AVR-3312" || $AVRType == "AVR-2313" || $AVRType == "Marantz-NR1605" || $AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+		
+		elseif(($AVRType == "S700W") || ($AVRType == "S900W") || ($AVRType == "AVR-2313") || ($AVRType == "AVR-3313") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "AVR-X1000") || ($AVRType == "AVR-X1100W") || ($AVRType == "AVR-X1200W") || ($AVRType == "AVR-X2000")
+							|| ($AVRType == "AVR-X2100W") || ($AVRType == "AVR-X2200W") || ($AVRType == "AVR-X3000") || ($AVRType == "AVR-X3100W") || ($AVRType == "AVR-X3200W") || ($AVRType == "AVR-X4000") || ($AVRType == "AVR-X4100W") || ($AVRType == "AVR-X4200W")
+							|| ($AVRType == "AVR-X5200W") || ($AVRType == "AVR-6200W") || ($AVRType == "AVR-X7200W") || ($AVRType == "AVR-7200WA"))
 		{
 			if ($Zone == 0) // MainZone
 			{
@@ -475,7 +479,7 @@ class DENONIPSProfiles extends stdClass
 					}
 				$InputMapping = array("AVRType" => $AVRType, "Inputs" => $InputSourcesMapping, "Writeprotected" => false );
 				
-				$this->VarMappingInputSources = $InputMapping;
+				$this->VarMappingInputSources = $InputMapping; // Varmapping
 				
 				return $UsedInputSources;
 			}
@@ -699,7 +703,8 @@ class DENONIPSProfiles extends stdClass
 		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", $this->ptMainZoneName, $this->getpos($profile), "Information"),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", $this->ptTopMenuLink, $this->getpos($profile), "Information"),
 		$this->ptModel => array("Model", "Model", $this->ptModel, $this->getpos($profile), "Information"),
-		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", $this->ptSurroundDisplay, $this->getpos($profile), "Information")
+		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", $this->ptSurroundDisplay, $this->getpos($profile), "Information"),
+		$this->ptDisplay => array(DENON_API_Commands::DISPLAY, "Display", "~HTMLBox", $this->getpos($profile), "TV")
 		);
 		$profilesZone2 = array (
 		$this->ptZone2Name => array("Zone2Name", "Zone2 Name", $this->ptZone2Name, $this->getpos($profile), "Information"),
@@ -839,7 +844,7 @@ class DENONIPSProfiles extends stdClass
 
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W")
 			{
-				$profilesMainZone[$DenonAVRVar->ptAuroMatic3DStrength] = array(DENON_API_Commands::PSAUROST, "Auromatic 3D Strength", "Intensity", "", "", 1, 16, 1, 0);	
+				$profilesMainZone[$this->ptAuroMatic3DStrength] = array(DENON_API_Commands::PSAUROST, "Auromatic 3D Strength", "Intensity", "", "", 1, 16, 1, 0);	
 			}
 		
 		$profilesZone2 = array(
@@ -1224,7 +1229,7 @@ class DENONIPSProfiles extends stdClass
 	
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W")
 			{
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptAuroMatic3DPreset] = array(
+				$ProfilAssociationsMainZone[$this->ptAuroMatic3DPreset] = array(
 												"Ident" => DENON_API_Commands::PSAUROPR,
 												"Name" => "Auro-Matic 3D Preset",
 												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
@@ -1239,7 +1244,7 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptMAINZONEAutoStandbySetting] = array(
+				$ProfilAssociationsMainZone[$this->ptMAINZONEAutoStandbySetting] = array(
 												"Ident" => DENON_API_Commands::STBY,
 												"Name" => "Mainzone Auto Standby",
 												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
@@ -1251,7 +1256,7 @@ class DENONIPSProfiles extends stdClass
 												)
 												);
 												
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptMAINZONEECOModeSetting] = array(
+				$ProfilAssociationsMainZone[$this->ptMAINZONEECOModeSetting] = array(
 												"Ident" => DENON_API_Commands::ECO,
 												"Name" => "Mainzone ECO Mode",
 												"Profilesettings" => Array("Intensity",  "", "", 0, 2, 1, 0),
@@ -1262,7 +1267,7 @@ class DENONIPSProfiles extends stdClass
 												)
 												);
 
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptDimmer] = array(
+				$ProfilAssociationsMainZone[$this->ptDimmer] = array(
 												"Ident" => DENON_API_Commands::DIM,
 												"Name" => "Dimmer",
 												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
@@ -1277,7 +1282,7 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-2200W")
 			{
-			   $ProfilAssociationsMainZone[$DenonAVRVar->ptResolutionHDMI] = array(
+			   $ProfilAssociationsMainZone[$this->ptResolutionHDMI] = array(
 												"Ident" => DENON_API_Commands::VSSCH,
 												"Name" => "Resolution HDMI",
 												"Profilesettings" => Array("TV", "", "", 0, 6, 0, 0),
@@ -1291,7 +1296,7 @@ class DENONIPSProfiles extends stdClass
 												Array(6, "Auto", "", -1)
 												)
 												);
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptResolution] = array(
+				$ProfilAssociationsMainZone[$this->ptResolution] = array(
 												"Ident" => DENON_API_Commands::VSSC,
 												"Name" => "Resolution",
 												"Profilesettings" => Array("TV", "", "", 0, 6, 0, 0),
@@ -1309,7 +1314,7 @@ class DENONIPSProfiles extends stdClass
 
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W")
 			{
-			   $ProfilAssociationsMainZone[$DenonAVRVar->ptResolutionHDMI] = array(
+			   $ProfilAssociationsMainZone[$this->ptResolutionHDMI] = array(
 												"Ident" => DENON_API_Commands::VSSCH,
 												"Name" => "Resolution HDMI",
 												"Profilesettings" => Array("TV", "", "", 0, 7, 0, 0),
@@ -1324,7 +1329,7 @@ class DENONIPSProfiles extends stdClass
 												Array(7, "Auto", "", -1)
 												)
 												);
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptResolution] = array(
+				$ProfilAssociationsMainZone[$this->ptResolution] = array(
 												"Ident" => DENON_API_Commands::VSSC,
 												"Name" => "Resolution",
 												"Profilesettings" => Array("TV", "", "", 0, 7, 0, 0),
@@ -1339,7 +1344,7 @@ class DENONIPSProfiles extends stdClass
 												Array(7, "Auto", "", -1)
 												)
 												);
-				$ProfilAssociationsMainZone[$DenonAVRVar->ptSurroundMode] = array(
+				$ProfilAssociationsMainZone[$this->ptSurroundMode] = array(
 												"Ident" => DENON_API_Commands::MS,
 												"Name" => "Surround Mode",
 												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
@@ -1496,7 +1501,7 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
-				$ProfilAssociationsZone2[$DenonAVRVar->ptZONE2AutoStandbySetting] = array(
+				$ProfilAssociationsZone2[$this->ptZONE2AutoStandbySetting] = array(
 												"Ident" => DENON_API_Commands::Z2STBY,
 												"Name" => "Zone 2 Auto Standby",
 												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
@@ -1507,7 +1512,7 @@ class DENONIPSProfiles extends stdClass
 												Array(3, "8 h", "", -1)
 												)
 												);
-				$ProfilAssociationsZone2[$DenonAVRVar->ptSurroundMode] = array(
+				$ProfilAssociationsZone2[$this->ptSurroundMode] = array(
 												"Ident" => DENON_API_Commands::MS,
 												"Name" => "Surround Mode",
 												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
@@ -1632,7 +1637,7 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
-				$ProfilAssociationsZone3[$DenonAVRVar->ptZONE3AutoStandbySetting] = array(
+				$ProfilAssociationsZone3[$this->ptZONE3AutoStandbySetting] = array(
 												"Ident" => DENON_API_Commands::Z2STBY,
 												"Name" => "Zone 3 Auto Standby",
 												"Profilesettings" => Array("Intensity",  "", "", 0, 3, 1, 0),
@@ -1643,7 +1648,7 @@ class DENONIPSProfiles extends stdClass
 												Array(3, "8 h", "", -1)
 												)
 												);
-				$ProfilAssociationsZone3[$DenonAVRVar->ptSurroundMode] = array(
+				$ProfilAssociationsZone3[$this->ptSurroundMode] = array(
 												"Ident" => DENON_API_Commands::MS,
 												"Name" => "Surround Mode",
 												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
@@ -1764,17 +1769,17 @@ class DENONIPSProfiles extends stdClass
 		
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W")
 		{
-			$profilesMainZone[$DenonAVRVar->ptSurroundHeightLch] = array(
+			$profilesMainZone[$this->ptSurroundHeightLch] = array(
 												DENON_API_Commands::CVSHL,
 												"Surround Height Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 						
-			$profilesMainZone[$DenonAVRVar->ptSurroundHeightRch] = array(
+			$profilesMainZone[$this->ptSurroundHeightRch] = array(
 												DENON_API_Commands::CVSHR,
 												"Surround Height Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 												
-			$profilesMainZone[$DenonAVRVar->ptTopSurround] = array(
+			$profilesMainZone[$this->ptTopSurround] = array(
 												DENON_API_Commands::CVTS,
 												"Top Surround",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);																		
@@ -1784,72 +1789,72 @@ class DENONIPSProfiles extends stdClass
 			
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W")
 		{
-			$profilesMainZone[$DenonAVRVar->ptTopFrontLch] = array(
+			$profilesMainZone[$this->ptTopFrontLch] = array(
 												DENON_API_Commands::CVTFL,
 												"Top Front Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 			
-			$profilesMainZone[$DenonAVRVar->ptTopFrontRch] = array(
+			$profilesMainZone[$this->ptTopFrontRch] = array(
 												DENON_API_Commands::CVTFR,
 												"Top Front Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 			
-			$profilesMainZone[$DenonAVRVar->ptTopMiddleLch] = array(
+			$profilesMainZone[$this->ptTopMiddleLch] = array(
 												DENON_API_Commands::CVTML,
 												"Top Middle Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 			
-			$profilesMainZone[$DenonAVRVar->ptTopMiddleRch] = array(
+			$profilesMainZone[$this->ptTopMiddleRch] = array(
 												DENON_API_Commands::CVTMR,
 												"Top Middle Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 			
-			$profilesMainZone[$DenonAVRVar->ptTopRearLch] = array(
+			$profilesMainZone[$this->ptTopRearLch] = array(
 												DENON_API_Commands::CVTRL,
 												"Top Rear Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);
 
-			$profilesMainZone[$DenonAVRVar->ptTopRearRch] = array(
+			$profilesMainZone[$this->ptTopRearRch] = array(
 												DENON_API_Commands::CVTRR,
 												"Top Rear Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);										
 			
-			$profilesMainZone[$DenonAVRVar->ptRearHeightLch] = array(
+			$profilesMainZone[$this->ptRearHeightLch] = array(
 												DENON_API_Commands::CVRHL,
 												"Rear Height Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
 
-			$profilesMainZone[$DenonAVRVar->ptRearHeightRch] = array(
+			$profilesMainZone[$this->ptRearHeightRch] = array(
 												DENON_API_Commands::CVRHR,
 												"Rear Height Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);											
 				
-			$profilesMainZone[$DenonAVRVar->ptFrontDolbyLch] = array(
+			$profilesMainZone[$this->ptFrontDolbyLch] = array(
 												DENON_API_Commands::CVFDL,
 												"Front Dolby Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
 			
-			$profilesMainZone[$DenonAVRVar->ptFrontDolbyRch] = array(
+			$profilesMainZone[$this->ptFrontDolbyRch] = array(
 												DENON_API_Commands::CVFDR,
 												"Front Dolby Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
 			
-			$profilesMainZone[$DenonAVRVar->ptSurroundDolbyLch] = array(
+			$profilesMainZone[$this->ptSurroundDolbyLch] = array(
 												DENON_API_Commands::CVSDL,
 												"Surround Dolby Left",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
 			
-			$profilesMainZone[$DenonAVRVar->ptSurroundDolbyRch] = array(
+			$profilesMainZone[$this->ptSurroundDolbyRch] = array(
 												DENON_API_Commands::CVSDR,
 												"Surround Dolby Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
 			
-			$profilesMainZone[$DenonAVRVar->ptBackDolbyLch] = array(
+			$profilesMainZone[$this->ptBackDolbyLch] = array(
 												DENON_API_Commands::CVBDL,
 												"Front Dolby Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
 												
-			$profilesMainZone[$DenonAVRVar->ptBackDolbyRch] = array(
+			$profilesMainZone[$this->ptBackDolbyRch] = array(
 												DENON_API_Commands::CVBDR,
 												"Front Dolby Right",
 												"Intensity",  "", " dB", -12, 12, 0.5, 1);	
@@ -1942,6 +1947,7 @@ class DENONIPSProfiles extends stdClass
 							$this->ptDynamicEQ => 29,
 							$this->ptSleep => 30,
 							$this->ptQuickSelect => 31,
+							$this->ptDisplay => 32,
 							//Lautsprecher
 							$this->ptChannelVolumeFL => 40,
 							$this->ptChannelVolumeFR => 41,
@@ -2986,8 +2992,31 @@ class DENON_API_Commands extends stdClass
 	const TR = "TR"; // Trigger
 	const SY = "SY"; // Remote Lock
 	const UG = "UG"; // Upgrade ID Display
+	
+	//Display 
+	const DISPLAY = "Display"; // Display zur Anzeige
 	const NSA = "NSA"; // Network Audio Extended
+	const NSA0 = "NSA0"; // Network Audio Extended Line 0
+	const NSA1 = "NSA1"; // Network Audio Extended Line 1
+	const NSA2 = "NSA2"; // Network Audio Extended Line 2
+	const NSA3 = "NSA3"; // Network Audio Extended Line 3
+	const NSA4 = "NSA4"; // Network Audio Extended Line 4
+	const NSA5 = "NSA5"; // Network Audio Extended Line 5
+	const NSA6 = "NSA6"; // Network Audio Extended Line 6
+	const NSA7 = "NSA7"; // Network Audio Extended Line 7
+	const NSA8 = "NSA8"; // Network Audio Extended Line 8
+	
 	const NSE = "NSE"; // Network Audio Onscreen Display Information
+	const NSE0 = "NSE0"; // Network Audio Onscreen Display Information Line 0
+	const NSE1 = "NSE1"; // Network Audio Onscreen Display Information Line 1
+	const NSE2 = "NSE2"; // Network Audio Onscreen Display Information Line 2
+	const NSE3 = "NSE3"; // Network Audio Onscreen Display Information Line 3
+	const NSE4 = "NSE4"; // Network Audio Onscreen Display Information Line 4
+	const NSE5 = "NSE5"; // Network Audio Onscreen Display Information Line 5
+	const NSE6 = "NSE6"; // Network Audio Onscreen Display Information Line 6
+	const NSE7 = "NSE7"; // Network Audio Onscreen Display Information Line 7
+	const NSE8 = "NSE8"; // Network Audio Onscreen Display Information Line 8
+	const NSE9 = "NSE9"; // Network Audio Onscreen Display Information Line 9
 	
 	//SUB Commands
 	
@@ -3568,6 +3597,7 @@ class DENON_API_Commands extends stdClass
 	
 	
 	const SURROUNDDISPLAY = "SurroundDisplay"; // Nur DisplayIdent
+	
 	
 	// AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-X2100W / S900W / AVR-X1100W / S700W
 	const PSGRAPHICEQ = "PSGEQ"; // Graphic EQ
@@ -5754,9 +5784,57 @@ class DenonAVRCP_API_Data extends stdClass
 					}
 			}
 		$datavalues = array();
+		$NSADisplay = array();
 		$CommunicationType = "Response";
 		foreach($data as $key => $response)
 			{
+				$NSAResponse = stripos($response, "NSA");
+				if ($NSAResponse !== false) //Display auslesen
+					{
+					$NSARow = substr($response, 3, 1);
+					if ($NSARow == 0)
+						{
+						$response = str_replace("NSA0", "", $response);
+						}
+					if ($NSARow == 1)
+						{
+						$response = str_replace("NSA1", "", $response);
+						}
+					if ($NSARow == 2)
+						{
+						$response = str_replace("NSA2", "", $response);
+						}
+					if ($NSARow == 3)
+						{
+						$response = str_replace("NSA3", "", $response);
+						}
+					if ($NSARow == 4)
+						{
+						$response = str_replace("NSA4", "", $response);
+						}
+					if ($NSARow == 5)
+						{
+						$response = str_replace("NSA5", "", $response);
+						}
+					if ($NSARow == 6)
+						{
+						$response = str_replace("NSA6", "", $response);
+						}
+					if ($NSARow == 7)
+						{
+						$response = str_replace("NSA7", "", $response);
+						}
+					if ($NSARow == 8)
+						{
+						$response = str_replace("NSA8", "", $response);
+						}
+					$response = str_replace("<LF>", "", $response);
+					$response = str_replace("<STX>", "", $response);
+					$response = str_replace("<NUL>", "", $response);
+					$response = trim($response);
+					$NSADisplay[$NSARow] = $response;
+					}
+
 				foreach(($this->VarMapping($InputMapping, $CommunicationType)) as $Command => $ValMap) //Zuordung suchen
 				{
 					$pos = stripos($response, $Command);
@@ -5780,9 +5858,13 @@ class DenonAVRCP_API_Data extends stdClass
 		$datasend = array(
 			'ResponseType' => 'TELNET',
 			'Data' => $datavalues,
-			'SurroundDisplay' => $showsurrounddisplay
+			'SurroundDisplay' => $showsurrounddisplay,
+			'NSADisplay' => $NSADisplay
 			);
-			
+		//Debug Log
+		$NSADisplayMessage = json_encode($NSADisplay);
+		IPS_LogMessage('Denon Class','NSADisplay:'.$NSADisplayMessage);	
+		
 		return $datasend;	
 	}
 	

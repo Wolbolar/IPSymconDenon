@@ -7,6 +7,8 @@
 				{ "type": "Label", "label": "AV Reciever Typ:" },
 				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
 						"options": [
+									{ "value": 50, "label": "AVR Modell auswählen" },
+									{ "value": 22, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-3313" },
 									{ "value": 1, "label": "AVR-4310" },
 									{ "value": 2, "label": "AVR-4311" },
@@ -52,6 +54,7 @@
 				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
 				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
 				
+				
 				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },
 				{ "type": "Label", "label": "Kategorie zum Anlegen der NEO Skripte:" },
@@ -91,6 +94,16 @@
                     "code": 104,
                     "icon": "inactive",
                     "caption": "Denon AVR ist inaktiv."
+                },
+				{
+                    "code": 212,
+                    "icon": "error",
+                    "caption": "Bitte AVR Zone auswählen."
+                },
+				{
+                    "code": 213,
+                    "icon": "error",
+                    "caption": "Bitte AVR Modell auswählen."
                 },
 				{
                     "code": 202,

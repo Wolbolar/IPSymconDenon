@@ -7,6 +7,7 @@
 				{ "type": "Label", "label": "AV Receiver Typ:" },
 				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
 						"options": [
+									{ "value": 50, "label": "AVR Modell auswählen" },
 									{ "value": 26, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-2313" },
 									{ "value": 1, "label": "AVR-3312" },
@@ -58,6 +59,9 @@
 				{ "type": "CheckBox", "name": "NAPSTER", "caption": "Napster" },
 				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
 				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
+				
+				{ "type": "Label", "label": "Display: (Testmode)" },
+				{ "type": "CheckBox", "name": "Display", "caption": "Display" },
 				
 				{ "type": "Label", "label": "Main Zone:" },
 				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
@@ -230,6 +234,16 @@
                     "code": 104,
                     "icon": "inactive",
                     "caption": "Denon AVR ist inaktiv."
+                },
+				{
+                    "code": 212,
+                    "icon": "error",
+                    "caption": "Bitte AVR Zone auswählen."
+                },
+				{
+                    "code": 213,
+                    "icon": "error",
+                    "caption": "Bitte AVR Modell auswählen."
                 },
 				{
                     "code": 211,
