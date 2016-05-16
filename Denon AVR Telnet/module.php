@@ -1253,13 +1253,33 @@ class DenonAVRTelnet extends IPSModule
 					{
 						$Command = "PSDSX ";
 					}
+				elseif($Ident == "VSMONI") //Video Processing Mode
+					{
+						$Command = "VSMONI ";
+					}
+				elseif($Ident == "VSSC") //Resolution
+					{
+						$Command = "VSSC ";
+					}
+				elseif($Ident == "VSSCH") //Resolution HDMI
+					{
+						$Command = "VSSCH ";
+					}
+				elseif($Ident == "PVDNR") //Digital Noise Reduction
+					{
+						$Command = "PVDNR ";
+					}	
 				else
 					{
 						$Command = $Ident;
 					}
 				$request = $Command.chr(63);
-				$this->SendCommand($request);
-				IPS_Sleep(100);  
+				if ($Ident !== "MNMEN" || $Ident !== "MNSRC" || $Ident !== "MN")
+				{
+					$this->SendCommand($request);
+					IPS_Sleep(100);  
+				}
+				
 				}
 		
 		}
@@ -1539,7 +1559,14 @@ class DenonAVRTelnet extends IPSModule
 					if($row == 9)
 						{
 							$doc->getElementById('NSARow9')->nodeValue = $content;
-						}	
+						}
+					$search = preg_match("/\[.[0-9]?[0-9]\/[0-9][0-9]?.\]/", $content, $treffer);	
+					if($search == 1) //auf Cursorposition prüfen
+						{
+							$pos = strpos($content, "/");
+							$CurrentPosition = trim(substr ( $content , ($pos-2), 2 ));
+							$MaxPosition = trim(substr ( $content , ($pos+1), 2 ));
+						}
 				}
 				SetValueString($this->GetIDForIdent("Display"), $doc->saveHTML());	
 			}
@@ -2006,7 +2033,7 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$subcommand = DENON_API_Commands::MUON;
 			}
-		$payload = DENON_API_Commands::MU.$Subcommand;
+		$payload = DENON_API_Commands::MU.$subcommand;
 		$this->SendCommand($payload);
 	}
 		
@@ -2919,7 +2946,108 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Network Audio Navigation
+	public function NACursorUp()
+	{
+		$payload = DENON_API_Commands::NAUP;
+		$this->SendCommand($payload);
+	}
 
+	public function NACursorDown()
+	{
+		$payload = DENON_API_Commands::NADOWN;
+		$this->SendCommand($payload);
+	}
+
+	public function NACursorLeft()
+	{
+		$payload = DENON_API_Commands::NALEFT;
+		$this->SendCommand($payload);
+	}
+	
+	public function NACursorRight()
+	{
+		$payload = DENON_API_Commands::NARIGHT;
+		$this->SendCommand($payload);
+	}
+	
+	public function NAEnter()
+	{
+		$payload = DENON_API_Commands::NAENTER;
+		$this->SendCommand($payload);
+	}
+	
+	public function NAPlay()
+	{
+		$payload = DENON_API_Commands::NAPLAY;
+		$this->SendCommand($payload);
+	}
+	
+	public function NAPause()
+	{
+		$payload = DENON_API_Commands::NAPAUSE;
+		$this->SendCommand($payload);
+	}
+	
+	public function NAStop()
+	{
+		$payload = DENON_API_Commands::NASTOP;
+		$this->SendCommand($payload);
+	}
+	
+	public function NASkipPlus()
+	{
+		$payload = DENON_API_Commands::NASKIPPLUS;
+		$this->SendCommand($payload);
+	}
+	
+	public function NASkipMinus()
+	{
+		$payload = DENON_API_Commands::NASKIPMINUS;
+		$this->SendCommand($payload);
+	}
+	
+	public function NARepeatOne()
+	{
+		$payload = DENON_API_Commands::NAREPEATONE;
+		$this->SendCommand($payload);
+	}
+	
+	public function NARepeatAll()
+	{
+		$payload = DENON_API_Commands::NAREPEATALL;
+		$this->SendCommand($payload);
+	}
+	
+	public function NARepeatOff()
+	{
+		$payload = DENON_API_Commands::NAREPEATOFF;
+		$this->SendCommand($payload);
+	}
+	
+	public function NARandomOn()
+	{
+		$payload = DENON_API_Commands::NARANDOMON;
+		$this->SendCommand($payload);
+	}
+	
+	public function NARandomOff()
+	{
+		$payload = DENON_API_Commands::NARANDOMOFF;
+		$this->SendCommand($payload);
+	}
+	
+	public function NAPageNext()
+	{
+		$payload = DENON_API_Commands::NAPAGENEXT;
+		$this->SendCommand($payload);
+	}
+	
+	public function NAPagePrevious()
+	{
+		$payload = DENON_API_Commands::NAPAGEPREV;
+		$this->SendCommand($payload);
+	}
 	######################## Zone 2 functions ######################################
 
 	public function Z2_Volume($Value) // "UP" or "DOWN"
@@ -3080,6 +3208,8 @@ class DenonAVRTelnet extends IPSModule
 	   $Value = $Value + 50;
 		CSCK_SendText($id, "Z3CVFR ".$Value);
 	}
+	
+	// Network Navigation
 	
 	############################ NEO Toggle Workarround ##############################################
 	

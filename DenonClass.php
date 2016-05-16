@@ -2993,6 +2993,27 @@ class DENON_API_Commands extends stdClass
 	const SY = "SY"; // Remote Lock
 	const UG = "UG"; // Upgrade ID Display
 	
+	// Display Network Audio Navigation
+	const NAUP = "NS90"; // Network Audio Cursor Up Control
+	const NADOWN = "NS91"; // Network Audio Cursor Down Control
+	const NALEFT = "NS92"; // Network Audio Cursor Left Control
+	const NARIGHT = "NS93"; // Network Audio Cursor Right Control
+	const NAENTER = "NS94"; // Network Audio Cursor Enter Control
+	const NAPLAY = "NS9A"; // Network Audio Play
+	const NAPAUSE = "NS9B"; // Network Audio Pause
+	const NASTOP = "NS9C"; // Network Audio Stop
+	const NASKIPPLUS = "NS9D"; // Network Audio Skip +
+	const NASKIPMINUS = "NS9E"; // Network Audio Skip -
+	const NAREPEATONE = "NS9H"; // Network Audio Repeat One
+	const NAREPEATALL = "NS9I"; // Network Audio Repeat All
+	const NAREPEATOFF = "NS9J"; // Network Audio Repeat Off
+	const NARANDOMON = "NS9K"; // Network Audio Random On
+	const NARANDOMOFF = "NS9M"; // Network Audio Random Off
+	const NATOGGLE = "NS9W"; // Network Audio Toggle Switch
+	const NAPAGENEXT = "NS9X"; // Network Audio Page Next
+	const NAPAGEPREV = "NS9Y"; // Network Audio Page Previous
+	
+	
 	//Display 
 	const DISPLAY = "Display"; // Display zur Anzeige
 	const NSA = "NSA"; // Network Audio Extended
