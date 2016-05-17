@@ -820,7 +820,21 @@ class DenonAVRTelnet extends IPSModule
 			
 			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
 			IPS_LogMessage('Denon Telnet AVR','Variablenprofil Update:'. $inputsourcesprofile["ProfilName"]);
-			IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
+			if($DenonAVRUpdate->Zone == 0)
+				{
+					IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
+				}
+			//Zone 2 und 3 haben kein SI	
+			elseif($DenonAVRUpdate->Zone == 1)
+				{
+					IPS_SetVariableCustomProfile($this->GetIDForIdent("Z2INPUT"), $DenonAVRUpdate->ptZone2InputSource);
+				}
+			elseif($DenonAVRUpdate->Zone == 3)
+				{
+					IPS_SetVariableCustomProfile($this->GetIDForIdent("Z3INPUT"), $DenonAVRUpdate->ptZone3InputSource);
+				}	
+			
+			
 		}
 		
 		//Input ablegen
@@ -3050,15 +3064,18 @@ class DenonAVRTelnet extends IPSModule
 	}
 	######################## Zone 2 functions ######################################
 
-	public function Z2_Volume($Value) // "UP" or "DOWN"
+	public function Z2_Volume(string $command) // "UP" or "DOWN"
 	{
-		CSCK_SendText($id, "Z2".$Value.chr(13));
+		$payload = DENON_API_Commands::Z2.$command;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone2VolumeFix($Value) // 18(db) bis -80(db)
+	public function Zone2VolumeFix(float $volume) // 18(db) bis -80(db)
 	{
-		$Value= intval($Value) +80;
-		CSCK_SendText($id, "Z2".$Value.chr(13));
+		//Wert berechnen
+		$command = $volume;
+		$payload = DENON_API_Commands::Z2.$command;
+		$this->SendCommand($payload);
 	}
 
 	//Zone2 Power 
@@ -3091,54 +3108,66 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
-	public function Zone2InputSource($Value) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR ; TUNER
+	public function Zone2InputSource(string $subcommand) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR ; TUNER
 	{
-		CSCK_SendText($id, "Z2".$Value.chr(13));
+		$payload = DENON_API_Commands::Z2.$subcommand;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone2ChannelSetting($Value) // Zone 2 Channel Setting: STEREO/MONO
+	//Channel Volume Front Left
+	public function Zone2ChannelVolumeFL(float $volume) // 
 	{
-		if ($Value == false)
-					{
-						$Value = "ST";
-					}
-					else
-					{
-						$Value = "MONO";
-					}
-		
-		CSCK_SendText($id, "Z2CS".$Value.chr(13));
+	   //Wert berechnen
+	   $command = $volume;
+	   $payload = DENON_API_Commands::Z2CVFL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	//Channel Volume Front Right
+	public function Zone2ChannelVolumeFR(float $volume)
+	{
+		//Wert berechnen
+		$command = $volume;
+		$payload = DENON_API_Commands::Z2CVFR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function Zone2ChannelSetting(string $Value) // Zone 2 Channel Setting: Stereo/Mono
+	{
+		if ($Value == "Stereo")
+			{
+				$subcommand = DENON_API_Commands::Z2CSST;
+			}
+		elseif ($Value == "Mono")
+			{
+				$subcommand = DENON_API_Commands::Z2CSMONO;
+			}
+		$payload = DENON_API_Commands::Z2CS.$subcommand;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone2QuickSelect($Value) // Zone 2 Quickselect 1-5
+	public function Zone2QuickSelect($command) // Zone 2 Quickselect 1-5
 	{
-		$Value = $Value +1;
-		CSCK_SendText($id, "Z2QUICK".$Value.chr(13));
+		$payload = DENON_API_Commands::Z2QUICK.$command;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone2ChannelVolumeFL($id)
-	{
-	   $Value = $Value + 50;
-		CSCK_SendText($id, "Z2CVFL ".$Value.chr(13));
-	}
-
-	public function Zone2ChannelVolumeFR($id)
-	{
-	   $Value = $Value + 50;
-		CSCK_SendText($id, "Z2CVFR ".$Value.chr(13));
-	}
+	
 
 	########################## Zone 3 Functions ####################################
 
-	public function Zone3Volume($Value) // "UP" or "DOWN"
+	public function Z3_Volume(string $command) // "UP" or "DOWN"
 	{
-		CSCK_SendText($id, "Z3".$Value.chr(13));
+		$payload = DENON_API_Commands::Z3.$command;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone3VolumeFix($Value) // 18(db) bis -80(db)
+	public function Zone3VolumeFix(float $volume) // 18(db) bis -80(db)
 	{
-		$Value= intval($Value) +80;
-		CSCK_SendText($id, "Z3".$Value.chr(13));
+		//Eingabewert umrechnen
+		$command = $volume;
+		$payload = DENON_API_Commands::Z3.$command;
+		$this->SendCommand($payload);
 	}
 	
 	//Zone3 Power 
@@ -3172,41 +3201,46 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 
-	public function Zone3InputSource($Value) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR
+	public function Zone3InputSource(string $subcommand) // PHONO ; DVD ; HDP ; "TV/CBL" ; SAT ; "NET/USB" ; DVR
 	{
-		CSCK_SendText($id, "Z3".$Value.chr(13));
+		$payload = DENON_API_Commands::Z3.$subcommand;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone3ChannelSetting($Value) // Zone 3 Channel Setting: STEREO/MONO
+	public function Zone3ChannelSetting(string $Value) // Zone 3 Channel Setting: STEREO/MONO
 	{
-		if ($Value == false)
+		if ($Value == "Stereo")
 			{
-				$Value = "ST";
+				$subcommand = DENON_API_Commands::Z3CSST;
 			}
-		else
+		elseif ($Value == "Mono")
 			{
-				$Value = "MONO";
+				$subcommand = DENON_API_Commands::Z3CSMONO;
 			}
-		
-		CSCK_SendText($id, "Z3CS".$Value.chr(13));
+		$payload = DENON_API_Commands::Z3CS.$subcommand;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone3QuickSelect($Value) // Zone 3 Quickselect 1-5
+	public function Zone3QuickSelect(integer $command) // Zone 3 Quickselect 1-5
 	{
-	   $Value = $Value +1;
-		CSCK_SendText($id, "Z3QUICK".$Value.chr(13));
+	   $payload = DENON_API_Commands::Z3QUICK.$command;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone3ChannelVolumeFL($Value)
+	public function Zone3ChannelVolumeFL(float $volume)
 	{
-	   $Value = $Value + 50;
-		CSCK_SendText($id, "Z3CVFL ".$Value.chr(13));
+	   //Wert berechnen
+		$command = $volume;
+		$payload = DENON_API_Commands::Z3CVFR.$command;
+		$this->SendCommand($payload);
 	}
 
-	public function Zone3ChannelVolumeFR($Value)
+	public function Zone3ChannelVolumeFR(float $volume)
 	{
-	   $Value = $Value + 50;
-		CSCK_SendText($id, "Z3CVFR ".$Value);
+	   //Wert berechnen
+		$command = $volume;
+		$payload = DENON_API_Commands::Z3CVFR.$command;
+		$this->SendCommand($payload);
 	}
 	
 	// Network Navigation
