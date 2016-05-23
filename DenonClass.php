@@ -2946,8 +2946,13 @@ class DENON_API_Commands extends stdClass
 	const PVBR = "PVBR"; // Brightness
 	const PVCM = "PVCM"; // Chroma
 	const PVHUE = "PVHUE"; // Hue
-	const PVDNR = "PVDNR"; // DNR direct change
 	const PVENH = "PVENH"; // Enhancer
+	
+	const PVDNR = "PVDNR"; // Digital Noise Reduction direct change
+	const PVDNROFF = " OFF"; // Digital Noise Reduction Off
+	const PVDNRLOW = " LOW"; // Digital Noise Reduction Low
+	const PVDNRMID = " MID"; // Digital Noise Reduction Middle
+	const PVDNRHI = " HI"; // Digital Noise Reduction High
 	
 	const SR = " ?"; //Status Request
 	
@@ -3682,8 +3687,8 @@ class DENON_API_Commands extends stdClass
 	const CVTMR = "CVTMR"; // Top Middle Right
 	const CVTRL = "CVTRL"; // Top Rear Left
 	const CVTRR = "CVTRR"; // Top Rear Right
-	const CVRHL = "CVRHL"; // Top Height Left
-	const CVRHR = "CVRHR"; // Top Height Right
+	const CVRHL = "CVRHL"; // Rear Height Left
+	const CVRHR = "CVRHR"; // Rear Height Right
 	const CVFDL = "CVFDL"; // Front Dolby Left
 	const CVFDR = "CVFDR"; // Front Dolby Right
 	const CVSDL = "CVSDL"; // Surround Dolby Left

@@ -2000,7 +2000,6 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$subcommand = DENON_API_Commands::PWON;
 			}
-		//$command = str_replace("_", " ", DENON_API_Commands::PW); //Bei Ident mit _ Leerzeichen einsetzten
 		$payload = DENON_API_Commands::PW.$subcommand;
 		$this->SendCommand($payload);
 	}
@@ -2028,9 +2027,10 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
-	public function MasterVolumeFix(integer $command) // 
+	public function MasterVolumeFix(float $Value) // float -80 bis 18 Schrittweite 0.5
 	{
-		//$Value= intval($Value) +80;
+		$FunctionType = "Volume";
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::MV.$command;
 		$this->SendCommand($payload);
 	}
@@ -2072,7 +2072,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Dynamic Volume
-	public function DynamicVolume(string $Value) // Dynamic Volume Midnight / Evening / Day
+	public function DynamicVolume(string $Value) // Dynamic Volume  Midnight / Evening / Day
 	{
 		if ($Value == "Midnight")
 			{
@@ -2269,84 +2269,254 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Channel Volume
-	public function ChannelVolumeFL(integer $command)
+	public function ChannelVolumeFL(float $Value) // Range -12 to 12, Step 0.5 
 	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FL.$command;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFL.$command;
 		$this->SendCommand($payload);
 	}
 
-	public function ChannelVolumeFR(integer $command)
+	public function ChannelVolumeFR(float $Value) // Range -12 to 12, Step 0.5 
 	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FR.$command;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFR.$command;
 		$this->SendCommand($payload);
 	}
 
-	public function ChannelVolumeC(integer $command)
+	public function ChannelVolumeC(float $Value) // Range -12 to 12, Step 0.5 
 	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::C.$command;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVC.$command;
 		$this->SendCommand($payload);
 	}
 
-	public function ChannelVolumeSW(integer $command)
+	public function ChannelVolumeSW(float $Value) // Range -12 to 12, Step 0.5 
 	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SW.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeSL(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SL.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeSR(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SR.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeSBL(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBL.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeSBR(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SBR.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeSB(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::SB.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeFHL(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHL.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeFHR(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FHR.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeFWL(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWL.$command;
-		$this->SendCommand($payload);
-	}
-
-	public function ChannelVolumeFWR(integer $command)
-	{
-		$payload = DENON_API_Commands::CV.DENON_API_Commands::FWR.$command;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSW.$command;
 		$this->SendCommand($payload);
 	}
 	
+	public function ChannelVolumeSW2(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSW2.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSL(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSL.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSR(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSR.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSBL(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSBL.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSBR(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSBR.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeSB(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSB.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFHL(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFHL.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFHR(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFHR.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFWL(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFWL.$command;
+		$this->SendCommand($payload);
+	}
+
+	public function ChannelVolumeFWR(float $Value) // Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFWR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeSHL(float $Value) //Surround Height Left Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSHL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeSHR(float $Value) //Surround Height Right Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSHR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTS(float $Value) //Top Surround Range -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTS.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTFL(float $Value) //Top Front Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTFL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTFR(float $Value) //Top Front Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTFR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTML(float $Value) //Top Middle Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTML.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTMR(float $Value) //Top Middle Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTMR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTRL(float $Value) //Top Rear Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTRL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeTRR(float $Value) //Top Rear Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVTRR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeRHL(float $Value) // Rear Height Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVRHL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeRHR(float $Value) // Rear Height Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVRHR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeFDL(float $Value) // Front Dolby Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFDL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeFDR(float $Value) // Front Dolby Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVFDR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeSDL(float $Value) // Surround Dolby Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSDL.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeSDR(float $Value) // Surround Dolby Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSDR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeBDL(float $Value) // Back Dolby Left -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSDR.$command;
+		$this->SendCommand($payload);
+	}
+	
+	public function ChannelVolumeBDR(float $Value) // Back Dolby Right -12 to 12, Step 0.5 
+	{
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::CVSDR.$command;
+		$this->SendCommand($payload);
+	}
+		
 	//RecSelect
 	public function RecSelect(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
 	{
@@ -2354,23 +2524,11 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 
-	public function SelectDecodeMode(string $command) // AUTO; HDMI; DIGITAL; ANALOG
-	{
-		$payload = DENON_API_Commands::SD.$command;
-		$this->SendCommand($payload);
-	  
-	}
-
-	public function DecodeMode(string $command) // Auto, PCM, DTS
-	{
-		$payload = DENON_API_Commands::DC.$command;
-		$this->SendCommand($payload);
-	}
 	
 	//Video Select
 	public function VideoSelect(string $command) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
 	{
-		$payload = DENON_API_Commands::VS.$command;
+		$payload = DENON_API_Commands::SV.$command;
 		$this->SendCommand($payload);
 	}
 	
@@ -2415,7 +2573,7 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$subcommand = DENON_API_Commands::PSFHON;
 			}
-		$payload = DENON_API_Commands::PSFH.$subcommand;
+		$payload = DENON_API_Commands::PS.$subcommand;
 		$this->SendCommand($payload);
 	}
 	
@@ -2435,8 +2593,10 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Audio Delay
-	public function AudioDelay(integer $command) // can be operated from 0 to 300
+	public function AudioDelay(integer $Value) // can be operated from 0 to 300
 	{
+		$FunctionType = "AudioDelay";
+		$command = GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CV.DENON_API_Commands::PSDELAY.$command;
 		$this->SendCommand($payload);
 	}
@@ -2521,10 +2681,30 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Center Image
+	public function CenterImage(float $Value) //Center Image can be operated from 0.0 to 1.0 Step 0.1
+	{
+		$FunctionType = "CenterImage";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PSCEI.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Center Width
+	public function CenterImage(float $Value) //Center Width can be operated from 0 to 7 Step 0.5
+	{
+		$FunctionType = "CenterWidth";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PSCEN.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Input Mode
+	public function SelectDecodeMode(string $command) // AUTO; HDMI; DIGITAL; ANALOG
+	{
+		$payload = DENON_API_Commands::SD.$command;
+		$this->SendCommand($payload);
+	  
+	}
 	
 	//Digital Input Mode
 	public function DigitalInputMode(string $Value) // Digital Input Mode Auto / PCM / DTS
@@ -2548,6 +2728,13 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	//Dimension
+	public function Dimension(integer $Value) //Dimension can be operated from 0 to 6
+	{
+		$FunctionType = "Dimension";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PSDIM.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Effect
 	public function Effect(boolean $Value) // Effect true (On) or false (Off) 
@@ -2565,6 +2752,13 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Effect Level
+	public function EffectLevel(float $Value) //Effect Level  can be operated from 1 to 15 Step 0.5
+	{
+		$FunctionType = "EffectLevel";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PSEFF.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//HDMI Audio Output
 	public function HDMIAudioOutput(string $Value) // HDMI Audio Output TV / AMP
@@ -2683,11 +2877,51 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Stage Width
+	public function StageWidth(float $Value) //Stage Width can be operated from -10 to +10 Step 0.5
+	{
+		$FunctionType = "Range10to10";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PSSTW.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Stage Height
+	public function StageHeight(float $Value) //Stage Width can be operated from -10 to +10 Step 0.5
+	{
+		$FunctionType = "Range10to10";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PSSTH.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Surround Back Mode
-	
+	public function SurroundBackMode(string $Value) // Surround Back Mode Off / On / Matrix / Cinema / Music
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::SBOFF;
+			}
+		elseif ($Value == "On")
+			{
+				$subcommand = DENON_API_Commands::SBON;
+			}	
+		elseif ($Value == "Matrix")
+			{
+				$subcommand = DENON_API_Commands::SBMTRXON;
+			}
+		elseif ($Value == "Cinema")
+			{
+				$subcommand = DENON_API_Commands::SBPL2XCINEMA;
+			}
+		elseif ($Value == "Music")
+			{
+				$subcommand = DENON_API_Commands::SBPL2XMUSIC;
+			}	
+		
+		$payload = DENON_API_Commands::PSSB.$subcommand;
+		$this->SendCommand($payload);
+	}
+		
 	//Surround Play Mode
 	public function SurroundPlayMode(string $Value) // Surround Play Mode Music / Cinema / Game / Pro Logic
 	{
@@ -2735,12 +2969,55 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Brightness
+	public function Brightness(float $Value) //Brightness can be operated from 0 to 12 Step 0.5
+	{
+		$FunctionType = "Range0to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PVBR.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Chroma Level
+	public function ChromaLevel(float $Value) //Chroma Level can be operated from -6 to 6 Step 0.5
+	{
+		$FunctionType = "Range6to6";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PVCM.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Digital Noise Reduction
+	public function DigitalNoiseReduction(string $Value) // Digital Noise Reduction Off / Low / Middle / High 
+	{
+		if ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::PVDNROFF;
+			}
+		elseif ($Value == "Low")
+			{
+				$subcommand = DENON_API_Commands::PVDNRLOW;
+			}	
+		elseif ($Value == "Middle")
+			{
+				$subcommand = DENON_API_Commands::PVDNRMID;
+			}
+		elseif ($Value == "High")
+			{
+				$subcommand = DENON_API_Commands::PVDNRHI;
+			}
+		
+		$payload = DENON_API_Commands::PVDNR.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	//Enhancer
+	public function Enhancer(float $Value) //Enhancer can be operated from 0 to 12 Step 0.5
+	{
+		$FunctionType = "Range0to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PVENH.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//HDMI Monitor
 	public function HDMIMonitor(string $Value) // HDMI Monitor Auto / Monitor 1 / Monitor 2 
@@ -2764,9 +3041,16 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	//Hue
+	public function Hue(float $Value) //Enhancer can be operated from -6 to 6 Step 0.5
+	{
+		$FunctionType = "Range6to6";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PVHUE.$command;
+		$this->SendCommand($payload);
+	}
 	
 	//Resolution
-	public function Resolution(string $Value) // Resolution 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto
+	public function Resolution(string $Value) // Resolution 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto / 4K / 4K(60/50)
 	{
 		if ($Value == "480p/576p")
 			{
@@ -2791,6 +3075,14 @@ class DenonAVRTelnet extends IPSModule
 		elseif ($Value == "Auto")
 			{
 				$subcommand = DENON_API_Commands::SCAUTO;
+			}
+		elseif ($Value == "4K")
+			{
+				$subcommand = DENON_API_Commands::SC4K;
+			}			
+		elseif ($Value == "4K(60/50)")
+			{
+				$subcommand = DENON_API_Commands::SC4KF;
 			}	
 		
 		$payload = DENON_API_Commands::VSSC.$subcommand;
@@ -2798,7 +3090,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 		
 	//Resolution HDMI
-	public function ResolutionHDMI(string $Value) //Resolution HDMI 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto
+	public function ResolutionHDMI(string $Value) //Resolution HDMI 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto / 4K / 4K(60/50)
 	{
 		if ($Value == "480p/576p")
 			{
@@ -2824,6 +3116,14 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$subcommand = DENON_API_Commands::SCHAUTO;
 			}		
+		elseif ($Value == "4K")
+			{
+				$subcommand = DENON_API_Commands::SCH4K;
+			}			
+		elseif ($Value == "4K(60/50)")
+			{
+				$subcommand = DENON_API_Commands::SCH4KF;
+			}	
 		
 		$payload = DENON_API_Commands::VSSCH.$subcommand;
 		$this->SendCommand($payload);
@@ -2928,26 +3228,36 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Levels
-	public function BassLevel(integer $Value)
+	
+	//Bass Level	
+	public function BassLevel(float $Value) // can be operated from -6 to +6, Step 0.5
 	{
-		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSBAS.$Value;
+		$FunctionType = "Range6to6";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSBAS.$command;
+		$this->SendCommand($payload);
+	}
+	
+	//LFE Level
+	public function LFELevel(float $Value) // can be operated from 0 to -10, Step 0.5
+	{
+		$FunctionType = "LFELevel";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSLFE.$command;
 		$this->SendCommand($payload);
 	}
 
-	public function LFELevel(integer $Value)
+	//Treble Level
+	public function TrebleLevel(float $Value) // can be operated from -6 to +6, Step 0.5
 	{
-		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSLFE.$Value;
-		$this->SendCommand($payload);
-	}
-
-	public function TrebleLevel(integer $Value)
-	{
-		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSTRE.$Value;
+		$FunctionType = "Range6to6";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSTRE.$command;
 		$this->SendCommand($payload);
 	}
 	
 	//Sleep
-	public function SLEEP(integer $Value) // 0 ist aus bis 120
+	public function SLEEP(integer $Value) // 0 ist aus bis 120 Step 10
 	{
 		if ($Value == 0)
 		{
@@ -2955,7 +3265,9 @@ class DenonAVRTelnet extends IPSModule
 		}
 		ELSE
 		{
-		$payload = DENON_API_Commands::SLP.$Value;
+		$FunctionType = "Sleep";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::SLP.$command;
 		}
 		$this->SendCommand($payload);
 	}
@@ -3070,10 +3382,10 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 
-	public function Zone2VolumeFix(float $volume) // 18(db) bis -80(db)
+	public function Zone2VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
-		//Wert berechnen
-		$command = $volume;
+		$FunctionType = "Volume";
+		$command = GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2.$command;
 		$this->SendCommand($payload);
 	}
@@ -3115,19 +3427,19 @@ class DenonAVRTelnet extends IPSModule
 	}
 
 	//Channel Volume Front Left
-	public function Zone2ChannelVolumeFL(float $volume) // 
+	public function Zone2ChannelVolumeFL(float $volume) // -12 to 12, Step 0.5 
 	{
-	   //Wert berechnen
-	   $command = $volume;
-	   $payload = DENON_API_Commands::Z2CVFL.$command;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::Z2CVFL.$command;
 		$this->SendCommand($payload);
 	}
 	
 	//Channel Volume Front Right
-	public function Zone2ChannelVolumeFR(float $volume)
+	public function Zone2ChannelVolumeFR(float $volume) // -12 to 12, Step 0.5 
 	{
-		//Wert berechnen
-		$command = $volume;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2CVFR.$command;
 		$this->SendCommand($payload);
 	}
@@ -3162,10 +3474,10 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 
-	public function Zone3VolumeFix(float $volume) // 18(db) bis -80(db)
+	public function Zone3VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
-		//Eingabewert umrechnen
-		$command = $volume;
+		$FunctionType = "Volume";
+		$command = GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3.$command;
 		$this->SendCommand($payload);
 	}
@@ -3227,23 +3539,556 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 
-	public function Zone3ChannelVolumeFL(float $volume)
+	public function Zone3ChannelVolumeFL(float $volume) // -12 to 12, Step 0.5 
 	{
-	   //Wert berechnen
-		$command = $volume;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3CVFR.$command;
 		$this->SendCommand($payload);
 	}
 
-	public function Zone3ChannelVolumeFR(float $volume)
+	public function Zone3ChannelVolumeFR(float $volume) // -12 to 12, Step 0.5 
 	{
-	   //Wert berechnen
-		$command = $volume;
+		$FunctionType = "Range12to12";
+		$command = GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3CVFR.$command;
 		$this->SendCommand($payload);
 	}
 	
 	// Network Navigation
+	
+	
+	
+	
+	// Get Value for Sending 
+	protected function GetCommandValueSend($Value, $FunctionType)
+	{
+		//Sleep ***:001 to 120 by ASCII , 010=10min
+		if($FunctionType == "Sleep")
+		{
+			$ValueMapping = array("OFF" => 0, "010" => 10, "020" => 20, "030" => 30, "040" => 40, "050" => 50, "060" => 60, "070" => 70, "080" => 80, "090" => 90, "100" => 100, "110" => 110, "120" => 120);
+
+		}
+		//Dimension **:00 to 06 by ASCII , 00=0, can be operated from 0 to 6
+		if($FunctionType == "Dimension")
+		{
+			$ValueMapping = array(" 00" => 0, " 01" => 1, " 02" => 2, " 03" => 3, " 04" => 4, " 05" => 5, " 06" => 6);
+		}
+		//Master Volume
+		if($FunctionType == "Volume")
+		{
+			$ValueMapping = array
+							(
+							"00" => -80,
+							"005" => -79.5,
+							"01" => -79,
+							"015" => -78.5,
+							"02" => -78,
+							"025" => -77.5,
+							"03" => -77,
+							"035" => -76.5,
+							"04" => -76,
+							"045" => -75.5,
+							"05" => -75,
+							"055" => -74.5,
+							"06" => -74,
+							"065" => -73.5,
+							"07" => -73,
+							"075" => -72.5,
+							"08" => -72,
+							"085" => -71.5,
+							"09" => -71,
+							"095" => -70.5,
+							"10" => -70,
+							"105" => -69.5,
+							"11" => -69,
+							"115" => -68.5,
+							"12" => -68,
+							"125" => -67.5,
+							"13" => -67,
+							"135" => -66.5,
+							"14" => -66,
+							"145" => -65.5,
+							"15" => -65,
+							"155" => -64.5,
+							"16" => -64,
+							"165" => -63.5,
+							"17" => -63,
+							"175" => -62.5,
+							"18" => -62,
+							"185" => -61.5,
+							"19" => -61,
+							"195" => -60.5,
+							"20" => -60,
+							"205" => -59.5,
+							"21" => -59,
+							"215" => -58.5,
+							"22" => -58,
+							"225" => -57.5,
+							"23" => -57,
+							"235" => -56.5,
+							"24" => -56,
+							"245" => -55.5,
+							"25" => -55,
+							"255" => -54.5,
+							"26" => -54,
+							"265" => -53.5,
+							"27" => -53,
+							"275" => -52.5,
+							"28" => -52,
+							"285" => -51.5,
+							"29" => -51,
+							"295" => -50.5,
+							"30" => -50,
+							"305" => -49.5,
+							"31" => -49,
+							"315" => -48.5,
+							"32" => -48,
+							"325" => -47.5,
+							"33" => -47,
+							"335" => -46.5,
+							"34" => -46,
+							"345" => -45.5,
+							"35" => -45,
+							"355" => -44.5,
+							"36" => -44,
+							"365" => -43.5,
+							"37" => -43,
+							"375" => -42.5,
+							"38" => -42,
+							"385" => -41.5,
+							"39" => -41,
+							"395" => -40.5,
+							"40" => -40,
+							"405" => -39.5,
+							"41" => -39,
+							"415" => -38.5,
+							"42" => -38,
+							"425" => -37.5,
+							"43" => -37,
+							"435" => -36.5,
+							"44" => -36,
+							"445" => -35.5,
+							"45" => -35,
+							"455" => -34.5,
+							"46" => -34,
+							"465" => -33.5,
+							"47" => -33,
+							"475" => -32.5,
+							"48" => -32,
+							"485" => -31.5,
+							"49" => -31,
+							"495" => -30.5,
+							"50" => -30,
+							"505" => -29.5,
+							"51" => -29,
+							"515" => -28.5,
+							"52" => -28,
+							"525" => -27.5,
+							"53" => -27,
+							"535" => -26.5,
+							"54" => -26,
+							"545" => -25.5,
+							"55" => -25,
+							"555" => -24.5,
+							"56" => -24,
+							"565" => -23.5,
+							"57" => -23,
+							"575" => -22.5,
+							"58" => -22,
+							"585" => -21.5,
+							"59" => -21,
+							"595" => -20.5,
+							"60" => -20,
+							"605" => -19.5,
+							"61" => -19,
+							"615" => -18.5,
+							"62" => -18,
+							"625" => -17.5,
+							"63" => -17,
+							"635" => -16.5,
+							"64" => -16,
+							"645" => -15.5,
+							"65" => -15,
+							"655" => -14.5,
+							"66" => -14,
+							"665" => -13.5,
+							"67" => -13,
+							"675" => -12.5,
+							"68" => -12,
+							"685" => -11.5,
+							"69" => -11,
+							"695" => -10.5,
+							"70" => -10,
+							"705" => -9.5,
+							"71" => -9,
+							"715" => -8.5,
+							"72" => -8,
+							"725" => -7.5,
+							"73" => -7,
+							"735" => -6.5,
+							"74" => -6,
+							"745" => -5.5,
+							"75" => -5,
+							"755" => -4.5,
+							"76" => -4,
+							"765" => -3.5,
+							"77" => -3,
+							"775" => -2.5,
+							"78" => -2,
+							"785" => -1.5,
+							"79" => -1,
+							"795" => -0.5,
+							"80" => 0,
+							"805" => 0.5,
+							"81" => 1,
+							"815" => 1.5,
+							"82" => 2,
+							"825" => 2.5,
+							"83" => 3,
+							"835" => 3.5,
+							"84" => 4,
+							"845" => 4.5,
+							"85" => 5,
+							"855" => 5.5,
+							"86" => 6,
+							"865" => 6.5,
+							"87" => 7,
+							"875" => 7.5,
+							"88" => 8,
+							"885" => 8.5,
+							"89" => 9,
+							"895" => 9.5,
+							"90" => 10,
+							"905" => 10.5,
+							"91" => 11,
+							"915" => 11.5,
+							"92" => 12,
+							"925" => 12.5,
+							"93" => 13,
+							"935" => 13.5,
+							"94" => 14,
+							"945" => 14.5,
+							"95" => 15,
+							"955" => 15.5,
+							"96" => 16,
+							"965" => 16.5,
+							"97" => 17,
+							"975" => 17.5,
+							"98" => 18
+							);
+		  
+					
+		}
+		//Channel Volume **:38 to 62 by ASCII , 50=0dB, -12 to 12
+		if($FunctionType == "Range12to12")
+		{
+			$ValueMapping = array(" 38" => -12, " 385" => -11.5, " 39" => -11, " 395" => -10.5, " 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5,
+													" 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+													" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+													" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8,
+													" 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10, " 605" => 10.5, " 61" => 11, " 615" => 11.5, " 62" => 12);
+
+			}
+		//Audio Delay ***:000 to 300 by ASCII , 000=0ms, 300=300ms
+		if($FunctionType == "AudioDelay")
+		{
+			$ValueMapping = array(" 000" => 0, " 001" => 1, " 002" => 2, " 003" => 3, " 004" => 4, " 005" => 5, " 006" => 6, " 007" => 7, " 008" => 8, " 009" => 9, " 010" => 10, " 011" => 11, " 012" => 12,
+							" 013" => 13, " 014" => 14, " 015" => 15, " 016" => 16, " 017" => 17, " 018" => 18, " 019" => 19, " 020" => 20, " 021" => 21, " 022" => 22, " 023" => 23, " 024" => 24, " 025" => 25, " 026" => 26,
+							" 027" => 27, " 028" => 28, " 029" => 29, " 030" => 30, " 031" => 31, " 032" => 32, " 033" => 33, " 034" => 34, " 035" => 35, " 036" => 36, " 037" => 37, " 038" => 38, " 039" => 39, " 040" => 40,
+							" 041" => 41, " 042" => 42,	" 043" => 43, " 044" => 44,	" 045" => 45, " 046" => 46,	" 047" => 47, " 048" => 48,	" 049" => 49, " 050" => 50,	" 051" => 51, " 052" => 52,	" 053" => 53, " 054" => 54,
+						    " 055" => 55, " 056" => 56,	" 057" => 57, " 058" => 58, " 059" => 59, " 060" => 60,	" 061" => 61, " 062" => 62,	" 063" => 63, " 064" => 64,	" 065" => 65, " 066" => 66,	" 067" => 67, " 068" => 68,
+						" 069" => 69,
+						" 070" => 70,
+						" 071" => 71,
+						" 072" => 72,
+						" 073" => 73,
+						" 074" => 74,
+						" 075" => 75,
+						" 076" => 76,
+						" 077" => 77,
+						" 078" => 78,
+						" 079" => 79,
+						" 080" => 80,
+						" 081" => 81,
+						" 082" => 82,
+						" 083" => 83,
+						" 084" => 84,
+						" 085" => 85,
+						" 086" => 86,
+						" 087" => 87,
+						" 088" => 88,
+						" 089" => 89,
+						" 090" => 90,
+						" 091" => 91,
+						" 092" => 92,
+						" 093" => 93,
+						" 094" => 94,
+						" 095" => 95,
+						" 096" => 96,
+						" 097" => 97,
+						" 098" => 98,
+						" 099" => 99,
+						" 100" => 100,
+						" 101" => 101,
+						" 102" => 102,
+						" 103" => 103,
+						" 104" => 104,
+						" 105" => 105,
+						" 106" => 106,
+						" 107" => 107,
+						" 108" => 108,
+						" 109" => 109,
+						" 110" => 110,
+						" 111" => 111,
+						" 112" => 112,
+						" 113" => 113,
+						" 114" => 114,
+						" 115" => 115,
+						" 116" => 116,
+						" 117" => 117,
+						" 118" => 118,
+						" 119" => 119,
+						" 120" => 120,
+						" 121" => 121,
+						" 122" => 122,
+						" 123" => 123,
+						" 124" => 124,
+						" 125" => 125,
+						" 126" => 126,
+						" 127" => 127,
+						" 128" => 128,
+						" 129" => 129,
+						" 130" => 130,
+						" 131" => 131,
+						" 132" => 132,
+						" 133" => 133,
+						" 134" => 134,
+						" 135" => 135,
+						" 136" => 136,
+						" 137" => 137,
+						" 138" => 138,
+						" 139" => 139,
+						" 140" => 140,
+						" 141" => 141,
+						" 142" => 142,
+						" 143" => 143,
+						" 144" => 144,
+						" 145" => 145,
+						" 146" => 146,
+						" 147" => 147,
+						" 148" => 148,
+						" 149" => 149,
+						" 150" => 150,
+						" 151" => 151,
+						" 152" => 152,
+						" 153" => 153,
+						" 154" => 154,
+						" 155" => 155,
+						" 156" => 156,
+						" 157" => 157,
+						" 158" => 158,
+						" 159" => 159,
+						" 160" => 160,
+						" 161" => 161,
+						" 162" => 162,
+						" 163" => 163,
+						" 164" => 164,
+						" 165" => 165,
+						" 166" => 166,
+						" 167" => 167,
+						" 168" => 168,
+						" 169" => 169,
+						" 170" => 170,
+						" 171" => 171,
+						" 172" => 172,
+						" 173" => 173,
+						" 174" => 174,
+						" 175" => 175,
+						" 176" => 176,
+						" 177" => 177,
+						" 178" => 178,
+						" 179" => 179,
+						" 180" => 180,
+						" 181" => 181,
+						" 182" => 182,
+						" 183" => 183,
+						" 184" => 184,
+						" 185" => 185,
+						" 186" => 186,
+						" 187" => 187,
+						" 188" => 188,
+						" 189" => 189,
+						" 190" => 190,
+						" 191" => 191,
+						" 192" => 192,
+						" 193" => 193,
+						" 194" => 194,
+						" 195" => 195,
+						" 196" => 196,
+						" 197" => 197,
+						" 198" => 198,
+						" 199" => 199,
+						" 200" => 200,
+						" 201" => 201,
+						" 202" => 202,
+						" 203" => 203,
+						" 204" => 204,
+						" 205" => 205,
+						" 206" => 206,
+						" 207" => 207,
+						" 208" => 208,
+						" 209" => 209,
+						" 210" => 210,
+						" 211" => 211,
+						" 212" => 212,
+						" 213" => 213,
+						" 214" => 214,
+						" 215" => 215,
+						" 216" => 216,
+						" 217" => 217,
+						" 218" => 218,
+						" 219" => 219,
+						" 220" => 220,
+						" 221" => 221,
+						" 222" => 222,
+						" 223" => 223,
+						" 224" => 224,
+						" 225" => 225,
+						" 226" => 226,
+						" 227" => 227,
+						" 228" => 228,
+						" 229" => 229,
+						" 230" => 230,
+						" 231" => 231,
+						" 232" => 232,
+						" 233" => 233,
+						" 234" => 234,
+						" 235" => 235,
+						" 236" => 236,
+						" 237" => 237,
+						" 238" => 238,
+						" 239" => 239,
+						" 240" => 240,
+						" 241" => 241,
+						" 242" => 242,
+						" 243" => 243,
+						" 244" => 244,
+						" 245" => 245,
+						" 246" => 246,
+						" 247" => 247,
+						" 248" => 248,
+						" 249" => 249,
+						" 250" => 250,
+						" 251" => 251,
+						" 252" => 252,
+						" 253" => 253,
+						" 254" => 254,
+						" 255" => 255,
+						" 256" => 256,
+						" 257" => 257,
+						" 258" => 258,
+						" 259" => 259,
+						" 260" => 260,
+						" 261" => 261,
+						" 262" => 262,
+						" 263" => 263,
+						" 264" => 264,
+						" 265" => 265,
+						" 266" => 266,
+						" 267" => 267,
+						" 268" => 268,
+						" 269" => 269,
+						" 270" => 270,
+						" 271" => 271,
+						" 272" => 272,
+						" 273" => 273,
+						" 274" => 274,
+						" 275" => 275,
+						" 276" => 276,
+						" 277" => 277,
+						" 278" => 278,
+						" 279" => 279,
+						" 280" => 280,
+						" 281" => 281,
+						" 282" => 282,
+						" 283" => 283,
+						" 284" => 284,
+						" 285" => 285,
+						" 286" => 286,
+						" 287" => 287,
+						" 288" => 288,
+						" 289" => 289,
+						" 290" => 290,
+						" 291" => 291,
+						" 292" => 292,
+						" 293" => 293,
+						" 294" => 294,
+						" 295" => 295,
+						" 296" => 296,
+						" 297" => 297,
+						" 298" => 298,
+						" 299" => 299,
+						" 300" => 300);
+		}
+		//LFELevel **:00 to 10 by ASCII , 00=0dB, 10=-10dB
+		if($FunctionType == "LFELevel")
+		{
+			$ValueMapping = array(" 00" => 0, " 005" => -0.5, " 01" => -1, " 015" => -1.5, " 02" => -2, " 025" => -2.5, " 03" => -3, " 035" => -3.5, " 04" => -4, " 045" => -4.5,
+													" 05" => -5, " 055" => -5.5, " 06" => -6, " 065" => -6.5, " 07" => -7, " 075" => -7.5, " 08" => -8, " 085" => -8.5, " 09" => -9, " 095" => -9.5,
+													" 10" => 10);
+		}
+		//Level **:44 to 56 by ASCII , 50=0dB  from -6 to +6
+		if($FunctionType == "Range6to6")
+		{
+			$ValueMapping = array(" 44" => -6, " 445" => -5.5, " 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5,
+													" 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5, " 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5,
+													" 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5, " 555" => 5.5, " 56" => 6);
+		}
+		//Center Width **:00 to 07 by ASCII , 00=0 can be operated from 0 to 7
+		if($FunctionType == "CenterWidth")
+		{
+			$ValueMapping = array(" 00" => 0, " 005" => 0.5, " 01" => 1, " 015" => 1.5, " 02" => 2, " 025" => 2.5, " 03" => 3, " 035" => 3.5, " 04" => 4, " 045" => 4.5,
+													" 05" => 5, " 055" => 5.5, " 06" => 6, " 065" => 6.5, " 07" => 7);
+		}
+		//Effect Level **:00 to 15 by ASCII , 00=0dB, 10=10dB can be operated from 1 to 15
+		if($FunctionType == "EffectLevel")
+		{
+			$ValueMapping = array(" 00" => 0, " 005" => 0.5, " 01" => 1, " 015" => 1.5, " 02" => 2, " 025" => 2.5, " 03" => 3, " 035" => 3.5, " 04" => 4, " 045" => 4.5,
+													" 05" => 5, " 055" => 5.5, " 06" => 6, " 065" => 6.5, " 07" => 7, " 075" => 7.5, " 08" => 8, " 085" => 8.5, " 09" => 9, " 095" => 9.5,
+													" 10" => 10, " 105" => 10.5, " 11" => 11, " 115" => 11.5, " 12" => 12, " 125" => 12.5, " 13" => 13, " 135" => 13.5, " 14" => 14, " 145" => 14.5, " 15" => 15);
+		}
+		 //Center Image **:00 to 10 by ASCII , 00=0.0 can be operated from 0.0 to 1.0
+		if($FunctionType == "CenterImage")
+		{
+			$ValueMapping = array(" 00" => 0, " 01" => 0.1, " 02" => 0.2, " 03" => 0.3, " 04" => 0.4, " 05" => 0.5, " 06" => 0.6, " 07" => 0.7, " 08" => 0.8, " 09" => 0.9, " 10" => 1.0);
+		}
+		//Range **:00 to 12 by ASCII , 00=0 can be operated from 0 to 12
+		if($FunctionType == "Range0to12")
+		{
+			$ValueMapping = array(" 00" => 0, " 005" => 0.5, " 01" => 1, " 015" => 1.5, " 02" => 2, " 025" => 2.5, " 03" => 3, " 035" => 3.5, " 04" => 4, " 045" => 4.5,
+													" 05" => 5, " 055" => 5.5, " 06" => 6, " 065" => 6.5, " 07" => 7, " 075" => 7.5, " 08" => 8, " 085" => 8.5, " 09" => 9, " 095" => 9.5,
+													" 10" => 10, " 105" => 10.5, " 11" => 11, " 115" => 11.5, " 12" => 12);
+		}
+		//Range **:40 to 60 by ASCII , 50=0dB can be operated from -10 to +10
+		if($FunctionType == "Range10to10")
+		{
+			$ValueMapping = array(" 40" => -10, " 405" => -9.5, " 41" => -9, " 415" => -8.5, " 42" => -8, " 425" => -7.5, " 43" => -7, " 435" => -6.5, " 44" => -6, " 445" => -5.5,
+													" 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5, " 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5,
+													" 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5, " 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5,
+													" 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8, " 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10);
+		}
+		foreach ($ValueMapping as $command => $UserValue)
+			{
+				if ($UserValue == $Value)
+				{
+					$denoncommand = $command;
+				}
+			}
+		return $denoncommand;
+	}
+	
+	
 	
 	############################ NEO Toggle Workarround ##############################################
 	
