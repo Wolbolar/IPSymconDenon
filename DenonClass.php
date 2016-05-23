@@ -2946,8 +2946,13 @@ class DENON_API_Commands extends stdClass
 	const PVBR = "PVBR"; // Brightness
 	const PVCM = "PVCM"; // Chroma
 	const PVHUE = "PVHUE"; // Hue
-	const PVDNR = "PVDNR"; // DNR direct change
 	const PVENH = "PVENH"; // Enhancer
+	
+	const PVDNR = "PVDNR"; // Digital Noise Reduction direct change
+	const PVDNROFF = " OFF"; // Digital Noise Reduction Off
+	const PVDNRLOW = " LOW"; // Digital Noise Reduction Low
+	const PVDNRMID = " MID"; // Digital Noise Reduction Middle
+	const PVDNRHI = " HI"; // Digital Noise Reduction High
 	
 	const SR = " ?"; //Status Request
 	
@@ -2960,6 +2965,8 @@ class DENON_API_Commands extends stdClass
 	const Z2VOL = "Z2VOL"; // Zone 2 Volume Z2 beim Senden
 	const Z2MU = "Z2MU"; // Zone 2 Mute
 	const Z2CS = "Z2CS"; // Zone 2 Channel Setting
+	const Z2CSST = "ST"; // Zone 2 Channel Setting Stereo
+	const Z2CSMONO = "MONO"; // Zone 2 Channel Setting Mono
 	const Z2CVFL = "Z2CVFL"; // Zone 2 Channel Volume FL
 	const Z2CVFR = "Z2CVFR"; // Zone 2 Channel Volume FR
 	const Z2HPF = "Z2HPF"; // Zone 2 HPF
@@ -2977,6 +2984,8 @@ class DENON_API_Commands extends stdClass
 	const Z3VOL = "Z2VOL"; // Zone 3 Volume Z3 beim Senden
 	const Z3MU = "Z3MU"; // Zone 3 Mute
 	const Z3CS = "Z3CS"; // Zone 3 Channel Setting
+	const Z3CSST = "ST"; // Zone 3 Channel Setting Stereo
+	const Z3CSMONO = "MONO"; // Zone 3 Channel Setting Mono
 	const Z3CVFL = "Z3CVFL"; // Zone 3 Channel Volume FL
 	const Z3CVFR = "Z3CVFR"; // Zone 3 Channel Volume FR
 	const Z3HPF = "Z3HPF"; // Zone 3 HPF
@@ -3678,8 +3687,8 @@ class DENON_API_Commands extends stdClass
 	const CVTMR = "CVTMR"; // Top Middle Right
 	const CVTRL = "CVTRL"; // Top Rear Left
 	const CVTRR = "CVTRR"; // Top Rear Right
-	const CVRHL = "CVRHL"; // Top Height Left
-	const CVRHR = "CVRHR"; // Top Height Right
+	const CVRHL = "CVRHL"; // Rear Height Left
+	const CVRHR = "CVRHR"; // Rear Height Right
 	const CVFDL = "CVFDL"; // Front Dolby Left
 	const CVFDR = "CVFDR"; // Front Dolby Right
 	const CVSDL = "CVSDL"; // Surround Dolby Left
