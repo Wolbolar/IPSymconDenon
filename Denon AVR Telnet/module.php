@@ -2690,7 +2690,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Center Width
-	public function CenterImage(float $Value) //Center Width can be operated from 0 to 7 Step 0.5
+	public function CenterWidth(float $Value) //Center Width can be operated from 0 to 7 Step 0.5
 	{
 		$FunctionType = "CenterWidth";
 		$command = GetCommandValueSend($Value, $FunctionType);
