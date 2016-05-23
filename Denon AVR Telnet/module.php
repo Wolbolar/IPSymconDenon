@@ -1525,69 +1525,71 @@ class DenonAVRTelnet extends IPSModule
 						SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 					}
 				}
+				// Display
+				if ($this->ReadPropertyBoolean('Display'))
+				{
+					$NSADisplay = $data->NSADisplay;
+					$NSADisplayLog = json_encode($NSADisplay);
+					IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
+					$DisplayHTML = GetValue($this->GetIDForIdent("Display"));
+					$doc = new DOMDocument();
+					$doc->loadHTML($DisplayHTML);
+					foreach ($NSADisplay as $row => $content)
+					{
+						if($row == 0)
+							{
+								$doc->getElementById('NSARow0')->nodeValue = $content;
+							}
+						if($row == 1)
+							{
+								$doc->getElementById('NSARow1')->nodeValue = $content;
+							}
+						if($row == 2)
+							{
+								$doc->getElementById('NSARow2')->nodeValue = $content;
+							}
+						if($row == 3)
+							{
+								$doc->getElementById('NSARow3')->nodeValue = $content;
+							}
+						if($row == 4)
+							{
+								$doc->getElementById('NSARow4')->nodeValue = $content;
+							}
+						if($row == 5)
+							{
+								$doc->getElementById('NSARow5')->nodeValue = $content;
+							}
+						if($row == 6)
+							{
+								$doc->getElementById('NSARow6')->nodeValue = $content;
+							}
+						if($row == 7)
+							{
+								$doc->getElementById('NSARow7')->nodeValue = $content;
+							}
+						if($row == 8)
+							{
+								$doc->getElementById('NSARow8')->nodeValue = $content;
+							}
+						if($row == 9)
+							{
+								$doc->getElementById('NSARow9')->nodeValue = $content;
+							}
+						$search = preg_match("/\[.[0-9]?[0-9]\/[0-9][0-9]?.\]/", $content, $treffer);	
+						if($search == 1) //auf Cursorposition prüfen
+							{
+								$pos = strpos($content, "/");
+								$CurrentPosition = trim(substr ( $content , ($pos-2), 2 ));
+								$MaxPosition = trim(substr ( $content , ($pos+1), 2 ));
+							}
+					}
+					SetValueString($this->GetIDForIdent("Display"), $doc->saveHTML());	
+				}
+			
 			}
 			
-			// Display
-			if ($this->ReadPropertyBoolean('Display'))
-			{
-				$NSADisplay = $data->NSADisplay;
-				$NSADisplayLog = json_encode($NSADisplay);
-				IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
-				$DisplayHTML = GetValue($this->GetIDForIdent("Display"));
-				$doc = new DOMDocument();
-				$doc->loadHTML($DisplayHTML);
-				foreach ($NSADisplay as $row => $content)
-				{
-					if($row == 0)
-						{
-							$doc->getElementById('NSARow0')->nodeValue = $content;
-						}
-					if($row == 1)
-						{
-							$doc->getElementById('NSARow1')->nodeValue = $content;
-						}
-					if($row == 2)
-						{
-							$doc->getElementById('NSARow2')->nodeValue = $content;
-						}
-					if($row == 3)
-						{
-							$doc->getElementById('NSARow3')->nodeValue = $content;
-						}
-					if($row == 4)
-						{
-							$doc->getElementById('NSARow4')->nodeValue = $content;
-						}
-					if($row == 5)
-						{
-							$doc->getElementById('NSARow5')->nodeValue = $content;
-						}
-					if($row == 6)
-						{
-							$doc->getElementById('NSARow6')->nodeValue = $content;
-						}
-					if($row == 7)
-						{
-							$doc->getElementById('NSARow7')->nodeValue = $content;
-						}
-					if($row == 8)
-						{
-							$doc->getElementById('NSARow8')->nodeValue = $content;
-						}
-					if($row == 9)
-						{
-							$doc->getElementById('NSARow9')->nodeValue = $content;
-						}
-					$search = preg_match("/\[.[0-9]?[0-9]\/[0-9][0-9]?.\]/", $content, $treffer);	
-					if($search == 1) //auf Cursorposition prüfen
-						{
-							$pos = strpos($content, "/");
-							$CurrentPosition = trim(substr ( $content , ($pos-2), 2 ));
-							$MaxPosition = trim(substr ( $content , ($pos+1), 2 ));
-						}
-				}
-				SetValueString($this->GetIDForIdent("Display"), $doc->saveHTML());	
-			}
+			
 		}
 		
 			foreach($datavalues as $Ident => $Values)
