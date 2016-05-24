@@ -101,6 +101,8 @@ class DenonSplitterTelnet extends IPSModule
         *
         */
     
+	protected $debug = false;
+	
 	protected function RegisterTimer($ident, $interval, $script)
 	{
 		$id = @IPS_GetObjectIDByIdent($ident, $this->InstanceID);
@@ -393,7 +395,10 @@ public function GetInputVarMapping()
 		$data = preg_split('/\r/', $dataio);
 		array_pop($data);
 		$datamessage = json_encode($data);
-		IPS_LogMessage("Denon Telnet Splitter", "Received Data: ".$datamessage);
+		if ($this->debug)
+		{
+			IPS_LogMessage("Denon Telnet Splitter", "Received Data: ".$datamessage);
+		}
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
 		$APIData->AVRProtocol = "Telnet";

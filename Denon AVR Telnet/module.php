@@ -820,7 +820,10 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			IPS_LogMessage('Denon Telnet AVR','Variablenprofil Update:'. $inputsourcesprofile["ProfilName"]);
+			if($this->debug)
+			{
+				IPS_LogMessage('Denon Telnet AVR','Variablenprofil Update:'. $inputsourcesprofile["ProfilName"]);
+			}
 			if($DenonAVRUpdate->Zone == 0)
 				{
 					IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
@@ -924,9 +927,12 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
 			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
-			IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
+			if($this->debug)
+			{
+				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
+				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
+			}
 			$this->EnableAction($inputsourcesprofile["Ident"]);
 		}	
 		
@@ -949,7 +955,10 @@ class DenonAVRTelnet extends IPSModule
 						$DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
 						SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);
 					}
-				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+				}
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
@@ -968,7 +977,10 @@ class DenonAVRTelnet extends IPSModule
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
 				//Ident, Name, Profile, Position 
 				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+				}
 				$this->EnableAction($profile["Ident"]);
 				//NEO Toggle Skript anlegen
 				if ($this->ReadPropertyBoolean('NEOToggle'))
@@ -991,9 +1003,12 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
 				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);	
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);	
+					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+				}
 				$this->EnableAction($profile["Ident"]);
 			}	
 		// wenn nicht sichtbar löschen
@@ -1011,9 +1026,12 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
 				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
-				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
 				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
+					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+				}
 				$this->EnableAction($profile["Ident"]);
 				
 			}	
@@ -1032,9 +1050,12 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
 				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
 				$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
+					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+				}
 				$this->EnableAction($profile["Ident"]);
 			}
 		// wenn nicht sichtbar löschen
@@ -1068,12 +1089,19 @@ class DenonAVRTelnet extends IPSModule
             }
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
-			IPS_LogMessage('Denon Telnet AVR','Variable gelöscht: '.$Name.', [ObjektID: '.$vid.']');
+			if($this->debug)
+			{
+				IPS_LogMessage('Denon Telnet AVR','Variable gelöscht: '.$Name.', [ObjektID: '.$vid.']');
+			}
 			//delete Profile
 			if (IPS_VariableProfileExists ($Profile))
 			{
 				IPS_DeleteVariableProfile($Profile);
-				IPS_LogMessage('Denon Telnet AVR','Variablenprofil gelöscht:'.$Profile);
+				if ($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil gelöscht:'.$Profile);
+				}
+				
 			}
 			
         }
@@ -1115,7 +1143,11 @@ class DenonAVRTelnet extends IPSModule
 		foreach ($AVRCommands as $ObjektID => $Ident)
 			{
 				$Name = IPS_GetName($ObjektID);
-				IPS_LogMessage('Denon Telnet AVR ', "Update: ".$Name);
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR ', "Update: ".$Name);
+				}
+				
 				if ($Ident == "CVFL" || $Ident == "CVFR" || $Ident == "CVC" || $Ident == "CVSW" || $Ident == "CVSL" || $Ident == "CVSR")
 					{
 						$Command = "CV";
@@ -1357,7 +1389,11 @@ class DenonAVRTelnet extends IPSModule
 		*/
         // Subcommand holen
         $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
-        IPS_LogMessage('Denon Telnet AVR', "Denon Subcommand: ".$APIData->APISubCommand);
+		if($this->debug)
+		{
+			IPS_LogMessage('Denon Telnet AVR', "Denon Subcommand: ".$APIData->APISubCommand);
+		}
+        
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
@@ -1484,7 +1520,10 @@ class DenonAVRTelnet extends IPSModule
 		//$datasplitter = json_encode($data->Buffer->Data);
 		//SetValueString($this->GetIDForIdent("BufferIN"), $datasplitter);
 		$message = json_encode($data->Buffer->Data);
-		IPS_LogMessage("Denon Telnet AVR", "Received Data:".utf8_decode($message));
+		if($this->debug)
+		{
+			IPS_LogMessage("Denon Telnet AVR", "Received Data:".utf8_decode($message));
+		}
 		$response = json_encode($data->Buffer);
 		//SetValueString($this->GetIDForIdent("Response"), $response);
 		$this->UpdateVariable($data->Buffer);
