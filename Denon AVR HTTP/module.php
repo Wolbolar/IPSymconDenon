@@ -61,6 +61,7 @@ class DenonAVRHTTP extends IPSModule
     *
     */
 	public 	$InputSources;
+	protected $debug = false;
 	
 	private function ValidateConfiguration()
 	{
@@ -1200,19 +1201,31 @@ class DenonAVRHTTP extends IPSModule
 					{
 						case 0: //Boolean
 							SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							if($this->debug)
+							{
+								IPS_LogMessage("Denon HTTP", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							}
 							break;
 						case 1: //Integer
 							SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							if($this->debug)
+							{
+								IPS_LogMessage("Denon HTTP", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							}
 							break;
 						case 2: //Float
 							SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							if($this->debug)
+							{
+								IPS_LogMessage("Denon HTTP", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							}
 							break;     
 						case 3: //String
 							SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-							IPS_LogMessage("Update Denon", "ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							if($this->debug)
+							{
+								IPS_LogMessage("Denon HTTP", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
+							}
 							break;
 					}	
 				}

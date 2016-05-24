@@ -97,20 +97,21 @@ class DenonSplitterHTTP extends IPSModule
         *
         *
         */
+	protected $debug = false;
+	
+	// Input
+	public function SaveInputVarmapping($MappingInputs)
+		{
+			DAVRIO_SaveInputVarmapping($this->GetParent(), $MappingInputs);
+		}
 
-// Input
-public function SaveInputVarmapping($MappingInputs)
-	{
-		DAVRIO_SaveInputVarmapping($this->GetParent(), $MappingInputs);
-	}
+	public function GetInputVarMapping()
+		{
+			$InputsMapping = DAVRIO_GetInputVarMapping($this->GetParent());
+			return $InputsMapping;
+		}
 
-public function GetInputVarMapping()
-	{
-		$InputsMapping = DAVRIO_GetInputVarMapping($this->GetParent());
-		return $InputsMapping;
-	}
-
-################## DUMMYS / WOARKAROUNDS - protected
+	################## DUMMYS / WOARKAROUNDS - protected
 
     protected function GetParent()
     {
@@ -217,7 +218,10 @@ public function GetInputVarMapping()
 	 
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
-		IPS_LogMessage("Forward Data Denon HTTP Splitter", utf8_decode($data->Buffer));
+		if($this->debug)
+		{
+			IPS_LogMessage("Forward Data Denon HTTP Splitter", utf8_decode($data->Buffer));
+		}
 		$datasend = $data->Buffer;
 		SetValueString($this->GetIDForIdent("CommandOut"), $datasend);
 	 
