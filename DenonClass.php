@@ -5670,6 +5670,7 @@ class DenonAVRCP_API_Data extends stdClass
 	
 	public function GetCommandResponse ($data, $InputMapping)
 	{	
+		$debug = false;
 		//Surround Display
 		$displaysurround = array(
 								//Dolby Digital
@@ -5893,8 +5894,10 @@ class DenonAVRCP_API_Data extends stdClass
 			);
 		//Debug Log
 		$NSADisplayMessage = json_encode($NSADisplay);
-		IPS_LogMessage('Denon Class','NSADisplay:'.$NSADisplayMessage);	
-		
+		if ($debug)
+		{
+			IPS_LogMessage('Denon Class','NSADisplay:'.$NSADisplayMessage);	
+		}
 		return $datasend;	
 	}
 	
