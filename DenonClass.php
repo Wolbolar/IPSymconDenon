@@ -5831,6 +5831,7 @@ class DenonAVRCP_API_Data extends stdClass
 							"Z2INPUTGAME" => "Z2GAME",
 							"Z2INPUTV.AUX" => "Z2V.AUX",
 							"Z2INPUTIRADIO" => "Z2IRADIO",
+							"Z2INPUTTV" => "Z2TV",
 							"Z2INPUTSERVER" => "Z2SERVER",
 							"Z3INPUTCD" => "Z3CD",
 							"Z3INPUTDVD" => "Z3DVD",
@@ -5841,6 +5842,7 @@ class DenonAVRCP_API_Data extends stdClass
 							"Z3INPUTGAME" => "Z3GAME",
 							"Z3INPUTV.AUX" => "Z3V.AUX",
 							"Z3INPUTIRADIO" => "Z3IRADIO",
+							"Z3INPUTTV" => "Z3TV",
 							"Z3INPUTSERVER" => "Z3SERVER"
 							);
 				
