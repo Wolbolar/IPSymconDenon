@@ -5327,26 +5327,26 @@ class DenonAVRCP_API_Data extends stdClass
 		$AVRType = $this->AVRType;
 		$VarMapping = $this->VarMapping;
 		
-		if ($Zone == 0) //Main Zone
-		{
-			$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
-			$AVRInputsArray["ValueMapping"] = $InputMapping;
-			$VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
-		}
-		elseif ($Zone == 1) //Zone 1
-		{
-			$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
-			$AVRInputsArray["ValueMapping"] = $InputMapping;
-			$VarMapping[DENON_API_Commands::Z2INPUT] = $AVRInputsArray;
-		}
-		elseif ($Zone == 2) //Zone 2
-		{
-			$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
-			$AVRInputsArray["ValueMapping"] = $InputMapping;
-			$VarMapping[DENON_API_Commands::Z3INPUT] = $AVRInputsArray;
-		}
 		if ($CommunicationType == "Send") //Send 
 		{
+			if ($Zone == 0) //Main Zone
+			{
+				$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRInputsArray["ValueMapping"] = $InputMapping;
+				$VarMapping[DENON_API_Commands::SI] = $AVRInputsArray;
+			}
+			elseif ($Zone == 1) //Zone 1
+			{
+				$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRInputsArray["ValueMapping"] = $InputMapping;
+				$VarMapping[DENON_API_Commands::Z2INPUT] = $AVRInputsArray;
+			}
+			elseif ($Zone == 2) //Zone 2
+			{
+				$AVRInputsArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRInputsArray["ValueMapping"] = $InputMapping;
+				$VarMapping[DENON_API_Commands::Z3INPUT] = $AVRInputsArray;
+			}
 			if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W")
 			{
 				//Surround Mode
@@ -5373,6 +5373,20 @@ class DenonAVRCP_API_Data extends stdClass
 		}
 		elseif($CommunicationType == "Response") //Response
 		{
+			//Bei Response Zone unbekannt, muss ausgelesen werden
+			
+			$AVRInputsArrayMainZone = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRInputsArrayMainZone["ValueMapping"] = $InputMapping;
+			$VarMapping[DENON_API_Commands::SI] = $AVRInputsArrayMainZone;
+			
+			$AVRInputsArrayZ2 = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRInputsArrayZ2["ValueMapping"] = $InputMapping;
+			$VarMapping[DENON_API_Commands::Z2INPUT] = $AVRInputsArrayZ2;
+			
+			$AVRInputsArrayZ3 = array("VarType" => DENONIPSVarType::vtInteger);
+			$AVRInputsArrayZ3["ValueMapping"] = $InputMapping;
+			$VarMapping[DENON_API_Commands::Z3INPUT] = $AVRInputsArrayZ3;
+			
 			if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W")
 			{
 				//Surround Mode
@@ -5796,7 +5810,7 @@ class DenonAVRCP_API_Data extends stdClass
 				
 			
 			}
-		
+		// Response an besondere Idents anpassen
 		$specialcommands = array
 							("PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
 							"PSCINEMA_EQ.ON" => "PSCINEMA EQ.ON",
@@ -5842,6 +5856,7 @@ class DenonAVRCP_API_Data extends stdClass
 		$datavalues = array();
 		$NSADisplay = array();
 		$CommunicationType = "Response";
+		//Response einzeln auswerten
 		foreach($data as $key => $response)
 			{
 				$NSAResponse = stripos($response, "NSA");
