@@ -927,7 +927,44 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+			//Prüfen ob Var existiert
+			if($DenonAVRVar->Zone == 0)
+			{
+				$idMainZoneInput = @$this->GetIDForIdent("SI");
+				if($idMainZoneInput == false)
+				{
+					$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+				}
+				else
+				{
+					IPS_SetVariableCustomProfile($idMainZoneInput, $inputsourcesprofile["ProfilName"]);
+				}
+			}
+			elseif($DenonAVRVar->Zone == 1)
+			{
+				$idZ2Input = @$this->GetIDForIdent("Z2INPUT");
+				if($idZ2Input == false)
+				{
+					$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+				}
+				else
+				{
+					IPS_SetVariableCustomProfile($idZ2Input, $inputsourcesprofile["ProfilName"]);
+				}
+			}
+			elseif($DenonAVRVar->Zone == 2)
+			{
+				$idZ3Input = @$this->GetIDForIdent("Z3INPUT");
+				if($idZ3Input == false)
+				{
+					$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+				}
+				else
+				{
+					IPS_SetVariableCustomProfile($idZ3Input, $inputsourcesprofile["ProfilName"]);
+				}
+			}
+			
 			if($this->debug)
 			{
 				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
