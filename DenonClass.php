@@ -5797,23 +5797,48 @@ class DenonAVRCP_API_Data extends stdClass
 			
 			}
 		
-		$spacecommands = array
+		$specialcommands = array
 							("PSCINEMA_EQ.OFF" => "PSCINEMA EQ.OFF",
 							"PSCINEMA_EQ.ON" => "PSCINEMA EQ.ON",
 							"PSTONE_CTRL OFF" => "PSTONE CTRL OFF",
 							"PSTONE_CTRL ON" => "PSTONE CTRL ON",
 							"PSEFF_ON" => "PSEFF ON",
-							"PSEFF_OFF" => "PSEFF ON"
+							"PSEFF_OFF" => "PSEFF OFF",
+							"Z2POWERON" => "Z2ON",
+							"Z2POWEROFF" => "Z2OFF",
+							"Z3POWERON" => "Z3ON",
+							"Z3POWEROFF" => "Z3OFF",
+							"Z2INPUTCD" => "Z2CD",
+							"Z2INPUTDVD" => "Z2DVD",
+							"Z2INPUTBD" => "Z2BD",
+							"Z2INPUTSAT/CBL" => "Z2SAT/CBL",
+							"Z2INPUTDOCK" => "Z2DOCK",
+							"Z2INPUTDVR" => "Z2DVR",
+							"Z2INPUTGAME" => "Z2GAME",
+							"Z2INPUTV.AUX" => "Z2V.AUX",
+							"Z2INPUTIRADIO" => "Z2IRADIO",
+							"Z2INPUTSERVER" => "Z2SERVER",
+							"Z3INPUTCD" => "Z3CD",
+							"Z3INPUTDVD" => "Z3DVD",
+							"Z3INPUTBD" => "Z3BD",
+							"Z3INPUTSAT/CBL" => "Z3SAT/CBL",
+							"Z3INPUTDOCK" => "Z3DOCK",
+							"Z3INPUTDVR" => "Z3DVR",
+							"Z3INPUTGAME" => "Z3GAME",
+							"Z3INPUTV.AUX" => "Z3V.AUX",
+							"Z3INPUTIRADIO" => "Z3IRADIO",
+							"Z3INPUTSERVER" => "Z3SERVER"
 							);
-		
-		foreach($spacecommands as $spacecommand => $responsesc)
+				
+		foreach($specialcommands as $specialcommand => $responsesc)
 			{
 				$specialkey = array_search($responsesc, $data);  // false wenn nichts gefunden
 				if($specialkey !== false)
 					{
-						$data[$specialkey] = str_replace($responsesc, $spacecommand, $data[$specialkey]);
+						$data[$specialkey] = str_replace($responsesc, $specialcommand, $data[$specialkey]);
 					}
 			}
+		
 		$datavalues = array();
 		$NSADisplay = array();
 		$CommunicationType = "Response";

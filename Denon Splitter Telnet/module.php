@@ -392,6 +392,7 @@ public function GetInputVarMapping()
 		$payload = json_decode($JSONString);
 		$dataio = $payload->Buffer;
 		SetValueString($this->GetIDForIdent("IOIN"), $dataio);
+		//Daten aufteilen
 		$data = preg_split('/\r/', $dataio);
 		array_pop($data);
 		$datamessage = json_encode($data);
