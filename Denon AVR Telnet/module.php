@@ -1425,12 +1425,32 @@ class DenonAVRTelnet extends IPSModule
         }
 		*/
         // Subcommand holen
-        $APIData->APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
+		//Aux bei einzelnen AVR Modellen korrigieren
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+		{
+			$APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
+			if ($APISubCommand == "V.AUX")
+			{
+				$APISubCommand = "AUX1";
+				$APIData->APISubCommand = $APISubCommand;
+			}
+			else
+			{
+				$APIData->APISubCommand = $APISubCommand;
+			}
+		}
+		else
+		{
+			$APIData->APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
+		}
+        
 		if($this->debug)
 		{
 			IPS_LogMessage('Denon Telnet AVR', "Denon Subcommand: ".$APIData->APISubCommand);
 		}
         
+		
+		
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
@@ -2137,6 +2157,52 @@ class DenonAVRTelnet extends IPSModule
 		$payload = DENON_API_Commands::ZM.$subcommand;
 		$this->SendCommand($payload);
 	}
+	
+	// Bei Modell AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-X1100W, S700W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+	//Mainzone Standby Setting
+	public function MainzoneAutoStandbySetting(integer $Value) // 0 (Off) / 15 / 30 / 60 (Minuten)
+	{
+		if ($Value == 0)
+			{
+				$subcommand = DENON_API_Commands::STBYOFF;
+			}
+		elseif ($Value == 15)
+			{
+				$subcommand = DENON_API_Commands::STBY15M;
+			}
+		elseif ($Value == 30)
+			{
+				$subcommand = DENON_API_Commands::STBY30M;
+			}
+		elseif ($Value == 60)
+			{
+				$subcommand = DENON_API_Commands::STBY60M;
+			}		
+		
+		$payload = DENON_API_Commands::STBY.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	// Bei Modell AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-X1100W, S700W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+	//Mainzone Standby Setting
+	public function MainzoneEcoModeSetting(string $Value) // On / Auto / Off
+	{
+		if ($Value == "On")
+			{
+				$subcommand = DENON_API_Commands::ECOON;
+			}
+		elseif ($Value == "Auto")
+			{
+				$subcommand = DENON_API_Commands::ECOAUTO;
+			}
+		elseif ($Value == "Off")
+			{
+				$subcommand = DENON_API_Commands::ECOOFF;
+			}
+				
+		$payload = DENON_API_Commands::ECO.$subcommand;
+		$this->SendCommand($payload);
+	}
 		
 	//Master Volume
 	public function MasterVolume(string $command) // "UP" or "DOWN" 
@@ -2170,8 +2236,27 @@ class DenonAVRTelnet extends IPSModule
 	}
 		
 	//Input
-	public function Input(string $command) // NET/USB; USB; NAPSTER; LASTFM; FLICKR; FAVORITES; IRADIO; SERVER; SERVER;  USB/IPOD
+	// PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
+	//zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+	//Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
+	// IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
+	public function Input(string $command) 
 	{
+		$AVRType = $this->ReadPropertyInteger('AVRType');
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+				if ($command == "AUX")
+				{
+					$command = "AUX1";
+				}
+			}
+		else
+		{
+			if($command == "AUX")
+			{
+				$command == "V.AUX";
+			}
+		}
 		$payload = DENON_API_Commands::SI.$command;
 		$this->SendCommand($payload);
 	}
@@ -2623,7 +2708,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 		$FunctionType = "Range12to12";
 		$command = GetCommandValueSend($Value, $FunctionType);
-		$payload = DENON_API_Commands::CVSDR.$command;
+		$payload = DENON_API_Commands::CVBDL.$command;
 		$this->SendCommand($payload);
 	}
 	
@@ -2631,7 +2716,7 @@ class DenonAVRTelnet extends IPSModule
 	{
 		$FunctionType = "Range12to12";
 		$command = GetCommandValueSend($Value, $FunctionType);
-		$payload = DENON_API_Commands::CVSDR.$command;
+		$payload = DENON_API_Commands::CVBDR.$command;
 		$this->SendCommand($payload);
 	}
 		
@@ -2644,8 +2729,23 @@ class DenonAVRTelnet extends IPSModule
 
 	
 	//Video Select
-	public function VideoSelect(string $command) // Video Select DVD/BD/TV/SAT_CBL/DVR/GAME/V.AUX/DOCK/SOURCE
+	public function VideoSelect(string $command) // Video Select DVD , BD , TV , SAT/CBL , DVR ,GAME , AUX , DOCK , SOURCE, MPLAY
 	{
+		$AVRType = $this->ReadPropertyInteger('AVRType');
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+				if ($command == "AUX")
+				{
+					$command = "AUX1";
+				}
+			}
+		else
+		{
+			if($command == "AUX")
+			{
+				$command == "V.AUX";
+			}
+		}
 		$payload = DENON_API_Commands::SV.$command;
 		$this->SendCommand($payload);
 	}
@@ -3080,9 +3180,11 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Contrast
-	public function Contrast(string $subcommand) // Contrast
+	public function Contrast(float $subcommand) // Contrast can be operated from -6 to 6 Step 0.5
 	{
-		$payload = DENON_API_Commands::PS.$subcommand;
+		$FunctionType = "Range6to6";
+		$command = GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::PVCN.$command;
 		$this->SendCommand($payload);
 	}
 	
