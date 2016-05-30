@@ -489,14 +489,14 @@ class DENONIPSProfiles extends stdClass
 				(
 				"Ident" => DENON_API_Commands::Z2INPUT,
 				"Name" => "Zone 2 Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				"Profilesettings" => Array("Database", "", "", $MinValue, $MaxValue, 0, 0),
 				);
 				$AssociationsZ2 = array();
 				foreach ($Inputs as $Value => $Input)
 				{
 				$RenameSource = $Input["RenameSource"];	
 				$SourceInput = str_replace(" ", "", $RenameSource);
-				$AssociationsZ2[] = array(($Value-1), $SourceInput,  "", -1);
+				$AssociationsZ2[] = array($Value, $SourceInput,  "", -1);
 				}
 				//zusätzliche Inputs bei Auswahl
 				if($FAVORITES)
@@ -585,14 +585,14 @@ class DENONIPSProfiles extends stdClass
 				(
 				"Ident" => DENON_API_Commands::Z3INPUT,
 				"Name" => "Zone 3 Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				"Profilesettings" => Array("Database", "", "", $MinValue, $MaxValue, 0, 0),
 				);
 				$AssociationsZ3 = array();
 				foreach ($Inputs as $Value => $Input)
 				{
 				$RenameSource = $Input["RenameSource"];	
 				$SourceInput = str_replace(" ", "", $RenameSource);
-				$AssociationsZ3[] = array(($Value-1), $SourceInput,  "", -1);
+				$AssociationsZ3[] = array($Value, $SourceInput,  "", -1);
 				}
 				//zusätzliche Inputs bei Auswahl
 				if($FAVORITES)
