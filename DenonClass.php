@@ -496,7 +496,7 @@ class DENONIPSProfiles extends stdClass
 				{
 				$RenameSource = $Input["RenameSource"];	
 				$SourceInput = str_replace(" ", "", $RenameSource);
-				$AssociationsZ2[] = array(($Value-1), $SourceInput,  "", -1);
+				$AssociationsZ2[] = array($Value, $SourceInput,  "", -1);
 				}
 				//zusätzliche Inputs bei Auswahl
 				if($FAVORITES)
@@ -592,7 +592,7 @@ class DENONIPSProfiles extends stdClass
 				{
 				$RenameSource = $Input["RenameSource"];	
 				$SourceInput = str_replace(" ", "", $RenameSource);
-				$AssociationsZ3[] = array(($Value-1), $SourceInput,  "", -1);
+				$AssociationsZ3[] = array($Value, $SourceInput,  "", -1);
 				}
 				//zusätzliche Inputs bei Auswahl
 				if($FAVORITES)
