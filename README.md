@@ -118,6 +118,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 #### Denon HTTP Modul:
 
 `DAVRH_Power(integer $InstanceID, boolean $Value)`
+
 Einschalten / Ausschalten 
 Parameter $Value false (Off) / true (On)
 
@@ -132,6 +133,7 @@ Parameter $Value false (Off) / true (On)
 #### Denon Telnet Modul:
 
 `DAVRT_Power(integer $InstanceID, boolean $Value)`
+
 Einschalten / Ausschalten 
 Parameter $Value false (Off) / true (On)
 
