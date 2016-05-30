@@ -489,7 +489,7 @@ class DENONIPSProfiles extends stdClass
 				(
 				"Ident" => DENON_API_Commands::Z2INPUT,
 				"Name" => "Zone 2 Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				"Profilesettings" => Array("Database", "", "", $MinValue, $MaxValue, 0, 0),
 				);
 				$AssociationsZ2 = array();
 				foreach ($Inputs as $Value => $Input)
@@ -585,7 +585,7 @@ class DENONIPSProfiles extends stdClass
 				(
 				"Ident" => DENON_API_Commands::Z3INPUT,
 				"Name" => "Zone 3 Input Source",
-				"Profilesettings" => Array("Database", "", "", 0, $MaxValue, 0, 0),
+				"Profilesettings" => Array("Database", "", "", $MinValue, $MaxValue, 0, 0),
 				);
 				$AssociationsZ3 = array();
 				foreach ($Inputs as $Value => $Input)
