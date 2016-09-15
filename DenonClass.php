@@ -1861,13 +1861,13 @@ class DENONIPSProfiles extends stdClass
 			}	
 		
 		$profilesZone2 = array(
-		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 2 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
+		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 2 Volume", "Intensity", "", " dB", -80.0, 18.0, 0.5, 1),
 		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 1),
 		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone 2 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 1)
 		);
 		
 		$profilesZone3 = array(
-		$this->ptZone3Volume => array(DENON_API_Commands::Z3VOL, "Zone 3 Volume", "Intensity", "", " %", -80.0, 18.0, 0.5, 1),
+		$this->ptZone3Volume => array(DENON_API_Commands::Z3VOL, "Zone 3 Volume", "Intensity", "", " dB", -80.0, 18.0, 0.5, 1),
 		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 1),
 		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 1)
 		);
@@ -2981,7 +2981,7 @@ class DENON_API_Commands extends stdClass
 	const Z3OFF = "OFF"; // Zone 3 Off
 	const Z3POWER = "Z3POWER"; // Zone 3 Power Z3 beim Senden
 	const Z3INPUT = "Z3INPUT"; // Zone 3 Input Z3 beim Senden
-	const Z3VOL = "Z2VOL"; // Zone 3 Volume Z3 beim Senden
+	const Z3VOL = "Z3VOL"; // Zone 3 Volume Z3 beim Senden
 	const Z3MU = "Z3MU"; // Zone 3 Mute
 	const Z3CS = "Z3CS"; // Zone 3 Channel Setting
 	const Z3CSST = "ST"; // Zone 3 Channel Setting Stereo
@@ -3001,6 +3001,15 @@ class DENON_API_Commands extends stdClass
 	const TR = "TR"; // Trigger
 	const SY = "SY"; // Remote Lock
 	const UG = "UG"; // Upgrade ID Display
+	
+	//Analog Tuner
+	const TPANUP = "UP"; //TUNER PRESET CH UP
+	const TPANDOWN = "DOWN"; //TUNER PRESET CH DOWN
+	const TPAN = "TPAN"; //TUNER PRESET 
+	const TPANMEM = "TPANMEM"; //TUNER PRESET Memory
+	
+	//Network Audio
+	const NSB = "NSB"; //Direct Preset CH Play 00-55,00=A1,01=A2,B1=08,G8=55
 	
 	// Display Network Audio Navigation
 	const NAUP = "NS90"; // Network Audio Cursor Up Control
@@ -4856,7 +4865,7 @@ class DenonAVRCP_API_Data extends stdClass
 					),
 					//Zone 2
 					//Zone 2 Volume **:00 to 99 by ASCII , 80=0dB, 99=---(MIN) 00=-80dB
-					DENON_API_Commands::Z2
+					DENON_API_Commands::Z2VOL
 					=> array(
 						"VarType" => DENONIPSVarType::vtFloat,
 						"ValueMapping" => array(
@@ -5082,7 +5091,7 @@ class DenonAVRCP_API_Data extends stdClass
 					),
 					//Zone 3
 					//Zone 3 Volume **:00 to 99 by ASCII , 80=0dB, 99=---(MIN) 00=-80dB
-					DENON_API_Commands::Z3
+					DENON_API_Commands::Z3VOL
 					=> array(
 						"VarType" => DENONIPSVarType::vtFloat,
 						"ValueMapping" => array
