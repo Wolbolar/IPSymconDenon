@@ -3431,7 +3431,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Preset Network Audio
-	public function SelectTunerPresetAnalog(string $Value)
+	public function SelectPresetNetworkAudio(string $Value)
 	{
 		// A1 - G8 00-55,00=A1,01=A2,B1=08,G8=55
 		if ($Value == "A1")
