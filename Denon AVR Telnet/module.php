@@ -2476,7 +2476,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFL(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2484,7 +2484,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFR(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2492,7 +2492,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeC(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVC.$command;
 		$this->SendCommand($payload);
 	}
@@ -2500,7 +2500,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSW(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSW.$command;
 		$this->SendCommand($payload);
 	}
@@ -2508,7 +2508,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSW2(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSW2.$command;
 		$this->SendCommand($payload);
 	}
@@ -2516,7 +2516,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSL(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2524,7 +2524,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSR(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2532,7 +2532,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSBL(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSBL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2540,7 +2540,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSBR(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSBR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2548,7 +2548,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSB(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSB.$command;
 		$this->SendCommand($payload);
 	}
@@ -2556,7 +2556,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFHL(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFHL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2564,7 +2564,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFHR(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFHR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2572,7 +2572,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFWL(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFWL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2580,7 +2580,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFWR(float $Value) // Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFWR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2588,7 +2588,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSHL(float $Value) //Surround Height Left Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSHL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2596,7 +2596,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSHR(float $Value) //Surround Height Right Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSHR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2604,7 +2604,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTS(float $Value) //Top Surround Range -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTS.$command;
 		$this->SendCommand($payload);
 	}
@@ -2612,7 +2612,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTFL(float $Value) //Top Front Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTFL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2620,7 +2620,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTFR(float $Value) //Top Front Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTFR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2628,7 +2628,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTML(float $Value) //Top Middle Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTML.$command;
 		$this->SendCommand($payload);
 	}
@@ -2636,7 +2636,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTMR(float $Value) //Top Middle Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTMR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2644,7 +2644,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTRL(float $Value) //Top Rear Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTRL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2652,7 +2652,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeTRR(float $Value) //Top Rear Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVTRR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2660,7 +2660,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeRHL(float $Value) // Rear Height Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVRHL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2668,7 +2668,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeRHR(float $Value) // Rear Height Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVRHR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2676,7 +2676,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFDL(float $Value) // Front Dolby Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFDL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2684,7 +2684,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeFDR(float $Value) // Front Dolby Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVFDR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2692,7 +2692,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSDL(float $Value) // Surround Dolby Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSDL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2700,7 +2700,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeSDR(float $Value) // Surround Dolby Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVSDR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2708,7 +2708,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeBDL(float $Value) // Back Dolby Left -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVBDL.$command;
 		$this->SendCommand($payload);
 	}
@@ -2716,7 +2716,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChannelVolumeBDR(float $Value) // Back Dolby Right -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CVBDR.$command;
 		$this->SendCommand($payload);
 	}
@@ -2815,7 +2815,7 @@ class DenonAVRTelnet extends IPSModule
 	public function AudioDelay(integer $Value) // can be operated from 0 to 300
 	{
 		$FunctionType = "AudioDelay";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::CV.DENON_API_Commands::PSDELAY.$command;
 		$this->SendCommand($payload);
 	}
@@ -2903,7 +2903,7 @@ class DenonAVRTelnet extends IPSModule
 	public function CenterImage(float $Value) //Center Image can be operated from 0.0 to 1.0 Step 0.1
 	{
 		$FunctionType = "CenterImage";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PSCEI.$command;
 		$this->SendCommand($payload);
 	}
@@ -2912,7 +2912,7 @@ class DenonAVRTelnet extends IPSModule
 	public function CenterWidth(float $Value) //Center Width can be operated from 0 to 7 Step 0.5
 	{
 		$FunctionType = "CenterWidth";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PSCEN.$command;
 		$this->SendCommand($payload);
 	}
@@ -2950,7 +2950,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Dimension(integer $Value) //Dimension can be operated from 0 to 6
 	{
 		$FunctionType = "Dimension";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PSDIM.$command;
 		$this->SendCommand($payload);
 	}
@@ -2974,7 +2974,7 @@ class DenonAVRTelnet extends IPSModule
 	public function EffectLevel(float $Value) //Effect Level  can be operated from 1 to 15 Step 0.5
 	{
 		$FunctionType = "EffectLevel";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PSEFF.$command;
 		$this->SendCommand($payload);
 	}
@@ -3099,7 +3099,7 @@ class DenonAVRTelnet extends IPSModule
 	public function StageWidth(float $Value) //Stage Width can be operated from -10 to +10 Step 0.5
 	{
 		$FunctionType = "Range10to10";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PSSTW.$command;
 		$this->SendCommand($payload);
 	}
@@ -3108,7 +3108,7 @@ class DenonAVRTelnet extends IPSModule
 	public function StageHeight(float $Value) //Stage Width can be operated from -10 to +10 Step 0.5
 	{
 		$FunctionType = "Range10to10";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PSSTH.$command;
 		$this->SendCommand($payload);
 	}
@@ -3184,7 +3184,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Contrast(float $subcommand) // Contrast can be operated from -6 to 6 Step 0.5
 	{
 		$FunctionType = "Range6to6";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PVCN.$command;
 		$this->SendCommand($payload);
 	}
@@ -3193,7 +3193,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Brightness(float $Value) //Brightness can be operated from 0 to 12 Step 0.5
 	{
 		$FunctionType = "Range0to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PVBR.$command;
 		$this->SendCommand($payload);
 	}
@@ -3202,7 +3202,7 @@ class DenonAVRTelnet extends IPSModule
 	public function ChromaLevel(float $Value) //Chroma Level can be operated from -6 to 6 Step 0.5
 	{
 		$FunctionType = "Range6to6";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PVCM.$command;
 		$this->SendCommand($payload);
 	}
@@ -3235,7 +3235,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Enhancer(float $Value) //Enhancer can be operated from 0 to 12 Step 0.5
 	{
 		$FunctionType = "Range0to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PVENH.$command;
 		$this->SendCommand($payload);
 	}
@@ -3265,7 +3265,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Hue(float $Value) //Enhancer can be operated from -6 to 6 Step 0.5
 	{
 		$FunctionType = "Range6to6";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PVHUE.$command;
 		$this->SendCommand($payload);
 	}
@@ -3407,7 +3407,44 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//Noch ergänzen
+	
+	//Preset Analog Tuner
+	public function SelectTunerPresetAnalog(string $Value) // A1 - G8 00-55,00=A1,01=A2,B1=08,G8=55 , Up, Down
+	{
+		if ($Value == "Up")
+			{
+				$subcommand = DENON_API_Commands::TPANUP;
+			}
+		elseif ($Value == "Down")
+			{
+				$subcommand = DENON_API_Commands::TPANDOWN;
+			}
+		else
+			{
+				$FunctionType = "Range00to55";
+				$subcommand = $this->GetCommandValueSend($Value, $FunctionType);
+			}	
 		
+		$payload = DENON_API_Commands::TPAN.$subcommand;
+		$this->SendCommand($payload);
+	}
+	
+	//Preset Network Audio
+	public function SelectTunerPresetAnalog(string $Value)
+	{
+		// A1 - G8 00-55,00=A1,01=A2,B1=08,G8=55
+		if ($Value == "A1")
+			{
+				$subcommand = DENON_API_Commands::MNSRCOFF;
+			}
+		elseif ($Value == true)
+			{
+				$subcommand = DENON_API_Commands::MNSRCON;
+			}
+		$payload = DENON_API_Commands::MNSRC.$subcommand;
+		$this->SendCommand($payload);
+	}
 	
 	######################## Cursor Steuerung ######################################
 
@@ -3454,7 +3491,7 @@ class DenonAVRTelnet extends IPSModule
 	public function BassLevel(float $Value) // can be operated from -6 to +6, Step 0.5
 	{
 		$FunctionType = "Range6to6";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSBAS.$command;
 		$this->SendCommand($payload);
 	}
@@ -3463,7 +3500,7 @@ class DenonAVRTelnet extends IPSModule
 	public function LFELevel(float $Value) // can be operated from 0 to -10, Step 0.5
 	{
 		$FunctionType = "LFELevel";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSLFE.$command;
 		$this->SendCommand($payload);
 	}
@@ -3472,7 +3509,7 @@ class DenonAVRTelnet extends IPSModule
 	public function TrebleLevel(float $Value) // can be operated from -6 to +6, Step 0.5
 	{
 		$FunctionType = "Range6to6";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::PS.DENON_API_Commands::PSTRE.$command;
 		$this->SendCommand($payload);
 	}
@@ -3487,7 +3524,7 @@ class DenonAVRTelnet extends IPSModule
 		ELSE
 		{
 		$FunctionType = "Sleep";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::SLP.$command;
 		}
 		$this->SendCommand($payload);
@@ -3606,7 +3643,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone2VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
 		$FunctionType = "Volume";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2.$command;
 		$this->SendCommand($payload);
 	}
@@ -3651,7 +3688,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone2ChannelVolumeFL(float $volume) // -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2CVFL.$command;
 		$this->SendCommand($payload);
 	}
@@ -3660,7 +3697,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone2ChannelVolumeFR(float $volume) // -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2CVFR.$command;
 		$this->SendCommand($payload);
 	}
@@ -3698,7 +3735,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone3VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
 		$FunctionType = "Volume";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3.$command;
 		$this->SendCommand($payload);
 	}
@@ -3763,7 +3800,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone3ChannelVolumeFL(float $volume) // -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3CVFR.$command;
 		$this->SendCommand($payload);
 	}
@@ -3771,7 +3808,7 @@ class DenonAVRTelnet extends IPSModule
 	public function Zone3ChannelVolumeFR(float $volume) // -12 to 12, Step 0.5 
 	{
 		$FunctionType = "Range12to12";
-		$command = GetCommandValueSend($Value, $FunctionType);
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3CVFR.$command;
 		$this->SendCommand($payload);
 	}
@@ -4298,6 +4335,24 @@ class DenonAVRTelnet extends IPSModule
 													" 45" => -5, " 455" => -4.5, " 46" => -4, " 465" => -3.5, " 47" => -3, " 475" => -2.5, " 48" => -2, " 485" => -1.5, " 49" => -1, " 495" => -0.5,
 													" 50" => 0, " 505" => 0.5, " 51" => 1, " 515" => 1.5, " 52" => 2, " 525" => 2.5, " 53" => 3, " 535" => 3.5, " 54" => 4, " 545" => 4.5, " 55" => 5,
 													" 555" => 5.5, " 56" => 6, " 565" => 6.5, " 57" => 7, " 575" => 7.5, " 58" => 8, " 585" => 8.5, " 59" => 9, " 595" => 9.5, " 60" => 10);
+		}
+		//Range **:00-55,00=A1,01=A2,B1=08,G8=55
+		if($FunctionType == "Range00to55")
+		{
+			$ValueMapping = array("00" => 1, "01" => 1, "02" => 2, "03" => 3, "04" => 4, "05" => 5, "06" => 6, "07" => 7, "08" => 8, "09" => 9, "10" => 10,
+													"11" => 11, "12" => 12, "13" => 13, "14" => 14, "15" => 15, "16" => 16, "17" => 17, "18" => 18, "19" => 19, "20" => 20, "21" => 21, "22" => 22,
+													"23" => 23, "24" => 24, "25" => 25, "26" => 26, "27" => 27, "28" => 28, "29" => 29, "30" => 30, "31" => 31, "32" => 32, "33" => 33, "34" => 34,
+													"35" => 35, "36" => 36, "37" => 37, "38" => 38, "39" => 39, "40" => 40, "41" => 41, "42" => 42, "43" => 43, "44" => 44, "45" => 45, "46" => 46,
+													"47" => 47, "48" => 48, "49" => 49, "50" => 50, "51" => 51, "52" => 52, "53" => 53, "54" => 54, "55" => 55);
+		}
+		//Range **:01-56  01=CH01,56=CH56
+		if($FunctionType == "Range01to56")
+		{
+			$ValueMapping = array("01" => 1, "02" => 2, "03" => 3, "04" => 4, "05" => 5, "06" => 6, "07" => 7, "08" => 8, "09" => 9, "10" => 10,
+													"11" => 11, "12" => 12, "13" => 13, "14" => 14, "15" => 15, "16" => 16, "17" => 17, "18" => 18, "19" => 19, "20" => 20, "21" => 21, "22" => 22,
+													"23" => 23, "24" => 24, "25" => 25, "26" => 26, "27" => 27, "28" => 28, "29" => 29, "30" => 30, "31" => 31, "32" => 32, "33" => 33, "34" => 34,
+													"35" => 35, "36" => 36, "37" => 37, "38" => 38, "39" => 39, "40" => 40, "41" => 41, "42" => 42, "43" => 43, "44" => 44, "45" => 45, "46" => 46,
+													"47" => 47, "48" => 48, "49" => 49, "50" => 50, "51" => 51, "52" => 52, "53" => 53, "54" => 54, "55" => 55, "56" => 56);
 		}
 		foreach ($ValueMapping as $command => $UserValue)
 			{

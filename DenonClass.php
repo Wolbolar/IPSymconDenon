@@ -3002,6 +3002,15 @@ class DENON_API_Commands extends stdClass
 	const SY = "SY"; // Remote Lock
 	const UG = "UG"; // Upgrade ID Display
 	
+	//Analog Tuner
+	const TPANUP = "UP"; //TUNER PRESET CH UP
+	const TPANDOWN = "DOWN"; //TUNER PRESET CH DOWN
+	const TPAN = "TPAN"; //TUNER PRESET 
+	const TPANMEM = "TPANMEM"; //TUNER PRESET Memory
+	
+	//Network Audio
+	const NSB = "NSB"; //Direct Preset CH Play 00-55,00=A1,01=A2,B1=08,G8=55
+	
 	// Display Network Audio Navigation
 	const NAUP = "NS90"; // Network Audio Cursor Up Control
 	const NADOWN = "NS91"; // Network Audio Cursor Down Control

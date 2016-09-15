@@ -692,7 +692,12 @@ Network Audio Navigation Page Next
 `DAVRT_NAPagePrevious(integer $InstanceID)`
 
 Network Audio Navigation Page Previous	
-	
+
+
+Analog Tuner
+`DAVRT_SelectTunerPresetAnalog(integer $InstanceID, string $Value)`
+Select Tuner Preset
+Parameter $Value A1 - G8 	
 
 Zone 2
 
@@ -782,8 +787,12 @@ Parameter Range float $Value -12 to 12, Step 0.5
 `DAVRT_Zone3ChannelSetting(integer $InstanceID, string $Value)`
 
 Zone3 Channel Setting
-Parameter $Value Stereo / Mono	
-	
+Parameter $Value Stereo / Mono
+
+Allgemeines Senden von jedem Befehl dessen Command bekannt ist	
+`DAVRT_SendCommand(integer $InstanceID, string $Value)`
+
+Parameter $Value entspricht dem vollständigen Befehl entsprechend der Dokumentaion von Denon für das AVR Modell, z.B. PWON für Power On	
 
 ###  b. GUIDs und Datenaustausch:
 
