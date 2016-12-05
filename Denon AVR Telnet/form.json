@@ -1,14 +1,22 @@
 {
     "elements":
             [
-				{ "type": "Label", "label": "AV Receiver Ansteuerung Telnet" },
-				{ "type": "Label", "label": "Telnet Steuerung funktoniert nur von einem einzigen Client aus, mehr Funktionsumfang als HTTP." },
-				{ "type": "Label", "label": "Denon AV Receiver"},
-				{ "type": "Label", "label": "AV Receiver Typ:" },
-				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
+				{ "type": "Label", "label": "AV Receiver Control Telnet" },
+				{ "type": "Label", "label": "Telnet control is working with a only a single client connection (IP-Symcon), more remote commands available compared to HTTP." },
+				{ "type": "Label", "label": "Please select a manufacturer and push the \"apply\" button"},
+				{ "type": "Select", "name": "manufacturer", "caption": "manufacturer",
 						"options": [
-									{ "value": 50, "label": "AVR Modell auswählen" },
-									{ "value": 26, "label": "AVR-1912" },
+									{ "value": 1, "label": "Denon" },
+									{ "value": 2, "label": "Marantz" }
+									]
+				},
+				{ "type": "Label", "label": "Denon AV Receiver"},
+				{ "type": "Label", "label": "Please select a Denon AVR type and push the \"apply\" button"},
+				{ "type": "Label", "label": "AV Receiver Type:" },
+				{ "type": "Select", "name": "AVRTypeDenon", "caption": "Type AVR Denon",
+						"options": [
+									{ "value": 50, "label": "select AVR Type" },
+									{ "value": 25, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-2313" },
 									{ "value": 1, "label": "AVR-3312" },
 									{ "value": 2, "label": "AVR-3313" },
@@ -32,11 +40,48 @@
 									{ "value": 20, "label": "AVR-6200W" },
 									{ "value": 21, "label": "AVR-7200W" },
 									{ "value": 22, "label": "AVR-7200WA" },
-									{ "value": 23, "label": "Marantz-NR1605" },
-									{ "value": 24, "label": "S-700W" },
-									{ "value": 25, "label": "S-900W" }
+									{ "value": 23, "label": "S-700W" },
+									{ "value": 24, "label": "S-900W" }
 								  ]
 				},
+				{ "type": "Label", "label": "Marantz AV Receiver"},
+				{ "type": "Label", "label": "Please select a Marantz AVR type and push the \"apply\" button"},
+				{ "type": "Label", "label": "AV Receiver Type:" },
+				{ "type": "Select", "name": "AVRTypeMarantz", "caption": "Type AVR Marantz",
+						"options": [
+									{ "value": 50, "label": "AVR Modell auswählen" },
+									{ "value": 60, "label": "Marantz-NR1504" },
+									{ "value": 61, "label": "Marantz-NR1506" },
+									{ "value": 62, "label": "Marantz-NR1602" },
+									{ "value": 63, "label": "Marantz-NR1603" },
+									{ "value": 64, "label": "Marantz-NR1604" },
+									{ "value": 65, "label": "Marantz-NR1605" },
+									{ "value": 66, "label": "Marantz-NR1606" },
+									{ "value": 67, "label": "Marantz-SR5006" },
+									{ "value": 68, "label": "Marantz-SR5007" },
+									{ "value": 69, "label": "Marantz-SR5008" },
+									{ "value": 70, "label": "Marantz-SR5009" },
+									{ "value": 71, "label": "Marantz-SR5010" },
+									{ "value": 72, "label": "Marantz-SR6005" },
+									{ "value": 73, "label": "Marantz-SR6006" },
+									{ "value": 74, "label": "Marantz-SR6007" },
+									{ "value": 75, "label": "Marantz-SR6008" },
+									{ "value": 76, "label": "Marantz-SR6009" },
+									{ "value": 77, "label": "Marantz-SR6010" },
+									{ "value": 78, "label": "Marantz-SR7005" },
+									{ "value": 79, "label": "Marantz-SR7007" },
+									{ "value": 80, "label": "Marantz-SR7008" },
+									{ "value": 81, "label": "Marantz-SR7009" },
+									{ "value": 82, "label": "Marantz-SR7010" },
+									{ "value": 83, "label": "Marantz-AV7005" },
+									{ "value": 84, "label": "Marantz-AV7701" },
+									{ "value": 85, "label": "Marantz-AV7702" },
+									{ "value": 86, "label": "Marantz-AV7702 mk II" },
+									{ "value": 87, "label": "Marantz-AV8801" },
+									{ "value": 88, "label": "Marantz-AV8802" }
+								  ]
+				},
+				{ "type": "Label", "label": "Please select an AVR zone and push the \"apply\" button"},
 				{ "type": "Label", "label": "AV Receiver Zone:" },
 				{ "type": "Select", "name": "Zone", "caption": "AVR Zone",
 						"options": [
@@ -47,25 +92,25 @@
 								  ]
 				},
 				
-				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
-				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
-				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen (nur möglich bei AVR Typ mit Webinterface)" },
-				{ "type": "CheckBox", "name": "SurroundDisplay", "caption": "Detail Anzeige Surround" },
+				{ "type": "CheckBox", "name": "Navigation", "caption": "show navigation remote" },
+				{ "type": "CheckBox", "name": "ZoneName", "caption": "show zone name (only available for AVR Type with webinterface)" },
+				{ "type": "CheckBox", "name": "Model", "caption": "show AVR Type (only available for AVR Type with webinterface)" },
+				{ "type": "CheckBox", "name": "SurroundDisplay", "caption": "detail surround display" },
 				
-				{ "type": "Label", "label": "Weitere Inputs:" },
-				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
-				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
+				{ "type": "Label", "label": "more inputs:" },
+				{ "type": "CheckBox", "name": "FAVORITES", "caption": "favorites" },
+				{ "type": "CheckBox", "name": "IRADIO", "caption": "internet radio" },
 				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
 				{ "type": "CheckBox", "name": "NAPSTER", "caption": "Napster" },
 				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
 				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
 				
-				{ "type": "Label", "label": "Display: (Testmode)" },
-				{ "type": "CheckBox", "name": "Display", "caption": "Display" },
+				{ "type": "Label", "label": "display: (testmode)" },
+				{ "type": "CheckBox", "name": "Display", "caption": "display" },
 				
-				{ "type": "Label", "label": "Main Zone:" },
-				{ "type": "Label", "label": "Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:" },
-				{ "type": "Label", "label": "Lautsprecher:" },
+				{ "type": "Label", "label": "main zone:" },
+				{ "type": "Label", "label": "speaker settings are only available with the telnet remote mode:" },
+				{ "type": "Label", "label": "speaker:" },
 				{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
 				{ "type": "CheckBox", "name": "FR", "caption": "Front Right" },
 				{ "type": "CheckBox", "name": "C", "caption": "Center" },
@@ -98,7 +143,7 @@
 				{ "type": "CheckBox", "name": "BackDolbyLch", "caption": "Back Dolby Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
 				{ "type": "CheckBox", "name": "BackDolbyRch", "caption": "Back Dolby Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
 							
-				{ "type": "Label", "label": "Angezeigte Befehle:" },
+				{ "type": "Label", "label": "show remote commands:" },
 				{ "type": "Label", "label": "Audio:" },
 				{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },
 				{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
@@ -189,10 +234,10 @@
 				{ "type": "CheckBox", "name": "Z3Channel", "caption": "Zone 3 Channel Setting" },
 				{ "type": "CheckBox", "name": "Z3Quick", "caption": "Zone 3 Quick Selection" },
 				
-				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
-				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },
-				{ "type": "Label", "label": "Kategorie zum Anlegen der NEO Skripte:" },
-				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "Kategorie zum Anlegen der Skripte" }
+				{ "type": "Label", "label": "create helper scripts for toggling with NEO(Mediola):" },
+				{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
+				{ "type": "Label", "label": "category for creating NEO scripts:" },
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "category for scripts" }
 						
             ],
     "actions":
@@ -223,32 +268,37 @@
                 {
                     "code": 101,
                     "icon": "inactive",
-                    "caption": "Die Instanz wird erstellt."
+                    "caption": "creating instance."
                 },
 				{
                     "code": 102,
                     "icon": "active",
-                    "caption": "Konfiguration gültig."
+                    "caption": "configuration is valid."
                 },
                 {
                     "code": 104,
                     "icon": "inactive",
-                    "caption": "Denon AVR ist inaktiv."
-                },
-				{
-                    "code": 212,
-                    "icon": "error",
-                    "caption": "Bitte AVR Zone auswählen."
-                },
-				{
-                    "code": 213,
-                    "icon": "error",
-                    "caption": "Bitte AVR Modell auswählen."
+                    "caption": "AVR ist inaktiv."
                 },
 				{
                     "code": 211,
                     "icon": "error",
-                    "caption": "Kategorie zum Import auswählen."
+                    "caption": "select category for import."
+                },
+				{
+                    "code": 212,
+                    "icon": "error",
+                    "caption": "please select an AVR Zone."
+                },
+				{
+                    "code": 213,
+                    "icon": "error",
+                    "caption": "please select a Denon AVR type."
+                },
+				{
+                    "code": 214,
+                    "icon": "error",
+                    "caption": "please select a Marantz AVR type."
                 }
             ]
 }

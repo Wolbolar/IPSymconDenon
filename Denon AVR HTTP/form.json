@@ -1,13 +1,13 @@
 {
     "elements":
             [
-				{ "type": "Label", "label": "AV Receiver Ansteuerung http" },
-				{ "type": "Label", "label": "http Steuerung funktioniert bei Modellen ab 2011 beinhaltet aber nicht alle Befehle." },
+				{ "type": "Label", "label": "AV Receiver Control http" },
+				{ "type": "Label", "label": "http control is working only with AVR types from 2011, not all commands available." },
 				{ "type": "Label", "label": "Denon AV Receiver"},
-				{ "type": "Label", "label": "AV Reciever Typ:" },
-				{ "type": "Select", "name": "AVRType", "caption": "Typ AVR",
+				{ "type": "Label", "label": "AV Receiver Type:" },
+				{ "type": "Select", "name": "AVRType", "caption": "Type AVR",
 						"options": [
-									{ "value": 50, "label": "AVR Modell auswählen" },
+									{ "value": 50, "label": "select AVR Type" },
 									{ "value": 22, "label": "AVR-1912" },
 									{ "value": 0, "label": "AVR-3313" },
 									{ "value": 1, "label": "AVR-4310" },
@@ -39,26 +39,26 @@
 									{ "value": 0, "label": "Main Zone" },
 									{ "value": 1, "label": "Zone 2" },
 									{ "value": 2, "label": "Zone 3" },
-									{ "value": 6, "label": "Zone Wählen" }
+									{ "value": 6, "label": "select zone" }
 								  ]
 				},
-				{ "type": "CheckBox", "name": "Navigation", "caption": "Steuerung anzeigen" },
-				{ "type": "CheckBox", "name": "ZoneName", "caption": "Zone Name anzeigen" },
-				{ "type": "CheckBox", "name": "Model", "caption": "AVR Modell anzeigen" },
+				{ "type": "CheckBox", "name": "Navigation", "caption": "show navigation remote" },
+				{ "type": "CheckBox", "name": "ZoneName", "caption": "show zone name" },
+				{ "type": "CheckBox", "name": "Model", "caption": "show AVR Type" },
 				
 				{ "type": "Label", "label": "Weitere Inputs:" },
-				{ "type": "CheckBox", "name": "FAVORITES", "caption": "Favoriten" },
-				{ "type": "CheckBox", "name": "IRADIO", "caption": "Internet Radio" },
+				{ "type": "CheckBox", "name": "FAVORITES", "caption": "favorites" },
+				{ "type": "CheckBox", "name": "IRADIO", "caption": "internet radio" },
 				{ "type": "CheckBox", "name": "SERVER", "caption": "Server" },
 				{ "type": "CheckBox", "name": "NAPSTER", "caption": "Napster" },
 				{ "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
 				{ "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
 				
 				
-				{ "type": "Label", "label": "Hilfskripte für Toggle anlegen für NEO (Mediola):" },
-				{ "type": "CheckBox", "name": "NEOToggle", "caption": "NEO Toggle Skripte seperat anlegen" },
-				{ "type": "Label", "label": "Kategorie zum Anlegen der NEO Skripte:" },
-				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "Kategorie zum Anlegen der Skripte" }
+				{ "type": "Label", "label": "create helper scripts for toggling with NEO (Mediola):" },
+				{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
+				{ "type": "Label", "label": "category for creating NEO scripts:" },
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "category for scripts" }
             ],
     "actions":
             [
@@ -83,37 +83,37 @@
                 {
                     "code": 101,
                     "icon": "inactive",
-                    "caption": "Die Instanz wird erstellt."
+                    "caption": "creating instance."
                 },
 				{
                     "code": 102,
                     "icon": "active",
-                    "caption": "Konfiguration gültig."
+                    "caption": "configuration is valid."
                 },
                 {
                     "code": 104,
                     "icon": "inactive",
-                    "caption": "Denon AVR ist inaktiv."
+                    "caption": "AVR is inactive."
                 },
 				{
                     "code": 212,
                     "icon": "error",
-                    "caption": "Bitte AVR Zone auswählen."
+                    "caption": "please select an AVR Zone."
                 },
 				{
                     "code": 213,
                     "icon": "error",
-                    "caption": "Bitte AVR Modell auswählen."
+                    "caption": "please select a AVR type."
                 },
 				{
                     "code": 202,
                     "icon": "inactive",
-                    "caption": "Denon AVR Splitter konfigurieren."
+                    "caption": "configure AVR splitter."
                 },
 				{
                     "code": 211,
                     "icon": "error",
-                    "caption": "Kategorie zum Import auswählen."
+                    "caption": "select category for import."
                 }
             ]
 }
