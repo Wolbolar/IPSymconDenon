@@ -16,7 +16,7 @@
 			"Please select an AVR zone and push the \"apply\" button":"Bitte ein Marantz Modell auswählen und mit \"Übernehmen\" bestätigen",
 			"AV Receiver Zone:":"AV Receiver Zone:",
 			"AVR Zone":"AVR Zone",
-			"Zone Wählen":"select zone",
+			"select zone":"Zone Wählen",
 			"show navigation remote":"Steuerung anzeigen",
 			"show zone name (only available for AVR Type with webinterface)":"Zone Name anzeigen (nur möglich bei AVR Typ mit Webinterface)",
 			"show AVR Type (only available for AVR Type with webinterface)":"AVR Modell anzeigen (nur möglich bei AVR Typ mit Webinterface)",
