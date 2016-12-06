@@ -5010,30 +5010,30 @@ elseif ($status == true)// Ausschalten
 			}
 			elseif($manufacturername == "Denon" && $AVRType != "None" && $zone != 6)
 			{
-				if($zone == 1)
+				if($zone == 0)
 				{
 					return	'{ '.$formhead.$formselectiondenon.$formselection.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
-				elseif($zone == 2)
+				elseif($zone == 1)
 				{
 					return	'{ '.$formhead.$formselectiondenon.$formselection.$formzone2.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
-				elseif($zone == 3)
+				elseif($zone == 2)
 				{
 					return	'{ '.$formhead.$formselectiondenon.$formselection.$formzone3.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 			}
 			elseif($manufacturername == "Marantz" && $AVRType != "None" && $zone != 6)
 			{
-				if($zone == 1)
+				if($zone == 0)
 				{
 					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formmainzone.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
-				elseif($zone == 2)
+				elseif($zone == 1)
 				{
 					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone2.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
-				elseif($zone == 3)
+				elseif($zone == 2)
 				{
 					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone3.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
