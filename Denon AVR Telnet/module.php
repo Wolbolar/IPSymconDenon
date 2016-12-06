@@ -11,7 +11,7 @@ class DenonAVRTelnet extends IPSModule
         //Never delete this line!
         parent::Create();
 
-        // 1. Verf¸gbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
+        // 1. Verf√ºgbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
 		$this->RegisterPropertyInteger("manufacturer", 1);
@@ -139,7 +139,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("BackDolbyLch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W
 		$this->RegisterPropertyBoolean("BackDolbyRch", false); //AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W
 		
-		//Zus‰tzliche Inputs
+		//Zus√§tzliche Inputs
 		$this->RegisterPropertyBoolean("FAVORITES", false);
 		$this->RegisterPropertyBoolean("IRADIO", false);
 		$this->RegisterPropertyBoolean("SERVER", false);
@@ -165,8 +165,8 @@ class DenonAVRTelnet extends IPSModule
 	}
 		
 	/**
-    * Die folgenden Funktionen stehen automatisch zur Verf¸gung, wenn das Modul ¸ber die "Module Control" eingef¸gt wurden.
-    * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verf¸gung gestellt:
+    * Die folgenden Funktionen stehen automatisch zur Verf√ºgung, wenn das Modul √ºber die "Module Control" eingef√ºgt wurden.
+    * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verf√ºgung gestellt:
     *
     */
 
@@ -176,7 +176,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function ValidateConfiguration()
 	{
-		//Zone pr¸fen
+		//Zone pr√ºfen
 		$Zone = $this->ReadPropertyInteger('Zone');
 		$manufacturer = $this->ReadPropertyInteger('manufacturer');
 		$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
@@ -189,27 +189,27 @@ class DenonAVRTelnet extends IPSModule
 			$NEOCategoryID = $this->ReadPropertyInteger('NEOToggleCategoryID');
 			if ( $NEOCategoryID === 0)
 				{
-					// Status Error Kategorie zum Import ausw‰hlen
+					// Status Error Kategorie zum Import ausw√§hlen
 					$this->SetStatus(211);
 				}
 		}
 		if ($Zone == 6)
 		{
-			// Error Zone ausw‰hlen
+			// Error Zone ausw√§hlen
 			$this->SetStatus(212);
 		}
 		if($manufacturer == 1 && $AVRTypeDenon == 50 )
 		{
-			// Error Denon AVR Type ausw‰hlen
+			// Error Denon AVR Type ausw√§hlen
 			$this->SetStatus(213);
 		}
 		if($manufacturer == 2 && $AVRTypeMarantz == 50 )
 		{
-			// Error Marantz AVR Type ausw‰hlen
+			// Error Marantz AVR Type ausw√§hlen
 			$this->SetStatus(214);
 		}
 		$manufacturername = $this->GetManufacturer();
-		if (($Zone == 0) && ($AVRType !== 50)) //Mainzone
+		if ((($Zone == 0) && ($AVRTypeDenon !== 50) && ($manufacturer == 1)) || (($Zone == 0) && ($AVRTypeMarantz !== 50) && ($manufacturer == 2)))//Mainzone
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -752,7 +752,7 @@ class DenonAVRTelnet extends IPSModule
 			
 			
 			
-			//auf aktive Parent pr¸fen
+			//auf aktive Parent pr√ºfen
 				
 			//Status aktiv
 			//$this->SetStatus(102);
@@ -798,6 +798,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function GetInputSources()
 	{
+		$manufacturername = $this->GetManufacturer();
 		$DenonAVRUpdate = new DENONIPSProfiles;
 		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
 		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
@@ -817,6 +818,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function UpdateInputProfile()
 	{
+		$manufacturername = $this->GetManufacturer();
 		$DenonAVRUpdate = new DENONIPSProfiles;
 		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
 		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
@@ -968,6 +970,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString)
 	{
+		$manufacturername = $this->GetManufacturer();
 		$AVRType = $this->GetAVRType($manufacturername);
 		// Add/Remove according to feature activation
         // create link list for deletion of links if target is deleted
@@ -993,7 +996,7 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			//Pr¸fen ob Var existiert
+			//Pr√ºfen ob Var existiert
 			if($DenonAVRVar->Zone == 0)
 			{
 				$idMainZoneInput = @$this->GetIDForIdent("SI");
@@ -1043,7 +1046,7 @@ class DenonAVRTelnet extends IPSModule
 		//Sichtbare Variablen anlegen
 		foreach ($vString as $ptString => $visible)
 		{
-		//Auswahl Pr¸fen
+		//Auswahl Pr√ºfen
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
@@ -1064,7 +1067,7 @@ class DenonAVRTelnet extends IPSModule
 				}
 				$this->EnableAction($profile["Ident"]);
 			}	
-		// wenn nicht sichtbar lˆschen
+		// wenn nicht sichtbar l√∂schen
 		elseif ($visible === false)
 			{
 				 $profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
@@ -1074,7 +1077,7 @@ class DenonAVRTelnet extends IPSModule
 		
 		foreach ($vBoolean as $ptBool => $visible)
 		{
-		//Auswahl Pr¸fen
+		//Auswahl Pr√ºfen
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
@@ -1091,7 +1094,7 @@ class DenonAVRTelnet extends IPSModule
 					$this->NEOToggle($id);
 				}
 			}	
-		// wenn nicht sichtbar lˆschen
+		// wenn nicht sichtbar l√∂schen
 		elseif ($visible === false)
 			{
 				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
@@ -1101,7 +1104,7 @@ class DenonAVRTelnet extends IPSModule
 		
 		foreach ($vInteger as $ptInteger => $visible)
 		{
-		//Auswahl Pr¸fen
+		//Auswahl Pr√ºfen
 		if ($visible === true)
 			{
 				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
@@ -5248,7 +5251,7 @@ elseif ($status == true)// Ausschalten
 			$form = '{ "type": "Label", "label": "create helper scripts for toggling with NEO(Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
 				{ "type": "Label", "label": "category for creating NEO scripts:" },
-				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category√º" },';
 			return $form;	
 		}
 		
