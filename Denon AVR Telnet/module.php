@@ -4986,9 +4986,9 @@ elseif ($status == true)// Ausschalten
 			$zone = $this->ReadPropertyInteger('Zone');
 			$formhead = $this->FormHead();
 			$formselection = $this->FormSelection();
-			$formmainzone = $this->FormMainzone();
-			$formzone2 = $this->FormZone2();
-			$formzone3 = $this->FormZone3();
+			$formmainzone = $this->FormMainzone($AVRType);
+			$formzone2 = $this->FormZone2($AVRType);
+			$formzone3 = $this->FormZone3($AVRType);
 			$formselectiondenon = $this->FormSelectionAVRDenon();
 			$formselectionmarantz = $this->FormSelectionAVRMarantz();
 			$formselectionneo = $this->FormSelectionNEO();
@@ -5040,47 +5040,62 @@ elseif ($status == true)// Ausschalten
 			}	
 		}
 		
-		protected function FormMainzone()
+		protected function FormMainzone($AVRType)
 		{
 			$form = '{ "type": "Label", "label": "main zone:" },
-				{ "type": "Label", "label": "speaker settings are only available with the telnet remote mode:" },
-				{ "type": "Label", "label": "speaker:" },
-				{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
-				{ "type": "CheckBox", "name": "FR", "caption": "Front Right" },
-				{ "type": "CheckBox", "name": "C", "caption": "Center" },
-				{ "type": "CheckBox", "name": "SW", "caption": "Subwoofer" },
-				{ "type": "CheckBox", "name": "SW2", "caption": "Subwoofer 2" },
-				{ "type": "CheckBox", "name": "SL", "caption": "Surround Left" },
-				{ "type": "CheckBox", "name": "SR", "caption": "Surround Right" },
-				{ "type": "CheckBox", "name": "SBL", "caption": "Surround Back Left" },
-				{ "type": "CheckBox", "name": "SBR", "caption": "Surround Back Right" },
-				{ "type": "CheckBox", "name": "SB", "caption": "Surround Back" },
-				{ "type": "CheckBox", "name": "SurroundHeightLch", "caption": "Surround Height Left Channel (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },
-				{ "type": "CheckBox", "name": "SurroundHeightRch", "caption": "Surround Height Right Channel (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },
-				{ "type": "CheckBox", "name": "FHL", "caption": "Front Height Left" },
+					{ "type": "Label", "label": "speaker settings are only available with the telnet remote mode:" },
+					{ "type": "Label", "label": "speaker:" },
+					{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
+					{ "type": "CheckBox", "name": "FR", "caption": "Front Right" },
+					{ "type": "CheckBox", "name": "C", "caption": "Center" },
+					{ "type": "CheckBox", "name": "SW", "caption": "Subwoofer" },
+					{ "type": "CheckBox", "name": "SW2", "caption": "Subwoofer 2" },
+					{ "type": "CheckBox", "name": "SL", "caption": "Surround Left" },
+					{ "type": "CheckBox", "name": "SR", "caption": "Surround Right" },
+					{ "type": "CheckBox", "name": "SBL", "caption": "Surround Back Left" },
+					{ "type": "CheckBox", "name": "SBR", "caption": "Surround Back Right" },
+					{ "type": "CheckBox", "name": "SB", "caption": "Surround Back" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "SurroundHeightLch", "caption": "Surround Height Left Channel" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
+				$form .= '{ "type": "CheckBox", "name": "SurroundHeightRch", "caption": "Surround Height Right Channel" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "FHL", "caption": "Front Height Left" },
 				{ "type": "CheckBox", "name": "FHR", "caption": "Front Height Right" },
 				{ "type": "CheckBox", "name": "FWL", "caption": "Front Wide Left" },
 				{ "type": "CheckBox", "name": "FWR", "caption": "Front Wide Right" },
-				'.$this->FormExtentedSpeakerSelection().'
+				'.$this->FormExtentedSpeakerSelection($AVRType).'
 							
 				{ "type": "Label", "label": "show remote commands:" },
 				{ "type": "Label", "label": "Audio:" },
 				{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },
 				{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
 				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },
-				{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },
-				{ "type": "CheckBox", "name": "AuroMatic3DPreset", "caption": "AuroMatic3DPreset (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },
-				{ "type": "CheckBox", "name": "AuroMatic3DStrength", "caption": "Auro Matic 3D Strength (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },
-				{ "type": "CheckBox", "name": "ASP", "caption": "ASP" },
+				{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DPreset", "caption": "AuroMatic3DPreset" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
+				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DStrength", "caption": "Auro Matic 3D Strength" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "ASP", "caption": "ASP" },
 				{ "type": "CheckBox", "name": "CenterImage", "caption": "Center Image" },
-				{ "type": "CheckBox", "name": "CenterWidth", "caption": "Center Width" },
-				{ "type": "CheckBox", "name": "Centerspread", "caption": "Center Spread (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },
-				{ "type": "CheckBox", "name": "CinemaEQ", "caption": "Cinema EQ" },
-				{ "type": "CheckBox", "name": "DialogLevelAdjust", "caption":"Dialog Level Adjust (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)"},
-				{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
-				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },
-				{ "type": "CheckBox", "name": "Dimmer", "caption":"Dimmer (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)" },
-				{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
+				{ "type": "CheckBox", "name": "CenterWidth", "caption": "Center Width" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "Centerspread", "caption": "Center Spread" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "CinemaEQ", "caption": "Cinema EQ" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "DialogLevelAdjust", "caption":"Dialog Level Adjust"},'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
+				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "Dimmer", "caption":"Dimmer " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
 				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
 				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
@@ -5089,13 +5104,19 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
 				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
 				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
-				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },
-				{ "type": "CheckBox", "name": "GraphicEQ", "caption": "Grafik EQ (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)" },
-				{ "type": "CheckBox", "name": "HDMIAudioOutput", "caption": "HDMI Audio Output" },
-				{ "type": "CheckBox", "name": "InputMode", "caption": "Input Mode" },
-				{ "type": "CheckBox", "name": "MAINZONEAutoStandbySetting", "caption": "Mainzone Auto Standby Setting (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)" },
-				{ "type": "CheckBox", "name": "MAINZONEECOModeSetting", "caption": "Mainzone ECO Mode Setting (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)" },	
-				{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },			
+				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "GraphicEQ", "caption": "Grafik EQ " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "HDMIAudioOutput", "caption": "HDMI Audio Output" },
+				{ "type": "CheckBox", "name": "InputMode", "caption": "Input Mode" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{	
+				$form .= '{ "type": "CheckBox", "name": "MAINZONEAutoStandbySetting", "caption": "Mainzone Auto Standby Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
+				$form .= '{ "type": "CheckBox", "name": "MAINZONEECOModeSetting", "caption": "Mainzone ECO Mode Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)	
+			}
+			$form .= '{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },			
 				{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
 				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
 				{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },
@@ -5109,9 +5130,12 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "SubwooferATT", "caption": "Subwoofer ATT" },
 				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },
 				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
-				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },
-				{ "type": "CheckBox", "name": "TopSurround", "caption": "Top Surround (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)" },
-				{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" },
+				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "TopSurround", "caption": "Top Surround" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "VerticalStretch", "caption": "Vertical Stretch" },
 				
 				
 				{ "type": "Label", "label": "Level:" },
@@ -5138,11 +5162,14 @@ elseif ($status == true)// Ausschalten
 			return $form;
 		}
 		
-		protected function FormZone2()
+		protected function FormZone2($AVRType)
 		{
-			$form = '{ "type": "Label", "label": "Zone 2:" },
-				{ "type": "CheckBox", "name": "ZONE2AutoStandbySetting", "caption": "Zone 2 Auto Standby Setting (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)" },
-				{ "type": "CheckBox", "name": "Z2CVFL", "caption": "Channel Volume Front Left" },
+			$form = '{ "type": "Label", "label": "Zone 2:" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+			$form .= '{ "type": "CheckBox", "name": "ZONE2AutoStandbySetting", "caption": "Zone 2 Auto Standby Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "Z2CVFL", "caption": "Channel Volume Front Left" },
 				{ "type": "CheckBox", "name": "Z2CVFR", "caption": "Channel Volume Front Right" },
 				{ "type": "CheckBox", "name": "Z2HPF", "caption": "Zone 2 HPF" },
 				{ "type": "CheckBox", "name": "Z2Sleep", "caption": "Zone 2 Sleep" },
@@ -5151,11 +5178,14 @@ elseif ($status == true)// Ausschalten
 			return $form;
 		}
 		
-		protected function FormZone3()
+		protected function FormZone3($AVRType)
 		{
-			$form = '{ "type": "Label", "label": "Zone 3:" },
-				{ "type": "CheckBox", "name": "ZONE3AutoStandbySetting", "caption": "Zone 3 Auto Standby Setting (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)" },
-				{ "type": "CheckBox", "name": "Z3CVFL", "caption": "Channel Volume Front Left" },
+			$form = '{ "type": "Label", "label": "Zone 3:" },';
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+			{
+				$form .= '{ "type": "CheckBox", "name": "ZONE3AutoStandbySetting", "caption": "Zone 3 Auto Standby Setting " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
+			}
+			$form .= '{ "type": "CheckBox", "name": "Z3CVFL", "caption": "Channel Volume Front Left" },
 				{ "type": "CheckBox", "name": "Z3CVFR", "caption": "Channel Volume Front Right" },
 				{ "type": "CheckBox", "name": "Z3HPF", "caption": "Zone 3 HPF" },
 				{ "type": "CheckBox", "name": "Z3Sleep", "caption": "Zone 3 Sleep" },
@@ -5247,15 +5277,15 @@ elseif ($status == true)// Ausschalten
 		
 		protected function FormSelectionNEO()
 		{
-			$form = '{ "type": "Label", "label": "create helper scripts for toggling with NEO(Mediola):" },
+			$form = '{ "type": "Label", "label": "create helper scripts for toggling with NEO (Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
 				{ "type": "Label", "label": "category for creating NEO scripts:" },
-				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script categoryü" },';
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
 			return $form;	
 		}
 		
 		
-		protected function FormExtentedSpeakerSelection()
+		protected function FormExtentedSpeakerSelection($AVRType)
 		{
 			$form = '{ "type": "CheckBox", "name": "TopFrontLch", "caption":"Top Front Left (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W)" },
 				{ "type": "CheckBox", "name": "TopFrontRch", "caption": "Top Front Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
