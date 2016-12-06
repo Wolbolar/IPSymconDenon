@@ -4977,7 +4977,7 @@ elseif ($status == true)// Ausschalten
     }
 	
 	//Configuration Form
-		public function GetConfigurationFormDEBUG()
+		public function GetConfigurationForm()
 		{
 			$manufacturername = $this->GetManufacturer();
 			$AVRType = $this->GetAVRType($manufacturername);
