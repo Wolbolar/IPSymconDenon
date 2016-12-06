@@ -1,4 +1,4 @@
-﻿{
+{
     "elements":
             [
 				{ "type": "Label", "label": "AV Receiver Control Telnet" },
