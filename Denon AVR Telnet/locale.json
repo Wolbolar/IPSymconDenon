@@ -33,7 +33,7 @@
 			"create helper scripts for toggling with NEO (Mediola):":"Hilfskripte für Toggle anlegen für NEO (Mediola):",
 			"create separate NEO toggle scripts":"NEO Toggle Skripte seperat anlegen",
 			"category for creating NEO scripts:":"Kategorie zum Anlegen der NEO Skripte:",
-			"category for scripts":"Kategorie zum Anlegen der Skripte",
+			"script category":"Skriptkategorie",
 			"creating instance.":"Die Instanz wird erstellt.",
 			"configuration is valid.":"Konfiguration gültig.",
 			"AVR is inactive.":"AVR ist inaktiv.",

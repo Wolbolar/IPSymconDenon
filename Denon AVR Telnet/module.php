@@ -5248,7 +5248,7 @@ elseif ($status == true)// Ausschalten
 			$form = '{ "type": "Label", "label": "create helper scripts for toggling with NEO(Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
 				{ "type": "Label", "label": "category for creating NEO scripts:" },
-				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "category for scripts" },';
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
 			return $form;	
 		}
 		

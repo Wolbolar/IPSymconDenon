@@ -234,10 +234,10 @@
 				{ "type": "CheckBox", "name": "Z3Channel", "caption": "Zone 3 Channel Setting" },
 				{ "type": "CheckBox", "name": "Z3Quick", "caption": "Zone 3 Quick Selection" },
 				
-				{ "type": "Label", "label": "create helper scripts for toggling with NEO(Mediola):" },
+				{ "type": "Label", "label": "create helper scripts for toggling with NEO (Mediola):" },
 				{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
 				{ "type": "Label", "label": "category for creating NEO scripts:" },
-				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "category for scripts" },
+				{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },
 				{ "type": "Label", "label": "__________________________________________________________________________________________________" }		
             ],
     "actions":
