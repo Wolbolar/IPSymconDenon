@@ -5287,21 +5287,24 @@ elseif ($status == true)// Ausschalten
 		
 		protected function FormExtentedSpeakerSelection($AVRType)
 		{
-			$form = '{ "type": "CheckBox", "name": "TopFrontLch", "caption":"Top Front Left (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W)" },
-				{ "type": "CheckBox", "name": "TopFrontRch", "caption": "Top Front Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "TopMiddleLch", "caption": "Top Middle Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "TopMiddleRch", "caption": "Top Middle Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "TopRearLch", "caption": "Top Rear Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "TopRearRch", "caption": "Top Rear Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "RearHeightLch", "caption": "Rear Height Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "RearHeightRch", "caption": "Rear Height Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "FrontDolbyLch", "caption": "Front Dolby Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "FrontDolbyRch", "caption": "Front Dolby Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "SurroundDolbyLch", "caption": "Surround Dolby Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "SurroundDolbyRch", "caption": "Surround Dolby Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "BackDolbyLch", "caption": "Back Dolby Left (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				{ "type": "CheckBox", "name": "BackDolbyRch", "caption": "Back Dolby Right (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)" },
-				';
+			$form = "";
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W")
+			{
+			$form .= '{ "type": "CheckBox", "name": "TopFrontLch", "caption":"Top Front Left" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "TopFrontRch", "caption": "Top Front Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "TopMiddleLch", "caption": "Top Middle Left" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "TopMiddleRch", "caption": "Top Middle Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "TopRearLch", "caption": "Top Rear Left" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "TopRearRch", "caption": "Top Rear Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "RearHeightLch", "caption": "Rear Height Left" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "RearHeightRch", "caption": "Rear Height Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "FrontDolbyLch", "caption": "Front Dolby Left" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "FrontDolbyRch", "caption": "Front Dolby Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "SurroundDolbyLch", "caption": "Surround Dolby Left" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "SurroundDolbyRch", "caption": "Surround Dolby Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "BackDolbyLch", "caption": "Back Dolby Left" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			$form .= '{ "type": "CheckBox", "name": "BackDolbyRch", "caption": "Back Dolby Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
+			}	
 			return $form;
 		}
 		
