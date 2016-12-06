@@ -337,11 +337,10 @@ class DenonAVRTelnet extends IPSModule
 				$DenonAVRVar->ptBackDolbyLch = $manufacturername.".".$DenonAVRVar->AVRType.".BackDolbyLch";
 				$DenonAVRVar->ptBackDolbyRch = $manufacturername.".".$DenonAVRVar->AVRType.".BackDolbyRch";
 			}
-				
 			
 			//Variablen
 			//Get Inputs
-			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
+			if ((($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRTypeDenon !== 50) && ($manufacturer == 1)) || (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRTypeMarantz !== 50) && ($manufacturer == 2)))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
@@ -514,7 +513,7 @@ class DenonAVRTelnet extends IPSModule
 			}	
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);		
 		}
-		elseif (($Zone == 1) && ($AVRType !== 50)) //Zone 2
+		elseif ((($Zone == 1) && ($AVRTypeDenon !== 50) && ($manufacturer == 1)) || (($Zone == 1) && ($AVRTypeMarantz !== 50) && ($manufacturer == 2))) //Zone 2
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -545,7 +544,7 @@ class DenonAVRTelnet extends IPSModule
 			
 			
 			//Variablen
-			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
+			if ((($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRTypeDenon !== 50) && ($manufacturer == 1)) || (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRTypeMarantz !== 50) && ($manufacturer == 2)))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
@@ -604,7 +603,7 @@ class DenonAVRTelnet extends IPSModule
 			
 			$this->SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString);
 		}
-		elseif (($Zone == 2) && ($AVRType !== 50)) // Zone 3
+		elseif ((($Zone == 2) && ($AVRTypeDenon !== 50) && ($manufacturer == 1)) || (($Zone == 2) && ($AVRTypeMarantz !== 50) && ($manufacturer == 2))) // Zone 3
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
@@ -634,7 +633,7 @@ class DenonAVRTelnet extends IPSModule
 			}
 			
 			//Variablen
-			if (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRType !== 50))
+			if ((($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRTypeDenon !== 50) && ($manufacturer == 1)) || (($this->GetIPDenon() !== false) && ($Zone !== 6) && ($AVRTypeMarantz !== 50) && ($manufacturer == 2)))
 			{
 				$this->GetInputsAVR($DenonAVRVar);
 				//$this->UpdateInputProfile();
