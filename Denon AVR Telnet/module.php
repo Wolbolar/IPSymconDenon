@@ -5004,6 +5004,10 @@ elseif ($status == true)// Ausschalten
 			{
 				return	'{ '.$formhead.$formselectiondenon.$formselection.$formelementsend.'],'.$formactions.$formstatus.' }';
 			}
+			elseif($manufacturername == "Marantz" && $AVRType == "None" && $zone == 6)
+			{
+				return	'{ '.$formhead.$formselectionmarantz.$formselection.$formelementsend.'],'.$formactions.$formstatus.' }';
+			}
 			elseif($manufacturername == "Marantz" && $AVRType != "None" && $zone == 6)
 			{
 				return	'{ '.$formhead.$formselectionmarantz.$formselection.$formelementsend.'],'.$formactions.$formstatus.' }';
@@ -5027,15 +5031,15 @@ elseif ($status == true)// Ausschalten
 			{
 				if($zone == 0)
 				{
-					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formmainzone.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 				elseif($zone == 1)
 				{
-					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone2.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone2.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 				elseif($zone == 2)
 				{
-					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone3.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone3.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 			}	
 		}
