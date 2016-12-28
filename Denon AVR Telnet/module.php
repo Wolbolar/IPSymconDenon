@@ -1475,7 +1475,7 @@ class DenonAVRTelnet extends IPSModule
         }
 		*/
 		
-		
+		$manufacturername = $this->GetManufacturer();
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->APIIdent = $Ident;
         $APIData->Data = $Value;
