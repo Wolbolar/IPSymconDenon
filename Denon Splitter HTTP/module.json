@@ -1,5 +1,7 @@
 {
     "id": "{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}",
+	"title": "Denon/Marantz Splitter Instanz für Anbindung über HTTP",
+	"description": "Splitter Instanz für Denon/Marantz Receiver über HTTP",
     "name": "DenonSplitterHTTP",
     "type": 2,
     "vendor": "Denon",

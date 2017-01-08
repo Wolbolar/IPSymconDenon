@@ -1,5 +1,7 @@
 {
     "id": "{DC733830-533B-43CD-98F5-23FC2E61287F}",
+	"title": "Denon/Marantz Instanz für Anbindung über Port 21",
+	"description": "Instanz für Denon/Marantz Receiver die das Denon Control Protocol unterstützten",
     "name": "DenonAVRTelnet",
     "type": 3,
     "vendor": "Denon/Marantz",

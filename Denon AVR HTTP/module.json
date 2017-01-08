@@ -1,5 +1,7 @@
 {
     "id": "{5A53A01E-CED5-482F-A28D-331D80874B75}",
+	"title": "Denon/Marantz Instanz für Anbindung über HTTP",
+	"description": "Instanz für Denon/Marantz Receiver die eine Steuerung über HTTP unterstützten",
     "name": "DenonAVRHTTP",
     "type": 3,
     "vendor": "Denon",

@@ -1,5 +1,7 @@
 {
     "id": "{9AE3087F-DC25-4ADB-AB46-AD7455E71032}",
+	"title": "Denon/Marantz Splitter Instanz für Anbindung über Port 21",
+	"description": "Splitter Instanz für Denon/Marantz Receiver über Port 21",
     "name": "DenonSplitterTelnet",
     "type": 2,
     "vendor": "Denon",
