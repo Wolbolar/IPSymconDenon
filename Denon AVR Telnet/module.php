@@ -14,7 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
-		$this->RegisterPropertyInteger("manufacturer", 1);
+		$this->RegisterPropertyInteger("manufacturer", 0);
 		$this->RegisterPropertyInteger("AVRTypeDenon", 50);
 		$this->RegisterPropertyInteger("AVRTypeMarantz", 50);
 		$this->RegisterPropertyInteger("Zone", 6);
@@ -784,7 +784,11 @@ class DenonAVRTelnet extends IPSModule
 	protected function GetManufacturer()
 	{
 		$manufacturer = $this->ReadPropertyInteger('manufacturer');
-		if($manufacturer == 1)
+		if($manufacturer == 0)
+		{
+			$manufacturername = "none";
+		}
+		elseif($manufacturer == 1)
 		{
 			$manufacturername = "Denon";
 		}
@@ -798,90 +802,111 @@ class DenonAVRTelnet extends IPSModule
 	public function GetInputSources()
 	{
 		$manufacturername = $this->GetManufacturer();
-		$DenonAVRUpdate = new DENONIPSProfiles;
-		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
-		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
-		$DenonAVRUpdate->AVRType = $this->GetAVRType($manufacturername);
-		$DenonAVRUpdate->ptInputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Inputsource';
-		$DenonAVRUpdate->ptZone2InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
-		$DenonAVRUpdate->ptZone3InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
-		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
-		$SERVER = $this->ReadPropertyBoolean('SERVER');
-		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
-		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
-		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
-		$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
+		if($manufacturername == "Denon" || $manufacturername == "Marantz")
+		{
+			$DenonAVRUpdate = new DENONIPSProfiles;
+			$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
+			$DenonAVRUpdate->AVRType = $this->GetAVRType($manufacturername);
+			$DenonAVRUpdate->ptInputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Inputsource';
+			$DenonAVRUpdate->ptZone2InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
+			$DenonAVRUpdate->ptZone3InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
+			$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+			$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+			$SERVER = $this->ReadPropertyBoolean('SERVER');
+			$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+			$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+			$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+			$InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
+		}
+		else
+		{
+			$InputSources = "none";
+		}
+		
 		return $InputSources;
 	}
 	
 	public function UpdateInputProfile()
 	{
 		$manufacturername = $this->GetManufacturer();
-		$DenonAVRUpdate = new DENONIPSProfiles;
-		$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
-		$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
-		$DenonAVRUpdate->AVRType = $this->GetAVRType($manufacturername);
-		$DenonAVRUpdate->ptInputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Inputsource';
-		$DenonAVRUpdate->ptZone2InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
-		$DenonAVRUpdate->ptZone3InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
-		$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
-		$IRADIO = $this->ReadPropertyBoolean('IRADIO');
-		$SERVER = $this->ReadPropertyBoolean('SERVER');
-		$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
-		$LASTFM = $this->ReadPropertyBoolean('LASTFM');
-		$FLICKR = $this->ReadPropertyBoolean('FLICKR');
-		$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
-		
-		//Inputs anlegen
-		if($this->InputSources !== false)
+		if($manufacturername == "Denon" || $manufacturername == "Marantz")
 		{
-			if($DenonAVRUpdate->Zone == 0)
-			{
-				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptInputSource, $DenonAVRUpdate->AVRType);
-			}
-			elseif($DenonAVRUpdate->Zone == 1)
-			{
-				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
-			}
-			elseif($DenonAVRUpdate->Zone == 2)
-			{
-				$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
-			}
+			$DenonAVRUpdate = new DENONIPSProfiles;
+			$DenonAVRUpdate->Zone = $this->ReadPropertyInteger('Zone');
+			$DenonAVRUpdate->DenonIP = $this->GetIPDenon();
+			$DenonAVRUpdate->AVRType = $this->GetAVRType($manufacturername);
+			$DenonAVRUpdate->ptInputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Inputsource';
+			$DenonAVRUpdate->ptZone2InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone2InputSource';
+			$DenonAVRUpdate->ptZone3InputSource = $manufacturername.'.'.$DenonAVRUpdate->AVRType.'.Zone3InputSource';
+			$FAVORITES = $this->ReadPropertyBoolean('FAVORITES');
+			$IRADIO = $this->ReadPropertyBoolean('IRADIO');
+			$SERVER = $this->ReadPropertyBoolean('SERVER');
+			$NAPSTER = $this->ReadPropertyBoolean('NAPSTER');
+			$LASTFM = $this->ReadPropertyBoolean('LASTFM');
+			$FLICKR = $this->ReadPropertyBoolean('FLICKR');
+			$this->InputSources = $DenonAVRUpdate->GetInputSources($this->ReadPropertyInteger('Zone'), $DenonAVRUpdate->AVRType, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR);
 			
-			$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			if($this->debug)
+			//Inputs anlegen
+			if($this->InputSources !== false)
 			{
-				IPS_LogMessage('Denon Telnet AVR','Variablenprofil Update:'. $inputsourcesprofile["ProfilName"]);
-			}
-			if($DenonAVRUpdate->Zone == 0)
+				if($DenonAVRUpdate->Zone == 0)
 				{
-					IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
+					$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptInputSource, $DenonAVRUpdate->AVRType);
 				}
-			//Zone 2 und 3 haben kein SI	
-			elseif($DenonAVRUpdate->Zone == 1)
+				elseif($DenonAVRUpdate->Zone == 1)
 				{
-					IPS_SetVariableCustomProfile($this->GetIDForIdent("Z2INPUT"), $DenonAVRUpdate->ptZone2InputSource);
+					$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone2InputSource, $DenonAVRUpdate->AVRType);
 				}
-			elseif($DenonAVRUpdate->Zone == 3)
+				elseif($DenonAVRUpdate->Zone == 2)
 				{
-					IPS_SetVariableCustomProfile($this->GetIDForIdent("Z3INPUT"), $DenonAVRUpdate->ptZone3InputSource);
-				}	
+					$inputsourcesprofile = $DenonAVRUpdate->SetupVarDenonIntegerAss($DenonAVRUpdate->ptZone3InputSource, $DenonAVRUpdate->AVRType);
+				}
+				
+				$this->WriteUpdateProfileInputs($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
+				if($this->debug)
+				{
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil Update:'. $inputsourcesprofile["ProfilName"]);
+				}
+				if($DenonAVRUpdate->Zone == 0)
+					{
+						IPS_SetVariableCustomProfile($this->GetIDForIdent("SI"), $DenonAVRUpdate->ptInputSource);
+					}
+				//Zone 2 und 3 haben kein SI	
+				elseif($DenonAVRUpdate->Zone == 1)
+					{
+						IPS_SetVariableCustomProfile($this->GetIDForIdent("Z2INPUT"), $DenonAVRUpdate->ptZone2InputSource);
+					}
+				elseif($DenonAVRUpdate->Zone == 3)
+					{
+						IPS_SetVariableCustomProfile($this->GetIDForIdent("Z3INPUT"), $DenonAVRUpdate->ptZone3InputSource);
+					}	
+				
+				
+			}
 			
-			
+			//Input ablegen
+			$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
+			$MappingInputs = json_encode($this->VarMappingInputs);
+			DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
+			$Inputs = array( "Inputprofile" => $this->InputSources, "Varmapping" => $MappingInputs);
+		}
+		else
+		{
+			$Inputs = "none";
 		}
 		
-		//Input ablegen
-		$this->VarMappingInputs = $DenonAVRUpdate->GetInputVarmapping($this->ReadPropertyInteger("Zone"));
-		$MappingInputs = json_encode($this->VarMappingInputs);
-		DAVRST_SaveInputVarmapping($this->GetParent(), $MappingInputs);
-		$Inputs = array( "Inputprofile" => $this->InputSources, "Varmapping" => $MappingInputs);
 		return $Inputs;
 	}
 	
 	private function GetAVRType($manufacturername)
 	{
-		if($manufacturername == "Denon")
+		if($manufacturername == "none")
+		{
+			$AVRType = "None";
+			return $AVRType;
+		}
+		elseif($manufacturername == "Denon")
 		{
 			$TypeInt = $this->ReadPropertyInteger('AVRTypeDenon');
 			$Types = array(
@@ -970,207 +995,209 @@ class DenonAVRTelnet extends IPSModule
 	private function SetupVarDenon($DenonAVRVar, $vBoolean, $vInteger, $vIntegerAss, $vFloat, $vString)
 	{
 		$manufacturername = $this->GetManufacturer();
-		$AVRType = $this->GetAVRType($manufacturername);
-		// Add/Remove according to feature activation
-        // create link list for deletion of links if target is deleted
-        $links = Array();
-        foreach( IPS_GetLinkList() as $key=>$LinkID ){
-            $links[] =  Array( ('LinkID') => $LinkID, ('TargetID') =>  IPS_GetLink($LinkID)['TargetID'] );
-        }
-		
-		//Inputs anlegen
-		if($this->InputSources !== false)
+		if($manufacturername == "Denon" || $manufacturername == "Marantz")
 		{
-			if($DenonAVRVar->Zone == 0)
-			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource, $AVRType);
-			}
-			elseif($DenonAVRVar->Zone == 1)
-			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone2InputSource, $AVRType);
-			}
-			elseif($DenonAVRVar->Zone == 2)
-			{
-				$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone3InputSource, $AVRType);
+			$AVRType = $this->GetAVRType($manufacturername);
+			// Add/Remove according to feature activation
+			// create link list for deletion of links if target is deleted
+			$links = Array();
+			foreach( IPS_GetLinkList() as $key=>$LinkID ){
+				$links[] =  Array( ('LinkID') => $LinkID, ('TargetID') =>  IPS_GetLink($LinkID)['TargetID'] );
 			}
 			
-			$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
-			//Prüfen ob Var existiert
-			if($DenonAVRVar->Zone == 0)
+			//Inputs anlegen
+			if($this->InputSources !== false)
 			{
-				$idMainZoneInput = @$this->GetIDForIdent("SI");
-				if($idMainZoneInput == false)
+				if($DenonAVRVar->Zone == 0)
 				{
-					$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+					$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptInputSource, $AVRType);
 				}
-				else
+				elseif($DenonAVRVar->Zone == 1)
 				{
-					IPS_SetVariableCustomProfile($idMainZoneInput, $inputsourcesprofile["ProfilName"]);
+					$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone2InputSource, $AVRType);
 				}
-			}
-			elseif($DenonAVRVar->Zone == 1)
-			{
-				$idZ2Input = @$this->GetIDForIdent("Z2INPUT");
-				if($idZ2Input == false)
+				elseif($DenonAVRVar->Zone == 2)
 				{
-					$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+					$inputsourcesprofile = $DenonAVRVar->SetupVarDenonIntegerAss($DenonAVRVar->ptZone3InputSource, $AVRType);
 				}
-				else
-				{
-					IPS_SetVariableCustomProfile($idZ2Input, $inputsourcesprofile["ProfilName"]);
-				}
-			}
-			elseif($DenonAVRVar->Zone == 2)
-			{
-				$idZ3Input = @$this->GetIDForIdent("Z3INPUT");
-				if($idZ3Input == false)
-				{
-					$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
-				}
-				else
-				{
-					IPS_SetVariableCustomProfile($idZ3Input, $inputsourcesprofile["ProfilName"]);
-				}
-			}
-			
-			if($this->debug)
-			{
-				IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
-				IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
-			}
-			$this->EnableAction($inputsourcesprofile["Ident"]);
-		}	
-		
-		
-		//Sichtbare Variablen anlegen
-		foreach ($vString as $ptString => $visible)
-		{
-		//Auswahl Prüfen
-		if ($visible === true)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
-				//Ident, Name, Profile, Position, Icon
-				if ($profile["ProfilName"] !== "~HTMLBox")
-					{
-						$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);
-					}
-				$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				if ($profile["Ident"] == "Display")
-					{
-						$DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
-						SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);
-					}
-				if($this->debug)
-				{
-					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
-				}
-				$this->EnableAction($profile["Ident"]);
-			}	
-		// wenn nicht sichtbar löschen
-		elseif ($visible === false)
-			{
-				 $profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
-				 $this->removeVariableAction($profile["Ident"], $links, $ptString); 
-			}
-		}
-		
-		foreach ($vBoolean as $ptBool => $visible)
-		{
-		//Auswahl Prüfen
-		if ($visible === true)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
-				//Ident, Name, Profile, Position 
-				$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				if($this->debug)
-				{
-					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
-				}
-				$this->EnableAction($profile["Ident"]);
-				//NEO Toggle Skript anlegen
-				if ($this->ReadPropertyBoolean('NEOToggle'))
-				{
-					$this->NEOToggle($id);
-				}
-			}	
-		// wenn nicht sichtbar löschen
-		elseif ($visible === false)
-			{
-				 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
-				 $this->removeVariableAction($profile["Ident"], $links, $ptBool); 
-			}
-		}
-		
-		foreach ($vInteger as $ptInteger => $visible)
-		{
-		//Auswahl Prüfen
-		if ($visible === true)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
-				$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				if($this->debug)
-				{
-					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);	
-					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
-				}
-				$this->EnableAction($profile["Ident"]);
-			}	
-		// wenn nicht sichtbar l�schen
-		elseif ($visible === false)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
-				$this->removeVariableAction($profile["Ident"], $links, $ptInteger); 
-			}
-		}
-		
-		foreach ($vIntegerAss as $ptIntegerAss => $visible)
-		{
-		//Auswahl Pr�fen
-		if ($visible === true)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
-				$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
-				$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
-				if($this->debug)
-				{
-					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
-					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
-				}
-				$this->EnableAction($profile["Ident"]);
 				
-			}	
-		// wenn nicht sichtbar l�schen
-		elseif ($visible === false)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
-				$this->removeVariableAction($profile["Ident"], $links, $ptIntegerAss); 
-			}
-		}
-		
-		foreach ($vFloat as $ptFloat => $visible)
-		{
-		//Auswahl Pr�fen
-		if ($visible === true)
-			{
-				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
-				$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
-				$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+				$this->RegisterProfileIntegerDenonAss($inputsourcesprofile["ProfilName"], $inputsourcesprofile["Icon"], $inputsourcesprofile["Prefix"], $inputsourcesprofile["Suffix"], $inputsourcesprofile["MinValue"], $inputsourcesprofile["MaxValue"], $inputsourcesprofile["Stepsize"], $inputsourcesprofile["Digits"], $inputsourcesprofile["Associations"]);
+				//Prüfen ob Var existiert
+				if($DenonAVRVar->Zone == 0)
+				{
+					$idMainZoneInput = @$this->GetIDForIdent("SI");
+					if($idMainZoneInput == false)
+					{
+						$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+					}
+					else
+					{
+						IPS_SetVariableCustomProfile($idMainZoneInput, $inputsourcesprofile["ProfilName"]);
+					}
+				}
+				elseif($DenonAVRVar->Zone == 1)
+				{
+					$idZ2Input = @$this->GetIDForIdent("Z2INPUT");
+					if($idZ2Input == false)
+					{
+						$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+					}
+					else
+					{
+						IPS_SetVariableCustomProfile($idZ2Input, $inputsourcesprofile["ProfilName"]);
+					}
+				}
+				elseif($DenonAVRVar->Zone == 2)
+				{
+					$idZ3Input = @$this->GetIDForIdent("Z3INPUT");
+					if($idZ3Input == false)
+					{
+						$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
+					}
+					else
+					{
+						IPS_SetVariableCustomProfile($idZ3Input, $inputsourcesprofile["ProfilName"]);
+					}
+				}
+				
 				if($this->debug)
 				{
-					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
-					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
+					IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $inputsourcesprofile["Name"].', [ObjektID: '.$id.']');
 				}
-				$this->EnableAction($profile["Ident"]);
-			}
-		// wenn nicht sichtbar l�schen
-		elseif ($visible === false)
+				$this->EnableAction($inputsourcesprofile["Ident"]);
+			}	
+			
+			
+			//Sichtbare Variablen anlegen
+			foreach ($vString as $ptString => $visible)
 			{
-				$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
-				$this->removeVariableAction($profile["Ident"], $links, $ptFloat); 
+			//Auswahl Prüfen
+			if ($visible === true)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
+					//Ident, Name, Profile, Position, Icon
+					if ($profile["ProfilName"] !== "~HTMLBox")
+						{
+							$this->RegisterProfileStringDenon($profile["ProfilName"], $profile["Icon"]);
+						}
+					$id = $this->RegisterVariableString ($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					if ($profile["Ident"] == "Display")
+						{
+							$DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
+							SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);
+						}
+					if($this->debug)
+					{
+						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+					}
+					$this->EnableAction($profile["Ident"]);
+				}	
+			// wenn nicht sichtbar löschen
+			elseif ($visible === false)
+				{
+					 $profile = $DenonAVRVar->SetupVarDenonString($ptString, $AVRType);
+					 $this->removeVariableAction($profile["Ident"], $links, $ptString); 
+				}
 			}
-		}
-		
+			
+			foreach ($vBoolean as $ptBool => $visible)
+			{
+			//Auswahl Prüfen
+			if ($visible === true)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
+					//Ident, Name, Profile, Position 
+					$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					if($this->debug)
+					{
+						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+					}
+					$this->EnableAction($profile["Ident"]);
+					//NEO Toggle Skript anlegen
+					if ($this->ReadPropertyBoolean('NEOToggle'))
+					{
+						$this->NEOToggle($id);
+					}
+				}	
+			// wenn nicht sichtbar löschen
+			elseif ($visible === false)
+				{
+					 $profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
+					 $this->removeVariableAction($profile["Ident"], $links, $ptBool); 
+				}
+			}
+			
+			foreach ($vInteger as $ptInteger => $visible)
+			{
+			//Auswahl Prüfen
+			if ($visible === true)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
+					$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
+					$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					if($this->debug)
+					{
+						IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);	
+						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
+					}
+					$this->EnableAction($profile["Ident"]);
+				}	
+			// wenn nicht sichtbar l򳣨en
+			elseif ($visible === false)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
+					$this->removeVariableAction($profile["Ident"], $links, $ptInteger); 
+				}
+			}
+			
+			foreach ($vIntegerAss as $ptIntegerAss => $visible)
+			{
+			//Auswahl Pr𦥮
+			if ($visible === true)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
+					$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
+					$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					if($this->debug)
+					{
+						IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
+						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+					}
+					$this->EnableAction($profile["Ident"]);
+					
+				}	
+			// wenn nicht sichtbar l򳣨en
+			elseif ($visible === false)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
+					$this->removeVariableAction($profile["Ident"], $links, $ptIntegerAss); 
+				}
+			}
+			
+			foreach ($vFloat as $ptFloat => $visible)
+			{
+			//Auswahl Pr𦥮
+			if ($visible === true)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
+					$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
+					$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					if($this->debug)
+					{
+						IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
+						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'.$profile["Name"].', [ObjektID: '.$id.']');
+					}
+					$this->EnableAction($profile["Ident"]);
+				}
+			// wenn nicht sichtbar l򳣨en
+			elseif ($visible === false)
+				{
+					$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
+					$this->removeVariableAction($profile["Ident"], $links, $ptFloat); 
+				}
+			}
+		}	
 	}
 	
 	protected function SetupDisplay($AVRType)
@@ -4996,7 +5023,11 @@ elseif ($status == true)// Ausschalten
 			$formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
 			$formstatus = $this->FormStatus();
 			
-			if($manufacturername == "Denon" && $AVRType == "None" && $zone == 6)
+			if($manufacturername == "none") // Auswahl Hersteller
+			{
+				return	'{ '.$formhead.$formelementsend.'],'.$formactions.$formstatus.' }';
+			}
+			elseif($manufacturername == "Denon" && $AVRType == "None" && $zone == 6)
 			{
 				return	'{ '.$formhead.$formselectiondenon.$formselection.$formelementsend.'],'.$formactions.$formstatus.' }';
 			}
@@ -5352,6 +5383,7 @@ elseif ($status == true)// Ausschalten
 				{ "type": "Label", "label": "Please select a manufacturer and push the \"apply\" button"},
 				{ "type": "Select", "name": "manufacturer", "caption": "manufacturer",
 						"options": [
+									{ "value": 0, "label": "Please Select" },
 									{ "value": 1, "label": "Denon" },
 									{ "value": 2, "label": "Marantz" }
 									]
