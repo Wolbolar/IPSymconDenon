@@ -1639,7 +1639,7 @@ class DenonAVRTelnet extends IPSModule
     }
 	
 	//Data Transfer
-	public function SendCommand($payload)
+	public function SendCommand(string $payload)
 		{
 			$sendcommand = $payload.chr(13);
 			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $sendcommand))); //Denon AVR Telnet Interface GUI
@@ -3784,7 +3784,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 
-	public function Zone2QuickSelect($command) // Zone 2 Quickselect 1-5
+	public function Zone2QuickSelect(string $command) // Zone 2 Quickselect 1-5
 	{
 		$payload = DENON_API_Commands::Z2QUICK.$command;
 		$this->SendCommand($payload);

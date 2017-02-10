@@ -245,7 +245,7 @@ class DenonAVRIOHTTP extends IPSModule
 	}
 	
 	// Input
-	public function SaveInputVarmapping($MappingInputs)
+	public function SaveInputVarmapping(string $MappingInputs)
 		{
 			if ($this->GetIDForIdent("InputMapping"))
 			{

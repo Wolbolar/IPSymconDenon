@@ -92,7 +92,7 @@ class DenonSplitterHTTP extends IPSModule
 	protected $debug = false;
 	
 	// Input
-	public function SaveInputVarmapping($MappingInputs)
+	public function SaveInputVarmapping(string $MappingInputs)
 		{
 			DAVRIO_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 		}
