@@ -148,9 +148,9 @@ class DenonAVRTelnet extends IPSModule
 		$this->RegisterPropertyBoolean("FLICKR", false);
     }
 	
-	// Marantz-NR1504, Marantz-NR1506, Marantz-NR1602, Marantz-NR1603, Marantz-NR1604, Marantz-NR1605, Marantz-NR1606, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008
-	// Marantz-SR5009, Marantz-SR5010, Marantz-SR6005, Marantz-SR6006, Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR7005, Marantz-SR7007 
-	// Marantz-SR7008, Marantz-SR7009, Marantz-SR7010, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV8801, Marantz-AV8802
+	// Marantz-NR1504, Marantz-NR1506, Marantz-NR1602, Marantz-NR1603, Marantz-NR1604, Marantz-NR1605, Marantz-NR1606, Marantz-NR1607, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008
+	// Marantz-SR5009, Marantz-SR5010, Marantz-SR6005, Marantz-SR6006, Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR7005, Marantz-SR7007 
+	// Marantz-SR7008, Marantz-SR7009, Marantz-SR7010, Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7703, Marantz-AV7702 mk II, Marantz-AV8801, Marantz-AV8802
 
 	
     public function ApplyChanges()
@@ -971,15 +971,25 @@ class DenonAVRTelnet extends IPSModule
 				86 => "Marantz-AV7702 mk II",
 				87 => "Marantz-AV8801",
 				88 => "Marantz-AV8802",
+				89 => "Marantz-SR5011",
+				90 => "Marantz-NR1607",
+				91 => "Marantz-SR6011",
+				92 => "Marantz-SR7011",
+				93 => "Marantz-AV7703",
 				50 => "None");
 		}
 		
+				
 		/*AVR-1311,AVR-1312,AVR-1507,AVR-1508,AVR-1509,AVR-1513,AVR-1610,AVR-1611,AVR-1705,AVR-1706,AVR-1707,AVR-1708,
 		AVR-1713,AVR-1905,AVR-1906,AVR-1907,AVR-1908,AVR-1909,AVR-1910,AVR-1911, AVR-2105,AVR-2106,AVR-2113,
 		AVR-2307,AVR-2308,AVR-2309,AVR-2310,AVR-2311,AVR-2312,AVR-2313,AVR-2805,AVR-2807,AVR-2808,AVR-2809,AVR-3310,
 		AVR-3311,AVR-3312,AVR-3313,AVR-3805,AVR-3806,AVR-3808A,AVR-4306,AVR-4308A,AVR-4310,AVR-4311,AVR-4520,AVR-4810,
 		AVR-A100,AVR-X1000,AVR-X1100W,AVR-X2000,AVR-X2100W,AVR-X3000,AVR-X3100W,AVR-X4000,AVR-X4100W,AVR-X500,AVR-X7200W,
 		AVR-X7200WA,AVR-X6200W,AVR-X5200W,AVR-X4200W,AVR-X3200W,AVR-X2200W,AVR-X1200W*/
+		
+		// Marantz-NR1504, Marantz-NR1506, Marantz-NR1602, Marantz-NR1603, Marantz-NR1604, Marantz-NR1605, Marantz-NR1606, Marantz-NR1607, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008
+		// Marantz-SR5009, Marantz-SR5010, Marantz-SR6005, Marantz-SR6006, Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR7005, Marantz-SR7007 
+		// Marantz-SR7008, Marantz-SR7009, Marantz-SR7010, Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7703, Marantz-AV7702 mk II, Marantz-AV8801, Marantz-AV8802
 		
 		
 		foreach($Types as $TypeID => $AVRType)
@@ -5283,26 +5293,31 @@ elseif ($status == true)// Ausschalten
 									{ "value": 64, "label": "Marantz-NR1604" },
 									{ "value": 65, "label": "Marantz-NR1605" },
 									{ "value": 66, "label": "Marantz-NR1606" },
+									{ "value": 90, "label": "Marantz-NR1607" },
 									{ "value": 67, "label": "Marantz-SR5006" },
 									{ "value": 68, "label": "Marantz-SR5007" },
 									{ "value": 69, "label": "Marantz-SR5008" },
 									{ "value": 70, "label": "Marantz-SR5009" },
 									{ "value": 71, "label": "Marantz-SR5010" },
+									{ "value": 89, "label": "Marantz-SR5011" },
 									{ "value": 72, "label": "Marantz-SR6005" },
 									{ "value": 73, "label": "Marantz-SR6006" },
 									{ "value": 74, "label": "Marantz-SR6007" },
 									{ "value": 75, "label": "Marantz-SR6008" },
 									{ "value": 76, "label": "Marantz-SR6009" },
 									{ "value": 77, "label": "Marantz-SR6010" },
+									{ "value": 91, "label": "Marantz-SR6011" },
 									{ "value": 78, "label": "Marantz-SR7005" },
 									{ "value": 79, "label": "Marantz-SR7007" },
 									{ "value": 80, "label": "Marantz-SR7008" },
 									{ "value": 81, "label": "Marantz-SR7009" },
 									{ "value": 82, "label": "Marantz-SR7010" },
+									{ "value": 92, "label": "Marantz-SR7011" },
 									{ "value": 83, "label": "Marantz-AV7005" },
 									{ "value": 84, "label": "Marantz-AV7701" },
 									{ "value": 85, "label": "Marantz-AV7702" },
 									{ "value": 86, "label": "Marantz-AV7702 mk II" },
+									{ "value": 93, "label": "Marantz-AV7703" },
 									{ "value": 87, "label": "Marantz-AV8801" },
 									{ "value": 88, "label": "Marantz-AV8802" }
 								  ]

@@ -130,7 +130,7 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 			// Absenden an Denon AVR
 		
-			$this->SendDebug("Command Send",utf8_decode($data->Buffer),0);
+			$this->SendDebug("Command Send",print_r($data->Buffer,true),0);
 						
 			$command = $data->Buffer;
 			$this->SendCommand ($command);
@@ -201,7 +201,9 @@ class DenonAVRIOHTTP extends IPSModule
 	        {
 	            //Command für URL Codieren
 				$payload = rawurlencode($command);
-				$response = file_get_contents("http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload);
+				$httpcommand = "http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload
+				$response = file_get_contents($httpcommand);
+				$this->SendDebug("HTTP Command Send",print_r($httpcommand,true),0);
 	        }
 	        catch (Exception $exc)
 	        {
@@ -214,12 +216,11 @@ class DenonAVRIOHTTP extends IPSModule
         else
         {
 			echo "Can not send to parent \n";
+			$this->SendDebug("Denon HTTP I/O:","Can not send to AVR",0); 
 			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		  }
-		$this->SendDebug("Denon AVR Command HTTP I/O:",$command." gesendet.",0); 
-		//IPS_LogMessage("Denon AVR Command HTTP I/O:", $command." gesendet."); 
-		
+				
 		IPS_Sleep(400);
 		if ($this->lock("HTTPCommandSend"))
         {
@@ -238,6 +239,7 @@ class DenonAVRIOHTTP extends IPSModule
         else
         {
 			echo "Can not get response \n";
+			$this->SendDebug("Denon HTTP I/O:","Can not get response",0); 
 			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		}	
