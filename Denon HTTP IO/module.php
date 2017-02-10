@@ -26,13 +26,10 @@ class DenonAVRIOHTTP extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
-		//$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
-        //IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
-		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
+		
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 1);
         IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
-		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
+		$this->RegisterVariableString("AVRType", "AVRType", "", 2);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
@@ -133,7 +130,6 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 			// Absenden an Denon AVR
 		
-			SetValue($this->GetIDForIdent("CommandOut"), $data->Buffer);
 			$this->SendDebug("Command Send",utf8_decode($data->Buffer),0);
 						
 			$command = $data->Buffer;
