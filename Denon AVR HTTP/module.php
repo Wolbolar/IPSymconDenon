@@ -1239,7 +1239,7 @@ class DenonAVRHTTP extends IPSModule
 	
 	############################ NEO Toggle Workarround ##############################################
 	
-	public function NEOToggle($ObjektID)
+	public function NEOToggle(int $ObjektID)
 	{
 		$Ident = IPS_GetObject ($ObjektID)["ObjectIdent"];
 		$InstanzID = IPS_GetParent($ObjektID);

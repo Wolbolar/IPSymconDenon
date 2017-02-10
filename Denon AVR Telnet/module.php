@@ -2229,7 +2229,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	// Bei Modell AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-X1100W, S700W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 	//Mainzone Standby Setting
-	public function MainzoneAutoStandbySetting(integer $Value) // 0 (Off) / 15 / 30 / 60 (Minuten)
+	public function MainzoneAutoStandbySetting(int $Value) // 0 (Off) / 15 / 30 / 60 (Minuten)
 	{
 		if ($Value == 0)
 			{
@@ -2880,7 +2880,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Audio Delay
-	public function AudioDelay(integer $Value) // can be operated from 0 to 300
+	public function AudioDelay(int $Value) // can be operated from 0 to 300
 	{
 		$FunctionType = "AudioDelay";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
@@ -3015,7 +3015,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	
 	//Dimension
-	public function Dimension(integer $Value) //Dimension can be operated from 0 to 6
+	public function Dimension(int $Value) //Dimension can be operated from 0 to 6
 	{
 		$FunctionType = "Dimension";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
@@ -3112,7 +3112,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Reference Level
-	public function ReferenceLevel(integer $Value) // Reference Level 0 / 5 / 10 / 15
+	public function ReferenceLevel(int $Value) // Reference Level 0 / 5 / 10 / 15
 	{
 		if ($Value == 0)
 			{
@@ -3583,7 +3583,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Sleep
-	public function SLEEP(integer $Value) // 0 ist aus bis 120 Step 10
+	public function SLEEP(int $Value) // 0 ist aus bis 120 Step 10
 	{
 		if ($Value == 0)
 		{
@@ -3859,7 +3859,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 
-	public function Zone3QuickSelect(integer $command) // Zone 3 Quickselect 1-5
+	public function Zone3QuickSelect(int $command) // Zone 3 Quickselect 1-5
 	{
 	   $payload = DENON_API_Commands::Z3QUICK.$command;
 		$this->SendCommand($payload);
@@ -4436,7 +4436,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	############################ NEO Toggle Workarround ##############################################
 	
-	public function NEOToggle($ObjektID)
+	public function NEOToggle(int $ObjektID)
 	{
 		$Ident = IPS_GetObject ($ObjektID)["ObjectIdent"];
 		$InstanzID = IPS_GetParent($ObjektID);
