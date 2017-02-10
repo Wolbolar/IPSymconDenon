@@ -710,7 +710,7 @@ class DENONIPSProfiles extends stdClass
 		$this->ptMainZoneName => array("MainZoneName", "MainZone Name", $this->ptMainZoneName, $this->getpos($profile), "Information"),
 		$this->ptTopMenuLink => array("TopMenuLink", "Top Menu Link", $this->ptTopMenuLink, $this->getpos($profile), "Information"),
 		$this->ptModel => array("Model", "Model", $this->ptModel, $this->getpos($profile), "Information"),
-		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode", $this->ptSurroundDisplay, $this->getpos($profile), "Information"),
+		$this->ptSurroundDisplay => array(DENON_API_Commands::SURROUNDDISPLAY, "Surround Mode Display", $this->ptSurroundDisplay, $this->getpos($profile), "Information"),
 		$this->ptDisplay => array(DENON_API_Commands::DISPLAY, "Display", "~HTMLBox", $this->getpos($profile), "TV")
 		);
 		$profilesZone2 = array (
