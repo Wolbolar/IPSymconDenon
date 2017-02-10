@@ -1961,7 +1961,7 @@ class DenonAVRTelnet extends IPSModule
         
         $this->RegisterProfileIntegerDenon($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $Stepsize, $Digits);
         
-		//boolean IPS_SetVariableProfileAssociation ( string $ProfilName, float $Wert, string $Name, string $Icon, integer $Farbe )
+		//bool IPS_SetVariableProfileAssociation ( string $ProfilName, float $Wert, string $Name, string $Icon, integer $Farbe )
         foreach($Associations as $Association) {
             IPS_SetVariableProfileAssociation($Name, $Association[0], $Association[1], $Association[2], $Association[3]);
         }
@@ -2196,7 +2196,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	######################### Denon Commands #######################################
 	//Power
-	public function Power(boolean $Value) // false (Standby) oder true (On)
+	public function Power(bool $Value) // false (Standby) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -2212,7 +2212,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Mainzone Power
-	public function MainZonePower(boolean $Value) // MainZone true (On) or false (Off) 
+	public function MainZonePower(bool $Value) // MainZone true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2289,7 +2289,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Main Mute
-	public function MainMute(boolean $Value) // false (Off) oder true (On)
+	public function MainMute(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -2364,7 +2364,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Dolby Volume
-	public function DolbyVolume(boolean $Value) // Dolby Volume true (On) or false (Off) 
+	public function DolbyVolume(bool $Value) // Dolby Volume true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2496,7 +2496,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 		
 	//CinemaEQ
-	public function CinemaEQ(boolean $Value) // CinemaEQ true (On) or false (Off) 
+	public function CinemaEQ(bool $Value) // CinemaEQ true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2511,7 +2511,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Panorama
-	public function Panorama(boolean $Value) // Panorama true (On) or false (Off) 
+	public function Panorama(bool $Value) // Panorama true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2526,7 +2526,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Dynamic EQ
-	public function DynamicEQ(boolean $Value) // Dynamic EQ true (On) or false (Off) 
+	public function DynamicEQ(bool $Value) // Dynamic EQ true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2820,7 +2820,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Subwoofer
-	public function Subwoofer(boolean $Value) // Subwoofer true (On) or false (Off) 
+	public function Subwoofer(bool $Value) // Subwoofer true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2835,7 +2835,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Subwoofer ATT
-	public function SubwooferATT(boolean $Value) // Subwoofer ATT true (On) or false (Off) 
+	public function SubwooferATT(bool $Value) // Subwoofer ATT true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2850,7 +2850,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Front Height
-	public function FrontHeight(boolean $Value) // Front Height true (On) or false (Off) 
+	public function FrontHeight(bool $Value) // Front Height true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2865,7 +2865,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Tone CTRL
-	public function ToneCTRL(boolean $Value) // Tone CTRL true (On) or false (Off) 
+	public function ToneCTRL(bool $Value) // Tone CTRL true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -2913,7 +2913,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Auto Flag Detect Mode
-	public function AutoFlagDetectMode(boolean $Value) // Auto Flag Detect Mode true (On) or false (Off) 
+	public function AutoFlagDetectMode(bool $Value) // Auto Flag Detect Mode true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3024,7 +3024,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Effect
-	public function Effect(boolean $Value) // Effect true (On) or false (Off) 
+	public function Effect(bool $Value) // Effect true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3234,7 +3234,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Vertical Stretch
-	public function VerticalStretch(boolean $Value) // VerticalStretch true (On) or false (Off) 
+	public function VerticalStretch(bool $Value) // VerticalStretch true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3439,7 +3439,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//GUI Menu
-	public function GUIMenu(boolean $Value) // GUI Menu true (On) or false (Off) 
+	public function GUIMenu(bool $Value) // GUI Menu true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3454,7 +3454,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//GUI Source Select Menu 
-	public function GUISourceSelectMenu(boolean $Value) // GUI Source Select Menu true (On) or false (Off) 
+	public function GUISourceSelectMenu(bool $Value) // GUI Source Select Menu true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3717,7 +3717,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 
 	//Zone2 Power 
-	public function Zone2Power(boolean $Value) // Zone2 Power  true (On) or false (Off) 
+	public function Zone2Power(bool $Value) // Zone2 Power  true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3732,7 +3732,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Zone2 Mute 
-	public function Zone2Mute(boolean $Value) // Zone2 Mute  true (On) or false (Off) 
+	public function Zone2Mute(bool $Value) // Zone2 Mute  true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3809,7 +3809,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Zone3 Power 
-	public function Zone3Power(boolean $Value) // Zone3 Power  true (On) or false (Off) 
+	public function Zone3Power(bool $Value) // Zone3 Power  true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{
@@ -3824,7 +3824,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//Zone3 Mute 
-	public function Zone3Mute(boolean $Value) // Zone3 Mute  true (On) or false (Off) 
+	public function Zone3Mute(bool $Value) // Zone3 Mute  true (On) or false (Off) 
 	{
 		if ($Value == false)
 			{

@@ -1026,7 +1026,7 @@ class DenonAVRHTTP extends IPSModule
 	
 	//Denon Commands
 	//Power
-	public function Power(boolean $Value) // false (Standby) oder true (On)
+	public function Power(bool $Value) // false (Standby) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -1042,7 +1042,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Mainzone Power
-	public function MainZonePower(boolean $Value) // false (Off) oder true (On)
+	public function MainZonePower(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -1058,7 +1058,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Zone 2 Power
-	public function Zone2Power(boolean $Value) // false (Off) oder true (On)
+	public function Zone2Power(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -1074,7 +1074,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Zone 3 Power
-	public function Zone3Power(boolean $Value) // false (Off) oder true (On)
+	public function Zone3Power(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -1097,7 +1097,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Main Mute
-	public function MainMute(boolean $Value) // false (Off) oder true (On)
+	public function MainMute(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -1113,7 +1113,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Zone2 Mute
-	public function Zone2Mute(boolean $Value) // false (Off) oder true (On)
+	public function Zone2Mute(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
@@ -1129,7 +1129,7 @@ class DenonAVRHTTP extends IPSModule
 	}
 	
 	//Zone3 Mute
-	public function Zone3Mute(boolean $Value) // false (Off) oder true (On)
+	public function Zone3Mute(bool $Value) // false (Off) oder true (On)
 	{
 		if ($Value == false)
 			{
