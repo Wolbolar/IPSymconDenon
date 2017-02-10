@@ -134,8 +134,8 @@ class DenonAVRIOHTTP extends IPSModule
 			// Absenden an Denon AVR
 		
 			SetValue($this->GetIDForIdent("CommandOut"), $data->Buffer);
-			//IPS_LogMessage("Forward Data Denon HTTP I/O", utf8_decode($data->Buffer));
-			
+			$this->SendDebug("Command Send",utf8_decode($data->Buffer),0);
+						
 			$command = $data->Buffer;
 			$this->SendCommand ($command);
 		}
@@ -165,6 +165,7 @@ class DenonAVRIOHTTP extends IPSModule
 				$AVRType = $this->GetAVRType();
 				$InputMapping = $this->GetInputVarMapping();
 				$data = $DenonStatus->getStates ($InputMapping, $AVRType);
+				$this->SendDebug("Status",print_r($data),0);
 				$this->SendJSON($data);
 	        }
 	        catch (Exception $exc)
@@ -220,7 +221,8 @@ class DenonAVRIOHTTP extends IPSModule
 			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		  }
-		IPS_LogMessage("Denon AVR Command HTTP I/O:", $command." gesendet."); 
+		$this->SendDebug("Denon AVR Command HTTP I/O:",$command." gesendet.",0); 
+		//IPS_LogMessage("Denon AVR Command HTTP I/O:", $command." gesendet."); 
 		
 		IPS_Sleep(400);
 		if ($this->lock("HTTPCommandSend"))
