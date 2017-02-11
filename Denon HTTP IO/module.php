@@ -185,7 +185,7 @@ class DenonAVRIOHTTP extends IPSModule
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "Buffer" => $data))); //Denon I/O HTTP RX GUI
 	}
 	
-	protected function SendCommand ($command)
+	protected function SendCommand (string $command)
 	{
 		$ip = $this->ReadPropertyString("Host");
 		//Ins URL Format bringen
