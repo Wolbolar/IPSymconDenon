@@ -130,6 +130,7 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 			// Absenden an Denon AVR			
 			$command = $data->Buffer;
+			IPS_LogMessage("Denon AVR I/O","HTTP Command Out ".$command);
 			$this->SendDebug("Command Out",print_r($command,true),0);
 			$this->SendCommand ($command);
 		}
@@ -203,7 +204,7 @@ class DenonAVRIOHTTP extends IPSModule
 				$this->SendDebug("HTTP Command Send",$httpcommand,0);
 				$response = file_get_contents($httpcommand);
 				$this->SendDebug("AVR Response",print_r($response,true),0);
-				IPS_LogMessage("HTTP Command Send",$httpcommand);
+				IPS_LogMessage("Denon AVR I/O","HTTP Command Send".$httpcommand);
 	        }
 	        catch (Exception $exc)
 	        {
@@ -216,7 +217,8 @@ class DenonAVRIOHTTP extends IPSModule
         else
         {
 			echo "Can not send to parent \n";
-			$this->SendDebug("Denon HTTP I/O:","Can not send to AVR",0); 
+			$this->SendDebug("Denon HTTP I/O:","Can not send to AVR",0);
+			IPS_LogMessage("Denon AVR I/O","Can not send to parent");			
 			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		  }
@@ -239,7 +241,8 @@ class DenonAVRIOHTTP extends IPSModule
         else
         {
 			echo "Can not get response \n";
-			$this->SendDebug("Denon HTTP I/O:","Can not get response",0); 
+			$this->SendDebug("Denon HTTP I/O:","Can not get response",0);
+			IPS_LogMessage("Denon AVR I/O","Can not get response");
 			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
 		}	
@@ -347,7 +350,7 @@ class DenonAVRIOHTTP extends IPSModule
     {
         for ($i = 0; $i < 3000; $i++)
         {
-            if (IPS_SemaphoreEnter("DENONAVRT_" . (string) $this->InstanceID . (string) $ident, 1))
+            if (IPS_SemaphoreEnter("DENONAVRH_" . (string) $this->InstanceID . (string) $ident, 1))
             {
                 return true;
             }
@@ -361,7 +364,7 @@ class DenonAVRIOHTTP extends IPSModule
 
     private function unlock($ident)
     {
-          IPS_SemaphoreLeave("DENONAVRT_" . (string) $this->InstanceID . (string) $ident);
+          IPS_SemaphoreLeave("DENONAVRH_" . (string) $this->InstanceID . (string) $ident);
     }
 	
 
