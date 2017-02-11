@@ -128,11 +128,9 @@ class DenonAVRIOHTTP extends IPSModule
 		// z.B. CRC prüfen, in Einzelteile zerlegen
 		try
 		{
-			// Absenden an Denon AVR
-		
-			$this->SendDebug("Command Send",print_r($data->Buffer,true),0);
-						
+			// Absenden an Denon AVR			
 			$command = $data->Buffer;
+			$this->SendDebug("Command Out",print_r($command,true),0);
 			$this->SendCommand ($command);
 		}
 		catch (Exception $ex)
@@ -201,9 +199,11 @@ class DenonAVRIOHTTP extends IPSModule
 	        {
 	            //Command für URL Codieren
 				$payload = rawurlencode($command);
-				$httpcommand = "http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload
+				$httpcommand = "http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload;
+				$this->SendDebug("HTTP Command Send",$httpcommand,0);
 				$response = file_get_contents($httpcommand);
-				$this->SendDebug("HTTP Command Send",print_r($httpcommand,true),0);
+				$this->SendDebug("AVR Response",print_r($response,true),0);
+				IPS_LogMessage("HTTP Command Send",$httpcommand);
 	        }
 	        catch (Exception $exc)
 	        {

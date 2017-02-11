@@ -5085,6 +5085,10 @@ elseif ($status == true)// Ausschalten
 			}	
 		}
 		
+		// Marantz-NR1504, Marantz-NR1506, Marantz-NR1602, Marantz-NR1603, Marantz-NR1604, Marantz-NR1605, Marantz-NR1606, Marantz-NR1607, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008
+		// Marantz-SR5009, Marantz-SR5010, Marantz-SR6005, Marantz-SR6006, Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR7005, Marantz-SR7007 
+		// Marantz-SR7008, Marantz-SR7009, Marantz-SR7010, Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7703, Marantz-AV7702 mk II, Marantz-AV8801, Marantz-AV8802
+		
 		protected function FormMainzone($AVRType)
 		{
 			$form = '{ "type": "Label", "label": "main zone:" },
