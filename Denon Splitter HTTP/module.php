@@ -226,7 +226,7 @@ class DenonSplitterHTTP extends IPSModule
 		}
 	 
 		// Weiterleiten zur I/O Instanz
-		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUI
+		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{B403182C-3506-466C-B8D5-842D9237BF02}", "Buffer" => $data->Buffer))); // Denon I/O HTTP TX GUI
 	 
 		// Weiterverarbeiten und durchreichen
 		return $resultat;
@@ -239,7 +239,7 @@ class DenonSplitterHTTP extends IPSModule
     {
         for ($i = 0; $i < 3000; $i++)
         {
-            if (IPS_SemaphoreEnter("DENONAVRT_" . (string) $this->InstanceID . (string) $ident, 1))
+            if (IPS_SemaphoreEnter("DENONAVRH_" . (string) $this->InstanceID . (string) $ident, 1))
             {
                 return true;
             }
@@ -253,7 +253,7 @@ class DenonSplitterHTTP extends IPSModule
 
     private function unlock($ident)
     {
-          IPS_SemaphoreLeave("DENONAVRT_" . (string) $this->InstanceID . (string) $ident);
+          IPS_SemaphoreLeave("DENONAVRH_" . (string) $this->InstanceID . (string) $ident);
     }
 }
 
