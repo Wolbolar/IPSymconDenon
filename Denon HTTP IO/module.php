@@ -203,8 +203,8 @@ class DenonAVRIOHTTP extends IPSModule
 				$httpcommand = "http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload;
 				$this->SendDebug("HTTP Command Send",$httpcommand,0);
 				$response = file_get_contents($httpcommand);
-				$this->SendDebug("AVR Response",print_r($response,true),0);
-				IPS_LogMessage("Denon AVR I/O","HTTP Command Send".$httpcommand);
+				//$this->SendDebug("AVR Response",print_r($response,true),0);
+				//IPS_LogMessage("Denon AVR I/O","HTTP Command Send".$httpcommand);
 	        }
 	        catch (Exception $exc)
 	        {
