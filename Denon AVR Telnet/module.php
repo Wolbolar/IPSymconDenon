@@ -1070,6 +1070,8 @@ class DenonAVRTelnet extends IPSModule
 					}
 				}
 				
+				$this->SendDebug("Variablenprofil angelegt:",$inputsourcesprofile["ProfilName"],0);
+				$this->SendDebug("Variable angelegt:",$inputsourcesprofile["Name"].", [ObjektID: ".$id."]",0);
 				if($this->debug)
 				{
 					IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'. $inputsourcesprofile["ProfilName"]);
@@ -1097,6 +1099,7 @@ class DenonAVRTelnet extends IPSModule
 							$DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
 							SetValueString($this->GetIDForIdent("Display"), $DisplayHTML);
 						}
+					$this->SendDebug("Variable angelegt:",$profile["Name"].', [ObjektID: '.$id.']',0);	
 					if($this->debug)
 					{
 						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
@@ -1119,6 +1122,7 @@ class DenonAVRTelnet extends IPSModule
 					$profile = $DenonAVRVar->SetupVarDenonBool($ptBool, $AVRType);
 					//Ident, Name, Profile, Position 
 					$id = $this->RegisterVariableBoolean($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					$this->SendDebug("Variable angelegt:",$profile["Name"].', [ObjektID: '.$id.']',0);	
 					if($this->debug)
 					{
 						IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $profile["Name"].', [ObjektID: '.$id.']');
@@ -1146,6 +1150,8 @@ class DenonAVRTelnet extends IPSModule
 					$profile = $DenonAVRVar->SetupVarDenonInteger($ptInteger, $AVRType);
 					$this->RegisterProfileIntegerDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 					$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					$this->SendDebug("Variablenprofil angelegt:",$profile["ProfilName"],0);	
+					$this->SendDebug("Variable angelegt:",$profile["Name"].', [ObjektID: '.$id.']',0);	
 					if($this->debug)
 					{
 						IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);	
@@ -1169,6 +1175,8 @@ class DenonAVRTelnet extends IPSModule
 					$profile = $DenonAVRVar->SetupVarDenonIntegerAss($ptIntegerAss, $AVRType);
 					$this->RegisterProfileIntegerDenonAss($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"], $profile["Associations"]);
 					$id = $this->RegisterVariableInteger($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					$this->SendDebug("Variablenprofil angelegt:",$profile["ProfilName"],0);	
+					$this->SendDebug("Variable angelegt:",$profile["Name"].', [ObjektID: '.$id.']',0);
 					if($this->debug)
 					{
 						IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
@@ -1193,6 +1201,8 @@ class DenonAVRTelnet extends IPSModule
 					$profile = $DenonAVRVar->SetupVarDenonFloat($ptFloat, $AVRType);
 					$this->RegisterProfileFloatDenon($profile["ProfilName"], $profile["Icon"], $profile["Prefix"], $profile["Suffix"], $profile["MinValue"], $profile["MaxValue"], $profile["Stepsize"], $profile["Digits"]);
 					$id = $this->RegisterVariableFloat($profile["Ident"], $profile["Name"], $profile["ProfilName"], $profile["Position"]);
+					$this->SendDebug("Variablenprofil angelegt:",$profile["ProfilName"],0);	
+					$this->SendDebug("Variable angelegt:",$profile["Name"].', [ObjektID: '.$id.']',0);
 					if($this->debug)
 					{
 						IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profile["ProfilName"]);
@@ -1231,17 +1241,19 @@ class DenonAVRTelnet extends IPSModule
             }
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
+			$this->SendDebug("Variable gel√∂scht:",$Name.', [ObjektID: '.$vid.']',0);	
 			if($this->debug)
 			{
-				IPS_LogMessage('Denon Telnet AVR','Variable gelˆscht: '.$Name.', [ObjektID: '.$vid.']');
+				IPS_LogMessage('Denon Telnet AVR','Variable gel√∂scht: '.$Name.', [ObjektID: '.$vid.']');
 			}
 			//delete Profile
 			if (IPS_VariableProfileExists ($Profile))
 			{
 				IPS_DeleteVariableProfile($Profile);
+				$this->SendDebug("Variable gel√∂scht:",$Profile,0);
 				if ($this->debug)
 				{
-					IPS_LogMessage('Denon Telnet AVR','Variablenprofil gelˆscht:'.$Profile);
+					IPS_LogMessage('Denon Telnet AVR','Variablenprofil gel√∂scht:'.$Profile);
 				}
 				
 			}
@@ -1519,9 +1531,9 @@ class DenonAVRTelnet extends IPSModule
 		$AVRType = $this->GetAVRType($manufacturername);
 		$APIData->AVRType = $AVRType;
 		$APIData->AVRZone = $this->ReadPropertyInteger('Zone');
-		//Input ¸bergeben
+		//Input √ºbergeben
 		$APIData->InputMapping = DAVRST_GetInputVarMapping($this->GetParent());
-        //Pr¸fen ob Command vorhanden
+        //Pr√ºfen ob Command vorhanden
 		/*
 		if (!$this->DenonZone->CmdAvaiable($APIData))
         {
@@ -1557,7 +1569,7 @@ class DenonAVRTelnet extends IPSModule
         
 		
 		
-        // Daten senden        R¸ckgabe ist egal, Variable wird automatisch durch Datenempfang nachgef¸hrt
+        // Daten senden        R√ºckgabe ist egal, Variable wird automatisch durch Datenempfang nachgef√ºhrt
         try
         {
             //Command aus Ident
@@ -1790,7 +1802,7 @@ class DenonAVRTelnet extends IPSModule
 								$doc->getElementById('NSARow9')->nodeValue = $content;
 							}
 						$search = preg_match("/\[.[0-9]?[0-9]\/[0-9][0-9]?.\]/", $content, $treffer);	
-						if($search == 1) //auf Cursorposition pr¸fen
+						if($search == 1) //auf Cursorposition pr√ºfen
 							{
 								$pos = strpos($content, "/");
 								$CurrentPosition = trim(substr ( $content , ($pos-2), 2 ));
@@ -2351,7 +2363,7 @@ class DenonAVRTelnet extends IPSModule
 		
 	//Input
 	// PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-	//zus‰tzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+	//zus√§tzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 	//Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
 	// IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 	public function Input(string $command) 
@@ -3520,7 +3532,7 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
-	//Noch erg‰nzen
+	//Noch erg√§nzen
 	
 	//Preset Analog Tuner
 	public function SelectTunerPresetAnalog(string $Value) // A1 - G8 00-55,00=A1,01=A2,B1=08,G8=55 , Up, Down
@@ -4497,7 +4509,7 @@ class DenonAVRTelnet extends IPSModule
 			{
             	$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Power('.$InstanzID.', true);
@@ -4522,7 +4534,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_MainZonePower('.$InstanzID.', true);
@@ -4547,7 +4559,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_MainMute('.$InstanzID.', true);
@@ -4572,7 +4584,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone2Power('.$InstanzID.', true);
@@ -4597,7 +4609,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone3Power('.$InstanzID.', true);
@@ -4622,7 +4634,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone2Mute('.$InstanzID.', true);
@@ -4647,7 +4659,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Zone3Mute('.$InstanzID.', true);
@@ -4672,7 +4684,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_DolbyVolume('.$InstanzID.', true);
@@ -4697,7 +4709,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_CinemaEQ('.$InstanzID.', true);
@@ -4722,7 +4734,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Panorama('.$InstanzID.', true);
@@ -4747,7 +4759,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_DynamicEQ('.$InstanzID.', true);
@@ -4772,7 +4784,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Subwoofer('.$InstanzID.', true);
@@ -4797,7 +4809,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_SubwooferATT('.$InstanzID.', true);
@@ -4822,7 +4834,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_FrontHeight('.$InstanzID.', true);
@@ -4847,7 +4859,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_ToneCTRL('.$InstanzID.', true);
@@ -4872,7 +4884,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_AutoFlagDetectMode('.$InstanzID.', true);
@@ -4897,7 +4909,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_Effect('.$InstanzID.', true);
@@ -4922,7 +4934,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_VerticalStretch('.$InstanzID.', true);
@@ -4947,7 +4959,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_GUIMenu('.$InstanzID.', true);
@@ -4972,7 +4984,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$Content = '
 <?
-$status = GetValueBoolean('.$ObjektID.'); // Status des Ger‰ts auslesen
+$status = GetValueBoolean('.$ObjektID.'); // Status des Ger√§ts auslesen
 if ($status == false)// Einschalten
 	{
 	DAVRT_GUISourceSelectMenu('.$InstanzID.', true);
