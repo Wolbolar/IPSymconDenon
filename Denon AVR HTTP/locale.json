@@ -40,7 +40,9 @@
 			"AVR is inactive.":"AVR ist inaktiv.",
 			"select category for import.":"Kategorie zum Import auswählen.",
 			"please select an AVR Zone.":"Bitte AVR Zone auswählen.",
-			"please select a AVR type.":"Bitte ein AVR Modell auswählen.",
+			"please select a Denon AVR type.":"Bitte ein Denon AVR Modell auswählen.",
+			"please select a Marantz AVR type.":"Bitte ein Marantz AVR Modell auswählen.",
+			"Please Select":"Bitte Auswählen",
 			"configure AVR splitter.":"AVR Splitter konfigurieren."
 		}
 	}
