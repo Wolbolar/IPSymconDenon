@@ -6,8 +6,8 @@
     "type": 2,
     "vendor": "Denon",
     "aliases": ["Denon AVR Splitter Telnet"],
-    "parentRequirements": ["{B403182C-3506-466C-B8D5-842D9237BF02}"],
+    "parentRequirements": ["{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}"],
     "childRequirements": ["{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}"],
-    "implemented": ["{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "{01A68655-DDAF-4F79-9F35-65878A86F344}"],
+    "implemented": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "{01A68655-DDAF-4F79-9F35-65878A86F344}"],
     "prefix": "DAVRST"
 }
