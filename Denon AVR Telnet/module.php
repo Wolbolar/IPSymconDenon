@@ -1545,7 +1545,7 @@ class DenonAVRTelnet extends IPSModule
 		{
 			$APIData->APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
 		}
-        
+        $this->SendDebug("Denon Subcommand:",$APIData->APISubCommand,0);
 		if($this->debug)
 		{
 			IPS_LogMessage('Denon Telnet AVR', "Denon Subcommand: ".$APIData->APISubCommand);
@@ -1675,6 +1675,7 @@ class DenonAVRTelnet extends IPSModule
 	public function SendCommand(string $payload)
 		{
 			$sendcommand = $payload.chr(13);
+			$this->SendDebug("Send Command:",print_r($sendcommand,true),0);
 			$this->SendDataToParent(json_encode(Array("DataID" => "{01A68655-DDAF-4F79-9F35-65878A86F344}", "Buffer" => $sendcommand))); //Denon AVR Telnet Interface GUI
 		}
 	

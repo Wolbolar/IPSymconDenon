@@ -1043,7 +1043,8 @@ class DenonAVRHTTP extends IPSModule
 		
         // Subcommand holen
         $APIDataHTTP->APISubCommand = $APIDataHTTP->GetSubCommand($APIDataHTTP->APIIdent, $APIDataHTTP->Data, $APIDataHTTP->InputMapping);
-        IPS_LogMessage('Denon Subcommand', $APIDataHTTP->APISubCommand);
+		$this->SendDebug("Denon Subcommand:",$APIData->APISubCommand,0);
+        //IPS_LogMessage('Denon Subcommand', $APIDataHTTP->APISubCommand);
         // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
         try
         {
@@ -1215,6 +1216,7 @@ class DenonAVRHTTP extends IPSModule
 	//Data Transfer
 	public function SendCommand(string $payload)
 		{
+			$this->SendDebug("Send Command:",$payload,0);
 			$this->SendDataToParent(json_encode(Array("DataID" => "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}", "Buffer" => $payload))); //Denon AVR HTTP Interface GUI
 		}
 	
