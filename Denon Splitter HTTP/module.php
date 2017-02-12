@@ -175,13 +175,14 @@ class DenonSplitterHTTP extends IPSModule
         }
         return false;
     }
-
+	
+	/*
     protected function SetStatus($InstanceStatus)
     {
         if ($InstanceStatus <> IPS_GetInstance($this->InstanceID)['InstanceStatus'])
             parent::SetStatus($InstanceStatus);
     }
-
+	*/
 	
 	// Data an Child weitergeben
 	public function ReceiveData($JSONString)
