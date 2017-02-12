@@ -1035,8 +1035,8 @@ class DenonAVRTelnet extends IPSModule
 				//Prüfen ob Var existiert
 				if($DenonAVRVar->Zone == 0)
 				{
-					$idMainZoneInput = @$this->GetIDForIdent("SI");
-					if($idMainZoneInput == false)
+					$id = @$this->GetIDForIdent("SI");
+					if($id == false)
 					{
 						$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 					}
@@ -1047,8 +1047,8 @@ class DenonAVRTelnet extends IPSModule
 				}
 				elseif($DenonAVRVar->Zone == 1)
 				{
-					$idZ2Input = @$this->GetIDForIdent("Z2INPUT");
-					if($idZ2Input == false)
+					$id = @$this->GetIDForIdent("Z2INPUT");
+					if($id == false)
 					{
 						$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 					}
@@ -1059,8 +1059,8 @@ class DenonAVRTelnet extends IPSModule
 				}
 				elseif($DenonAVRVar->Zone == 2)
 				{
-					$idZ3Input = @$this->GetIDForIdent("Z3INPUT");
-					if($idZ3Input == false)
+					$id = @$this->GetIDForIdent("Z3INPUT");
+					if($id == false)
 					{
 						$id = $this->RegisterVariableInteger($inputsourcesprofile["Ident"], $inputsourcesprofile["Name"], $inputsourcesprofile["ProfilName"], $inputsourcesprofile["Position"]);
 					}
