@@ -1831,8 +1831,8 @@ elseif ($status == true)// Ausschalten
 			},
 			
 			{ "type": "CheckBox", "name": "Navigation", "caption": "show navigation remote" },
-			{ "type": "CheckBox", "name": "ZoneName", "caption": "show zone name (only available for AVR Type with webinterface)" },
-			{ "type": "CheckBox", "name": "Model", "caption": "show AVR Type (only available for AVR Type with webinterface)" },
+			{ "type": "CheckBox", "name": "ZoneName", "caption": "show zone name" },
+			{ "type": "CheckBox", "name": "Model", "caption": "show AVR Type" },
 			
 			{ "type": "Label", "label": "more inputs:" },
 			{ "type": "CheckBox", "name": "FAVORITES", "caption": "favorites" },
