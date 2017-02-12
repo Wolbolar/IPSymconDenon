@@ -5118,11 +5118,17 @@ elseif ($status == true)// Ausschalten
 				$form .= '{ "type": "CheckBox", "name": "SurroundHeightLch", "caption": "Surround Height Left Channel" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
 				$form .= '{ "type": "CheckBox", "name": "SurroundHeightRch", "caption": "Surround Height Right Channel" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "FHL", "caption": "Front Height Left" },
-				{ "type": "CheckBox", "name": "FHR", "caption": "Front Height Right" },
-				{ "type": "CheckBox", "name": "FWL", "caption": "Front Wide Left" },
-				{ "type": "CheckBox", "name": "FWR", "caption": "Front Wide Right" },
-				'.$this->FormExtentedSpeakerSelection($AVRType).'
+			if($AVRType != "Marantz-NR1504")
+			{
+				$form .= '{ "type": "CheckBox", "name": "FHL", "caption": "Front Height Left" },
+				{ "type": "CheckBox", "name": "FHR", "caption": "Front Height Right" },';
+			}
+			if($AVRType != "Marantz-NR1504" &&  $AVRType != "Marantz-NR1604" &&  $AVRType != "Marantz-NR1605" &&  $AVRType != "Marantz-SR5008" &&  $AVRType != "Marantz-SR5009")
+			{
+				$form .= '{ "type": "CheckBox", "name": "FWL", "caption": "Front Wide Left" },
+				{ "type": "CheckBox", "name": "FWR", "caption": "Front Wide Right" },';
+			}
+			$form .= $this->FormExtentedSpeakerSelection($AVRType).'
 							
 				{ "type": "Label", "label": "show remote commands:" },
 				{ "type": "Label", "label": "Audio:" },
@@ -5351,7 +5357,7 @@ elseif ($status == true)// Ausschalten
 		protected function FormExtentedSpeakerSelection($AVRType)
 		{
 			$form = "";
-			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W")
+			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W" || $AVRType == "Marantz-SR7009" || $AVRType == "Marantz-AV7702" || $AVRType == "Marantz-AV7702 mk II")
 			{
 			$form .= '{ "type": "CheckBox", "name": "TopFrontLch", "caption":"Top Front Left" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W)
 			$form .= '{ "type": "CheckBox", "name": "TopFrontRch", "caption": "Top Front Right" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-7200WA / AVR-6200W / AVR-4200W / AVR-3200W)
