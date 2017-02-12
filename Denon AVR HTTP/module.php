@@ -105,7 +105,7 @@ class DenonAVRHTTP extends IPSModule
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
 			//AVRType und Zone
-			$DenonAVRVar->AVRType = $this->GetAVRType();
+			$DenonAVRVar->AVRType = $this->GetAVRType($manufacturername);
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
 			$DenonAVRVar->ptChannelVolumeFL = "Denon.".$DenonAVRVar->AVRType.".ChannelVolumeFL";
 			$DenonAVRVar->ptChannelVolumeFR = "Denon.".$DenonAVRVar->AVRType.".ChannelVolumeFR";
@@ -306,7 +306,7 @@ class DenonAVRHTTP extends IPSModule
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
-			$AVRType = $this->GetAVRType();
+			$AVRType = $this->GetAVRType($manufacturername);
 			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
@@ -384,7 +384,7 @@ class DenonAVRHTTP extends IPSModule
 		{
 			//Profilnamen anlegen
 			$DenonAVRVar = new DENONIPSProfiles;
-			$AVRType = $this->GetAVRType();
+			$AVRType = $this->GetAVRType($manufacturername);
 			//AVRType und Zone
 			$DenonAVRVar->AVRType = $AVRType;
 			$DenonAVRVar->Zone = $this->ReadPropertyInteger('Zone');
@@ -1044,7 +1044,7 @@ class DenonAVRHTTP extends IPSModule
 		$APIDataHTTP = new DenonAVRCP_API_Data();
 		$APIDataHTTP->APIIdent = $Ident;
         $APIDataHTTP->Data = $Value;
-		$APIDataHTTP->AVRType = $this->GetAVRType();
+		$APIDataHTTP->AVRType = $this->GetAVRType($manufacturername);
 		$APIDataHTTP->AVRZone = $this->ReadPropertyInteger('Zone');
 		//Input übergeben
 		$APIDataHTTP->InputMapping = DAVRSH_GetInputVarMapping($this->GetParent());
