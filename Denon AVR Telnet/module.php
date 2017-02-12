@@ -1632,6 +1632,10 @@ class DenonAVRTelnet extends IPSModule
 			{
 				$this->SendRequest($APIData->APICommand, false);
 			}
+			elseif ($APIData->APICommand == "MU")//MU
+			{
+				$this->SendRequest($APIData->APICommand, false);
+			}
 			
         } 
 		catch (Exception $ex)
