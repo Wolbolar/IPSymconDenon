@@ -1008,11 +1008,7 @@ class DenonAVRHTTP extends IPSModule
 	
 	public function RequestAction($Ident, $Value)
     {
-        //AVRType und Zone
-		$AVRType = $this->ReadPropertyInteger('AVRType');
-		$Zone = $this->ReadPropertyInteger('Zone');
-		
-		
+        		
 		/*
 		try
         {
@@ -1024,14 +1020,17 @@ class DenonAVRHTTP extends IPSModule
             return false;
         }
 		*/
-				
+		
+		$manufacturername = $this->GetManufacturer();
 		$APIDataHTTP = new DenonAVRCP_API_Data();
 		$APIDataHTTP->APIIdent = $Ident;
         $APIDataHTTP->Data = $Value;
-		$APIDataHTTP->AVRType = $this->GetAVRType($manufacturername);
+		$AVRType = $this->GetAVRType($manufacturername);
+		$APIDataHTTP->AVRType = $AVRType;
 		$APIDataHTTP->AVRZone = $this->ReadPropertyInteger('Zone');
 		//Input übergeben
 		$APIDataHTTP->InputMapping = DAVRSH_GetInputVarMapping($this->GetParent());
+
         //Prüfen ob Command vorhanden
 		/*
 		if (!$this->DenonZone->CmdAvaiable($APIDataHTTP))
