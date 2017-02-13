@@ -2328,6 +2328,11 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function MasterVolumeFix(float $Value) // float -80 bis 18 Schrittweite 0.5
 	{
+		if($Value < -80 || $Value > 18)
+		{
+			echo "Wert muss zwischen -80 und 18 liegen";
+			return; 
+		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::MV.$command;
