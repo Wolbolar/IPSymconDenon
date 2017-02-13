@@ -2326,6 +2326,32 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	public function MasterVolumeStep(string $command, float $step) // "UP" or "DOWN" , Step Schrittweite der Lautstärke Änderung Minimum 0.5
+	{
+		if($step < 1 || $step > 40)
+		{
+			$message = "Schrittweite muss zwischen 1 und 40 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
+		$valmax = 18;
+		$valmin = -80;
+		$currentvol = GetValue($this->GetIDForIdent("MV"));
+		if($command == "UP" && ($currentvol < ($valmax-$step)))
+		{
+			 $Value = $currentvol + 0.5;
+		}
+		if($command == "DOWN" && ($currentvol > ($valmin+$step)))
+		{
+			 $Value = $currentvol - 0.5;
+		}
+		$FunctionType = "Volume";
+		$command = $this->GetCommandValueSend($Value, $FunctionType);
+		$payload = DENON_API_Commands::MV.$command;
+		$this->SendCommand($payload);
+	}
+	
 	public function MasterVolumeFix(float $Value) // float -80 bis 18 Schrittweite 0.5
 	{
 		if($Value < -80 || $Value > 18)
