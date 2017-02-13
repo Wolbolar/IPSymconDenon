@@ -2391,6 +2391,13 @@ class DenonAVRTelnet extends IPSModule
 	//All Zone Stereo
 	public function AllZoneStereo(string $Value) // "ON" or "OFF"
 	{
+		if($Value != "OFF" && $Value != "Off" && $Value != "off" && $Value != "ON" && $Value != "On" && $Value != "on")
+		{
+			$message = "Wert muss ON oder OFF lauten";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
 		if ($Value == "OFF" || $Value == "Off" || $Value == "off")
 			{
 				$subcommand = DENON_API_Commands::MNZSTOFF;	
