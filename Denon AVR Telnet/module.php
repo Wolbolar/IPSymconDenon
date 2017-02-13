@@ -2328,7 +2328,7 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function MasterVolumeStep(string $command, float $step) // "UP" or "DOWN" , Step Schrittweite der Lautstärke Änderung Minimum 0.5
 	{
-		if($Value < 1 || $Value > 40)
+		if($step < 1 || $step > 40)
 		{
 			$message = "Schrittweite muss zwischen 1 und 40 liegen";
 			echo $message;
