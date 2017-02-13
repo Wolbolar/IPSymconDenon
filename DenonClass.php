@@ -1449,11 +1449,12 @@ class DENONIPSProfiles extends stdClass
 				$ProfilAssociationsMainZone[$this->ptDynamicVolume] = array(
 												"Ident" => DENON_API_Commands::PSDYNVOL,
 												"Name" => "Dynamic Volume",
-												"Profilesettings" => Array("Intensity", "", "", 0, 2, 0, 0),
+												"Profilesettings" => Array("Intensity", "", "", 0, 3, 0, 0),
 												"Associations" => Array(
 												Array(0, "Heavy",  "", -1),
 												Array(1, "Medium",  "", -1),
-												Array(2, "Light",  "", -1)
+												Array(2, "Light",  "", -1),
+												Array(3, "Off",  "", -1)
 												)
 											);								
 			}	
@@ -3490,6 +3491,7 @@ class DENON_API_Commands extends stdClass
 	const DYNVOLHEV = " HEV"; // Dynamic Volume = Heavy
 	const DYNVOLMED = " MED"; // Dynamic Volume = Medium
 	const DYNVOLLIT = " LIT"; // Dynamic Volume = Light
+	const DYNVOLOFF = " OFF" // Dynamic Volume = Off
 
 	
 	//PSDSX Audyssey DSX ON
@@ -5645,7 +5647,7 @@ class DenonAVRCP_API_Data extends stdClass
 							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005") || ($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802"))
 			{
 				$AVRDynamicVolumeArray = array("VarType" => DENONIPSVarType::vtInteger);
-				$AVRDynamicVolumeArray["ValueMapping"] = array(DENON_API_Commands::DYNVOLHEV => 0, DENON_API_Commands::DYNVOLMED => 1, DENON_API_Commands::DYNVOLLIT => 2);
+				$AVRDynamicVolumeArray["ValueMapping"] = array(DENON_API_Commands::DYNVOLHEV => 0, DENON_API_Commands::DYNVOLMED => 1, DENON_API_Commands::DYNVOLLIT => 2, DENON_API_Commands::DYNVOLOFF => 3);
 				$VarMapping[DENON_API_Commands::PSDYNVOL] = $AVRDynamicVolumeArray;
 			}
 		}
