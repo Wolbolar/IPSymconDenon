@@ -208,6 +208,13 @@ Volume Mainzone hoch oder runter schalten
 Parameter $Value UP / DOWN
 
 ```php
+DAVRT_MasterVolumeStep(int $InstanceID, string $Value, float $Step)
+```
+
+Volume Mainzone hoch oder runter um $Step schalten, z.B. Lautstärke um 5 erhöhen
+Parameter $Value UP / DOWN, $Step Schrittweite der Lautstärke Änderung Minimum 0.5
+
+```php
 DAVRT_MasterVolumeFix(int $InstanceID, float $Value)
 ```
 
