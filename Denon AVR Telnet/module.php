@@ -2328,6 +2328,13 @@ class DenonAVRTelnet extends IPSModule
 	
 	public function MasterVolumeFix(float $Value) // float -80 bis 18 Schrittweite 0.5
 	{
+		if($Value < -80 || $Value > 18)
+		{
+			$message = "Wert muss zwischen -80 und 18 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::MV.$command;
@@ -2357,14 +2364,19 @@ class DenonAVRTelnet extends IPSModule
 	// IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 	public function Input(string $command) 
 	{
-		$AVRType = $this->ReadPropertyInteger('AVRType');
-		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+		$manufacturername = $this->GetManufacturer();
+		$AVRType = $this->GetAVRType($manufacturername);
+		if($manufacturername == "Denon"  && ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W"))
 			{
 				if ($command == "AUX")
 				{
 					$command = "AUX1";
 				}
 			}
+		elseif($manufacturername == "Marantz")
+		{
+			// mögliche Ergänzung
+		}
 		else
 		{
 			if($command == "AUX")
@@ -2375,6 +2387,29 @@ class DenonAVRTelnet extends IPSModule
 		$payload = DENON_API_Commands::SI.$command;
 		$this->SendCommand($payload);
 	}
+	
+	//All Zone Stereo
+	public function AllZoneStereo(string $Value) // "ON" or "OFF"
+	{
+		if($Value != "OFF" && $Value != "Off" && $Value != "off" && $Value != "ON" && $Value != "On" && $Value != "on")
+		{
+			$message = "Wert muss ON oder OFF lauten";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
+		if ($Value == "OFF" || $Value == "Off" || $Value == "off")
+			{
+				$subcommand = DENON_API_Commands::MNZSTOFF;	
+			}
+		elseif ($Value == "ON" || $Value == "On" || $Value == "on")
+			{
+				$subcommand = DENON_API_Commands::MNZSTON;
+			}
+		$payload = DENON_API_Commands::MN.$subcommand;
+		$this->SendCommand($payload);
+	}
+
 	
 	//Get Display NSADisplay
 	public function NSADisplay()
@@ -2846,7 +2881,8 @@ class DenonAVRTelnet extends IPSModule
 	//Video Select
 	public function VideoSelect(string $command) // Video Select DVD , BD , TV , SAT/CBL , DVR ,GAME , AUX , DOCK , SOURCE, MPLAY
 	{
-		$AVRType = $this->ReadPropertyInteger('AVRType');
+		$manufacturername = $this->GetManufacturer();
+		$AVRType = $this->GetAVRType($manufacturername);
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				if ($command == "AUX")
@@ -3756,6 +3792,13 @@ class DenonAVRTelnet extends IPSModule
 
 	public function Zone2VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
+		if($Value < -80 || $Value > 18)
+		{
+			$message = "Wert muss zwischen -80 und 18 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2.$command;
@@ -3848,6 +3891,13 @@ class DenonAVRTelnet extends IPSModule
 
 	public function Zone3VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
+		if($Value < -80 || $Value > 18)
+		{
+			$message = "Wert muss zwischen -80 und 18 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3.$command;
