@@ -58,12 +58,12 @@ Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 m
 
 ### b. Einrichtung in IPS
 
-	In IP-Symcon das gewünschte Device Denon AV Receiver HTTP Control oder Denon AV Receiver Telnet Control anlegen. Sollte noch kein Denon I/O und Denon Splitter angelegt worden sein, wird dies automatisch mit angelegt.
-	Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon / Marantz Device ist zunächst der Hersteller und das AV Receiver Modell auszuwählen und dann sind die gewünschten Befehle zu selektieren die angezeigt werden sollen. Pro genutzter Zone muss jeweils eine neue Instanz
-	in IP-Symcon angelegt werden. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. 
-	Beim HTTP Modul wird der Status automatisch in regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
-	Beim Telnet Modul erfolgt ein Update des Status für die entsprechende Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
-	Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
+In IP-Symcon das gewünschte Device Denon AV Receiver HTTP Control oder Denon AV Receiver Telnet Control anlegen. Sollte noch kein Denon I/O und Denon Splitter angelegt worden sein, wird dies automatisch mit angelegt.
+Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon / Marantz Device ist zunächst der Hersteller und das AV Receiver Modell auszuwählen und dann sind die gewünschten Befehle zu selektieren die angezeigt werden sollen. Pro genutzter Zone muss jeweils eine neue Instanz
+in IP-Symcon angelegt werden. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. 
+Beim HTTP Modul wird der Status automatisch in regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
+Beim Telnet Modul erfolgt ein Update des Status für die entsprechende Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
+Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
 
 
 ## 4. Funktionsreferenz
