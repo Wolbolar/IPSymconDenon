@@ -69,10 +69,10 @@ Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalt
 ## 4. Funktionsreferenz
 
 ### Denon Splitter Telnet:
-	Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt. Bei Öffnen ist ein Haken zu setzten.
+Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt. Bei Öffnen ist ein Haken zu setzten.
 	
 ### Denon Splitter  HTTP
- Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu setzten.
+Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu setzten.
  
 ### Denon AV Receiver Telnet Control
  AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen auswählen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
