@@ -3138,7 +3138,6 @@ class DENON_API_Commands extends stdClass
 	const MSGAME = "GAME"; // Game
 	const MSAUTO = "AUTO"; // Auto
 	const MSNEURAL = "NEURAL"; // Neural
-	const MSSTANDARD = "STANDARD"; // Standard
 	const MSLEFT = "LEFT"; // Change to previous Surround Mode
 	const MSRIGHT = "RIGHT"; // Change to next Surround Mode
 	//Quick Select Mode
