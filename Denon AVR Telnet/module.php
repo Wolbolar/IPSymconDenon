@@ -2338,11 +2338,11 @@ class DenonAVRTelnet extends IPSModule
 		$valmax = 18;
 		$valmin = -80;
 		$currentvol = GetValue($this->GetIDForIdent("MV"));
-		if($command == "UP" && ($currentvol < ($valmax-$step))
+		if($command == "UP" && ($currentvol < ($valmax-$step)))
 		{
 			 $Value = $currentvol + 0.5;
 		}
-		if($command == "DOWN" && ($currentvol > ($valmin+$step))
+		if($command == "DOWN" && ($currentvol > ($valmin+$step)))
 		{
 			 $Value = $currentvol - 0.5;
 		}
