@@ -2389,7 +2389,7 @@ class DenonAVRTelnet extends IPSModule
 	}
 	
 	//All Zone Stereo
-	public function AllZoneStereo(string $value) // "ON" or "OFF"
+	public function AllZoneStereo(string $Value) // "ON" or "OFF"
 	{
 		if ($Value == "OFF" || $Value == "Off" || $Value == "off")
 			{
