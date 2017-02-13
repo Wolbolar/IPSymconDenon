@@ -1383,6 +1383,65 @@ class DENONIPSProfiles extends stdClass
 											);
 			}
 		
+		if(($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802")) 
+			{
+				$ProfilAssociationsMainZone[$this->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Auro 3D",  "", -1),
+												Array(7, "Auro 2D Surround",  "", -1),
+												Array(8, "Multichannel Stereo",  "", -1),
+												Array(9, "Left",  "", -1),
+												Array(10, "Right",  "", -1),
+												Array(11, "Neural",  "", -1),
+												Array(12, "Standard",  "", -1),
+												Array(13, "Matrix",  "", -1),
+												Array(14, "Virtual",  "", -1),
+												Array(15, "Movie",  "", -1),
+												Array(16, "Music",  "", -1),
+												Array(17, "Game",  "", -1)
+												)
+											);
+			}
+							
+		if(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
+							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
+							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005")) 
+			{
+				$ProfilAssociationsMainZone[$this->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Multichannel Stereo",  "", -1),
+												Array(7, "Left",  "", -1),
+												Array(8, "Right",  "", -1),
+												Array(9, "Neural",  "", -1),
+												Array(10, "Standard",  "", -1),
+												Array(11, "Matrix",  "", -1),
+												Array(12, "Virtual",  "", -1),
+												Array(13, "Movie",  "", -1),
+												Array(14, "Music",  "", -1),
+												Array(15, "Game",  "", -1)
+												)
+											);
+			}
+		
 		$ProfilAssociationsMainZone[$this->ptInputSource] = $this->UsedInputSources;
 			/*	
 				array(
@@ -1551,6 +1610,65 @@ class DENONIPSProfiles extends stdClass
 											);									
 			}
 		
+		if(($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802")) 
+			{
+				$ProfilAssociationsZone2[$this->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Auro 3D",  "", -1),
+												Array(7, "Auro 2D Surround",  "", -1),
+												Array(8, "Multichannel Stereo",  "", -1),
+												Array(9, "Left",  "", -1),
+												Array(10, "Right",  "", -1),
+												Array(11, "Neural",  "", -1),
+												Array(12, "Standard",  "", -1),
+												Array(13, "Matrix",  "", -1),
+												Array(14, "Virtual",  "", -1),
+												Array(15, "Movie",  "", -1),
+												Array(16, "Music",  "", -1),
+												Array(17, "Game",  "", -1)
+												)
+											);
+			}
+							
+		if(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
+							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
+							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005")) 
+			{
+				$ProfilAssociationsZone2[$this->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Multichannel Stereo",  "", -1),
+												Array(7, "Left",  "", -1),
+												Array(8, "Right",  "", -1),
+												Array(9, "Neural",  "", -1),
+												Array(10, "Standard",  "", -1),
+												Array(11, "Matrix",  "", -1),
+												Array(12, "Virtual",  "", -1),
+												Array(13, "Movie",  "", -1),
+												Array(14, "Music",  "", -1),
+												Array(15, "Game",  "", -1)
+												)
+											);
+			}
+		
 		$ProfilAssociationsZone2[$this->ptZone2InputSource] = $this->UsedInputSourcesZ2;
 		
 		$ProfilAssociationsZone3 = array
@@ -1685,6 +1803,65 @@ class DENONIPSProfiles extends stdClass
 												Array(20, "Game",  "", -1)
 												)
 											);											
+			}
+		
+		if(($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802")) 
+			{
+				$ProfilAssociationsZone3[$this->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Auro 3D",  "", -1),
+												Array(7, "Auro 2D Surround",  "", -1),
+												Array(8, "Multichannel Stereo",  "", -1),
+												Array(9, "Left",  "", -1),
+												Array(10, "Right",  "", -1),
+												Array(11, "Neural",  "", -1),
+												Array(12, "Standard",  "", -1),
+												Array(13, "Matrix",  "", -1),
+												Array(14, "Virtual",  "", -1),
+												Array(15, "Movie",  "", -1),
+												Array(16, "Music",  "", -1),
+												Array(17, "Game",  "", -1)
+												)
+											);
+			}
+							
+		if(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
+							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
+							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005")) 
+			{
+				$ProfilAssociationsZone3[$this->ptSurroundMode] = array(
+												"Ident" => DENON_API_Commands::MS,
+												"Name" => "Surround Mode",
+												"Profilesettings" => Array("Melody", "", "", 0, 20, 0, 0),
+												"Associations" => Array(
+												Array(0, "Direct",  "", -1),
+												Array(1, "Pure Direct",  "", -1),
+												Array(2, "Stereo",  "", -1),
+												Array(3, "Auto",  "", -1),
+												Array(4, "Dolby Digital",  "", -1),
+												Array(5, "DTS Surround",  "", -1),
+												Array(6, "Multichannel Stereo",  "", -1),
+												Array(7, "Left",  "", -1),
+												Array(8, "Right",  "", -1),
+												Array(9, "Neural",  "", -1),
+												Array(10, "Standard",  "", -1),
+												Array(11, "Matrix",  "", -1),
+												Array(12, "Virtual",  "", -1),
+												Array(13, "Movie",  "", -1),
+												Array(14, "Music",  "", -1),
+												Array(15, "Game",  "", -1)
+												)
+											);
 			}
 		
 		$ProfilAssociationsZone3[$this->ptZone3InputSource] = $this->UsedInputSourcesZ3;
@@ -5401,6 +5578,21 @@ class DenonAVRCP_API_Data extends stdClass
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
 				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "AUTO" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "AURO3D" => 6, "AURO2DSURR" => 7, "MCH STEREO" => 8, "WIDE SCREEN" => 9, "SUPER STADIUM" => 10, "ROCK ARENA" => 11, "JAZZ CLUB" => 12, "CLASSIC CONCERT" => 13, "MONO MOVIE" => 14, "MATRIX" => 15, "VIDEO GAME" => 16,
 													"VIRTUAL" => 17, "MOVIE" => 18, "MUSIC" => 19, "GAME" => 20);
+			}
+			elseif (($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802"))
+			{
+				//Surround Mode
+				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "AUTO" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "AURO3D" => 6, "AURO2DSURR" => 7, "MCH STEREO" => 8, "LEFT" => 9, "RIGHT" => 10, "NEURAL" => 11, "STANDARD" => 12, "MATRIX" => 13, "VIRTUAL" => 14, "MOVIE" => 15, "MUSIC" => 16, "GAME" => 17);
+			}
+			elseif (($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
+							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
+							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005"))
+			{
+				//Surround Mode
+				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "AUTO" => 3, "DOLBY DIGITAL" => 4,  "DTS SURROUND" => 5, "MCH STEREO" => 6, "LEFT" => 7, "RIGHT" => 8, "NEURAL" => 9, "STANDARD" => 10, "MATRIX" => 11, "VIRTUAL" => 12, "MOVIE" => 13, "MUSIC" => 14, "GAME" => 15);
 			}
 			elseif ($AVRType == "AVR-4311")
 			{
