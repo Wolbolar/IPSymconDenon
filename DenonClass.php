@@ -3588,7 +3588,7 @@ class DENON_API_Commands extends stdClass
 	const PSRSTRMODE3 = " MODE3"; //Audio Restorer HQ
 	
 	//Cursor
-	const MN = "MN"; // Cursor Navigation
+	
 	const MNCUP = "CUP"; // Cursor Up
 	const MNCDN = "CDN"; // Cursor Down
 	const MNCRT = "CRT"; // Cursor Right
