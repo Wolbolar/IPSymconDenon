@@ -2388,6 +2388,22 @@ class DenonAVRTelnet extends IPSModule
 		$this->SendCommand($payload);
 	}
 	
+	//All Zone Stereo
+	public function AllZoneStereo(string $value) // "ON" or "OFF"
+	{
+		if ($Value == "OFF" || $Value == "Off" || $Value == "off")
+			{
+				$subcommand = DENON_API_Commands::MNZSTOFF;	
+			}
+		elseif ($Value == "ON" || $Value == "On" || $Value == "on")
+			{
+				$subcommand = DENON_API_Commands::MNZSTON;
+			}
+		$payload = DENON_API_Commands::MN.$subcommand;
+		$this->SendCommand($payload);
+	}
+
+	
 	//Get Display NSADisplay
 	public function NSADisplay()
 	{

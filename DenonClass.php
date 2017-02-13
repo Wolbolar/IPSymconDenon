@@ -3074,6 +3074,7 @@ class DENON_API_Commands extends stdClass
 	const SV = "SV"; // Video Select
 	const SLP = "SLP"; // Main Zone Sleep Timer
 	const MS = "MS"; // Select Surround Mode
+	const MN = "MN"; // System
 	const MSQUICK = "MSQUICK"; // Quick Select Mode Select
 	const MSQUICKMEMORY = "MEMORY"; // Quick Select Mode Memory
 	
@@ -3852,6 +3853,11 @@ class DENON_API_Commands extends stdClass
 	
 	const SURROUNDDISPLAY = "SurroundDisplay"; // Nur DisplayIdent
 	
+	//MN
+	
+	// All Zone Stereo
+	const MNZSTON = "ZST ON";
+	const MNZSTOFF = "ZST OFF";
 	
 	// AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X3100W / AVR-X2100W / S900W / AVR-X1100W / S700W
 	const PSGRAPHICEQ = "PSGEQ"; // Graphic EQ
