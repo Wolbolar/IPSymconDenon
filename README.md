@@ -52,16 +52,38 @@ Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 m
 
 ### a. Laden des Moduls
 
-   Über das 'Modul Control' in IP-Symcon (Ver. 4.1) folgende URL hinzufügen:
+   Wir wechseln zu IP-Symcon (Ver. 4.1) und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
 	
     `https://github.com/Wolbolar/IPSymconDenon`  
 
 ### b. Einrichtung in IPS
 
-In IP-Symcon das gewünschte Device Denon AV Receiver HTTP Control oder Denon AV Receiver Telnet Control anlegen. Sollte noch kein Denon I/O und Denon Splitter angelegt worden sein, wird dies automatisch mit angelegt.
-Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen. Bei dem Denon / Marantz Device ist zunächst der Hersteller und das AV Receiver Modell auszuwählen und dann sind die gewünschten Befehle zu selektieren die angezeigt werden sollen. Pro genutzter Zone muss jeweils eine neue Instanz
-in IP-Symcon angelegt werden. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. 
-Beim HTTP Modul wird der Status automatisch in regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
+In IP-Symcon wird von jede Zone des AV Receivers den wir nutzen wollen eine seperate Instanz angelegt. Der Denon IO und Denon Splitter wird
+automatisch mit angelegt. Um die Instanz zu erstellen wechseln wir in die Kategorie, unter der wir die Instanz platzieren wollen
+und erstellen mit *CTRL+1* eine neue Instanz.
+
+![Modulauswahl](Doku/install1.png?raw=true "Modulauswahl")
+
+Über _**Denon**_ finden wir die Instanz und mit weiter und Ok wird diese angelegt.
+
+Zur Auswahl stehen in IP-Symcon Denon/Marantz AV Receiver HTTP Control oder Denon/Marantz AV Receiver Telnet Control. Die Denon/Marantz AV Receiver Telnet Control verfügt über den deutlich größeren Funktionsumfang und sollte nach Möglichkeit genutzt werden.
+Es kann aber jeweils nur ein gerät auf diese Weise mit dem AV Receiver verbunden sein. Sollte also bereits ein anderes Gerät oder Remote diese Verbindung nutzen kann auch alternativ Denon/Marantz AV Receiver HTTP Control genutzt werden. 
+Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen.
+
+Bei dem Denon / Marantz Device ist zunächst der Hersteller auszuwählen und dann mit _Übernehmen_ zu bestätigen.
+
+![Herstellerauswahl](Doku/config1.png?raw=true "Herstellerauswahl")
+
+Anschließend das AV Receiver Modell auszuwählen und wieder mit _Übernehmen_ bestätigen.
+
+![AVRAuswahl](Doku/config2.png?raw=true "AVR Auswahl")
+
+Jetzt noch die Zone selektieren die benutzt werden soll und mit _Übernehmen_ bestätigen.
+
+![ZoneAuswahl](Doku/config3.png?raw=true "Zone Auswahl")
+
+Jetzt wird abhänig von dem AV Receiver Modell und der Zone Befehle zum selektieren angezeigt. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. Die Befehle die im Webfront genutzt werden sollen können nun ausgewählt werden oder auch wieder bei Bedarf abgewählt werden.
+Beim HTTP Modul wird der Status automatisch regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
 Beim Telnet Modul erfolgt ein Update des Status für die entsprechende Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
 Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
 
