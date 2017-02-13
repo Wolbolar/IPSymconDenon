@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"de": { 
+			"Open":"Öffnen",
+			"AVR ip adress":"IP Adresse des AVR",
+			"ip adress":"IP Adresse",
+			"seconds":"Sekunden",
+			"creating instance.":"Die Instanz wird erstellt.",
+			"configuration is valid.":"Konfiguration gültig.",
+			"AVR is inactive.":"AVR ist inaktiv.",
+			"AVR ip adress must not be empty.":"AVR IP Adresse darf nicht leer sein.",
+			"connection lost to AVR.":"Verbindung zum AVR verloren.",
+			"no valid ip adress.":"Keine gültige IP Adresse."
+		}
+	}
+}

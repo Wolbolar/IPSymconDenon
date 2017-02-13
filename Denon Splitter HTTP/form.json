@@ -6,11 +6,11 @@
                     "type": "CheckBox",
                     "caption": "Open"
                 },
-				{ "type": "Label", "label": "IP Adresse des Denon AVR" },
+				{ "type": "Label", "label": "AVR ip adress" },
                 {
                     "name": "Host",
                     "type": "ValidationTextBox",
-                    "caption": "IP Adresse"
+                    "caption": "ip adress"
                 }
             ],
     "status":
@@ -18,32 +18,32 @@
                 {
                     "code": 101,
                     "icon": "inactive",
-                    "caption": "Die Instanz wird erstellt."
+                    "caption": "creating instance."
                 },
 				{
                     "code": 102,
                     "icon": "active",
-                    "caption": "Denon AVR ereichbar."
+                    "caption": "configuration is valid."
                 },
                 {
                     "code": 104,
                     "icon": "inactive",
-                    "caption": "Interface geschlossen."
+                    "caption": "AVR is inactive."
                 },
                 {
                     "code": 202,
                     "icon": "error",
-                    "caption": "Denon AVR IP Adresse darf nicht leer sein."
+                    "caption": "AVR ip adress must not be empty."
                 },
                 {
                     "code": 203,
                     "icon": "error",
-                    "caption": "Verbindung zum Denon AVR verloren."
+                    "caption": "connection lost to AVR."
                 },
 				{
                     "code": 204,
                     "icon": "error",
-                    "caption": "Keine gültige IP Adresse."
+                    "caption": "no valid ip adress."
                 }
             ]
 }

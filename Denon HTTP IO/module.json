@@ -1,9 +1,11 @@
 {
     "id": "{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}",
+	"title": "Denon/Marantz I/O Instanz für Anbindung über HTTP",
+	"description": "I/O Instanz für Denon/Marantz Receiver die eine Steuerung über HTTP unterstützten",
     "name": "DenonAVRIOHTTP",
     "type": 1,
-    "vendor": "Denon",
-    "aliases": ["Denon AVR I/O HTTP"],
+    "vendor": "Denon/Marantz",
+    "aliases": ["Denon/Marantz AVR I/O HTTP"],
     "parentRequirements": [],
     "childRequirements": ["{E73CE1D0-6670-4607-ACA1-30469558D2F7}"],
     "implemented": ["{B403182C-3506-466C-B8D5-842D9237BF02}"],

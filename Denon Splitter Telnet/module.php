@@ -29,15 +29,9 @@ class DenonSplitterTelnet extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
-		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-		$this->RegisterVariableString("IOIN", "IOIN", "", 3);
-        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
-        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
-		IPS_SetHidden($this->GetIDForIdent('IOIN'), true);
-		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 4);
+		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 1);
         //IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
-		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
+		$this->RegisterVariableString("AVRType", "AVRType", "", 2);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	
 		//IP Prüfen
@@ -292,6 +286,7 @@ public function GetInputVarMapping()
 					$AVRType = $this->GetAVRType();
 					$InputMapping = $this->GetInputVarMapping();
 					$data = $DenonStatus->getStates ($InputMapping, $AVRType);
+					$this->SendDebug("States",print_r($data,true),0);
 									
 					// Weiterleitung zu allen Gerät-/Device-Instanzen
 					$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
@@ -391,23 +386,22 @@ public function GetInputVarMapping()
 		// Empfangene Daten vom I/O
 		$payload = json_decode($JSONString);
 		$dataio = $payload->Buffer;
-		SetValueString($this->GetIDForIdent("IOIN"), $dataio);
+		$this->SendDebug("Data from I/O",print_r($dataio,true),0);
+		
 		//Daten aufteilen
 		$data = preg_split('/\r/', $dataio);
 		array_pop($data);
 		$datamessage = json_encode($data);
-		if ($this->debug)
-		{
-			IPS_LogMessage("Denon Telnet Splitter", "Received Data: ".$datamessage);
-		}
+		$this->SendDebug("Received Data:",$datamessage,0);
+		
 		$APIData = new DenonAVRCP_API_Data();
 		$APIData->Data = $data;
 		$APIData->AVRProtocol = "Telnet";
 		$InputMapping = $this->GetInputVarMapping();
 		$SetCommand = $APIData->GetCommandResponse($APIData->Data, $InputMapping);
 		$message = json_encode($SetCommand);
-		SetValueString($this->GetIDForIdent("BufferIN"), $message);
-			 
+		$this->SendDebug("Buffer IN:",$message,0);
+					 
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $SetCommand))); //Denon Telnet Splitter Interface GUI
 	}
@@ -421,8 +415,8 @@ public function GetInputVarMapping()
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
 		$datasend = $data->Buffer;
-		SetValueString($this->GetIDForIdent("CommandOut"), $datasend);
-			 
+		$this->SendDebug("Command Out:",print_r($datasend,true),0);
+					 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
 		try

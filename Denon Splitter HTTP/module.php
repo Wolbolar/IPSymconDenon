@@ -12,8 +12,6 @@ class DenonSplitterHTTP extends IPSModule
 		
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
-		// ClientSocket benötigt
-        //$this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR HTTP"); //Clientsocket
 		$this->RequireParent("{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}", "DenonAVR HTTP"); //Denon HTTP Socket	
 
         $this->RegisterPropertyString("Host", "192.168.x.x");
@@ -26,13 +24,7 @@ class DenonSplitterHTTP extends IPSModule
     {
 	//Never delete this line!
         parent::ApplyChanges();
-        $change = false;
-
-		$this->RegisterVariableString("BufferIN", "BufferIN", "", 1);
-        $this->RegisterVariableString("CommandOut", "CommandOut", "", 2);
-        IPS_SetHidden($this->GetIDForIdent('CommandOut'), true);
-        IPS_SetHidden($this->GetIDForIdent('BufferIN'), true);
-		
+        $change = false;	
 		
 	//IP Prüfen
 		$ip = $this->ReadPropertyString('Host');
@@ -100,7 +92,7 @@ class DenonSplitterHTTP extends IPSModule
 	protected $debug = false;
 	
 	// Input
-	public function SaveInputVarmapping($MappingInputs)
+	public function SaveInputVarmapping(string $MappingInputs)
 		{
 			DAVRIO_SaveInputVarmapping($this->GetParent(), $MappingInputs);
 		}
@@ -183,13 +175,14 @@ class DenonSplitterHTTP extends IPSModule
         }
         return false;
     }
-
+	
+	/*
     protected function SetStatus($InstanceStatus)
     {
         if ($InstanceStatus <> IPS_GetInstance($this->InstanceID)['InstanceStatus'])
             parent::SetStatus($InstanceStatus);
     }
-
+	*/
 	
 	// Data an Child weitergeben
 	public function ReceiveData($JSONString)
@@ -198,8 +191,7 @@ class DenonSplitterHTTP extends IPSModule
 		// Empfangene Daten vom Denon HTTP I/O
 		$data = json_decode($JSONString);
 		$dataio = json_encode($data->Buffer);
-		SetValueString($this->GetIDForIdent("BufferIN"), $dataio);
-		
+		$this->SendDebug("Buffer IN",$dataio,0);
 		
 		//IPS_LogMessage("ReceiveData Denon HTTP Splitter", utf8_decode($data->Buffer)); //utf8_decode geht nur bei string
 	 
@@ -218,13 +210,9 @@ class DenonSplitterHTTP extends IPSModule
 	 
 		// Empfangene Daten von der Device Instanz
 		$data = json_decode($JSONString);
-		if($this->debug)
-		{
-			IPS_LogMessage("Forward Data Denon HTTP Splitter", utf8_decode($data->Buffer));
-		}
 		$datasend = $data->Buffer;
-		SetValueString($this->GetIDForIdent("CommandOut"), $datasend);
-	 
+		$this->SendDebug("Command Out",print_r($datasend,true),0);
+			 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
 		try
@@ -238,7 +226,7 @@ class DenonSplitterHTTP extends IPSModule
 		}
 	 
 		// Weiterleiten zur I/O Instanz
-		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}", "Buffer" => $data->Buffer))); //TX GUI
+		$resultat = $this->SendDataToParent(json_encode(Array("DataID" => "{B403182C-3506-466C-B8D5-842D9237BF02}", "Buffer" => $data->Buffer))); // Denon I/O HTTP TX GUI
 	 
 		// Weiterverarbeiten und durchreichen
 		return $resultat;
@@ -251,7 +239,7 @@ class DenonSplitterHTTP extends IPSModule
     {
         for ($i = 0; $i < 3000; $i++)
         {
-            if (IPS_SemaphoreEnter("DENONAVRT_" . (string) $this->InstanceID . (string) $ident, 1))
+            if (IPS_SemaphoreEnter("DENONAVRH_" . (string) $this->InstanceID . (string) $ident, 1))
             {
                 return true;
             }
@@ -265,7 +253,7 @@ class DenonSplitterHTTP extends IPSModule
 
     private function unlock($ident)
     {
-          IPS_SemaphoreLeave("DENONAVRT_" . (string) $this->InstanceID . (string) $ident);
+          IPS_SemaphoreLeave("DENONAVRH_" . (string) $this->InstanceID . (string) $ident);
     }
 }
 

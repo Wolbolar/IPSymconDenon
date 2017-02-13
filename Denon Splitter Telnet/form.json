@@ -6,16 +6,16 @@
                     "type": "CheckBox",
                     "caption": "Open"
                 },
-				{ "type": "Label", "label": "IP Adresse des Denon AVR / Port für Telnet 23" },
+				{ "type": "Label", "label": "AVR ip adress / port telnet 23" },
                 {
                     "name": "Host",
                     "type": "ValidationTextBox",
-                    "caption": "IP Adresse"
+                    "caption": "ip adress"
                 },
 				{
                     "name": "Port",
                     "type": "NumberSpinner",
-                    "caption": "Denon Port"
+                    "caption": "port"
                 }
             ],
     "status":
@@ -23,27 +23,27 @@
                 {
                     "code": 101,
                     "icon": "inactive",
-                    "caption": "Die Instanz wird erstellt."
+                    "caption": "creating instance."
                 },
 				{
                     "code": 102,
                     "icon": "active",
-                    "caption": "Denon AVR ist ereichbar."
+                    "caption": "configuration is valid."
                 },
                 {
                     "code": 104,
                     "icon": "inactive",
-                    "caption": "Interface geschlossen."
+                    "caption": "AVR is inactive."
                 },
                 {
                     "code": 202,
                     "icon": "error",
-                    "caption": "Denon AVR IP Adresse darf nicht leer sein."
+                    "caption": "AVR ip adress must not be empty."
                 },
                 {
                     "code": 203,
                     "icon": "error",
-                    "caption": "Verbindung zum Denon AVR verloren."
+                    "caption": "connection lost to AVR."
                 },
 				{
                     "code": 204,

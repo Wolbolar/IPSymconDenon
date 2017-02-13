@@ -1,9 +1,11 @@
 {
     "id": "{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}",
+	"title": "Denon/Marantz Splitter Instanz für Anbindung über HTTP",
+	"description": "Splitter Instanz für Denon/Marantz Receiver über HTTP",
     "name": "DenonSplitterHTTP",
     "type": 2,
-    "vendor": "Denon",
-    "aliases": ["Denon AVR Splitter HTTP"],
+    "vendor": "Denon/Marantz",
+    "aliases": ["Denon/Marantz AVR Splitter HTTP"],
     "parentRequirements": ["{B403182C-3506-466C-B8D5-842D9237BF02}"],
     "childRequirements": ["{D9209251-0036-48C2-AF96-9F5EDE761A52}"],
     "implemented": ["{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "{DB1DDFAD-0DE9-47CF-B8E8-FB7E7425BF90}"],
