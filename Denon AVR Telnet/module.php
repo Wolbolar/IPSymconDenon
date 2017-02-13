@@ -2330,7 +2330,9 @@ class DenonAVRTelnet extends IPSModule
 	{
 		if($Value < -80 || $Value > 18)
 		{
-			echo "Wert muss zwischen -80 und 18 liegen";
+			$message = "Wert muss zwischen -80 und 18 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
 			return; 
 		}
 		$FunctionType = "Volume";
@@ -3767,6 +3769,13 @@ class DenonAVRTelnet extends IPSModule
 
 	public function Zone2VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
+		if($Value < -80 || $Value > 18)
+		{
+			$message = "Wert muss zwischen -80 und 18 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z2.$command;
@@ -3859,6 +3868,13 @@ class DenonAVRTelnet extends IPSModule
 
 	public function Zone3VolumeFix(float $Value) // 18(db) bis -80(db), Step 0.5
 	{
+		if($Value < -80 || $Value > 18)
+		{
+			$message = "Wert muss zwischen -80 und 18 liegen";
+			echo $message;
+			$this->SendDebug("Fehlerhafter Eingabewert:",$message,0);
+			return; 
+		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
 		$payload = DENON_API_Commands::Z3.$command;
