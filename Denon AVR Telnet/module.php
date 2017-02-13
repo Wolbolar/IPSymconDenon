@@ -2362,14 +2362,19 @@ class DenonAVRTelnet extends IPSModule
 	// IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 	public function Input(string $command) 
 	{
-		$AVRType = $this->ReadPropertyInteger('AVRType');
-		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+		$manufacturername = $this->GetManufacturer();
+		$AVRType = $this->GetAVRType($manufacturername);
+		if($manufacturer == 1  && ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W"))
 			{
 				if ($command == "AUX")
 				{
 					$command = "AUX1";
 				}
 			}
+		elseif($manufacturer == 2)
+		{
+			// mögliche Ergänzung
+		}
 		else
 		{
 			if($command == "AUX")
@@ -2851,7 +2856,8 @@ class DenonAVRTelnet extends IPSModule
 	//Video Select
 	public function VideoSelect(string $command) // Video Select DVD , BD , TV , SAT/CBL , DVR ,GAME , AUX , DOCK , SOURCE, MPLAY
 	{
-		$AVRType = $this->ReadPropertyInteger('AVRType');
+		$manufacturername = $this->GetManufacturer();
+		$AVRType = $this->GetAVRType($manufacturername);
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				if ($command == "AUX")
