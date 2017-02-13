@@ -3605,8 +3605,7 @@ class DENON_API_Commands extends stdClass
 	const MNSRCON = " ON"; // GUI Menu On
 	const MNSRCOFF = " OFF"; // GUI Menu Off
 	
-	// Surround Modes Response
-	
+	// Surround Modes Response	
 	//Dolby Digital
 	const MSDOLBYPROLOGIC = "MSDOLBY PRO LOGIC"; // DOLBY PRO LOGIC
 	const MSDOLBYPL2C = "MSDOLBY PL2 C"; // DOLBY PL2 C
@@ -5632,7 +5631,7 @@ class DenonAVRCP_API_Data extends stdClass
 				//Surround Mode
 				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
 				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "AUTO" => 3, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
-															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
+															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDIGITAL => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
 															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
 															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
 															DENON_API_Commands::DOLBYHDPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4, DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::MULTICNIN => 4, DENON_API_Commands::MCHINPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4,
@@ -5646,7 +5645,7 @@ class DenonAVRCP_API_Data extends stdClass
 															DENON_API_Commands::MCHINDS => 5, DENON_API_Commands::MCHINNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5, DENON_API_Commands::DOLBYDNEWNEOXC => 5, DENON_API_Commands::DOLBYDNEWNEOXM => 5, DENON_API_Commands::DOLBYDNEWNEOXG => 5,
 															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
 															DENON_API_Commands::DTSHDNEOXG => 5, DENON_API_Commands::AURO3D => 6, DENON_API_Commands::AURO2DSURR => 7, "MCH STEREO" => 8, "WIDE SCREEN" => 9, "SUPER STADIUM" => 10, "ROCK ARENA" => 11, "JAZZ CLUB" => 12, "CLASSIC CONCERT" => 13, "MONO MOVIE" => 14, "MATRIX" => 15, "VIDEO GAME" => 16,
-															"VIRTUAL" => 17, DENON_API_Commands::DOLBYPL2C => 18, DENON_API_Commands::DOLBYPL2M => 19, DENON_API_Commands::DOLBYPL2G => 20);
+															"VIRTUAL" => 17, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2G => 4);
 			}
 			elseif($AVRType == "AVR-4311")
 			{
@@ -5668,6 +5667,49 @@ class DenonAVRCP_API_Data extends stdClass
 															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
 															DENON_API_Commands::DTSHDNEOXG => 5, "MCH STEREO" => 6, "WIDE SCREEN" => 7, "SUPER STADIUM" => 8, "ROCK ARENA" => 9, "JAZZ CLUB" => 10, "CLASSIC CONCERT" => 11, "MONO MOVIE" => 12, "MATRIX" => 13, "VIDEO GAME" => 14,
 															"VIRTUAL" => 15);
+			}
+			elseif(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
+							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
+							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005"))
+			{
+				//Surround Mode
+				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 10, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2G => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
+															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
+															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
+															DENON_API_Commands::DOLBYHDPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4, DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::MULTICNIN => 4, DENON_API_Commands::MCHINPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4,
+															DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::DOLBYDPLUS => 4, DENON_API_Commands::DOLBYDPLUSEX => 4, DENON_API_Commands::DOLBYTRUEHD => 4, DENON_API_Commands::DOLBYHD => 4, DENON_API_Commands::DOLBYHDEX => 4,
+															DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYSURROUND => 4, DENON_API_Commands::DOLBYATMOS => 4, DENON_API_Commands::DOLBYDDS => 4, DENON_API_Commands::MPEG2AAC => 4, DENON_API_Commands::AACDOLBYEX => 4,
+															DENON_API_Commands::AACPL2XC => 4, DENON_API_Commands::AACPL2XM => 4, DENON_API_Commands::AACPL2XH => 4, DENON_API_Commands::AACDS => 4, DENON_API_Commands::AACNEOXC => 4, DENON_API_Commands::AACNEOXM => 4, DENON_API_Commands::AACNEOXG => 4,
+															DENON_API_Commands::DTSSURROUNDRES => 5, DENON_API_Commands::DTSNEO6C => 5, DENON_API_Commands::DTSNEO6M => 5, DENON_API_Commands::DTSNEOXM => 5, DENON_API_Commands::DTSNEOXG => 5, DENON_API_Commands::DTSESDSCRT61 => 5,
+															DENON_API_Commands::DTSESMTRX61 => 5, DENON_API_Commands::DTSPL2XC => 5, DENON_API_Commands::DTSPL2XM => 5, DENON_API_Commands::DTSPL2ZH => 5, DENON_API_Commands::DTSNEO6 => 5, DENON_API_Commands::DTS9624 => 5, DENON_API_Commands::DTS96ESMTRX => 5,
+															DENON_API_Commands::DTSHDPL2XC => 5, DENON_API_Commands::DTSHDPL2XM => 5, DENON_API_Commands::DTSHDPL2XH => 5, DENON_API_Commands::NEO6CDSX => 5, DENON_API_Commands::NEO6MDSX => 5, DENON_API_Commands::DTSHD => 5, DENON_API_Commands::DTSHDMSTR => 5,
+															DENON_API_Commands::DTSHDNEO6 => 5, DENON_API_Commands::DTSES8CHDSCRT => 5, DENON_API_Commands::DTSEXPRESS => 5, DENON_API_Commands::DTSDS => 5, DENON_API_Commands::DOLBYDNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5,
+															DENON_API_Commands::MCHINDS => 5, DENON_API_Commands::MCHINNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5, DENON_API_Commands::DOLBYDNEWNEOXC => 5, DENON_API_Commands::DOLBYDNEWNEOXM => 5, DENON_API_Commands::DOLBYDNEWNEOXG => 5,
+															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
+															DENON_API_Commands::DTSHDNEOXG => 5, "MCH STEREO" => 6, "MATRIX" => 11, "MOVIE" => 13, "MUSIC" => 14, "GAME" => 15, DENON_API_Commands::NEURAL => 9, "VIRTUAL" => 12);
+			}		
+			elseif(($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802"))
+			{
+				//Surround Mode
+				$AVRSurroundModeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRSurroundModeArray["ValueMapping"] = array("DIRECT" => 0, "PURE DIRECT" => 1, "STEREO" => 2, "STANDARD" => 12, DENON_API_Commands::DOLBYDIGITALRES => 4, DENON_API_Commands::DOLBYPL2C => 4, DENON_API_Commands::DOLBYPL2G => 4, DENON_API_Commands::DOLBYPL2M => 4, DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYPROLOGIC => 4, DENON_API_Commands::DOLBYPL2XC => 4, DENON_API_Commands::DOLBYPL2XM => 4,
+															DENON_API_Commands::DOLBYPL2XG => 4, DENON_API_Commands::DOLBYPL2ZH => 4, DENON_API_Commands::DOLBYPL2XH => 4, DENON_API_Commands::DOLBYDEX => 4, DENON_API_Commands::DOLBYD => 4, DENON_API_Commands::DOLBYDPL2XC => 4,
+															DENON_API_Commands::DOLBYDPL2XM => 4, DENON_API_Commands::DOLBYDPL2XH => 4, DENON_API_Commands::PLDSX => 4, DENON_API_Commands::PL2CDSX => 4, DENON_API_Commands::PL2MDSX => 4, DENON_API_Commands::PL2GDSX => 4,
+															DENON_API_Commands::PL2XCDSX => 4, DENON_API_Commands::PL2XMDSX => 4, DENON_API_Commands::PL2XGDSX => 4, DENON_API_Commands::DOLBYDPLUSPL2XC => 4, DENON_API_Commands::DOLBYDPLUSPL2XM => 4, DENON_API_Commands::DOLBYDPLUSPL2XH => 4,
+															DENON_API_Commands::DOLBYHDPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4, DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::MULTICNIN => 4, DENON_API_Commands::MCHINPL2XC => 4, DENON_API_Commands::DOLBYHDPL2XM => 4,
+															DENON_API_Commands::DOLBYHDPL2XH => 4, DENON_API_Commands::DOLBYDPLUS => 4, DENON_API_Commands::DOLBYDPLUSEX => 4, DENON_API_Commands::DOLBYTRUEHD => 4, DENON_API_Commands::DOLBYHD => 4, DENON_API_Commands::DOLBYHDEX => 4,
+															DENON_API_Commands::DOLBYPL2H => 4, DENON_API_Commands::DOLBYSURROUND => 4, DENON_API_Commands::DOLBYATMOS => 4, DENON_API_Commands::DOLBYDDS => 4, DENON_API_Commands::MPEG2AAC => 4, DENON_API_Commands::AACDOLBYEX => 4,
+															DENON_API_Commands::AACPL2XC => 4, DENON_API_Commands::AACPL2XM => 4, DENON_API_Commands::AACPL2XH => 4, DENON_API_Commands::AACDS => 4, DENON_API_Commands::AACNEOXC => 4, DENON_API_Commands::AACNEOXM => 4, DENON_API_Commands::AACNEOXG => 4,
+															DENON_API_Commands::DTSSURROUNDRES => 5, DENON_API_Commands::DTSNEO6C => 5, DENON_API_Commands::DTSNEO6M => 5, DENON_API_Commands::DTSNEOXM => 5, DENON_API_Commands::DTSNEOXG => 5, DENON_API_Commands::DTSESDSCRT61 => 5,
+															DENON_API_Commands::DTSESMTRX61 => 5, DENON_API_Commands::DTSPL2XC => 5, DENON_API_Commands::DTSPL2XM => 5, DENON_API_Commands::DTSPL2ZH => 5, DENON_API_Commands::DTSNEO6 => 5, DENON_API_Commands::DTS9624 => 5, DENON_API_Commands::DTS96ESMTRX => 5,
+															DENON_API_Commands::DTSHDPL2XC => 5, DENON_API_Commands::DTSHDPL2XM => 5, DENON_API_Commands::DTSHDPL2XH => 5, DENON_API_Commands::NEO6CDSX => 5, DENON_API_Commands::NEO6MDSX => 5, DENON_API_Commands::DTSHD => 5, DENON_API_Commands::DTSHDMSTR => 5,
+															DENON_API_Commands::DTSHDNEO6 => 5, DENON_API_Commands::DTSES8CHDSCRT => 5, DENON_API_Commands::DTSEXPRESS => 5, DENON_API_Commands::DTSDS => 5, DENON_API_Commands::DOLBYDNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5,
+															DENON_API_Commands::MCHINDS => 5, DENON_API_Commands::MCHINNEOXC => 5, DENON_API_Commands::DOLBYDNEOXM => 5, DENON_API_Commands::DOLBYDNEOXG => 5, DENON_API_Commands::DOLBYDNEWNEOXC => 5, DENON_API_Commands::DOLBYDNEWNEOXM => 5, DENON_API_Commands::DOLBYDNEWNEOXG => 5,
+															DENON_API_Commands::DOLBYHDDS => 5, DENON_API_Commands::DOLBYHDNEOXC => 5, DENON_API_Commands::DOLBYHDNEOXM => 5, DENON_API_Commands::DOLBYHDNEOXG => 5, DENON_API_Commands::DTSHDDS => 5, DENON_API_Commands::DTSHDNEOXC => 5, DENON_API_Commands::DTSHDNEOXM => 5,
+															DENON_API_Commands::DTSHDNEOXG => 5, "MCH STEREO" => 8, "MATRIX" => 13, "MOVIE" => 15, "MUSIC" => 16, "GAME" => 17, DENON_API_Commands::NEURAL => 11, "VIRTUAL" => 14);
 			}
 			else
 			{
