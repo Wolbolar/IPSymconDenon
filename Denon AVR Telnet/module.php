@@ -5210,8 +5210,11 @@ elseif ($status == true)// Ausschalten
 				{ "type": "Label", "label": "Audio:" },
 				{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },
 				{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
-				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },
-				{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },';
+				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },';
+			}		
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DPreset", "caption": "AuroMatic3DPreset" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
