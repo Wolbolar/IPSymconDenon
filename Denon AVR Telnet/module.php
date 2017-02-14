@@ -789,6 +789,7 @@ class DenonAVRTelnet extends IPSModule
 		IPS_SetProperty($this->InstanceID, "ToneCTRL", false);
 		IPS_SetProperty($this->InstanceID, "RoomSize", false);
 		IPS_SetProperty($this->InstanceID, "GUIMenuSource", false);
+		IPS_SetProperty($this->InstanceID, "SurroundPlayMode", false);
 		IPS_ApplyChanges($this->InstanceID); //Neue Konfiguration übernehmen
 	}
 	
@@ -5331,9 +5332,12 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "StageWidth", "caption": "Stage Width" },
 				{ "type": "CheckBox", "name": "Subwoofer", "caption": "Subwoofer" },
 				{ "type": "CheckBox", "name": "SubwooferATT", "caption": "Subwoofer ATT" },
-				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },
-				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
-				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';	
+				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "TopSurround", "caption": "Top Surround" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
