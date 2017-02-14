@@ -5176,15 +5176,19 @@ elseif ($status == true)// Ausschalten
 		
 		protected function FormMainzone($AVRType)
 		{
+			$manufacturername = $this->GetManufacturer();
 			$form = '{ "type": "Label", "label": "main zone:" },
 					{ "type": "Label", "label": "speaker settings are only available with the telnet remote mode:" },
 					{ "type": "Label", "label": "speaker:" },
 					{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
 					{ "type": "CheckBox", "name": "FR", "caption": "Front Right" },
-					{ "type": "CheckBox", "name": "C", "caption": "Center" },
-					{ "type": "CheckBox", "name": "SW", "caption": "Subwoofer" },
-					{ "type": "CheckBox", "name": "SW2", "caption": "Subwoofer 2" },
-					{ "type": "CheckBox", "name": "SL", "caption": "Surround Left" },
+					{ "type": "CheckBox", "name": "C", "caption": "Center" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "SW", "caption": "Subwoofer" },
+					{ "type": "CheckBox", "name": "SW2", "caption": "Subwoofer 2" },';
+			}
+			$form = '{ "type": "CheckBox", "name": "SL", "caption": "Surround Left" },
 					{ "type": "CheckBox", "name": "SR", "caption": "Surround Right" },
 					{ "type": "CheckBox", "name": "SBL", "caption": "Surround Back Left" },
 					{ "type": "CheckBox", "name": "SBR", "caption": "Surround Back Right" },
