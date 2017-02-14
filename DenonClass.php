@@ -5951,7 +5951,17 @@ class DenonAVRCP_API_Data extends stdClass
 				$AVRMSArray["ValueMapping"] = array(DENON_API_Commands::SCH48P => 0, DENON_API_Commands::SCH10I => 1, DENON_API_Commands::SCH72P => 2, DENON_API_Commands::SCH10P => 3, DENON_API_Commands::SCH10P24 => 4, DENON_API_Commands::SCH4K => 5, DENON_API_Commands::SCH4KF => 6, DENON_API_Commands::SCAUTO => 7);
 				$VarMapping[DENON_API_Commands::VSSCH] = $AVRMSArray;
 			}
-		
+		// Dynamic Volume
+		if(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
+							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
+							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005") || ($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802"))
+			{
+				$AVRDynamicVolumeArray = array("VarType" => DENONIPSVarType::vtInteger);
+				$AVRDynamicVolumeArray["ValueMapping"] = array(DENON_API_Commands::DYNVOLHEV => 0, DENON_API_Commands::DYNVOLMED => 1, DENON_API_Commands::DYNVOLLIT => 2, DENON_API_Commands::DYNVOLOFF => 3);
+				$VarMapping[DENON_API_Commands::PSDYNVOL] = $AVRDynamicVolumeArray;
+			}	
+				
 		return $VarMapping;	
 	}
 	
