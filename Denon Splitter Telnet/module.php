@@ -286,7 +286,8 @@ public function GetInputVarMapping()
 					$AVRType = $this->GetAVRType();
 					$InputMapping = $this->GetInputVarMapping();
 					$data = $DenonStatus->getStates ($InputMapping, $AVRType);
-					$this->SendDebug("States",print_r($data,true),0);
+					$datalog = json_encode($data);
+					$this->SendDebug("HTTP States:",$datalog,0);
 									
 					// Weiterleitung zu allen Gerät-/Device-Instanzen
 					$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
