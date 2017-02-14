@@ -1654,7 +1654,7 @@ class DenonAVRTelnet extends IPSModule
 		
     }
 	
-	protected function SendRequest($APICommand, $Space)
+	public function SendRequest($APICommand, $Space)
 	{
 		IPS_Sleep(30);
 		if ($Space)
