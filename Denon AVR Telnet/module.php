@@ -179,6 +179,10 @@ class DenonAVRTelnet extends IPSModule
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
 		$manufacturer = $this->ReadPropertyInteger('manufacturer');
+		if($manufacturer == 2)
+		{
+			$this->DeleteVarsMarantz();
+		}
 		$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
 		$AVRTypeMarantz = $this->ReadPropertyInteger('AVRTypeMarantz');
 		
@@ -755,6 +759,35 @@ class DenonAVRTelnet extends IPSModule
 				
 			//Status aktiv
 			//$this->SetStatus(102);
+	}
+	
+	protected function DeleteVarsMarantz
+	{
+		IPS_SetProperty($this->InstanceID, "Panorama", false);
+		IPS_SetProperty($this->InstanceID, "AudioRestorer", false);
+		IPS_SetProperty($this->InstanceID, "NAPSTER", false);
+		IPS_SetProperty($this->InstanceID, "LASTFM", false);
+		IPS_SetProperty($this->InstanceID, "FLICKR", false);
+		IPS_SetProperty($this->InstanceID, "DolbyVolumeLeveler", false);
+		IPS_SetProperty($this->InstanceID, "DolbyVolumeModeler", false);
+		IPS_SetProperty($this->InstanceID, "PLIIZHeightGain", false);
+		IPS_SetProperty($this->InstanceID, "VerticalStretch", false);
+		IPS_SetProperty($this->InstanceID, "DynamicCompressor", false);
+		IPS_SetProperty($this->InstanceID, "CenterWidth", false);
+		IPS_SetProperty($this->InstanceID, "AudioRestorer", false);
+		IPS_SetProperty($this->InstanceID, "AFDM", false);
+		IPS_SetProperty($this->InstanceID, "Effect", false);
+		IPS_SetProperty($this->InstanceID, "EffectLevel", false);
+		IPS_SetProperty($this->InstanceID, "CenterImage", false);
+		IPS_SetProperty($this->InstanceID, "AudysseyDSX", false);
+		IPS_SetProperty($this->InstanceID, "ReferenceLevel", false);
+		IPS_SetProperty($this->InstanceID, "DRCDirectChange", false);
+		IPS_SetProperty($this->InstanceID, "Enhancer", false);
+		IPS_SetProperty($this->InstanceID, "Subwoofer", false);
+		IPS_SetProperty($this->InstanceID, "SubwooferATT", false);
+		IPS_SetProperty($this->InstanceID, "DigitalInputMode", false);
+		IPS_SetProperty($this->InstanceID, "ToneCTRL", false);
+		IPS_ApplyChanges($this->InstanceID); //Neue Konfiguration übernehmen
 	}
 	
 	private function GetInputsAVR($DenonAVRVar)
@@ -5281,12 +5314,15 @@ elseif ($status == true)// Ausschalten
 			$form .= '{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },';
 			if($manufacturername == "Denon")
 			{
-				$form .= '{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },';
+				$form .= '{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
+				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },';
 			}
-			$form .= '{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
-				{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },
-				{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },
-				{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },
+			$form .= '{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },
 				{ "type": "CheckBox", "name": "Sleep", "caption": "Sleep" },
 				{ "type": "CheckBox", "name": "SpeakerOutputFront", "caption": "Speaker Output Front" },
 				{ "type": "CheckBox", "name": "StageHeight", "caption": "Stage Height" },
