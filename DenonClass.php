@@ -1289,7 +1289,7 @@ class DENONIPSProfiles extends stdClass
 												);									
 			}
 		
-		if ($AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-2200W")
+		if ($AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-2200W" ||($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011"))
 			{
 			   $ProfilAssociationsMainZone[$this->ptResolutionHDMI] = array(
 												"Ident" => DENON_API_Commands::VSSCH,
@@ -1323,36 +1323,6 @@ class DENONIPSProfiles extends stdClass
 
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "Marantz-AV8802" || $AVRType == "Marantz-AV7702" || $AVRType == "Marantz-AV7702 mk II" || $AVRType == "Marantz-SR7009" || $AVRType == "Marantz-SR7010" || $AVRType == "Marantz-SR7011" || $AVRType == "Marantz-AV7703")
 			{
-			   $ProfilAssociationsMainZone[$this->ptResolutionHDMI] = array(
-												"Ident" => DENON_API_Commands::VSSCH,
-												"Name" => "Resolution HDMI",
-												"Profilesettings" => Array("TV", "", "", 0, 7, 0, 0),
-												"Associations" => Array(
-												Array(0, "480p/576p",  "", -1),
-												Array(1, "1080i",  "", -1),
-												Array(2, "720p",  "", -1),
-												Array(3, "1080p",  "", -1),
-												Array(4, "1080p 24Hz",  "", -1),
-												Array(5, "4K", "", -1),
-												Array(6, "4K(60/50)", "", -1),
-												Array(7, "Auto", "", -1)
-												)
-												);
-				$ProfilAssociationsMainZone[$this->ptResolution] = array(
-												"Ident" => DENON_API_Commands::VSSC,
-												"Name" => "Resolution",
-												"Profilesettings" => Array("TV", "", "", 0, 7, 0, 0),
-												"Associations" => Array(
-												Array(0, "480p/576p",  "", -1),
-												Array(1, "1080i",  "", -1),
-												Array(2, "720p",  "", -1),
-												Array(3, "1080p",  "", -1),
-												Array(4, "1080p 24Hz",  "", -1),
-												Array(5, "4K", "", -1),
-												Array(6, "4K(60/50)", "", -1),
-												Array(7, "Auto", "", -1)
-												)
-												);
 				$ProfilAssociationsMainZone[$this->ptSurroundMode] = array(
 												"Ident" => DENON_API_Commands::MS,
 												"Name" => "Surround Mode",
@@ -1441,7 +1411,7 @@ class DENONIPSProfiles extends stdClass
 												)
 											);
 			}
-		if(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
+		if(($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") || ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606")  || ($AVRType == "Marantz-NR1607") || 
 							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
 							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||
 							($AVRType == "Marantz-SR7005") || ($AVRType == "Marantz-SR7007") || ($AVRType == "Marantz-SR7008") || ($AVRType == "Marantz-AV7005") || ($AVRType == "Marantz-SR7009") || ($AVRType == "Marantz-SR7010") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7701") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8801") || ($AVRType == "Marantz-AV8802")) 
@@ -1457,7 +1427,41 @@ class DENONIPSProfiles extends stdClass
 												Array(3, "Off",  "", -1)
 												)
 											);								
-			}	
+			}
+
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") ||($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||  ($AVRType == "Marantz-SR7011") || ($AVRType == "Marantz-AV7702") || ($AVRType == "Marantz-AV7702 mk II") || ($AVRType == "Marantz-AV7703") || ($AVRType == "Marantz-AV8802"))
+			{
+			   $ProfilAssociationsMainZone[$this->ptResolutionHDMI] = array(
+												"Ident" => DENON_API_Commands::VSSCH,
+												"Name" => "Resolution HDMI",
+												"Profilesettings" => Array("TV", "", "", 0, 7, 0, 0),
+												"Associations" => Array(
+												Array(0, "480p/576p",  "", -1),
+												Array(1, "1080i",  "", -1),
+												Array(2, "720p",  "", -1),
+												Array(3, "1080p",  "", -1),
+												Array(4, "1080p 24Hz",  "", -1),
+												Array(5, "4K", "", -1),
+												Array(6, "4K(60/50)", "", -1),
+												Array(7, "Auto", "", -1)
+												)
+												);
+				$ProfilAssociationsMainZone[$this->ptResolution] = array(
+												"Ident" => DENON_API_Commands::VSSC,
+												"Name" => "Resolution",
+												"Profilesettings" => Array("TV", "", "", 0, 7, 0, 0),
+												"Associations" => Array(
+												Array(0, "480p/576p",  "", -1),
+												Array(1, "1080i",  "", -1),
+												Array(2, "720p",  "", -1),
+												Array(3, "1080p",  "", -1),
+												Array(4, "1080p 24Hz",  "", -1),
+												Array(5, "4K", "", -1),
+												Array(6, "4K(60/50)", "", -1),
+												Array(7, "Auto", "", -1)
+												)
+												);
+			}			
 		
 		$ProfilAssociationsMainZone[$this->ptInputSource] = $this->UsedInputSources;
 			/*	
@@ -5917,7 +5921,7 @@ class DenonAVRCP_API_Data extends stdClass
 				$AVRZ3STBYArray["ValueMapping"] = array(DENON_API_Commands::Z3STBYOFF => 0, DENON_API_Commands::Z3STBY2H => 1, DENON_API_Commands::Z3STBY4H => 2, DENON_API_Commands::Z3STBY8H => 3);
 				$VarMapping[DENON_API_Commands::STBY] = $AVRZ3STBYArray;	
 			}
-		if ($AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-2200W")
+		if ($AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-2200W" ||($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011"))
 			{
 				// Resolution 
 				$AVRVSSCArray = array("VarType" => DENONIPSVarType::vtInteger);
