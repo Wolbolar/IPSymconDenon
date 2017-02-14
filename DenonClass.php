@@ -3491,7 +3491,7 @@ class DENON_API_Commands extends stdClass
 	const DYNVOLHEV = " HEV"; // Dynamic Volume = Heavy
 	const DYNVOLMED = " MED"; // Dynamic Volume = Medium
 	const DYNVOLLIT = " LIT"; // Dynamic Volume = Light
-	const DYNVOLOFF = " OFF" // Dynamic Volume = Off
+	const DYNVOLOFF = " OFF"; // Dynamic Volume = Off
 
 	
 	//PSDSX Audyssey DSX ON
