@@ -1769,6 +1769,7 @@ class DenonAVRTelnet extends IPSModule
 					$SurroundDisplay = $data->SurroundDisplay;
 					if($SurroundDisplay !== "")
 					{
+						$this->SendDebug("Surround Display:",$SurroundDisplay,0);
 						SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 					}
 				}
@@ -1777,6 +1778,7 @@ class DenonAVRTelnet extends IPSModule
 				{
 					$NSADisplay = $data->NSADisplay;
 					$NSADisplayLog = json_encode($NSADisplay);
+					$this->SendDebug("Display:",$NSADisplayLog,0);
 					if ($this->debug)
 					{
 						IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
@@ -1859,7 +1861,7 @@ class DenonAVRTelnet extends IPSModule
 							{
 								case 0: //Boolean
 									SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1867,7 +1869,7 @@ class DenonAVRTelnet extends IPSModule
 									break;
 								case 1: //Integer
 									SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1875,7 +1877,7 @@ class DenonAVRTelnet extends IPSModule
 									break;
 								case 2: //Float
 									SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1883,7 +1885,7 @@ class DenonAVRTelnet extends IPSModule
 									break;     
 								case 3: //String
 									SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1900,7 +1902,7 @@ class DenonAVRTelnet extends IPSModule
 						{
 							case 0: //Boolean
 								SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											
@@ -1909,7 +1911,7 @@ class DenonAVRTelnet extends IPSModule
 								break;
 							case 1: //Integer
 								SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1917,7 +1919,7 @@ class DenonAVRTelnet extends IPSModule
 								break;
 							case 2: //Float
 								SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1925,7 +1927,7 @@ class DenonAVRTelnet extends IPSModule
 								break;     
 							case 3: //String
 								SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
