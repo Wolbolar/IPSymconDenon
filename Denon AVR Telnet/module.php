@@ -5237,14 +5237,18 @@ elseif ($status == true)// Ausschalten
 			}
 			$form .= '{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
-				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
-				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
-				{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
+				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },';
+			}	
+			$form .= '{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
 				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },
 				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
 				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
 				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
 				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },';
+			
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "GraphicEQ", "caption": "Grafik EQ " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
