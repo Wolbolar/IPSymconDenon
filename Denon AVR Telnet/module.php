@@ -787,6 +787,8 @@ class DenonAVRTelnet extends IPSModule
 		IPS_SetProperty($this->InstanceID, "SubwooferATT", false);
 		IPS_SetProperty($this->InstanceID, "DigitalInputMode", false);
 		IPS_SetProperty($this->InstanceID, "ToneCTRL", false);
+		IPS_SetProperty($this->InstanceID, "RoomSize", false);
+		IPS_SetProperty($this->InstanceID, "GUIMenuSource", false);
 		IPS_ApplyChanges($this->InstanceID); //Neue Konfiguration übernehmen
 	}
 	
@@ -5320,10 +5322,10 @@ elseif ($status == true)// Ausschalten
 			$form .= '{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },';
 			if($manufacturername == "Denon")
 			{
-				$form .= '{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },';
+				$form .= '{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },
+				{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },';
 			}
-			$form .= '{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },
-				{ "type": "CheckBox", "name": "Sleep", "caption": "Sleep" },
+			$form .= '{ "type": "CheckBox", "name": "Sleep", "caption": "Sleep" },
 				{ "type": "CheckBox", "name": "SpeakerOutputFront", "caption": "Speaker Output Front" },
 				{ "type": "CheckBox", "name": "StageHeight", "caption": "Stage Height" },
 				{ "type": "CheckBox", "name": "StageWidth", "caption": "Stage Width" },
@@ -5358,8 +5360,11 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "VideoSelect", "caption": "Video Select" },
 				
 				{ "type": "Label", "label": "GUI:" },
-				{ "type": "CheckBox", "name": "GUIMenu", "caption": "GUI Menu" },
-				{ "type": "CheckBox", "name": "GUIMenuSource", "caption": "GUI Source Select Menu" },';
+				{ "type": "CheckBox", "name": "GUIMenu", "caption": "GUI Menu" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "GUIMenuSource", "caption": "GUI Source Select Menu" },';
+			}	
 			return $form;
 		}
 		
