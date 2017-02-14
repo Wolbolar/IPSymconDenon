@@ -2340,11 +2340,11 @@ class DenonAVRTelnet extends IPSModule
 		$currentvol = GetValue($this->GetIDForIdent("MV"));
 		if($command == "UP" && ($currentvol < ($valmax-$step)))
 		{
-			 $Value = $currentvol + 0.5;
+			 $Value = $currentvol + $step;
 		}
 		if($command == "DOWN" && ($currentvol > ($valmin+$step)))
 		{
-			 $Value = $currentvol - 0.5;
+			 $Value = $currentvol - $step;
 		}
 		$FunctionType = "Volume";
 		$command = $this->GetCommandValueSend($Value, $FunctionType);
