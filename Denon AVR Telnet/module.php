@@ -1760,7 +1760,8 @@ class DenonAVRTelnet extends IPSModule
 		elseif($ResponseType == "TELNET")
 		{
 			$datavalues = $data->Data;
-			$this->SendDebug("Data:",print_r($datavalues,true),0);
+			$datalog = json_encode($datavalues);
+			$this->SendDebug("Data Telnet:",$datalog,0);
 			//Surround Display
 			if($Zone == 0)
 			{
