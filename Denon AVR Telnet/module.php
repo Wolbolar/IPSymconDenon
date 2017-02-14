@@ -5211,9 +5211,12 @@ elseif ($status == true)// Ausschalten
 			$form .= $this->FormExtentedSpeakerSelection($AVRType).'
 							
 				{ "type": "Label", "label": "show remote commands:" },
-				{ "type": "Label", "label": "Audio:" },
-				{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },
-				{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
+				{ "type": "Label", "label": "Audio:" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
 				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },';
 			if($manufacturername == "Denon")
 			{
@@ -5224,9 +5227,12 @@ elseif ($status == true)// Ausschalten
 				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DPreset", "caption": "AuroMatic3DPreset" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
 				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DStrength", "caption": "Auro Matic 3D Strength" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "ASP", "caption": "ASP" },
-				{ "type": "CheckBox", "name": "CenterImage", "caption": "Center Image" },
+			$form .= '{ "type": "CheckBox", "name": "ASP", "caption": "ASP" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "CenterImage", "caption": "Center Image" },
 				{ "type": "CheckBox", "name": "CenterWidth", "caption": "Center Width" },';
+			}	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "Centerspread", "caption": "Center Spread" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
@@ -5236,8 +5242,11 @@ elseif ($status == true)// Ausschalten
 			{
 				$form .= '{ "type": "CheckBox", "name": "DialogLevelAdjust", "caption":"Dialog Level Adjust"},'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
-				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
+							{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },';
+			}	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "Dimmer", "caption":"Dimmer " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
@@ -5251,11 +5260,13 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },';
 			}	
 			$form .= '{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
-				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
-				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
-				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
-				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },';
-			
+				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
+				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },';
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "GraphicEQ", "caption": "Grafik EQ " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
