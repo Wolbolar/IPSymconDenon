@@ -5235,15 +5235,15 @@ elseif ($status == true)// Ausschalten
 			{
 				$form .= '{ "type": "CheckBox", "name": "Dimmer", "caption":"Dimmer " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
-				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
-				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },';
+			$form .= '{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },';
 			if($manufacturername == "Denon")
 			{
-				$form .= '{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },';
+				$form .= '{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
+				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
+				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
+				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },';
 			}	
 			$form .= '{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
-				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },
 				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
 				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
 				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
