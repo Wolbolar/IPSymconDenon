@@ -761,7 +761,7 @@ class DenonAVRTelnet extends IPSModule
 			//$this->SetStatus(102);
 	}
 	
-	protected function DeleteVarsMarantz
+	protected function DeleteVarsMarantz()
 	{
 		IPS_SetProperty($this->InstanceID, "Panorama", false);
 		IPS_SetProperty($this->InstanceID, "AudioRestorer", false);
