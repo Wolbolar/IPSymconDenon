@@ -179,6 +179,10 @@ class DenonAVRTelnet extends IPSModule
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
 		$manufacturer = $this->ReadPropertyInteger('manufacturer');
+		if($manufacturer == 2)
+		{
+			$this->DeleteVarsMarantz();
+		}
 		$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
 		$AVRTypeMarantz = $this->ReadPropertyInteger('AVRTypeMarantz');
 		
@@ -755,6 +759,38 @@ class DenonAVRTelnet extends IPSModule
 				
 			//Status aktiv
 			//$this->SetStatus(102);
+	}
+	
+	protected function DeleteVarsMarantz()
+	{
+		IPS_SetProperty($this->InstanceID, "Panorama", false);
+		IPS_SetProperty($this->InstanceID, "AudioRestorer", false);
+		IPS_SetProperty($this->InstanceID, "NAPSTER", false);
+		IPS_SetProperty($this->InstanceID, "LASTFM", false);
+		IPS_SetProperty($this->InstanceID, "FLICKR", false);
+		IPS_SetProperty($this->InstanceID, "DolbyVolumeLeveler", false);
+		IPS_SetProperty($this->InstanceID, "DolbyVolumeModeler", false);
+		IPS_SetProperty($this->InstanceID, "PLIIZHeightGain", false);
+		IPS_SetProperty($this->InstanceID, "VerticalStretch", false);
+		IPS_SetProperty($this->InstanceID, "DynamicCompressor", false);
+		IPS_SetProperty($this->InstanceID, "CenterWidth", false);
+		IPS_SetProperty($this->InstanceID, "AudioRestorer", false);
+		IPS_SetProperty($this->InstanceID, "AFDM", false);
+		IPS_SetProperty($this->InstanceID, "Effect", false);
+		IPS_SetProperty($this->InstanceID, "EffectLevel", false);
+		IPS_SetProperty($this->InstanceID, "CenterImage", false);
+		IPS_SetProperty($this->InstanceID, "AudysseyDSX", false);
+		IPS_SetProperty($this->InstanceID, "ReferenceLevel", false);
+		IPS_SetProperty($this->InstanceID, "DRCDirectChange", false);
+		IPS_SetProperty($this->InstanceID, "Enhancer", false);
+		IPS_SetProperty($this->InstanceID, "Subwoofer", false);
+		IPS_SetProperty($this->InstanceID, "SubwooferATT", false);
+		IPS_SetProperty($this->InstanceID, "DigitalInputMode", false);
+		IPS_SetProperty($this->InstanceID, "ToneCTRL", false);
+		IPS_SetProperty($this->InstanceID, "RoomSize", false);
+		IPS_SetProperty($this->InstanceID, "GUIMenuSource", false);
+		IPS_SetProperty($this->InstanceID, "SurroundPlayMode", false);
+		IPS_ApplyChanges($this->InstanceID); //Neue Konfiguration übernehmen
 	}
 	
 	private function GetInputsAVR($DenonAVRVar)
@@ -1654,7 +1690,7 @@ class DenonAVRTelnet extends IPSModule
 		
     }
 	
-	protected function SendRequest($APICommand, $Space)
+	public function SendRequest($APICommand, $Space)
 	{
 		IPS_Sleep(30);
 		if ($Space)
@@ -1724,7 +1760,8 @@ class DenonAVRTelnet extends IPSModule
 		elseif($ResponseType == "TELNET")
 		{
 			$datavalues = $data->Data;
-			$this->SendDebug("Data:",print_r($datavalues,true),0);
+			$datalog = json_encode($datavalues);
+			$this->SendDebug("Data Telnet:",$datalog,0);
 			//Surround Display
 			if($Zone == 0)
 			{
@@ -1733,6 +1770,7 @@ class DenonAVRTelnet extends IPSModule
 					$SurroundDisplay = $data->SurroundDisplay;
 					if($SurroundDisplay !== "")
 					{
+						$this->SendDebug("Surround Display:",$SurroundDisplay,0);
 						SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
 					}
 				}
@@ -1741,6 +1779,7 @@ class DenonAVRTelnet extends IPSModule
 				{
 					$NSADisplay = $data->NSADisplay;
 					$NSADisplayLog = json_encode($NSADisplay);
+					$this->SendDebug("Display:",$NSADisplayLog,0);
 					if ($this->debug)
 					{
 						IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
@@ -1823,7 +1862,7 @@ class DenonAVRTelnet extends IPSModule
 							{
 								case 0: //Boolean
 									SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1831,7 +1870,7 @@ class DenonAVRTelnet extends IPSModule
 									break;
 								case 1: //Integer
 									SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1839,7 +1878,7 @@ class DenonAVRTelnet extends IPSModule
 									break;
 								case 2: //Float
 									SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1847,7 +1886,7 @@ class DenonAVRTelnet extends IPSModule
 									break;     
 								case 3: //String
 									SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-									$this->SendDebug("Update HTTP ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+									$this->SendDebug("Update HTTP ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 									if ($this->debug)
 										{
 											//IPS_LogMessage("Denon Telnet AVR", "Update HTTP ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1864,7 +1903,7 @@ class DenonAVRTelnet extends IPSModule
 						{
 							case 0: //Boolean
 								SetValueBoolean($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											
@@ -1873,7 +1912,7 @@ class DenonAVRTelnet extends IPSModule
 								break;
 							case 1: //Integer
 								SetValueInteger($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1881,7 +1920,7 @@ class DenonAVRTelnet extends IPSModule
 								break;
 							case 2: //Float
 								SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -1889,7 +1928,7 @@ class DenonAVRTelnet extends IPSModule
 								break;     
 							case 3: //String
 								SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-								$this->SendDebug("Update ObjektID:",$this->GetIDForIdent($Ident).": ".$Subcommand,0);
+								$this->SendDebug("Update ObjektID:",IPS_GetName($this->GetIDForIdent($Ident))."(".$this->GetIDForIdent($Ident).") mit Command: ".$Subcommand,0);
 								if ($this->debug)
 										{
 											IPS_LogMessage("Denon Telnet AVR", "Update ObjektID(".$this->GetIDForIdent($Ident)."): ".$Subcommand);
@@ -5176,15 +5215,19 @@ elseif ($status == true)// Ausschalten
 		
 		protected function FormMainzone($AVRType)
 		{
+			$manufacturername = $this->GetManufacturer();
 			$form = '{ "type": "Label", "label": "main zone:" },
 					{ "type": "Label", "label": "speaker settings are only available with the telnet remote mode:" },
 					{ "type": "Label", "label": "speaker:" },
 					{ "type": "CheckBox", "name": "FL", "caption": "Front Left" },
 					{ "type": "CheckBox", "name": "FR", "caption": "Front Right" },
-					{ "type": "CheckBox", "name": "C", "caption": "Center" },
-					{ "type": "CheckBox", "name": "SW", "caption": "Subwoofer" },
-					{ "type": "CheckBox", "name": "SW2", "caption": "Subwoofer 2" },
-					{ "type": "CheckBox", "name": "SL", "caption": "Surround Left" },
+					{ "type": "CheckBox", "name": "C", "caption": "Center" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "SW", "caption": "Subwoofer" },
+					{ "type": "CheckBox", "name": "SW2", "caption": "Subwoofer 2" },';
+			}
+			$form = '{ "type": "CheckBox", "name": "SL", "caption": "Surround Left" },
 					{ "type": "CheckBox", "name": "SR", "caption": "Surround Right" },
 					{ "type": "CheckBox", "name": "SBL", "caption": "Surround Back Left" },
 					{ "type": "CheckBox", "name": "SBR", "caption": "Surround Back Right" },
@@ -5207,19 +5250,28 @@ elseif ($status == true)// Ausschalten
 			$form .= $this->FormExtentedSpeakerSelection($AVRType).'
 							
 				{ "type": "Label", "label": "show remote commands:" },
-				{ "type": "Label", "label": "Audio:" },
-				{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },
-				{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
-				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },
-				{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },';
+				{ "type": "Label", "label": "Audio:" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "AFDM", "caption": "Auto Flag Detect Mode" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "AudioDelay", "caption": "Audio Delay" },
+				{ "type": "CheckBox", "name": "AudioRestorer", "caption": "Audio Restorer" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "AudysseyDSX", "caption": "Audyssey DSX" },';
+			}		
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DPreset", "caption": "AuroMatic3DPreset" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
 				$form .= '{ "type": "CheckBox", "name": "AuroMatic3DStrength", "caption": "Auro Matic 3D Strength" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "ASP", "caption": "ASP" },
-				{ "type": "CheckBox", "name": "CenterImage", "caption": "Center Image" },
+			$form .= '{ "type": "CheckBox", "name": "ASP", "caption": "ASP" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "CenterImage", "caption": "Center Image" },
 				{ "type": "CheckBox", "name": "CenterWidth", "caption": "Center Width" },';
+			}	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "Centerspread", "caption": "Center Spread" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
@@ -5229,22 +5281,31 @@ elseif ($status == true)// Ausschalten
 			{
 				$form .= '{ "type": "CheckBox", "name": "DialogLevelAdjust", "caption":"Dialog Level Adjust"},'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
-				{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "DigitalInputMode", "caption": "Digital Input Mode" },
+							{ "type": "CheckBox", "name": "Dimension", "caption": "Dimension" },';
+			}	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "Dimmer", "caption":"Dimmer " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/\tAVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
 			}
-			$form .= '{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },
+			$form .= '{ "type": "CheckBox", "name": "DRCDirectChange", "caption": "Dynamic Range Compression" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
 				{ "type": "CheckBox", "name": "DolbyVolumeLeveler", "caption": "Dolby Volume Leveler" },
 				{ "type": "CheckBox", "name": "DolbyVolumeModeler", "caption": "Dolby Volume Modeler" },
-				{ "type": "CheckBox", "name": "DolbyVolume", "caption": "Dolby Volume" },
-				{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
-				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },
-				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },
-				{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
-				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },
-				{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },';
+				{ "type": "CheckBox", "name": "DynamicCompressor", "caption": "Dynamic Compressor" },';
+			}	
+			$form .= '{ "type": "CheckBox", "name": "DynamicEQ", "caption": "Dynamic EQ" },
+				{ "type": "CheckBox", "name": "DynamicVolume", "caption": "Dynamic Volume" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "Effect", "caption": "Effect" },
+				{ "type": "CheckBox", "name": "EffectLevel", "caption": "Effect Level" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "FrontHeight", "caption": "Front Height" },';
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "GraphicEQ", "caption": "Grafik EQ " },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
@@ -5256,21 +5317,30 @@ elseif ($status == true)// Ausschalten
 				$form .= '{ "type": "CheckBox", "name": "MAINZONEAutoStandbySetting", "caption": "Mainzone Auto Standby Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
 				$form .= '{ "type": "CheckBox", "name": "MAINZONEECOModeSetting", "caption": "Mainzone ECO Mode Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)	
 			}
-			$form .= '{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },			
-				{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
-				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
-				{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },
-				{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },
-				{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },
-				{ "type": "CheckBox", "name": "Sleep", "caption": "Sleep" },
+			$form .= '{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
+				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },
+				{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "Sleep", "caption": "Sleep" },
 				{ "type": "CheckBox", "name": "SpeakerOutputFront", "caption": "Speaker Output Front" },
 				{ "type": "CheckBox", "name": "StageHeight", "caption": "Stage Height" },
 				{ "type": "CheckBox", "name": "StageWidth", "caption": "Stage Width" },
 				{ "type": "CheckBox", "name": "Subwoofer", "caption": "Subwoofer" },
 				{ "type": "CheckBox", "name": "SubwooferATT", "caption": "Subwoofer ATT" },
-				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },
-				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
-				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';
+				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "TopSurround", "caption": "Top Surround" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
@@ -5297,8 +5367,11 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "VideoSelect", "caption": "Video Select" },
 				
 				{ "type": "Label", "label": "GUI:" },
-				{ "type": "CheckBox", "name": "GUIMenu", "caption": "GUI Menu" },
-				{ "type": "CheckBox", "name": "GUIMenuSource", "caption": "GUI Source Select Menu" },';
+				{ "type": "CheckBox", "name": "GUIMenu", "caption": "GUI Menu" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "GUIMenuSource", "caption": "GUI Source Select Menu" },';
+			}	
 			return $form;
 		}
 		
