@@ -5263,9 +5263,12 @@ elseif ($status == true)// Ausschalten
 				$form .= '{ "type": "CheckBox", "name": "MAINZONEAutoStandbySetting", "caption": "Mainzone Auto Standby Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)
 				$form .= '{ "type": "CheckBox", "name": "MAINZONEECOModeSetting", "caption": "Mainzone ECO Mode Setting" },'; // (AVR-X7200W \/ AVR-X5200W \/ AVR-X4100W \/ AVR-X3100W \/ AVR-X2100W \/ S900W \/ AVR-X1100W \/ S700W \/ AVR-7200WA \/ AVR-6200W \/ AVR-4200W \/ AVR-3200W \/ AVR-2200W \/ AVR-1200W)	
 			}
-			$form .= '{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },			
-				{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },
-				{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
+			$form .= '{ "type": "CheckBox", "name": "MultiEQMode", "caption": "Multi EQ Mode" },';
+			if($manufacturername == "Denon")
+			{
+				$form .= '{ "type": "CheckBox", "name": "Panorama", "caption": "Panorama" },';
+			}
+			$form .= '{ "type": "CheckBox", "name": "PLIIZHeightGain", "caption": "PLIIZ Height Gain" },
 				{ "type": "CheckBox", "name": "QuickSelect", "caption": "Quick Select" },
 				{ "type": "CheckBox", "name": "ReferenceLevel", "caption": "Reference Level" },
 				{ "type": "CheckBox", "name": "RoomSize", "caption": "Room Size" },
@@ -5277,7 +5280,7 @@ elseif ($status == true)// Ausschalten
 				{ "type": "CheckBox", "name": "SubwooferATT", "caption": "Subwoofer ATT" },
 				{ "type": "CheckBox", "name": "SurroundBackMode", "caption": "Surround BackMode" },
 				{ "type": "CheckBox", "name": "SurroundPlayMode", "caption": "Surround PlayMode" },
-				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';
+				{ "type": "CheckBox", "name": "ToneCTRL", "caption": "Tone CTRL" },';	
 			if($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X7200WA" || $AVRType == "AVR-X6200W" || $AVRType == "AVR-X4200W")
 			{
 				$form .= '{ "type": "CheckBox", "name": "TopSurround", "caption": "Top Surround" },'; // (AVR-X7200W / AVR-X5200W / AVR-X4100W / AVR-X7200WA / AVR-X6200W / AVR-X4200W)
