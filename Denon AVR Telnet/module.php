@@ -185,6 +185,7 @@ class DenonAVRTelnet extends IPSModule
 			$this->DeleteVarsMarantz();
 		}
 		*/
+
 		$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
 		$AVRTypeMarantz = $this->ReadPropertyInteger('AVRTypeMarantz');
 		
