@@ -1874,41 +1874,46 @@ elseif ($status == true)// Ausschalten
 	{
 		$form = '"status":
             [
-               {
+				{
                    "code": 101,
                    "icon": "inactive",
                    "caption": "creating instance."
-               },
-			{
+				},
+				{
                    "code": 102,
                    "icon": "active",
                    "caption": "configuration is valid."
-               },
-               {
+				},
+				{
                    "code": 104,
                    "icon": "inactive",
                    "caption": "AVR ist inaktiv."
-               },
-			{
+				},
+				{
+                    "code": 210,
+                    "icon": "error",
+                    "caption": "select a manufacturer."
+                },
+				{
                    "code": 211,
                    "icon": "error",
                    "caption": "select category for import."
-               },
-			{
+				},
+				{
                    "code": 212,
                    "icon": "error",
                    "caption": "please select an AVR Zone."
-               },
-			{
+				},
+				{
                    "code": 213,
                    "icon": "error",
                    "caption": "please select a Denon AVR type."
-               },
-			{
+				},
+				{
                    "code": 214,
                    "icon": "error",
                    "caption": "please select a Marantz AVR type."
-               }
+				}
            ]';
 		return $form;
 	}	

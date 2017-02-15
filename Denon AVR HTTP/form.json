@@ -150,19 +150,14 @@
                     "caption": "AVR is inactive."
                 },
 				{
-                    "code": 212,
-                    "icon": "error",
-                    "caption": "please select an AVR Zone."
-                },
-				{
-                    "code": 213,
-                    "icon": "error",
-                    "caption": "please select a AVR type."
-                },
-				{
                     "code": 202,
                     "icon": "inactive",
                     "caption": "configure AVR splitter."
+                },
+				{
+                    "code": 210,
+                    "icon": "error",
+                    "caption": "select a manufacturer."
                 },
 				{
                     "code": 211,

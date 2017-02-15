@@ -287,6 +287,11 @@
                     "caption": "AVR ist inaktiv."
                 },
 				{
+                    "code": 210,
+                    "icon": "error",
+                    "caption": "select a manufacturer."
+                },
+				{
                     "code": 211,
                     "icon": "error",
                     "caption": "select category for import."

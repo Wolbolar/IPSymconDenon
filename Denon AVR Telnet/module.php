@@ -179,10 +179,12 @@ class DenonAVRTelnet extends IPSModule
 		//Zone prüfen
 		$Zone = $this->ReadPropertyInteger('Zone');
 		$manufacturer = $this->ReadPropertyInteger('manufacturer');
+		/*
 		if($manufacturer == 2)
 		{
 			$this->DeleteVarsMarantz();
 		}
+		*/
 		$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
 		$AVRTypeMarantz = $this->ReadPropertyInteger('AVRTypeMarantz');
 		
@@ -761,7 +763,7 @@ class DenonAVRTelnet extends IPSModule
 			//$this->SetStatus(102);
 	}
 	
-	protected function DeleteVarsMarantz()
+	public function DeleteVarsMarantz()
 	{
 		IPS_SetProperty($this->InstanceID, "Panorama", false);
 		IPS_SetProperty($this->InstanceID, "AudioRestorer", false);
@@ -5621,6 +5623,11 @@ elseif ($status == true)// Ausschalten
                     "code": 104,
                     "icon": "inactive",
                     "caption": "AVR ist inaktiv."
+                },
+				{
+                    "code": 210,
+                    "icon": "error",
+                    "caption": "select a manufacturer."
                 },
 				{
                     "code": 211,
