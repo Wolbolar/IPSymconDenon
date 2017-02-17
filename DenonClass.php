@@ -2069,14 +2069,14 @@ class DENONIPSProfiles extends stdClass
 		
 		$profilesZone2 = array(
 		$this->ptZone2Volume => array(DENON_API_Commands::Z2VOL, "Zone 2 Volume", "Intensity", "", " dB", -80.0, 18.0, 0.5, 1),
-		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 1),
-		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone 2 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 1)
+		$this->ptZone2ChannelVolumeFL => array(DENON_API_Commands::Z2CVFL, "Zone 2 Channel Volume Front Left", "Intensity", "", " dB", -12.0, 12.0, 0.5, 1),
+		$this->ptZone2ChannelVolumeFR => array(DENON_API_Commands::Z2CVFR, "Zone 2 Channel Volume Front Right", "Intensity", "", " dB", -12.0, 12.0, 0.5, 1)
 		);
 		
 		$profilesZone3 = array(
 		$this->ptZone3Volume => array(DENON_API_Commands::Z3VOL, "Zone 3 Volume", "Intensity", "", " dB", -80.0, 18.0, 0.5, 1),
-		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume Front Left", "Intensity", "", " %", -10.0, 10.0, 0.5, 1),
-		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume Front Right", "Intensity", "", " %", -10.0, 10.0, 0.5, 1)
+		$this->ptZone3ChannelVolumeFL => array(DENON_API_Commands::Z3CVFL, "Zone 3 Channel Volume Front Left", "Intensity", "", " dB", -12.0, 12.0, 0.5, 1),
+		$this->ptZone3ChannelVolumeFR => array(DENON_API_Commands::Z3CVFR, "Zone 3 Channel Volume Front Right", "Intensity", "", " dB", -12.0, 12.0, 0.5, 1)
 		);
 		
 		if ($this->Zone == 0)
