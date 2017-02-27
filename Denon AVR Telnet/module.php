@@ -5516,7 +5516,7 @@ elseif ($status == true)// Ausschalten
 				{ "type": "Label", "label": "Amazon Echo / Dot" },
 				{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
 				{ "type": "Label", "label": "Would you like to create a link in the SmartHomeSkill instance?" },
-				{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" },';
+				{ "type": "CheckBox", "name": "Alexa", "caption": "Create links for Amazon Echo / Dot" },';
 			}
 			else
 			{
