@@ -5186,15 +5186,15 @@ elseif ($status == true)// Ausschalten
 			{
 				if($zone == 0)
 				{
-					return	'{ '.$formhead.$formselectiondenon.$formselection.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectiondenon.$formselection.$formmainzone.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 				elseif($zone == 1)
 				{
-					return	'{ '.$formhead.$formselectiondenon.$formselection.$formzone2.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectiondenon.$formselection.$formzone2.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 				elseif($zone == 2)
 				{
-					return	'{ '.$formhead.$formselectiondenon.$formselection.$formzone3.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectiondenon.$formselection.$formzone3.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 			}
 			elseif($manufacturername == "Marantz" && $AVRType != "None" && $zone != 6)
@@ -5514,7 +5514,7 @@ elseif ($status == true)// Ausschalten
 			{
 				$form = '{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
 				{ "type": "Label", "label": "Would you like to create a link in the SmartHomeSkill instance?" },
-				{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" }';
+				{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" },';
 			}
 			else
 			{
