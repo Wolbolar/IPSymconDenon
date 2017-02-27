@@ -14,6 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
+		$this->RegisterPropertyBoolean("Alexa", false);
 		$this->RegisterPropertyInteger("manufacturer", 0);
 		$this->RegisterPropertyInteger("AVRTypeDenon", 50);
 		$this->RegisterPropertyInteger("AVRTypeMarantz", 50);
@@ -1667,6 +1668,7 @@ elseif ($status == true)// Ausschalten
 		$formselectiondenon = $this->FormSelectionAVRDenon();
 		$formselectionmarantz = $this->FormSelectionAVRMarantz();
 		$formselectionneo = $this->FormSelectionNEO();
+		$formselectionalexa = $this->FormSelectionAlexa();
 		$formactions = $this->FormActions();
 		$formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
 		$formstatus = $this->FormStatus();
@@ -1693,11 +1695,11 @@ elseif ($status == true)// Ausschalten
 		}
 		elseif($manufacturername == "Denon" && $AVRType != "None" && $zone != 6)
 		{
-			return	'{ '.$formhead.$formselectiondenon.$formselection.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+			return	'{ '.$formhead.$formselectiondenon.$formselection.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 		}
 		elseif($manufacturername == "Marantz" && $AVRType != "None" && $zone != 6)
 		{
-			return	'{ '.$formhead.$formselectionmarantz.$formselection.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+			return	'{ '.$formhead.$formselectionmarantz.$formselection.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 		}	
 	}
 		
@@ -1799,6 +1801,22 @@ elseif ($status == true)// Ausschalten
 			{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
 			{ "type": "Label", "label": "category for creating NEO scripts:" },
 			{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
+		return $form;	
+	}
+	
+	protected function FormSelectionAlexa()
+	{
+		$alexashsobjid = $this->GetAlexaSmartHomeSkill();
+		if($alexashsobjid > 0)
+		{
+			$form = '{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
+			{ "type": "Label", "label": "Would you like to create a link in the SmartHomeSkill instance?" },
+			{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" }';
+		}
+		else
+		{
+			$form = '';
+		}	
 		return $form;	
 	}
 		
@@ -1918,6 +1936,16 @@ elseif ($status == true)// Ausschalten
 		return $form;
 	}	
 	
+	protected function GetAlexaSmartHomeSkill()
+	{
+		$InstanzenListe = IPS_GetInstanceListByModuleID("{3F0154A4-AC42-464A-9E9A-6818D775EFC4}"); // IQL4SmartHome
+		$IQL4SmartHomeID = @$InstanzenListe[0];
+		if(!$IQL4SmartHomeID > 0)
+		{
+			$IQL4SmartHomeID = false;
+		}
+		return $IQL4SmartHomeID;
+	}
 	
 }
 

@@ -14,6 +14,7 @@ class DenonAVRTelnet extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
+		$this->RegisterPropertyBoolean("Alexa", false);
 		$this->RegisterPropertyInteger("manufacturer", 0);
 		$this->RegisterPropertyInteger("AVRTypeDenon", 50);
 		$this->RegisterPropertyInteger("AVRTypeMarantz", 50);
@@ -5156,6 +5157,7 @@ elseif ($status == true)// Ausschalten
 			$formselectiondenon = $this->FormSelectionAVRDenon();
 			$formselectionmarantz = $this->FormSelectionAVRMarantz();
 			$formselectionneo = $this->FormSelectionNEO();
+			$formselectionalexa = $this->FormSelectionAlexa();
 			$formactions = $this->FormActions();
 			$formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
 			$formstatus = $this->FormStatus();
@@ -5199,15 +5201,15 @@ elseif ($status == true)// Ausschalten
 			{
 				if($zone == 0)
 				{
-					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formmainzone.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 				elseif($zone == 1)
 				{
-					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone2.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone2.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 				elseif($zone == 2)
 				{
-					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone3.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+					return	'{ '.$formhead.$formselectionmarantz.$formselection.$formzone3.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 				}
 			}	
 		}
@@ -5505,6 +5507,38 @@ elseif ($status == true)// Ausschalten
 			return $form;	
 		}
 		
+		protected function FormSelectionAlexa()
+		{
+			$alexashsobjid = $this->GetAlexaSmartHomeSkill();
+			if($alexashsobjid > 0)
+			{
+				$form = '{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
+				{ "type": "Label", "label": "Would you like to create a link in the SmartHomeSkill instance?" },
+				{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" }';
+			}
+			else
+			{
+				$form = '';
+			}	
+			return $form;	
+		}
+		
+		protected function FormSelectionAlexa()
+		{
+			$alexashsobjid = $this->GetAlexaSmartHomeSkill();
+			if($alexashsobjid > 0)
+			{
+				$form = '{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
+				{ "type": "Label", "label": "Would you like to create a link in the SmartHomeSkill instance?" },
+				{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" }';
+			}
+			else
+			{
+				$form = '';
+			}	
+			return $form;	
+		}
+		
 		
 		protected function FormExtentedSpeakerSelection($AVRType)
 		{
@@ -5654,7 +5688,16 @@ elseif ($status == true)// Ausschalten
 			return $form;
 		}
 	
-
+		protected function GetAlexaSmartHomeSkill()
+		{
+			$InstanzenListe = IPS_GetInstanceListByModuleID("{3F0154A4-AC42-464A-9E9A-6818D775EFC4}"); // IQL4SmartHome
+			$IQL4SmartHomeID = @$InstanzenListe[0];
+			if(!$IQL4SmartHomeID > 0)
+			{
+				$IQL4SmartHomeID = false;
+			}
+			return $IQL4SmartHomeID;
+		}
 }
 
 ?>

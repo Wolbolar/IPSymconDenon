@@ -44,7 +44,10 @@
 			"please select a Marantz AVR type.":"Bitte ein Marantz AVR Modell auswählen.",
 			"Please Select":"Bitte Auswählen",
 			"select a manufacturer":"Bitte einen Hersteller auswählen.",
-			"configure AVR splitter.":"AVR Splitter konfigurieren."
+			"configure AVR splitter.":"AVR Splitter konfigurieren.",
+			"Alexa Smart Home Skill is available in IP-Symcon": "Alexa SmartHomeSkill ist in IP-Symcon verfügbar",
+			"Would you like to create a link in the SmartHomeSkill instance?": "Sollen ein Link in der SmartHomeSkill Instanz erstellt werden?",
+			"Create link for Amazon Echo / Dot": "Link für Amazon Echo /Dot anlegen"
 		}
 	}
 }
