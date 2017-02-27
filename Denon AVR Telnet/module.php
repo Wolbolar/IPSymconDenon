@@ -5523,23 +5523,6 @@ elseif ($status == true)// Ausschalten
 			return $form;	
 		}
 		
-		protected function FormSelectionAlexa()
-		{
-			$alexashsobjid = $this->GetAlexaSmartHomeSkill();
-			if($alexashsobjid > 0)
-			{
-				$form = '{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
-				{ "type": "Label", "label": "Would you like to create a link in the SmartHomeSkill instance?" },
-				{ "type": "CheckBox", "name": "Alexa", "caption": "Create link for Amazon Echo / Dot" }';
-			}
-			else
-			{
-				$form = '';
-			}	
-			return $form;	
-		}
-		
-		
 		protected function FormExtentedSpeakerSelection($AVRType)
 		{
 			$form = "";
