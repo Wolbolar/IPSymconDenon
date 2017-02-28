@@ -14,6 +14,7 @@ class DenonAVRHTTP extends IPSModule
         // 1. Verfügbarer DenonSplitter wird verbunden oder neu erzeugt, wenn nicht vorhanden.
         $this->ConnectParent("{0C62027E-7CD7-4DF8-890B-B0FEE37857D4}");
 		
+		$this->RegisterPropertyBoolean("Alexa", false);
 		$this->RegisterPropertyInteger("manufacturer", 0);
 		$this->RegisterPropertyInteger("AVRTypeDenon", 50);
 		$this->RegisterPropertyInteger("AVRTypeMarantz", 50);
@@ -506,8 +507,16 @@ class DenonAVRHTTP extends IPSModule
 		
 		//auf aktive Parent prüfen
 		$this->HasActiveParent();		
-			
-			
+		
+		// Alexa Link anlegen
+		if($this->ReadPropertyBoolean('Alexa'))
+			{
+				$this->CreateAlexaLinks();
+			}
+		else
+			{
+				$this->DeleteAlexaLinks();
+			}
 	}
 	
 	private function GetInputsAVR($DenonAVRVar)
@@ -1667,6 +1676,7 @@ elseif ($status == true)// Ausschalten
 		$formselectiondenon = $this->FormSelectionAVRDenon();
 		$formselectionmarantz = $this->FormSelectionAVRMarantz();
 		$formselectionneo = $this->FormSelectionNEO();
+		$formselectionalexa = $this->FormSelectionAlexa();
 		$formactions = $this->FormActions();
 		$formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
 		$formstatus = $this->FormStatus();
@@ -1693,11 +1703,11 @@ elseif ($status == true)// Ausschalten
 		}
 		elseif($manufacturername == "Denon" && $AVRType != "None" && $zone != 6)
 		{
-			return	'{ '.$formhead.$formselectiondenon.$formselection.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+			return	'{ '.$formhead.$formselectiondenon.$formselection.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 		}
 		elseif($manufacturername == "Marantz" && $AVRType != "None" && $zone != 6)
 		{
-			return	'{ '.$formhead.$formselectionmarantz.$formselection.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
+			return	'{ '.$formhead.$formselectionmarantz.$formselection.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
 		}	
 	}
 		
@@ -1799,6 +1809,24 @@ elseif ($status == true)// Ausschalten
 			{ "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
 			{ "type": "Label", "label": "category for creating NEO scripts:" },
 			{ "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
+		return $form;	
+	}
+	
+	protected function FormSelectionAlexa()
+	{
+		$alexashsobjid = $this->GetAlexaSmartHomeSkill();
+		if($alexashsobjid > 0)
+		{
+			$form = '{ "type": "Label", "label": "__________________________________________________________________________________________________" },
+			{ "type": "Label", "label": "Amazon Echo / Dot" },
+			{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
+			{ "type": "Label", "label": "Would you like to create links in the SmartHomeSkill instance for voice control?" },
+			{ "type": "CheckBox", "name": "Alexa", "caption": "Create links for Amazon Echo / Dot" },';
+		}
+		else
+		{
+			$form = '';
+		}	
 		return $form;	
 	}
 		
@@ -1918,7 +1946,125 @@ elseif ($status == true)// Ausschalten
 		return $form;
 	}	
 	
+	protected function GetAlexaSmartHomeSkill()
+	{
+		$InstanzenListe = IPS_GetInstanceListByModuleID("{3F0154A4-AC42-464A-9E9A-6818D775EFC4}"); // IQL4SmartHome
+		$IQL4SmartHomeID = @$InstanzenListe[0];
+		if(!$IQL4SmartHomeID > 0)
+		{
+			$IQL4SmartHomeID = false;
+		}
+		return $IQL4SmartHomeID;
+	}
 	
+	protected function CreateAlexaLinks()
+		{
+			$Zone = $this->ReadPropertyInteger('Zone');
+			$manufacturername = $this->GetManufacturer();
+			$AVRType = $this->GetAVRType($manufacturername);
+			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
+			//Prüfen ob Kategorie schon existiert
+			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
+			if ($AlexaCategoryID === false)
+				{
+					$AlexaCategoryID = IPS_CreateCategory();
+					IPS_SetName($AlexaCategoryID, "AV Receiver");
+					IPS_SetIdent($AlexaCategoryID, "AlexaAVR");
+					IPS_SetInfo($AlexaCategoryID, "AV Reciever über Alexa an/ausschalten");
+					IPS_SetParent($AlexaCategoryID, $IQL4SmartHomeID);
+				}	
+			//Prüfen ob Link schon vorhanden
+			$AVRTypeident = str_replace("-", "_", $AVRType);						
+			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Power", $AlexaCategoryID);
+			if ($Zone == 0)//Mainzone
+			{
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."MainzonePower", $AlexaCategoryID);
+			}
+			elseif ($Zone == 1) //Zone 2
+			{
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."Zone2Power", $AlexaCategoryID);
+			}
+			elseif ($Zone == 2) // Zone 3
+			{
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."Zone3Power", $AlexaCategoryID);
+			}
+			
+			if ($LinkIDPower === false)
+				{
+					// Anlegen eines neuen Links für Power
+					$LinkIDPower = IPS_CreateLink();             // Link anlegen
+					IPS_SetName($LinkIDPower, $manufacturername." Power"); // Link benennen
+					IPS_SetIdent($LinkIDPower, $manufacturername."_".$AVRTypeident."_Power"); //ident
+					IPS_SetLinkTargetID($LinkIDPower, ($this->GetIDForIdent("PW")));    // Link verknüpfen
+					IPS_SetInfo($LinkIDPower, $manufacturername." ".$AVRType." Power");
+					IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
+				}	
+			
+			if ($LinkID === false)
+				{
+					// Anlegen eines neuen Links für Power
+					$LinkID = IPS_CreateLink();             // Link anlegen
+					if ($Zone == 0)//Mainzone
+					{
+						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
+						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_MainzonePower"); //ident
+						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
+						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Mainzone Power");
+					}
+					elseif ($Zone == 1) //Zone 2
+					{
+						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
+						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone2Power"); //ident
+						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
+						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 2 Power");
+					}
+					elseif ($Zone == 2) // Zone 3
+					{
+						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
+						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone3Power"); //ident
+						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("Z3POWER")));    // Link verknüpfen
+						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 3 Power");
+					}
+					IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
+					
+				}			
+		}
+		
+	protected function DeleteAlexaLinks()
+		{
+			$Zone = $this->ReadPropertyInteger('Zone');
+			$manufacturername = $this->GetManufacturer();
+			$AVRType = $this->GetAVRType($manufacturername);
+			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
+			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
+			$AVRTypeident = str_replace("-", "_", $AVRType);
+			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Power", $AlexaCategoryID);
+			if ($Zone == 0)//Mainzone
+			{
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_MainzonePower", $AlexaCategoryID);
+			}
+			elseif ($Zone == 1) //Zone 2
+			{
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Zone2Power", $AlexaCategoryID);
+			}
+			elseif ($Zone == 2) // Zone 3
+			{
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Zone3Power", $AlexaCategoryID);
+			}
+			if($LinkIDPower > 0)
+			{
+				IPS_DeleteLink($LinkIDPower);
+			}
+			if($LinkID > 0)
+			{
+				IPS_DeleteLink($LinkID);
+			}
+			
+			if($AlexaCategoryID > 0)
+			{
+				IPS_DeleteCategory($AlexaCategoryID);
+			}
+		}
 }
 
 ?>
