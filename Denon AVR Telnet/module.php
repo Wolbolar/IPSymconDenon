@@ -1591,8 +1591,10 @@ class DenonAVRTelnet extends IPSModule
 		|| $AVRType == "AVR-X1300W" || $AVRType == "AVR-1200W" || $AVRType == "AVR-X1100W" || $AVRType == "S920W" || $AVRType == "S900W" ||  $AVRType == "S720W" || $AVRType == "S700W")
 		{
 			$APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
+			$this->SendDebug("Denon Subcommand:",$APISubCommand,0);
 			if ($APISubCommand == "V.AUX")
 			{
+				$this->SendDebug("Denon Subcommand:","V.AUX detected replaced with AUX1 for ".$AVRType,0);
 				$APISubCommand = "AUX1";
 				$APIData->APISubCommand = $APISubCommand;
 			}
