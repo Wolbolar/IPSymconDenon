@@ -5723,7 +5723,7 @@ elseif ($status == true)// Ausschalten
 			}
 			elseif ($Zone == 2) // Zone 3
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident"Zone3Power", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."Zone3Power", $AlexaCategoryID);
 			}
 			
 			if ($LinkIDPower === false)
