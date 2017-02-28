@@ -2006,7 +2006,7 @@ elseif ($status == true)// Ausschalten
 					IPS_SetInfo($LinkIDPower, $manufacturername." ".$AVRType." Power");
 					IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
 				}	
-			IPS_SetName($LinkIDPower, $AlexaLinkNamePower." Power"); // Link benennen
+			IPS_SetName($LinkIDPower, $AlexaLinkNamePower); // Link benennen
 			if ($LinkID === false)
 				{
 					// Anlegen eines neuen Links für Power
