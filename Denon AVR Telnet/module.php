@@ -5543,9 +5543,9 @@ elseif ($status == true)// Ausschalten
 				{ "type": "Label", "label": "Would you like to create links in the SmartHomeSkill instance for voice control?" },
 				{ "type": "CheckBox", "name": "Alexa", "caption": "Create links for Amazon Echo / Dot" },
 				{ "type": "Label", "label": "Alexa name for Power" },
-				{ "type": "ValidationTextBox", "name": "AlexaPower", "caption": "Alexa Power" }
+				{ "type": "ValidationTextBox", "name": "AlexaPower", "caption": "Alexa Power" },
 				{ "type": "Label", "label": "Alexa name for Power Zone" },
-				{ "type": "ValidationTextBox", "name": "AlexaPowerZone", "caption": "Alexa Power Zone" }';
+				{ "type": "ValidationTextBox", "name": "AlexaPowerZone", "caption": "Alexa Power Zone" },';
 			}
 			else
 			{
