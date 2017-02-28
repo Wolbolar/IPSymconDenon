@@ -5694,7 +5694,7 @@ elseif ($status == true)// Ausschalten
 			return $IQL4SmartHomeID;
 		}
 		
-		protected function CreateAlexaLinks()
+	protected function CreateAlexaLinks()
 		{
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();
@@ -5733,6 +5733,7 @@ elseif ($status == true)// Ausschalten
 					IPS_SetName($LinkIDPower, $manufacturername." Power"); // Link benennen
 					IPS_SetIdent($LinkIDPower, $manufacturername."_".$AVRTypeident."_Power"); //ident
 					IPS_SetLinkTargetID($LinkIDPower, ($this->GetIDForIdent("PW")));    // Link verknüpfen
+					IPS_SetInfo($AlexaCategoryID, $manufacturername." ".$AVRType." Power");
 					IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
 				}	
 			
@@ -5745,18 +5746,21 @@ elseif ($status == true)// Ausschalten
 						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_MainzonePower"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
+						IPS_SetInfo($AlexaCategoryID, $manufacturername." ".$AVRType." Mainzone Power");
 					}
 					elseif ($Zone == 1) //Zone 2
 					{
 						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone2Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
+						IPS_SetInfo($AlexaCategoryID, $manufacturername." ".$AVRType." Zone 2 Power");
 					}
 					elseif ($Zone == 2) // Zone 3
 					{
 						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone3Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("Z3POWER")));    // Link verknüpfen
+						IPS_SetInfo($AlexaCategoryID, $manufacturername." ".$AVRType." Zone 3 Power");
 					}
 					IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
 					
