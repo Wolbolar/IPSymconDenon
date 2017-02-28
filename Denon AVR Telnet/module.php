@@ -5697,9 +5697,8 @@ elseif ($status == true)// Ausschalten
 		protected function CreateAlexaLinks()
 		{
 			$Zone = $this->ReadPropertyInteger('Zone');
-			$manufacturer = $this->ReadPropertyInteger('manufacturer');
-			$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
-			$AVRTypeMarantz = $this->ReadPropertyInteger('AVRTypeMarantz');
+			$manufacturername = $this->GetManufacturer();
+			$AVRType = $this->GetAVRType($manufacturername);
 			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
 			//Prüfen ob Kategorie schon existiert
 			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
