@@ -233,7 +233,8 @@ class DENONIPSProfiles extends stdClass
 		// Marantz-SR7008, Marantz-SR7009, Marantz-SR7010, Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7703, Marantz-AV7702 mk II, Marantz-AV8801, Marantz-AV8802
 		elseif(($AVRType == "S700W") || ($AVRType == "S900W") || ($AVRType == "AVR-2313") || ($AVRType == "AVR-3313") || ($AVRType == "AVR-X1000") || ($AVRType == "AVR-X1100W") || ($AVRType == "AVR-X1200W") || ($AVRType == "AVR-X2000")
 							|| ($AVRType == "AVR-X2100W") || ($AVRType == "AVR-X2200W") || ($AVRType == "AVR-X3000") || ($AVRType == "AVR-X3100W") || ($AVRType == "AVR-X3200W") || ($AVRType == "AVR-X4000") || ($AVRType == "AVR-X4100W") || ($AVRType == "AVR-X4200W")
-							|| ($AVRType == "AVR-X5200W") || ($AVRType == "AVR-6200W") || ($AVRType == "AVR-X7200W") || ($AVRType == "AVR-7200WA") ||
+							|| ($AVRType == "AVR-X5200W") || ($AVRType == "AVR-6200W") || ($AVRType == "AVR-X7200W") || ($AVRType == "AVR-7200WA")
+							|| ($AVRType == "AVR-X6300H") || ($AVRType == "AVR-X4300H") || ($AVRType == "AVR-X3300W") || ($AVRType == "AVR-X2300W") || ($AVRType == "S920W") || ($AVRType == "AVR-X1300W") ||
 							($AVRType == "Marantz-NR1504") || ($AVRType == "Marantz-NR1506") || ($AVRType == "Marantz-NR1602") || ($AVRType == "Marantz-NR1603") || ($AVRType == "Marantz-NR1604") ||  ($AVRType == "Marantz-NR1605") || ($AVRType == "Marantz-NR1606") || ($AVRType == "Marantz-NR1607") ||
 							($AVRType == "Marantz-SR5006") || ($AVRType == "Marantz-SR5007") || ($AVRType == "Marantz-SR5008") || ($AVRType == "Marantz-SR5009") ||  ($AVRType == "Marantz-SR5010") || ($AVRType == "Marantz-SR5011") ||
 							($AVRType == "Marantz-SR6005") || ($AVRType == "Marantz-SR6006") || ($AVRType == "Marantz-SR6007") || ($AVRType == "Marantz-SR6008") || ($AVRType == "Marantz-SR6009") ||  ($AVRType == "Marantz-SR6010") || ($AVRType == "Marantz-SR6011") ||

@@ -986,8 +986,14 @@ class DenonAVRTelnet extends IPSModule
 				23 => "S-700W",
 				24 => "S-900W",
 				25 => "AVR-1912",
+				26 => "AVR-X6300H",
+				27 => "AVR-X4300H",
+				28 => "AVR-X3300W",
+				29 => "AVR-X2300W",
+				30 => "S920W",
+				31 => "AVR-X1300W",
 				50 => "None");
-		}
+		}														
 		elseif($manufacturername == "Marantz")
 		{
 			$TypeInt = $this->ReadPropertyInteger('AVRTypeMarantz');
@@ -1578,7 +1584,9 @@ class DenonAVRTelnet extends IPSModule
 		*/
         // Subcommand holen
 		//Aux bei einzelnen AVR Modellen korrigieren
-		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4100W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2100W" || $AVRType == "S900W" || $AVRType == "AVR-X1100W" || $AVRType == "S700W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-6200W" || $AVRType == "AVR-4200W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-1200W")
+		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-X6300H"  || $AVRType == "AVR-6200W" ||  $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4300H" || $AVRType == "AVR-4200W"  || $AVRType == "AVR-X4100W"
+		|| $AVRType == "AVR-X3300W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2300W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-X2100W"
+		|| $AVRType == "AVR-X1300W" || $AVRType == "AVR-1200W" || $AVRType == "AVR-X1100W" || $AVRType == "S920W" || $AVRType == "S900W" ||  $AVRType == "S720W" || $AVRType == "S700W")
 		{
 			$APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
 			if ($APISubCommand == "V.AUX")
@@ -5441,26 +5449,31 @@ elseif ($status == true)// Ausschalten
 									{ "value": 7, "label": "AVR-X1000" },
 									{ "value": 8, "label": "AVR-X1000W" },
 									{ "value": 9, "label": "AVR-X1200W" },
+									{ "value": 31, "label": "AVR-X1300W" },
 									{ "value": 10, "label": "AVR-X2000" },
 									{ "value": 11, "label": "AVR-X2100W" },
 									{ "value": 12, "label": "AVR-X2200W" },
+									{ "value": 29, "label": "AVR-X2300W" },
 									{ "value": 13, "label": "AVR-X3000" },
 									{ "value": 14, "label": "AVR-X3100W" },
 									{ "value": 15, "label": "AVR-X3200W" },
+									{ "value": 28, "label": "AVR-X3300W" },
 									{ "value": 16, "label": "AVR-X4000" },
 									{ "value": 17, "label": "AVR-X4100W" },
 									{ "value": 18, "label": "AVR-X4200W" },
+									{ "value": 27, "label": "AVR-X4300H" },
 									{ "value": 19, "label": "AVR-X5200W" },
 									{ "value": 20, "label": "AVR-6200W" },
+									{ "value": 26, "label": "AVR-X6300H" },
 									{ "value": 21, "label": "AVR-7200W" },
 									{ "value": 22, "label": "AVR-7200WA" },
 									{ "value": 23, "label": "S-700W" },
-									{ "value": 24, "label": "S-900W" }
+									{ "value": 24, "label": "S920W" },
+									{ "value": 30, "label": "S-900W" }
 								  ]
 				},';
 			return $form;
 		}
-		
 		protected function FormSelectionAVRMarantz()
 		{
 			$form = '{ "type": "Label", "label": "Marantz AV Receiver"},
