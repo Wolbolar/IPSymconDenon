@@ -45,7 +45,11 @@
 			"Please Select":"Bitte Auswählen",
 			"Alexa Smart Home Skill is available in IP-Symcon": "Alexa SmartHomeSkill ist in IP-Symcon verfügbar",
 			"Would you like to create links in the SmartHomeSkill instance for voice control?": "Sollen Links in der SmartHomeSkill Instanz für die Sprachsteuerung erstellt werden?",
-			"Create links for Amazon Echo / Dot": "Links für Amazon Echo / Dot anlegen"
+			"Create links for Amazon Echo / Dot": "Links für Amazon Echo / Dot anlegen",
+			"Alexa name for Power": "Alexa Rufname für Power",
+			"Alexa Power": "Alexa Power",
+			"Alexa name for Power Zone": "Alexa Rufname für Power Zone",
+			"Alexa Power Zone": "Alexa Power Zone"
 		}
 	}
 }
