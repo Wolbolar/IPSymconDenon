@@ -1585,7 +1585,7 @@ class DenonAVRTelnet extends IPSModule
         // Subcommand holen
 		//Aux bei einzelnen AVR Modellen korrigieren
 		if ($AVRType == "AVR-X7200W" || $AVRType == "AVR-7200WA"  || $AVRType == "AVR-X6300H"  || $AVRType == "AVR-6200W" ||  $AVRType == "AVR-X5200W" || $AVRType == "AVR-X4300H" || $AVRType == "AVR-4200W"  || $AVRType == "AVR-X4100W"
-		|| $AVRType == "AVR-X3300W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2300W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-X2100W"
+		|| $AVRType == "AVR-X3300W" || $AVRType == "AVR-3200W" || $AVRType == "AVR-X3100W" || $AVRType == "AVR-X2300W" || $AVRType == "AVR-2200W" || $AVRType == "AVR-X2100W" || $AVRType == "AVR-X2000"
 		|| $AVRType == "AVR-X1300W" || $AVRType == "AVR-1200W" || $AVRType == "AVR-X1100W" || $AVRType == "S920W" || $AVRType == "S900W" ||  $AVRType == "S720W" || $AVRType == "S700W")
 		{
 			$APISubCommand = $APIData->GetSubCommand($APIData->APIIdent, $APIData->Data, $APIData->InputMapping);
