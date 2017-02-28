@@ -15,6 +15,8 @@ class DenonAVRTelnet extends IPSModule
         $this->ConnectParent("{9AE3087F-DC25-4ADB-AB46-AD7455E71032}");
 		
 		$this->RegisterPropertyBoolean("Alexa", false);
+		$this->RegisterPropertyString("AlexaPower", "Verstärker Power");
+		$this->RegisterPropertyString("AlexaPowerZone", "Verstärker Power");
 		$this->RegisterPropertyInteger("manufacturer", 0);
 		$this->RegisterPropertyInteger("AVRTypeDenon", 50);
 		$this->RegisterPropertyInteger("AVRTypeMarantz", 50);
@@ -5539,7 +5541,11 @@ elseif ($status == true)// Ausschalten
 				{ "type": "Label", "label": "Amazon Echo / Dot" },
 				{ "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
 				{ "type": "Label", "label": "Would you like to create links in the SmartHomeSkill instance for voice control?" },
-				{ "type": "CheckBox", "name": "Alexa", "caption": "Create links for Amazon Echo / Dot" },';
+				{ "type": "CheckBox", "name": "Alexa", "caption": "Create links for Amazon Echo / Dot" },
+				{ "type": "Label", "label": "Alexa name for Power" },
+				{ "type": "ValidationTextBox", "name": "AlexaPower", "caption": "Alexa Power" },
+				{ "type": "Label", "label": "Alexa name for Power Zone" },
+				{ "type": "ValidationTextBox", "name": "AlexaPowerZone", "caption": "Alexa Power Zone" },';
 			}
 			else
 			{
@@ -5712,6 +5718,8 @@ elseif ($status == true)// Ausschalten
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();
 			$AVRType = $this->GetAVRType($manufacturername);
+			$AlexaLinkNamePower = $this->ReadPropertyString("AlexaPower");
+			$AlexaLinkNameZonePower = $this->ReadPropertyString("AlexaPowerZone");
 			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
 			//Prüfen ob Kategorie schon existiert
 			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
@@ -5743,41 +5751,49 @@ elseif ($status == true)// Ausschalten
 				{
 					// Anlegen eines neuen Links für Power
 					$LinkIDPower = IPS_CreateLink();             // Link anlegen
-					IPS_SetName($LinkIDPower, $manufacturername." Power"); // Link benennen
 					IPS_SetIdent($LinkIDPower, $manufacturername."_".$AVRTypeident."_Power"); //ident
 					IPS_SetLinkTargetID($LinkIDPower, ($this->GetIDForIdent("PW")));    // Link verknüpfen
 					IPS_SetInfo($LinkIDPower, $manufacturername." ".$AVRType." Power");
 					IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
 				}	
-			
+			IPS_SetName($LinkIDPower, $AlexaLinkNamePower); // Link benennen
 			if ($LinkID === false)
 				{
 					// Anlegen eines neuen Links für Power
 					$LinkID = IPS_CreateLink();             // Link anlegen
 					if ($Zone == 0)//Mainzone
 					{
-						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_MainzonePower"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Mainzone Power");
 					}
 					elseif ($Zone == 1) //Zone 2
 					{
-						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone2Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 2 Power");
 					}
 					elseif ($Zone == 2) // Zone 3
 					{
-						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone3Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("Z3POWER")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 3 Power");
 					}
 					IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
 					
-				}			
+				}
+			if ($Zone == 0)//Mainzone
+				{
+					IPS_SetName($LinkID, $AlexaLinkNameZonePower." Mainzone"); // Link benennen
+				}
+			elseif ($Zone == 1) //Zone 2
+				{
+					IPS_SetName($LinkID, $AlexaLinkNameZonePower." Zone 2"); // Link benennen
+				}
+			elseif ($Zone == 2) // Zone 3
+				{
+					IPS_SetName($LinkID, $AlexaLinkNameZonePower." Zone 3"); // Link benennen
+				}
 		}
 		
 	protected function DeleteAlexaLinks()
