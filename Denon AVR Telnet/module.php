@@ -5711,18 +5711,19 @@ elseif ($status == true)// Ausschalten
 					IPS_SetParent($AlexaCategoryID, $IQL4SmartHomeID);
 				}	
 			//Prüfen ob Link schon vorhanden
-			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."_Power", $AlexaCategoryID);
+			$AVRTypeident = str_replace("-", "_", $AVRType);						
+			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Power", $AlexaCategoryID);
 			if ($Zone == 0)//Mainzone
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."MainzonePower", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."MainzonePower", $AlexaCategoryID);
 			}
 			elseif ($Zone == 1) //Zone 2
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."Zone2Power", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."Zone2Power", $AlexaCategoryID);
 			}
 			elseif ($Zone == 2) // Zone 3
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."Zone3Power", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident"Zone3Power", $AlexaCategoryID);
 			}
 			
 			if ($LinkIDPower === false)
@@ -5730,7 +5731,7 @@ elseif ($status == true)// Ausschalten
 					// Anlegen eines neuen Links für Power
 					$LinkIDPower = IPS_CreateLink();             // Link anlegen
 					IPS_SetName($LinkIDPower, $manufacturername." Power"); // Link benennen
-					IPS_SetIdent($LinkIDPower, $manufacturername."_".$AVRType."_Power"); //ident
+					IPS_SetIdent($LinkIDPower, $manufacturername."_".$AVRTypeident."_Power"); //ident
 					IPS_SetLinkTargetID($LinkIDPower, ($this->GetIDForIdent("PW")));    // Link verknüpfen
 					IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
 				}	
@@ -5742,19 +5743,19 @@ elseif ($status == true)// Ausschalten
 					if ($Zone == 0)//Mainzone
 					{
 						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
-						IPS_SetIdent($LinkID, $manufacturername."_".$AVRType."_MainzonePower"); //ident
+						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_MainzonePower"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 					}
 					elseif ($Zone == 1) //Zone 2
 					{
 						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
-						IPS_SetIdent($LinkID, $manufacturername."_".$AVRType."_Zone2Power"); //ident
+						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone2Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 					}
 					elseif ($Zone == 2) // Zone 3
 					{
 						IPS_SetName($LinkID, $manufacturername." Mainzone Power"); // Link benennen
-						IPS_SetIdent($LinkID, $manufacturername."_".$AVRType."_Zone3Power"); //ident
+						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone3Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("Z3POWER")));    // Link verknüpfen
 					}
 					IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
@@ -5769,18 +5770,19 @@ elseif ($status == true)// Ausschalten
 			$AVRType = $this->GetAVRType($manufacturername);
 			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
 			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
-			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."_Power", $AlexaCategoryID);
+			$AVRTypeident = str_replace("-", "_", $AVRType);
+			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Power", $AlexaCategoryID);
 			if ($Zone == 0)//Mainzone
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."_MainzonePower", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_MainzonePower", $AlexaCategoryID);
 			}
 			elseif ($Zone == 1) //Zone 2
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."_Zone2Power", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Zone2Power", $AlexaCategoryID);
 			}
 			elseif ($Zone == 2) // Zone 3
 			{
-				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."_Zone3Power", $AlexaCategoryID);
+				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Zone3Power", $AlexaCategoryID);
 			}
 			if($LinkIDPower > 0)
 			{
