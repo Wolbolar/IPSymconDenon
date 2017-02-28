@@ -1963,7 +1963,7 @@ elseif ($status == true)// Ausschalten
 			$manufacturer = $this->ReadPropertyInteger('manufacturer');
 			$AVRTypeDenon = $this->ReadPropertyInteger('AVRTypeDenon');
 			$AVRTypeMarantz = $this->ReadPropertyInteger('AVRTypeMarantz');
-			$IQL4SmartHomeID = GetAlexaSmartHomeSkill();
+			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
 			//Prüfen ob Kategorie schon existiert
 			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
 			if ($AlexaCategoryID === false)
@@ -2031,7 +2031,7 @@ elseif ($status == true)// Ausschalten
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();
 			$AVRType = $this->GetAVRType($manufacturername);
-			$IQL4SmartHomeID = GetAlexaSmartHomeSkill();
+			$IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
 			$AlexaCategoryID = @IPS_GetObjectIDByIdent("AlexaAVR", $IQL4SmartHomeID);
 			$LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRType."_Power", $AlexaCategoryID);
 			if ($Zone == 0)//Mainzone
