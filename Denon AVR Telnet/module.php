@@ -5823,7 +5823,7 @@ elseif ($status == true)// Ausschalten
 			{
 				IPS_DeleteLink($LinkIDPower);
 			}
-			if($LinkID > 0)
+			if($LinkIDPower > 0)
 			{
 				IPS_DeleteLink($LinkID);
 			}
