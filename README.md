@@ -62,7 +62,7 @@ In IP-Symcon wird von jede Zone des AV Receivers den wir nutzen wollen eine sepe
 automatisch mit angelegt. Um die Instanz zu erstellen wechseln wir in die Kategorie, unter der wir die Instanz platzieren wollen
 und erstellen mit *CTRL+1* eine neue Instanz.
 
-![Modulauswahl](Doku/install1.png?raw=true "Modulauswahl")
+![Modulauswahl](docs/install1.png?raw=true "Modulauswahl")
 
 Über _**Denon**_ finden wir die Instanz und mit weiter und Ok wird diese angelegt.
 
@@ -72,15 +72,15 @@ Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutrag
 
 Bei dem Denon / Marantz Device ist zunächst der Hersteller auszuwählen und dann mit _Übernehmen_ zu bestätigen.
 
-![Herstellerauswahl](Doku/config1.png?raw=true "Herstellerauswahl")
+![Herstellerauswahl](docs/config1.png?raw=true "Herstellerauswahl")
 
 Anschließend das AV Receiver Modell auszuwählen und wieder mit _Übernehmen_ bestätigen.
 
-![AVRAuswahl](Doku/config2.png?raw=true "AVR Auswahl")
+![AVRAuswahl](docs/config2.png?raw=true "AVR Auswahl")
 
 Jetzt noch die Zone selektieren die benutzt werden soll und mit _Übernehmen_ bestätigen.
 
-![ZoneAuswahl](Doku/config3.png?raw=true "Zone Auswahl")
+![ZoneAuswahl](docs/config3.png?raw=true "Zone Auswahl")
 
 Jetzt wird abhänig von dem AV Receiver Modell und der Zone Befehle zum selektieren angezeigt. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. Die Befehle die im Webfront genutzt werden sollen können nun ausgewählt werden oder auch wieder bei Bedarf abgewählt werden.
 Beim HTTP Modul wird der Status automatisch regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
