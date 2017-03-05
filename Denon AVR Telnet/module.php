@@ -5839,9 +5839,26 @@ elseif ($status == true)// Ausschalten
 			
 			if($AlexaCategoryID > 0)
 			{
-				IPS_DeleteCategory($AlexaCategoryID);
+				$catempty = $this->ScreenCategory($AlexaCategoryID);
+				if($catempty == true)
+				{
+					IPS_DeleteCategory($AlexaCategoryID);
+				}
 			}
 		}
+	protected function ScreenCategory($CategoryID)
+	{
+		$catempty = IPS_GetChildrenIDs($CategoryID);
+		if(empty($catempty))
+		{
+			$catempty = true;
+		}
+		else
+		{
+			$catempty = false;
+		}	
+		return $catempty;
+	}		
 }
 
 ?>
