@@ -5781,8 +5781,6 @@ elseif ($status == true)// Ausschalten
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("Z3POWER")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 3 Power");
 					}
-					IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
-					
 				}
 			if ($Zone == 0)//Mainzone
 				{
@@ -5796,6 +5794,7 @@ elseif ($status == true)// Ausschalten
 				{
 					IPS_SetName($LinkID, $AlexaLinkNameZonePower." Zone 3"); // Link benennen
 				}
+			IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 	
 		}
 		
 	protected function DeleteAlexaLinks()
@@ -5839,9 +5838,27 @@ elseif ($status == true)// Ausschalten
 			
 			if($AlexaCategoryID > 0)
 			{
-				IPS_DeleteCategory($AlexaCategoryID);
+				$catempty = $this->ScreenCategory($AlexaCategoryID);
+				if($catempty == true)
+				{
+					IPS_DeleteCategory($AlexaCategoryID);
+				}
 			}
 		}
+	
+	protected function ScreenCategory($CategoryID)
+	{
+		$catempty = IPS_GetChildrenIDs($CategoryID);
+		if(empty($catempty))
+		{
+			$catempty = true;
+		}
+		else
+		{
+			$catempty = false;
+		}	
+		return $catempty;
+	}	
 }
 
 ?>
