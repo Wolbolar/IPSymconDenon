@@ -85,7 +85,7 @@ class DenonSplitterTelnet extends IPSModule
             //Instanz aktiv
 			$this->SetStatus(102);
         }
-		$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRST_GetStatusHTTP($id)');
+		$this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRST_GetStatusHTTP($id)');
     }
 
 		/**
