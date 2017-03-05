@@ -12,8 +12,8 @@ class DenonSplitterTelnet extends IPSModule
 		
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
-		// ClientSocket benötigt
-        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}", "DenonAVR Telnet"); //Clientsocket
+		// ClientSocket benÃ¶tigt
+        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}"); //Clientsocket DenonAVR Telnet
 
         
 		$this->RegisterPropertyString("Host", "192.168.x.x");
@@ -40,7 +40,7 @@ class DenonSplitterTelnet extends IPSModule
 		$this->RegisterVariableString("AVRType", "AVRType", "", 5);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	
-		//IP Prüfen
+		//IP PrÃ¼fen
 		$ip = $this->ReadPropertyString('Host');
 		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 			{
@@ -61,7 +61,7 @@ class DenonSplitterTelnet extends IPSModule
 					}
 					$ParentOpen = $this->ReadPropertyBoolean('Open');
 					
-			// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
+			// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt spÃ¤ter Exception.
 					if (!$ParentOpen)
 						$this->SetStatus(104);
 
@@ -82,7 +82,7 @@ class DenonSplitterTelnet extends IPSModule
 			}	
 		else
 			{
-			$this->SetStatus(204); //IP Adresse ist ungültig
+			$this->SetStatus(204); //IP Adresse ist ungÃ¼ltig
 			}
 			
 		// Wenn I/O verbunden ist
@@ -95,8 +95,8 @@ class DenonSplitterTelnet extends IPSModule
     }
 
 		/**
-        * Die folgenden Funktionen stehen automatisch zur Verfügung, wenn das Modul über die "Module Control" eingefügt wurden.
-        * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:
+        * Die folgenden Funktionen stehen automatisch zur VerfÃ¼gung, wenn das Modul Ã¼ber die "Module Control" eingefÃ¼gt wurden.
+        * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur VerfÃ¼gung gestellt:
         *
         *
         */
@@ -148,7 +148,7 @@ public function SaveInputVarmapping(string $MappingInputs)
 			{
 				$InputsMapping = json_decode($InputsMapping);
 				$Writeprotected = $InputsMapping->Writeprotected;
-				if(!$Writeprotected) // Auf Schreibschutz prüfen
+				if(!$Writeprotected) // Auf Schreibschutz prÃ¼fen
 				{
 					$MappingInputsArr = json_decode($MappingInputs);
 					$AVRType = $MappingInputsArr->AVRType;
@@ -275,7 +275,7 @@ public function GetInputVarMapping()
 		$InputsMapping = json_decode($InputsMapping);
 		//Varmapping generieren
 		$AVRType = $InputsMapping->AVRType;
-		if($AVRType !== "AVR-3808A") //Nur Ausführen wenn AVR HTTP unterstützt
+		if($AVRType !== "AVR-3808A") //Nur AusfÃ¼hren wenn AVR HTTP unterstÃ¼tzt
 		{
 			// Empfangene Daten vom Denon AVR Receiver
 		
@@ -293,7 +293,7 @@ public function GetInputVarMapping()
 					$InputMapping = $this->GetInputVarMapping();
 					$data = $DenonStatus->getStates ($InputMapping, $AVRType);
 									
-					// Weiterleitung zu allen Gerät-/Device-Instanzen
+					// Weiterleitung zu allen GerÃ¤t-/Device-Instanzen
 					$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $data))); //Denon Telnet Splitter Interface GUI
 				}
 				catch (Exception $exc)
@@ -376,9 +376,9 @@ public function GetInputVarMapping()
 			return $GetAVRType;
 		}
 	
-	// Display NSE, NSA, NSH noch ergänzen
+	// Display NSE, NSA, NSH noch ergÃ¤nzen
 	
-	//Tuner ergänzen
+	//Tuner ergÃ¤nzen
 	
 
 ################## Datapoints
@@ -408,7 +408,7 @@ public function GetInputVarMapping()
 		$message = json_encode($SetCommand);
 		SetValueString($this->GetIDForIdent("BufferIN"), $message);
 			 
-		// Weiterleitung zu allen Gerät-/Device-Instanzen
+		// Weiterleitung zu allen GerÃ¤t-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $SetCommand))); //Denon Telnet Splitter Interface GUI
 	}
 	
@@ -423,8 +423,8 @@ public function GetInputVarMapping()
 		$datasend = $data->Buffer;
 		SetValueString($this->GetIDForIdent("CommandOut"), $datasend);
 			 
-		// Hier würde man den Buffer im Normalfall verarbeiten
-		// z.B. CRC prüfen, in Einzelteile zerlegen
+		// Hier wÃ¼rde man den Buffer im Normalfall verarbeiten
+		// z.B. CRC prÃ¼fen, in Einzelteile zerlegen
 		try
 		{
 			// Weiterleiten zur I/O Instanz
