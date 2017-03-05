@@ -12,7 +12,7 @@ class DenonSplitterHTTP extends IPSModule
 		
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
-		$this->RequireParent("{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}", "DenonAVR HTTP"); //Denon HTTP Socket	
+		$this->RequireParent("{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}"); //Denon HTTP Socket	
 
         $this->RegisterPropertyString("Host", "192.168.x.x");
 		//$this->RegisterPropertyInteger("Port", 80);
@@ -26,7 +26,7 @@ class DenonSplitterHTTP extends IPSModule
         parent::ApplyChanges();
         $change = false;	
 		
-	//IP Prüfen
+	//IP PrÃ¼fen
 		$ip = $this->ReadPropertyString('Host');
 		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 		{
@@ -49,7 +49,7 @@ class DenonSplitterHTTP extends IPSModule
 				*/
 				$ParentOpen = $this->ReadPropertyBoolean('Open');
 				
-		// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
+		// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt spÃ¤ter Exception.
 				if (!$ParentOpen)
 					$this->SetStatus(104);
 
@@ -71,7 +71,7 @@ class DenonSplitterHTTP extends IPSModule
 		}
 	else
 			{
-			$this->SetStatus(204); //IP Adresse ist ungültig 
+			$this->SetStatus(204); //IP Adresse ist ungÃ¼ltig 
 			}
 			
 	// Wenn I/O verbunden ist
@@ -84,8 +84,8 @@ class DenonSplitterHTTP extends IPSModule
     }
 
 		/**
-        * Die folgenden Funktionen stehen automatisch zur Verfügung, wenn das Modul über die "Module Control" eingefügt wurden.
-        * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:
+        * Die folgenden Funktionen stehen automatisch zur VerfÃ¼gung, wenn das Modul Ã¼ber die "Module Control" eingefÃ¼gt wurden.
+        * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur VerfÃ¼gung gestellt:
         *
         *
         */
@@ -197,7 +197,7 @@ class DenonSplitterHTTP extends IPSModule
 	 
 		// Hier werden die Daten verarbeitet
 	 
-		// Weiterleitung zu allen Gerät-/Device-Instanzen
+		// Weiterleitung zu allen GerÃ¤t-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{D9209251-0036-48C2-AF96-9F5EDE761A52}", "Buffer" => $data->Buffer))); //Denon HTTP Splitter Interface GUI
 	}
 	
@@ -213,8 +213,8 @@ class DenonSplitterHTTP extends IPSModule
 		$datasend = $data->Buffer;
 		$this->SendDebug("Command Out",print_r($datasend,true),0);
 			 
-		// Hier würde man den Buffer im Normalfall verarbeiten
-		// z.B. CRC prüfen, in Einzelteile zerlegen
+		// Hier wÃ¼rde man den Buffer im Normalfall verarbeiten
+		// z.B. CRC prÃ¼fen, in Einzelteile zerlegen
 		try
 		{
 			//
