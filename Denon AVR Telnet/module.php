@@ -5715,7 +5715,7 @@ elseif ($status == true)// Ausschalten
 			return $IQL4SmartHomeID;
 		}
 		
-	protected function CreateAlexaLinks()
+		protected function CreateAlexaLinks()
 		{
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();
@@ -5730,7 +5730,7 @@ elseif ($status == true)// Ausschalten
 					$AlexaCategoryID = IPS_CreateCategory();
 					IPS_SetName($AlexaCategoryID, "AV Receiver");
 					IPS_SetIdent($AlexaCategoryID, "AlexaAVR");
-					IPS_SetInfo($AlexaCategoryID, "AV Reciever über Alexa an/ausschalten");
+					IPS_SetInfo($AlexaCategoryID, "AV Receiver über Alexa an/ausschalten");
 					IPS_SetParent($AlexaCategoryID, $IQL4SmartHomeID);
 				}	
 			//Prüfen ob Link schon vorhanden
@@ -5768,21 +5768,22 @@ elseif ($status == true)// Ausschalten
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_MainzonePower"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Mainzone Power");
+						IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
 					}
 					elseif ($Zone == 1) //Zone 2
 					{
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone2Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 2 Power");
+						IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
 					}
 					elseif ($Zone == 2) // Zone 3
 					{
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone3Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("Z3POWER")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 3 Power");
-					}
-					IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
-					
+						IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
+					}					
 				}
 			if ($Zone == 0)//Mainzone
 				{
@@ -5798,7 +5799,7 @@ elseif ($status == true)// Ausschalten
 				}
 		}
 		
-	protected function DeleteAlexaLinks()
+		protected function DeleteAlexaLinks()
 		{
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();

@@ -2058,29 +2058,43 @@ elseif ($status == true)// Ausschalten
 			if ($Zone == 0)//Mainzone
 			{
 				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_MainzonePower", $AlexaCategoryID);
+				if($LinkID > 0)
+				{
+					IPS_DeleteLink($LinkID);
+				}
 			}
 			elseif ($Zone == 1) //Zone 2
 			{
 				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Zone2Power", $AlexaCategoryID);
+				if($LinkID > 0)
+				{
+					IPS_DeleteLink($LinkID);
+				}
 			}
 			elseif ($Zone == 2) // Zone 3
 			{
 				$LinkID = @IPS_GetObjectIDByIdent($manufacturername."_".$AVRTypeident."_Zone3Power", $AlexaCategoryID);
+				if($LinkID > 0)
+				{
+					IPS_DeleteLink($LinkID);
+				}
 			}
 			if($LinkIDPower > 0)
 			{
 				IPS_DeleteLink($LinkIDPower);
 			}
-			if($LinkID > 0)
-			{
-				IPS_DeleteLink($LinkID);
-			}
+			
 			
 			if($AlexaCategoryID > 0)
 			{
-				IPS_DeleteCategory($AlexaCategoryID);
+				$catempty = $this->ScreenCategory($AlexaCategoryID);
+				if($catempty == true)
+				{
+					IPS_DeleteCategory($AlexaCategoryID);
+				}
 			}
-		}
+		}	
+
 }
 
 ?>
