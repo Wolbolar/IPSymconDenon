@@ -486,17 +486,17 @@ class DenonAVRHTTP extends IPSModule
 		// Deaktiviert die Standardaktion der Statusvariablen
 		if($this->ReadPropertyBoolean('ZoneName'))
 			{
-				if($this->ReadPropertyBoolean('Zone') == 0)
+				if($this->ReadPropertyInteger('Zone') == 0)
 					{
 						$this->DisableAction("MainZoneName");
 					}
 			
-				if($this->ReadPropertyBoolean('Zone') == 1)
+				if($this->ReadPropertyInteger('Zone') == 1)
 					{
 						$this->DisableAction("Zone2Name");
 					}
 				
-				if($this->ReadPropertyBoolean('Zone') == 2)
+				if($this->ReadPropertyInteger('Zone') == 2)
 					{
 						$this->DisableAction("Zone3Name");
 					}
