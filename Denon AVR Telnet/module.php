@@ -5768,14 +5768,14 @@ elseif ($status == true)// Ausschalten
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_MainzonePower"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Mainzone Power");
-						IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
+						IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
 					}
 					elseif ($Zone == 1) //Zone 2
 					{
 						IPS_SetIdent($LinkID, $manufacturername."_".$AVRTypeident."_Zone2Power"); //ident
 						IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent("ZM")));    // Link verknüpfen
 						IPS_SetInfo($LinkID, $manufacturername." ".$AVRType." Zone 2 Power");
-						IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren 
+						IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren 
 					}
 					elseif ($Zone == 2) // Zone 3
 					{
