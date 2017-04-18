@@ -2095,16 +2095,6 @@ elseif ($status == true)// Ausschalten
 			}
 		}	
 
-			if($LinkID > 0)
-			{
-				IPS_DeleteLink($LinkID);
-			}
-			
-			if($AlexaCategoryID > 0)
-			{
-				IPS_DeleteCategory($AlexaCategoryID);
-			}
-		} 
 }
 
 ?>
