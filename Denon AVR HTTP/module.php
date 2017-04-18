@@ -486,6 +486,7 @@ class DenonAVRHTTP extends IPSModule
 		// Deaktiviert die Standardaktion der Statusvariablen
 		if($this->ReadPropertyBoolean('ZoneName'))
 			{
+
 				if($this->ReadPropertyInteger('Zone') == 0)
 					{
 						$this->DisableAction("MainZoneName");
@@ -2083,8 +2084,7 @@ elseif ($status == true)// Ausschalten
 			{
 				IPS_DeleteLink($LinkIDPower);
 			}
-			
-			
+
 			if($AlexaCategoryID > 0)
 			{
 				$catempty = $this->ScreenCategory($AlexaCategoryID);
@@ -2095,6 +2095,16 @@ elseif ($status == true)// Ausschalten
 			}
 		}	
 
+			if($LinkID > 0)
+			{
+				IPS_DeleteLink($LinkID);
+			}
+			
+			if($AlexaCategoryID > 0)
+			{
+				IPS_DeleteCategory($AlexaCategoryID);
+			}
+		} 
 }
 
 ?>

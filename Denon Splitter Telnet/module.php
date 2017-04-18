@@ -12,9 +12,9 @@ class DenonSplitterTelnet extends IPSModule
 		
 		//These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
+
 		// ClientSocket benötigt
         $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}"); //Clientsocket DenonAVR Telnet
-
         
 		$this->RegisterPropertyString("Host", "192.168.x.x");
 		$this->RegisterPropertyInteger("Port", 23);
@@ -34,7 +34,9 @@ class DenonSplitterTelnet extends IPSModule
 		$this->RegisterVariableString("AVRType", "AVRType", "", 2);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 	
+
 		//IP Prüfen
+
 		$ip = $this->ReadPropertyString('Host');
 		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 			{
@@ -56,6 +58,7 @@ class DenonSplitterTelnet extends IPSModule
 					$ParentOpen = $this->ReadPropertyBoolean('Open');
 					
 			// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
+
 					if (!$ParentOpen)
 						$this->SetStatus(104);
 
@@ -133,7 +136,7 @@ class DenonSplitterTelnet extends IPSModule
 	}
 
 	// Input MappingInputs als JSON
-public function SaveInputVarmapping(string $MappingInputs)
+	public function SaveInputVarmapping(string $MappingInputs)
 	{
 		if ($this->GetIDForIdent("InputMapping"))
 		{
@@ -161,8 +164,8 @@ public function SaveInputVarmapping(string $MappingInputs)
 		}	
 	}
 
-// Input MappingInputs als JSON	
-public function SaveOwnInputVarmapping(string $MappingInputs)
+	// Input MappingInputs als JSON	
+	public function SaveOwnInputVarmapping(string $MappingInputs)
 	{
 		if ($this->GetIDForIdent("InputMapping"))
 		{
@@ -173,7 +176,7 @@ public function SaveOwnInputVarmapping(string $MappingInputs)
 		} 	
 	}	
 
-public function GetInputArrayStatus()
+	public function GetInputArrayStatus()
 	{
 		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 		$InputsMapping = json_decode($InputsMapping);
@@ -191,7 +194,7 @@ public function GetInputArrayStatus()
 		return $InputArray;
 	}	
 	
-public function GetInputVarMapping()
+	public function GetInputVarMapping()
 	{
 		$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 		$InputsMapping = json_decode($InputsMapping);
@@ -269,6 +272,7 @@ public function GetInputVarMapping()
 		$InputsMapping = json_decode($InputsMapping);
 		//Varmapping generieren
 		$AVRType = $InputsMapping->AVRType;
+
 		if($AVRType !== "AVR-3808A") //Nur Ausführen wenn AVR HTTP unterstützt
 		{
 			// Empfangene Daten vom Denon AVR Receiver
@@ -404,6 +408,7 @@ public function GetInputVarMapping()
 		$this->SendDebug("Buffer IN:",$message,0);
 					 
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
+
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}", "Buffer" => $SetCommand))); //Denon Telnet Splitter Interface GUI
 	}
 	
@@ -420,6 +425,7 @@ public function GetInputVarMapping()
 					 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
+
 		try
 		{
 			// Weiterleiten zur I/O Instanz

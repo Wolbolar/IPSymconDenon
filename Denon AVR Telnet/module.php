@@ -739,7 +739,7 @@ class DenonAVRTelnet extends IPSModule
 							$this->DisableAction("Display");
 						}
 					}
-			
+
 				if($this->ReadPropertyInteger('Zone') == 1)
 					{
 						$this->DisableAction("Zone2Name");
@@ -751,6 +751,7 @@ class DenonAVRTelnet extends IPSModule
 					}
 				
 			}
+
 		if ($this->ReadPropertyInteger('Zone') !== 6)
 			{
 				if($this->ReadPropertyBoolean('Model'))
@@ -5715,7 +5716,9 @@ elseif ($status == true)// Ausschalten
 			return $IQL4SmartHomeID;
 		}
 		
-		protected function CreateAlexaLinks()
+
+
+	protected function CreateAlexaLinks()
 		{
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();
@@ -5798,8 +5801,8 @@ elseif ($status == true)// Ausschalten
 					IPS_SetName($LinkID, $AlexaLinkNameZonePower." Zone 3"); // Link benennen
 				}
 		}
-		
-		protected function DeleteAlexaLinks()
+			
+	protected function DeleteAlexaLinks()
 		{
 			$Zone = $this->ReadPropertyInteger('Zone');
 			$manufacturername = $this->GetManufacturer();
@@ -5847,7 +5850,7 @@ elseif ($status == true)// Ausschalten
 				}
 			}
 		}
-		
+
 	protected function ScreenCategory($CategoryID)
 	{
 		$catempty = IPS_GetChildrenIDs($CategoryID);
@@ -5861,6 +5864,7 @@ elseif ($status == true)// Ausschalten
 		}	
 		return $catempty;
 	}		
+
 }
 
 ?>

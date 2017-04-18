@@ -27,6 +27,7 @@ class DenonSplitterHTTP extends IPSModule
         $change = false;	
 		
 	//IP Prüfen
+
 		$ip = $this->ReadPropertyString('Host');
 		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
 		{
@@ -50,6 +51,7 @@ class DenonSplitterHTTP extends IPSModule
 				$ParentOpen = $this->ReadPropertyBoolean('Open');
 				
 		// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
+
 				if (!$ParentOpen)
 					$this->SetStatus(104);
 
@@ -198,6 +200,7 @@ class DenonSplitterHTTP extends IPSModule
 		// Hier werden die Daten verarbeitet
 	 
 		// Weiterleitung zu allen Gerät-/Device-Instanzen
+
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{D9209251-0036-48C2-AF96-9F5EDE761A52}", "Buffer" => $data->Buffer))); //Denon HTTP Splitter Interface GUI
 	}
 	
@@ -215,6 +218,7 @@ class DenonSplitterHTTP extends IPSModule
 			 
 		// Hier würde man den Buffer im Normalfall verarbeiten
 		// z.B. CRC prüfen, in Einzelteile zerlegen
+
 		try
 		{
 			//
@@ -256,5 +260,6 @@ class DenonSplitterHTTP extends IPSModule
           IPS_SemaphoreLeave("DENONAVRH_" . (string) $this->InstanceID . (string) $ident);
     }
 }
+
 
 ?>
