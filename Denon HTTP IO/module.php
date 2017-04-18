@@ -54,7 +54,7 @@ class DenonAVRIOHTTP extends IPSModule
 			{
 			$this->SetStatus(204); //IP Adresse ist ungültig	
 			}
-	$this->RegisterTimer('Update', $this->ReadPropertyString('UpdateInterval'), 'DAVRIO_GetStatus($id)');
+	$this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
 
 	protected function RegisterTimer($ident, $interval, $script)
