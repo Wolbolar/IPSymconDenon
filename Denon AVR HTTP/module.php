@@ -2094,7 +2094,20 @@ elseif ($status == true)// Ausschalten
 				}
 			}
 		}	
-
+	
+	protected function ScreenCategory($CategoryID)
+	{
+		$catempty = IPS_GetChildrenIDs($CategoryID);
+		if(empty($catempty))
+		{
+			$catempty = true;
+		}
+		else
+		{
+			$catempty = false;
+		}	
+		return $catempty;
+	}	
 }
 
 ?>
