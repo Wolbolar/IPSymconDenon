@@ -6,13 +6,13 @@
                     "type": "CheckBox",
                     "caption": "Open"
                 },
-				{ "type": "Label", "label": "AVR ip adress / port telnet 23" },
+				{ "type": "Label", "label": "AVR ip address / port telnet 23" },
                 {
                     "name": "Host",
                     "type": "ValidationTextBox",
-                    "caption": "ip adress"
+                    "caption": "ip address"
                 },
-				{
+                {
                     "name": "Port",
                     "type": "NumberSpinner",
                     "caption": "port"
@@ -38,7 +38,7 @@
                 {
                     "code": 202,
                     "icon": "error",
-                    "caption": "AVR ip adress must not be empty."
+                    "caption": "AVR ip address must not be empty."
                 },
                 {
                     "code": 203,
@@ -48,7 +48,7 @@
 				{
                     "code": 204,
                     "icon": "error",
-                    "caption": "Keine gültige IP Adresse."
+                    "caption": "AVR ip address is not valid."
                 }
             ]
 }

@@ -5,6 +5,12 @@ require_once(__DIR__ . "/../DenonClass.php");  // diverse Klassen
 class DenonSplitterHTTP extends IPSModule
 {
 
+    const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
+    const STATUS_INST_IS_INACTIVE = 104;
+    const STATUS_INST_IP_IS_EMPTY = 202;
+    const STATUS_INST_CONNECTION_LOST = 203;
+    const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungÃ¼ltig
+
     public function Create()
     {
 	//Never delete this line!
@@ -15,79 +21,71 @@ class DenonSplitterHTTP extends IPSModule
 		$this->RequireParent("{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}"); //Denon HTTP Socket	
 
         $this->RegisterPropertyString("Host", "192.168.x.x");
-		//$this->RegisterPropertyInteger("Port", 80);
         $this->RegisterPropertyBoolean("Open", false);
      
     }
 
     public function ApplyChanges()
     {
-	//Never delete this line!
+	    //Never delete this line!
         parent::ApplyChanges();
         $change = false;	
 		
-	//IP Prüfen
-
+	    //IP PrÃ¼fen
 		$ip = $this->ReadPropertyString('Host');
-		if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
-		{
+		if (filter_var($ip, FILTER_VALIDATE_IP)){
 					
-		// Zwangskonfiguration des ClientSocket
-        $ParentID = $this->GetParent();
-        if (!($ParentID === false))
-			{
-				if (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('Host'))
-				{
-					IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
-					$change = true;
-				}
-				/*
-				if (IPS_GetProperty($ParentID, 'Port') <> $this->ReadPropertyInteger('Port'))
-				{
-					IPS_SetProperty($ParentID, 'Port', $this->ReadPropertyInteger('Port'));
-					$change = true;
-				}
-				*/
-				$ParentOpen = $this->ReadPropertyBoolean('Open');
-				
-		// Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
+            // Zwangskonfiguration des ClientSocket
+            $ParentID = $this->GetParent();
+            if ($ParentID){
 
-				if (!$ParentOpen)
-					$this->SetStatus(104);
+                if (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('Host'))
+                {
+                    IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
+                    $change = true;
+                }
 
-				if ($this->ReadPropertyString('Host') == '')
-				{
-					if ($ParentOpen)
-						$this->SetStatus(202);
-					$ParentOpen = false;
-				}
-				//IO Denon HTTP Open
-				if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen)
-				{
-					IPS_SetProperty($ParentID, 'Open', $ParentOpen);
-					$change = true;
-				}
-				if ($change)
-					@IPS_ApplyChanges($ParentID);
-			}	
+                $ParentOpen = $this->HasActiveParent($this->GetParent());
+
+                // Keine Verbindung erzwingen wenn IP leer ist, sonst folgt spÃ¤ter Exception.
+
+                if (!$ParentOpen){
+                    $this->SetStatus(self::STATUS_INST_IS_INACTIVE);
+                }
+
+                if ($this->ReadPropertyString('Host') == '')
+                {
+                    $this->SetStatus(self::STATUS_INST_IP_IS_EMPTY);
+                    $ParentOpen = false;
+                }
+
+                //IO Denon HTTP Open
+                if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen){
+                    IPS_SetProperty($ParentID, 'Open', $ParentOpen);
+                    $change = true;
+                }
+                if ($change){
+                    @IPS_ApplyChanges($ParentID);
+                }
+
+                // Wenn I/O verbunden ist
+
+                if (($this->ReadPropertyBoolean('Open')) && $this->HasActiveParent($ParentID))	{
+                    //Instanz aktiv
+                    $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
+                }
+
+            }
+        } else {
+			$this->SetStatus(self::STATUS_INST_IP_IS_INVALID); //IP Adresse ist ungÃ¼ltig
 		}
-	else
-			{
-			$this->SetStatus(204); //IP Adresse ist ungültig 
-			}
 			
-	// Wenn I/O verbunden ist
-    if (($this->ReadPropertyBoolean('Open'))
-               and ( $this->HasActiveParent($ParentID)))
-		{
-            //Instanz aktiv
-		}
 
     }
 
 		/**
-        * Die folgenden Funktionen stehen automatisch zur Verfügung, wenn das Modul über die "Module Control" eingefügt wurden.
-        * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:
+        * Die folgenden Funktionen stehen automatisch zur VerfÃ¼gung, wenn das Modul Ã¼ber die "Module Control" eingefÃ¼gt wurden.
+        * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur VerfÃ¼gung gestellt:
         *
         *
         */
@@ -113,79 +111,30 @@ class DenonSplitterHTTP extends IPSModule
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
 
-    protected function HasActiveParent($ParentID)
+    private function HasActiveParent($ParentID)
     {
-        if ($ParentID > 0)
-        {
-            $parent = IPS_GetInstance($ParentID);
-            if ($parent['InstanceStatus'] == 102)
-            {
-                $this->SetStatus(102);
+        if ($ParentID > 0){
+            if (IPS_GetInstance($ParentID)['InstanceStatus'] == self::STATUS_INST_IS_ACTIVE){
                 return true;
             }
         }
-        $this->SetStatus(203);
+
+        $this->SetStatus(self::STATUS_INST_CONNECTION_LOST);
         return false;
     }
 
-    protected function RequireParent($ModuleID, $Name = '')
+    public function RequireParent($ModuleID)
     {
-
         $instance = IPS_GetInstance($this->InstanceID);
-        if ($instance['ConnectionID'] == 0)
-        {
-
+        if ($instance['ConnectionID'] == 0){
             $parentID = IPS_CreateInstance($ModuleID);
             $instance = IPS_GetInstance($parentID);
-            if ($Name == '')
-                IPS_SetName($parentID, $instance['ModuleInfo']['ModuleName']);
-            else
-                IPS_SetName($parentID, $Name);
+            IPS_SetName($parentID, $instance['ModuleInfo']['ModuleName']);
             IPS_ConnectInstance($this->InstanceID, $parentID);
         }
     }
 
-    private function SetValueBoolean($Ident, $value)
-    {
-        $id = $this->GetIDForIdent($Ident);
-        if (GetValueBoolean($id) <> $value)
-        {
-            SetValueBoolean($id, $value);
-            return true;
-        }
-        return false;
-    }
 
-    private function SetValueInteger($Ident, $value)
-    {
-        $id = $this->GetIDForIdent($Ident);
-        if (GetValueInteger($id) <> $value)
-        {
-            SetValueInteger($id, $value);
-            return true;
-        }
-        return false;
-    }
-
-    private function SetValueString($Ident, $value)
-    {
-        $id = $this->GetIDForIdent($Ident);
-        if (GetValueString($id) <> $value)
-        {
-            SetValueString($id, $value);
-            return true;
-        }
-        return false;
-    }
-	
-	/*
-    protected function SetStatus($InstanceStatus)
-    {
-        if ($InstanceStatus <> IPS_GetInstance($this->InstanceID)['InstanceStatus'])
-            parent::SetStatus($InstanceStatus);
-    }
-	*/
-	
 	// Data an Child weitergeben
 	public function ReceiveData($JSONString)
 	{
@@ -199,7 +148,7 @@ class DenonSplitterHTTP extends IPSModule
 	 
 		// Hier werden die Daten verarbeitet
 	 
-		// Weiterleitung zu allen Gerät-/Device-Instanzen
+		// Weiterleitung zu allen GerÃ¤t-/Device-Instanzen
 
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{D9209251-0036-48C2-AF96-9F5EDE761A52}", "Buffer" => $data->Buffer))); //Denon HTTP Splitter Interface GUI
 	}
@@ -216,8 +165,8 @@ class DenonSplitterHTTP extends IPSModule
 		$datasend = $data->Buffer;
 		$this->SendDebug("Command Out",print_r($datasend,true),0);
 			 
-		// Hier würde man den Buffer im Normalfall verarbeiten
-		// z.B. CRC prüfen, in Einzelteile zerlegen
+		// Hier wÃ¼rde man den Buffer im Normalfall verarbeiten
+		// z.B. CRC prÃ¼fen, in Einzelteile zerlegen
 
 		try
 		{
@@ -236,30 +185,6 @@ class DenonSplitterHTTP extends IPSModule
 		return $resultat;
 	 
 	}
-	
-	################## SEMAPHOREN Helper  - private
-
-    private function lock($ident)
-    {
-        for ($i = 0; $i < 3000; $i++)
-        {
-            if (IPS_SemaphoreEnter("DENONAVRH_" . (string) $this->InstanceID . (string) $ident, 1))
-            {
-                return true;
-            }
-            else
-            {
-                IPS_Sleep(mt_rand(1, 5));
-            }
-        }
-        return false;
-    }
-
-    private function unlock($ident)
-    {
-          IPS_SemaphoreLeave("DENONAVRH_" . (string) $this->InstanceID . (string) $ident);
-    }
 }
-
 
 ?>

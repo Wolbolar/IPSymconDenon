@@ -1,16 +1,17 @@
 {
 	"translations": {
 		"de": { 
-			"Open":"Öffnen",
-			"AVR ip adress / port telnet 23":"IP Adresse des AVR / Port für Telnet 23",
-			"ip adress":"IP Adresse",
+			"Open":"Ã–ffnen",
+			"AVR ip address / port telnet 23":"IP Adresse des AVR / Port fÃ¼r Telnet 23",
+			"ip address":"IP Adresse",
 			"port":"Port",
+			"update intervall (s)":"Update Intervall (s)",
 			"creating instance.":"Die Instanz wird erstellt.",
-			"configuration is valid.":"Konfiguration gültig.",
+			"configuration is valid.":"Konfiguration gÃ¼ltig.",
 			"AVR is inactive.":"AVR ist inaktiv.",
 			"AVR ip adress must not be empty.":"AVR IP Adresse darf nicht leer sein.",
 			"connection lost to AVR.":"Verbindung zum AVR verloren.",
-			"no valid ip adress.":"Keine gültige IP Adresse."
+			"AVR ip adress is not valid.":"Keine gÃ¼ltige IP Adresse."
 		}
 	}
 }

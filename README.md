@@ -440,6 +440,10 @@ Channel Volume Top Surround
 Parameter Range float $Value -12 to 12, Step 0.5
 
 ```php
+DAVRT_ChannelVolumeZRL(int $InstanceID, float $Value)
+```
+
+```php
 DAVRT_ChannelVolumeTFL(int $InstanceID, float $Value)
 ```
 

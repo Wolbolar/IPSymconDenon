@@ -5,6 +5,10 @@ require_once(__DIR__ . "/../DenonClass.php");  // diverse Klassen
 class DenonAVRIOHTTP extends IPSModule
 {
 
+    const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
+    const STATUS_INST_IS_INACTIVE = 104;
+    const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungÃ¼ltig
+
     public function Create()
     {
 	//Never delete this line!
@@ -14,52 +18,41 @@ class DenonAVRIOHTTP extends IPSModule
         //You cannot use variables here. Just static values.
 		
 		$this->RegisterPropertyBoolean("Open", false);
-        $this->RegisterPropertyString("Host", "");
+        $this->RegisterPropertyString("Host", "192.168.x.x");
 		$this->RegisterPropertyInteger("UpdateInterval", 10);
 		
-             
     }
 
     public function ApplyChanges()
     {
 	//Never delete this line!
         parent::ApplyChanges();
-        $change = false;
 
-		
 		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 1);
         IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
+
 		$this->RegisterVariableString("AVRType", "AVRType", "", 2);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
-	//IP Prüfen
-		$ip = $this->ReadPropertyString('Host');
-	if (!filter_var($ip, FILTER_VALIDATE_IP) === false)
-		{
-		$Open = $this->ReadPropertyBoolean('Open');
-		if (!$Open)
-			$this->SetStatus(104);
 
-		if ($this->ReadPropertyString('Host') == '')
-					{
-						if ($Open)
-							$this->SetStatus(202);
-					}
-		if ($Open)
-			{
-				$this->SetStatus(102);	
-			}
-		
-		}
-	else
-			{
-			$this->SetStatus(204); //IP Adresse ist ungültig	
-			}
-	$this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRIO_GetStatus($id)');
+	    //IP PrÃ¼fen
+		$ip = $this->ReadPropertyString('Host');
+        if (filter_var($ip, FILTER_VALIDATE_IP)){
+            $Open = $this->ReadPropertyBoolean('Open');
+            if ($Open){
+                $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
+            } else {
+                $this->SetStatus(self::STATUS_INST_IS_INACTIVE);
+            }
+        } else {
+            $this->SetStatus(self::STATUS_INST_IP_IS_INVALID); //IP Adresse ist ungÃ¼ltig
+        }
+
+        $this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRIO_GetStatus($id)');
 	}	
 
-	protected function RegisterTimer($ident, $interval, $script)
+	public function RegisterTimer($Ident, $Milliseconds, $ScriptText)
 	{
-		$id = @IPS_GetObjectIDByIdent($ident, $this->InstanceID);
+		$id = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
 
 		if ($id && IPS_GetEvent($id)['EventType'] <> 1)
 		{
@@ -71,23 +64,23 @@ class DenonAVRIOHTTP extends IPSModule
 		{
 		  $id = IPS_CreateEvent(1);
 		  IPS_SetParent($id, $this->InstanceID);
-		  IPS_SetIdent($id, $ident);
+		  IPS_SetIdent($id, $Ident);
 		}
 
-		IPS_SetName($id, $ident);
+		IPS_SetName($id, $Ident);
 		IPS_SetHidden($id, true);
-		IPS_SetEventScript($id, "\$id = \$_IPS['TARGET'];\n$script;");
+		IPS_SetEventScript($id, "\$id = \$_IPS['TARGET'];\n$ScriptText;");
 
-		if (!IPS_EventExists($id)) throw new Exception("Ident with name $ident is used for wrong object type");
+		if (!IPS_EventExists($id)) throw new Exception("Ident with name $Ident is used for wrong object type");
 
-		if (!($interval > 0))
+		if (!($Milliseconds > 0))
 		{
 		  IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, 1);
 		  IPS_SetEventActive($id, false);
 		}
 		else
 		{
-		  IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, $interval);
+		  IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, $Milliseconds);
 		  IPS_SetEventActive($id, true);
 		}
 	}
@@ -124,14 +117,14 @@ class DenonAVRIOHTTP extends IPSModule
 		$data = json_decode($JSONString);
 		
 	 
-		// Hier würde man den Buffer im Normalfall verarbeiten
-		// z.B. CRC prüfen, in Einzelteile zerlegen
+		// Hier wÃ¼rde man den Buffer im Normalfall verarbeiten
+		// z.B. CRC prÃ¼fen, in Einzelteile zerlegen
 		try
 		{
 			// Absenden an Denon AVR			
 			$command = $data->Buffer;
-			IPS_LogMessage("Denon AVR I/O","HTTP Command Out ".$command);
-			$this->SendDebug("Command Out",print_r($command,true),0);
+			IPS_LogMessage("Denon AVR I/O","HTTP Command Out ".json_encode($command));
+			$this->SendDebug("Command Out",json_encode($command),0);
 			$this->SendCommand ($command);
 		}
 		catch (Exception $ex)
@@ -159,8 +152,8 @@ class DenonAVRIOHTTP extends IPSModule
 				$DenonStatus->ipdenon = $ipdenon;
 				$AVRType = $this->GetAVRType();
 				$InputMapping = $this->GetInputVarMapping();
-				$data = $DenonStatus->getStates ($InputMapping, $AVRType);
-				$this->SendDebug("Status",print_r($data,true),0);
+				$data = $DenonStatus->getStates ($ipdenon, $InputMapping, $AVRType);
+				$this->SendDebug("Status",json_encode($data),0);
 				$this->SendJSON($data);
 	        }
 	        catch (Exception $exc)
@@ -180,13 +173,13 @@ class DenonAVRIOHTTP extends IPSModule
 		return $data;
 	}
 	
-	protected function SendJSON ($data)
+	private function SendJSON ($data)
 	{
-		// Weiterleitung zu allen Gerät-/Device-Instanzen
+		// Weiterleitung zu allen GerÃ¤te-/Device-Instanzen
 		$this->SendDataToChildren(json_encode(Array("DataID" => "{E73CE1D0-6670-4607-ACA1-30469558D2F7}", "Buffer" => $data))); //Denon I/O HTTP RX GUI
 	}
 	
-	protected function SendCommand (string $command)
+	private function SendCommand (string $command)
 	{
 		$ip = $this->ReadPropertyString("Host");
 		//Ins URL Format bringen
@@ -195,16 +188,14 @@ class DenonAVRIOHTTP extends IPSModule
 		//Semaphore setzen
         if ($this->lock("HTTPCommandSend"))
         {
-        // Daten senden
-	        try
-	        {
-	            //Command für URL Codieren
-				$payload = rawurlencode($command);
-				$httpcommand = "http://".$ip."/goform/formiPhoneAppDirect.xml?".$payload;
-				$this->SendDebug("HTTP Command Send",$httpcommand,0);
-				$response = file_get_contents($httpcommand);
-				//$this->SendDebug("AVR Response",print_r($response,true),0);
-				//IPS_LogMessage("Denon AVR I/O","HTTP Command Send".$httpcommand);
+
+            //Command fÃ¼r URL Codieren
+            $httpcommand = "http://".$ip."/goform/formiPhoneAppDirect.xml?".rawurlencode($command);
+            $this->SendDebug("HTTP Command Send",$httpcommand,0);
+
+            // Daten senden
+	        try {
+				file_get_contents($httpcommand);
 	        }
 	        catch (Exception $exc)
 	        {
@@ -212,16 +203,15 @@ class DenonAVRIOHTTP extends IPSModule
 	            $this->unlock("HTTPCommandSend");
 	            throw new Exception($exc);
 	        }
-        $this->unlock("HTTPCommandSend");
+            $this->unlock("HTTPCommandSend");
         }
-        else
-        {
+        else {
 			echo "Can not send to parent \n";
 			$this->SendDebug("Denon HTTP I/O:","Can not send to AVR",0);
 			IPS_LogMessage("Denon AVR I/O","Can not send to parent");			
 			$this->unlock("HTTPCommandSend");
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
-		  }
+        }
 				
 		IPS_Sleep(400);
 		if ($this->lock("HTTPCommandSend"))
@@ -294,8 +284,6 @@ class DenonAVRIOHTTP extends IPSModule
 			$InputsMapping = GetValue($this->GetIDForIdent("InputMapping"));
 			$InputsMapping = json_decode($InputsMapping);
 			//Varmapping generieren
-			$AVRType = $InputsMapping->AVRType;
-			$Writeprotected = $InputsMapping->Writeprotected;
 			$Inputs = $InputsMapping->Inputs;
 			$Varmapping = array();
 			foreach ($Inputs as $Key => $Input)
@@ -338,7 +326,7 @@ class DenonAVRIOHTTP extends IPSModule
 			return $Varmapping;
 		}
 	
-	protected function GetAVRType()
+	private function GetAVRType()
 		{
 			$GetAVRType = GetValue($this->GetIDForIdent("AVRType"));
 			return $GetAVRType;
@@ -348,9 +336,9 @@ class DenonAVRIOHTTP extends IPSModule
 
     private function lock($ident)
     {
-        for ($i = 0; $i < 3000; $i++)
+        for ($i = 0; $i < 10; $i++)
         {
-            if (IPS_SemaphoreEnter("DENONAVRH_" . (string) $this->InstanceID . (string) $ident, 1))
+            if (IPS_SemaphoreEnter(get_class()."_".(string) $this->InstanceID . (string) $ident, 1000))
             {
                 return true;
             }
@@ -364,9 +352,9 @@ class DenonAVRIOHTTP extends IPSModule
 
     private function unlock($ident)
     {
-          IPS_SemaphoreLeave("DENONAVRH_" . (string) $this->InstanceID . (string) $ident);
+          IPS_SemaphoreLeave(get_class()."_".(string) $this->InstanceID . (string) $ident);
     }
-	
+
 
 }
 
