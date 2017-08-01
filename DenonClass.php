@@ -2328,7 +2328,6 @@ class DENONIPSProfiles extends stdClass
             return false;
         }
 
-
         $Inputs = [];
         $MinValue = [];
         $UsedInput_i = -1;

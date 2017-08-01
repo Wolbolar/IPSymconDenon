@@ -278,6 +278,7 @@ class Denon_AVR_4310 extends DenonAVR{
     // see AVR4311CI_AVR4311_PROTOCOL_V7 2 0.pdf (bold differences to 4311)
     static $Name = 'AVR-4310';
     static $internalID = 5;
+    static $httpMainZone = DENON_HTTP_Interface::MainForm_old;
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,

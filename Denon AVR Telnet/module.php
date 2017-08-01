@@ -302,73 +302,74 @@ class DenonAVRTelnet extends AVRModule
 		return true;
     }
 
-    private function SetHiddenStatus(){
+    private function SetHiddenStatus()
+    {
 
         $SurroundModusResponse = GetValueString(ID_DENON_SURROUNDMODERESPONSE);
         IPSLogger_Trc(basename(__FILE__, '.ips.php').'.'.__FUNCTION__,"SurroundModusResponse: $SurroundModusResponse");
 
         /* aus Performancegründen deaktiviert
-            IPS_GetLinked_SetHidden(ID_DENON_SURROUNDBACKMODE); //deaktiv, da kein SurroundBack LS vorhanden ist
-            IPS_GetLinked_SetHidden(ID_DENON_PLIIZHEIGHT); // deaktiv, da keine Höhen LS vorhanden
-            IPS_GetLinked_SetHidden(ID_DENON_AFDM); // deaktiv, da keine SurroundBack LS vorhanden
-            IPS_GetLinked_SetHidden(ID_DENON_AUDIODELAY); // deaktiv, da nur im VideoModus benötigt
-            IPS_GetLinked_SetHidden(ID_DENON_INPUTMODE); // deaktiv, da der Modus auf Auto belassen werden sollte
-            IPS_GetLinked_SetHidden(ID_DENON_FRONTSPEAKER); // deaktiv, da keine Frontspeaker B vorhanden
-            IPS_GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX); // deaktiv, da weder Front Height noch Wide LS vorhanden
-            IPS_GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            IPS_GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            IPS_GetLinked_SetHidden(ID_DENON_LFELevel); // deaktiv, da nur für DTS Quellen bei Musik auf -10 geschaltet werden sollte (sehr speziell)
+            $this->IPS_GetLinked_SetHidden(ID_DENON_SURROUNDBACKMODE); //deaktiv, da kein SurroundBack LS vorhanden ist
+            $this->IPS_GetLinked_SetHidden(ID_DENON_PLIIZHEIGHT); // deaktiv, da keine Höhen LS vorhanden
+            $this->IPS_GetLinked_SetHidden(ID_DENON_AFDM); // deaktiv, da keine SurroundBack LS vorhanden
+            $this->IPS_GetLinked_SetHidden(ID_DENON_AUDIODELAY); // deaktiv, da nur im VideoModus benötigt
+            $this->IPS_GetLinked_SetHidden(ID_DENON_INPUTMODE); // deaktiv, da der Modus auf Auto belassen werden sollte
+            $this->IPS_GetLinked_SetHidden(ID_DENON_FRONTSPEAKER); // deaktiv, da keine Frontspeaker B vorhanden
+            $this->IPS_GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX); // deaktiv, da weder Front Height noch Wide LS vorhanden
+            $this->IPS_GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
+            $this->IPS_GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
+            $this->IPS_GetLinked_SetHidden(ID_DENON_LFELevel); // deaktiv, da nur für DTS Quellen bei Musik auf -10 geschaltet werden sollte (sehr speziell)
         */
 
         $isRoomSimulated = in_array($SurroundModusResponse, ['MCH STEREO', 'ROCK ARENA', 'JAZZ CLUB', 'MONO MOVIE', 'VIDEO GAME', 'MATRIX', 'VIRTUAL']);
 
         // Dolby + PLIIz im Musikmodus?
         $isDolbyPLIIMusicActive = in_array($SurroundModusResponse, ['DOLBY PL2 M', 'DOLBY PL2X M']);
-        IPS_GetLinked_SetHidden(ID_DENON_PANORAMA, !$isDolbyPLIIMusicActive);
-        IPS_GetLinked_SetHidden(ID_DENON_SOUNDDIMENSION, !$isDolbyPLIIMusicActive);
-        IPS_GetLinked_SetHidden(ID_DENON_CENTERWIDTH, !$isDolbyPLIIMusicActive);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_PANORAMA, !$isDolbyPLIIMusicActive);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_SOUNDDIMENSION, !$isDolbyPLIIMusicActive);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_CENTERWIDTH, !$isDolbyPLIIMusicActive);
 
         // DTS NEO6 im Musikmodus?
         $isDTSNeo6MusicActive = in_array($SurroundModusResponse, ['DTS NEO:6 M']);
-        IPS_GetLinked_SetHidden(ID_DENON_CENTERIMAGE, !$isDTSNeo6MusicActive);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_CENTERIMAGE, !$isDTSNeo6MusicActive);
 
         // CinemaEQ möglich?
         $isCinemaEQPossible = in_array($SurroundModusResponse, ['DOLBY PL2 C', 'DOLBY PL2X C', 'DTS NEO:6 C']);
-        IPS_GetLinked_SetHidden(ID_DENON_CINEMAEQ, !$isCinemaEQPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_CINEMAEQ, !$isCinemaEQPossible);
 
         // ToneCtrl bzw. Bass/Treble möglich?
         $isToneCtrlPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT'])
             && !GetValueBoolean(ID_DENON_DYNAMICEQ);
-        IPS_GetLinked_SetHidden(ID_DENON_TONECTRL, !$isToneCtrlPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_TONECTRL, !$isToneCtrlPossible);
 
         $isBassTreblePossible = $isToneCtrlPossible && GetValueBoolean(ID_DENON_TONECTRL);
-        IPS_GetLinked_SetHidden(ID_DENON_BASSLEVEL, !$isBassTreblePossible);
-        IPS_GetLinked_SetHidden(ID_DENON_TREBLELEVEL, !$isBassTreblePossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_BASSLEVEL, !$isBassTreblePossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_TREBLELEVEL, !$isBassTreblePossible);
 
         // Audyssey möglich?
         $isAudysseyPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT']);
-        IPS_GetLinked_SetHidden(ID_DENON_MULTIEQ, !$isAudysseyPossible);
-        IPS_GetLinked_SetHidden(ID_DENON_DYNAMICEQ, !$isAudysseyPossible);
-        IPS_GetLinked_SetHidden(ID_DENON_DYNAMICVOLUME, !$isAudysseyPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_MULTIEQ, !$isAudysseyPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_DYNAMICEQ, !$isAudysseyPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_DYNAMICVOLUME, !$isAudysseyPossible);
 
         // AudysseyDSX möglich?
         //	$isAudysseyDSXPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT', 'STEREO', 'DOLBY PL2Z H', 'MCH STEREO'])
         //								&& !$isRoomSimulated;
-        //	IPS_GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX, !$isAudysseyDSXPossible);
+        //	$this->IPS_GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX, !$isAudysseyDSXPossible);
 
         // Restorer möglich?
         $isRestorerPossible = in_array($SurroundModusResponse, ['STEREO', 'DOLBY PL2Z H', 'DOLBY PL2 C', 'DOLBY PL2 M', 'DOLBY PL2 G', 'DOLBY PL2X C', 'DOLBY PL2X M', 'DOLBY PL2X G'])
             || $isRoomSimulated;
-        IPS_GetLinked_SetHidden(ID_DENON_AUDIORESTORER, !$isRestorerPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_AUDIORESTORER, !$isRestorerPossible);
 
         // DRC möglich?
         $isDRCPossible = in_array($SurroundModusResponse, ['STEREO', 'DOLBY PL2Z H', 'DOLBY PL2 C', 'DOLBY PL2 M', 'DOLBY PL2 G', 'DOLBY PL2X C', 'DOLBY PL2X M', 'DOLBY PL2X G'])
             || !$isRoomSimulated;
-        IPS_GetLinked_SetHidden(ID_DENON_AUDIORESTORER, !$isRestorerPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_AUDIORESTORER, !$isRestorerPossible);
 
         // Subwoofer möglich?
         $isSubwooferPossible = in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT']);
-        IPS_GetLinked_SetHidden(ID_DENON_SUBWOOFER, !$isSubwooferPossible);
+        $this->IPS_GetLinked_SetHidden(ID_DENON_SUBWOOFER, !$isSubwooferPossible);
 
         IPSLogger_Trc(basename(__FILE__, '.ips.php').'.'.__FUNCTION__,'isDolbyPLIIMusicActive: '.GetFormattedValue($isDolbyPLIIMusicActive)
             .', isDTSNeo6MusicActive: '.GetFormattedValue($isDTSNeo6MusicActive)
