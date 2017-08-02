@@ -37,12 +37,31 @@ class DenonAVRTelnet extends AVRModule
 		
 		$this->RegisterProperties();
 
+        //we will wait until the kernel is ready
+        $this->RegisterMessage(0,10100); //IPS_BASE + IPS_KERNELMESSAGE
+    }
+
+    public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
+        if ($this->debug){
+            IPS_LogMessage(get_class() . '::' . __FUNCTION__,'SenderID: ' . $SenderID . ', Message: ' . $Message . ', Data:'. json_encode($Data));
+        }
+        switch ($Message){
+            case 10100: //IPS_BASE + IPS_KERNELMESSAGE
+                if ($Data[0] == 10103){ //KR_READY
+                    $this->ApplyChanges();
+                }
+        }
     }
 
     public function ApplyChanges()
     {
         //Never delete this line!
         parent::ApplyChanges();
+
+        if (IPS_GetKernelRunlevel() != 10103){ //Kernel ready
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Kernel is not ready ('.IPS_GetKernelRunlevel().')');
+            return;
+        }
 
         if ($this->SetInstanceStatus() == true){
             $this->ValidateConfiguration();
@@ -52,15 +71,6 @@ class DenonAVRTelnet extends AVRModule
 
 
 	private function ValidateConfiguration(){
-        if (IPS_GetKernelRunlevel() != 10103){ //Kernel ready
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Kernel is not ready ('.IPS_GetKernelRunlevel().')');
-            return;
-        }
-
-        if (!$this->SetInstanceStatus()){
-            return;
-        }
-
 
         $Zone = $this->ReadPropertyInteger('Zone');
         $manufacturername = $this->GetManufacturerName();
@@ -222,72 +232,48 @@ class DenonAVRTelnet extends AVRModule
         {
 			$this->SendCommand($APICommand.$APISubCommand);
 					
-			//bei Commands ohne automatischen Response wird noch ein Request abgesetzt (<command>+?)
-			if ($APICommand == "PSVOLLEV")// Dolby Volume Leveler
-			{
+			//bei Commands ohne automatischen Response wird noch ein Request abgesetzt (<command>+?), damit die Variablen nachgeführt werden
+            //todo: gibt es Variablen, die nachgeführt werden müssen, da sie sonst nicht aktualisiert werden?
+			if ($APICommand == "PSVOLLEV"){         // Dolby Volume Leveler
+			    $this->SendRequest($APICommand, true);
+			} elseif ($APICommand == "PSVOLMOD"){   // Dolby Volume Modeler
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSVOLMOD")// Dolby Volume Modeler
-			{
+			} elseif ($APICommand == "PSDCO"){      // Dynamic Compressor
+			    $this->SendRequest($APICommand, true);
+			} elseif ($APICommand == "PSDRC"){      // Dynamic Range Compression
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSDCO")// Dynamic Compressor
-			{
+			} elseif ($APICommand == "PSPAN"){      //Panorama
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSDRC")// Dynamic Range Compression
-			{
+			} elseif ($APICommand == "PSDYNEQ"){    //Dynamic EQ
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSPAN")//Panorama
-			{
+			} elseif ($APICommand == "PSAFD"){      //
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSDYNEQ")//Dynamic EQ
-			{
+			} elseif ($APICommand == "VSAUDIO"){
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSAFD")//
-			{
+			} elseif ($APICommand == "PSRSZ"){      // Room Size
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "VSAUDIO")
-			{
+			} elseif ($APICommand == "VSSC"){       //Resolution
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "PSRSZ")// Room Size
-			{
+			} elseif ($APICommand == "VSSCH"){      //Resolution HDMI
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "VSSC")//Resolution
-			{
+			} elseif ($APICommand == "PSSWR"){      //Subwoofer
 				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "VSSCH")//Resolution HDMI
-			{
-				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "CV")//Channel Volume
-			{
+			} elseif ($APICommand == "Z2"){         //Z2
 				$this->SendRequest($APICommand, false);
-			}
-			elseif ($APICommand == "PSSWR")//Subwoofer
-			{
-				$this->SendRequest($APICommand, true);
-			}
-			elseif ($APICommand == "Z2")//Z2
-			{
+			} elseif ($APICommand == "Z3"){         //Z3
 				$this->SendRequest($APICommand, false);
-			}
-			elseif ($APICommand == "Z3")//Z3
-			{
-				$this->SendRequest($APICommand, false);
-			}
-			elseif ($APICommand == "MU")//MU
-			{
-				$this->SendRequest($APICommand, false);
-			}
-			
+            } elseif ($APICommand == "MU"){         //MU
+                $this->SendRequest($APICommand, false);
+            } elseif ($APICommand == "PSFRONT"){    //Front Speaker
+                $this->SendRequest($APICommand, false);
+            } elseif ($APICommand == "PSSP"){    //Effect Speaker Selection
+                $this->SendRequest($APICommand.':', true);
+            } elseif ($APICommand == "PSFH"){    //Effect Speaker Selection
+                $this->SendRequest($APICommand.':', true);
+            } elseif ($APICommand == "PSDIM"){    //Effect Speaker Selection
+                $this->SendRequest($APICommand, true);
+            }
+
         } 
 		catch (Exception $ex)
         {
@@ -296,107 +282,9 @@ class DenonAVRTelnet extends AVRModule
             return false;
         }
 
-        //Variable nachführen
-        SetValue($this->GetIDForIdent($Ident), $Value);
-
 		return true;
     }
 
-    private function SetHiddenStatus()
-    {
-
-        $SurroundModusResponse = GetValueString(ID_DENON_SURROUNDMODERESPONSE);
-        IPSLogger_Trc(basename(__FILE__, '.ips.php').'.'.__FUNCTION__,"SurroundModusResponse: $SurroundModusResponse");
-
-        /* aus Performancegründen deaktiviert
-            $this->IPS_GetLinked_SetHidden(ID_DENON_SURROUNDBACKMODE); //deaktiv, da kein SurroundBack LS vorhanden ist
-            $this->IPS_GetLinked_SetHidden(ID_DENON_PLIIZHEIGHT); // deaktiv, da keine Höhen LS vorhanden
-            $this->IPS_GetLinked_SetHidden(ID_DENON_AFDM); // deaktiv, da keine SurroundBack LS vorhanden
-            $this->IPS_GetLinked_SetHidden(ID_DENON_AUDIODELAY); // deaktiv, da nur im VideoModus benötigt
-            $this->IPS_GetLinked_SetHidden(ID_DENON_INPUTMODE); // deaktiv, da der Modus auf Auto belassen werden sollte
-            $this->IPS_GetLinked_SetHidden(ID_DENON_FRONTSPEAKER); // deaktiv, da keine Frontspeaker B vorhanden
-            $this->IPS_GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX); // deaktiv, da weder Front Height noch Wide LS vorhanden
-            $this->IPS_GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            $this->IPS_GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            $this->IPS_GetLinked_SetHidden(ID_DENON_LFELevel); // deaktiv, da nur für DTS Quellen bei Musik auf -10 geschaltet werden sollte (sehr speziell)
-        */
-
-        $isRoomSimulated = in_array($SurroundModusResponse, ['MCH STEREO', 'ROCK ARENA', 'JAZZ CLUB', 'MONO MOVIE', 'VIDEO GAME', 'MATRIX', 'VIRTUAL']);
-
-        // Dolby + PLIIz im Musikmodus?
-        $isDolbyPLIIMusicActive = in_array($SurroundModusResponse, ['DOLBY PL2 M', 'DOLBY PL2X M']);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_PANORAMA, !$isDolbyPLIIMusicActive);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_SOUNDDIMENSION, !$isDolbyPLIIMusicActive);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_CENTERWIDTH, !$isDolbyPLIIMusicActive);
-
-        // DTS NEO6 im Musikmodus?
-        $isDTSNeo6MusicActive = in_array($SurroundModusResponse, ['DTS NEO:6 M']);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_CENTERIMAGE, !$isDTSNeo6MusicActive);
-
-        // CinemaEQ möglich?
-        $isCinemaEQPossible = in_array($SurroundModusResponse, ['DOLBY PL2 C', 'DOLBY PL2X C', 'DTS NEO:6 C']);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_CINEMAEQ, !$isCinemaEQPossible);
-
-        // ToneCtrl bzw. Bass/Treble möglich?
-        $isToneCtrlPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT'])
-            && !GetValueBoolean(ID_DENON_DYNAMICEQ);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_TONECTRL, !$isToneCtrlPossible);
-
-        $isBassTreblePossible = $isToneCtrlPossible && GetValueBoolean(ID_DENON_TONECTRL);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_BASSLEVEL, !$isBassTreblePossible);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_TREBLELEVEL, !$isBassTreblePossible);
-
-        // Audyssey möglich?
-        $isAudysseyPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT']);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_MULTIEQ, !$isAudysseyPossible);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_DYNAMICEQ, !$isAudysseyPossible);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_DYNAMICVOLUME, !$isAudysseyPossible);
-
-        // AudysseyDSX möglich?
-        //	$isAudysseyDSXPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT', 'STEREO', 'DOLBY PL2Z H', 'MCH STEREO'])
-        //								&& !$isRoomSimulated;
-        //	$this->IPS_GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX, !$isAudysseyDSXPossible);
-
-        // Restorer möglich?
-        $isRestorerPossible = in_array($SurroundModusResponse, ['STEREO', 'DOLBY PL2Z H', 'DOLBY PL2 C', 'DOLBY PL2 M', 'DOLBY PL2 G', 'DOLBY PL2X C', 'DOLBY PL2X M', 'DOLBY PL2X G'])
-            || $isRoomSimulated;
-        $this->IPS_GetLinked_SetHidden(ID_DENON_AUDIORESTORER, !$isRestorerPossible);
-
-        // DRC möglich?
-        $isDRCPossible = in_array($SurroundModusResponse, ['STEREO', 'DOLBY PL2Z H', 'DOLBY PL2 C', 'DOLBY PL2 M', 'DOLBY PL2 G', 'DOLBY PL2X C', 'DOLBY PL2X M', 'DOLBY PL2X G'])
-            || !$isRoomSimulated;
-        $this->IPS_GetLinked_SetHidden(ID_DENON_AUDIORESTORER, !$isRestorerPossible);
-
-        // Subwoofer möglich?
-        $isSubwooferPossible = in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT']);
-        $this->IPS_GetLinked_SetHidden(ID_DENON_SUBWOOFER, !$isSubwooferPossible);
-
-        IPSLogger_Trc(basename(__FILE__, '.ips.php').'.'.__FUNCTION__,'isDolbyPLIIMusicActive: '.GetFormattedValue($isDolbyPLIIMusicActive)
-            .', isDTSNeo6MusicActive: '.GetFormattedValue($isDTSNeo6MusicActive)
-            .', isCinemaEQPossible: '.GetFormattedValue($isCinemaEQPossible)
-            .', isToneCtrlPossible: '.GetFormattedValue($isToneCtrlPossible)
-            .', isAudysseyPossible: '.GetFormattedValue($isAudysseyPossible)
-            .', isRoomSimulated: '.GetFormattedValue($isRoomSimulated)
-            .', isSubwooferPossible: '.GetFormattedValue($isSubwooferPossible)
-        );
-
-    }
-
-    //*************************************************************************************************************
-    // Links zu einer Variablen werden gesucht und versteckt/aufgedeckt
-    private function IPS_GetLinked_SetHidden($VariablenID, $Value=True){
-        $LinkArray = IPS_GetLinkList();
-        $Result = false;
-
-        foreach($LinkArray as $val){
-            $TargetArray = IPS_GetLink($val);
-            If ($TargetArray["TargetID"]==$VariablenID){
-                IPS_SetHidden($TargetArray["LinkID"], $Value);
-                $Result = true;
-            }
-        }
-        return $Result;
-    }
 
     private function SendRequest($APICommand, $Space)
 	{
@@ -540,8 +428,8 @@ class DenonAVRTelnet extends AVRModule
 	
 	//Dynamic Volume
 	public function DynamicVolume(string $Value){ // Dynamic Volume  Midnight / Evening / Day
-        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSDYNVOL_OLD, $Value);
-		$this->SendCommand(DENON_API_Commands::PSDYNVOL_OLD.$SubCommand);
+        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSDYNVOL, $Value);
+		$this->SendCommand(DENON_API_Commands::PSDYNVOL.$SubCommand);
 	}
 	
 	//Dolby Volume

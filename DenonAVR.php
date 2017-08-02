@@ -196,7 +196,7 @@ class Denon_AVR_3311 extends Denon_AVR_3310{
         DENON_API_Commands::PSMULTEQ,   
         DENON_API_Commands::PSDYNEQ,    
         DENON_API_Commands::PSREFLEV,   
-        DENON_API_Commands::PSDYNVOL_OLD,
+        DENON_API_Commands::PSDYNVOL,
         DENON_API_Commands::PSDSX,      
         DENON_API_Commands::PSSTW,      
         DENON_API_Commands::PSSTH,      
@@ -216,6 +216,12 @@ class Denon_AVR_3311 extends Denon_AVR_3310{
         DENON_API_Commands::PSDELAY,
         DENON_API_Commands::PSRSTR,
         DENON_API_Commands::PSFRONT,
+    ];
+    static $PSDYNVOL_SubCommands = [
+        DENON_API_Commands::DYNVOLOFF,
+        DENON_API_Commands::DYNVOLDAY,
+        DENON_API_Commands::DYNVOLEVE,
+        DENON_API_Commands::DYNVOLNGT,
     ];
     static $VS_Commands = [
         DENON_API_Commands::VSMONI,
@@ -395,7 +401,7 @@ class Denon_AVR_4311 extends Denon_AVR_4310{
         DENON_API_Commands::PSMULTEQ,
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
-        DENON_API_Commands::PSDYNVOL_OLD,
+        DENON_API_Commands::PSDYNVOL,
         DENON_API_Commands::PSDSX,
         DENON_API_Commands::PSSTW,
         DENON_API_Commands::PSSTH,
@@ -415,6 +421,12 @@ class Denon_AVR_4311 extends Denon_AVR_4310{
         DENON_API_Commands::PSRSZ,
         DENON_API_Commands::PSDELAY,
         DENON_API_Commands::PSRSTR,
+    ];
+    static $PSDYNVOL_SubCommands = [
+        DENON_API_Commands::DYNVOLOFF,
+        DENON_API_Commands::DYNVOLDAY,
+        DENON_API_Commands::DYNVOLEVE,
+        DENON_API_Commands::DYNVOLNGT,
     ];
     static $VS_Commands = [
         DENON_API_Commands::VSMONI,

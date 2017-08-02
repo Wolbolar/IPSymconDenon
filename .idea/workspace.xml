@@ -1,0 +1,2406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6bf4cb53-0c24-4f34-ac6f-e0df2473cf80" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AVRModels.php" afterPath="$PROJECT_DIR$/AVRModels.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Denon AVR Telnet/module.php" afterPath="$PROJECT_DIR$/Denon AVR Telnet/module.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Denon Splitter Telnet/module.php" afterPath="$PROJECT_DIR$/Denon Splitter Telnet/module.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DenonAVR.php" afterPath="$PROJECT_DIR$/DenonAVR.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DenonClass.php" afterPath="$PROJECT_DIR$/DenonClass.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MarantzAVR.php" afterPath="$PROJECT_DIR$/MarantzAVR.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library.json" afterPath="$PROJECT_DIR$/library.json" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="IPSymconDenon" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
+      <file leaf-file-name="DenonClass.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DenonClass.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="3439" column="41" lean-forward="false" selection-start-line="3439" selection-start-column="33" selection-end-line="3439" selection-end-column="41" />
+              <folding>
+                <element signature="n#CreateNEOScripts#0;n#AVRModule#0;n#!!top" expanded="false" />
+                <element signature="n#CreateProfileInteger#0;n#AVRModule#0;n#!!top" expanded="false" />
+                <element signature="n#CreateProfileString#0;n#AVRModule#0;n#!!top" expanded="false" />
+                <element signature="n#GetManufacturerName#0;n#AVRModule#0;n#!!top" expanded="false" />
+                <element signature="n#FormSelectionAVR#0;n#AVRModule#0;n#!!top" expanded="false" />
+                <element signature="n#FormStatus#0;n#AVRModule#0;n#!!top" expanded="false" />
+                <element signature="n#DENONIPSVarType#0;n#!!top" expanded="false" />
+                <element signature="n#SetInputSources#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+                <element signature="n#GetInputVarMapping#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+                <element signature="n#SetupVariable#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+                <element signature="n#getpos#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="library.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/library.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="module.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Denon Splitter Telnet/module.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="module.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Denon AVR Telnet/module.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1225">
+              <caret line="49" column="50" lean-forward="false" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
+              <folding>
+                <element signature="n#RequestAction#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#SendRequest#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#SendCommand#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#GetStateHTTP#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#Power#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#MainZonePower#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#MainzoneAutoStandbySetting#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#MasterVolume#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#GetCommandValueSend#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#GetConfigurationForm#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#FormHead#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#FormMainzone#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#FormZone#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="functions.ips.php" pinned="false" current-in-tab="true">
+        <entry file="file://T:/scripts/functions.ips.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1801">
+              <caret line="727" column="20" lean-forward="false" selection-start-line="727" selection-start-column="20" selection-end-line="727" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AVRModels.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AVRModels.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4450">
+              <caret line="387" column="0" lean-forward="false" selection-start-line="386" selection-start-column="0" selection-end-line="387" selection-end-column="0" />
+              <folding>
+                <element signature="e#132#2075#0#PHP" expanded="false" />
+                <element signature="n#AVRs#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DenonAVR.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DenonAVR.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4925">
+              <caret line="424" column="11" lean-forward="false" selection-start-line="424" selection-start-column="11" selection-end-line="424" selection-end-column="11" />
+              <folding>
+                <element signature="n#DenonAVR#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_3808A#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_3310#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_3311#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_X1200W#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_X1300W#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_X4200W#0;n#!!top" expanded="false" />
+                <element signature="n#Denon_AVR_X6200W#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="module.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Denon Splitter Telnet/module.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="617">
+              <caret line="392" column="44" lean-forward="true" selection-start-line="392" selection-start-column="44" selection-end-line="392" selection-end-column="44" />
+              <folding>
+                <element signature="n#ApplyChanges#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#RegisterTimer#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#UnRegisterTimer#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#SaveInputVarmapping#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#SaveOwnInputVarmapping#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#GetInputArrayStatus#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+                <element signature="n#GetInputVarMapping#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="module.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Denon HTTP IO/module.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="775">
+              <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>PSSP</find>
+      <find>DYNVOL</find>
+      <find>SubCommand</find>
+      <find>nachgef</find>
+      <find>hidd</find>
+      <find>CVZRL</find>
+      <find>Update</find>
+      <find>ROCK ARENA</find>
+      <find>SurroundDisplay</find>
+      <find>PSPAN</find>
+      <find>SetHiddenStatus</find>
+      <find>trigger_error</find>
+      <find>FormMain</find>
+      <find>FormMainZone</find>
+      <find>IPS_GetLinked_SetHidden</find>
+      <find>IPS_LogMessage</find>
+      <find>Variablenprofil angelegt</find>
+      <find>ROCK</find>
+      <find>$test</find>
+      <find>sourcedelete</find>
+      <find>Sourcede</find>
+      <find>dynamicvol</find>
+      <find>Denon AV Receiver</find>
+      <find>RegisterMessage</find>
+      <find>ConnectionID</find>
+      <find>hasactive</find>
+      <find>has</find>
+      <find>kernel</find>
+      <find>Property registered</find>
+      <find>10103</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>], &quot;Associations&quot;</replace>
+      <replace>=&gt; [&quot;Name&quot; =&gt; [</replace>
+      <replace>&quot;Type&quot; =&gt; DENONIPSVarType::vtboolean, &quot;Ident&quot;</replace>
+      <replace>=&gt; [&quot;Type&quot; =&gt; DENONIPSVarType::vtboolean, &quot;Ident&quot;</replace>
+      <replace>=&gt; [&quot;Type&quot; =&gt; DENONIPSVarType::vtFloat, &quot;Ident&quot;</replace>
+      <replace>=&gt; [&quot;Type&quot; =&gt; DENONIPSVarType::vtString, &quot;Ident&quot;</replace>
+      <replace>=&gt; [&quot;Type&quot; =&gt; DENONIPSVarType::vtBoolean, &quot;Ident&quot;</replace>
+      <replace>=&gt; [&quot;Name&quot; =&gt;</replace>
+      <replace>=&gt; [&quot;Type&quot; =&gt; DENONIPSVarType::vtInteger, &quot;Ident&quot;</replace>
+      <replace>, 0, 0, 0, 0</replace>
+      <replace>&quot;PropertyName&quot; =&gt; &quot;&quot;, &quot;Profilesettings&quot; =&gt;</replace>
+      <replace>&quot;PropertyName&quot; =&gt; &quot;&quot;,</replace>
+      <replace>-</replace>
+      <replace>$assRange38to62_add05step</replace>
+      <replace>0.5, 0], &quot;Associations&quot; =&gt; $assRange38to62_add05step]</replace>
+      <replace>0.5, 1], &quot;Associations&quot; =&gt; $assRange38to62_add05step]</replace>
+      <replace>$assRange38to62_add05step,</replace>
+      <replace>$APISubCommand</replace>
+      <replace>$APICommand</replace>
+      <replace>(float $Value){</replace>
+      <replace>$this-&gt;SendCommand(DENON_API_Commands::CVFL.$SubCommand);</replace>
+      <replace>$SubCommand = (new DENONIPSProfiles())-&gt;GetSubCommandOfValue(DENON_API_Commands::CVFL, $Value);</replace>
+      <replace>, $Value);</replace>
+      <replace>$SubCommand = (new DENONIPSProfiles())-&gt;GetSubCommandOfValue(DENON_API_Commands::</replace>
+      <replace>}</replace>
+      <replace>{</replace>
+      <replace>3</replace>
+      <replace>protected function</replace>
+      <replace>'CV?'</replace>
+      <replace>$this-&gt;GetLinked_SetHidden</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>T:\modules\IPSymconDenon\Denon HTTP IO</dir>
+      <dir>T:\modules\IPSymconDenon\Denon Splitter Telnet</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/DenonClass.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/MarantzModels.php" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/Denon AVR Telnet/form_gen.json" />
+        <option value="$PROJECT_DIR$/Denon AVR Telnet/form.json" />
+        <option value="$PROJECT_DIR$/Denon Splitter HTTP/module.php" />
+        <option value="$PROJECT_DIR$/Denon AVR HTTP/form.json" />
+        <option value="$PROJECT_DIR$/Denon HTTP IO/module.php" />
+        <option value="$PROJECT_DIR$/Denon Splitter HTTP/form.json" />
+        <option value="$PROJECT_DIR$/Denon Splitter HTTP/locale.json" />
+        <option value="$PROJECT_DIR$/Denon AVR HTTP/module.php" />
+        <option value="$PROJECT_DIR$/Denon AVR Telnet/locale.json" />
+        <option value="$PROJECT_DIR$/Denon AVR HTTP/locale.json" />
+        <option value="$PROJECT_DIR$/Denon Splitter Telnet/locale.json" />
+        <option value="T:/scripts/functions.ips.php" />
+        <option value="$PROJECT_DIR$/Denon Splitter Telnet/form.json" />
+        <option value="$PROJECT_DIR$/MarantzAVR.php" />
+        <option value="$PROJECT_DIR$/AVRModels.php" />
+        <option value="$PROJECT_DIR$/DenonAVR.php" />
+        <option value="$PROJECT_DIR$/library.json" />
+        <option value="$PROJECT_DIR$/Denon AVR Telnet/module.php" />
+        <option value="$PROJECT_DIR$/DenonClass.php" />
+        <option value="$PROJECT_DIR$/Denon Splitter Telnet/module.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
+    <include_path>
+      <path value="T:\scripts" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="width" value="1940" />
+    <option name="height" value="2110" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Code SmellPHP</id>
+          </State>
+          <State>
+            <id>Code StylePHP</id>
+          </State>
+          <State>
+            <id>GeneralPHP</id>
+          </State>
+          <State>
+            <id>PHP</id>
+          </State>
+          <State>
+            <id>Probable bugsPHP</id>
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+          <State>
+            <id>TypeScript</id>
+          </State>
+          <State>
+            <id>UndefinedPHP</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>UndefinedPHP</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers ProjectPane="true" />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="IPSymconDenon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPSymconDenon" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="IPSymconDenon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPSymconDenon" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Denon AVR Telnet" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="IPSymconDenon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPSymconDenon" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Denon Splitter Telnet" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="IPSymconDenon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPSymconDenon" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Denon Splitter Telnet" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="module.php" type="88303cf5:PhpFileNode" />
+            </path>
+            <path>
+              <item name="IPSymconDenon" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPSymconDenon" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="Denon Splitter Telnet" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="module.php" type="88303cf5:PhpFileNode" />
+              <item name="DenonSplitterTelnet" type="e2efd96b:PhpElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="T:/scripts" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+    <property name="settings.editor.splitter.proportion" value="0.31737012" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/README.md" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://T:/modules/IPSymconDenon/Denon AVR Telnet/module.php&#10;MainForm_old&#9;null&#9;null&#10;surround&#9;null&#9;null&#10;IPS_CreateVariableProfile&#9;null&#9;null&#10;surround mode&#9;null&#9;null&#10;NEURAL&#9;null&#9;null" />
+    <property name="full.screen.before.presentation.mode" value="false" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="T:\modules\IPSymconDenon" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.DenonClass.php">
+    <configuration name="DenonClass.php" type="JavascriptDebugType" factoryName="JavaScript Debug" nameIsGenerated="true" uri="http://localhost:63342/IPSymconDenon/DenonClass.php" />
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",VISIBILITY_SORTER" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6bf4cb53-0c24-4f34-ac6f-e0df2473cf80" name="Default" comment="" />
+      <created>1495814037474</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1495814037474</updated>
+      <workItem from="1495814038742" duration="621000" />
+      <workItem from="1495814673390" duration="1273000" />
+      <workItem from="1496042731655" duration="5000" />
+      <workItem from="1496067731101" duration="701000" />
+      <workItem from="1496068441692" duration="3808000" />
+      <workItem from="1496123784984" duration="81000" />
+      <workItem from="1496126339385" duration="20597000" />
+      <workItem from="1496208540239" duration="12179000" />
+      <workItem from="1496231479176" duration="3182000" />
+      <workItem from="1496238275709" duration="2425000" />
+      <workItem from="1496241416946" duration="10587000" />
+      <workItem from="1496332756604" duration="10477000" />
+      <workItem from="1496399609620" duration="2156000" />
+      <workItem from="1496429030367" duration="4148000" />
+      <workItem from="1496439131865" duration="626000" />
+      <workItem from="1496440478706" duration="137000" />
+      <workItem from="1496440621741" duration="306000" />
+      <workItem from="1496476422583" duration="26151000" />
+      <workItem from="1496560843845" duration="7211000" />
+      <workItem from="1496568445128" duration="16918000" />
+      <workItem from="1496648802488" duration="13629000" />
+      <workItem from="1496678060653" duration="3236000" />
+      <workItem from="1496727812950" duration="15495000" />
+      <workItem from="1496746125367" duration="17940000" />
+      <workItem from="1496820954675" duration="16599000" />
+      <workItem from="1496856368290" duration="2387000" />
+      <workItem from="1496901982535" duration="6186000" />
+      <workItem from="1496908215743" duration="23335000" />
+      <workItem from="1496936360316" duration="11125000" />
+      <workItem from="1496989254813" duration="14184000" />
+      <workItem from="1497014362212" duration="10479000" />
+      <workItem from="1497076363700" duration="9941000" />
+      <workItem from="1497098462467" duration="4599000" />
+      <workItem from="1497106725450" duration="1215000" />
+      <workItem from="1497112082634" duration="1268000" />
+      <workItem from="1497118939029" duration="62000" />
+      <workItem from="1497119006238" duration="1750000" />
+      <workItem from="1497175934123" duration="27831000" />
+      <workItem from="1497252175178" duration="4832000" />
+      <workItem from="1497262023062" duration="3393000" />
+      <workItem from="1497358721887" duration="473000" />
+      <workItem from="1497359895324" duration="13493000" />
+      <workItem from="1497377239839" duration="163000" />
+      <workItem from="1497377464147" duration="8509000" />
+      <workItem from="1497420379526" duration="3997000" />
+      <workItem from="1497425239861" duration="7342000" />
+      <workItem from="1497442514927" duration="7630000" />
+      <workItem from="1497458768363" duration="1860000" />
+      <workItem from="1497461350441" duration="1741000" />
+      <workItem from="1497467606343" duration="604000" />
+      <workItem from="1497469975553" duration="3217000" />
+      <workItem from="1497543379591" duration="1159000" />
+      <workItem from="1497544562283" duration="71000" />
+      <workItem from="1497544647193" duration="5905000" />
+      <workItem from="1497592046485" duration="18325000" />
+      <workItem from="1497620145984" duration="13402000" />
+      <workItem from="1497779160742" duration="12443000" />
+      <workItem from="1497805728225" duration="85000" />
+      <workItem from="1497808573986" duration="9869000" />
+      <workItem from="1497820955487" duration="302000" />
+      <workItem from="1497821481703" duration="2944000" />
+      <workItem from="1497853200246" duration="1960000" />
+      <workItem from="1497880509033" duration="18198000" />
+      <workItem from="1497900948965" duration="4109000" />
+      <workItem from="1497938258700" duration="7367000" />
+      <workItem from="1497947698321" duration="12992000" />
+      <workItem from="1497967598758" duration="18028000" />
+      <workItem from="1498028094613" duration="6708000" />
+      <workItem from="1498035229765" duration="1888000" />
+      <workItem from="1498044892489" duration="14830000" />
+      <workItem from="1498072341128" duration="666000" />
+      <workItem from="1498073979734" duration="641000" />
+      <workItem from="1498074705523" duration="1932000" />
+      <workItem from="1498122400153" duration="15980000" />
+      <workItem from="1498163824382" duration="5211000" />
+      <workItem from="1498196397870" duration="22444000" />
+      <workItem from="1498314458617" duration="17712000" />
+      <workItem from="1498413930419" duration="4426000" />
+      <workItem from="1498424357975" duration="1779000" />
+      <workItem from="1498467835498" duration="13768000" />
+      <workItem from="1498545192695" duration="24291000" />
+      <workItem from="1498578331406" duration="6178000" />
+      <workItem from="1498586458181" duration="6228000" />
+      <workItem from="1498630701614" duration="13000" />
+      <workItem from="1498630954235" duration="8905000" />
+      <workItem from="1498649099469" duration="22861000" />
+      <workItem from="1498676098924" duration="297000" />
+      <workItem from="1498715498275" duration="26901000" />
+      <workItem from="1498805934647" duration="4785000" />
+      <workItem from="1498811749215" duration="21099000" />
+      <workItem from="1498836414578" duration="954000" />
+      <workItem from="1498837626463" duration="4596000" />
+      <workItem from="1498854887809" duration="3113000" />
+      <workItem from="1498897776527" duration="20755000" />
+      <workItem from="1498986922387" duration="19183000" />
+      <workItem from="1499072576455" duration="3527000" />
+      <workItem from="1499094820771" duration="3221000" />
+      <workItem from="1499146613202" duration="18702000" />
+      <workItem from="1499169664319" duration="774000" />
+      <workItem from="1499176360607" duration="6618000" />
+      <workItem from="1499183572836" duration="2233000" />
+      <workItem from="1499189973364" duration="3027000" />
+      <workItem from="1499233259059" duration="11660000" />
+      <workItem from="1499274884187" duration="708000" />
+      <workItem from="1499279316750" duration="4103000" />
+      <workItem from="1499321333232" duration="23315000" />
+      <workItem from="1499347989257" duration="5212000" />
+      <workItem from="1499410917497" duration="22516000" />
+      <workItem from="1499440025233" duration="743000" />
+      <workItem from="1499498346777" duration="7146000" />
+      <workItem from="1499532800661" duration="3603000" />
+      <workItem from="1499593785785" duration="1290000" />
+      <workItem from="1499597853546" duration="12636000" />
+      <workItem from="1499623301451" duration="599000" />
+      <workItem from="1499623919825" duration="2576000" />
+      <workItem from="1499666703650" duration="890000" />
+      <workItem from="1499668014339" duration="2319000" />
+      <workItem from="1499672263637" duration="5801000" />
+      <workItem from="1499680075491" duration="1164000" />
+      <workItem from="1499690366745" duration="129000" />
+      <workItem from="1499691912449" duration="621000" />
+      <workItem from="1499719861567" duration="905000" />
+      <workItem from="1499759340127" duration="3860000" />
+      <workItem from="1499763460722" duration="448000" />
+      <workItem from="1499764947253" duration="7841000" />
+      <workItem from="1499799517198" duration="2065000" />
+      <workItem from="1499839515058" duration="10367000" />
+      <workItem from="1499868234049" duration="1615000" />
+      <workItem from="1499880423960" duration="4174000" />
+      <workItem from="1499887390410" duration="1172000" />
+      <workItem from="1500650575940" duration="3031000" />
+      <workItem from="1500903970518" duration="5620000" />
+      <workItem from="1500972311089" duration="20334000" />
+      <workItem from="1501059494344" duration="54000" />
+      <workItem from="1501060049609" duration="2217000" />
+      <workItem from="1501146903741" duration="5594000" />
+      <workItem from="1501164201054" duration="4552000" />
+      <workItem from="1501229224142" duration="11949000" />
+      <workItem from="1501428632084" duration="4237000" />
+      <workItem from="1501496229167" duration="9904000" />
+      <workItem from="1501516035926" duration="5069000" />
+      <workItem from="1501578049688" duration="13721000" />
+      <workItem from="1501619937043" duration="2013000" />
+      <workItem from="1501667056498" duration="11390000" />
+      <workItem from="1501684523185" duration="43000" />
+      <workItem from="1501686404271" duration="196000" />
+    </task>
+    <task id="LOCAL-00001" summary="Ein Test">
+      <created>1496069631287</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1496069631287</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1044911000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-11" y="-11" width="3862" height="2122" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08828125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13347237" sideWeight="0.51875" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295099" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="1440" y="380" width="960" height="1339" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="90" y="100" width="3654" height="1910" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="2.6041668E-4" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23983316" sideWeight="0.48125" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ein Test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ein Test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="37" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="uml://PHP/\Marantz_SR6011">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\Marantz_SR6011</OriginalElement>
+          <nodes>
+            <node x="" y="">\AVR</node>
+            <node x="" y="">\stdClass</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="706.0" y="465.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\Denon_AVR_X6200W">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\Denon_AVR_X6200W</OriginalElement>
+          <nodes>
+            <node x="211.99999999999994" y="301.0">\Denon_AVR_4310</node>
+            <node x="596.0" y="0.0">\stdClass</node>
+            <node x="611.5" y="97.0">\AVR</node>
+            <node x="585.0" y="194.0">\DenonAVR</node>
+            <node x="664.0" y="301.0">\Denon_AVR_X6200W</node>
+            <node x="423.99999999999994" y="301.0">\Denon_AVR_X4100W</node>
+            <node x="423.99999999999994" y="398.0">\Denon_AVR_X4200W</node>
+            <node x="904.0" y="301.0">\Denon_AVR_X7200W</node>
+            <node x="1144.0" y="301.0">\Denon_AVR_X5200W</node>
+            <node x="211.99999999999994" y="398.0">\Denon_AVR_4311</node>
+            <node x="0.0" y="301.0">\Denon_AVR_3310</node>
+            <node x="0.0" y="398.0">\Denon_AVR_3311</node>
+            <node x="898.0" y="398.0">\Denon_AVR_X7200WA</node>
+            <node x="0.0" y="495.0">\Denon_AVR_3312</node>
+            <node x="0.0" y="592.0">\Denon_AVR_3313</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\Denon_AVR_X7200WA" target="\Denon_AVR_X7200W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X6200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="774.0" y="281.0" />
+              <point x="665.5" y="281.0" />
+              <point x="11.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="96.0" y="261.0" />
+              <point x="596.5" y="261.0" />
+              <point x="-57.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1014.0" y="271.0" />
+              <point x="688.5" y="271.0" />
+              <point x="34.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4200W" target="\Denon_AVR_X4100W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4311" target="\Denon_AVR_4310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X5200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1254.0" y="261.0" />
+              <point x="711.5" y="261.0" />
+              <point x="57.5" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="307.99999999999994" y="271.0" />
+              <point x="619.5" y="271.0" />
+              <point x="-34.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4100W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="534.0" y="281.0" />
+              <point x="642.5" y="281.0" />
+              <point x="-11.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3311" target="\Denon_AVR_3310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3312" target="\Denon_AVR_3311">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3313" target="\Denon_AVR_3312">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-831.0" y="-360.0" />
+          <SelectedNodes>
+            <node>\Denon_AVR_X6200W</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\DENON_API_Command_Mapping">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\DENON_API_Command_Mapping</OriginalElement>
+          <nodes>
+            <node x="791.0" y="117.0">\DENON_Zone</node>
+            <node x="501.0" y="117.0">\DENON_API_Data_Mapping</node>
+            <node x="1746.0" y="117.0">\DenonAVRCP_API_Data</node>
+            <node x="913.5" y="0.0">\stdClass</node>
+            <node x="235.0" y="117.0">\DENON_API_Commands</node>
+            <node x="1409.0" y="117.0">\DENON_API_Command_Mapping</node>
+            <node x="971.0" y="117.0">\DENONIPSVarType</node>
+            <node x="1193.0" y="117.0">\DENONIPSProfiles</node>
+            <node x="0.0" y="117.0">\DENON_StatusHTML</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\DenonAVRCP_API_Data" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1864.5" y="67.0" />
+              <point x="1022.25" y="67.0" />
+              <point x="50.75" y="23.5" />
+            </edge>
+            <edge source="\DENON_API_Data_Mapping" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="636.0" y="87.0" />
+              <point x="949.75" y="87.0" />
+              <point x="-21.75" y="23.5" />
+            </edge>
+            <edge source="\DENON_API_Commands" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="358.0" y="77.0" />
+              <point x="935.25" y="77.0" />
+              <point x="-36.25" y="23.5" />
+            </edge>
+            <edge source="\DENON_StatusHTML" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="107.5" y="67.0" />
+              <point x="920.75" y="67.0" />
+              <point x="-50.75" y="23.5" />
+            </edge>
+            <edge source="\DENONIPSProfiles" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1291.0" y="87.0" />
+              <point x="993.25" y="87.0" />
+              <point x="21.75" y="23.5" />
+            </edge>
+            <edge source="\DENON_Zone" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="871.0" y="97.0" />
+              <point x="964.25" y="97.0" />
+              <point x="-7.25" y="23.5" />
+            </edge>
+            <edge source="\DENONIPSVarType" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1072.0" y="97.0" />
+              <point x="978.75" y="97.0" />
+              <point x="7.25" y="23.5" />
+            </edge>
+            <edge source="\DENON_API_Command_Mapping" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1567.5" y="77.0" />
+              <point x="1007.75" y="77.0" />
+              <point x="36.25" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.7908137793310035" x="293.0" y="-790.0" />
+          <SelectedNodes>
+            <node>\DENON_API_Command_Mapping</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\Marantz_SR7010">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\Marantz_SR7010</OriginalElement>
+          <nodes>
+            <node x="833.5" y="786.0">\Marantz_SR5011</node>
+            <node x="833.5" y="689.0">\Marantz_SR5010</node>
+            <node x="423.5" y="495.0">\Marantz_AV7702</node>
+            <node x="203.0" y="689.0">\Marantz_SR7010</node>
+            <node x="423.5" y="398.0">\Marantz_AV7701</node>
+            <node x="203.0" y="786.0">\Marantz_SR7011</node>
+            <node x="0.0" y="689.0">\Marantz_SR6009</node>
+            <node x="678.5" y="97.0">\AVR</node>
+            <node x="423.5" y="689.0">\Marantz_AV7703</node>
+            <node x="0.0" y="592.0">\Marantz_SR6008</node>
+            <node x="0.0" y="495.0">\Marantz_SR6007</node>
+            <node x="0.0" y="398.0">\Marantz_SR6006</node>
+            <node x="0.0" y="301.0">\Marantz_SR6005</node>
+            <node x="646.5" y="194.0">\MarantzAVR</node>
+            <node x="203.0" y="398.0">\Marantz_SR7007</node>
+            <node x="203.0" y="495.0">\Marantz_SR7008</node>
+            <node x="203.0" y="592.0">\Marantz_SR7009</node>
+            <node x="0.0" y="883.0">\Marantz_SR6011</node>
+            <node x="1242.5" y="689.0">\Marantz_NR1606</node>
+            <node x="1242.5" y="592.0">\Marantz_NR1605</node>
+            <node x="1036.5" y="398.0">\Marantz_NR1506</node>
+            <node x="406.0" y="592.0">\Marantz_AV7702mkII</node>
+            <node x="0.0" y="786.0">\Marantz_SR6010</node>
+            <node x="1242.5" y="786.0">\Marantz_NR1607</node>
+            <node x="663.0" y="0.0">\stdClass</node>
+            <node x="1242.5" y="301.0">\Marantz_NR1602</node>
+            <node x="628.5" y="301.0">\Marantz_AV8801</node>
+            <node x="1242.5" y="495.0">\Marantz_NR1604</node>
+            <node x="833.5" y="592.0">\Marantz_SR5009</node>
+            <node x="833.5" y="495.0">\Marantz_SR5008</node>
+            <node x="628.5" y="398.0">\Marantz_AV8802</node>
+            <node x="1036.5" y="301.0">\Marantz_NR1504</node>
+            <node x="1242.5" y="398.0">\Marantz_NR1603</node>
+            <node x="833.5" y="398.0">\Marantz_SR5007</node>
+            <node x="833.5" y="301.0">\Marantz_SR5006</node>
+            <node x="203.0" y="301.0">\Marantz_SR7005</node>
+            <node x="423.5" y="301.0">\Marantz_AV7005</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\Marantz_SR6009" target="\Marantz_SR6008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6007" target="\Marantz_SR6006">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7010" target="\Marantz_SR7009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7701" target="\Marantz_AV7005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1504" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1129.5" y="271.0" />
+              <point x="763.5714285714286" y="271.0" />
+              <point x="42.571428571428555" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="294.5" y="271.0" />
+              <point x="678.4285714285714" y="271.0" />
+              <point x="-42.571428571428555" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1607" target="\Marantz_NR1606">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1605" target="\Marantz_NR1604">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1603" target="\Marantz_NR1602">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5011" target="\Marantz_SR5010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1506" target="\Marantz_NR1504">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5008" target="\Marantz_SR5007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7009" target="\Marantz_SR7008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7007" target="\Marantz_SR7005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6010" target="\Marantz_SR6009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="516.0" y="281.0" />
+              <point x="699.7142857142858" y="281.0" />
+              <point x="-21.28571428571422" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV8802" target="\Marantz_AV8801">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6008" target="\Marantz_SR6007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6006" target="\Marantz_SR6005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6011" target="\Marantz_SR6010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7702mkII" target="\Marantz_AV7702">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV8801" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7702" target="\Marantz_AV7701">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1604" target="\Marantz_NR1603">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1606" target="\Marantz_NR1605">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1602" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1335.5" y="261.0" />
+              <point x="784.8571428571429" y="261.0" />
+              <point x="63.85714285714289" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5009" target="\Marantz_SR5008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5007" target="\Marantz_SR5006">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5006" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="925.0" y="281.0" />
+              <point x="742.2857142857143" y="281.0" />
+              <point x="21.285714285714334" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7011" target="\Marantz_SR7010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7008" target="\Marantz_SR7007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\MarantzAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5010" target="\Marantz_SR5009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7703" target="\Marantz_AV7702mkII">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="91.5" y="261.0" />
+              <point x="657.1428571428571" y="261.0" />
+              <point x="-63.85714285714289" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="715.0" y="465.0" />
+          <SelectedNodes>
+            <node>\Marantz_SR7010</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/functions.ips.php" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/SimpleXML/SimpleXML.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="71" column="20" lean-forward="false" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/T:/modules/IPSymconDenon">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>$PROJECT_DIR$</OriginalElement>
+          <nodes>
+            <node x="1599.0" y="826.0">\Marantz_SR5011</node>
+            <node x="1599.0" y="729.0">\Marantz_SR5010</node>
+            <node x="1211.0" y="1015.0">$PROJECT_DIR$/docs</node>
+            <node x="0.0" y="1015.0">$PROJECT_DIR$/Denon Splitter Telnet</node>
+            <node x="1750.0" y="137.0">\DENON_API_Commands</node>
+            <node x="2602.0" y="137.0">\DENONIPSVarType</node>
+            <node x="480.0" y="438.0">\Denon_AVR_X4200W</node>
+            <node x="2489.0" y="137.0">\AVRs</node>
+            <node x="2008.0" y="438.0">\Marantz_SR7007</node>
+            <node x="264.0" y="137.0">\DENON_API_Data_Mapping</node>
+            <node x="2008.0" y="535.0">\Marantz_SR7008</node>
+            <node x="2016.0" y="137.0">\DenonAVRCP_API_Data</node>
+            <node x="2008.0" y="632.0">\Marantz_SR7009</node>
+            <node x="2638.5" y="729.0">\Marantz_NR1606</node>
+            <node x="2638.5" y="632.0">\Marantz_NR1605</node>
+            <node x="2638.5" y="826.0">\Marantz_NR1607</node>
+            <node x="2638.5" y="341.0">\Marantz_NR1602</node>
+            <node x="518.0" y="1015.0">$PROJECT_DIR$/Denon AVR Telnet</node>
+            <node x="2638.5" y="535.0">\Marantz_NR1604</node>
+            <node x="2638.5" y="438.0">\Marantz_NR1603</node>
+            <node x="1073.0" y="137.0">\DENON_StatusHTML</node>
+            <node x="2008.0" y="341.0">\Marantz_SR7005</node>
+            <node x="554.0" y="137.0">\DENON_Zone</node>
+            <node x="1345.0" y="1015.0">$PROJECT_DIR$/.idea</node>
+            <node x="1413.0" y="137.0">\DENON_API_Command_Mapping</node>
+            <node x="1144.0" y="438.0">\Denon_AVR_X7200WA</node>
+            <node x="2228.5" y="535.0">\Marantz_AV7702</node>
+            <node x="2228.5" y="438.0">\Marantz_AV7701</node>
+            <node x="2008.0" y="729.0">\Marantz_SR7010</node>
+            <node x="2008.0" y="826.0">\Marantz_SR7011</node>
+            <node x="1396.0" y="729.0">\Marantz_SR6009</node>
+            <node x="1308.0" y="137.0">\AVR</node>
+            <node x="2228.5" y="729.0">\Marantz_AV7703</node>
+            <node x="634.0" y="234.0">\DenonAVR</node>
+            <node x="1396.0" y="632.0">\Marantz_SR6008</node>
+            <node x="1396.0" y="535.0">\Marantz_SR6007</node>
+            <node x="1396.0" y="438.0">\Marantz_SR6006</node>
+            <node x="2025.0" y="234.0">\MarantzAVR</node>
+            <node x="1396.0" y="341.0">\Marantz_SR6005</node>
+            <node x="1150.0" y="341.0">\Denon_AVR_X7200W</node>
+            <node x="262.0" y="1015.0">$PROJECT_DIR$/Denon Splitter HTTP</node>
+            <node x="992.0" y="1015.0">$PROJECT_DIR$/Denon HTTP IO</node>
+            <node x="932.0" y="341.0">\Denon_AVR_3310</node>
+            <node x="932.0" y="438.0">\Denon_AVR_3311</node>
+            <node x="932.0" y="535.0">\Denon_AVR_3312</node>
+            <node x="932.0" y="632.0">\Denon_AVR_3313</node>
+            <node x="720.0" y="341.0">\Denon_AVR_4310</node>
+            <node x="1396.0" y="923.0">\Marantz_SR6011</node>
+            <node x="1396.0" y="826.0">\Marantz_SR6010</node>
+            <node x="1802.0" y="438.0">\Marantz_NR1506</node>
+            <node x="2211.0" y="632.0">\Marantz_AV7702mkII</node>
+            <node x="1403.0" y="0.0">\stdClass</node>
+            <node x="2433.5" y="341.0">\Marantz_AV8801</node>
+            <node x="1599.0" y="632.0">\Marantz_SR5009</node>
+            <node x="2433.5" y="438.0">\Marantz_AV8802</node>
+            <node x="1802.0" y="341.0">\Marantz_NR1504</node>
+            <node x="1599.0" y="535.0">\Marantz_SR5008</node>
+            <node x="1599.0" y="438.0">\Marantz_SR5007</node>
+            <node x="0.0" y="341.0">\Denon_AVR_X6200W</node>
+            <node x="1599.0" y="341.0">\Marantz_SR5006</node>
+            <node x="480.0" y="341.0">\Denon_AVR_X4100W</node>
+            <node x="2273.0" y="137.0">\DENONIPSProfiles</node>
+            <node x="734.0" y="137.0">\DenonAVR_SurroundMode_Types</node>
+            <node x="758.0" y="1015.0">$PROJECT_DIR$/Denon AVR HTTP</node>
+            <node x="2228.5" y="341.0">\Marantz_AV7005</node>
+            <node x="8.000000000000227" y="137.0">\DENON_HTTP_Interface</node>
+            <node x="240.0" y="341.0">\Denon_AVR_X5200W</node>
+            <node x="720.0" y="438.0">\Denon_AVR_4311</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\Marantz_SR6009" target="\Marantz_SR6008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DenonAVRCP_API_Data" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="2134.5" y="97.0" />
+              <point x="1485.1666666666667" y="97.0" />
+              <point x="24.166666666666742" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7010" target="\Marantz_SR7009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7701" target="\Marantz_AV7005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1028.0" y="311.0" />
+              <point x="737.5" y="311.0" />
+              <point x="34.5" y="23.5" />
+            </edge>
+            <edge source="\DENON_API_Command_Mapping" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1571.5" y="117.0" />
+              <point x="1465.8333333333333" y="117.0" />
+              <point x="4.8333333333332575" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR_SurroundMode_Types" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="893.5" y="97.0" />
+              <point x="1436.8333333333333" y="97.0" />
+              <point x="-24.166666666666742" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1607" target="\Marantz_NR1606">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1603" target="\Marantz_NR1602">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5011" target="\Marantz_SR5010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5008" target="\Marantz_SR5007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7007" target="\Marantz_SR7005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3311" target="\Denon_AVR_3310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6011" target="\Marantz_SR6010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DENON_HTTP_Interface" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="126.00000000000023" y="67.0" />
+              <point x="1407.8333333333333" y="67.0" />
+              <point x="-53.16666666666674" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6008" target="\Marantz_SR6007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200WA" target="\Denon_AVR_X7200W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7702" target="\Marantz_AV7701">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV8801" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2526.0" y="311.0" />
+              <point x="2142.0714285714284" y="311.0" />
+              <point x="42.57142857142844" y="23.5" />
+            </edge>
+            <edge source="\AVRs" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="2535.5" y="77.0" />
+              <point x="1504.5" y="77.0" />
+              <point x="43.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1260.0" y="301.0" />
+              <point x="760.5" y="301.0" />
+              <point x="57.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1606" target="\Marantz_NR1605">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1602" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2731.5" y="301.0" />
+              <point x="2163.357142857143" y="301.0" />
+              <point x="63.85714285714312" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5007" target="\Marantz_SR5006">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7011" target="\Marantz_SR7010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7008" target="\Marantz_SR7007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\MarantzAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2099.5" y="209.0" />
+              <point x="1371.75" y="209.0" />
+              <point x="21.25" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5010" target="\Marantz_SR5009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="816.0" y="321.0" />
+              <point x="714.5" y="321.0" />
+              <point x="11.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7703" target="\Marantz_AV7702mkII">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4100W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="590.0" y="321.0" />
+              <point x="691.5" y="321.0" />
+              <point x="-11.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3312" target="\Denon_AVR_3311">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6007" target="\Marantz_SR6006">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X6200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="110.0" y="301.0" />
+              <point x="645.5" y="301.0" />
+              <point x="-57.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1504" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1895.0" y="321.0" />
+              <point x="2078.214285714286" y="321.0" />
+              <point x="-21.28571428571422" y="23.5" />
+            </edge>
+            <edge source="\DENONIPSVarType" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="2703.0" y="67.0" />
+              <point x="1514.1666666666665" y="67.0" />
+              <point x="53.166666666666515" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1605" target="\Marantz_NR1604">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1506" target="\Marantz_NR1504">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4200W" target="\Denon_AVR_X4100W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X5200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="350.0" y="311.0" />
+              <point x="668.5" y="311.0" />
+              <point x="-34.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7009" target="\Marantz_SR7008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DENON_API_Commands" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1873.0" y="107.0" />
+              <point x="1475.5" y="107.0" />
+              <point x="14.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6010" target="\Marantz_SR6009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DENON_StatusHTML" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1180.5" y="107.0" />
+              <point x="1446.5" y="107.0" />
+              <point x="-14.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV8802" target="\Marantz_AV8801">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2321.0" y="321.0" />
+              <point x="2120.785714285714" y="321.0" />
+              <point x="21.28571428571422" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3313" target="\Denon_AVR_3312">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6006" target="\Marantz_SR6005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="703.0" y="209.0" />
+              <point x="1329.25" y="209.0" />
+              <point x="-21.25" y="23.5" />
+            </edge>
+            <edge source="\DENONIPSProfiles" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="2371.0" y="87.0" />
+              <point x="1494.8333333333333" y="87.0" />
+              <point x="33.83333333333326" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7702mkII" target="\Marantz_AV7702">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DENON_Zone" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="634.0" y="87.0" />
+              <point x="1427.1666666666667" y="87.0" />
+              <point x="-33.83333333333326" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1604" target="\Marantz_NR1603">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5009" target="\Marantz_SR5008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5006" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1690.5" y="311.0" />
+              <point x="2056.9285714285716" y="311.0" />
+              <point x="-42.57142857142844" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4311" target="\Denon_AVR_4310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DENON_API_Data_Mapping" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="399.0" y="77.0" />
+              <point x="1417.5" y="77.0" />
+              <point x="-43.5" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1350.5" y="117.0" />
+              <point x="1456.1666666666667" y="117.0" />
+              <point x="-4.8333333333332575" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1487.5" y="301.0" />
+              <point x="2035.642857142857" y="301.0" />
+              <point x="-63.85714285714289" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-14.0" y="-19.0" />
+          <SelectedNodes>
+            <node>\Denon_AVR_4311</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\AVR">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\AVR</OriginalElement>
+          <nodes>
+            <node x="1598.9999999999998" y="786.0">\Marantz_SR5011</node>
+            <node x="1598.9999999999998" y="689.0">\Marantz_SR5010</node>
+            <node x="480.0" y="398.0">\Denon_AVR_X4200W</node>
+            <node x="1751.9999999999998" y="97.0">\AVRs</node>
+            <node x="2007.9999999999998" y="398.0">\Marantz_SR7007</node>
+            <node x="2007.9999999999998" y="495.0">\Marantz_SR7008</node>
+            <node x="2007.9999999999998" y="592.0">\Marantz_SR7009</node>
+            <node x="2638.5" y="689.0">\Marantz_NR1606</node>
+            <node x="2638.5" y="592.0">\Marantz_NR1605</node>
+            <node x="2638.5" y="786.0">\Marantz_NR1607</node>
+            <node x="2638.5" y="301.0">\Marantz_NR1602</node>
+            <node x="2638.5" y="495.0">\Marantz_NR1604</node>
+            <node x="2638.5" y="398.0">\Marantz_NR1603</node>
+            <node x="2007.9999999999998" y="301.0">\Marantz_SR7005</node>
+            <node x="1143.9999999999998" y="398.0">\Denon_AVR_X7200WA</node>
+            <node x="2228.5" y="495.0">\Marantz_AV7702</node>
+            <node x="2228.5" y="398.0">\Marantz_AV7701</node>
+            <node x="2007.9999999999998" y="689.0">\Marantz_SR7010</node>
+            <node x="2007.9999999999998" y="786.0">\Marantz_SR7011</node>
+            <node x="1395.9999999999998" y="689.0">\Marantz_SR6009</node>
+            <node x="1307.9999999999998" y="97.0">\AVR</node>
+            <node x="2228.5" y="689.0">\Marantz_AV7703</node>
+            <node x="633.9999999999998" y="194.0">\DenonAVR</node>
+            <node x="1395.9999999999998" y="592.0">\Marantz_SR6008</node>
+            <node x="1395.9999999999998" y="495.0">\Marantz_SR6007</node>
+            <node x="1395.9999999999998" y="398.0">\Marantz_SR6006</node>
+            <node x="2024.9999999999998" y="194.0">\MarantzAVR</node>
+            <node x="1395.9999999999998" y="301.0">\Marantz_SR6005</node>
+            <node x="1149.9999999999998" y="301.0">\Denon_AVR_X7200W</node>
+            <node x="931.9999999999998" y="301.0">\Denon_AVR_3310</node>
+            <node x="931.9999999999998" y="398.0">\Denon_AVR_3311</node>
+            <node x="931.9999999999998" y="495.0">\Denon_AVR_3312</node>
+            <node x="931.9999999999998" y="592.0">\Denon_AVR_3313</node>
+            <node x="719.9999999999998" y="301.0">\Denon_AVR_4310</node>
+            <node x="1395.9999999999998" y="883.0">\Marantz_SR6011</node>
+            <node x="1395.9999999999998" y="786.0">\Marantz_SR6010</node>
+            <node x="1801.9999999999998" y="398.0">\Marantz_NR1506</node>
+            <node x="2211.0" y="592.0">\Marantz_AV7702mkII</node>
+            <node x="1514.4999999999998" y="0.0">\stdClass</node>
+            <node x="2433.5" y="301.0">\Marantz_AV8801</node>
+            <node x="1598.9999999999998" y="592.0">\Marantz_SR5009</node>
+            <node x="2433.5" y="398.0">\Marantz_AV8802</node>
+            <node x="1801.9999999999998" y="301.0">\Marantz_NR1504</node>
+            <node x="1598.9999999999998" y="495.0">\Marantz_SR5008</node>
+            <node x="1598.9999999999998" y="398.0">\Marantz_SR5007</node>
+            <node x="0.0" y="301.0">\Denon_AVR_X6200W</node>
+            <node x="1598.9999999999998" y="301.0">\Marantz_SR5006</node>
+            <node x="480.0" y="301.0">\Denon_AVR_X4100W</node>
+            <node x="1412.9999999999998" y="97.0">\DenonAVR_SurroundMode_Types</node>
+            <node x="2228.5" y="301.0">\Marantz_AV7005</node>
+            <node x="240.0" y="301.0">\Denon_AVR_X5200W</node>
+            <node x="719.9999999999998" y="398.0">\Denon_AVR_4311</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\Marantz_SR6009" target="\Marantz_SR6008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7010" target="\Marantz_SR7009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7701" target="\Marantz_AV7005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1027.9999999999998" y="271.0" />
+              <point x="737.4999999999998" y="271.0" />
+              <point x="34.5" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR_SurroundMode_Types" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1607" target="\Marantz_NR1606">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1603" target="\Marantz_NR1602">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5011" target="\Marantz_SR5010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5008" target="\Marantz_SR5007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7007" target="\Marantz_SR7005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3311" target="\Denon_AVR_3310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6011" target="\Marantz_SR6010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6008" target="\Marantz_SR6007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200WA" target="\Denon_AVR_X7200W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7702" target="\Marantz_AV7701">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV8801" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2526.0" y="271.0" />
+              <point x="2142.0714285714284" y="271.0" />
+              <point x="42.57142857142844" y="23.5" />
+            </edge>
+            <edge source="\AVRs" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1798.4999999999998" y="72.0" />
+              <point x="1611.1666666666665" y="72.0" />
+              <point x="38.66666666666674" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1259.9999999999998" y="261.0" />
+              <point x="760.4999999999998" y="261.0" />
+              <point x="57.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1606" target="\Marantz_NR1605">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1602" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2731.5" y="261.0" />
+              <point x="2163.357142857143" y="261.0" />
+              <point x="63.85714285714312" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5007" target="\Marantz_SR5006">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7011" target="\Marantz_SR7010">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7008" target="\Marantz_SR7007">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\MarantzAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2099.5" y="169.0" />
+              <point x="1371.7499999999998" y="169.0" />
+              <point x="21.25" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5010" target="\Marantz_SR5009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="815.9999999999998" y="281.0" />
+              <point x="714.4999999999998" y="281.0" />
+              <point x="11.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7703" target="\Marantz_AV7702mkII">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4100W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="590.0" y="281.0" />
+              <point x="691.4999999999998" y="281.0" />
+              <point x="-11.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3312" target="\Denon_AVR_3311">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6007" target="\Marantz_SR6006">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X6200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="110.0" y="261.0" />
+              <point x="645.4999999999998" y="261.0" />
+              <point x="-57.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1504" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1894.9999999999998" y="281.0" />
+              <point x="2078.214285714286" y="281.0" />
+              <point x="-21.28571428571422" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1605" target="\Marantz_NR1604">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1506" target="\Marantz_NR1504">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4200W" target="\Denon_AVR_X4100W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X5200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="350.0" y="271.0" />
+              <point x="668.4999999999998" y="271.0" />
+              <point x="-34.5" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR7009" target="\Marantz_SR7008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6010" target="\Marantz_SR6009">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV8802" target="\Marantz_AV8801">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="2321.0" y="281.0" />
+              <point x="2120.785714285714" y="281.0" />
+              <point x="21.28571428571422" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3313" target="\Denon_AVR_3312">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6006" target="\Marantz_SR6005">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="702.9999999999998" y="169.0" />
+              <point x="1329.2499999999998" y="169.0" />
+              <point x="-21.25" y="23.5" />
+            </edge>
+            <edge source="\Marantz_AV7702mkII" target="\Marantz_AV7702">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_NR1604" target="\Marantz_NR1603">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5009" target="\Marantz_SR5008">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR5006" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1690.4999999999998" y="271.0" />
+              <point x="2056.9285714285716" y="271.0" />
+              <point x="-42.57142857142844" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4311" target="\Denon_AVR_4310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="1350.4999999999998" y="72.0" />
+              <point x="1533.833333333333" y="72.0" />
+              <point x="-38.66666666666674" y="23.5" />
+            </edge>
+            <edge source="\Marantz_SR6005" target="\MarantzAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1487.4999999999998" y="261.0" />
+              <point x="2035.6428571428569" y="261.0" />
+              <point x="-63.85714285714289" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-14.0" y="-85.0" />
+          <SelectedNodes>
+            <node>\AVR</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\Denon_AVR_3312">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\Denon_AVR_3312</OriginalElement>
+          <nodes>
+            <node x="1178.0" y="301.0">\Denon_AVR_4310</node>
+            <node x="627.0" y="0.0">\stdClass</node>
+            <node x="642.5" y="97.0">\AVR</node>
+            <node x="616.0" y="194.0">\DenonAVR</node>
+            <node x="938.0" y="301.0">\Denon_AVR_X6200W</node>
+            <node x="452.0" y="301.0">\Denon_AVR_X4100W</node>
+            <node x="452.0" y="398.0">\Denon_AVR_X4200W</node>
+            <node x="698.0" y="301.0">\Denon_AVR_X7200W</node>
+            <node x="212.0" y="301.0">\Denon_AVR_X5200W</node>
+            <node x="0.0" y="301.0">\Denon_AVR_3310</node>
+            <node x="1178.0" y="398.0">\Denon_AVR_4311</node>
+            <node x="0.0" y="398.0">\Denon_AVR_3311</node>
+            <node x="0.0" y="495.0">\Denon_AVR_3312</node>
+            <node x="692.0" y="398.0">\Denon_AVR_X7200WA</node>
+            <node x="0.0" y="592.0">\Denon_AVR_3313</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\Denon_AVR_X7200WA" target="\Denon_AVR_X7200W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X6200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1048.0" y="271.0" />
+              <point x="719.5" y="271.0" />
+              <point x="34.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="96.0" y="261.0" />
+              <point x="627.5" y="261.0" />
+              <point x="-57.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="808.0" y="281.0" />
+              <point x="696.5" y="281.0" />
+              <point x="11.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X5200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="322.0" y="271.0" />
+              <point x="650.5" y="271.0" />
+              <point x="-34.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4311" target="\Denon_AVR_4310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4200W" target="\Denon_AVR_X4100W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1274.0" y="261.0" />
+              <point x="742.5" y="261.0" />
+              <point x="57.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4100W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="562.0" y="281.0" />
+              <point x="673.5" y="281.0" />
+              <point x="-11.5" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3311" target="\Denon_AVR_3310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3313" target="\Denon_AVR_3312">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3312" target="\Denon_AVR_3311">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="-741.0" y="-231.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon HTTP IO/form.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon HTTP IO/locale.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon HTTP IO/module.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PHPStorm/functions.ips.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="699">
+          <caret line="704" column="13" lean-forward="false" selection-start-line="704" selection-start-column="13" selection-end-line="704" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_9.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="85" column="9" lean-forward="false" selection-start-line="85" selection-start-column="9" selection-end-line="85" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_8.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28800">
+          <caret line="1152" column="9" lean-forward="false" selection-start-line="1152" selection-start-column="9" selection-end-line="1152" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/intl/intl.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85100">
+          <caret line="3404" column="9" lean-forward="false" selection-start-line="3404" selection-start-column="9" selection-end-line="3404" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Core/Core.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8500">
+          <caret line="340" column="9" lean-forward="false" selection-start-line="340" selection-start-column="9" selection-end-line="340" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/json/json.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1713">
+          <caret line="123" column="9" lean-forward="false" selection-start-line="123" selection-start-column="9" selection-end-line="123" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR Telnet/form.json" />
+    <entry file="file://$PROJECT_DIR$/Denon AVR Telnet/form_gen.json" />
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="5925">
+            <caret line="237" column="62" lean-forward="false" selection-start-line="237" selection-start-column="62" selection-end-line="237" selection-end-column="62" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://T:/scripts/__generated.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15475">
+          <caret line="619" column="9" lean-forward="false" selection-start-line="619" selection-start-column="9" selection-end-line="619" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR HTTP/form.json" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_5.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="1046" column="9" lean-forward="false" selection-start-line="1046" selection-start-column="9" selection-end-line="1046" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter HTTP/module.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter HTTP/form.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="55" lean-forward="false" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter HTTP/locale.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\DenonAVR">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\DenonAVR</OriginalElement>
+          <nodes>
+            <node x="11.0" y="0.0">\stdClass</node>
+            <node x="26.5" y="97.0">\AVR</node>
+            <node x="0.0" y="194.0">\DenonAVR</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\DenonAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="1.0" x="69.0" y="121.0" />
+          <SelectedNodes>
+            <node>\DenonAVR</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/\Denon_AVR_3313">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>\Denon_AVR_3313</OriginalElement>
+          <nodes>
+            <node x="1402.0" y="301.0">\Denon_AVR_4310</node>
+            <node x="750.0" y="0.0">\stdClass</node>
+            <node x="765.5" y="97.0">\AVR</node>
+            <node x="739.0" y="194.0">\DenonAVR</node>
+            <node x="458.0" y="301.0">\Denon_AVR_X6200W</node>
+            <node x="698.0" y="301.0">\Denon_AVR_X4100W</node>
+            <node x="698.0" y="398.0">\Denon_AVR_X4200W</node>
+            <node x="218.0" y="301.0">\Denon_AVR_X7200W</node>
+            <node x="938.0" y="301.0">\Denon_AVR_3808A</node>
+            <node x="1162.0" y="301.0">\Denon_AVR_X5200W</node>
+            <node x="0.0" y="301.0">\Denon_AVR_3310</node>
+            <node x="1402.0" y="398.0">\Denon_AVR_4311</node>
+            <node x="0.0" y="398.0">\Denon_AVR_3311</node>
+            <node x="0.0" y="495.0">\Denon_AVR_3312</node>
+            <node x="212.0" y="398.0">\Denon_AVR_X7200WA</node>
+            <node x="0.0" y="592.0">\Denon_AVR_3313</node>
+          </nodes>
+          <notes />
+          <edges>
+            <edge source="\Denon_AVR_X7200WA" target="\Denon_AVR_X7200W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\DenonAVR" target="\AVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X6200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="568.0" y="281.0" />
+              <point x="788.2857142857142" y="281.0" />
+              <point x="-19.71428571428578" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="96.0" y="261.0" />
+              <point x="748.8571428571429" y="261.0" />
+              <point x="-59.14285714285711" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X7200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="328.0" y="271.0" />
+              <point x="768.5714285714286" y="271.0" />
+              <point x="-39.428571428571445" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4200W" target="\Denon_AVR_X4100W">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X5200W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1272.0" y="271.0" />
+              <point x="847.4285714285714" y="271.0" />
+              <point x="39.428571428571445" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4311" target="\Denon_AVR_4310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\AVR" target="\stdClass">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3808A" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1040.0" y="281.0" />
+              <point x="827.7142857142857" y="281.0" />
+              <point x="19.714285714285666" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_4310" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="1498.0" y="261.0" />
+              <point x="867.1428571428571" y="261.0" />
+              <point x="59.14285714285711" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_X4100W" target="\DenonAVR">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3311" target="\Denon_AVR_3310">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3312" target="\Denon_AVR_3311">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+            <edge source="\Denon_AVR_3313" target="\Denon_AVR_3312">
+              <point x="0.0" y="-23.5" />
+              <point x="0.0" y="23.5" />
+            </edge>
+          </edges>
+          <settings layout="Hierarchic Group" zoom="0.9646840148698885" x="797.0" y="320.0" />
+          <SelectedNodes>
+            <node>\Denon_AVR_3313</node>
+          </SelectedNodes>
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR Telnet/locale.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR HTTP/locale.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1025">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter Telnet/locale.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="33" lean-forward="false" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter HTTP/module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter Telnet/form.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" column="17" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR Telnet/module.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MarantzAVR.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1317">
+          <caret line="1473" column="0" lean-forward="false" selection-start-line="1473" selection-start-column="0" selection-end-line="1473" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://T:/scripts/IPSLibrary/app/core/IPSLogger/IPSLogger.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4950">
+          <caret line="203" column="12" lean-forward="false" selection-start-line="203" selection-start-column="12" selection-end-line="203" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://T:/scripts/global_defines.ips.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="345" column="19" lean-forward="false" selection-start-line="345" selection-start-column="19" selection-end-line="345" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://T:/scripts/_Global_functions.ips.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1801">
+          <caret line="228" column="9" lean-forward="false" selection-start-line="228" selection-start-column="9" selection-end-line="228" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://T:/scripts/DENON.VariablenManager.ips.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1451">
+          <caret line="257" column="111" lean-forward="false" selection-start-line="257" selection-start-column="93" selection-end-line="257" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon HTTP IO/module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR HTTP/module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="602">
+          <caret line="291" column="21" lean-forward="false" selection-start-line="291" selection-start-column="21" selection-end-line="291" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AVRModels.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4450">
+          <caret line="387" column="0" lean-forward="false" selection-start-line="386" selection-start-column="0" selection-end-line="387" selection-end-column="0" />
+          <folding>
+            <element signature="e#132#2075#0#PHP" expanded="false" />
+            <element signature="n#AVRs#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DenonAVR.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4925">
+          <caret line="424" column="11" lean-forward="false" selection-start-line="424" selection-start-column="11" selection-end-line="424" selection-end-column="11" />
+          <folding>
+            <element signature="n#DenonAVR#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_3808A#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_3310#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_3311#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_X1200W#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_X1300W#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_X4200W#0;n#!!top" expanded="false" />
+            <element signature="n#Denon_AVR_X6200W#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter Telnet/module.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon AVR Telnet/module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1225">
+          <caret line="49" column="50" lean-forward="false" selection-start-line="49" selection-start-column="50" selection-end-line="49" selection-end-column="50" />
+          <folding>
+            <element signature="n#RequestAction#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#SendRequest#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#SendCommand#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#GetStateHTTP#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#Power#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#MainZonePower#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#MainzoneAutoStandbySetting#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#MasterVolume#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#GetCommandValueSend#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#GetConfigurationForm#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#FormHead#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#FormMainzone#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#FormZone#0;n#DenonAVRTelnet#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/Core/Core_c.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DenonClass.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="3439" column="41" lean-forward="false" selection-start-line="3439" selection-start-column="33" selection-end-line="3439" selection-end-column="41" />
+          <folding>
+            <element signature="n#CreateNEOScripts#0;n#AVRModule#0;n#!!top" expanded="false" />
+            <element signature="n#CreateProfileInteger#0;n#AVRModule#0;n#!!top" expanded="false" />
+            <element signature="n#CreateProfileString#0;n#AVRModule#0;n#!!top" expanded="false" />
+            <element signature="n#GetManufacturerName#0;n#AVRModule#0;n#!!top" expanded="false" />
+            <element signature="n#FormSelectionAVR#0;n#AVRModule#0;n#!!top" expanded="false" />
+            <element signature="n#FormStatus#0;n#AVRModule#0;n#!!top" expanded="false" />
+            <element signature="n#DENONIPSVarType#0;n#!!top" expanded="false" />
+            <element signature="n#SetInputSources#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+            <element signature="n#GetInputVarMapping#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+            <element signature="n#SetupVariable#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+            <element signature="n#getpos#0;n#DENONIPSProfiles#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Denon Splitter Telnet/module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="617">
+          <caret line="392" column="44" lean-forward="true" selection-start-line="392" selection-start-column="44" selection-end-line="392" selection-end-column="44" />
+          <folding>
+            <element signature="n#ApplyChanges#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#RegisterTimer#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#UnRegisterTimer#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#SaveInputVarmapping#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#SaveOwnInputVarmapping#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#GetInputArrayStatus#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+            <element signature="n#GetInputVarMapping#0;n#DenonSplitterTelnet#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://T:/scripts/functions.ips.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1801">
+          <caret line="727" column="20" lean-forward="false" selection-start-line="727" selection-start-column="20" selection-end-line="727" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
