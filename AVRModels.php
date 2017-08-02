@@ -331,7 +331,6 @@ class AVR extends stdClass{
         DENON_API_Commands::PSMULTEQ,
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
-        DENON_API_Commands::PSDYNVOL_OLD,
         DENON_API_Commands::PSDYNVOL,
         DENON_API_Commands::PSLFC,
         DENON_API_Commands::PSCNTAMT,
@@ -353,7 +352,12 @@ class AVR extends stdClass{
         DENON_API_Commands::PSRSTR,
     ];
     static $PSSP_SubCommands = [];
-
+    static $PSDYNVOL_SubCommands = [ //bei neueren Geräten
+        DENON_API_Commands::DYNVOLOFF,
+        DENON_API_Commands::DYNVOLLIT,
+        DENON_API_Commands::DYNVOLMED,
+        DENON_API_Commands::DYNVOLHEV,
+        ];
     static $PV_Commands = [];
     static $PV_Commands_max = [
         DENON_API_Commands::PVPICT,
@@ -394,6 +398,7 @@ class AVR extends stdClass{
             'CV_Commands' => static::$CV_Commands,
             'PS_Commands' => static::$PS_Commands,
             'PSSP_SubCommands' => static::$PSSP_SubCommands,
+            'PSDYNVOL_SubCommands' => static::$PSDYNVOL_SubCommands,
             'VS_Commands' => static::$VS_Commands,
             'VSSC_SubCommands' => static::$VSSC_SubCommands,
             'VSSCH_SubCommands' => static::$VSSCH_SubCommands,

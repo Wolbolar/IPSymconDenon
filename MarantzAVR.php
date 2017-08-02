@@ -692,11 +692,17 @@ class Marantz_SR6005 extends MarantzAVR{
         DENON_API_Commands::PSMULTEQ,
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
-        DENON_API_Commands::PSDYNVOL_OLD,
+        DENON_API_Commands::PSDYNVOL,
         DENON_API_Commands::PSDRC,
         DENON_API_Commands::PSDCO,
         DENON_API_Commands::PSMDAX,
         DENON_API_Commands::PSDELAY,
+    ];
+    static $PSDYNVOL_SubCommands = [
+        DENON_API_Commands::DYNVOLOFF,
+        DENON_API_Commands::DYNVOLDAY,
+        DENON_API_Commands::DYNVOLEVE,
+        DENON_API_Commands::DYNVOLNGT,
     ];
     static $PV_Commands = [
         DENON_API_Commands::PVCN, DENON_API_Commands::PVBR,
@@ -1096,11 +1102,17 @@ class Marantz_SR7005 extends MarantzAVR{
         DENON_API_Commands::PSMULTEQ,
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
-        DENON_API_Commands::PSDYNVOL_OLD,
+        DENON_API_Commands::PSDYNVOL,
         DENON_API_Commands::PSDRC,
         DENON_API_Commands::PSDCO,
         DENON_API_Commands::PSMDAX,
         DENON_API_Commands::PSDELAY,
+    ];
+    static $PSDYNVOL_SubCommands = [
+        DENON_API_Commands::DYNVOLOFF,
+        DENON_API_Commands::DYNVOLDAY,
+        DENON_API_Commands::DYNVOLEVE,
+        DENON_API_Commands::DYNVOLNGT,
     ];
     static $PV_Commands = [
         DENON_API_Commands::PVCN, DENON_API_Commands::PVBR,
@@ -1447,11 +1459,17 @@ class Marantz_AV7005 extends MarantzAVR{
         DENON_API_Commands::PSMULTEQ,
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
-        DENON_API_Commands::PSDYNVOL_OLD,
+        DENON_API_Commands::PSDYNVOL,
         DENON_API_Commands::PSDRC,
         DENON_API_Commands::PSDCO,
         DENON_API_Commands::PSMDAX,
         DENON_API_Commands::PSDELAY,
+    ];
+    static $PSDYNVOL_SubCommands = [
+        DENON_API_Commands::DYNVOLOFF,
+        DENON_API_Commands::DYNVOLDAY,
+        DENON_API_Commands::DYNVOLEVE,
+        DENON_API_Commands::DYNVOLNGT,
     ];
     static $PV_Commands = [
         DENON_API_Commands::PVCN, DENON_API_Commands::PVBR,
