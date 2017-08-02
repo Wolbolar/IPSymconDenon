@@ -74,59 +74,64 @@ class AVRModule extends IPSModule
     }
 
     // Wertet Response aus und setzt Variable
-    private function UpdateVariable($data)
+    protected function UpdateVariable($data)
     {
-        $ResponseType = $data->ResponseType;
-        if(!in_array($ResponseType, ['HTTP', 'TELNET'])){
-            trigger_error(get_class().'::'.__FUNCTION__.': Unknown response type: '.$ResponseType);
-            return false;
+        if ($this->debug){
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'data: '.json_encode($data));
         }
+        $ResponseType = $data->ResponseType;
 
         $this->SendDebug("Response Type:",$ResponseType,0);
         $Zone = $this->ReadPropertyInteger('Zone');
-        if($ResponseType == "HTTP")
-        {
-            if ($Zone == 0){
-                $datavalues = $data->Data->Mainzone;
-            } elseif ($Zone == 1){
-                $datavalues = $data->Data->Zone2;
-            } elseif ($Zone == 2){
-                $datavalues = $data->Data->Zone3;
-            }
-        } else { //Telnet
-            $datavalues = $data->Data;
-            $this->SendDebug("Data Telnet:",json_encode($datavalues),0);
 
-            if($Zone == 0){
-                //SurroundDisplay
-                if ($this->ReadPropertyBoolean('SurroundDisplay')){
-                    $SurroundDisplay = $data->SurroundDisplay;
-                    if($SurroundDisplay !== "")
+        switch ($ResponseType){
+            case "HTTP":
+                if ($Zone == 0){
+                    $datavalues = $data->Data->Mainzone;
+                } elseif ($Zone == 1){
+                    $datavalues = $data->Data->Zone2;
+                } elseif ($Zone == 2){
+                    $datavalues = $data->Data->Zone3;
+                }
+                break;
+            case "TELNET":
+                $datavalues = $data->Data;
+                $this->SendDebug("Data Telnet:",json_encode($datavalues),0);
+
+                if($Zone == 0){
+                    //SurroundDisplay
+                    if ($this->ReadPropertyBoolean('SurroundDisplay')){
+                        $SurroundDisplay = $data->SurroundDisplay;
+                        if($SurroundDisplay !== "")
+                        {
+                            $this->SendDebug("Surround Display:",$SurroundDisplay,0);
+                            SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
+                        }
+                    }
+                    // NSADisplay
+                    if ($this->ReadPropertyBoolean('Display'))
                     {
-                        $this->SendDebug("Surround Display:",$SurroundDisplay,0);
-                        SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
-                    }
-                }
-                // NSADisplay
-                if ($this->ReadPropertyBoolean('Display'))
-                {
-                    $NSADisplay = $data->NSADisplay;
-                    $NSADisplayLog = json_encode($NSADisplay);
-                    $this->SendDebug("Display:",$NSADisplayLog,0);
-                    if ($this->debug){
-                        IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
-                    }
+                        $NSADisplay = $data->NSADisplay;
+                        $NSADisplayLog = json_encode($NSADisplay);
+                        $this->SendDebug("Display:",$NSADisplayLog,0);
+                        if ($this->debug){
+                            IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
+                        }
 
-                    $idDisplay = $this->GetIDForIdent("Display");
-                    $DisplayHTML = GetValue($idDisplay);
-                    $doc = new DOMDocument();
-                    $doc->loadHTML($DisplayHTML);
-                    foreach ($NSADisplay as $row => $content){
-                        $doc->getElementById('NSARow'.$row)->nodeValue = $content;
+                        $idDisplay = $this->GetIDForIdent("Display");
+                        $DisplayHTML = GetValue($idDisplay);
+                        $doc = new DOMDocument();
+                        $doc->loadHTML($DisplayHTML);
+                        foreach ($NSADisplay as $row => $content){
+                            $doc->getElementById('NSARow'.$row)->nodeValue = $content;
+                        }
+                        SetValueString($idDisplay, $doc->saveHTML());
                     }
-                    SetValueString($idDisplay, $doc->saveHTML());
                 }
-            }
+                break;
+            default:
+                trigger_error(get_class().'::'.__FUNCTION__.': Unknown response type: '.$ResponseType);
+                return false;
         }
 
         if (!isset($datavalues)){
@@ -2867,6 +2872,8 @@ class DENONIPSProfiles extends stdClass
 }
 
 class DENON_StatusHTML extends stdClass {
+    private $debug = true;
+
 	//Status
 	public function getStates ($ip, $InputMapping, $AVRType)
 	{
@@ -3013,6 +3020,11 @@ class DENON_StatusHTML extends stdClass {
                         'Zone3' => $DataZ3
     					)
 	        		);
+
+
+		if ($this->debug){
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'DataSend: '.json_encode($datasend));
+        }
 
 		return $datasend;
 	}

@@ -53,6 +53,19 @@ class DenonAVRTelnet extends AVRModule
         }
     }
 
+    private function arrayToObject ($array){
+        $object=new stdClass();
+        foreach ($array as $key => $value) {
+            if (is_array($value)){
+                $object->$key=$this->arrayToObject($value);
+            }
+            else{
+                $object->$key=$value;
+            }
+        }
+        return $object;
+    }
+
     public function ApplyChanges()
     {
         //Never delete this line!
@@ -65,6 +78,12 @@ class DenonAVRTelnet extends AVRModule
 
         if ($this->SetInstanceStatus() == true){
             $this->ValidateConfiguration();
+
+            // über http werden zusätliche Daten geholt (MainZoneName, Model)
+            $data = $this->GetStateHTTP();
+            //das Array muss für die weitere Verrabeitung in ein Object umgewandelt werden
+            $data = $this->arrayToObject($data);
+            $this->UpdateVariable($data);
         }
 
     }
@@ -204,7 +223,13 @@ class DenonAVRTelnet extends AVRModule
             IPS_Sleep(200); //Doku: responses should be sent within 200ms of receiving the command
         }
 
-	}
+        // über http werden zusätliche Daten geholt (MainZoneName, Model)
+        $data = $this->GetStateHTTP();
+        //das Array muss für die weitere Verrabeitung in ein Object umgewandelt werden
+        $data = $this->arrayToObject($data);
+        $this->UpdateVariable($data);
+
+    }
 
 	public function RequestAction($Ident, $Value)
     {
