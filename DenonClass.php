@@ -17,9 +17,6 @@ class AVRModule extends IPSModule
     const STATUS_INST_NO_MARANTZ_AVR_TYPE_SELECTED = 214;
 
     protected function SetInstanceStatus (){
-        if (IPS_GetKernelRunlevel() != 10103){ //Kernel ready
-            return FALSE;
-        }
         //Zone prüfen
         $Zone = $this->ReadPropertyInteger('Zone');
         $manufacturer = $this->ReadPropertyInteger('manufacturer');
@@ -142,7 +139,8 @@ class AVRModule extends IPSModule
                 $VarType = $Values->VarType;
                 $Subcommand = $Values->Subcommand;
                 $Subcommandvalue = $Values->Value;
-                switch ($VarType){
+                switch ($VarType)
+                {
                     case 0: //Boolean
                         SetValueBoolean($VarID, $Subcommandvalue);
                         $this->SendDebug("Update ".$ResponseType." ObjektID(boolean):",IPS_GetName($VarID)."(".$VarID.") mit Command: ".$Subcommand.'('.(int)$Subcommandvalue.')',0);
@@ -174,10 +172,7 @@ class AVRModule extends IPSModule
                             IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID(".$VarID."): ".$Subcommand.'('.$Subcommandvalue.')');
                         }
                         break;
-                    default:
-                        trigger_error(get_class().'::'.__FUNCTION__.': invalid VarType: '.$VarType);
                 }
-                //$this->SetHiddenStatus();
             } else {
                 // nichts zu tun. Variable ist nicht vorhanden
                 if ($this->debug){
@@ -186,123 +181,6 @@ class AVRModule extends IPSModule
             }
         }
         return true;
-    }
-
-    private function SetHiddenStatus(){
-
-        $SurroundModusResponse = GetValueString($this->GetIDForIdent(DENON_API_Commands::SURROUNDDISPLAY));
-
-        /* aus Performancegründen deaktiviert
-            $this->GetLinked_SetHidden(ID_DENON_SURROUNDBACKMODE); //deaktiv, da kein SurroundBack LS vorhanden ist
-            $this->GetLinked_SetHidden(ID_DENON_PLIIZHEIGHT); // deaktiv, da keine Höhen LS vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_AFDM); // deaktiv, da keine SurroundBack LS vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_AUDIODELAY); // deaktiv, da nur im VideoModus benötigt
-            $this->GetLinked_SetHidden(ID_DENON_INPUTMODE); // deaktiv, da der Modus auf Auto belassen werden sollte
-            $this->GetLinked_SetHidden(ID_DENON_FRONTSPEAKER); // deaktiv, da keine Frontspeaker B vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX); // deaktiv, da weder Front Height noch Wide LS vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            $this->GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            $this->GetLinked_SetHidden(ID_DENON_LFELevel); // deaktiv, da nur für DTS Quellen bei Musik auf -10 geschaltet werden sollte (sehr speziell)
-        */
-
-        $isRoomSimulated = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSMCHSTEREO],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSROCKARENA],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSJAZZCLUB],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSMONOMOVIE],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSVIDEOGAME],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSMATRIX],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSVIRTUAL]
-                                                            ]);
-
-        // Dolby + PLIIz im Musikmodus?
-        $isDolbyPLIIMusicActive = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2M],
-                                                                    DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XM]
-                                                                    ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSPAN), !$isDolbyPLIIMusicActive); //Panorama
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDIM), !$isDolbyPLIIMusicActive); //Dimension
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSCEN), !$isDolbyPLIIMusicActive); //Center Width
-
-        // DTS NEO6 im Musikmodus?
-        $isDTSNeo6MusicActive = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$DTSSurroundModes[DENON_API_Commands::DTSNEO6M]]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSCEI), !$isDTSNeo6MusicActive);
-
-        // CinemaEQ möglich?
-        $isCinemaEQPossible = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2C],
-                                                                DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XC],
-                                                                DenonAVRCP_API_Data::$DTSSurroundModes[DENON_API_Commands::DTSNEO6C]
-        ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSCINEMAEQ), !$isCinemaEQPossible);
-
-        // ToneCtrl bzw. Bass/Treble möglich?
-        $isToneCtrlPossible = !in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSDIRECT],
-                                                                 DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSPUREDIRECT]
-                                                                ])
-            && !GetValueBoolean($this->GetIDForIdent(DENON_API_Commands::PSDYNEQ)); //Dynamic EQ
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSTONECTRL), !$isToneCtrlPossible);
-
-        $isBassTreblePossible = $isToneCtrlPossible && GetValueBoolean($this->GetIDForIdent(DENON_API_Commands::PSTONECTRL));
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSBAS), !$isBassTreblePossible); //Bass Level
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSTRE), !$isBassTreblePossible); //Treble Level
-
-        // Audyssey möglich?
-        $isAudysseyPossible = !in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSDIRECT],
-                                                                 DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSPUREDIRECT]
-                                                                ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSMULTEQ), !$isAudysseyPossible);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDYNEQ), !$isAudysseyPossible);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDYNVOL), !$isAudysseyPossible);
-
-        // AudysseyDSX möglich?
-        //	$isAudysseyDSXPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT', 'STEREO', 'DOLBY PL2Z H', 'MCH STEREO'])
-        //								&& !$isRoomSimulated;
-        //	$this->GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX, !$isAudysseyDSXPossible);
-
-        // Restorer und DRC möglich?
-        $isRestorerAndDRCPossible = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSSTEREO],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2ZH],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2C],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2M],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2G],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XC],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XM],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XG],
-                                                                        ])
-            || $isRoomSimulated;
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSRSTR), !$isRestorerAndDRCPossible);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDRC), !$isRestorerAndDRCPossible);
-
-        // Subwoofer möglich?
-        $isSubwooferPossible = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSDIRECT],
-                                                                    DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSPUREDIRECT]
-                                                                ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSSWR), !$isSubwooferPossible);
-
-        if ($this->debug){
-            IPS_LogMessage(basename(__FILE__, '.ips.php').'.'.__FUNCTION__,'isDolbyPLIIMusicActive: '.(int) $isDolbyPLIIMusicActive
-                .', isDTSNeo6MusicActive: '.(int) $isDTSNeo6MusicActive
-                .', isCinemaEQPossible: '.(int) $isCinemaEQPossible
-                .', isToneCtrlPossible: '.(int) $isToneCtrlPossible
-                .', isAudysseyPossible: '.(int) $isAudysseyPossible
-                .', isRoomSimulated: '.(int) $isRoomSimulated
-                .', isSubwooferPossible: '.(int) $isSubwooferPossible
-            );
-        }
-
-    }
-
-    //*************************************************************************************************************
-    // Links zu einer Variablen werden gesucht und versteckt/aufgedeckt
-    private function GetLinked_SetHidden($VariablenID, $Value=True){
-        $Result = false;
-
-        foreach(IPS_GetLinkList() as $LinkID){
-            $TargetID = IPS_GetLink($LinkID)['TargetID'];
-            If ($TargetID == $VariablenID){
-                IPS_SetHidden($TargetID, $Value);
-                $Result = true;
-            }
-        }
-        return $Result;
     }
 
     protected function RegisterProperties(){
@@ -378,9 +256,9 @@ class AVRModule extends IPSModule
                         } else {
                             $profilname = $manufacturername.'.'.$AVRType.'.'.$statusvariable["ProfilName"];
                             $this->CreateProfileString($profilname, $statusvariable["Icon"]);
-                            $this->SendDebug("Variablenprofil angelegt: ",$profilname,0);
+                            $this->SendDebug("Variablenprofil angelegt:",$profilname,0);
                             if($this->debug){
-                                IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$profilname);
+                                IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profilname);
                             }
                         }
 
@@ -406,10 +284,10 @@ class AVRModule extends IPSModule
                             $statusvariable["Stepsize"], $statusvariable["Digits"],
                             $statusvariable["Associations"]
                         );
-                        $this->SendDebug("Variablenprofil angelegt: ",$profilname,0);
+                        $this->SendDebug("Variablenprofil angelegt:",$profilname,0);
                         if($this->debug)
                         {
-                            IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$profilname);
+                            IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profilname);
                         }
 
                         $id = $this->RegisterVariableInteger($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
@@ -419,10 +297,10 @@ class AVRModule extends IPSModule
                     case DENONIPSVarType::vtFloat:
                         $profilname = $manufacturername.'.'.$AVRType.'.'.$statusvariable["ProfilName"];
                         $this->CreateProfileFloat($profilname, $statusvariable["Icon"], $statusvariable["Prefix"], $statusvariable["Suffix"], $statusvariable["MinValue"], $statusvariable["MaxValue"], $statusvariable["Stepsize"], $statusvariable["Digits"]);
-                        $this->SendDebug("Variablenprofil angelegt: ",$profilname,0);
+                        $this->SendDebug("Variablenprofil angelegt:",$profilname,0);
                         if($this->debug)
                         {
-                            IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$profilname);
+                            IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt:'.$profilname);
                         }
                         $id = $this->RegisterVariableFloat($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
                         $this->EnableAction($statusvariable["Ident"]);
@@ -434,9 +312,9 @@ class AVRModule extends IPSModule
 
                 }
 
-                $this->SendDebug("Variable angelegt: ",$statusvariable["Name"].' [ObjektID: '.$id.']',0);
+                $this->SendDebug("Variable angelegt:",$statusvariable["Name"].' [ObjektID: '.$id.']',0);
                 if($this->debug){
-                    IPS_LogMessage('Denon Telnet AVR','Variable angelegt: '. $statusvariable["Name"].' [ObjektID: '.$id.']');
+                    IPS_LogMessage('Denon Telnet AVR','Variable angelegt:'. $statusvariable["Name"].', [ObjektID: '.$id.']');
                 }
             }
             // wenn nicht sichtbar löschen
@@ -792,7 +670,7 @@ class AVRModule extends IPSModule
         }
 
         // is the command supported?
-         if (is_null($CapsItems) || in_array($command, $CapsItems)){
+        if (is_null($CapsItems) || in_array($command, $CapsItems)){
             return 	'{ "type": "'.$type.'", "name": "'.$propertyname.'", "caption": "'.$caption.' ('.$command.')" },'.PHP_EOL;
         } else {
             return '';
@@ -1036,6 +914,7 @@ class DENONIPSProfiles extends stdClass
     const ptAudysseyLFC = 'AudysseyLFC';
     const ptAudysseyContainmentAmount = 'AudysseyContainmantAmount';
     const ptReferenceLevel = 'ReferenceLevel';
+    const ptDynamicVolume_old = 'DynamicVolume_old';
     const ptDynamicVolume = 'DynamicVolume';
     const ptAudysseyDSX = 'AudysseyDSX';
     const ptStageWidth = 'StageWidth';
@@ -1056,7 +935,7 @@ class DENONIPSProfiles extends stdClass
     const ptDialogControl = 'DialogControl';
     const ptCenterWidth = 'CenterWidth';
     const ptCenterImage = 'CenterImage';
-    const ptCenterGain = 'CenterGain';
+    const ptCenterGain = 'CenterImage';
     const ptSubwoofer = 'Subwoofer';
     const ptRoomSize = 'RoomSize';
     const ptAudioDelay = 'AudioDelay';
@@ -1256,6 +1135,7 @@ class DENONIPSProfiles extends stdClass
         DENONIPSProfiles::ptMultiEQMode,
         DENONIPSProfiles::ptDynamicEQ,
         DENONIPSProfiles::ptReferenceLevel,
+        DENONIPSProfiles::ptDynamicVolume_old,
         DENONIPSProfiles::ptDynamicVolume,
         DENONIPSProfiles::ptAudysseyLFC,
         DENONIPSProfiles::ptAudysseyContainmentAmount,
@@ -1964,6 +1844,16 @@ class DENONIPSProfiles extends stdClass
                     [3, "Bright", DENON_API_Commands::DIMBRI]
                 ]
             ],
+            DENONIPSProfiles::ptDynamicVolume_old => ["Type"            => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::PSDYNVOL_OLD, "Name" => "Dynamic Volume",
+                  "PropertyName"    => "DynamicVolume_old",
+                  "Profilesettings" => ["Intensity", "", "", 0, 0, 0, 0],
+                  "Associations"    => [
+                      [0, "Off", DENON_API_Commands::DYNVOLOFF],
+                      [1, "Day", DENON_API_Commands::DYNVOLDAY],
+                      [2, "Evening", DENON_API_Commands::DYNVOLEVE],
+                      [3, "Midnight", DENON_API_Commands::DYNVOLNGT],
+                  ]
+            ],
             DENONIPSProfiles::ptDynamicVolume => ["Type"            => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::PSDYNVOL, "Name" => "Dynamic Volume",
                   "PropertyName"    => "DynamicVolume",
                   "Profilesettings" => ["Intensity", "", "", 0, 0, 0, 0],
@@ -1972,9 +1862,6 @@ class DENONIPSProfiles extends stdClass
                       [1, "Light", DENON_API_Commands::DYNVOLLIT],
                       [2, "Medium", DENON_API_Commands::DYNVOLMED],
                       [3, "Heavy", DENON_API_Commands::DYNVOLHEV],
-                      [4, "Day", DENON_API_Commands::DYNVOLDAY],    // only older AVRs
-                      [5, "Evening", DENON_API_Commands::DYNVOLEVE],// only older AVRs
-                      [6, "Midnight", DENON_API_Commands::DYNVOLNGT],// only older AVRs
                   ]
             ],
             DENONIPSProfiles::ptResolutionHDMI => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::VSSCH, "Name" => "Resolution HDMI",
@@ -2223,13 +2110,13 @@ class DENONIPSProfiles extends stdClass
             DENONIPSProfiles::ptTrebleLevel => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSTRE, "Name" => "Treble Level",
                                                 "PropertyName" => "TrebleLevel", "Profilesettings" => ["Intensity", "", " dB", -6, 6, 1, 0], "Associations" => $assRange44to56],
             DENONIPSProfiles::ptCenterWidth => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSCEN, "Name" => "Center Width",
-                                                "PropertyName" => "CenterWidth", "Profilesettings" => ["Intensity",  "", " dB", 0, 7, 1, 0], "Associations" => $assRange00to07],
+                                                "PropertyName" => "CenterWidth", "Profilesettings" => ["Intensity",  "", " db", 0, 7, 1, 0], "Associations" => $assRange00to07],
             DENONIPSProfiles::ptEffectLevel => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSEFF, "Name" => "Effect Level",
-                                                "PropertyName" => "EffectLevel", "Profilesettings" => ["Intensity", "", " dB", 0, 15, 1, 0], "Associations" => $assRange00to15],
+                                                "PropertyName" => "EffectLevel", "Profilesettings" => ["Intensity", "", " db", 0, 15, 1, 0], "Associations" => $assRange00to15],
             DENONIPSProfiles::ptCenterImage => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSCEI, "Name" => "Center Image",
-                                                "PropertyName" => "CenterImage", "Profilesettings" => ["Intensity", "", " dB", 0.0, 1.0, 0.1, 1], "Associations" => $assRange00to10_stepwide_01],
+                                                "PropertyName" => "CenterImage", "Profilesettings" => ["Intensity", "", " db", 0.0, 1.0, 0.1, 1], "Associations" => $assRange00to10_stepwide_01],
             DENONIPSProfiles::ptCenterGain => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSCEG, "Name" => "Center Gain",
-                                                "PropertyName" => "CenterGain", "Profilesettings" => ["Intensity", "", " dB", 0.0, 1.0, 0.1, 1], "Associations" => $assRange00to10_stepwide_01],
+                                                "PropertyName" => "CenterGain", "Profilesettings" => ["Intensity", "", " db", 0.0, 1.0, 0.1, 1], "Associations" => $assRange00to10_stepwide_01],
             DENONIPSProfiles::ptContrast => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PVCN, "Name" => "Contrast",
                                              "PropertyName" => "Contrast", "Profilesettings" => ["Intensity", "", " dB", -6, 6, 1, 0], "Associations" => $assRange44to56],
             DENONIPSProfiles::ptBrightness => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PVBR, "Name" => "Brightness",
@@ -2237,7 +2124,7 @@ class DENONIPSProfiles extends stdClass
             DENONIPSProfiles::ptSaturation => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PVST, "Name" => "Saturation",
                                                "PropertyName" => "Saturation", "Profilesettings" => ["Intensity", "", " dB", -6, 6, 1, 0], "Associations" => $assRange44to56],
             DENONIPSProfiles::ptChromalevel => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PVCM, "Name" => "Chroma Level",
-                                                "PropertyName" => "Chromalevel", "Profilesettings" => ["Intensity", "", " dB", -6, 6, 1, 0], "Associations" => $assRange44to56],
+                                                "PropertyName" => "Chromalevel", "Profilesettings" => ["Intensity", " dB", "", -6, 6, 1, 0], "Associations" => $assRange44to56],
             DENONIPSProfiles::ptHue => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PVHUE, "Name" => "Hue",
                                         "PropertyName" => "Hue", "Profilesettings" => ["Intensity", "", " dB", -6, 6, 1, 0], "Associations" => $assRange44to56],
             DENONIPSProfiles::ptEnhancer => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PVENH, "Name" => "Enhancer",
@@ -2247,7 +2134,10 @@ class DENONIPSProfiles extends stdClass
             DENONIPSProfiles::ptStageWidth => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSSTW, "Name" => "Stage Width",
                                                "PropertyName" => "StageWidth", "Profilesettings" => ["Intensity", "", " dB", -10, 10, 1, 0], "Associations" => $assRange40to60],
             DENONIPSProfiles::ptAudysseyContainmentAmount => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSCNTAMT, "Name" => "Audyssey Containment Amount",
-                                              "PropertyName" => "AudysseyContainmentAmount", "Profilesettings" => ["Intensity",  "", " dB", 0, 7, 1, 0], "Associations" => $assRange00to07],
+                                              "PropertyName" => "AudysseyContainmentAmount", "Profilesettings" => ["Intensity",  "", " db", 0, 7, 1, 0], "Associations" => $assRange00to07],
+//            DENONIPSProfiles::ptSleep => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::SLP, "Name" => "Sleep",
+//                                          "PropertyName" => "Sleep", "Profilesettings" => ["Clock", "", " Min", 0, 120, 10, 0], "Associations" => $assRange000to120_ptSleep,
+//                                            "IndividualStatusRequest" => 'SLP?'],
             DENONIPSProfiles::ptBassSync => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSBSC, "Name" => "BassSync",
                                              "PropertyName" => "BassSync", "Profilesettings" => ["Intensity", "", " dB", 0, 16, 1, 0], "Associations" => $assRange00to16],
             DENONIPSProfiles::ptSubwooferLevel => ["Type" => DENONIPSVarType::vtFloat, "Ident" => DENON_API_Commands::PSSWL, "Name" => "Subwoofer Level",
@@ -2308,7 +2198,6 @@ class DENONIPSProfiles extends stdClass
             $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptResolution, $caps);
             $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptResolutionHDMI, $caps);
             $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptSpeakerOutput, $caps);
-            $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptDynamicVolume, $caps);
         }
 
         if ($InputMapping != null){
@@ -2438,7 +2327,6 @@ class DENONIPSProfiles extends stdClass
                 .json_encode($xmlZone));
             return false;
         }
-
 
         $Inputs = [];
         $MinValue = [];
@@ -3503,6 +3391,7 @@ class DENON_API_Commands extends stdClass
 	const PSMULTEQ = "PSMULTEQ"; // MultEQ XT 32 mode direct change
     const PSDYNEQ = "PSDYNEQ"; // Dynamic EQ
     const PSLFC = "PSLFC"; // Audyssey LFC
+    const PSDYNVOL_OLD = "PSDYNVOL"; // Dynamic Volume
     const PSDYNVOL = "PSDYNVOL"; // Dynamic Volume
 	const PSDSX = "PSDSX"; // Audyssey DSX Change
     const PSSTW = "PSSTW"; // STAGE WIDTH
@@ -4310,134 +4199,6 @@ class DenonAVRCP_API_Data extends stdClass
     private $AVRType;
     private $Data;
 
-    //Surround Display
-    public static $SurroundModes = [
-        //show display => response display
-        DENON_API_Commands::MSDIRECT => "Direct",
-        DENON_API_Commands::MSPUREDIRECT => "Pure Direct",
-        DENON_API_Commands::MSSTEREO => "Stereo",
-        DENON_API_Commands::MSDOLBYDIGITAL => "Dolby Digital",
-        DENON_API_Commands::MSDTSSURROUND    => "DTS Surround",
-        DENON_API_Commands::MSAURO3D => "Auro 3D",
-        DENON_API_Commands::MSAURO2DSURR => "Auro 2D Surround",
-        DENON_API_Commands::MSMCHSTEREO => "Multi Channel Stereo",
-        DENON_API_Commands::MS7CHSTEREO => "7 Channel Stereo",
-        DENON_API_Commands::MSWIDESCREEN => "Wide Screen",
-        DENON_API_Commands::MSROCKARENA => "Rock Arena",
-        DENON_API_Commands::MSSUPERSTADIUM => "Super Stadion",
-        DENON_API_Commands::MSJAZZCLUB => "Jazz Club",
-        DENON_API_Commands::MSCLASSICCONCERT => "Klassikkonzert",
-        DENON_API_Commands::MSMONOMOVIE => "Mono Movie",
-        DENON_API_Commands::MSMATRIX => "Matrix",
-        DENON_API_Commands::MSVIDEOGAME => "Video Game",
-        DENON_API_Commands::MSVIRTUAL => "Virtual",
-    ];
-
-    public static $DolbySurroundModes = [
-        //show display => response display
-        DENON_API_Commands::DOLBYPROLOGIC => "Dolby Pro Logic",
-        DENON_API_Commands::DOLBYPL2C => "Dolby Pro Logic II Cinema",
-        DENON_API_Commands::DOLBYPL2M => "Dolby Pro Logic II Music",
-        DENON_API_Commands::DOLBYPL2H => "Dolby Pro Logic II Height",
-        DENON_API_Commands::DOLBYPL2G => "Dolby Pro Logic II Game",
-        DENON_API_Commands::DOLBYPL2XC => "Dolby Pro Logic IIx Cinema",
-        DENON_API_Commands::DOLBYPL2XM => "Dolby Pro Logic IIx Music",
-        DENON_API_Commands::DOLBYPL2XH => "Dolby Pro Logic IIx Height",
-        DENON_API_Commands::DOLBYPL2XG => "Dolby Pro Logic IIx Game",
-        DENON_API_Commands::DOLBYPL2ZH => "Dolby Pro Logic IIz Height",
-        DENON_API_Commands::DOLBYSURROUND   => "Dolby Surround",
-        DENON_API_Commands::DOLBYATMOS      => "Dolby Atmos",
-        DENON_API_Commands::DOLBYDEX        => "Dolby Digital Ex",
-        DENON_API_Commands::DOLBYDDS        => "Dolby Digital + DS",
-        DENON_API_Commands::DOLBYDNEOXC     => "Dolby Digital + NEO:X Cinema",
-        DENON_API_Commands::DOLBYDNEOXM     => "Dolby Digital + NEO:X Music",
-        DENON_API_Commands::DOLBYDNEOXG     => "Dolby Digital + NEO:X Game",
-        DENON_API_Commands::DOLBYDNEURALX   => "Dolby Digital + Neural:X",
-        DENON_API_Commands::DOLBYDPLUSDS    => "Dolby Digital Plus + Dolby Surround",
-        DENON_API_Commands::DOLBYDPLUSNEOXC => "Dolby Digital Plus + NEO:X Cinema",
-        DENON_API_Commands::DOLBYDPLUSNEOXM => "Dolby Digital Plus + NEO:X Music",
-        DENON_API_Commands::DOLBYDPLUSNEOXG => "Dolby Digital Plus + NEO:X Game",
-        DENON_API_Commands::DOLBYDPLUSNEURALX => "Dolby Digital Plus + Neural:X",
-        DENON_API_Commands::DOLBYDPLUS => "Dolby Digital Plus",
-        DENON_API_Commands::DOLBYDPLUSPL2XC => "Dolby Digital Plus + Dolby Pro Logic IIx Cinema",
-        DENON_API_Commands::DOLBYDPLUSPL2XM => "Dolby Digital Plus + Dolby Pro Logic IIx Music",
-        DENON_API_Commands::DOLBYDPLUSPL2XH => "Dolby Digital Plus + Dolby Pro Logic IIx Height",
-        DENON_API_Commands::DOLBYTRUEHD => "Dolby True HD",
-        DENON_API_Commands::DOLBYHD => "Dolby HD",
-        DENON_API_Commands::DOLBYHDEX => "Dolby HD + Ex",
-        DENON_API_Commands::DOLBYHDPL2XC => "Dolby HD + Dolby Pro Logic IIx Cinema",
-        DENON_API_Commands::DOLBYHDPL2XM => "Dolby HD + Dolby Pro Logic IIx Music",
-        DENON_API_Commands::DOLBYHDPL2XH => "Dolby HD + Dolby Pro Logic IIx Height",
-        DENON_API_Commands::DOLBYHDDS => "Dolby True HD + Dolby Surround",
-        DENON_API_Commands::DOLBYHDNEOXC => "Dolby True HD + NEO:X Cinema",
-        DENON_API_Commands::DOLBYHDNEOXM => "Dolby True HD + NEO:X Music",
-        DENON_API_Commands::DOLBYHDNEOXG => "Dolby True HD + NEO:X Game",
-    ];
-
-    public static $DTSSurroundModes = [
-        //show display => response display
-        DENON_API_Commands::DTSESDSCRT61   => "DTS ES Discrete 6.1",
-        DENON_API_Commands::DTSESMTRX61  => "DTS ES Matrix 6.1",
-        DENON_API_Commands::DTSPL2XC     => "DTS + Dolby Pro Logic IIx Cinema"  ,
-        DENON_API_Commands::DTSPL2XM     => "DTS + Dolby Pro Logic IIx Music",
-        DENON_API_Commands::DTSPL2ZH     => "DTS + Dolby Pro Logic IIx Height",
-        DENON_API_Commands::DTSDS        => "DTS + Dolby Surround",
-        DENON_API_Commands::DTS9624      => "DTS 96/24",
-        DENON_API_Commands::DTS96ESMTRX  => "DTS 96/24 ES Matrix",
-        DENON_API_Commands::DTSPLUSNEO6    => "DTS + NEO:6",
-        DENON_API_Commands::DTSPLUSNEOXC   => "DTS + NEO:X Cinema",
-        DENON_API_Commands::DTSPLUSNEOXM   => "DTS + NEO:X Music",
-        DENON_API_Commands::DTSPLUSNEOXG   => "DTS + NEO:X Game",
-        DENON_API_Commands::DTSNEOXC       => "DTS + NEO:X Cinema",
-        DENON_API_Commands::DTSNEOXM       => "DTS + NEO:X Music",
-        DENON_API_Commands::DTSNEOXG       => "DTS + NEO:X Game",
-        DENON_API_Commands::DTSPLUSNEURALX => "DTS + Neural:X",
-        DENON_API_Commands::NEURALX        => "Neural:X",
-        DENON_API_Commands::MULTICNIN      => "Multi Channel In",
-        DENON_API_Commands::MULTICHIN71    => "Multi Channel In 7.1",
-        DENON_API_Commands::MCHINDOLBYEX   => "Multi Channel In + Dolby Ex",
-        DENON_API_Commands::MCHINPL2XC     => "Multi Channel In + Dolby Pro Logic IIx Cinema",
-        DENON_API_Commands::MCHINPL2XM     => "Multi Channel In + Dolby Pro Logic IIx Music",
-        DENON_API_Commands::MCHINPL2XH => "Multi Channel In + Dolby Pro Logic IIx Height",
-        DENON_API_Commands::MCHINDS => "Multi Channel In + Dolby Surround",
-        DENON_API_Commands::MCHINNEOXC => "Multi Channel In + NEO:X Cinema",
-        DENON_API_Commands::MCHINNEOXM => "Multi Channel In + NEO:X Music",
-        DENON_API_Commands::MCHINNEOXG => "Multi Channel In + NEO:X Game",
-        DENON_API_Commands::DTSHD => "DTS HD",
-        DENON_API_Commands::DTSHDMSTR => "DTS HD Master",
-        DENON_API_Commands::DTSHDNEO6 => "DTS HD + NEO:6",
-        DENON_API_Commands::DTSHDPL2XC => "DTS HD + Dolby Pro Logic IIx Cinema",
-        DENON_API_Commands::DTSHDPL2XM => "DTS HD + Dolby Pro Logic IIx Music",
-        DENON_API_Commands::DTSHDPL2XH => "DTS HD + Dolby Pro Logic IIx Height",
-        DENON_API_Commands::DTSES8CHDSCRT => "DTS Express 8 Channel Discrect",
-        DENON_API_Commands::DTSHDDS => "DTS HD + Dolby Surround",
-        DENON_API_Commands::DTSEXPRESS => "DTS Express",
-        DENON_API_Commands::DTSES8CHDSCRT => "DTS ES 8 CH Discrete",
-        DENON_API_Commands::MPEG2AAC => "MPEG2 AAC",
-        DENON_API_Commands::AACDOLBYEX => "AAC + Dolby EX",
-        DENON_API_Commands::AACPL2XC => "AAC + PL2X Cinema",
-        DENON_API_Commands::AACPL2XM => "AAC + PL2X Music",
-        DENON_API_Commands::AACPL2XH => "AAC + PL2X Height",
-        DENON_API_Commands::AACDS => "AAC + Dolby Surround",
-        DENON_API_Commands::AACNEOXC => "AAC + NEO:X Cinema",
-        DENON_API_Commands::AACNEOXM => "AAC + NEO:X Music",
-        DENON_API_Commands::AACNEOXG => "AAC + NEO:X Game",
-        DENON_API_Commands::PLDSX => "Dolby Pro Logic DSX",
-        DENON_API_Commands::PL2CDSX => "Dolby Pro Logic II Cinema DSX",
-        DENON_API_Commands::PL2MDSX => "Dolby Pro Logic II Music DSX",
-        DENON_API_Commands::PL2GDSX => "Dolby Pro Logic II Game DSX",
-        DENON_API_Commands::PL2XCDSX => "Dolby Pro Logic IIx Cinema DSX",
-        DENON_API_Commands::PL2XMDSX => "Dolby Pro Logic IIx Music DSX",
-        DENON_API_Commands::PL2XGDSX => "Dolby Pro Logic IIx Game DSX",
-        DENON_API_Commands::AUDYSSEYDSX => "Audyssey DSX",
-        DENON_API_Commands::NEO6CDSX => "NEO:6 Cinema DSX",
-        DENON_API_Commands::NEO6MDSX => "NEO:6 Music DSX",
-        DENON_API_Commands::DTSNEO6C => "DTS NEO:6 Cinema",
-        DENON_API_Commands::DTSNEO6M => "DTS NEO:6 Music",
-        DENON_API_Commands::DSDDIRECT => "DSD Direct",
-        DENON_API_Commands::DSDPUREDIRECT => "DSD Pure Direct",
-    ];
-
     public function __construct($AVRType, $Data) {
         if (is_null($AVRType)){
             trigger_error(get_class().'::'.__FUNCTION__.': AVRType ist nicht gesetzt!');
@@ -4448,18 +4209,135 @@ class DenonAVRCP_API_Data extends stdClass
     }
 
     private function getshowsurrounddisplay($response){
+        //Surround Display
+        $displaysurround = array(
+            //Dolby Digital
+            //show display => response display
+            DENON_API_Commands::MSDIRECT => "Direct",
+            DENON_API_Commands::MSPUREDIRECT => "Pure Direct",
+            DENON_API_Commands::MSSTEREO => "Stereo",
+            DENON_API_Commands::MSDOLBYDIGITAL => "Dolby Digital",
+            DENON_API_Commands::MSDTSSURROUND    => "DTS Surround",
+            DENON_API_Commands::MSAURO3D => "Auro 3D",
+            DENON_API_Commands::MSAURO2DSURR => "Auro 2D Surround",
+            DENON_API_Commands::MSMCHSTEREO => "Multi Channel Stereo",
+            DENON_API_Commands::MS7CHSTEREO => "7 Channel Stereo",
+            DENON_API_Commands::MSWIDESCREEN => "Wide Screen",
+            DENON_API_Commands::MSROCKARENA => "Rock Arena",
+            DENON_API_Commands::MSSUPERSTADIUM => "Super Stadion",
+            DENON_API_Commands::MSJAZZCLUB => "Jazz Club",
+            DENON_API_Commands::MSCLASSICCONCERT => "Klassikkonzert",
+            DENON_API_Commands::MSMONOMOVIE => "Mono Movie",
+            DENON_API_Commands::MSMATRIX => "Matrix",
+            DENON_API_Commands::MSVIDEOGAME => "Video Game",
+            DENON_API_Commands::MSVIRTUAL => "Virtual",
+
+            DENON_API_Commands::DOLBYPROLOGIC => "Dolby Pro Logic",
+            DENON_API_Commands::DOLBYPL2C => "Dolby Pro Logic II Cinema",
+            DENON_API_Commands::DOLBYPL2M => "Dolby Pro Logic II Music",
+            DENON_API_Commands::DOLBYPL2H => "Dolby Pro Logic II Height",
+            DENON_API_Commands::DOLBYPL2G => "Dolby Pro Logic II Game",
+            DENON_API_Commands::DOLBYPL2XC => "Dolby Pro Logic IIx Cinema",
+            DENON_API_Commands::DOLBYPL2XM => "Dolby Pro Logic IIx Music",
+            DENON_API_Commands::DOLBYPL2XH => "Dolby Pro Logic IIx Height",
+            DENON_API_Commands::DOLBYPL2XG => "Dolby Pro Logic IIx Game",
+            DENON_API_Commands::DOLBYSURROUND   => "Dolby Surround",
+            DENON_API_Commands::DOLBYATMOS      => "Dolby Atmos",
+            DENON_API_Commands::DOLBYDEX        => "Dolby Digital Ex",
+            DENON_API_Commands::DOLBYDDS        => "Dolby Digital + DS",
+            DENON_API_Commands::DOLBYDNEOXC     => "Dolby Digital + NEO:X Cinema",
+            DENON_API_Commands::DOLBYDNEOXM     => "Dolby Digital + NEO:X Music",
+            DENON_API_Commands::DOLBYDNEOXG     => "Dolby Digital + NEO:X Game",
+            DENON_API_Commands::DOLBYDNEURALX   => "Dolby Digital + Neural:X",
+            DENON_API_Commands::DOLBYDPLUSDS    => "Dolby Digital Plus + Dolby Surround",
+            DENON_API_Commands::DOLBYDPLUSNEOXC => "Dolby Digital Plus + NEO:X Cinema",
+            DENON_API_Commands::DOLBYDPLUSNEOXM => "Dolby Digital Plus + NEO:X Music",
+            DENON_API_Commands::DOLBYDPLUSNEOXG => "Dolby Digital Plus + NEO:X Game",
+            DENON_API_Commands::DOLBYDPLUSNEURALX => "Dolby Digital Plus + Neural:X",
+
+            DENON_API_Commands::DTSESDSCRT61   => "DTS ES Discrete 6.1",
+            DENON_API_Commands::DTSESMTRX61  => "DTS ES Matrix 6.1",
+            DENON_API_Commands::DTSPL2XC     => "DTS + Dolby Pro Logic IIx Cinema"  ,
+            DENON_API_Commands::DTSPL2XM     => "DTS + Dolby Pro Logic IIx Music",
+            DENON_API_Commands::DTSPL2ZH     => "DTS + Dolby Pro Logic IIx Height",
+            DENON_API_Commands::DTSDS        => "DTS + Dolby Surround",
+            DENON_API_Commands::DTS9624      => "DTS 96/24",
+            DENON_API_Commands::DTS96ESMTRX  => "DTS 96/24 ES Matrix",
+            DENON_API_Commands::DTSPLUSNEO6    => "DTS + NEO:6",
+            DENON_API_Commands::DTSPLUSNEOXC   => "DTS + NEO:X Cinema",
+            DENON_API_Commands::DTSPLUSNEOXM   => "DTS + NEO:X Music",
+            DENON_API_Commands::DTSPLUSNEOXG   => "DTS + NEO:X Game",
+            DENON_API_Commands::DTSNEOXC       => "DTS + NEO:X Cinema",
+            DENON_API_Commands::DTSNEOXM       => "DTS + NEO:X Music",
+            DENON_API_Commands::DTSNEOXG       => "DTS + NEO:X Game",
+            DENON_API_Commands::DTSPLUSNEURALX => "DTS + Neural:X",
+            DENON_API_Commands::NEURALX        => "Neural:X",
+            DENON_API_Commands::MULTICNIN      => "Multi Channel In",
+            DENON_API_Commands::MULTICHIN71    => "Multi Channel In 7.1",
+            DENON_API_Commands::MCHINDOLBYEX   => "Multi Channel In + Dolby Ex",
+            DENON_API_Commands::MCHINPL2XC     => "Multi Channel In + Dolby Pro Logic IIx Cinema",
+            DENON_API_Commands::MCHINPL2XM     => "Multi Channel In + Dolby Pro Logic IIx Music",
+            DENON_API_Commands::MCHINPL2XH => "Multi Channel In + Dolby Pro Logic IIx Height",
+            DENON_API_Commands::MCHINDS => "Multi Channel In + Dolby Surround",
+            DENON_API_Commands::MCHINNEOXC => "Multi Channel In + NEO:X Cinema",
+            DENON_API_Commands::MCHINNEOXM => "Multi Channel In + NEO:X Music",
+            DENON_API_Commands::MCHINNEOXG => "Multi Channel In + NEO:X Game",
+            DENON_API_Commands::DOLBYDPLUS => "Dolby Digital Plus",
+            DENON_API_Commands::DOLBYDPLUSPL2XC => "Dolby Digital Plus + Dolby Pro Logic IIx Cinema",
+            DENON_API_Commands::DOLBYDPLUSPL2XM => "Dolby Digital Plus + Dolby Pro Logic IIx Music",
+            DENON_API_Commands::DOLBYDPLUSPL2XH => "Dolby Digital Plus + Dolby Pro Logic IIx Height",
+            DENON_API_Commands::DOLBYTRUEHD => "Dolby True HD",
+            DENON_API_Commands::DOLBYHD => "Dolby HD",
+            DENON_API_Commands::DOLBYHDEX => "Dolby HD + Ex",
+            DENON_API_Commands::DOLBYHDPL2XC => "Dolby HD + Dolby Pro Logic IIx Cinema",
+            DENON_API_Commands::DOLBYHDPL2XM => "Dolby HD + Dolby Pro Logic IIx Music",
+            DENON_API_Commands::DOLBYHDPL2XH => "Dolby HD + Dolby Pro Logic IIx Height",
+            DENON_API_Commands::DOLBYHDDS => "Dolby True HD + Dolby Surround",
+            DENON_API_Commands::DOLBYHDNEOXC => "Dolby True HD + NEO:X Cinema",
+            DENON_API_Commands::DOLBYHDNEOXM => "Dolby True HD + NEO:X Music",
+            DENON_API_Commands::DOLBYHDNEOXG => "Dolby True HD + NEO:X Game",
+            DENON_API_Commands::DTSHD => "DTS HD",
+            DENON_API_Commands::DTSHDMSTR => "DTS HD Master",
+            DENON_API_Commands::DTSHDNEO6 => "DTS HD + NEO:6",
+            DENON_API_Commands::DTSHDPL2XC => "DTS HD + Dolby Pro Logic IIx Cinema",
+            DENON_API_Commands::DTSHDPL2XM => "DTS HD + Dolby Pro Logic IIx Music",
+            DENON_API_Commands::DTSHDPL2XH => "DTS HD + Dolby Pro Logic IIx Height",
+            DENON_API_Commands::DTSES8CHDSCRT => "DTS Express 8 Channel Discrect",
+            DENON_API_Commands::DTSHDDS => "DTS HD + Dolby Surround",
+            DENON_API_Commands::DTSEXPRESS => "DTS Express",
+            DENON_API_Commands::DTSES8CHDSCRT => "DTS ES 8 CH Discrete",
+            DENON_API_Commands::MPEG2AAC => "MPEG2 AAC",
+            DENON_API_Commands::AACDOLBYEX => "AAC + Dolby EX",
+            DENON_API_Commands::AACPL2XC => "AAC + PL2X Cinema",
+            DENON_API_Commands::AACPL2XM => "AAC + PL2X Music",
+            DENON_API_Commands::AACPL2XH => "AAC + PL2X Height",
+            DENON_API_Commands::AACDS => "AAC + Dolby Surround",
+            DENON_API_Commands::AACNEOXC => "AAC + NEO:X Cinema",
+            DENON_API_Commands::AACNEOXM => "AAC + NEO:X Music",
+            DENON_API_Commands::AACNEOXG => "AAC + NEO:X Game",
+            DENON_API_Commands::PLDSX => "Dolby Pro Logic DSX",
+            DENON_API_Commands::PL2CDSX => "Dolby Pro Logic II Cinema DSX",
+            DENON_API_Commands::PL2MDSX => "Dolby Pro Logic II Music DSX",
+            DENON_API_Commands::PL2GDSX => "Dolby Pro Logic II Game DSX",
+            DENON_API_Commands::PL2XCDSX => "Dolby Pro Logic IIx Cinema DSX",
+            DENON_API_Commands::PL2XMDSX => "Dolby Pro Logic IIx Music DSX",
+            DENON_API_Commands::PL2XGDSX => "Dolby Pro Logic IIx Game DSX",
+            DENON_API_Commands::AUDYSSEYDSX => "Audyssey DSX",
+            DENON_API_Commands::NEO6CDSX => "NEO:6 Cinema DSX",
+            DENON_API_Commands::NEO6MDSX => "NEO:6 Music DSX",
+            DENON_API_Commands::DTSNEO6C => "DTS NEO:6 Cinema",
+            DENON_API_Commands::DTSNEO6M => "DTS NEO:6 Music",
+            DENON_API_Commands::DSDDIRECT => "DSD Direct",
+            DENON_API_Commands::DSDPUREDIRECT => "DSD Pure Direct",
+        );
 
         $showsurrounddisplay = "";
-        if (array_key_exists($response, static::$SurroundModes)){
-            $showsurrounddisplay = static::$SurroundModes[$response];
-        } elseif (array_key_exists($response, static::$DolbySurroundModes)){
-            $showsurrounddisplay = static::$DolbySurroundModes[$response];
-        } elseif (array_key_exists($response, static::$DTSSurroundModes)){
-            $showsurrounddisplay = static::$DTSSurroundModes[$response];
+        if (array_key_exists($response, $displaysurround)){
+            $showsurrounddisplay = $displaysurround[$response];
         } else {
             trigger_error(get_class().'::'.__FUNCTION__.': unknown surround mode response: '.$response);
         }
-        return $showsurrounddisplay;
+        return (string) $showsurrounddisplay;
     }
 
     private function getNSADisplay($data){
@@ -4554,8 +4432,8 @@ class DenonAVRCP_API_Data extends stdClass
         }
 
 
-        foreach ($this->Data as $response){
-
+        foreach ($this->Data as $response)
+        {
             $response_found = false;
             foreach ($VarMapping as $Command => $item){ //Zuordnung suchen
                 if (stripos($response, $Command) === 0){// Subcommand ermitteln
@@ -4566,23 +4444,12 @@ class DenonAVRCP_API_Data extends stdClass
 
                         case DENON_API_Commands::MS:
                             $SurroundDisplay = $this->getshowsurrounddisplay($ResponseSubCommand);
-
-                            if (array_key_exists($ResponseSubCommand, static::$DolbySurroundModes)){
-                                $datavalues[DENON_API_Commands::MS] = ['VarType'    => $item["VarType"],
-                                                         'Value'      => $item["ValueMapping"][DENON_API_Commands::MSDOLBYDIGITAL],
-                                                         'Subcommand' => DENON_API_Commands::MSDOLBYDIGITAL
-                                ];
-                            } elseif (array_key_exists($ResponseSubCommand, static::$DTSSurroundModes)){
-                                $datavalues[DENON_API_Commands::MS] = ['VarType'    => $item["VarType"],
-                                                                       'Value'      => $item["ValueMapping"][DENON_API_Commands::MSDTSSURROUND],
-                                                                       'Subcommand' => DENON_API_Commands::MSDTSSURROUND
-                                ];
-                            } elseif (array_key_exists($ResponseSubCommand, static::$SurroundModes)){
-                                $datavalues[DENON_API_Commands::MS] = ['VarType'    => $item["VarType"],
-                                                                       'Value'      => $item["ValueMapping"][$ResponseSubCommand],
-                                                                       'Subcommand' => $ResponseSubCommand
-                                ];
-                            }
+/*
+                            $datavalues[$Command] = ['VarType'    => $item["VarType"],
+                                                     'Value'      => $this->getSurroundMode($response),
+                                                     'Subcommand' => $ResponseSubCommand
+                            ];
+*/
                             break;
 
                         default:
