@@ -1,11 +1,6 @@
 {
     "elements":
             [
-                {
-                    "name": "Open",
-                    "type": "CheckBox",
-                    "caption": "Open"
-                },
 				{ "type": "Label", "label": "AVR ip address / port telnet 23" },
                 {
                     "name": "Host",

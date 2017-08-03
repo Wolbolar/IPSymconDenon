@@ -19,19 +19,36 @@ class DenonSplitterTelnet extends IPSModule
         //You cannot use variables here. Just static values.
 
 		// ClientSocket benötigt
-        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}"); //Clientsocket DenonAVR Telnet
+        $this->RequireParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}"); //Clientsocket
         
 		$this->RegisterPropertyString("Host", "192.168.x.x");
 		$this->RegisterPropertyInteger("Port", 23);
-        $this->RegisterPropertyBoolean("Open", false);
+
+        //we will set the instance status when the parent status changes
+        $this->RegisterMessage($this->GetParent(),10505); //IM_CHANGESTATUS
 
     }
+
+    public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
+        if ($this->debug){
+            IPS_LogMessage(get_class() . '::' . __FUNCTION__,'SenderID: ' . $SenderID . ', Message: ' . $Message . ', Data:'. json_encode($Data));
+        }
+
+        switch ($Message){
+            case 10505: //IM_CHANGESTATUS
+                $this->ApplyChanges();
+                break;
+            default:
+                trigger_error('Unexpected Message: '.$Message);
+         }
+    }
+
 
     public function ApplyChanges()
     {
 	//Never delete this line!
         parent::ApplyChanges();
-        $change = false;
+        $PropertyChanged = false;
 		$this->RegisterVariableString("InputMapping", "Input Mapping", "", 1);
         IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 
@@ -50,12 +67,12 @@ class DenonSplitterTelnet extends IPSModule
                 if (IPS_GetProperty($ParentID, 'Host') <> $this->ReadPropertyString('Host'))
                 {
                     IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
-                    $change = true;
+                    $PropertyChanged = true;
                 }
                 if (IPS_GetProperty($ParentID, 'Port') <> $this->ReadPropertyInteger('Port'))
                 {
                     IPS_SetProperty($ParentID, 'Port', $this->ReadPropertyInteger('Port'));
-                    $change = true;
+                    $PropertyChanged = true;
                 }
 
                 $ParentOpen = $this->HasActiveParent($this->GetParent());
@@ -66,29 +83,21 @@ class DenonSplitterTelnet extends IPSModule
                     $this->SetStatus(self::STATUS_INST_IS_INACTIVE);
                 }
 
-                if ($this->ReadPropertyString('Host') == '')
-                {
+                if ($this->ReadPropertyString('Host') == ''){
                     $this->SetStatus(self::STATUS_INST_IP_IS_EMPTY);
-                    $ParentOpen = false;
                 }
-                //Client Socket Open
-                if (IPS_GetProperty($ParentID, 'Open') <> $ParentOpen)
-                {
-                    IPS_SetProperty($ParentID, 'Open', $ParentOpen);
-                    $change = true;
-                }
-                if ($change){
+
+                if ($PropertyChanged){
                     IPS_ApplyChanges($ParentID);
                 }
 
                 // Wenn I/O verbunden ist
 
-                if ($this->ReadPropertyBoolean('Open') && $this->HasActiveParent($ParentID))
-                {
+                if ($this->HasActiveParent($ParentID)){
                     //Instanz aktiv
                     $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
-//                    $this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRST_GetStatusHTTP($id)');
-                    //ein eventuell bestehender Timer wird gelöscht, da wird nicht benötigt
+
+                    //ein eventuell bestehender Timer aus Vorgängerversionen wird gelöscht, da nicht benötigt
                     $this->UnRegisterTimer('Update');
                 }
 
