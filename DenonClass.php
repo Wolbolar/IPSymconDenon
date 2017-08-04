@@ -3096,6 +3096,10 @@ class DENON_StatusHTML extends stdClass {
         if ($Element){
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             $SubCommand = strtoupper((string)$Element[0]->value);
+            if (key_exists($SubCommand, DENON_API_Commands::$SIMapping)){
+                $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
+            }
+
             $data[DENON_API_Commands::SI] =  array('VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand);
         }
 
@@ -3703,16 +3707,57 @@ class DENON_API_Commands extends stdClass
 	const VAUX = "V.AUX"; // Select Input Source V.AUX
 	const DOCK = "DOCK"; // Select Input Source Dock
 	const IPOD = "IPOD"; // Select Input Source iPOD
-	const NETUSB = "NET/USB"; // Select Input Source NET/USB
+    const NETUSB = "NET/USB"; // Select Input Source NET/USB
+    const NET = "NET"; // Select Input Source NET
 	const LASTFM = "LASTFM"; // Select Input Source LastFM
 	const FLICKR = "FLICKR"; // Select Input Source Flickr
 	const FAVORITES = "FAVORITES"; // Select Input Source Favorites
 	const IRADIO = "IRADIO"; // Select Input Source Internet Radio
     const SERVER = "SERVER"; // Select Input Source Server
     const NAPSTER = "NAPSTER"; // Select Input Source Napster
+    const USB_IPOD = "USB/IPOD"; // Select Input USB/IPOD
     const SOURCE = "SOURCE"; // Select Input Source of Main Zone
 
-	//ZM Mainzone
+    static public $SIMapping = ['CBL/SAT' => DENON_API_Commands::SAT_CBL,
+                                 'MediaPlayer' => DENON_API_Commands::MPLAY,
+                                 'Media Player' => DENON_API_Commands::MPLAY,
+                                 'iPod/USB' => DENON_API_Commands::USB_IPOD,
+                                 'TVAUDIO' => DENON_API_Commands::TV,
+                                 'Bluetooth' => DENON_API_Commands::BT,
+                                 'Blu-ray' => DENON_API_Commands::BD,
+                                 'Online Music' => DENON_API_Commands::NET];
+
+    static public $InputSettings = [
+                                DENON_API_Commands::PHONO,
+                                DENON_API_Commands::CD,
+                                DENON_API_Commands::TUNER,
+                                DENON_API_Commands::DVR,
+                                DENON_API_Commands::BD,
+                                DENON_API_Commands::BT,
+                                DENON_API_Commands::MPLAY,
+                                DENON_API_Commands::TV,
+                                DENON_API_Commands::SAT_CBL,
+                                DENON_API_Commands::SAT,
+                                DENON_API_Commands::DVR,
+                                DENON_API_Commands::GAME,
+                                DENON_API_Commands::GAME2,
+                                DENON_API_Commands::NETUSB,
+                                DENON_API_Commands::VAUX,
+                                DENON_API_Commands::DOCK,
+                                DENON_API_Commands::IPOD,
+                                DENON_API_Commands::NETUSB,
+                                DENON_API_Commands::NET,
+                                DENON_API_Commands::LASTFM,
+                                DENON_API_Commands::FLICKR,
+                                DENON_API_Commands::FAVORITES,
+                                DENON_API_Commands::IRADIO,
+                                DENON_API_Commands::SERVER,
+                                DENON_API_Commands::NAPSTER,
+                                DENON_API_Commands::USB_IPOD,
+                                DENON_API_Commands::SOURCE,
+                                ];
+
+    //ZM Mainzone
 	const ZMOFF = "OFF"; // Power Off
 	const ZMON = "ON"; // Power On
 	
@@ -4518,24 +4563,14 @@ class DenonAVRCP_API_Data extends stdClass
         ];
 
         // add special commands for zone responses
-
         for ($Zone = 2; $Zone <= 3; $Zone++){
             $specialcommands['Z'.$Zone.'ON'] = 'Z'.$Zone.'POWERON';
             $specialcommands['Z'.$Zone.'OFF'] = 'Z'.$Zone.'POWEROFF';
-            $specialcommands['Z'.$Zone.'TUNER'] = 'Z'.$Zone.'INPUTTUNER';
-            $specialcommands['Z'.$Zone.'CD'] = 'Z'.$Zone.'INPUTCD';
-            $specialcommands['Z'.$Zone.'DVD'] = 'Z'.$Zone.'INPUTDVD';
-            $specialcommands['Z'.$Zone.'BD'] = 'Z'.$Zone.'INPUTBD';
-            $specialcommands['Z'.$Zone.'SAT/CBL'] = 'Z'.$Zone.'INPUTSAT/CBL';
-            $specialcommands['Z'.$Zone.'NET/USB'] = 'Z'.$Zone.'INPUTNET/USB';
-            $specialcommands['Z'.$Zone.'DOCK'] = 'Z'.$Zone.'INPUTDOCK';
-            $specialcommands['Z'.$Zone.'DVR'] = 'Z'.$Zone.'INPUTDVR';
-            $specialcommands['Z'.$Zone.'GAME'] = 'Z'.$Zone.'INPUTGAME';
-            $specialcommands['Z'.$Zone.'V.AUX'] = 'Z'.$Zone.'INPUTV.AUX';
-            $specialcommands['Z'.$Zone.'IRADIO'] = 'Z'.$Zone.'INPUTIRADIO';
-            $specialcommands['Z'.$Zone.'TV'] = 'Z'.$Zone.'INPUTTV';
-            $specialcommands['Z'.$Zone.'SERVER'] = 'Z'.$Zone.'INPUTSERVER';
-            $specialcommands['Z'.$Zone.'SOURCE'] = 'Z'.$Zone.'INPUTSOURCE';
+
+            // add spezialcommands for input settings
+            foreach (DENON_API_Commands::$InputSettings as $InputSetting){
+                $specialcommands['Z'.$Zone.$InputSetting] = 'Z'.$Zone.'INPUT'.$InputSetting;
+            }
 
             // add special commands for volume response Z2** and Z3**
             for ($Vol = 0; $Vol <= 99; $Vol++){

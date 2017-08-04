@@ -289,38 +289,9 @@ class DenonAVRIOHTTP extends IPSModule
 			foreach ($Inputs as $Key => $Input)
 				{
 				$Command = $Input->Source;
-				if ($Command == "CBL/SAT")
-				{
-					$Command = "SAT/CBL";
-				}
-				elseif ($Command == "MediaPlayer")
-				{
-					$Command = "MPLAY";
-				}
-				elseif ($Command == "iPod/USB")
-				{
-					$Command = "USB/IPOD";
-				}
-				elseif ($Command == "TVAUDIO")
-				{
-					$Command = "TV";
-				}
-				elseif ($Command == "TV AUDIO")
-				{
-					$Command = "TV";
-				}
-				elseif ($Command == "Bluetooth")
-				{
-					$Command = "BT";
-				}
-				elseif ($Command == "Blu-ray")
-				{
-					$Command = "BD";
-				}
-				elseif ($Command == "Online Music")
-				{
-					$Command = "NET";
-				}
+                if (key_exists($Command, DENON_API_Commands::$SIMapping)){
+                    $Command = DENON_API_Commands::$SIMapping[$Command];
+                }
 				$Varmapping[$Command] = $Key;
 				}
 			return $Varmapping;
