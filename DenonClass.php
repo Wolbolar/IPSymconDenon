@@ -3243,14 +3243,16 @@ class DENON_StatusHTML extends stdClass {
 			}
 		}
 		*/
+
 		//SurrMode
+        /*
         $Element = $xml->xpath('.//SurrMode');
         if ($Element){
             $VarMapping = $VarMappings[DENON_API_Commands::MS];
             $SubCommand = rtrim(strtoupper((string)$Element[0]->value));
             $data[DENON_API_Commands::MS] =  array('VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand);
         }
-
+        */
 		return $data;
 	}
 	
