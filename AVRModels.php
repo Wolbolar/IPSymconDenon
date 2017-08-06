@@ -408,6 +408,7 @@ class AVR extends stdClass{
             'InputSettings' => static::$InputSettings,
             'SurroundMode' => static::$SurroundMode,
             'MS_SubCommands' => static::$MS_SubCommands,
+            'SV_SubCommands' => static::$SV_SubCommands,
             'CV_Commands' => static::$CV_Commands,
             'PS_Commands' => static::$PS_Commands,
             'PSSP_SubCommands' => static::$PSSP_SubCommands,

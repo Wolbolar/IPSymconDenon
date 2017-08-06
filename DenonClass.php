@@ -2322,6 +2322,7 @@ class DENONIPSProfiles extends stdClass
             $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptResolutionHDMI, $caps);
             $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptSpeakerOutput, $caps);
             $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptDynamicVolume, $caps);
+            $this->updateProfileAccordingToCaps(DENONIPSProfiles::ptVideoSelect, $caps);
         }
 
         if ($InputMapping != null){
