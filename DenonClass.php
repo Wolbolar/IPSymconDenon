@@ -1574,20 +1574,20 @@ class DENONIPSProfiles extends stdClass
             DENONIPSProfiles::ptInputSource => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::SI, "Name" => "Input Source",
                 "PropertyName" => "InputSource",
                 "Profilesettings" => ["Database", "", "", 0, 0, 0, 0],
-                "Associations" => [], //are filled by function SetInputSources()
+                "Associations" => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
                 "IndividualStatusRequest" => 'SI?'
             ],
             DENONIPSProfiles::ptZone2InputSource => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z2INPUT, "Name" => "Zone 2 Input Source",
                 "PropertyName" => "Z2InputSource",
                 "Profilesettings" => ["Database", "", "", 0, 0, 0, 0],
-                "Associations" => [], //are filled by function SetInputSources()
+                "Associations" => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
                 "IndividualStatusRequest" => 'Z2?'
             ],
             DENONIPSProfiles::ptZone3InputSource => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z3INPUT, "Name" => "Zone 3 Input Source",
-                                                     "PropertyName" => "Z3InputSource",
-                                                     "Profilesettings" => ["Database", "", "", 0, 0, 0, 0],
-                                                     "Associations" => [], //are filled by function SetInputSources()
-                                                     "IndividualStatusRequest" => 'Z3?'
+                 "PropertyName" => "Z3InputSource",
+                 "Profilesettings" => ["Database", "", "", 0, 0, 0, 0],
+                 "Associations" => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
+                 "IndividualStatusRequest" => 'Z3?'
             ],
             DENONIPSProfiles::ptChannelVolumeReset => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::CVZRL, "Name" => "Channel Volume Reset",
                                                      "PropertyName" => "ChannelVolumeReset",
@@ -1774,11 +1774,19 @@ class DENONIPSProfiles extends stdClass
                     [1, "BD", DENON_API_Commands::BD],
                     [2, "TV", DENON_API_Commands::TV],
                     [3, "Sat/CBL", DENON_API_Commands::SAT_CBL],
-                    [4, "DVR", DENON_API_Commands::DVR],
-                    [5, "Game", DENON_API_Commands::GAME],
-                    [6, "V.AUX", DENON_API_Commands::VAUX],
-                    [7, "Dock", DENON_API_Commands::DOCK],
-                    [8, "Source",DENON_API_Commands::SOURCE]
+                    [4, "Sat", DENON_API_Commands::SAT],
+                    [5, "MediaPlayer", DENON_API_Commands::MPLAY],
+                    [6, "VCR", DENON_API_Commands::VCR],
+                    [7, "DVR", DENON_API_Commands::DVR],
+                    [8, "Game", DENON_API_Commands::GAME],
+                    [9, "Game2", DENON_API_Commands::GAME2],
+                    [10, "V.AUX", DENON_API_Commands::VAUX],
+                    [11, "AUX1", DENON_API_Commands::AUX1],
+                    [12, "AUX2", DENON_API_Commands::AUX2],
+                    [13, "CD", DENON_API_Commands::CD],
+                    [14, "Source",DENON_API_Commands::SOURCE],
+                    [15, "On",DENON_API_Commands::ON],
+                    [16, "Off",DENON_API_Commands::OFF],
                 ]
             ],
             DENONIPSProfiles::ptSurroundBackMode => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::PSSB, "Name" => "Surround Back Mode",
@@ -1916,8 +1924,8 @@ class DENONIPSProfiles extends stdClass
                     [2, "DIGITAL", DENON_API_Commands::SDDIGITAL],
                     [3, "ANALOG", DENON_API_Commands::SDANALOG],
                     [4, "Ext.IN", DENON_API_Commands::SDEXTIN],
-                    [4, "7.1 IN", DENON_API_Commands::SD71IN],
-                    [4, "No", DENON_API_Commands::SDNO],
+                    [5, "7.1 IN", DENON_API_Commands::SD71IN],
+                    [6, "No", DENON_API_Commands::SDNO],
                 ]
             ],
             DENONIPSProfiles::ptDialogEnhancer => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::PSDEH, "Name" => "Dialog Enhancer",
@@ -2351,9 +2359,7 @@ class DENONIPSProfiles extends stdClass
 	{
 
         $caps = AVRs::getCapabilities($this->AVRType);
-        if($caps['httpMainZone'] == DENON_HTTP_Interface::NoHTTPInterface){
-            $this->SetAssociationsOfInputSourcesToDefault();
-        } else {
+        if($caps['httpMainZone'] != DENON_HTTP_Interface::NoHTTPInterface){
             if (!filter_var($DenonIP, FILTER_VALIDATE_IP)){
                 trigger_error(__FUNCTION__.': Die IP Adresse "'.$DenonIP.'" ist ungültig!');
                 return;
@@ -2364,37 +2370,6 @@ class DENONIPSProfiles extends stdClass
             );
  		}
 	}
-
-	private function SetAssociationsOfInputSourcesToDefault()
-	{
-		$DefaultAssociations =  [
-									[0, "Phono", DENON_API_Commands::PHONO],
-									[1, "CD", DENON_API_Commands::CD],
-									[2, "Tuner", DENON_API_Commands::TUNER],
-									[3, "DVD", DENON_API_Commands::DVD],
-									[4, "BD", DENON_API_Commands::BD],
-									[5, "TV", DENON_API_Commands::TV],
-									[6, "Sat/CBL", DENON_API_Commands::SAT_CBL],
-									[7, "DVR", DENON_API_Commands::DVR],
-									[8, "Game",DENON_API_Commands::GAME],
-									[9, "V.Aux", DENON_API_Commands::VAUX],
-									[10, "Dock", DENON_API_Commands::DOCK],
-									[11, "IPod", DENON_API_Commands::IPOD],
-									[12, "Net/USB", DENON_API_Commands::NETUSB],
-									[13, "Napster", DENON_API_Commands::NAPSTER],
-									[14, "LastFM", DENON_API_Commands::LASTFM],
-									[15, "Flickr", DENON_API_Commands::FLICKR],
-									[16, "Favorites", DENON_API_Commands::FAVORITES],
-									[17, "IRadio", DENON_API_Commands::IRADIO],
-									[18, "Server", DENON_API_Commands::SERVER],
-                                ];
-
-        $this->profiles[DENONIPSProfiles::ptInputSource]['Associations'] = $DefaultAssociations;
-        $this->profiles[DENONIPSProfiles::ptZone2InputSource]['Associations'] = $DefaultAssociations;
-        $this->profiles[DENONIPSProfiles::ptZone3InputSource]['Associations'] = $DefaultAssociations;
-
-	}
-
 
 	private function SetAssociationsOfInputSourcesAccordingToHTTPInfo($IP, $MainForm, $Zone, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR)
 	{
@@ -3692,7 +3667,7 @@ class DENON_API_Commands extends stdClass
 	const MVDOWN = "DOWN"; // Master Volume Down
 	
 	
-	//SI
+	//SI + SV
 	const PHONO = "PHONO"; // Select Input Source Phono
 	const CD = "CD"; // Select Input Source CD
 	const TUNER = "TUNER"; // Select Input Source Tuner
@@ -3703,9 +3678,12 @@ class DENON_API_Commands extends stdClass
 	const TV = "TV"; // Select Input Source TV
     const SAT_CBL = "SAT/CBL"; // Select Input Source Sat/CBL
     const SAT = "SAT"; // Select Input Source Sat
+    const VCR = "VCR"; // Select Input Source VCR
 	const DVR = "DVR"; // Select Input Source DVR
     const GAME = "GAME"; // Select Input Source Game
     const GAME2 = "GAME2"; // Select Input Source Game
+	const AUX1 = "AUX1"; // Select Input Source AUX1
+	const AUX2 = "AUX1"; // Select Input Source AUX1
 	const VAUX = "V.AUX"; // Select Input Source V.AUX
 	const DOCK = "DOCK"; // Select Input Source Dock
 	const IPOD = "IPOD"; // Select Input Source iPOD
@@ -3719,6 +3697,8 @@ class DENON_API_Commands extends stdClass
     const NAPSTER = "NAPSTER"; // Select Input Source Napster
     const USB_IPOD = "USB/IPOD"; // Select Input USB/IPOD
     const SOURCE = "SOURCE"; // Select Input Source of Main Zone
+    const ON = "ON"; // Select Input Source On
+    const OFF = "ON"; // Select Input Source Off
 
     static public $SIMapping = ['CBL/SAT' => DENON_API_Commands::SAT_CBL,
                                  'MediaPlayer' => DENON_API_Commands::MPLAY,
@@ -3729,7 +3709,7 @@ class DENON_API_Commands extends stdClass
                                  'Blu-ray' => DENON_API_Commands::BD,
                                  'Online Music' => DENON_API_Commands::NET];
 
-    static public $InputSettings = [
+    static public $SI_InputSettings = [
                                 DENON_API_Commands::PHONO,
                                 DENON_API_Commands::CD,
                                 DENON_API_Commands::TUNER,
@@ -3740,9 +3720,11 @@ class DENON_API_Commands extends stdClass
                                 DENON_API_Commands::TV,
                                 DENON_API_Commands::SAT_CBL,
                                 DENON_API_Commands::SAT,
+                                DENON_API_Commands::VCR,
                                 DENON_API_Commands::DVR,
                                 DENON_API_Commands::GAME,
                                 DENON_API_Commands::GAME2,
+                                DENON_API_Commands::AUX1,
                                 DENON_API_Commands::NETUSB,
                                 DENON_API_Commands::VAUX,
                                 DENON_API_Commands::DOCK,
@@ -3757,6 +3739,33 @@ class DENON_API_Commands extends stdClass
                                 DENON_API_Commands::NAPSTER,
                                 DENON_API_Commands::USB_IPOD,
                                 DENON_API_Commands::SOURCE,
+                                ];
+
+    static public $SI_DefaultAssociations =  [
+                                [0, "Phono", DENON_API_Commands::PHONO],
+                                [1, "CD", DENON_API_Commands::CD],
+                                [2, "Tuner", DENON_API_Commands::TUNER],
+                                [3, "DVD", DENON_API_Commands::DVD],
+                                [4, "BD", DENON_API_Commands::BD],
+                                [5, "TV", DENON_API_Commands::TV],
+                                [6, "Sat/CBL", DENON_API_Commands::SAT_CBL],
+                                [7, "Sat", DENON_API_Commands::SAT],
+                                [8, "VCR", DENON_API_Commands::VCR],
+                                [9, "DVR", DENON_API_Commands::DVR],
+                                [10, "Game",DENON_API_Commands::GAME],
+                                [11, "Game2",DENON_API_Commands::GAME2],
+                                [12, "V.Aux", DENON_API_Commands::VAUX],
+                                [13, "Aux1", DENON_API_Commands::AUX1],
+                                [14, "Aux2", DENON_API_Commands::AUX2],
+                                [15, "Dock", DENON_API_Commands::DOCK],
+                                [16, "IPod", DENON_API_Commands::IPOD],
+                                [17, "Net/USB", DENON_API_Commands::NETUSB],
+                                [18, "Napster", DENON_API_Commands::NAPSTER],
+                                [19, "LastFM", DENON_API_Commands::LASTFM],
+                                [20, "Flickr", DENON_API_Commands::FLICKR],
+                                [21, "Favorites", DENON_API_Commands::FAVORITES],
+                                [22, "IRadio", DENON_API_Commands::IRADIO],
+                                [23, "Server", DENON_API_Commands::SERVER],
                                 ];
 
     //ZM Mainzone
@@ -4570,7 +4579,7 @@ class DenonAVRCP_API_Data extends stdClass
             $specialcommands['Z'.$Zone.'OFF'] = 'Z'.$Zone.'POWEROFF';
 
             // add spezialcommands for input settings
-            foreach (DENON_API_Commands::$InputSettings as $InputSetting){
+            foreach (DENON_API_Commands::$SI_InputSettings as $InputSetting){
                 $specialcommands['Z'.$Zone.$InputSetting] = 'Z'.$Zone.'INPUT'.$InputSetting;
             }
 

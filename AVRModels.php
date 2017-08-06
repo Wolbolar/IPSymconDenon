@@ -231,6 +231,19 @@ class AVR extends stdClass{
 
     static $InputSettings = [];
     static $InputSettings_max = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::MSQUICK, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::DVR,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::GAME2,
+        DENON_API_Commands::VAUX,
+        DENON_API_Commands::DOCK,
+        DENON_API_Commands::ON,
+        DENON_API_Commands::OFF,
+        ];
 
     static $SurroundMode = [DENON_API_Commands::MS, DENON_API_Commands::SURROUNDDISPLAY];
     static $SurroundMode_max = [DENON_API_Commands::MS, DENON_API_Commands::SURROUNDDISPLAY];

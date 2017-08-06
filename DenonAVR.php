@@ -164,6 +164,24 @@ class Denon_AVR_3311 extends Denon_AVR_3310{
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
+    static $InputSettings = [
+        DENON_API_Commands::SI,
+        DENON_API_Commands::MSQUICK,
+        DENON_API_Commands::SD,
+        DENON_API_Commands::DC,
+        DENON_API_Commands::SV
+    ];
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::DVR,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::VAUX,
+        DENON_API_Commands::DOCK,
+        DENON_API_Commands::SOURCE,
+    ];
     static $SystemControl_Commands = [
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
@@ -250,6 +268,18 @@ class Denon_AVR_3312 extends Denon_AVR_3311{
     // see AVR-3312E2_DEU_CD-ROM_v00.pdf
     static $Name = 'AVR-3312';
     static $internalID = 1;
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::DVR,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::GAME2,
+        DENON_API_Commands::VAUX,
+        DENON_API_Commands::DOCK,
+        DENON_API_Commands::SOURCE,
+    ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
         DENON_API_Commands::MSMUSIC,
@@ -293,6 +323,21 @@ class Denon_AVR_4310 extends DenonAVR{
         DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
+    ];
+    static $InputSettings = [
+        DENON_API_Commands::SI,
+        DENON_API_Commands::MSQUICK,
+        DENON_API_Commands::SD,
+        DENON_API_Commands::DC,
+        DENON_API_Commands::SV
+    ];
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::DVR,
+        DENON_API_Commands::VAUX,
+        DENON_API_Commands::SOURCE,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSDIRECT,
@@ -369,6 +414,17 @@ class Denon_AVR_4311 extends Denon_AVR_4310{
         DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
+    ];
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::DVR,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::VAUX,
+        DENON_API_Commands::DOCK,
+        DENON_API_Commands::SOURCE,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSDIRECT,
@@ -455,6 +511,25 @@ class Denon_AVR_X2000 extends DenonAVR{
         DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
         DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
+    ];
+    static $InputSettings = [
+        DENON_API_Commands::SI,
+        DENON_API_Commands::MSQUICK,
+        DENON_API_Commands::SD,
+        DENON_API_Commands::DC,
+        DENON_API_Commands::SV
+    ];
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::CD,
+        DENON_API_Commands::ON,
+        DENON_API_Commands::OFF,
     ];
     static $SystemControl_Commands = [
         DENON_API_Commands::MN,
@@ -639,6 +714,25 @@ class Denon_AVR_X1200W extends Denon_AVR_X1100W {
         DENON_API_Commands::CVTFL, DENON_API_Commands::CVTFR,
         DENON_API_Commands::CVTML, DENON_API_Commands::CVTMR,
         DENON_API_Commands::CVZRL,
+    ];
+    static $InputSettings = [
+        DENON_API_Commands::SI,
+        DENON_API_Commands::MSQUICK,
+        DENON_API_Commands::SD,
+        DENON_API_Commands::DC,
+        DENON_API_Commands::SV
+    ];
+    static $SV_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::CD,
+        DENON_API_Commands::ON,
+        DENON_API_Commands::OFF,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
