@@ -1157,8 +1157,9 @@ class DENONIPSProfiles extends stdClass
     const ptSurroundHeightRch = 'SurroundHeightRch';
     const ptTopSurround = 'TopSurround';
     const ptChannelVolumeReset = 'ChannelVolumeReset';
-    const ptZONE2AutoStandbySetting = 'ZONE2AutoStandbySetting';
-	const ptZONE3AutoStandbySetting = 'ZONE32AutoStandbySetting';
+    const ptZone2HDMIAudio = 'Zone2HDMIAudio';
+	const ptZone2AutoStandbySetting = 'Zone2AutoStandbySetting';
+	const ptZone3AutoStandbySetting = 'Zone3AutoStandbySetting';
 
     static $order = [
         //Info Display
@@ -1318,8 +1319,9 @@ class DENONIPSProfiles extends stdClass
         DENONIPSProfiles::ptZone2Treble,
         DENONIPSProfiles::ptZone2QuickSelect,
         DENONIPSProfiles::ptZone2HPF,
+        DENONIPSProfiles::ptZone2HDMIAudio,
         DENONIPSProfiles::ptZone2Sleep,
-        DENONIPSProfiles::ptZONE2AutoStandbySetting,
+        DENONIPSProfiles::ptZone2AutoStandbySetting,
         //Zone 3
         DENONIPSProfiles::ptZone3Name,
         DENONIPSProfiles::ptZone3Power,
@@ -1334,7 +1336,7 @@ class DENONIPSProfiles extends stdClass
         DENONIPSProfiles::ptZone3QuickSelect,
         DENONIPSProfiles::ptZone3HPF,
         DENONIPSProfiles::ptZone3Sleep,
-        DENONIPSProfiles::ptZONE3AutoStandbySetting
+        DENONIPSProfiles::ptZone3AutoStandbySetting
         ];
 
 
@@ -1541,8 +1543,8 @@ class DENONIPSProfiles extends stdClass
                                                     [true, DENON_API_Commands::Z2ON],
                                                 ]],
             DENONIPSProfiles::ptZone2HPF => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::Z2HPF, "Name" => "Zone 2 HPF",
-                                          "PropertyName" => "Z2HPF",
-                                          "Associations" => [
+                                             "PropertyName" => "Z2HPF",
+                                             "Associations" => [
                                                  [false, DENON_API_Commands::Z2OFF],
                                                  [true, DENON_API_Commands::Z2ON],
                                              ]],
@@ -2089,7 +2091,7 @@ class DENONIPSProfiles extends stdClass
                      [5, "QS 5", DENON_API_Commands::MSQUICK5]
                  ]
             ],
-            DENONIPSProfiles::ptZONE2AutoStandbySetting => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z2STBY, "Name" => "Zone 2 Auto Standby",
+            DENONIPSProfiles::ptZone2AutoStandbySetting => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z2STBY, "Name" => "Zone 2 Auto Standby",
                 "PropertyName" => "ZONE2AutoStandbySetting",
                 "Profilesettings" => ["Intensity", "", "", 0, 0, 0, 0],
                 "Associations" => [
@@ -2099,15 +2101,23 @@ class DENONIPSProfiles extends stdClass
                     [3, "8 h", DENON_API_Commands::Z2STBY8H]
                 ]
             ],
-            DENONIPSProfiles::ptZONE3AutoStandbySetting => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z3STBY, "Name" => "Zone 3 Auto Standby",
-                "PropertyName" => "ZONE3AutoStandbySetting",
-                "Profilesettings" => ["Intensity", "", "", 0, 0, 0, 0],
-                "Associations" => [
+            DENONIPSProfiles::ptZone3AutoStandbySetting => ["Type"            => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z3STBY, "Name" => "Zone 3 Auto Standby",
+                                                            "PropertyName"    => "ZONE3AutoStandbySetting",
+                                                            "Profilesettings" => ["Intensity", "", "", 0, 0, 0, 0],
+                                                            "Associations"    => [
                     [0, "Off", DENON_API_Commands::Z3STBYOFF],
                     [1, "2 h", DENON_API_Commands::Z3STBY2H],
                     [2, "4 h", DENON_API_Commands::Z3STBY4H],
                     [3, "8 h", DENON_API_Commands::Z3STBY8H]
                 ]
+            ],
+            DENONIPSProfiles::ptZone2HDMIAudio => ["Type" => DENONIPSVarType::vtInteger, "Ident" => DENON_API_Commands::Z2HDA, "Name" => "Zone 2 HDMI Audio",
+                                                            "PropertyName" => "Zone2HDMIAudio",
+                                                            "Profilesettings" => ["Intensity", "", "", 0, 0, 0, 0],
+                                                            "Associations" => [
+                                                                [0, "Pass-Through", DENON_API_Commands::Z2HDATHR],
+                                                                [1, "PCM", DENON_API_Commands::Z2HDAPCM],
+                                                            ]
             ],
 
 
@@ -3568,6 +3578,9 @@ class DENON_API_Commands extends stdClass
 	const Z2CVFL = "Z2CVFL"; // Zone 2 Channel Volume FL
 	const Z2CVFR = "Z2CVFR"; // Zone 2 Channel Volume FR
 	const Z2HPF = "Z2HPF"; // Zone 2 HPF
+	const Z2HDA = "Z2HDA"; // (nur) Zone 2 HDA
+	const Z2HDATHR = " THR"; // (nur) Zone 2 HDA
+	const Z2HDAPCM = " PCM"; // (nur) Zone 2 HDA
 	const Z2PSBAS = "Z2PSBAS"; // Zone 2 Parameter Bass
 	const Z2PSTRE = "Z2PSTRE"; // Zone 2 Parameter Treble
 	const Z2SLP = "Z2SLP"; // Zone 2 Sleep Timer
@@ -4141,7 +4154,6 @@ class DENON_API_Commands extends stdClass
     const PSFRONTSPAB = " SPA+B"; //Speaker A+B
 
 	//Cursor
-	
 	const MNCUP = "CUP"; // Cursor Up
 	const MNCDN = "CDN"; // Cursor Down
 	const MNCRT = "CRT"; // Cursor Right
