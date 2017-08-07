@@ -80,82 +80,9 @@ require_once(__DIR__ . "/DenonAVR.php");  // diverse Klassen
 
 class AVRs extends stdClass
 {
-    //supported Denon models (see remarks for documentation)
-    const Denon_AVR_2313 = 'AVR-2313';
-    const Denon_AVR_3312 = 'AVR-3312'; //AVR-3312E2_DEU_CD-ROM_v00.pdf
-    const Denon_AVR_3313 = 'AVR-3313'; //AVR3313CI_PROTOCOL_V01.pdf
-    const Denon_AVR_3808A = 'AVR-3808A'; //AVR-3808CISerialProtocol_Ver520a.pdf
-    const Denon_AVR_4308A = 'AVR-4308A';
-    const Denon_AVR_4310 = 'AVR-4310'; //AVR4311CI_AVR4311_PROTOCOL_V7 2 0.pdf (bold differences to 4311)
-    const Denon_AVR_4311 = 'AVR-4311'; //AVR4311CI_AVR4311_PROTOCOL_V7 2 0.pdf
-    const Denon_AVR_X1000 = 'AVR-X1000';
-    const Denon_AVR_X1100W = 'AVR-X1100W'; //IP_Protocol_AVR-Xx100.pdf
-    const Denon_AVR_X1200W = 'AVR-X1200W'; //Steuerungsprotokoll_IP_RS232C_AVR-X1200W_AVR-X2200W_AVR-X3200W_AVR-X4200W.pdf
-    const Denon_AVR_X1300W = 'AVR-X1300W'; //AVR-S720W_S920W_X1300W_X2300W_X3300W_X4300H_X6300H_PROTOCOL_V03.xlsx
-    const Denon_AVR_X2100W = 'AVR-X2100W';
-    const Denon_AVR_X2200W = 'AVR-X2200W';
-    const Denon_AVR_X2000 = 'AVR-X2000';
-    const Denon_AVR_X3000 = 'AVR-X3000';
-    const Denon_AVR_X3100W = 'AVR-X3100W';
-    const Denon_AVR_X3200W = 'AVR-X3200W';
-    const Denon_AVR_X4000 = 'AVR-X4000';
-    const Denon_AVR_X4100W = 'AVR-X4100W'; //IP_Protocol_AVR-Xx100.pdf
-    const Denon_AVR_X4200W = 'AVR-X4200W'; //Steuerungsprotokoll_IP_RS232C_AVR-X1200W_AVR-X2200W_AVR-X3200W_AVR-X4200W.pdf
-
-    const Denon_AVR_X5200W = 'AVR-X5200W'; //IP_Protocol_AVR-Xx100.pdf
-
-    const Denon_AVR_X6200W = 'AVR-X6200W'; //AVR-S720W_S920W_X1300W_X2300W_X3300W_X4300H_X6300H_PROTOCOL_V03.xlsx (red marked at X6300H)
-
-    const Denon_AVR_X7200W = 'AVR-X7200W'; //IP_Protocol_AVR-Xx100.pdf
-    const Denon_AVR_X7200WA = 'AVR-X7200WA'; //IP_Protocol_AVR-Xx100.pdf
-
-    const Denon_S_700W = 'S-700W';
-    const Denon_S_900W = 'S-900W';
-    const Denon_AVR_1912 = 'AVR-1912';
-
-    //supported Marantz models
-//Kompakt Receiver
-    const Marantz_NR1504 = 'Marantz-NR1504';
-    const Marantz_NR1506 = 'Marantz-NR1506';
-
-    const Marantz_NR1602 = 'Marantz-NR1602';
-    const Marantz_NR1603 = 'Marantz-NR1603';
-    const Marantz_NR1604 = 'Marantz-NR1604';
-    const Marantz_NR1605 = 'Marantz-NR1605';
-    const Marantz_NR1606 = 'Marantz-NR1606';
-    const Marantz_NR1607 = 'Marantz-NR1607'; // ??
-//Receiver
-    const Marantz_SR5006 = 'Marantz-SR5006';
-    const Marantz_SR5007 = 'Marantz-SR5007';
-    const Marantz_SR5008 = 'Marantz-SR5008';
-    const Marantz_SR5009 = 'Marantz-SR5009';
-    const Marantz_SR5010 = 'Marantz-SR5010';
-    const Marantz_SR5011 = 'Marantz-SR5011'; // ??
-
-    const Marantz_SR6005 = 'Marantz-SR6005';
-    const Marantz_SR6006 = 'Marantz-SR6006';
-    const Marantz_SR6007 = 'Marantz-SR6007';
-    const Marantz_SR6008 = 'Marantz-SR6008';
-    const Marantz_SR6009 = 'Marantz-SR6009';
-    const Marantz_SR6010 = 'Marantz-SR6010';
-    const Marantz_SR6011 = 'Marantz-SR6011'; // ??
-
-    const Marantz_SR7005 = 'Marantz-SR7005';
-    const Marantz_SR7007 = 'Marantz-SR7007';
-    const Marantz_SR7008 = 'Marantz-SR7008';
-    const Marantz_SR7009 = 'Marantz-SR7009';
-    const Marantz_SR7010 = 'Marantz-SR7010';
-    const Marantz_SR7011 = 'Marantz-SR7011'; // ??
-//Vorverstärker
-    const Marantz_AV7005 = 'Marantz-AV7005';
-    const Marantz_AV7701 = 'Marantz-AV7701';
-    const Marantz_AV7702 = 'Marantz-AV7702';
-    const Marantz_AV7702MKII = 'Marantz-AV7702 mk II';
-    const Marantz_AV7703 = 'Marantz-AV7703'; // ??
-    const Marantz_AV8801 = 'Marantz-AV8801';
-    const Marantz_AV8802 = 'Marantz-AV8802';
 
     public static function getAllAVRs (){
+        //supported Marantz models
         //Hint: the order of this list deermines the order of selectable AVRs in IPS Interface
         return [
                 Denon_AVR_3808A::$Name => Denon_AVR_3808A::getCapabilities(),
@@ -169,6 +96,7 @@ class AVRs extends stdClass
                 Denon_AVR_X1100W::$Name => Denon_AVR_X1100W::getCapabilities(),
                 Denon_AVR_X1200W::$Name => Denon_AVR_X1200W::getCapabilities(),
                 Denon_AVR_X1300W::$Name => Denon_AVR_X1300W::getCapabilities(),
+                Denon_AVR_X3000::$Name => Denon_AVR_X3000::getCapabilities(),
                 Denon_AVR_X4000::$Name => Denon_AVR_X4000::getCapabilities(),
                 Denon_AVR_X4100W::$Name => Denon_AVR_X4100W::getCapabilities(),
                 Denon_AVR_X4200W::$Name => Denon_AVR_X4200W::getCapabilities(),

@@ -2399,7 +2399,8 @@ class DENONIPSProfiles extends stdClass
 
 	    $xmlZone = new SimpleXMLElement($content);
         if ($xmlZone->count() == 0) {
-            trigger_error("xmlzone has no children."
+            trigger_error("xmlzone has no children. "
+                .'(filename correct?: "'.$filename.'", content: '
                 .json_encode($xmlZone));
             return false;
         }
@@ -2409,7 +2410,7 @@ class DENONIPSProfiles extends stdClass
 		if (count($InputFuncList) == 0)
         {
             trigger_error("InputFuncList has no children: "
-                .'(filename: "'.$filename.'", content: '
+                .'(filename correct?: "'.$filename.'", content: '
                 .json_encode($xmlZone));
             return false;
         }
@@ -2417,7 +2418,7 @@ class DENONIPSProfiles extends stdClass
         $RenameSource = $xmlZone->xpath('.//RenameSource');
         if (count($RenameSource) == 0) {
             trigger_error("RenameSource has no children: "
-                .'(filename: "'.$filename.'", content: '
+                .'(filename correct?: "'.$filename.'", content: '
                 .json_encode($xmlZone));
             return false;
         }
@@ -2425,7 +2426,7 @@ class DENONIPSProfiles extends stdClass
         $SourceDelete = $xmlZone->xpath('.//SourceDelete');
         if (count($SourceDelete) == 0) {
             trigger_error("SourceDelete has no children: "
-                .'(filename: "'.$filename.'", content: '
+                .'(filename correct?: "'.$filename.'", content: '
                 .json_encode($xmlZone));
             return false;
         }
