@@ -3083,6 +3083,9 @@ class DENON_StatusHTML extends stdClass {
         if ($Element){
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             $SubCommand = strtoupper((string)$Element[0]->value);
+            if ($this->debug){
+                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'InputFuncSelect: '.$SubCommand);
+            }
             if (key_exists($SubCommand, DENON_API_Commands::$SIMapping)){
                 $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
             }

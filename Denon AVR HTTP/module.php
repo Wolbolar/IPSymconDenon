@@ -309,6 +309,7 @@ class DenonAVRHTTP extends AVRModule
             DENONIPSProfiles::ptPower,
             DENONIPSProfiles::ptMainZonePower,
             DENONIPSProfiles::ptMainMute,
+            DENONIPSProfiles::ptInputSource,
             DENONIPSProfiles::ptSurroundMode,
             DENONIPSProfiles::ptMasterVolume,
             DENONIPSProfiles::ptSleep,
