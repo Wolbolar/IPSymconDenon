@@ -407,6 +407,13 @@ class Denon_AVR_4310 extends DenonAVR{
         DENON_API_Commands::SCH10P24,DENON_API_Commands::SCHAUTO
     ];
 
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNSRC,
+        DENON_API_Commands::DISPLAY,
+    ];
+
 }
 
 class Denon_AVR_4311 extends Denon_AVR_4310{
@@ -457,6 +464,8 @@ class Denon_AVR_4311 extends Denon_AVR_4310{
         DENON_API_Commands::PSSB,
         DENON_API_Commands::PSCINEMAEQ,
         DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSDOLVOL,
+        DENON_API_Commands::PSVOLMOD,
         DENON_API_Commands::PSFH,
         DENON_API_Commands::PSDOLVOL,
         DENON_API_Commands::PSVOLLEV,
