@@ -398,6 +398,14 @@ class Denon_AVR_4310 extends DenonAVR{
         DENON_API_Commands::VSAUDIO,
         DENON_API_Commands::VSVST,
     ];
+    static $VSSC_SubCommands = [
+        DENON_API_Commands::SC48P, DENON_API_Commands::SC10I, DENON_API_Commands::SC72P, DENON_API_Commands::SC10P,
+        DENON_API_Commands::SC10P24, DENON_API_Commands::SCAUTO
+    ];
+    static $VSSCH_SubCommands = [
+        DENON_API_Commands::SCH48P, DENON_API_Commands::SCH10I, DENON_API_Commands::SCH72P, DENON_API_Commands::SCH10P,
+        DENON_API_Commands::SCH10P24,DENON_API_Commands::SCHAUTO
+    ];
 
 }
 
