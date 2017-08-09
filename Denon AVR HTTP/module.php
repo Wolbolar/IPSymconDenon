@@ -149,7 +149,7 @@ class DenonAVRHTTP extends AVRModule
         $APISubCommand = (new DENONIPSProfiles($AVRType, $InputMapping))->GetSubCommandOfValue($Ident, $Value);
         IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Ident: '.$Ident.', Value: '.$Value.', SubCommand: '.$APISubCommand);
 
-        // Daten senden        Rückgabe ist egal, Variable wird automatisch durch Datenempfang nachgeführt
+        // Daten senden        Rückgabe ist egal, Variable wird automatisch durch getstatus() im IO-Modul nachgeführt
         try
         {
 			$this->SendCommand($APICommand.$APISubCommand);
@@ -310,7 +310,7 @@ class DenonAVRHTTP extends AVRModule
             DENONIPSProfiles::ptMainZonePower,
             DENONIPSProfiles::ptMainMute,
             DENONIPSProfiles::ptInputSource,
-            DENONIPSProfiles::ptSurroundMode,
+            //DENONIPSProfiles::ptSurroundMode, //z.Zt. nicht unterstützt, da der SR7010 z.B. mit 'DOLBY SURROUND' antwortet
             DENONIPSProfiles::ptMasterVolume,
             DENONIPSProfiles::ptSleep,
                 ] as $key){

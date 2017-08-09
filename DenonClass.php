@@ -152,7 +152,7 @@ class AVRModule extends IPSModule
                         SetValueBoolean($VarID, $Subcommandvalue);
                         $this->SendDebug("Update ".$ResponseType." ObjektID(boolean):",IPS_GetName($VarID)."(".$VarID.") mit Command: ".$Subcommand.'('.(int)$Subcommandvalue.')',0);
                         if ($this->debug){
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID(".$VarID."): ".$Subcommand.'('.(int)$Subcommandvalue.')');
+                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID ".$VarID." (".IPS_GetName($VarID)."): ".$Subcommand.'('.(int)$Subcommandvalue.')');
                         }
                         break;
                     case 1: //Integer
@@ -160,7 +160,7 @@ class AVRModule extends IPSModule
                         $this->SendDebug("Update ".$ResponseType." ObjektID(integer):",IPS_GetName($VarID)."(".$VarID.") mit Command: ".$Subcommand.'('.$Subcommandvalue.')',0);
                         if ($this->debug)
                         {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID(".$VarID."): ".$Subcommand.'('.$Subcommandvalue.')');
+                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID ".$VarID." (".IPS_GetName($VarID)."): ".$Subcommand.'('.$Subcommandvalue.')');
                         }
                         break;
                     case 2: //Float
@@ -168,7 +168,7 @@ class AVRModule extends IPSModule
                         $this->SendDebug("Update ".$ResponseType." ObjektID(float):",IPS_GetName($VarID)."(".$VarID.") mit Command: ".$Subcommand.'('.$Subcommandvalue.')',0);
                         if ($this->debug)
                         {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID(".$VarID."): ".$Subcommand.'('.$Subcommandvalue.')');
+                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID ".$VarID." (".IPS_GetName($VarID)."): ".$Subcommand.'('.$Subcommandvalue.')');
                         }
                         break;
                     case 3: //String
@@ -176,7 +176,7 @@ class AVRModule extends IPSModule
                         $this->SendDebug("Update ".$ResponseType." ObjektID(string):",IPS_GetName($VarID)."(".$VarID.") mit Command: ".$Subcommand.'('.$Subcommandvalue.')',0);
                         if ($this->debug)
                         {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID(".$VarID."): ".$Subcommand.'('.$Subcommandvalue.')');
+                            IPS_LogMessage(get_class().'::'.__FUNCTION__, "Update ObjektID ".$VarID." (".IPS_GetName($VarID)."): ".$Subcommandvalue);
                         }
                         break;
                     default:
@@ -3048,7 +3048,7 @@ class DENON_StatusHTML extends stdClass {
 		$RenameZone = $xml->xpath('.//RenameZone');
 		if ($RenameZone)
 		{
-			$data['MainZoneName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$RenameZone[0]->value, 'Subcommand' => 'MainZone Name');	
+			$data['MainZoneName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => trim($RenameZone[0]->value), 'Subcommand' => 'MainZone Name');
 		}
 
 		//TopMenuLink
@@ -3083,9 +3083,6 @@ class DENON_StatusHTML extends stdClass {
         if ($Element){
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             $SubCommand = strtoupper((string)$Element[0]->value);
-            if ($this->debug){
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'InputFuncSelect: '.$SubCommand);
-            }
             if (key_exists($SubCommand, DENON_API_Commands::$SIMapping)){
                 $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
             }
@@ -3102,15 +3099,6 @@ class DENON_StatusHTML extends stdClass {
 		}
 		*/
 
-		//InputFuncSelectMain
-		/*
-		$InputFuncSelectMain = $xml->xpath('.//InputFuncSelectMain');
-		if ($InputFuncSelectMain)
-		{
-			$data['SI'] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$InputFuncSelectMain[0]->value, 'Subcommand' => 'Input Source');
-		}
-		*/
-		
 		//selectSurround
 		/*
 		$selectSurround = $xml->xpath('.//selectSurround');
@@ -3262,7 +3250,7 @@ class DENON_StatusHTML extends stdClass {
 		//ModelName
 		$ModelName = $xml->xpath('.//ModelName');
 		if ($ModelName){
-			$data['ModelName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelName[0], 'Subcommand' => 'ModelName');
+			$data['ModelName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => trim($ModelName[0]), 'Subcommand' => 'ModelName');
         }
 		
 		return $data;
@@ -3274,7 +3262,7 @@ class DENON_StatusHTML extends stdClass {
 		$Model = $xml->xpath('.//Model');
 		if ($Model)
 			{
-				$ModelValue = str_replace(" ", "", (string)$Model[0]->value);
+				$ModelValue = str_replace(" ", "", trim($Model[0]->value));
 				$data['Model'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => $ModelValue, 'Subcommand' => 'Model');
 			}
 		

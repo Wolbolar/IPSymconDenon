@@ -149,10 +149,10 @@ class DenonAVRIOHTTP extends IPSModule
 	            //Daten abholen
 				$DenonStatus = new DENON_StatusHTML;
 				$ipdenon = $this->ReadPropertyString("Host");
-				$DenonStatus->ipdenon = $ipdenon;
+                $InputMapping = $this->GetInputVarMapping();
 				$AVRType = $this->GetAVRType();
-				$InputMapping = $this->GetInputVarMapping();
-				$data = $DenonStatus->getStates ($ipdenon, $InputMapping, $AVRType);
+				$data = $DenonStatus->getStates($ipdenon, $InputMapping, $AVRType);
+
 				$this->SendDebug("Status",json_encode($data),0);
 				$this->SendJSON($data);
 	        }
@@ -213,13 +213,14 @@ class DenonAVRIOHTTP extends IPSModule
 			//throw new Exception("Can not send to parent",E_USER_NOTICE);
         }
 				
-		IPS_Sleep(400);
+		IPS_Sleep(1000); //von 400 auf 1000 erhöht, da manche AVR (z.B. 3312) nicht schnell genug sind
+
 		if ($this->lock("HTTPCommandSend"))
         {
-        // Response abholen
+        // 'Response' abholen
 	        try
 	        {
-	            $this->GetStatus ();
+	            $this->GetStatus();
 	        }
 	        catch (Exception $exc)
 	        {
