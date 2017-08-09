@@ -383,10 +383,6 @@ class AVRModule extends IPSModule
                         } else {
                             $profilname = $manufacturername.'.'.$AVRType.'.'.$statusvariable["ProfilName"];
                             $this->CreateProfileString($profilname, $statusvariable["Icon"]);
-                            $this->SendDebug("Variablenprofil angelegt: ",$profilname,0);
-                            if($this->debug){
-                                IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$profilname);
-                            }
                         }
 
                         $id = $this->RegisterVariableString ($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
@@ -411,11 +407,6 @@ class AVRModule extends IPSModule
                             $statusvariable["Stepsize"], $statusvariable["Digits"],
                             $statusvariable["Associations"]
                         );
-                        $this->SendDebug("Variablenprofil angelegt: ",$profilname,0);
-                        if($this->debug)
-                        {
-                            IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$profilname);
-                        }
 
                         $id = $this->RegisterVariableInteger($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
                         $this->EnableAction($statusvariable["Ident"]);
@@ -439,10 +430,6 @@ class AVRModule extends IPSModule
 
                 }
 
-                $this->SendDebug("Variable angelegt: ",$statusvariable["Name"].' [ObjektID: '.$id.']',0);
-                if($this->debug){
-                    IPS_LogMessage('Denon Telnet AVR','Variable angelegt: '. $statusvariable["Name"].' [ObjektID: '.$id.']');
-                }
             }
             // wenn nicht sichtbar löschen
             else {
@@ -476,15 +463,26 @@ class AVRModule extends IPSModule
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;//ConnectionID
     }
 
+    private function checkProfileType($ProfileName, $VarType){
+        $profile = IPS_GetVariableProfile($ProfileName);
+        if ($profile['ProfileType'] != $VarType){
+            throw new Exception('Variable profile type does not match for already existing profile "'.$ProfileName.'". The existing profile has to be deleted manually.'.PHP_EOL);
+        }
+    }
+
     private function CreateProfileInteger($ProfileName, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
     {
 
-        if(!IPS_VariableProfileExists($ProfileName)) {
+        if (!IPS_VariableProfileExists($ProfileName)) {
             IPS_CreateVariableProfile($ProfileName, 1);
+
+            $this->SendDebug("Variablenprofil angelegt: ",$ProfileName,0);
+            if ($this->debug){
+                IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$ProfileName);
+            }
+
         } else {
-            $profile = IPS_GetVariableProfile($ProfileName);
-            if($profile['ProfileType'] != 1)
-                throw new Exception("Variable profile type does not match for profile ".$ProfileName);
+            $this->checkProfileType($ProfileName, DENONIPSVarType::vtInteger);
         }
 
         IPS_SetVariableProfileIcon($ProfileName, $Icon);
@@ -494,11 +492,8 @@ class AVRModule extends IPSModule
 
     }
 
-    private function CreateProfileIntegerAss($ProfileName, $Icon, $Prefix, $Suffix, $StepSize, $Digits, $Associations)
-    {
-        if ($this->debug){
-            IPS_LogMessage(__FUNCTION__, 'Associations: '.json_encode($Associations));
-        }
+    private function CreateProfileIntegerAss($ProfileName, $Icon, $Prefix, $Suffix, $StepSize, $Digits, $Associations){
+
         if ( count($Associations) == 0 ){
             trigger_error(__FUNCTION__.': Associations of profil "'.$ProfileName.'" is empty');
             IPS_LogMessage(__FUNCTION__, json_encode(debug_backtrace()));
@@ -523,29 +518,34 @@ class AVRModule extends IPSModule
 
     }
 
-    private function CreateProfileString($ProfileName, $Icon)
-    {
+    private function CreateProfileString($ProfileName, $Icon){
 
-        if(!IPS_VariableProfileExists($ProfileName)) {
+        if (!IPS_VariableProfileExists($ProfileName)) {
             IPS_CreateVariableProfile($ProfileName, DENONIPSVarType::vtString);
+
+            $this->SendDebug("Variablenprofil angelegt: ",$ProfileName,0);
+            if($this->debug){
+                IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$ProfileName);
+            }
+
         } else {
-            $profile = IPS_GetVariableProfile($ProfileName);
-            if($profile['ProfileType'] != DENONIPSVarType::vtString)
-                throw new Exception('Variable profile type does not match for already existing profile "'.$ProfileName.'". The existing profile has to be deleted manually.'.PHP_EOL);
+            $this->checkProfileType($ProfileName, DENONIPSVarType::vtString);
         }
 
         IPS_SetVariableProfileIcon($ProfileName, $Icon);
     }
 
-    private function CreateProfileFloat($ProfileName, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits)
-    {
+    private function CreateProfileFloat($ProfileName, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits){
 
         if(!IPS_VariableProfileExists($ProfileName)) {
             IPS_CreateVariableProfile($ProfileName, DENONIPSVarType::vtFloat);
+
+            $this->SendDebug("Variablenprofil angelegt: ",$ProfileName,0);
+            if ($this->debug){
+                IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$ProfileName);
+            }
         } else {
-            $profile = IPS_GetVariableProfile($ProfileName);
-            if($profile['ProfileType'] != DENONIPSVarType::vtFloat)
-                throw new Exception('Variable profile type does not match for already existing profile "'.$ProfileName.'". The existing profile has to be deleted manually.'.PHP_EOL);
+            $this->checkProfileType($ProfileName, DENONIPSVarType::vtFloat);
         }
 
         IPS_SetVariableProfileIcon($ProfileName, $Icon);
