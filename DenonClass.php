@@ -1125,7 +1125,8 @@ class DENONIPSProfiles extends stdClass
 	const ptGUIMenu = 'GUIMenu';
 	const ptSurroundDisplay = 'SurroundDisplay';
 	const ptDisplay = 'Display';
-	const ptGraphicEQ = 'GraphicEQ';
+    const ptGraphicEQ = 'GraphicEQ';
+    const ptHeadphoneEQ = 'HeadphoneEQ';
 	const ptDimmer = 'Dimmer';
 	const ptDialogLevelAdjust = 'DialogLevelAdjust';
 	const ptMAINZONEAutoStandbySetting = 'MAINZONEAutoStandbySetting';
@@ -1133,6 +1134,7 @@ class DENONIPSProfiles extends stdClass
 	const ptCenterSpread = 'Centerspread';
     const ptNeural = 'Neural';
     const ptAllZoneStereo = 'AllZoneStereo';
+    const ptAutoLipSync = 'AutoLipSync';
     const ptBassSync = 'BassSync';
     const ptSubwooferLevel = 'SubwooferLevel';
     const ptSubwoofer2Level = 'Subwoofer2Level';
@@ -1266,6 +1268,7 @@ class DENONIPSProfiles extends stdClass
         DENONIPSProfiles::ptAudysseyLFC,
         DENONIPSProfiles::ptAudysseyContainmentAmount,
         DENONIPSProfiles::ptGraphicEQ,
+        DENONIPSProfiles::ptHeadphoneEQ,
         DENONIPSProfiles::ptDynamicRangeCompression,
         DENONIPSProfiles::ptDynamicCompressor,
         DENONIPSProfiles::ptMDAX,
@@ -1305,6 +1308,7 @@ class DENONIPSProfiles extends stdClass
         DENONIPSProfiles::ptGUISourceSelect,
         DENONIPSProfiles::ptAllZoneStereo,
         DENONIPSProfiles::ptDimmer,
+        DENONIPSProfiles::ptAutoLipSync,
 
         //Zone 2
         DENONIPSProfiles::ptZone2Name,
@@ -1421,11 +1425,11 @@ class DENONIPSProfiles extends stdClass
                                                   [true, DENON_API_Commands::DYNEQON],
                                               ]],
             DENONIPSProfiles::ptAudysseyLFC => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::PSLFC, "Name" => "Audyssey LFC",
-                                              "PropertyName" => "AudysseyLFC",
-                                              "Associations" => [
-                                                  [false, DENON_API_Commands::LFCOFF],
-                                                  [true, DENON_API_Commands::LFCON],
-                                              ]],
+                                                "PropertyName" => "AudysseyLFC",
+                                                "Associations" => [
+                                                    [false, DENON_API_Commands::LFCOFF],
+                                                    [true, DENON_API_Commands::LFCON],
+                                                ]],
             DENONIPSProfiles::ptFrontHeight => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::PSFH, "Name" => "Front Height",
                                           "PropertyName" => "FrontHeight",
                                           "Associations" => [
@@ -1504,12 +1508,18 @@ class DENONIPSProfiles extends stdClass
                                                         [false, DENON_API_Commands::MNSRCOFF],
                                                         [true, DENON_API_Commands::MNSRCON],
                                                     ]],
-            DENONIPSProfiles::ptGraphicEQ => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::PSGRAPHICEQ, "Name" => "Graphic EQ",
+            DENONIPSProfiles::ptGraphicEQ => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::PSGEQ, "Name" => "Graphic EQ",
                                               "PropertyName" => "GraphicEQ",
                                               "Associations" => [
-                                                  [false, DENON_API_Commands::PSGRAPHICEQOFF],
-                                                  [true, DENON_API_Commands::PSGRAPHICEQON],
-                ]],
+                                                  [false, DENON_API_Commands::PSGEQOFF],
+                                                  [true, DENON_API_Commands::PSGEQON],
+                                              ]],
+            DENONIPSProfiles::ptHeadphoneEQ => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::PSHEQ, "Name" => "Headphone EQ",
+                                              "PropertyName" => "HeadphoneEQ",
+                                              "Associations" => [
+                                                  [false, DENON_API_Commands::PSHEQOFF],
+                                                  [true, DENON_API_Commands::PSHEQON],
+                                              ]],
             DENONIPSProfiles::ptCenterSpread    => ["Type"         => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::PSCES, "Name" => "Center Spread",
                                                     "PropertyName" => "CenterSpread",
                                                     "Associations" => [
@@ -1523,11 +1533,17 @@ class DENONIPSProfiles extends stdClass
                                                  [true, DENON_API_Commands::PSNEURALON],
                                              ]],
             DENONIPSProfiles::ptAllZoneStereo   => ["Type"         => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::MNZST, "Name" => "All Zone Stereo",
-                                             "PropertyName" => "AllZoneStereo",
-                                             "Associations" => [
-                                                 [false, DENON_API_Commands::MNZSTOFF],
-                                                 [true, DENON_API_Commands::MNZSTON],
-                                             ]],
+                                                    "PropertyName" => "AllZoneStereo",
+                                                    "Associations" => [
+                                                        [false, DENON_API_Commands::MNZSTOFF],
+                                                        [true, DENON_API_Commands::MNZSTON],
+                                                    ]],
+            DENONIPSProfiles::ptAutoLipSync   => ["Type"         => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::SSHOSALS, "Name" => "Auto Lip Sync",
+                                                    "PropertyName" => "AutoLipSync",
+                                                    "Associations" => [
+                                                        [false, DENON_API_Commands::SSHOSALSOFF],
+                                                        [true, DENON_API_Commands::SSHOSALSON],
+                                                    ]],
             DENONIPSProfiles::ptZone2Power      => ["Type" => DENONIPSVarType::vtBoolean, "Ident" => DENON_API_Commands::Z2POWER, "Name" => "Zone 2 Power",
                                           "PropertyName" => "Z2Power",
                                           "Associations" => [
@@ -2370,7 +2386,7 @@ class DENONIPSProfiles extends stdClass
 	{
 
         $caps = AVRs::getCapabilities($this->AVRType);
-        if($caps['httpMainZone'] != DENON_HTTP_Interface::NoHTTPInterface){
+        if ($caps['httpMainZone'] != DENON_HTTP_Interface::NoHTTPInterface){
             if (!filter_var($DenonIP, FILTER_VALIDATE_IP)){
                 trigger_error(__FUNCTION__.': Die IP Adresse "'.$DenonIP.'" ist ungültig!');
                 return;
@@ -2395,7 +2411,6 @@ class DENONIPSProfiles extends stdClass
             trigger_error("Datei " . $filename . " konnte nicht geöffnet werden.");
             return false;
         }
-
 
 	    $xmlZone = new SimpleXMLElement($content);
         if ($xmlZone->count() == 0) {
@@ -3503,8 +3518,6 @@ class DENON_API_Commands extends stdClass
 	const PSDSX = "PSDSX"; // Audyssey DSX Change
     const PSSTW = "PSSTW"; // STAGE WIDTH
     const PSCNTAMT = "PSCNTAMT"; // Audyssey Containment Amount
-    const PSGEQ = "PSGEQ"; // Graphic EQ
-    const PSHEQ = "PSGEQ"; // Headphone EQ
 	const PSSTH = "PSSTH"; // STAGE HEIGHT
 	const PSBAS = "PSBAS"; // BASS
     const PSTRE = "PSTRE"; // TREBLE
@@ -4289,10 +4302,14 @@ class DENON_API_Commands extends stdClass
     const MNZST = "MNZST";
     const MNZSTON = " ON";
 	const MNZSTOFF = " OFF";
-	
-	const PSGRAPHICEQ = "PSGEQ"; // Graphic EQ
-	const PSGRAPHICEQON = " ON"; // Graphic EQ On
-	const PSGRAPHICEQOFF = " OFF"; // Graphic EQ Off
+
+    const PSGEQ = "PSGEQ"; // Graphic EQ
+	const PSGEQON = " ON"; // Graphic EQ On
+	const PSGEQOFF = " OFF"; // Graphic EQ Off
+
+    const PSHEQ = "PSHEQ"; // Headphone EQ
+    const PSHEQON = " ON"; // Headphone EQ On
+    const PSHEQOFF = " OFF"; // Headphone EQ Off
 
     const PSSWL = "PSSWL"; // Subwoofer Level
     const PSSWL2 = "PSSWL2"; // Subwoofer2 Level
@@ -4328,6 +4345,10 @@ class DENON_API_Commands extends stdClass
 	const DIMDIM = " DIM"; // DIM
 	const DIMDAR = " DAR"; // Dark
 	const DIMOFF = " OFF"; // Dimmer off
+
+    const SSHOSALS = "SSHOSALS"; //Auto Lip Sync
+    const SSHOSALSON = " ON"; //Auto Lip Sync On
+    const SSHOSALSOFF = " OFF"; //Auto Lip Sync Off
 
     const PSCES = "PSCES"; // Center Spread
     const PSCESON = " ON"; // Center Spread On

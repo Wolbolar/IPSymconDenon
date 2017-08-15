@@ -154,12 +154,30 @@ class AVR extends stdClass{
     static $InfoFunctions = ['MainZoneName', 'Model'];
     static $InfoFunctions_max = ['MainZoneName', 'Model'];
 
-    static $PowerFunctions = [DENON_API_Commands::PW, DENON_API_Commands::ZM, DENON_API_Commands::SLP, DENON_API_Commands::MU];
-    static $PowerFunctions_max = [DENON_API_Commands::PW, DENON_API_Commands::ZM, DENON_API_Commands::MU,
-        DENON_API_Commands::STBY, DENON_API_Commands::ECO, DENON_API_Commands::SLP];
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::SLP,
+        DENON_API_Commands::MU
+        ];
+    static $PowerFunctions_max = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP
+        ];
 
     static $InputSettings = [];
-    static $InputSettings_max = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::MSQUICK, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
+    static $InputSettings_max = [
+        DENON_API_Commands::SI,
+        DENON_API_Commands::MSSMART,
+        DENON_API_Commands::MSQUICK,
+        DENON_API_Commands::SD,
+        DENON_API_Commands::DC,
+        DENON_API_Commands::SV,
+        ];
     static $SV_SubCommands = [
         DENON_API_Commands::DVD,
         DENON_API_Commands::BD,
@@ -238,6 +256,7 @@ class AVR extends stdClass{
         DENON_API_Commands::MNSRC,
         DENON_API_Commands::MNZST,
         DENON_API_Commands::DIM,
+        DENON_API_Commands::SSHOSALS,
         DENON_API_Commands::DISPLAY,
     ];
     static $PS_Commands = [];

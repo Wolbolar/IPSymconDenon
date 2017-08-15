@@ -649,7 +649,8 @@ class Denon_AVR_X1100W extends DenonAVR{
         DENON_API_Commands::DC,
         DENON_API_Commands::SV
     ];
-    static $PowerFunctions = [DENON_API_Commands::PW,
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
         DENON_API_Commands::ZM,
         DENON_API_Commands::MU,
         DENON_API_Commands::STBY,

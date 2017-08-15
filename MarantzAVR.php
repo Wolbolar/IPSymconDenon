@@ -81,6 +81,12 @@ class Marantz_NR1504 extends MarantzAVR{
         DENON_API_Commands::PSMDAX,
         DENON_API_Commands::PSDELAY,
     ];
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $VS_Commands = [
         DENON_API_Commands::VSAUDIO,
     ];
@@ -97,6 +103,14 @@ class Marantz_NR1506 extends Marantz_NR1504{
         DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
         DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
         DENON_API_Commands::CVZRL,
+    ];
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP
     ];
     static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     static $PS_Commands = [
@@ -146,6 +160,7 @@ class Marantz_NR1602 extends MarantzAVR{
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::MNSRC,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSDIRECT,
@@ -208,6 +223,7 @@ class Marantz_NR1603 extends Marantz_NR1602{
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -286,6 +302,13 @@ class Marantz_NR1603 extends Marantz_NR1602{
 class Marantz_NR1604 extends Marantz_NR1603{
     static $Name = 'Marantz-NR1604';
     static $internalID = 64;
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $SV_SubCommands = [
         DENON_API_Commands::DVD,
         DENON_API_Commands::BD,
@@ -338,6 +361,14 @@ class Marantz_NR1605 extends Marantz_NR1604{
         DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVZRL,
+    ];
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP
     ];
     static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     static $PS_Commands = [
@@ -507,6 +538,7 @@ class Marantz_SR5007 extends Marantz_SR5006{
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -569,6 +601,13 @@ class Marantz_SR5007 extends Marantz_SR5006{
 
 class Marantz_SR5008 extends Marantz_SR5007{
     static $Name = 'Marantz-SR5008';
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $SV_SubCommands = [
         DENON_API_Commands::DVD,
         DENON_API_Commands::BD,
@@ -618,6 +657,14 @@ class Marantz_SR5008 extends Marantz_SR5007{
 class Marantz_SR5009 extends Marantz_SR5008{
     static $Name = 'Marantz-SR5009';
     static $internalID = 70;
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP
+    ];
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -851,6 +898,13 @@ class Marantz_SR6006 extends Marantz_SR6005{
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNSRC,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSDIRECT,
         DENON_API_Commands::MSPUREDIRECT,
@@ -925,6 +979,7 @@ class Marantz_SR6007 extends Marantz_SR6006{
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -983,6 +1038,13 @@ class Marantz_SR6007 extends Marantz_SR6006{
 class Marantz_SR6008 extends Marantz_SR6007{
     static $Name = 'Marantz-SR6008';
     static $internalID = 75;
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $SV_SubCommands = [
         DENON_API_Commands::DVD,
         DENON_API_Commands::BD,
@@ -1035,6 +1097,14 @@ class Marantz_SR6008 extends Marantz_SR6007{
 class Marantz_SR6009 extends Marantz_SR6008{
     static $Name = 'Marantz-SR6009';
     static $internalID = 76;
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP
+    ];
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -1161,6 +1231,7 @@ class Marantz_SR6010 extends Marantz_SR6009{
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
         DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSLFC,
         DENON_API_Commands::PSGEQ,
         DENON_API_Commands::PSHEQ,
         DENON_API_Commands::PSDRC,
@@ -1303,6 +1374,7 @@ class Marantz_SR7007 extends Marantz_SR7005{
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -1374,6 +1446,13 @@ class Marantz_SR7007 extends Marantz_SR7005{
 class Marantz_SR7008 extends Marantz_SR7007{
     static $Name = 'Marantz-SR7008';
     static $internalID = 80;
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $SV_SubCommands = [
         DENON_API_Commands::DVD,
         DENON_API_Commands::BD,
@@ -1427,6 +1506,14 @@ class Marantz_SR7008 extends Marantz_SR7007{
 class Marantz_SR7009 extends Marantz_SR7008{
     static $Name = 'Marantz-SR7009';
     static $internalID = 81;
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP
+    ];
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -1448,6 +1535,9 @@ class Marantz_SR7009 extends Marantz_SR7008{
     ];
     static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     static $MS_SubCommands = [
+        DENON_API_Commands::MSMOVIE,
+        DENON_API_Commands::MSMUSIC,
+        DENON_API_Commands::MSGAME,
         DENON_API_Commands::MSDIRECT,
         DENON_API_Commands::MSPUREDIRECT,
         DENON_API_Commands::MSSTEREO,
@@ -1484,6 +1574,8 @@ class Marantz_SR7009 extends Marantz_SR7008{
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
         DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSLFC,
+        DENON_API_Commands::PSCNTAMT,
         DENON_API_Commands::PSGEQ,
         DENON_API_Commands::PSDRC,
         DENON_API_Commands::PSMDAX,
@@ -1551,6 +1643,8 @@ class Marantz_SR7010 extends Marantz_SR7009{
         DENON_API_Commands::PSDYNEQ,
         DENON_API_Commands::PSREFLEV,
         DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSLFC,
+        DENON_API_Commands::PSCNTAMT,
         DENON_API_Commands::PSGEQ,
         DENON_API_Commands::PSHEQ,
         DENON_API_Commands::PSDRC,
@@ -1596,6 +1690,7 @@ class Marantz_AV7701 extends MarantzAVR {
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
     ];
     static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -1694,6 +1789,20 @@ class Marantz_AV7701 extends MarantzAVR {
 class Marantz_AV7702 extends Marantz_AV7701{
     static $Name = 'Marantz-AV7702';
     static $internalID = 85;
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::SLP
+    ];
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -1878,6 +1987,13 @@ class Marantz_AV7703 extends Marantz_AV7702mkII{
 class Marantz_AV8801 extends MarantzAVR{
     static $Name = 'Marantz-AV8801';
     static $internalID = 87;
+    static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::SSHOSALS,
+    ];
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -1993,6 +2109,13 @@ class Marantz_AV8801 extends MarantzAVR{
 class Marantz_AV8802 extends Marantz_AV8801{
     static $Name = 'Marantz-AV8802';
     static $internalID = 88;
+    static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::SLP
+    ];
     static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
