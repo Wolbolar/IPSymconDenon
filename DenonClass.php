@@ -108,23 +108,35 @@ class AVRModule extends IPSModule
                             SetValueString($this->GetIDForIdent("SurroundDisplay"), $SurroundDisplay);
                         }
                     }
-                    // NSADisplay
-                    if ($this->ReadPropertyBoolean('Display'))
-                    {
-                        $NSADisplay = $data->NSADisplay;
-                        $NSADisplayLog = json_encode($NSADisplay);
-                        $this->SendDebug("Display:",$NSADisplayLog,0);
+                    // OnScreenDisplay
+                    if ($this->ReadPropertyBoolean('Display')){
+                        $OnScreenDisplay = $data->Display;
+                        $this->SendDebug("Display:",json_encode($OnScreenDisplay),0);
                         if ($this->debug){
-                            IPS_LogMessage("Denon Telnet AVR", "Display: ".$NSADisplayLog);
+                            IPS_LogMessage("Denon Telnet AVR", "Display: ".json_encode($OnScreenDisplay));
                         }
 
-                        $idDisplay = $this->GetIDForIdent("Display");
+                        $idDisplay = $this->GetIDForIdent(DENON_API_Commands::DISPLAY);
                         $DisplayHTML = GetValue($idDisplay);
                         $doc = new DOMDocument();
                         $doc->loadHTML($DisplayHTML);
-                        foreach ($NSADisplay as $row => $content){
-                            $doc->getElementById('NSARow'.$row)->nodeValue = $content;
+                        foreach ($OnScreenDisplay as $row => $content){
+                            $node = $doc->getElementById('NSARow'.$row);
+                            if (($row > 0) && ($row < 8)){
+                                if ((ord(substr($content,0,1)) & 8) == 8){ //Cursor Select (8) ist gesetzt
+                                    IPS_LogMessage(get_class().'::'. __FUNCTION__, 'row: '.$row.', content[0]: '. decbin(ord(substr($content,0,1))));
+                                    $node->setAttribute('style', 'color:#FF0000');
+                                } else {
+                                    if ($node->hasAttribute('style')){
+                                        $node->removeAttribute('style');
+                                    }
+                                }
+                                $content = substr($content,1);
+                            }
+
+                            $node->nodeValue = utf8_decode($content);
                         }
+                        
                         SetValueString($idDisplay, $doc->saveHTML());
                     }
                 }
@@ -385,17 +397,17 @@ class AVRModule extends IPSModule
                             $this->CreateProfileString($profilname, $statusvariable["Icon"]);
                         }
 
-                        $id = $this->RegisterVariableString ($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
+                        $this->RegisterVariableString ($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
 
                         //todo: prüfen, was hier wofür zusätzlich gemacht wird
-                        if ($ident == DENONIPSProfiles::ptDisplay){
-                            $DisplayHTML = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
-                            SetValueString($this->GetIDForIdent(DENONIPSProfiles::ptDisplay), $DisplayHTML);
+                        if ($ident == DENON_API_Commands::DISPLAY){
+                            $DisplayHTML = '<html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
+                            SetValueString($this->GetIDForIdent(DENON_API_Commands::DISPLAY), $DisplayHTML);
                         }
                         break;
 
                     case DENONIPSVarType::vtBoolean:
-                        $id = $this->RegisterVariableBoolean($statusvariable["Ident"], $statusvariable["Name"], '~Switch', $statusvariable["Position"]);
+                        $this->RegisterVariableBoolean($statusvariable["Ident"], $statusvariable["Name"], '~Switch', $statusvariable["Position"]);
                         $this->EnableAction($statusvariable["Ident"]);
                         break;
 
@@ -408,7 +420,7 @@ class AVRModule extends IPSModule
                             $statusvariable["Associations"]
                         );
 
-                        $id = $this->RegisterVariableInteger($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
+                        $this->RegisterVariableInteger($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
                         $this->EnableAction($statusvariable["Ident"]);
                         break;
 
@@ -420,7 +432,7 @@ class AVRModule extends IPSModule
                         {
                             IPS_LogMessage('Denon Telnet AVR','Variablenprofil angelegt: '.$profilname);
                         }
-                        $id = $this->RegisterVariableFloat($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
+                        $this->RegisterVariableFloat($statusvariable["Ident"], $statusvariable["Name"], $profilname, $statusvariable["Position"]);
                         $this->EnableAction($statusvariable["Ident"]);
                         break;
 
@@ -3097,12 +3109,15 @@ class DENON_StatusHTML extends stdClass {
         $Element = $xml->xpath('.//InputFuncSelect');
         if ($Element){
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
-            $SubCommand = strtoupper((string)$Element[0]->value);
+            if ($this->debug){
+                IPS_LogMessage(get_class().'::'.__FUNCTION__,'VarMapping: '.json_encode($VarMapping));
+            }
+            $SubCommand = (string)$Element[0]->value;
             if (key_exists($SubCommand, DENON_API_Commands::$SIMapping)){
                 $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
             }
 
-            $data[DENON_API_Commands::SI] =  array('VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand);
+            $data[DENON_API_Commands::SI] =  array('VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand);
         }
 
 		//NetFuncSelect
@@ -3722,11 +3737,15 @@ class DENON_API_Commands extends stdClass
     static public $SIMapping = ['CBL/SAT' => DENON_API_Commands::SAT_CBL,
                                  'MediaPlayer' => DENON_API_Commands::MPLAY,
                                  'Media Player' => DENON_API_Commands::MPLAY,
+                                 'Media Server' => DENON_API_Commands::SERVER,
                                  'iPod/USB' => DENON_API_Commands::USB_IPOD,
                                  'TVAUDIO' => DENON_API_Commands::TV,
                                  'Bluetooth' => DENON_API_Commands::BT,
                                  'Blu-ray' => DENON_API_Commands::BD,
-                                 'Online Music' => DENON_API_Commands::NET];
+                                 'Online Music' => DENON_API_Commands::NET,
+                                 'Internet Radio' => DENON_API_Commands::IRADIO,
+                                 'Last. fm' => DENON_API_Commands::LASTFM,
+        ];
 
     static public $SI_InputSettings = [
                                 DENON_API_Commands::PHONO,
@@ -4556,21 +4575,25 @@ class DenonAVRCP_API_Data extends stdClass
         return $showsurrounddisplay;
     }
 
-    private function getNSADisplay($data){
-        $NSADisplay = [];
+    private function getDisplay($data){
+        $Display = [];
+
+        $debug = true;
 
         foreach($data as $key => $response) {
-            if (stripos($response, "NSA") !== false){ //Display auslesen
-                $NSARow = substr($response, 3, 1);
-                $response = str_replace("NSA".$NSARow, "", $response);
-                $response = str_replace("<LF>", "", $response);
-                $response = str_replace("<STX>", "", $response);
-                $response = str_replace("<NUL>", "", $response);
-                $response = trim($response);
-                $NSADisplay[$NSARow] = $response;
+            $Row = substr($response, 3, 1);
+            if ((stripos($response, "NSA") !== false) || (stripos($response, "NSE") !== false)){ //Display auslesen
+                //the first characters ('NSEx') are cut
+                $response = rtrim(substr($response, 4));
+                if ($debug){
+                    IPS_LogMessage(get_class().'::'.__FUNCTION__,'response ('.$key.'): '.json_encode($response));
+                    IPS_LogMessage(get_class().'::'.__FUNCTION__,'response ('.$key.'): '.bin2hex($response));
+                }
+
+                $Display[$Row] = $response;
             }
         }
-        return $NSADisplay;
+        return $Display;
     }
 
     public function GetCommandResponse ($InputMapping)
@@ -4579,7 +4602,7 @@ class DenonAVRCP_API_Data extends stdClass
 
         //Debug Log
         if ($debug){
-            IPS_LogMessage('Denon Class::'.__FUNCTION__,'data: '.json_encode($this->Data));
+            IPS_LogMessage(get_class().'::'.__FUNCTION__,'data: '.json_encode($this->Data));
 		}
 
 		// Response an besondere Idents anpassen
@@ -4640,6 +4663,11 @@ class DenonAVRCP_API_Data extends stdClass
 
         foreach ($this->Data as $response){
 
+            if (substr($response,0,2) == 'NS'){
+                //die Antworten 'NSA' und 'NSE' werden separat ausgewertet
+                continue;
+            }
+            
             $response_found = false;
             foreach ($VarMapping as $Command => $item){ //Zuordnung suchen
                 if (stripos($response, $Command) === 0){// Subcommand ermitteln
@@ -4680,7 +4708,7 @@ class DenonAVRCP_API_Data extends stdClass
                                                          'Subcommand' => $ResponseSubCommand
                                 ];
                             } else {
-                                IPS_LogMessage(get_class() . '::' . __FUNCTION__,'Warning: No value found for SubCommand "'.$ResponseSubCommand.'"');
+                                IPS_LogMessage(get_class() . '::' . __FUNCTION__,'*Warning*: No value found for SubCommand "'.$ResponseSubCommand.'"');
                             }
                             break;
                     }
@@ -4690,7 +4718,7 @@ class DenonAVRCP_API_Data extends stdClass
                 }
             }
             if (!$response_found){
-                IPS_LogMessage(get_class() . '::' . __FUNCTION__,'Warning: No mapping found for response "'.$response.'"');
+                IPS_LogMessage(get_class() . '::' . __FUNCTION__,'*Warning*: No mapping found for response "'.$response.'"');
             }
 
         }
@@ -4699,7 +4727,7 @@ class DenonAVRCP_API_Data extends stdClass
 			'ResponseType' => 'TELNET',
 			'Data' => $datavalues,
 			'SurroundDisplay' => $SurroundDisplay,
-			'NSADisplay' => $this->getNSADisplay($this->Data)
+			'Display' => $this->getDisplay($this->Data)
 			);
 
 		//Debug Log

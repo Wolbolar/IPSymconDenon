@@ -151,7 +151,8 @@ class DenonAVRIOHTTP extends IPSModule
 				$ipdenon = $this->ReadPropertyString("Host");
                 $InputMapping = $this->GetInputVarMapping();
 				$AVRType = $this->GetAVRType();
-				$data = $DenonStatus->getStates($ipdenon, $InputMapping, $AVRType);
+
+                $data = $DenonStatus->getStates($ipdenon, $InputMapping, $AVRType);
 
 				$this->SendDebug("Status",json_encode($data),0);
 				$this->SendJSON($data);

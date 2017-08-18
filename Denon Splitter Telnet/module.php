@@ -393,9 +393,11 @@ class DenonSplitterTelnet extends IPSModule
 		$data = preg_split('/\r/', $dataio);
 		array_pop($data);
 
-		$datamessage = json_encode($data);
-		$this->SendDebug("Received Data:",$datamessage,0);
-		
+		$this->SendDebug("Received Data:",json_encode($data),0);
+		if ($this->debug){
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'received data: '.json_encode($data));
+        }
+
 		$APIData = new DenonAVRCP_API_Data($this->GetAVRType(), $data);
 
 		$InputMapping = $this->GetInputVarMapping();
