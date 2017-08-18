@@ -3743,6 +3743,7 @@ class DENON_API_Commands extends stdClass
                                  'Bluetooth' => DENON_API_Commands::BT,
                                  'Blu-ray' => DENON_API_Commands::BD,
                                  'Online Music' => DENON_API_Commands::NET,
+                                 'NETWORK' => DENON_API_Commands::NET,
                                  'Internet Radio' => DENON_API_Commands::IRADIO,
                                  'Last. fm' => DENON_API_Commands::LASTFM,
         ];
@@ -4667,7 +4668,7 @@ class DenonAVRCP_API_Data extends stdClass
                 //die Antworten 'NSA' und 'NSE' werden separat ausgewertet
                 continue;
             }
-            
+
             $response_found = false;
             foreach ($VarMapping as $Command => $item){ //Zuordnung suchen
                 if (stripos($response, $Command) === 0){// Subcommand ermitteln
