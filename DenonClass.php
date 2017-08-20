@@ -2465,10 +2465,8 @@ class DENONIPSProfiles extends stdClass
         $countinput = count($InputFuncList[0]->value);
 
         for ($i = 0; $i <= $countinput-1; $i++){
-            if ($this->debug){
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, '$SourceDelete['.$i.']: '.json_encode($SourceDelete[0]->value[$i]));
-            }
-            if ((string)$SourceDelete[0]->value[$i] == "USE" || is_null($SourceDelete[0]->value[$i])){
+           //manche AVRs(z.B. Marantz 7010 bei 'Online Music') liefern auch schon mal einen Leerstring anstelle von 'USE'
+           if (((string)$SourceDelete[0]->value[$i] == 'USE') || ((string)$SourceDelete[0]->value[$i] == '')){
                 $UsedInput_i++;
                 $MinValue[$UsedInput_i] = $UsedInput_i;
                 if ($MainForm == DENON_HTTP_Interface::MainForm_old){
