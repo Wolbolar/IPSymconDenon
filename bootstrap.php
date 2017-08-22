@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Fonzo
  * Date: 18.06.2017
- * Time: 16:05
+ * Time: 16:05.
  */
 
 /**
@@ -11,4 +11,4 @@
  */
 
 // Load the additional classes
-require_once(__DIR__ .DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.'bootstrap.php');
+require_once __DIR__.DIRECTORY_SEPARATOR.'libs'.DIRECTORY_SEPARATOR.'bootstrap.php';
