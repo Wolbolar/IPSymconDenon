@@ -162,12 +162,6 @@ class DenonAVRTelnet extends AVRModule
             $this->CreateNEOScripts(static::$NEO_Parameter);
         }
 
-        // Alexa Links anlegen
-        if ($this->ReadPropertyBoolean('Alexa')) {
-            $this->CreateAlexaLinks($manufacturername, $AVRType, $Zone);
-        } else {
-            $this->DeleteAlexaLinks($manufacturername, $AVRType, $Zone);
-        }
     }
 
     /**
@@ -248,6 +242,7 @@ class DenonAVRTelnet extends AVRModule
 
             //bei Commands ohne automatischen Response wird noch ein Request abgesetzt (<command>+?), damit die Variablen nachgeführt werden
             //todo: gibt es Variablen, die nachgeführt werden müssen, da sie sonst nicht aktualisiert werden?
+            //die Liste ist noch zu überprüfen
             if ($APICommand == 'PSVOLLEV') {         // Dolby Volume Leveler
                 $this->SendRequest($APICommand, true);
             } elseif ($APICommand == 'PSVOLMOD') {   // Dolby Volume Modeler
@@ -1328,7 +1323,6 @@ class DenonAVRTelnet extends AVRModule
         $formselectionAVR = $this->FormSelectionAVR($manufacturername);
         $formselectionzone = $this->FormSelectionZone();
         $formselectionneo = $this->FormSelectionNEO();
-        $formselectionalexa = $this->FormSelectionAlexa();
         $formactions = $this->FormActions();
         $formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
         $formstatus = $this->FormStatus();
@@ -1346,10 +1340,10 @@ class DenonAVRTelnet extends AVRModule
         } else {
             if ($zone == 0) {
                 $formmainzone = $this->FormMainzone($AVRType);
-                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formmainzone.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
+                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
             } else {
                 $formzone = $this->FormZone($zone, $AVRType);
-                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formzone.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
+                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
             }
         }
 
@@ -1387,9 +1381,6 @@ class DenonAVRTelnet extends AVRModule
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 
         $form = '{ "type": "Label", "label": "main zone:" },';
-
-        //todo
-        //				{ "type": "CheckBox", "name": "Navigation", "caption": "show navigation remote" },
 
         $CommandAreas = [
             //Label => Caps CommandArea
@@ -1498,7 +1489,7 @@ class DenonAVRTelnet extends AVRModule
             },
             {
                 "type": "Button",
-                "label": "Status Initialisieren",
+                "label": "Status initialisieren",
                 "onClick": "DAVRT_GetStates($id);"
             }
         ],';

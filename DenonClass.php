@@ -4,7 +4,7 @@ require_once __DIR__.'/AVRModels.php';  // diverse Klassen
 
 class AVRModule extends IPSModule
 {
-    protected $debug = true;
+    protected $debug = false;
     protected $testAllProperties = false;
 
     const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
@@ -192,7 +192,6 @@ class AVRModule extends IPSModule
                     default:
                         trigger_error(get_class().'::'.__FUNCTION__.': invalid VarType: '.$VarType);
                 }
-                //$this->SetHiddenStatus();
             } else {
                 // nichts zu tun. Variable ist nicht vorhanden
                 if ($this->debug) {
@@ -204,123 +203,6 @@ class AVRModule extends IPSModule
         return true;
     }
 
-    private function SetHiddenStatus()
-    {
-        $SurroundModusResponse = GetValueString($this->GetIDForIdent(DENON_API_Commands::SURROUNDDISPLAY));
-
-        /* aus Performancegründen deaktiviert
-            $this->GetLinked_SetHidden(ID_DENON_SURROUNDBACKMODE); //deaktiv, da kein SurroundBack LS vorhanden ist
-            $this->GetLinked_SetHidden(ID_DENON_PLIIZHEIGHT); // deaktiv, da keine Höhen LS vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_AFDM); // deaktiv, da keine SurroundBack LS vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_AUDIODELAY); // deaktiv, da nur im VideoModus benötigt
-            $this->GetLinked_SetHidden(ID_DENON_INPUTMODE); // deaktiv, da der Modus auf Auto belassen werden sollte
-            $this->GetLinked_SetHidden(ID_DENON_FRONTSPEAKER); // deaktiv, da keine Frontspeaker B vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX); // deaktiv, da weder Front Height noch Wide LS vorhanden
-            $this->GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            $this->GetLinked_SetHidden(ID_DENON_DRC); // deaktiv, da nur für Dolby TrueHD Signalen gültig
-            $this->GetLinked_SetHidden(ID_DENON_LFELevel); // deaktiv, da nur für DTS Quellen bei Musik auf -10 geschaltet werden sollte (sehr speziell)
-        */
-
-        $isRoomSimulated = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSMCHSTEREO],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSROCKARENA],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSJAZZCLUB],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSMONOMOVIE],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSVIDEOGAME],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSMATRIX],
-                                                            DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSVIRTUAL],
-                                                            ]);
-
-        // Dolby + PLIIz im Musikmodus?
-        $isDolbyPLIIMusicActive = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2M],
-                                                                    DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XM],
-                                                                    ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSPAN), !$isDolbyPLIIMusicActive); //Panorama
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDIM), !$isDolbyPLIIMusicActive); //Dimension
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSCEN), !$isDolbyPLIIMusicActive); //Center Width
-
-        // DTS NEO6 im Musikmodus?
-        $isDTSNeo6MusicActive = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$DTSSurroundModes[DENON_API_Commands::DTSNEO6M]]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSCEI), !$isDTSNeo6MusicActive);
-
-        // CinemaEQ möglich?
-        $isCinemaEQPossible = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2C],
-                                                                DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XC],
-                                                                DenonAVRCP_API_Data::$DTSSurroundModes[DENON_API_Commands::DTSNEO6C],
-        ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSCINEMAEQ), !$isCinemaEQPossible);
-
-        // ToneCtrl bzw. Bass/Treble möglich?
-        $isToneCtrlPossible = !in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSDIRECT],
-                                                                 DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSPUREDIRECT],
-                                                                ])
-            && !GetValueBoolean($this->GetIDForIdent(DENON_API_Commands::PSDYNEQ)); //Dynamic EQ
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSTONECTRL), !$isToneCtrlPossible);
-
-        $isBassTreblePossible = $isToneCtrlPossible && GetValueBoolean($this->GetIDForIdent(DENON_API_Commands::PSTONECTRL));
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSBAS), !$isBassTreblePossible); //Bass Level
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSTRE), !$isBassTreblePossible); //Treble Level
-
-        // Audyssey möglich?
-        $isAudysseyPossible = !in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSDIRECT],
-                                                                 DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSPUREDIRECT],
-                                                                ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSMULTEQ), !$isAudysseyPossible);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDYNEQ), !$isAudysseyPossible);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDYNVOL), !$isAudysseyPossible);
-
-        // AudysseyDSX möglich?
-        //	$isAudysseyDSXPossible = !in_array($SurroundModusResponse, ['DIRECT', 'PURE DIRECT', 'STEREO', 'DOLBY PL2Z H', 'MCH STEREO'])
-        //								&& !$isRoomSimulated;
-        //	$this->GetLinked_SetHidden(ID_DENON_AUDYSSEYDSX, !$isAudysseyDSXPossible);
-
-        // Restorer und DRC möglich?
-        $isRestorerAndDRCPossible = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSSTEREO],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2ZH],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2C],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2M],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2G],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XC],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XM],
-                                                                        DenonAVRCP_API_Data::$DolbySurroundModes[DENON_API_Commands::DOLBYPL2XG],
-                                                                        ])
-            || $isRoomSimulated;
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSRSTR), !$isRestorerAndDRCPossible);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSDRC), !$isRestorerAndDRCPossible);
-
-        // Subwoofer möglich?
-        $isSubwooferPossible = in_array($SurroundModusResponse, [DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSDIRECT],
-                                                                    DenonAVRCP_API_Data::$SurroundModes[DENON_API_Commands::MSPUREDIRECT],
-                                                                ]);
-        $this->GetLinked_SetHidden($this->GetIDForIdent(DENON_API_Commands::PSSWR), !$isSubwooferPossible);
-
-        if ($this->debug) {
-            IPS_LogMessage(basename(__FILE__, '.ips.php').'.'.__FUNCTION__, 'isDolbyPLIIMusicActive: '.(int) $isDolbyPLIIMusicActive
-                .', isDTSNeo6MusicActive: '.(int) $isDTSNeo6MusicActive
-                .', isCinemaEQPossible: '.(int) $isCinemaEQPossible
-                .', isToneCtrlPossible: '.(int) $isToneCtrlPossible
-                .', isAudysseyPossible: '.(int) $isAudysseyPossible
-                .', isRoomSimulated: '.(int) $isRoomSimulated
-                .', isSubwooferPossible: '.(int) $isSubwooferPossible
-            );
-        }
-    }
-
-    //*************************************************************************************************************
-    // Links zu einer Variablen werden gesucht und versteckt/aufgedeckt
-    private function GetLinked_SetHidden($VariablenID, $Value = true)
-    {
-        $Result = false;
-
-        foreach (IPS_GetLinkList() as $LinkID) {
-            $TargetID = IPS_GetLink($LinkID)['TargetID'];
-            if ($TargetID == $VariablenID) {
-                IPS_SetHidden($TargetID, $Value);
-                $Result = true;
-            }
-        }
-
-        return $Result;
-    }
 
     protected function RegisterProperties()
     {
@@ -347,11 +229,6 @@ class AVRModule extends IPSModule
         $this->RegisterPropertyBoolean('NAPSTER', false);
         $this->RegisterPropertyBoolean('LASTFM', false);
         $this->RegisterPropertyBoolean('FLICKR', false);
-
-        //Alexa
-        $this->RegisterPropertyBoolean('Alexa', false);
-        $this->RegisterPropertyString('AlexaPower', 'Verstärker Power');
-        $this->RegisterPropertyString('AlexaPowerZone', 'Verstärker Power');
 
         //Neo
         $this->RegisterPropertyBoolean('NEOToggle', false);
@@ -394,7 +271,6 @@ class AVRModule extends IPSModule
 
                         $this->RegisterVariableString($statusvariable['Ident'], $statusvariable['Name'], $profilname, $statusvariable['Position']);
 
-                        //todo: prüfen, was hier wofür zusätzlich gemacht wird
                         if ($ident == DENON_API_Commands::DISPLAY) {
                             $DisplayHTML = '<html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
                             SetValueString($this->GetIDForIdent(DENON_API_Commands::DISPLAY), $DisplayHTML);
@@ -724,23 +600,6 @@ class AVRModule extends IPSModule
             { "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
     }
 
-    protected function FormSelectionAlexa()
-    {
-        if ($this->GetAlexaSmartHomeSkill() > 0) {
-            return '{ "type": "Label", "label": "__________________________________________________________________________________________________" },
-            { "type": "Label", "label": "Amazon Echo / Dot" },
-            { "type": "Label", "label": "Alexa Smart Home Skill is available in IP-Symcon" },
-            { "type": "Label", "label": "Would you like to create links in the SmartHomeSkill instance for voice control?" },
-            { "type": "CheckBox", "name": "Alexa", "caption": "Create links for Amazon Echo / Dot" },
-            { "type": "Label", "label": "Alexa name for Power" },
-            { "type": "ValidationTextBox", "name": "AlexaPower", "caption": "Alexa Power" },
-            { "type": "Label", "label": "Alexa name for Power Zone" },
-            { "type": "ValidationTextBox", "name": "AlexaPowerZone", "caption": "Alexa Power Zone" },';
-        } else {
-            return '';
-        }
-    }
-
     protected function FormStatus()
     {
         return '"status":
@@ -809,128 +668,6 @@ class AVRModule extends IPSModule
         }
     }
 
-    private function GetAlexaSmartHomeSkill()
-    {
-        $InstanzenListe = IPS_GetInstanceListByModuleID('{3F0154A4-AC42-464A-9E9A-6818D775EFC4}'); // IQL4SmartHome
-
-        if (count($InstanzenListe) > 0) {
-            return $InstanzenListe[0];
-        } else {
-            return false;
-        }
-    }
-
-    protected function CreateAlexaLinks($manufacturername, $AVRType, $Zone)
-    {
-        $AlexaLinkNamePower = $this->ReadPropertyString('AlexaPower');
-        $AlexaLinkNameZonePower = $this->ReadPropertyString('AlexaPowerZone');
-        $IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
-
-        //Prüfen ob Kategorie schon existiert, sonst anlegen
-        $AlexaCategoryID = @IPS_GetObjectIDByIdent('AlexaAVR', $IQL4SmartHomeID);
-        if ($AlexaCategoryID === false) {
-            $AlexaCategoryID = IPS_CreateCategory();
-            IPS_SetName($AlexaCategoryID, 'AV Receiver');
-            IPS_SetIdent($AlexaCategoryID, 'AlexaAVR');
-            IPS_SetInfo($AlexaCategoryID, 'AV Receiver über Alexa an/ausschalten');
-            IPS_SetParent($AlexaCategoryID, $IQL4SmartHomeID);
-        }
-
-        //Prüfen ob Link schon vorhanden
-        $identPower = $manufacturername.'_'.str_replace('-', '_', $AVRType).'_Power';
-        $LinkIDPower = @IPS_GetObjectIDByIdent($identPower, $AlexaCategoryID);
-        if ($LinkIDPower === false) {
-            // Anlegen eines neuen Links für Power
-            $LinkIDPower = IPS_CreateLink();             // Link anlegen
-            IPS_SetIdent($LinkIDPower, $identPower); //ident
-            IPS_SetLinkTargetID($LinkIDPower, ($this->GetIDForIdent('PW')));    // Link verknüpfen
-            IPS_SetInfo($LinkIDPower, $manufacturername.' '.$AVRType.' Power');
-            IPS_SetParent($LinkIDPower, $AlexaCategoryID); // Link einsortieren
-        }
-
-        IPS_SetName($LinkIDPower, $AlexaLinkNamePower); // Link benennen
-
-        switch ($Zone) {
-            case 0: //Mainzone
-                $identMainzonePower = $manufacturername.'_'.$identPower.'_MainzonePower';
-                $LinkID = @IPS_GetObjectIDByIdent($identMainzonePower, $AlexaCategoryID);
-                if ($LinkID === false) {
-                    // Anlegen eines neuen Links für Power
-                    $LinkID = IPS_CreateLink();             // Link anlegen
-                    IPS_SetIdent($LinkID, $identMainzonePower); //ident
-                    IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent('ZM')));    // Link verknüpfen
-                    IPS_SetInfo($LinkID, $manufacturername.' '.$AVRType.' Mainzone Power');
-                    IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren
-                }
-                IPS_SetName($LinkID, $AlexaLinkNameZonePower.' Mainzone'); // Link benennen
-                break;
-
-            case 1: //Zone 2
-                $identZone2Power = $manufacturername.'_'.$identPower.'_Zone2Power';
-                $LinkID = @IPS_GetObjectIDByIdent($identZone2Power, $AlexaCategoryID);
-                if ($LinkID === false) {
-                    // Anlegen eines neuen Links für Zone2Power
-                    IPS_SetIdent($LinkID, $identZone2Power); //ident
-                    IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent('ZM')));    // Link verknüpfen
-                    IPS_SetInfo($LinkID, $manufacturername.' '.$AVRType.' Zone 2 Power');
-                    IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren
-                }
-                IPS_SetName($LinkID, $AlexaLinkNameZonePower.' Zone 2'); // Link benennen
-                break;
-
-            case 2:// Zone 3
-                $identZone3Power = $manufacturername.'_'.$identPower.'_Zone3Power';
-                $LinkID = @IPS_GetObjectIDByIdent($identZone3Power, $AlexaCategoryID);
-                if ($LinkID === false) {
-                    // Anlegen eines neuen Links für Zone2Power
-                    IPS_SetIdent($LinkID, $identZone3Power); //ident
-                    IPS_SetLinkTargetID($LinkID, ($this->GetIDForIdent('Z3POWER')));    // Link verknüpfen
-                    IPS_SetInfo($LinkID, $manufacturername.' '.$AVRType.' Zone 3 Power');
-                    IPS_SetParent($LinkID, $AlexaCategoryID); // Link einsortieren
-                }
-                IPS_SetName($LinkID, $AlexaLinkNameZonePower.' Zone 3'); // Link benennen
-                break;
-
-            default:
-                trigger_error(__FUNCTION__.': unknown zone: '.$Zone);
-
-                return false;
-        }
-
-        return true;
-    }
-
-    protected function DeleteAlexaLinks($manufacturername, $AVRType, $Zone)
-    {
-        $IQL4SmartHomeID = $this->GetAlexaSmartHomeSkill();
-        $AlexaCategoryID = @IPS_GetObjectIDByIdent('AlexaAVR', $IQL4SmartHomeID);
-        $AVRTypeident = str_replace('-', '_', $AVRType);
-        $LinkIDPower = @IPS_GetObjectIDByIdent($manufacturername.'_'.$AVRTypeident.'_Power', $AlexaCategoryID);
-
-        $LinkID = 0;
-        if ($Zone == 0) {//Mainzone
-            $LinkID = @IPS_GetObjectIDByIdent($manufacturername.'_'.$AVRTypeident.'_MainzonePower', $AlexaCategoryID);
-        } elseif ($Zone == 1) { //Zone 2
-            $LinkID = @IPS_GetObjectIDByIdent($manufacturername.'_'.$AVRTypeident.'_Zone2Power', $AlexaCategoryID);
-        } elseif ($Zone == 2) { // Zone 3
-            $LinkID = @IPS_GetObjectIDByIdent($manufacturername.'_'.$AVRTypeident.'_Zone3Power', $AlexaCategoryID);
-        }
-
-        if ($LinkID > 0) {
-            IPS_DeleteLink($LinkID);
-        }
-
-        if ($LinkIDPower > 0) {
-            IPS_DeleteLink($LinkIDPower);
-        }
-
-        if ($AlexaCategoryID > 0) {
-            if (empty(IPS_GetChildrenIDs($AlexaCategoryID))) {
-                IPS_DeleteCategory($AlexaCategoryID);
-            }
-        }
-    }
-
     private function WriteNEOScript($ObjectID, $FunctionName, $LogLabel)
     {
         $InstanzID = IPS_GetParent($ObjectID);
@@ -983,7 +720,7 @@ class DENONIPSVarType extends stdClass
 
 class DENONIPSProfiles extends stdClass
 {
-    private $debug = true;
+    private $debug = false;
 
     private $AVRType;
     private $profiles;
@@ -1996,6 +1733,7 @@ class DENONIPSProfiles extends stdClass
                       [4, 'Day', DENON_API_Commands::DYNVOLDAY],    // only older AVRs
                       [5, 'Evening', DENON_API_Commands::DYNVOLEVE], // only older AVRs
                       [6, 'Midnight', DENON_API_Commands::DYNVOLNGT], // only older AVRs
+                      [7, 'Midnight', DENON_API_Commands::DYNVOLON], // only older Denon AVRs (i.e. 4310)
                   ],
             ],
             self::ptResolutionHDMI => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::VSSCH, 'Name' => 'Resolution HDMI',
@@ -2865,7 +2603,7 @@ class DENONIPSProfiles extends stdClass
 
 class DENON_StatusHTML extends stdClass
 {
-    private $debug = true;
+    private $debug = false;
 
     //Status
     public function getStates($ip, $InputMapping, $AVRType)
@@ -2880,18 +2618,6 @@ class DENON_StatusHTML extends stdClass
                 $DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $VarMappings);
             } else {
                 exit('Datei '.$xmlMainZone.' konnte nicht geöffnet werden.');
-            }
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            //echo "bad xml";
-        }
-
-        try {
-            $xmlMainZoneStatus = @new SimpleXMLElement(file_get_contents('http://'.$ip.'/goform/formMainZone_MainZoneXmlStatus.xml'));
-            if ($xmlMainZoneStatus) {
-                $DataMain = $this->MainZoneXmlStatus($xmlMainZoneStatus, $DataMain, $VarMappings);
-            } else {
-                exit('Datei '.$xmlMainZoneStatus.' konnte nicht geöffnet werden.');
             }
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -3160,47 +2886,6 @@ class DENON_StatusHTML extends stdClass
         return $data;
     }
 
-    private function MainZoneXmlStatus(SimpleXMLElement $xml, $data, $VarMappings)
-    {
-        //RestorerMode
-        /*
-        $RestorerMode = $xml->xpath('.//RestorerMode');
-        if ($RestorerMode)
-        {
-            $data[DENON_API_Commands::PSRSTR] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => (string)$RestorerMode[0]->value, 'Subcommand' => 'Audio Restorer');
-        }
-        */
-
-        //InputFuncSelect
-        /*
-        if ($AVRType == "AVR-4311")
-        {
-            $InputFuncSelect = $xml->xpath('.//InputFuncSelect');
-            if ($InputFuncSelect)
-            {
-                foreach ($InputMapping as $Command => $InputSourceValue)
-                {
-                if ($Command == (string)$InputFuncSelect[0]->value)
-                    {
-                    $data[DENON_API_Commands::SI] =  array('VarType' => DENONIPSVarType::vtInteger, 'Value' => $InputSourceValue, 'Subcommand' => $Command);
-                    }
-                }
-
-            }
-        }
-        */
-
-        //SurrMode
-        /*
-        $Element = $xml->xpath('.//SurrMode');
-        if ($Element){
-            $VarMapping = $VarMappings[DENON_API_Commands::MS];
-            $SubCommand = rtrim(strtoupper((string)$Element[0]->value));
-            $data[DENON_API_Commands::MS] =  array('VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand);
-        }
-        */
-        return $data;
-    }
 
     private function NetAudioStatusXml(SimpleXMLElement $xml, $data)
     {
@@ -3936,6 +3621,7 @@ class DENON_API_Commands extends stdClass
     const DYNVOLMED = ' MED'; // Dynamic Volume = Medium
     const DYNVOLLIT = ' LIT'; // Dynamic Volume = Light
     const DYNVOLOFF = ' OFF'; // Dynamic Volume = Off
+    const DYNVOLON = ' ON'; // Dynamic Volume = Off
 
     //PSDSX Audyssey DSX ON
     const PSDSXONHW = ' ONHW'; // Audyssey DSX ON(Height/Wide)
@@ -4462,7 +4148,7 @@ class DenonAVRCP_API_Data extends stdClass
     {
         $Display = [];
 
-        $debug = true;
+        $debug = false;
 
         foreach ($data as $key => $response) {
             $Row = substr($response, 3, 1);

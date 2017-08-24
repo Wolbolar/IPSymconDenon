@@ -155,16 +155,6 @@ class DenonSplitterHTTP extends IPSModule
         $datasend = $data->Buffer;
         $this->SendDebug('Command Out', print_r($datasend, true), 0);
 
-        // Hier würde man den Buffer im Normalfall verarbeiten
-        // z.B. CRC prüfen, in Einzelteile zerlegen
-
-        try {
-            //
-        } catch (Exception $ex) {
-            echo $ex->getMessage();
-            echo ' in '.$ex->getFile().' line: '.$ex->getLine().'.';
-        }
-
         // Weiterleiten zur I/O Instanz
         $resultat = $this->SendDataToParent(json_encode(['DataID' => '{B403182C-3506-466C-B8D5-842D9237BF02}', 'Buffer' => $data->Buffer])); // Denon I/O HTTP TX GUI
 

@@ -110,13 +110,6 @@ class DenonAVRHTTP extends AVRModule
         if ($this->ReadPropertyBoolean('NEOToggle')) {
             $this->CreateNEOScripts(static::$NEO_Parameter);
         }
-
-        // Alexa Link anlegen
-        if ($this->ReadPropertyBoolean('Alexa')) {
-            $this->CreateAlexaLinks($manufacturername, $AVRType, $Zone);
-        } else {
-            $this->DeleteAlexaLinks($manufacturername, $AVRType, $Zone);
-        }
     }
 
     //Data Transfer
@@ -154,6 +147,8 @@ class DenonAVRHTTP extends AVRModule
 
             return false;
         }
+
+        return true;
     }
 
     //Denon Commands
@@ -230,7 +225,6 @@ class DenonAVRHTTP extends AVRModule
         $formselectionAVR = $this->FormSelectionAVR($manufacturername);
         $formselectionzone = $this->FormSelectionZone();
         $formselectionneo = $this->FormSelectionNEO();
-        $formselectionalexa = $this->FormSelectionAlexa();
         $formactions = $this->FormActions();
         $formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
         $formstatus = $this->FormStatus();
@@ -248,10 +242,10 @@ class DenonAVRHTTP extends AVRModule
         } else {
             if ($zone == 0) {
                 $formmainzone = $this->FormMainzone($AVRType);
-                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formmainzone.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
+                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
             } else {
                 $formzone = $this->FormZone($zone, $AVRType);
-                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formzone.$formselectionneo.$formselectionalexa.$formelementsend.'],'.$formactions.$formstatus.' }';
+                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
             }
         }
 
@@ -267,7 +261,7 @@ class DenonAVRHTTP extends AVRModule
         $form = '"elements":
            [
 			{ "type": "Label", "label": "AV Receiver Control http" },
-			{ "type": "Label", "label": "http control is working only with AVR types from 2011, not all commands available." },
+			{ "type": "Label", "label": "http control is working only with AVR types from 2011, only some commands are available." },
 			{ "type": "Label", "label": "Please select a manufacturer and push the \"apply\" button"},
 			{ "type": "Select", "name": "manufacturer", "caption": "manufacturer",
 					"options": [

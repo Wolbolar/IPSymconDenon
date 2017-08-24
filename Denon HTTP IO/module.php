@@ -146,13 +146,15 @@ class DenonAVRIOHTTP extends IPSModule
                 throw new Exception($exc);
             }
             $this->unlock('HTTPGetState');
+
+            return $data;
         } else {
             echo "Can not send to parent \n";
             $this->unlock('HTTPGetState');
             //throw new Exception("Can not send to parent",E_USER_NOTICE);
         }
 
-        return $data;
+        return false;
     }
 
     private function SendJSON($data)
