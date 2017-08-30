@@ -230,7 +230,7 @@ class DenonAVRHTTP extends AVRModule
         $formstatus = $this->FormStatus();
 
         if ($this->debug) {
-            IPS_LogMessage(__FUNCTION__, 'Manufacturername: '.$manufacturername.', AVRType: '.$AVRType.', Zone: '.$zone);
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Manufacturername: '.$manufacturername.', AVRType: '.$AVRType.', Zone: '.$zone);
         }
 
         if ($manufacturername == 'none') { // Auswahl Hersteller
@@ -278,7 +278,7 @@ class DenonAVRHTTP extends AVRModule
     {
         $AVRCaps = AVRs::getCapabilities($AVRType);
         if ($this->debug) {
-            IPS_LogMessage(__FUNCTION__, 'AVR Caps ('.$AVRType.'): '.json_encode($AVRCaps));
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'AVR Caps ('.$AVRType.'): '.json_encode($AVRCaps));
         }
 
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
@@ -318,7 +318,9 @@ class DenonAVRHTTP extends AVRModule
     private function FormZone($Zone, $AVRType)
     {
         $AVRCaps = AVRs::getCapabilities($AVRType);
-        IPS_LogMessage(__FUNCTION__, 'AVR Caps ('.$AVRType.'): '.json_encode($AVRCaps));
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'AVR Caps ('.$AVRType.'): '.json_encode($AVRCaps));
+        }
 
         $Zone = $Zone + 1;
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();

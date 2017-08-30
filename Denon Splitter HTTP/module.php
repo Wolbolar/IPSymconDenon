@@ -10,6 +10,16 @@ class DenonSplitterHTTP extends IPSModule
     const STATUS_INST_CONNECTION_LOST = 203;
     const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
 
+    protected $debug = false;
+
+    public function __construct($InstanceID) {
+        parent::__construct($InstanceID);
+
+        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+            $this->debug = true;
+        }
+    }
+
     public function Create()
     {
         //Never delete this line!
@@ -79,7 +89,6 @@ class DenonSplitterHTTP extends IPSModule
      * Die folgenden Funktionen stehen automatisch zur Verfügung, wenn das Modul über die "Module Control" eingefügt wurden.
      * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:.
      */
-    protected $debug = false;
 
     // Input
     public function SaveInputVarmapping(string $MappingInputs)

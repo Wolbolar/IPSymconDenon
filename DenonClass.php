@@ -16,6 +16,15 @@ class AVRModule extends IPSModule
     const STATUS_INST_NO_DENON_AVR_TYPE_SELECTED = 213;
     const STATUS_INST_NO_MARANTZ_AVR_TYPE_SELECTED = 214;
 
+    public function __construct($InstanceID)
+    {
+        parent::__construct($InstanceID);
+
+        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+            $this->debug = true;
+        }
+    }
+
     protected function SetInstanceStatus()
     {
         if (IPS_GetKernelRunlevel() != 10103) { //Kernel ready
@@ -1077,8 +1086,14 @@ class DENONIPSProfiles extends stdClass
 
     public function __construct($AVRType = null, $InputMapping = null)
     {
-        IPS_LogMessage(get_class().'::'.__FUNCTION__, 'AVRType: '.(is_null($AVRType) ? 'null' : $AVRType)
-            .', InputMapping: '.(is_null($InputMapping) ? 'null' : json_encode($InputMapping)));
+        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+            $this->debug = true;
+        }
+
+        if ($this->debug){
+            IPS_LogMessage(get_class() . '::' . __FUNCTION__,
+                'AVRType: ' . (is_null($AVRType) ? 'null' : $AVRType) . ', InputMapping: ' . (is_null($InputMapping) ? 'null': json_encode($InputMapping)));
+        }
 
         $assRange00to98_add05step = $this->GetAssociationOfAsciiTodB('00', '98', '80', 1, true, false);
         $assRange00to98 = $this->GetAssociationOfAsciiTodB('00', '98', '80', 1, false, false);
@@ -2604,6 +2619,13 @@ class DENONIPSProfiles extends stdClass
 class DENON_StatusHTML extends stdClass
 {
     private $debug = false;
+
+    public function __construct()
+    {
+        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+            $this->debug = true;
+        }
+    }
 
     //Status
     public function getStates($ip, $InputMapping, $AVRType)
@@ -4169,7 +4191,7 @@ class DenonAVRCP_API_Data extends stdClass
 
     public function GetCommandResponse($InputMapping)
     {
-        $debug = true;
+        $debug = false;
 
         //Debug Log
         if ($debug) {
