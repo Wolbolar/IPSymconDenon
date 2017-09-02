@@ -225,10 +225,29 @@ class AVRModule extends IPSModule
 
         $profiles = $DenonAVRVar->GetAllProfiles();
         foreach ($profiles as $profile) {
+            //some variables were registered with 'true' in the former version. So due to compatibility reasons they where registered with 'true' again
+            $DefaultValue = in_array($profile['PropertyName'], [DENONIPSProfiles::ptPower,
+                DENONIPSProfiles::ptMainZonePower,
+                DENONIPSProfiles::ptMainMute,
+                DENONIPSProfiles::ptInputSource,
+                DENONIPSProfiles::ptSurroundMode,
+                DENONIPSProfiles::ptMasterVolume,
+                DENONIPSProfiles::ptZone2Name,
+                DENONIPSProfiles::ptZone3Name,
+                DENONIPSProfiles::ptZone2Power,
+                DENONIPSProfiles::ptZone3Power,
+                DENONIPSProfiles::ptZone2Mute,
+                DENONIPSProfiles::ptZone3Mute,
+                DENONIPSProfiles::ptZone2Volume,
+                DENONIPSProfiles::ptZone3Volume,
+                DENONIPSProfiles::ptZone2InputSource,
+                DENONIPSProfiles::ptZone3InputSource,
+                ]
+                );
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Property registered: '.$profile['PropertyName']);
+                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Property registered: '.$profile['PropertyName']. '(' . (int) $DefaultValue . ')');
             }
-            $this->RegisterPropertyBoolean($profile['PropertyName'], false);
+            $this->RegisterPropertyBoolean($profile['PropertyName'], $DefaultValue);
         }
 
         //Zusätzliche Inputs
@@ -757,7 +776,7 @@ class DENONIPSProfiles extends stdClass
     const ptChannelVolumeFWL = 'ChannelVolumeFWL';
     const ptChannelVolumeFWR = 'ChannelVolumeFWR';
     const ptMainMute = 'MainMute';
-    const ptInputSource = 'Inputsource';
+    const ptInputSource = 'InputSource';
     const ptMainZonePower = 'MainZonePower';
     const ptInputMode = 'InputMode';
     const ptDigitalInputMode = 'DigitalInputMode';
@@ -1133,7 +1152,7 @@ class DENONIPSProfiles extends stdClass
 
         $this->profiles = [
             self::ptPower => ['Type'         => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PW, 'Name' => 'Power',
-                                          'PropertyName' => 'Power',
+                                          'PropertyName' => self::ptPower,
                                           'Associations' => [
                                             [false, DENON_API_Commands::PWSTANDBY],
                                             [true, DENON_API_Commands::PWON],
@@ -1141,7 +1160,7 @@ class DENONIPSProfiles extends stdClass
                                           'IndividualStatusRequest' => 'PW?',
             ],
             self::ptMainZonePower => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::ZM, 'Name' => 'MainZone Power',
-                                          'PropertyName' => 'MainZonePower',
+                                          'PropertyName' => self::ptMainZonePower,
                                           'Associations' => [
                                                       [false, DENON_API_Commands::ZMOFF],
                                                       [true, DENON_API_Commands::ZMON], ],
@@ -1182,7 +1201,7 @@ class DENONIPSProfiles extends stdClass
                                           'IndividualStatusRequest' => 'PSFH: ?',
                                             ],
             self::ptMainMute => ['Type'      => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MU, 'Name' => 'Main Mute',
-                                          'PropertyName' => 'MainMute',
+                                          'PropertyName' => self::ptMainMute,
                                           'Associations' => [
                                             [false, DENON_API_Commands::MUOFF],
                                             [true, DENON_API_Commands::MUON],
@@ -1296,7 +1315,7 @@ class DENONIPSProfiles extends stdClass
                                           'IndividualStatusRequest' => 'Z2?',
                                                     ],
             self::ptZone2Mute => ['Type'     => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::Z2MU, 'Name' => 'Zone 2 Mute',
-                                          'PropertyName' => 'Z2Mute',
+                                          'PropertyName' => self::ptZone2Mute,
                                           'Associations' => [
                                                     [false, DENON_API_Commands::Z2OFF],
                                                     [true, DENON_API_Commands::Z2ON],
@@ -1316,7 +1335,7 @@ class DENONIPSProfiles extends stdClass
                                           'IndividualStatusRequest' => 'Z3?',
                                             ],
             self::ptZone3Mute => ['Type'     => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::Z3MU, 'Name' => 'Zone 3 Mute',
-                                          'PropertyName' => 'Z3Mute',
+                                          'PropertyName' => self::ptZone3Mute,
                                           'Associations' => [
                                                   [false, DENON_API_Commands::Z3OFF],
                                                   [true, DENON_API_Commands::Z3ON],
@@ -1332,19 +1351,19 @@ class DENONIPSProfiles extends stdClass
     //Ident, Variablename, Profilesettings
     //Associations: Value, Label, Association
             self::ptInputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::SI, 'Name' => 'Input Source',
-                'PropertyName'                         => 'InputSource',
+                'PropertyName'                         => self::ptInputSource,
                 'Profilesettings'                      => ['Database', '', '', 0, 0, 0, 0],
                 'Associations'                         => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
                 'IndividualStatusRequest'              => 'SI?',
             ],
             self::ptZone2InputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::Z2INPUT, 'Name' => 'Zone 2 Input Source',
-                'PropertyName'                              => 'Z2InputSource',
+                'PropertyName'                              => self::ptZone2InputSource,
                 'Profilesettings'                           => ['Database', '', '', 0, 0, 0, 0],
                 'Associations'                              => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
                 'IndividualStatusRequest'                   => 'Z2?',
             ],
             self::ptZone3InputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::Z3INPUT, 'Name' => 'Zone 3 Input Source',
-                 'PropertyName'                             => 'Z3InputSource',
+                 'PropertyName'                             => self::ptZone3InputSource,
                  'Profilesettings'                          => ['Database', '', '', 0, 0, 0, 0],
                  'Associations'                             => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
                  'IndividualStatusRequest'                  => 'Z3?',
@@ -1412,7 +1431,7 @@ class DENONIPSProfiles extends stdClass
             ],
 
             self::ptSurroundMode => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MS, 'Name' => 'Surround Mode',
-                'PropertyName'                          => 'SurroundMode',
+                'PropertyName'                          => self::ptSurroundMode,
                 'Profilesettings'                       => ['Melody', '', '', 0, 0, 0, 0],
                 'Associations'                          => [
                     [0, 'Movie', DENON_API_Commands::MSMOVIE],
@@ -1885,7 +1904,7 @@ class DENONIPSProfiles extends stdClass
             self::ptDialogControl => ['Type'                      => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSDIC, 'Name' => 'DialogControl',
                                               'PropertyName'                  => 'DialogControl', 'Profilesettings' => ['Intensity', '', ' dB', 0, 6, 1, 0], 'Associations' => $assRange00to06, ],
             self::ptMasterVolume => ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::MV, 'Name' => 'Master Volume',
-                                                 'PropertyName'               => 'MasterVolume', 'Profilesettings' => ['Intensity', '', ' dB', -80.0, 18.0, 0.5, 1], 'Associations' => $assRange00to98_add05step,
+                                                 'PropertyName'               => self::ptMasterVolume, 'Profilesettings' => ['Intensity', '', ' dB', -80.0, 18.0, 0.5, 1], 'Associations' => $assRange00to98_add05step,
                                                 'IndividualStatusRequest'     => 'MV?', ],
             self::ptChannelVolumeFL => ['Type'                    => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVFL, 'Name' => 'Channel Volume Front Left',
                                                     'PropertyName'            => 'FL', 'Profilesettings' => ['Intensity', '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
@@ -2040,10 +2059,10 @@ class DENONIPSProfiles extends stdClass
              self::ptAuroMatic3DStrength => ['Type'           => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSAUROST, 'Name' => 'Auromatic 3D Strength',
                                                         'PropertyName'    => 'AuroMatic3DStrength', 'Profilesettings' => ['Intensity', '', ' dB', 0, 16, 1, 0], 'Associations' => $assRange00to16, ],
             self::ptZone2Volume => ['Type'                    => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::Z2VOL, 'Name' => 'Zone 2 Volume',
-                                                'PropertyName'            => 'Z2Volume', 'Profilesettings' => ['Intensity', '', ' dB', -80, 18, 1, 0], 'Associations' => $assRange00to98,
+                                                'PropertyName'            => self::ptZone2Volume, 'Profilesettings' => ['Intensity', '', ' dB', -80, 18, 1, 0], 'Associations' => $assRange00to98,
                                                 'IndividualStatusRequest' => 'Z2?', ],
             self::ptZone3Volume => ['Type'                    => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::Z3VOL, 'Name' => 'Zone 3 Volume',
-                                                'PropertyName'            => 'Z3Volume', 'Profilesettings' => ['Intensity', '', ' dB', -80, 18, 1, 0], 'Associations' => $assRange00to98,
+                                                'PropertyName'            => self::ptZone3Volume, 'Profilesettings' => ['Intensity', '', ' dB', -80, 18, 1, 0], 'Associations' => $assRange00to98,
                                                 'IndividualStatusRequest' => 'Z3?', ],
             self::ptZone2Sleep => ['Type'                     => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::Z2SLP, 'Name' => 'Zone 2 Sleep',
                                                'PropertyName'             => 'Z2Sleep', 'Profilesettings' => ['Clock', '', ' Min', 0, 120, 10, 0], 'Associations' => $assRange000to120_ptSleep, ],
@@ -2075,8 +2094,8 @@ class DENONIPSProfiles extends stdClass
                                                     'PropertyName'    => 'SurroundDisplay', 'Profilesettings' => ['Information'], ],
             self::ptDisplay => ['Type'                    => DENONIPSVarType::vtString, 'Ident' => DENON_API_Commands::DISPLAY, 'Name' => 'OSD Info', 'ProfilName' => '~HTMLBox', 'PropertyName' => 'Display', 'Profilesettings' => ['TV'],
                                             'IndividualStatusRequest' => 'NSA', ],
-            self::ptZone2Name => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'Zone2Name', 'Name' => 'Zone 2 Name', 'PropertyName' => 'Zone2Name', 'Profilesettings' => ['Information']],
-            self::ptZone3Name => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'Zone3Name', 'Name' => 'Zone 3 Name', 'PropertyName' => 'Zone3Name', 'Profilesettings' => ['Information']],
+            self::ptZone2Name => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'Zone2Name', 'Name' => 'Zone 2 Name', 'PropertyName' => self::ptZone2Name, 'Profilesettings' => ['Information']],
+            self::ptZone3Name => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'Zone3Name', 'Name' => 'Zone 3 Name', 'PropertyName' => self::ptZone3Name, 'Profilesettings' => ['Information']],
         ];
 
         if ($AVRType != null) {
