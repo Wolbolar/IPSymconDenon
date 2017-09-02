@@ -263,12 +263,12 @@ class AVRModule extends IPSModule
             $links[] = [('LinkID') => $LinkID, ('TargetID') =>  IPS_GetLink($LinkID)['TargetID']];
         }
 
-        //Sichtbare Variablen anlegen
-        foreach ($idents as $ident => $visible) {
+        //Selektierte Variablen anlegen
+        foreach ($idents as $ident => $selected) {
             $statusvariable = $DenonAVRVar->SetupVariable($ident);
 
             //Auswahl Prüfen
-            if ($visible) {
+            if ($selected) {
                 switch ($statusvariable['Type']) {
                     case DENONIPSVarType::vtString:
                         if ($statusvariable['ProfilName'] == '~HTMLBox') {
@@ -322,7 +322,7 @@ class AVRModule extends IPSModule
 
                 }
             }
-            // wenn nicht sichtbar löschen
+            // wenn nicht selektiert löschen
             else {
                 $this->removeVariableAction($statusvariable['Ident'], $links, $ident);
             }
@@ -519,7 +519,7 @@ class AVRModule extends IPSModule
             $this->UnregisterVariable($Ident);
             $this->SendDebug('Variable gelöscht:', $Name.', [ObjektID: '.$vid.']', 0);
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Variable gelöscht: '.$Name.', [ObjektID: '.$vid.']');
+                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Variable gelöscht - Name: '.$Name.', Ident: '.$Ident.', ObjektID: '.$vid);
             }
             //delete Profile
             if (IPS_VariableProfileExists($Profile)) {
@@ -2139,29 +2139,8 @@ class DENONIPSProfiles extends stdClass
         }
     }
 
-    private function SetAssociationsOfInputSourcesAccordingToHTTPInfo($IP, $MainForm, $Zone, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR)
+    private function GetInputsFromXMLZone(SimpleXMLElement $xmlZone, $MainForm, $filename)
     {
-        $filename = 'http://'.$IP.$MainForm.'?_=&ZoneName=ZONE'.($Zone + 1);
-        if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'filename: '.$filename);
-        }
-
-        $content = @file_get_contents($filename);
-        if ($content === false) {
-            trigger_error('Datei '.$filename.' konnte nicht geöffnet werden.');
-
-            return false;
-        }
-
-        $xmlZone = new SimpleXMLElement($content);
-        if ($xmlZone->count() == 0) {
-            trigger_error('xmlzone has no children. '
-                .'(filename correct?: "'.$filename.'", content: '
-                .json_encode($xmlZone));
-
-            return false;
-        }
-
         //Inputs
         $InputFuncList = $xmlZone->xpath('.//InputFuncList');
         if (count($InputFuncList) == 0) {
@@ -2218,10 +2197,41 @@ class DENONIPSProfiles extends stdClass
         $Associations = [];
 
         foreach ($Inputs as $Value => $Input) {
-            $SourceInput = str_replace(' ', '', $Input['Source']);
-            $RenameSourceInput = str_replace(' ', '', $Input['RenameSource']);
+            // Beispiel: Association[] = [1, 'CD', 'SONOS']
+            $Associations[] = [$Value, str_replace(' ', '', $Input['RenameSource']), str_replace(' ', '', $Input['Source'])];
+        }
 
-            $Associations[] = [$Value, $RenameSourceInput, $SourceInput];
+        return $Associations;
+    }
+
+    private function SetAssociationsOfInputSourcesAccordingToHTTPInfo($IP, $MainForm, $Zone, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR)
+    {
+        $filename = 'http://'.$IP.$MainForm.'?_=&ZoneName=ZONE'.($Zone + 1);
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'filename: '.$filename);
+        }
+
+        $content = @file_get_contents($filename);
+        if ($content === false) {
+            trigger_error('Datei '.$filename.' konnte nicht geöffnet werden.');
+
+            return false;
+        }
+
+        $xmlZone = new SimpleXMLElement($content);
+        if ($xmlZone->count() == 0) {
+            trigger_error('xmlzone has no children. '
+                .'(filename correct?: "'.$filename.'", content: '
+                .json_encode($xmlZone));
+
+            return false;
+        }
+
+        $Associations = $this->GetInputsFromXMLZone($xmlZone, $MainForm, $filename);
+
+        if ($Associations === false) {
+
+            return false;
         }
 
         //zusätzliche Auswahl 'SOURCE' bei Zonen
@@ -2251,7 +2261,7 @@ class DENONIPSProfiles extends stdClass
         }
 
         if ($this->debug) {
-            IPS_LogMessage(__FUNCTION__, 'InputSources-Associations: '.json_encode($Associations));
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Associations: '.json_encode($Associations));
         }
 
         switch ($Zone) {
@@ -2295,7 +2305,13 @@ class DENONIPSProfiles extends stdClass
             $InputSourcesMapping[] = ['Source' => $association[2], 'RenameSource' => $association[1]];
         }
 
-        return ['AVRType' => $this->AVRType, 'Inputs' => $InputSourcesMapping, 'Writeprotected' => false];
+        $ret = ['AVRType' => $this->AVRType, 'Inputs' => $InputSourcesMapping, 'Writeprotected' => false];
+
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'return: '.json_encode($ret));
+        }
+
+        return $ret;
     }
 
     public function SetupVariable($ident)
@@ -2632,12 +2648,34 @@ class DENON_StatusHTML extends stdClass
     {
         //Main
         $DataMain = [];
-        $VarMappings = (new DENONIPSProfiles($AVRType, $InputMapping))->GetVarMapping();
+        $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping);
+        $VarMappings = $DenonAVRVar->GetVarMapping();
+        $DenonAVRVar->SetInputSources(
+            $ip,
+            0,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+        );
+
+        $InputVarMapping = $DenonAVRVar->GetInputVarMapping(0);
+        $Inputs = $InputVarMapping['Inputs'];
+
+
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMappings: '.json_encode($VarMappings));
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'InputVarMapping: '.json_encode($InputVarMapping));
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Inputs: '.json_encode($Inputs));
+        }
+
 
         try {
             $xmlMainZone = @new SimpleXMLElement(file_get_contents('http://'.$ip.'/goform/formMainZone_MainZoneXml.xml'));
             if ($xmlMainZone) {
-                $DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $VarMappings);
+                $DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $VarMappings, $Inputs);
             } else {
                 exit('Datei '.$xmlMainZone.' konnte nicht geöffnet werden.');
             }
@@ -2733,7 +2771,7 @@ class DENON_StatusHTML extends stdClass
         return $datasend;
     }
 
-    private function MainZoneXml(SimpleXMLElement $xml, $data, $VarMappings)
+    private function MainZoneXml(SimpleXMLElement $xml, $data, $VarMappings, $Inputs)
     {
 
         //FriendlyName
@@ -2797,13 +2835,23 @@ class DENON_StatusHTML extends stdClass
         //InputFuncSelect
         $Element = $xml->xpath('.//InputFuncSelect');
         if ($Element) {
+            $SubCommand = (string) $Element[0]->value;
+
+            // first it is checked, if if the source input is renamed
+            foreach ($Inputs as $Input){
+                if ($Input['RenameSource'] == str_replace(' ','', $SubCommand)) {
+                    $SubCommand = $Input['Source'];
+                    break;
+                }
+            }
+
+            if (array_key_exists($SubCommand, DENON_API_Commands::$SIMapping)) {
+                $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
+            }
+
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
                 IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping));
-            }
-            $SubCommand = (string) $Element[0]->value;
-            if (array_key_exists($SubCommand, DENON_API_Commands::$SIMapping)) {
-                $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
