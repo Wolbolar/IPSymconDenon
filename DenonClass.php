@@ -229,7 +229,7 @@ class AVRModule extends IPSModule
             $DefaultValue = in_array($profile['PropertyName'], [DENONIPSProfiles::ptPower,
                 DENONIPSProfiles::ptMainZonePower,
                 DENONIPSProfiles::ptMainMute,
-                DENONIPSProfiles::ptInputSource,
+                'InputSource',
                 DENONIPSProfiles::ptSurroundMode,
                 DENONIPSProfiles::ptMasterVolume,
                 DENONIPSProfiles::ptZone2Name,
@@ -776,7 +776,7 @@ class DENONIPSProfiles extends stdClass
     const ptChannelVolumeFWL = 'ChannelVolumeFWL';
     const ptChannelVolumeFWR = 'ChannelVolumeFWR';
     const ptMainMute = 'MainMute';
-    const ptInputSource = 'InputSource';
+    const ptInputSource = 'Inputsource';
     const ptMainZonePower = 'MainZonePower';
     const ptInputMode = 'InputMode';
     const ptDigitalInputMode = 'DigitalInputMode';
@@ -1307,7 +1307,7 @@ class DENONIPSProfiles extends stdClass
                                                         [true, DENON_API_Commands::SSHOSALSON],
                                                     ], ],
             self::ptZone2Power      => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::Z2POWER, 'Name' => 'Zone 2 Power',
-                                          'PropertyName'   => 'Z2Power',
+                                          'PropertyName'   => self::ptZone2Power,
                                           'Associations'   => [
                                                    [false, DENON_API_Commands::Z2OFF],
                                                    [true, DENON_API_Commands::Z2ON],
@@ -1327,7 +1327,7 @@ class DENONIPSProfiles extends stdClass
                                                  [true, DENON_API_Commands::Z2ON],
                                              ], ],
             self::ptZone3Power => ['Type'    => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::Z3POWER, 'Name' => 'Zone 3 Power',
-                                          'PropertyName' => 'Z3Power',
+                                          'PropertyName' => self::ptZone3Power,
                                           'Associations' => [
                                                    [false, DENON_API_Commands::Z3OFF],
                                                    [true, DENON_API_Commands::Z3ON],
@@ -1351,7 +1351,7 @@ class DENONIPSProfiles extends stdClass
     //Ident, Variablename, Profilesettings
     //Associations: Value, Label, Association
             self::ptInputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::SI, 'Name' => 'Input Source',
-                'PropertyName'                         => self::ptInputSource,
+                'PropertyName'                         => 'InputSource',
                 'Profilesettings'                      => ['Database', '', '', 0, 0, 0, 0],
                 'Associations'                         => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
                 'IndividualStatusRequest'              => 'SI?',
