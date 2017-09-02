@@ -408,6 +408,16 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::MV.$SubCommand);
     }
 
+    //MasterVolumePercent
+    public function MasterVolumePercent (int $percent)
+    {
+        $Value = ((98 / 100) * $percent) - 80;
+        $Value = round($Value * 2) / 2;
+
+        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::MV, $Value);
+        $this->SendCommand(DENON_API_Commands::MV.$SubCommand);
+    }
+
     //Main Mute
     public function MainMute(bool $Value)
     { // false (Off) oder true (On)
