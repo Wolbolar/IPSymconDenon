@@ -65,7 +65,7 @@ class DenonAVRHTTP extends AVRModule
 
         if ($Zone == 0) {//Mainzone
 
-            $idents[DENONIPSProfiles::ptMainZoneName] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptMainZoneName);
+            $idents[DENONIPSProfiles::ptMainZoneName] = $this->ReadPropertyBoolean('ZoneName');
             $idents[DENONIPSProfiles::ptModel] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptModel);
             $idents[DENONIPSProfiles::ptPower] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptPower);
             $idents[DENONIPSProfiles::ptMainZonePower] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptMainZonePower);
@@ -73,7 +73,7 @@ class DenonAVRHTTP extends AVRModule
             $idents[DENONIPSProfiles::ptSleep] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptSleep);
             $idents[DENONIPSProfiles::ptSurroundMode] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptSurroundMode);
             $idents[DENONIPSProfiles::ptNavigation] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptNavigation);
-            $idents[DENONIPSProfiles::ptInputSource] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptInputSource);
+            $idents[DENONIPSProfiles::ptInputSource] = $this->ReadPropertyBoolean('InputSource');
             $idents[DENONIPSProfiles::ptSurroundPlayMode] = $this->ReadPropertyBoolean(DENONIPSProfiles::ptSurroundPlayMode);
 
             $Caps = $AVRCaps['CV_Commands'];
