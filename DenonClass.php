@@ -2151,106 +2151,22 @@ class DENONIPSProfiles extends stdClass
 
                 return;
             }
-            $this->SetAssociationsOfInputSourcesAccordingToHTTPInfo(
-                $DenonIP, $caps['httpMainZone'], $Zone, $FAVORITES,
-                $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR
+            $Associations = $this->GetAssociationsOfInputSourcesAccordingToHTTPInfo(
+                $DenonIP, $caps['httpMainZone'], $Zone
             );
-        }
-    }
 
-    private function GetInputsFromXMLZone(SimpleXMLElement $xmlZone, $MainForm, $filename)
-    {
-        //Inputs
-        $InputFuncList = $xmlZone->xpath('.//InputFuncList');
-        if (count($InputFuncList) == 0) {
-            trigger_error('InputFuncList has no children: '
-                .'(filename correct?: "'.$filename.'", content: '
-                .json_encode($xmlZone));
+            if ($Associations === false) {
 
-            return false;
-        }
-
-        $RenameSource = $xmlZone->xpath('.//RenameSource');
-        if (count($RenameSource) == 0) {
-            trigger_error('RenameSource has no children: '
-                .'(filename correct?: "'.$filename.'", content: '
-                .json_encode($xmlZone));
-
-            return false;
-        }
-
-        $SourceDelete = $xmlZone->xpath('.//SourceDelete');
-        if (count($SourceDelete) == 0) {
-            trigger_error('SourceDelete has no children: '
-                .'(filename correct?: "'.$filename.'", content: '
-                .json_encode($xmlZone));
-
-            return false;
-        }
-
-        $Inputs = [];
-        $MinValue = [];
-        $UsedInput_i = -1;
-        $countinput = count($InputFuncList[0]->value);
-
-        for ($i = 0; $i <= $countinput - 1; $i++) {
-            //manche AVRs(z.B. Marantz 7010 bei 'Online Music') liefern auch schon mal einen Leerstring anstelle von 'USE'
-            if (((string) $SourceDelete[0]->value[$i] == 'USE') || ((string) $SourceDelete[0]->value[$i] == '')) {
-                $UsedInput_i++;
-                $MinValue[$UsedInput_i] = $UsedInput_i;
-                if ($MainForm == DENON_HTTP_Interface::MainForm_old) {
-                    $RenameInput = (string) $RenameSource[0]->value[$i];
-                } else {
-                    $RenameInput = (string) $RenameSource[0]->value[$i]->value;
-                }
-
-                if ($RenameInput != '') {
-                    $Inputs[$UsedInput_i] = ['Source' => (string) $InputFuncList[0]->value[$i], 'RenameSource' => $RenameInput];
-                } else {
-                    $Inputs[$UsedInput_i] = ['Source' => (string) $InputFuncList[0]->value[$i], 'RenameSource' => (string) $InputFuncList[0]->value[$i]];
-                }
+                return;
             }
-        }
 
-        //Assoziationen aufbauen
-        $Associations = [];
-
-        foreach ($Inputs as $Value => $Input) {
-            // Beispiel: Association[] = [1, 'CD', 'SONOS']
-            $Associations[] = [$Value, str_replace(' ', '', $Input['RenameSource']), str_replace(' ', '', $Input['Source'])];
-        }
-
-        return $Associations;
-    }
-
-    private function SetAssociationsOfInputSourcesAccordingToHTTPInfo($IP, $MainForm, $Zone, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR)
-    {
-        $filename = 'http://'.$IP.$MainForm.'?_=&ZoneName=ZONE'.($Zone + 1);
-        if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'filename: '.$filename);
-        }
-
-        $content = @file_get_contents($filename);
-        if ($content === false) {
-            trigger_error('Datei '.$filename.' konnte nicht geöffnet werden.');
-
-            return false;
-        }
-
-        $xmlZone = new SimpleXMLElement($content);
-        if ($xmlZone->count() == 0) {
-            trigger_error('xmlzone has no children. '
-                .'(filename correct?: "'.$filename.'", content: '
-                .json_encode($xmlZone));
-
-            return false;
-        }
-
-        $Associations = $this->GetInputsFromXMLZone($xmlZone, $MainForm, $filename);
-
-        if ($Associations === false) {
-
-            return false;
+        } else {
+            //Assoziationen aufbauen
+            $Associations = [];
+            $SI_SubCommands = $caps['SI_SubCommands'];
+            for ($i = 0; $i <= count($SI_SubCommands) - 1; $i++) {
+                $Associations[] = [$i, $SI_SubCommands[$i], $SI_SubCommands[$i]];
+            }
         }
 
         //zusätzliche Auswahl 'SOURCE' bei Zonen
@@ -2298,11 +2214,100 @@ class DENONIPSProfiles extends stdClass
 
             default:
                 trigger_error('unknown zone: '.$Zone);
+       }
 
-                return false;
+    }
+
+    private function GetInputsFromXMLZone(SimpleXMLElement $xmlZone, $MainForm, $filename)
+    {
+        //Inputs
+        $InputFuncList = $xmlZone->xpath('.//InputFuncList');
+        if (count($InputFuncList) == 0) {
+            trigger_error('InputFuncList has no children: '
+                .'(filename correct?: "'.$filename.'", content: '
+                .json_encode($xmlZone));
+
+            return false;
         }
 
-        return true;
+        $RenameSource = $xmlZone->xpath('.//RenameSource');
+        if (count($RenameSource) == 0) {
+            trigger_error('RenameSource has no children: '
+                .'(filename correct?: "'.$filename.'", content: '
+                .json_encode($xmlZone));
+
+            return false;
+        }
+
+        $SourceDelete = $xmlZone->xpath('.//SourceDelete');
+        if (count($SourceDelete) == 0) {
+            trigger_error('SourceDelete has no children: '
+                .'(filename correct?: "'.$filename.'", content: '
+                .json_encode($xmlZone));
+
+            return false;
+        }
+
+        $Inputs = [];
+        $UsedInput_i = -1;
+        $countinput = count($InputFuncList[0]->value);
+
+        for ($i = 0; $i <= $countinput - 1; $i++) {
+            //manche AVRs(z.B. Marantz 7010 bei 'Online Music') liefern auch schon mal einen Leerstring anstelle von 'USE'
+            if (((string) $SourceDelete[0]->value[$i] == 'USE') || ((string) $SourceDelete[0]->value[$i] == '')) {
+                $UsedInput_i++;
+                if ($MainForm == DENON_HTTP_Interface::MainForm_old) {
+                    $RenameInput = (string) $RenameSource[0]->value[$i];
+                } else {
+                    $RenameInput = (string) $RenameSource[0]->value[$i]->value;
+                }
+
+                if ($RenameInput != '') {
+                    $Inputs[$UsedInput_i] = ['Source' => (string) $InputFuncList[0]->value[$i], 'RenameSource' => $RenameInput];
+                } else {
+                    $Inputs[$UsedInput_i] = ['Source' => (string) $InputFuncList[0]->value[$i], 'RenameSource' => (string) $InputFuncList[0]->value[$i]];
+                }
+            }
+        }
+
+        //Assoziationen aufbauen
+        $Associations = [];
+
+        foreach ($Inputs as $Value => $Input) {
+            // Beispiel: Association[] = [1, 'CD', 'SONOS']
+            $Associations[] = [$Value, str_replace(' ', '', $Input['RenameSource']), str_replace(' ', '', $Input['Source'])];
+        }
+
+        return $Associations;
+    }
+
+    private function GetAssociationsOfInputSourcesAccordingToHTTPInfo($IP, $MainForm, $Zone)
+    {
+        $filename = 'http://'.$IP.$MainForm.'?_=&ZoneName=ZONE'.($Zone + 1);
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'filename: '.$filename);
+        }
+
+        $content = @file_get_contents($filename);
+        if ($content === false) {
+            trigger_error('Datei '.$filename.' konnte nicht geöffnet werden.');
+
+            return false;
+        }
+
+        $xmlZone = new SimpleXMLElement($content);
+        if ($xmlZone->count() == 0) {
+            trigger_error('xmlzone has no children. '
+                .'(filename correct?: "'.$filename.'", content: '
+                .json_encode($xmlZone));
+
+            return false;
+        }
+
+        $Associations = $this->GetInputsFromXMLZone($xmlZone, $MainForm, $filename);
+
+        return $Associations;
+
     }
 
     public function GetInputVarMapping($Zone)
@@ -3389,7 +3394,7 @@ class DENON_API_Commands extends stdClass
     const GAME = 'GAME'; // Select Input Source Game
     const GAME2 = 'GAME2'; // Select Input Source Game
     const AUX1 = 'AUX1'; // Select Input Source AUX1
-    const AUX2 = 'AUX1'; // Select Input Source AUX1
+    const AUX2 = 'AUX2'; // Select Input Source AUX2
     const VAUX = 'V.AUX'; // Select Input Source V.AUX
     const DOCK = 'DOCK'; // Select Input Source Dock
     const IPOD = 'IPOD'; // Select Input Source iPOD

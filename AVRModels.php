@@ -39,6 +39,7 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
                 32 => "AVR-3310", //neu
                 33 => "AVR-3311", //neu
                 34 => "AVR-X2000",
+                35 => "AVR-X6300H",
 
                 60 => "Marantz-NR1504", //
                 61 => "Marantz-NR1506", //
@@ -103,6 +104,7 @@ class AVRs extends stdClass
                 Denon_AVR_X6200W::$Name   => Denon_AVR_X6200W::getCapabilities(),
                 Denon_AVR_X7200W::$Name   => Denon_AVR_X7200W::getCapabilities(),
                 Denon_AVR_X7200WA::$Name  => Denon_AVR_X7200WA::getCapabilities(),
+                Denon_AVR_X6300H::$Name  => Denon_AVR_X6300H::getCapabilities(),
                 Marantz_NR1504::$Name     => Marantz_NR1504::getCapabilities(),
                 Marantz_NR1506::$Name     => Marantz_NR1506::getCapabilities(),
                 Marantz_NR1602::$Name     => Marantz_NR1602::getCapabilities(),
@@ -177,6 +179,7 @@ class AVR extends stdClass
         DENON_API_Commands::DC,
         DENON_API_Commands::SV,
         ];
+    public static $SI_SubCommands = [];
     public static $SV_SubCommands = [
         DENON_API_Commands::DVD,
         DENON_API_Commands::BD,
@@ -357,6 +360,7 @@ class AVR extends stdClass
             'InputSettings'          => static::$InputSettings,
             'SurroundMode'           => static::$SurroundMode,
             'MS_SubCommands'         => static::$MS_SubCommands,
+            'SI_SubCommands'         => static::$SI_SubCommands,
             'SV_SubCommands'         => static::$SV_SubCommands,
             'CV_Commands'            => static::$CV_Commands,
             'PS_Commands'            => static::$PS_Commands,

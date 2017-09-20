@@ -79,21 +79,25 @@ class DenonAVRTelnet extends AVRModule
         }
 
         if ($this->SetInstanceStatus() == true) {
-            $this->ValidateConfiguration();
+            $manufacturername = $this->GetManufacturerName();
+            $AVRType = $this->GetAVRType($manufacturername);
+
+            $this->ValidateConfiguration($manufacturername, $AVRType);
+
 
             // über http werden zusätliche Daten geholt (MainZoneName, Model)
-            $data = $this->GetStateHTTP();
-            //das Array muss für die weitere Verrabeitung in ein Object umgewandelt werden
-            $data = $this->arrayToObject($data);
-            $this->UpdateVariable($data);
-        }
+            if (AVRs::getCapabilities($AVRType)['httpMainZone'] != DENON_HTTP_Interface::NoHTTPInterface) {
+                $data = $this->GetStateHTTP();
+                //das Array muss für die weitere Verrabeitung in ein Object umgewandelt werden
+                $data = $this->arrayToObject($data);
+                $this->UpdateVariable($data);
+            }
+         }
     }
 
-    private function ValidateConfiguration()
+    private function ValidateConfiguration($manufacturername, $AVRType)
     {
         $Zone = $this->ReadPropertyInteger('Zone');
-        $manufacturername = $this->GetManufacturerName();
-        $AVRType = $this->GetAVRType($manufacturername);
         $DenonAVRVar = new DENONIPSProfiles($AVRType);
         //Input ablegen, damit sie später dem Splitter zur Verfügung stehen
         DAVRST_SaveInputVarmapping($this->GetParent(), json_encode($this->GetInputsAVR($DenonAVRVar)));
@@ -210,11 +214,14 @@ class DenonAVRTelnet extends AVRModule
             IPS_Sleep(200); //Doku: responses should be sent within 200ms of receiving the command
         }
 
-        // über http werden zusätliche Daten geholt (MainZoneName, Model)
-        $data = $this->GetStateHTTP();
-        //das Array muss für die weitere Verrabeitung in ein Object umgewandelt werden
-        $data = $this->arrayToObject($data);
-        $this->UpdateVariable($data);
+        // über http werden zusätzliche Daten geholt (MainZoneName, Model)
+        $AVRType = $this->GetAVRType($this->GetManufacturerName());
+        if (AVRs::getCapabilities($AVRType)['httpMainZone'] != DENON_HTTP_Interface::NoHTTPInterface) {
+            $data = $this->GetStateHTTP();
+            //das Array muss für die weitere Verabeitung in ein Object umgewandelt werden
+            $data = $this->arrayToObject($data);
+            $this->UpdateVariable($data);
+        }
     }
 
     public function RequestAction($Ident, $Value)
@@ -1406,6 +1413,9 @@ class DenonAVRTelnet extends AVRModule
         ];
 
         foreach ($CommandAreas as $label => $commandArea) {
+            if (count($AVRCaps[$commandArea]) == 0) {
+                continue;
+            }
             $form .= '
                         { "type": "Label", "label": "'.$label.':" },';
 

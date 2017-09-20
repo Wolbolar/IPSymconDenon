@@ -10,7 +10,13 @@
 class MarantzAVR extends AVR
 {
     public static $Manufacturer = DENONIPSProfiles::ManufacturerMarantz;
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
+    public static $InputSettings = [
+        DENON_API_Commands::SI,
+        DENON_API_Commands::MSSMART,
+        DENON_API_Commands::SD,
+        DENON_API_Commands::DC,
+        DENON_API_Commands::SV
+    ];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -43,13 +49,6 @@ class Marantz_NR1504 extends MarantzAVR
         DENON_API_Commands::MSDTSSURROUND,
         DENON_API_Commands::MSMCHSTEREO,
         DENON_API_Commands::MSVIRTUAL,
-    ];
-    public static $InputSettings = [
-        DENON_API_Commands::SI,
-        DENON_API_Commands::MSSMART,
-        DENON_API_Commands::SD,
-        DENON_API_Commands::DC,
-        DENON_API_Commands::SV,
     ];
     public static $SV_SubCommands = [
         DENON_API_Commands::BD,
@@ -113,7 +112,6 @@ class Marantz_NR1506 extends Marantz_NR1504
         DENON_API_Commands::ECO,
         DENON_API_Commands::SLP,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $PS_Commands = [
         DENON_API_Commands::PSSWR,
         DENON_API_Commands::PSTONECTRL,
@@ -371,7 +369,6 @@ class Marantz_NR1605 extends Marantz_NR1604
         DENON_API_Commands::ECO,
         DENON_API_Commands::SLP,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSWR,
@@ -678,7 +675,6 @@ class Marantz_SR5009 extends Marantz_SR5008
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
         DENON_API_Commands::CVZRL,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSWR,
@@ -1118,7 +1114,6 @@ class Marantz_SR6009 extends Marantz_SR6008
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
         DENON_API_Commands::CVZRL,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSP,
@@ -1538,7 +1533,6 @@ class Marantz_SR7009 extends Marantz_SR7008
         DENON_API_Commands::CVSHL, DENON_API_Commands::CVSHR, DENON_API_Commands::CVTS,
         DENON_API_Commands::CVZRL,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
         DENON_API_Commands::MSMUSIC,
@@ -1911,7 +1905,6 @@ class Marantz_AV7702 extends Marantz_AV7701
         DENON_API_Commands::SCH4KF,
         DENON_API_Commands::SCHAUTO,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $Zone_Commands = [
         DENON_API_Commands::Z2POWER, DENON_API_Commands::Z3POWER,
         DENON_API_Commands::Z2INPUT, DENON_API_Commands::Z3INPUT,
@@ -2013,7 +2006,6 @@ class Marantz_AV8801 extends MarantzAVR
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI, DENON_API_Commands::MSSMART, DENON_API_Commands::SD, DENON_API_Commands::DC, DENON_API_Commands::SV];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
         DENON_API_Commands::MSMUSIC,
