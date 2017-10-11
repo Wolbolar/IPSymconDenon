@@ -34,8 +34,8 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Denon Modelle:  
 
-AVR-1912, AVR-2313, AVR-3312, AVR-3313, AVR-3808A, AVR-4308A, AVR-4310, AVR-4311, AVR-X1000, AVR-X1000W, AVR-X1200W, AVR-X2000,	AVR-X2100W,	AVR-X2200W, AVR-X3000, AVR-X3100W, AVR-X3200W, AVR-X4000, AVR-X4100W,
-AVR-X4200W, AVR-X5200W, AVR-6200W, AVR-7200W, AVR-7200WA, S-700W, S-900W
+AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X2000,	AVR-X3000, AVR-X4000, AVR-X4100W,
+AVR-X4200W, AVR-X5200W, AVR-X6200W, AVR-X7200W, AVR-X7200WA, AVR-X6300H
 
 ### Marantz Modelle: 
 
@@ -58,7 +58,7 @@ Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 m
 
 ### b. Einrichtung in IPS
 
-In IP-Symcon wird von jede Zone des AV Receivers den wir nutzen wollen eine seperate Instanz angelegt. Der Denon IO und Denon Splitter wird
+In IP-Symcon wird für jede Zone des AV Receivers die wir nutzen wollen eine separate Instanz angelegt. Der Denon IO und Denon Splitter wird
 automatisch mit angelegt. Um die Instanz zu erstellen wechseln wir in die Kategorie, unter der wir die Instanz platzieren wollen
 und erstellen mit *CTRL+1* eine neue Instanz.
 
@@ -66,43 +66,42 @@ und erstellen mit *CTRL+1* eine neue Instanz.
 
 Über _**Denon**_ finden wir die Instanz und mit weiter und Ok wird diese angelegt.
 
-Zur Auswahl stehen in IP-Symcon Denon/Marantz AV Receiver HTTP Control oder Denon/Marantz AV Receiver Telnet Control. Die Denon/Marantz AV Receiver Telnet Control verfügt über den deutlich größeren Funktionsumfang und sollte nach Möglichkeit genutzt werden.
-Es kann aber jeweils nur ein gerät auf diese Weise mit dem AV Receiver verbunden sein. Sollte also bereits ein anderes Gerät oder Remote diese Verbindung nutzen kann auch alternativ Denon/Marantz AV Receiver HTTP Control genutzt werden. 
+Zur Auswahl stehen in IP-Symcon das Denon/Marantz AV Receiver HTTP Control und das Denon/Marantz AV Receiver Telnet Control. Die Denon/Marantz AV Receiver Telnet Control verfügt über den deutlich größeren Funktionsumfang und sollte nach Möglichkeit genutzt werden.
+Es kann aber jeweils nur ein Gerät auf diese Weise mit dem AV Receiver verbunden sein. Sollte also bereits ein anderes Gerät oder Remote diese Verbindung nutzen kann auch alternativ Denon/Marantz AV Receiver HTTP Control genutzt werden. 
 Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen.
 
-Bei dem Denon / Marantz Device ist zunächst der Hersteller auszuwählen und dann mit _Übernehmen_ zu bestätigen.
+Bei dem Denon/Marantz Device ist zunächst der Hersteller auszuwählen und dann mit _Übernehmen_ zu bestätigen.
 
 ![Herstellerauswahl](docs/config1.png?raw=true "Herstellerauswahl")
 
-Anschließend das AV Receiver Modell auszuwählen und wieder mit _Übernehmen_ bestätigen.
+Anschließend ist das AV Receiver Modell auszuwählen und wieder mit _Übernehmen_ zu bestätigen.
 
 ![AVRAuswahl](docs/config2.png?raw=true "AVR Auswahl")
 
-Jetzt noch die Zone selektieren die benutzt werden soll und mit _Übernehmen_ bestätigen.
+Jetzt noch die Zone selektieren, die benutzt werden soll, und mit _Übernehmen_ bestätigen.
 
 ![ZoneAuswahl](docs/config3.png?raw=true "Zone Auswahl")
 
-Jetzt wird abhänig von dem AV Receiver Modell und der Zone Befehle zum selektieren angezeigt. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. Die Befehle die im Webfront genutzt werden sollen können nun ausgewählt werden oder auch wieder bei Bedarf abgewählt werden.
+Jetzt wird abhängig von dem AV Receiver Modell und der Zone Befehle zum Selektieren angezeigt. Das Konfigurationsformular passt sich je nach Auswahl des Modells an. Die Befehle, die im Webfront genutzt werden sollen, können nun ausgewählt werden oder auch wieder bei Bedarf abgewählt werden.
 Beim HTTP Modul wird der Status automatisch regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
+
 Beim Telnet Modul erfolgt ein Update des Status für die entsprechende Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
-Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
+Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button _Status initialisieren_ zur Verfügung.
 
 
 ## 4. Funktionsreferenz
 
 ### Denon Splitter Telnet:
-Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt. Bei Öffnen ist ein Haken zu setzten.
+Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt.
 	
 ### Denon Splitter  HTTP
 Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu setzten.
  
 ### Denon AV Receiver Telnet Control
- AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen auswählen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
- Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
+ AVR Zone auswählen und die Befehle, die zur Verfügung stehen sollen, auswählen. Alle Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
  
 ### Denon AV Receiver HTTP Control
- AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
- Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
+ AVR Zone auswählen und die Befehle, die zur Verfügung stehen sollen, auswählen. Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
 
 
 ## 5. Konfiguration:
@@ -111,7 +110,6 @@ Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu se
 
 | Eigenschaft | Typ     | Standardwert | Funktion                                  |
 | :---------: | :-----: | :----------: | :---------------------------------------: |
-| Open        | bool    | true         | Verbindung zum Denon AVR  aktiv / deaktiv |
 | Host        | string  |              | IP Adresse des Denon AVR                  |
 | Port        | int     |              | Kommunikationsport 23 (nicht ändern)      |
 
@@ -438,6 +436,10 @@ DAVRT_ChannelVolumeTS(int $InstanceID, float $Value)
 
 Channel Volume Top Surround
 Parameter Range float $Value -12 to 12, Step 0.5
+
+```php
+DAVRT_ChannelVolumeZRL(int $InstanceID, float $Value)
+```
 
 ```php
 DAVRT_ChannelVolumeTFL(int $InstanceID, float $Value)
