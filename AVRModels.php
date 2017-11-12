@@ -38,7 +38,7 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
                 31 => "AVR-X1300W",
                 32 => "AVR-3310", //neu
                 33 => "AVR-3311", //neu
-                34 => "AVR-X2000",
+                34 => "AVR-X2400H",
                 35 => "AVR-X6300H",
 
                 60 => "Marantz-NR1504", //
@@ -96,6 +96,10 @@ class AVRs extends stdClass
                 Denon_AVR_X1200W::$Name   => Denon_AVR_X1200W::getCapabilities(),
                 Denon_AVR_X1300W::$Name   => Denon_AVR_X1300W::getCapabilities(),
                 Denon_AVR_X2000::$Name    => Denon_AVR_X2000::getCapabilities(),
+                Denon_AVR_X2100W::$Name    => Denon_AVR_X2100W::getCapabilities(),
+                Denon_AVR_X2200W::$Name    => Denon_AVR_X2200W::getCapabilities(),
+                Denon_AVR_X2300W::$Name    => Denon_AVR_X2300W::getCapabilities(),
+                Denon_AVR_X2400H::$Name    => Denon_AVR_X2400H::getCapabilities(),
                 Denon_AVR_X3000::$Name    => Denon_AVR_X3000::getCapabilities(),
                 Denon_AVR_X4000::$Name    => Denon_AVR_X4000::getCapabilities(),
                 Denon_AVR_X4100W::$Name   => Denon_AVR_X4100W::getCapabilities(),
@@ -251,6 +255,7 @@ class AVR extends stdClass
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::NS,
     ];
     public static $SystemControl_Commands_max = [
         DENON_API_Commands::MN,
@@ -260,6 +265,7 @@ class AVR extends stdClass
         DENON_API_Commands::DIM,
         DENON_API_Commands::SSHOSALS,
         DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::NS,
     ];
     public static $PS_Commands = [];
     public static $PS_Commands_max = [
@@ -399,6 +405,18 @@ class AVR extends stdClass
                 break;
             case Denon_AVR_X2000::$Name:
                 return new Denon_AVR_X2000();
+                break;
+            case Denon_AVR_X2100W::$Name:
+                return new Denon_AVR_X2100W();
+                break;
+            case Denon_AVR_X2200W::$Name:
+                return new Denon_AVR_X2200W();
+                break;
+            case Denon_AVR_X2300W::$Name:
+                return new Denon_AVR_X2300W();
+                break;
+            case Denon_AVR_X2400H::$Name:
+                return new Denon_AVR_X2400H();
                 break;
             case Denon_AVR_X4100W::$Name:
                 return new Denon_AVR_X4100W();

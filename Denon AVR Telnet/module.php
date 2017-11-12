@@ -735,7 +735,20 @@ class DenonAVRTelnet extends AVRModule
     {
         $manufacturername = $this->GetManufacturerName();
         $AVRType = $this->GetAVRType($manufacturername);
-        if ($AVRType == 'AVR-X7200W' || $AVRType == 'AVR-X5200W' || $AVRType == 'AVR-X4100W' || $AVRType == 'AVR-X3100W' || $AVRType == 'AVR-X2100W' || $AVRType == 'S900W' || $AVRType == 'AVR-7200WA' || $AVRType == 'AVR-6200W' || $AVRType == 'AVR-4200W' || $AVRType == 'AVR-3200W' || $AVRType == 'AVR-2200W' || $AVRType == 'AVR-1200W') {
+        if (in_array($AVRType, ['AVR-X7200W'
+                                , 'AVR-X5200W'
+                                , 'AVR-X4100W'
+                                , 'AVR-X3100W'
+                                , 'AVR-X2000'
+                                , 'AVR-X2100W'
+                                , 'AVR-X2200W'
+                                , 'AVR-X2300W'
+                                , 'S900W'
+                                , 'AVR-X7200WA'
+                                , 'AVR-X6200W'
+                                , 'AVR-X4200W'
+                                , 'AVR-X3200W'
+                                , 'AVR-X1200W'])) {
             if ($command == 'AUX') {
                 $command = 'AUX1';
             }
@@ -994,7 +1007,7 @@ class DenonAVRTelnet extends AVRModule
     }
 
     //GUI Menu
-    public function GUIMenu(bool $Value) // GUI Menu true (On) or false (Off)
+    public function GUIMenu(bool $Value) // GUI Setup Menu true (On) or false (Off)
     {
         if ($Value == false) {
             $subcommand = DENON_API_Commands::MNMENOFF;
@@ -1108,87 +1121,87 @@ class DenonAVRTelnet extends AVRModule
     //Network Audio Navigation
     public function NACursorUp()
     {
-        $this->SendCommand(DENON_API_Commands::NAUP);
+        $this->SendCommand(DENON_API_Commands::NSUP);
     }
 
     public function NACursorDown()
     {
-        $this->SendCommand(DENON_API_Commands::NADOWN);
+        $this->SendCommand(DENON_API_Commands::NSDOWN);
     }
 
     public function NACursorLeft()
     {
-        $this->SendCommand(DENON_API_Commands::NALEFT);
+        $this->SendCommand(DENON_API_Commands::NSLEFT);
     }
 
     public function NACursorRight()
     {
-        $this->SendCommand(DENON_API_Commands::NARIGHT);
+        $this->SendCommand(DENON_API_Commands::NSRIGHT);
     }
 
     public function NAEnter()
     {
-        $this->SendCommand(DENON_API_Commands::NAENTER);
+        $this->SendCommand(DENON_API_Commands::NSENTER);
     }
 
     public function NAPlay()
     {
-        $this->SendCommand(DENON_API_Commands::NAPLAY);
+        $this->SendCommand(DENON_API_Commands::NSPLAY);
     }
 
     public function NAPause()
     {
-        $this->SendCommand(DENON_API_Commands::NAPAUSE);
+        $this->SendCommand(DENON_API_Commands::NSPAUSE);
     }
 
     public function NAStop()
     {
-        $this->SendCommand(DENON_API_Commands::NASTOP);
+        $this->SendCommand(DENON_API_Commands::NSSTOP);
     }
 
     public function NASkipPlus()
     {
-        $this->SendCommand(DENON_API_Commands::NASKIPPLUS);
+        $this->SendCommand(DENON_API_Commands::NSSKIPPLUS);
     }
 
     public function NASkipMinus()
     {
-        $this->SendCommand(DENON_API_Commands::NASKIPMINUS);
+        $this->SendCommand(DENON_API_Commands::NSSKIPMINUS);
     }
 
     public function NARepeatOne()
     {
-        $this->SendCommand(DENON_API_Commands::NAREPEATONE);
+        $this->SendCommand(DENON_API_Commands::NSREPEATONE);
     }
 
     public function NARepeatAll()
     {
-        $this->SendCommand(DENON_API_Commands::NAREPEATALL);
+        $this->SendCommand(DENON_API_Commands::NSREPEATALL);
     }
 
     public function NARepeatOff()
     {
-        $this->SendCommand(DENON_API_Commands::NAREPEATOFF);
+        $this->SendCommand(DENON_API_Commands::NSREPEATOFF);
     }
 
     public function NARandomOn()
     {
-        $this->SendCommand(DENON_API_Commands::NARANDOMON);
+        $this->SendCommand(DENON_API_Commands::NSRANDOMON);
     }
 
     public function NARandomOff()
     {
-        $this->SendCommand(DENON_API_Commands::NARANDOMOFF);
+        $this->SendCommand(DENON_API_Commands::NSRANDOMOFF);
     }
 
     public function NAPageNext()
     {
-        $this->SendCommand(DENON_API_Commands::NAPAGENEXT);
+        $this->SendCommand(DENON_API_Commands::NSPAGENEXT);
     }
 
     public function NAPagePrevious()
     {
-        $this->SendCommand(DENON_API_Commands::NAPAGEPREV);
+        $this->SendCommand(DENON_API_Commands::NSPAGEPREV);
     }
 
     //####################### Zone 2 functions ######################################

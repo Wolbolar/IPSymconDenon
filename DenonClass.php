@@ -872,6 +872,7 @@ class DENONIPSProfiles extends stdClass
     const ptZone3Power = 'Zone3Power';
     const ptZone3Name = 'Zone3Name';
     const ptNavigation = 'Navigation';
+    const ptNavigationNetwork = 'NavigationNetwork';
     const ptSubwooferATT = 'SubwooferATT';
     //const ptDCOMPDirectChange = 'DCOMPDirectChange';
     const ptDolbyVolumeLeveler = 'DolbyVolumeLeveler';
@@ -882,8 +883,8 @@ class DENONIPSProfiles extends stdClass
     const ptMainZoneName = 'MainZoneName';
     const ptTopMenuLink = 'TopMenuLink';
     const ptModel = 'Model';
-    const ptGUISourceSelect = 'GUIMenuSourceSelect';
-    const ptGUIMenu = 'GUIMenu';
+    const ptGUIMenuSourceSelect = 'GUIMenuSourceSelect';
+    const ptGUIMenuSetup = 'GUIMenuSetup';
     const ptSurroundDisplay = 'SurroundDisplay';
     const ptDisplay = 'Display';
     const ptGraphicEQ = 'GraphicEQ';
@@ -948,11 +949,13 @@ class DENONIPSProfiles extends stdClass
         //Surround Mode
         self::ptSurroundMode,
         self::ptSurroundDisplay,
-        self::ptNavigation,
         self::ptDolbyVolume,
         self::ptDolbyVolumeLeveler,
         self::ptDolbyVolumeModeler,
+
+        //OnScreenDisplay
         self::ptDisplay,
+        self::ptNavigationNetwork,
 
         //Channel Volumes
         self::ptMasterVolume,
@@ -1064,8 +1067,9 @@ class DENONIPSProfiles extends stdClass
         self::ptVerticalStretch,
 
         //GUI
-        self::ptGUIMenu,
-        self::ptGUISourceSelect,
+        self::ptGUIMenuSetup,
+        self::ptGUIMenuSourceSelect,
+        self::ptNavigation,
         self::ptAllZoneStereo,
         self::ptDimmer,
         self::ptAutoLipSync,
@@ -1252,21 +1256,21 @@ class DENONIPSProfiles extends stdClass
                                                      [false, DENON_API_Commands::PSSWROFF],
                                                      [true, DENON_API_Commands::PSSWRON],
                                                  ], ],
-            self::ptLoudnessManagement => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PSLOM, 'Name' => 'Loudness Management',
+            self::ptLoudnessManagement  => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PSLOM, 'Name' => 'Loudness Management',
                                           'PropertyName'      => 'LoudnessManagement',
                                           'Associations'      => [
                                                      [false, DENON_API_Commands::PSLOMOFF],
                                                      [true, DENON_API_Commands::PSLOMON],
                                                  ], ],
-            self::ptGUIMenu => ['Type'       => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNMEN, 'Name' => 'GUI Menu',
-                                          'PropertyName' => 'GUIMenu',
-                                          'Associations' => [
+            self::ptGUIMenuSetup        => ['Type'         => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNMEN, 'Name' => 'GUI Setup Menu',
+                                            'PropertyName' => 'GUIMenu',
+                                            'Associations' => [
                                                 [false, DENON_API_Commands::MNMENOFF],
                                                 [true, DENON_API_Commands::MNMENON],
                                             ], ],
-            self::ptGUISourceSelect => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNSRC, 'Name' => 'GUI Source Select Menu',
-                                          'PropertyName'   => 'GUIMenuSource',
-                                          'Associations'   => [
+            self::ptGUIMenuSourceSelect => ['Type'         => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNSRC, 'Name' => 'GUI Source Select Menu',
+                                            'PropertyName' => 'GUIMenuSource',
+                                            'Associations' => [
                                                         [false, DENON_API_Commands::MNSRCOFF],
                                                         [true, DENON_API_Commands::MNSRCON],
                                                     ], ],
@@ -1376,7 +1380,7 @@ class DENONIPSProfiles extends stdClass
                                                      ],
                                                      'IndividualStatusRequest' => 'CV?',
             ],
-            self::ptNavigation => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MN, 'Name' => 'Navigation',
+            self::ptNavigation => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MN, 'Name' => 'Navigation Setup Menu',
                 'PropertyName'                        => 'Navigation',
                 'Profilesettings'                     => ['Move', '', '', 0, 0, 0, 0],
                 'Associations'                        => [
@@ -1386,6 +1390,21 @@ class DENONIPSProfiles extends stdClass
                     [3, 'Right', DENON_API_Commands::MNCRT],
                     [4, 'Enter', DENON_API_Commands::MNENT],
                     [5, 'Return', DENON_API_Commands::MNRTN],
+                ],
+            ],
+            self::ptNavigationNetwork => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::NS, 'Name' => 'Navigation Network',
+                'PropertyName'                        => 'NavigationNetwork',
+                'Profilesettings'                     => ['Move', '', '', 0, 0, 0, 0],
+                'Associations'                        => [
+                    [0, 'Up', DENON_API_Commands::NSUP],
+                    [1, 'Down', DENON_API_Commands::NSDOWN],
+                    [2, 'Left', DENON_API_Commands::NSLEFT],
+                    [3, 'Enter (Play/Pause)', DENON_API_Commands::NSENTER],
+                    [4, 'Stop', DENON_API_Commands::NSSTOP],
+                    [5, 'Skip <', DENON_API_Commands::NSSKIPMINUS],
+                    [6, 'Skip >', DENON_API_Commands::NSSKIPPLUS],
+                    [12, 'Page Previous', DENON_API_Commands::NSPAGEPREV],
+                    [13, 'Page Next', DENON_API_Commands::NSPAGENEXT],
                 ],
             ],
             self::ptQuickSelect => ['Type'            => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MSQUICK, 'Name' => 'Quick Select',
@@ -2856,8 +2875,8 @@ class DENON_StatusHTML extends stdClass
         }
         */
 
-        //InputFuncSelect
-        $Element = $xml->xpath('.//InputFuncSelect');
+        //InputFuncSelectMain
+        $Element = $xml->xpath('.//InputFuncSelectMain');
         if ($Element) {
             $SubCommand = (string) $Element[0]->value;
 
@@ -2875,7 +2894,7 @@ class DENON_StatusHTML extends stdClass
 
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping));
+                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping). ', SubCommand: ' . $SubCommand);
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
@@ -3324,24 +3343,24 @@ class DENON_API_Commands extends stdClass
     const NSB = 'NSB'; //Direct Preset CH Play 00-55,00=A1,01=A2,B1=08,G8=55
 
     // Display Network Audio Navigation
-    const NAUP = 'NS90'; // Network Audio Cursor Up Control
-    const NADOWN = 'NS91'; // Network Audio Cursor Down Control
-    const NALEFT = 'NS92'; // Network Audio Cursor Left Control
-    const NARIGHT = 'NS93'; // Network Audio Cursor Right Control
-    const NAENTER = 'NS94'; // Network Audio Cursor Enter Control
-    const NAPLAY = 'NS9A'; // Network Audio Play
-    const NAPAUSE = 'NS9B'; // Network Audio Pause
-    const NASTOP = 'NS9C'; // Network Audio Stop
-    const NASKIPPLUS = 'NS9D'; // Network Audio Skip +
-    const NASKIPMINUS = 'NS9E'; // Network Audio Skip -
-    const NAREPEATONE = 'NS9H'; // Network Audio Repeat One
-    const NAREPEATALL = 'NS9I'; // Network Audio Repeat All
-    const NAREPEATOFF = 'NS9J'; // Network Audio Repeat Off
-    const NARANDOMON = 'NS9K'; // Network Audio Random On
-    const NARANDOMOFF = 'NS9M'; // Network Audio Random Off
-    const NATOGGLE = 'NS9W'; // Network Audio Toggle Switch
-    const NAPAGENEXT = 'NS9X'; // Network Audio Page Next
-    const NAPAGEPREV = 'NS9Y'; // Network Audio Page Previous
+    const NSUP = '90'; // Network Audio Cursor Up Control
+    const NSDOWN = '91'; // Network Audio Cursor Down Control
+    const NSLEFT = '92'; // Network Audio Cursor Left Control
+    const NSRIGHT = '93'; // Network Audio Cursor Right Control
+    const NSENTER = '94'; // Network Audio Cursor Enter Control
+    const NSPLAY = '9A'; // Network Audio Play
+    const NSPAUSE = '9B'; // Network Audio Pause
+    const NSSTOP = '9C'; // Network Audio Stop
+    const NSSKIPPLUS = '9D'; // Network Audio Skip +
+    const NSSKIPMINUS = '9E'; // Network Audio Skip -
+    const NSREPEATONE = '9H'; // Network Audio Repeat One
+    const NSREPEATALL = '9I'; // Network Audio Repeat All
+    const NSREPEATOFF = '9J'; // Network Audio Repeat Off
+    const NSRANDOMON = '9K'; // Network Audio Random On
+    const NSRANDOMOFF = '9M'; // Network Audio Random Off
+    const NSTOGGLE = '9W'; // Network Audio Toggle Switch
+    const NSPAGENEXT = '9X'; // Network Audio Page Next
+    const NSPAGEPREV = '9Y'; // Network Audio Page Previous
 
     //Display
     const DISPLAY = 'Display'; // Display zur Anzeige
@@ -3843,7 +3862,7 @@ class DENON_API_Commands extends stdClass
     const PSFRONTSPB = ' SPB'; //Speaker B
     const PSFRONTSPAB = ' SPA+B'; //Speaker A+B
 
-    //Cursor
+    //Cursor Menu
     const MNCUP = 'CUP'; // Cursor Up
     const MNCDN = 'CDN'; // Cursor Down
     const MNCRT = 'CRT'; // Cursor Right
@@ -3851,15 +3870,15 @@ class DENON_API_Commands extends stdClass
     const MNENT = 'ENT'; // Cursor Enter
     const MNRTN = 'RTN'; // Cursor Return
 
-    //GUI Menu
+    //GUI Menu (Setup Menu)
     const MNMEN = 'MNMEN'; // GUI Menu
     const MNMENON = ' ON'; // GUI Menu On
     const MNMENOFF = ' OFF'; // GUI Menu Off
 
     //GUI Source Select Menu
-    const MNSRC = 'MNSRC'; // GUI Menu
-    const MNSRCON = ' ON'; // GUI Menu On
-    const MNSRCOFF = ' OFF'; // GUI Menu Off
+    const MNSRC = 'MNSRC'; // Source Select Menu
+    const MNSRCON = ' ON'; // Source Select Menu On
+    const MNSRCOFF = ' OFF'; // Source Select Menu Off
 
     // Surround Modes Response
 

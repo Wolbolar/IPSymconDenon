@@ -34,7 +34,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Denon Modelle:  
 
-AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X2000,	AVR-X3000, AVR-X4000, AVR-X4100W,
+AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X3000, AVR-X4000, AVR-X4100W,
 AVR-X4200W, AVR-X5200W, AVR-X6200W, AVR-X7200W, AVR-X7200WA, AVR-X6300H
 
 ### Marantz Modelle: 
@@ -182,7 +182,6 @@ DAVRT_MainZonePower(int $InstanceID, bool $Value)
 Einschalten / Ausschalten Mainzone
 Parameter $Value false (Off) / true (On)
 
-Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 ```php
 DAVRT_MainzoneAutoStandbySetting(int $InstanceID, int $Value)
 ```
@@ -190,7 +189,6 @@ DAVRT_MainzoneAutoStandbySetting(int $InstanceID, int $Value)
 Mainzone Auto Standby Setting in Minuten (0 ist Off)
 Parameter $Value  0 (Off) / 15 / 30 / 60 (Minuten)
 
-Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 ```php
 DAVRT_MainzoneEcoModeSetting(int $InstanceID, string $Value)
 ```
@@ -231,9 +229,7 @@ DAVRT_Input(int $InstanceID, string $Value)
 ```
 
 Auswählen Input Mainzone
-Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
-Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
+Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD, MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
 ```php
