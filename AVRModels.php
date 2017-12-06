@@ -41,6 +41,7 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
                 34 => "AVR-X2400H",
                 35 => "AVR-X6300H",
                 36 => "AVR-X3400H",
+                37 => "AVR-X1400H",
 
                 60 => "Marantz-NR1504", //
                 61 => "Marantz-NR1506", //
@@ -96,6 +97,7 @@ class AVRs extends stdClass
                 Denon_AVR_X1100W::$Name   => Denon_AVR_X1100W::getCapabilities(),
                 Denon_AVR_X1200W::$Name   => Denon_AVR_X1200W::getCapabilities(),
                 Denon_AVR_X1300W::$Name   => Denon_AVR_X1300W::getCapabilities(),
+                Denon_AVR_X1400H::$Name   => Denon_AVR_X1400H::getCapabilities(),
                 Denon_AVR_X2000::$Name    => Denon_AVR_X2000::getCapabilities(),
                 Denon_AVR_X2100W::$Name    => Denon_AVR_X2100W::getCapabilities(),
                 Denon_AVR_X2200W::$Name    => Denon_AVR_X2200W::getCapabilities(),

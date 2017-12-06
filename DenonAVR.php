@@ -871,7 +871,6 @@ class Denon_AVR_X1100W extends DenonAVR
     // see IP_Protocol_AVR-Xx100.pdf
     public static $Name = 'AVR-X1100W';
     public static $internalID = 8;
-    //    static $httpMainZone = DENON_HTTP_Interface::MainForm_old; //only test
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -911,6 +910,18 @@ class Denon_AVR_X1100W extends DenonAVR
         DENON_API_Commands::MSMATRIX,
         DENON_API_Commands::MSVIDEOGAME,
         DENON_API_Commands::MSVIRTUAL,
+    ];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
     ];
     public static $PS_Commands = [
         DENON_API_Commands::PSTONECTRL,
@@ -986,7 +997,6 @@ class Denon_AVR_X1200W extends Denon_AVR_X1100W
         DENON_API_Commands::MPLAY,
         DENON_API_Commands::GAME,
         DENON_API_Commands::AUX1,
-        DENON_API_Commands::CD,
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
     ];
@@ -1061,6 +1071,34 @@ class Denon_AVR_X1300W extends Denon_AVR_X1200W
         DENON_API_Commands::MSMATRIX,
         DENON_API_Commands::MSVIDEOGAME,
         DENON_API_Commands::MSVIRTUAL,
+    ];
+}
+
+class Denon_AVR_X1400H extends Denon_AVR_X1300W
+{
+    // see AVR-X3400H_X2400H_X1400H_S930H_S730H_PROTOCOL_V01.xlsx
+    public static $Name = 'AVR-X1400H';
+    public static $internalID = 37;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+    public static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DIM,
+    ];
+    public static $CV_Commands = [
+        DENON_API_Commands::MV,
+        DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
+        DENON_API_Commands::CVSW,
+        DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
+        DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
+        DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
+        DENON_API_Commands::CVTFL, DENON_API_Commands::CVTFR,
+        DENON_API_Commands::CVTML, DENON_API_Commands::CVTMR,
+        DENON_API_Commands::CVFDL, DENON_API_Commands::CVFDR,
+        DENON_API_Commands::CVSDL, DENON_API_Commands::CVSDR,
+        DENON_API_Commands::CVZRL,
     ];
 }
 

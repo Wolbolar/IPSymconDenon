@@ -15,7 +15,7 @@ Modul für IP-Symcon ab Version 4.1. Ermöglicht die Kommunikation mit einem Den
 
 ## 1. Funktionsumfang
 
-Mit dem Modul lassen sich Befehle an einen Denon Receiver oder Marantz Receier absenden und die Statusrückmeldung in IP-Symcon (ab Version 4.1) empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
+Mit dem Modul lassen sich Befehle an einen Denon Receiver oder Marantz Receier absenden und die Statusrückmeldung in IP-Symcon empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
 Ein Modul nutzt als Kommunikation Port 23 über das Denon AVR Control Protocol. Das zweite Modul nutzt zur Kommunikation HTTP.
 Der Denon AVR kann jeweils nur einen einzige Verbindung auf Port 23 aufbauen. Daher kann, wenn dieses Modul benutzt wird, kein weiterer Client mehr den Denon AVR auf diese Weise über Port 23 steuern.
 Der Vorteil ist jedoch, dass sämtliche dokumentierte Befehle an den Denon AVR geschickt und auch eine Rückmeldung in IP-Symcon dafür empfangen werden kann. Die zweite Möglichkeit ist das Denon HTTP Modul zu benutzten.
@@ -34,7 +34,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Denon Modelle:  
 
-AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X3000, AVR-X3400H, AVR-X4000, AVR-X4100W,
+AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X1400H, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X3000, AVR-X3400H, AVR-X4000, AVR-X4100W,
 AVR-X4200W, AVR-X5200W, AVR-X6200W, AVR-X7200W, AVR-X7200WA, AVR-X6300H
 
 ### Marantz Modelle: 
@@ -52,7 +52,7 @@ Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 m
 
 ### a. Laden des Moduls
 
-   Wir wechseln zu IP-Symcon (Ver. 4.1) und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
+   Wir wechseln zu IP-Symcon und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
 	
     `https://github.com/Wolbolar/IPSymconDenon`  
 
