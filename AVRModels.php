@@ -77,6 +77,7 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
                 91 => "Marantz-SR6011", //
                 92 => "Marantz-SR7011", //
                 93 => "Marantz-AV7703", //
+                94 => "Marantz-AV1508", //
                 50 => "None"
  */
 
@@ -115,6 +116,7 @@ class AVRs extends stdClass
                 Denon_AVR_X6300H::$Name  => Denon_AVR_X6300H::getCapabilities(),
                 Marantz_NR1504::$Name     => Marantz_NR1504::getCapabilities(),
                 Marantz_NR1506::$Name     => Marantz_NR1506::getCapabilities(),
+                Marantz_NR1508::$Name     => Marantz_NR1508::getCapabilities(),
                 Marantz_NR1602::$Name     => Marantz_NR1602::getCapabilities(),
                 Marantz_NR1603::$Name     => Marantz_NR1603::getCapabilities(),
                 Marantz_NR1604::$Name     => Marantz_NR1604::getCapabilities(),
@@ -445,6 +447,9 @@ class AVR extends stdClass
                 break;
             case Marantz_NR1506::$Name:
                 return new Marantz_NR1506();
+                break;
+            case Marantz_NR1508::$Name:
+                return new Marantz_NR1508();
                 break;
             case Marantz_NR1602::$Name:
                 return new Marantz_NR1602();

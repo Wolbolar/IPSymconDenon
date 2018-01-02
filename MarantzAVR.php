@@ -136,7 +136,61 @@ class Marantz_NR1506 extends Marantz_NR1504
         DENON_API_Commands::PSMDAX,
         DENON_API_Commands::PSDELAY,
     ];
-    //static $VS_Commands = []
+}
+
+class Marantz_NR1508 extends Marantz_NR1506
+{
+    public static $Name = 'Marantz-NR1508';
+    public static $internalID = 94;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+    public static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::DIM,
+    ];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::CD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::BT,
+    ];
+    public static $CV_Commands = [
+        DENON_API_Commands::MV,
+        DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
+        DENON_API_Commands::CVSW,
+        DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
+        DENON_API_Commands::CVZRL,
+    ];
+    public static $PS_Commands = [
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSWL,
+        DENON_API_Commands::PSDIL,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSPAN,
+        DENON_API_Commands::PSDIM,
+        DENON_API_Commands::PSCEN,
+        DENON_API_Commands::PSCEI,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSMDAX,
+        DENON_API_Commands::PSDELAY,
+    ];
 }
 
 /* ---------------------
