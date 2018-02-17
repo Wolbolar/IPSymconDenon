@@ -2293,7 +2293,7 @@ class DENONIPSProfiles extends stdClass
         $Associations = [];
 
         foreach ($Inputs as $Value => $Input) {
-            // Beispiel: Association[] = [1, 'CD', 'SONOS']
+            // Beispiel: Association[] = [1, 'SONOS', 'CD']
             $Associations[] = [$Value, str_replace(' ', '', $Input['RenameSource']), str_replace(' ', '', $Input['Source'])];
         }
 
@@ -2888,6 +2888,7 @@ class DENON_StatusHTML extends stdClass
                 }
             }
 
+            // some values are unusal and have to be mapped
             if (array_key_exists($SubCommand, DENON_API_Commands::$SIMapping)) {
                 $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
             }
@@ -3426,6 +3427,7 @@ class DENON_API_Commands extends stdClass
     const SERVER = 'SERVER'; // Select Input Source Server
     const NAPSTER = 'NAPSTER'; // Select Input Source Napster
     const USB_IPOD = 'USB/IPOD'; // Select Input USB/IPOD
+    const MXPORT = 'MXPORT'; // Select Input MXPORT
     const SOURCE = 'SOURCE'; // Select Input Source of Main Zone
     const ON = 'ON'; // Select Input Source On
     const OFF = 'ON'; // Select Input Source Off
@@ -3435,13 +3437,16 @@ class DENON_API_Commands extends stdClass
                                  'Media Player'   => self::MPLAY,
                                  'Media Server'   => self::SERVER,
                                  'iPod/USB'       => self::USB_IPOD,
+                                 'M-XPORT'        => self::MXPORT,
                                  'TVAUDIO'        => self::TV,
+                                 'TV AUDIO'       => self::TV,
                                  'Bluetooth'      => self::BT,
                                  'Blu-ray'        => self::BD,
                                  'Online Music'   => self::NET,
                                  'NETWORK'        => self::NET,
                                  'Internet Radio' => self::IRADIO,
                                  'Last. fm'       => self::LASTFM,
+                                 'FM'             => self::TUNER,
         ];
 
     public static $SI_InputSettings = [
@@ -3473,6 +3478,7 @@ class DENON_API_Commands extends stdClass
                                 self::SERVER,
                                 self::NAPSTER,
                                 self::USB_IPOD,
+                                self::MXPORT,
                                 self::SOURCE,
                                 ];
 

@@ -91,7 +91,7 @@ Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalt
 
 ## 4. Funktionsreferenz
 
-### Denon Splitter Telnet:
+### Denon Splitter Telnet
 Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt.
 	
 ### Denon Splitter  HTTP

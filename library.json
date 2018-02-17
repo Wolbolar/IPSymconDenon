@@ -6,7 +6,7 @@
 	"author": "Fonzo/bumaas",
 	"name": "Denon/Marantz AV Receiver",
 	"url": "www.denon.de",
-	"version": "2.0",
-	"build": 0,
-	"date": 0
+	"version": "2.0 beta",
+	"build": 20,
+	"date": 1518882215
 }
