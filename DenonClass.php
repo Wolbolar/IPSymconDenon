@@ -4265,22 +4265,26 @@ class DenonAVRCP_API_Data extends stdClass
 
     private function getDisplay($data)
     {
-        $Display = [];
-
         $debug = false;
+        if ($debug){
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'data: '.json_encode($data));
+        }
+
+        $Display = [];
 
         foreach ($data as $key => $response) {
             $Row = substr($response, 3, 1);
-            if ((stripos($response, 'NSA') !== false) || (stripos($response, 'NSE') !== false)) { //Display auslesen
-                //the first characters ('NSEx') are cut
-                $response = rtrim(substr($response, 4));
+            if ((stripos($response, 'NSA') === 0) || (stripos($response, 'NSE') === 0)) { //Display auslesen
                 if ($debug) {
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.'): '.json_encode($response));
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.'): '.bin2hex($response));
+                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.') found: '.json_encode($response));
+                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.') found (hex): '.bin2hex($response));
                 }
+                //the first characters ('NSEx', 'NSAx') are cut
+                $response = rtrim(substr($response, 4));
 
                 $Display[$Row] = $response;
             }
+
         }
 
         return $Display;
