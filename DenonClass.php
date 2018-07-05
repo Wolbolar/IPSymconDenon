@@ -390,7 +390,7 @@ class AVRModule extends IPSModule
                 IPS_LogMessage('Denon Telnet AVR', 'Variablenprofil angelegt: '.$ProfileName);
             }
         } else {
-            $this->checkProfileType($ProfileName, DENONIPSVarType::vtInteger);
+            $this->checkProfileType($ProfileName, 1);//integer
         }
 
         IPS_SetVariableProfileIcon($ProfileName, $Icon);
@@ -3956,6 +3956,7 @@ class DENON_API_Commands extends stdClass
     const DTSPL2XC = 'DTS+PL2X C'; // DTS+PL2X C
     const DTSPL2XM = 'DTS+PL2X M'; // DTS+PL2X M
     const DTSPL2ZH = 'DTS+PL2Z H'; // DTS+PL2Z H
+    const DTSDS = 'DTS+DS'; // DTS+DS
     const DTSPLUSNEO6 = 'DTS+NEO:6'; // DTS+NEO:6
     const DTSPLUSNEOXC = 'DTS+NEO:X C'; // DTS PLUS NEO:X C
     const DTSPLUSNEOXM = 'DTS+NEO:X M'; // DTS PLUS NEO:X M
@@ -3965,7 +3966,8 @@ class DENON_API_Commands extends stdClass
     const DTS96ESMTRX = 'DTS96 ES MTRX'; // DTS96 ES MTRX
     const DTSHDPL2XC = 'DTS HD+PL2X C'; // DTS HD+PL2X C
     const DTSHDPL2XM = 'DTS HD+PL2X M'; // DTS HD+PL2X M
-    const DTSHDPL2XH = 'DTS HD+PL2X H'; // DTS HD+PL2X H
+    const DTSHDPL2ZH = 'DTS HD+PL2Z H'; // DTS HD+PL2Z H
+    const DTSHDDS = 'DTS HD+DS'; // DTS HD+DS
     const NEO6CDSX = 'NEO:6 C DSX'; // NEO:6 C DSX
     const NEO6MDSX = 'NEO:6 M DSX'; // NEO:6 M DSX
     const DTSHD = 'DTS HD'; // DTS HD
@@ -3973,7 +3975,6 @@ class DENON_API_Commands extends stdClass
     const DTSHDNEO6 = 'DTS HD+NEO:6'; // DTS HD+NEO:6
     const DTSES8CHDSCRT = 'DTS ES 8CH DSCRT'; // DTS ES 8CH DSCRT
     const DTSEXPRESS = 'DTS EXPRESS'; // DTS EXPRESS
-    const DTSDS = 'DTS+DS'; // MSDTS+DS
     const DOLBYDNEOXC = 'DOLBY D+NEO:X C'; // MSDOLBY D+NEO:X C
     const DOLBYDNEOXM = 'DOLBY D+NEO:X M'; // MSDOLBY D+NEO:X M
     const DOLBYDNEOXG = 'DOLBY D+NEO:X G'; // MSDOLBY D+NEO:X G
@@ -3991,7 +3992,7 @@ class DENON_API_Commands extends stdClass
     const DOLBYHDNEOXC = 'DOLBY HD+NEO:X C'; // MSDOLBY HD+NEO:X C
     const DOLBYHDNEOXM = 'DOLBY HD+NEO:X M'; // MSDOLBY HD+NEO:X M
     const DOLBYHDNEOXG = 'DOLBY HD+NEO:X G'; // MSDOLBY HD+NEO:X G
-    const DTSHDDS = 'DTS HD+DS'; // MSDTS HD+DS
+    const DOLBYHDNEURALX = 'DOLBY HD+NEURAL:X'; // MSDOLBY HD+NEURAL:X
     const DTSHDNEOXC = 'DTS HD+NEO:X C'; // MSDTS HD+NEO:X C
     const DTSHDNEOXM = 'DTS HD+NEO:X M'; // MSDTS HD+NEO:X M
     const DTSHDNEOXG = 'DTS HD+NEO:X G'; // MSDTS HD+NEO:X G
@@ -4171,6 +4172,7 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::DOLBYHDNEOXC      => 'Dolby True HD + NEO:X Cinema',
         DENON_API_Commands::DOLBYHDNEOXM      => 'Dolby True HD + NEO:X Music',
         DENON_API_Commands::DOLBYHDNEOXG      => 'Dolby True HD + NEO:X Game',
+        DENON_API_Commands::DOLBYHDNEURALX    => 'Dolby HD + Neural:X',
     ];
 
     public static $DTSSurroundModes = [
@@ -4200,21 +4202,21 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::MCHINPL2XH     => 'Multi Channel In + Dolby Pro Logic IIx Height',
         DENON_API_Commands::MCHINDS        => 'Multi Channel In + Dolby Surround',
         DENON_API_Commands::MCHINNEOXC     => 'Multi Channel In + NEO:X Cinema',
-        DENON_API_Commands::MCHINNEOXM     => 'Multi Channel In + NEO:X Music',
-        DENON_API_Commands::MCHINNEOXG     => 'Multi Channel In + NEO:X Game',
-        DENON_API_Commands::DTSHD          => 'DTS HD',
-        DENON_API_Commands::DTSHDMSTR      => 'DTS HD Master',
-        DENON_API_Commands::DTSHDNEO6      => 'DTS HD + NEO:6',
-        DENON_API_Commands::DTSHDPL2XC     => 'DTS HD + Dolby Pro Logic IIx Cinema',
-        DENON_API_Commands::DTSHDPL2XM     => 'DTS HD + Dolby Pro Logic IIx Music',
-        DENON_API_Commands::DTSHDPL2XH     => 'DTS HD + Dolby Pro Logic IIx Height',
-        DENON_API_Commands::DTSES8CHDSCRT  => 'DTS Express 8 Channel Discrect',
-        DENON_API_Commands::DTSHDDS        => 'DTS HD + Dolby Surround',
-        DENON_API_Commands::DTSEXPRESS     => 'DTS Express',
-        DENON_API_Commands::DTSES8CHDSCRT  => 'DTS ES 8 CH Discrete',
-        DENON_API_Commands::MPEG2AAC       => 'MPEG2 AAC',
-        DENON_API_Commands::AACDOLBYEX     => 'AAC + Dolby EX',
-        DENON_API_Commands::AACPL2XC       => 'AAC + PL2X Cinema',
+        DENON_API_Commands::MCHINNEOXM    => 'Multi Channel In + NEO:X Music',
+        DENON_API_Commands::MCHINNEOXG    => 'Multi Channel In + NEO:X Game',
+        DENON_API_Commands::DTSHD         => 'DTS HD',
+        DENON_API_Commands::DTSHDMSTR     => 'DTS HD Master',
+        DENON_API_Commands::DTSHDNEO6     => 'DTS HD + NEO:6',
+        DENON_API_Commands::DTSHDPL2XC    => 'DTS HD + Dolby Pro Logic IIx Cinema',
+        DENON_API_Commands::DTSHDPL2XM    => 'DTS HD + Dolby Pro Logic IIx Music',
+        DENON_API_Commands::DTSHDPL2ZH    => 'DTS HD + Dolby Pro Logic IIx Height',
+        DENON_API_Commands::DTSES8CHDSCRT => 'DTS Express 8 Channel Discrect',
+        DENON_API_Commands::DTSHDDS       => 'DTS HD + Dolby Surround',
+        DENON_API_Commands::DTSEXPRESS    => 'DTS Express',
+        DENON_API_Commands::DTSES8CHDSCRT => 'DTS ES 8 CH Discrete',
+        DENON_API_Commands::MPEG2AAC      => 'MPEG2 AAC',
+        DENON_API_Commands::AACDOLBYEX    => 'AAC + Dolby EX',
+        DENON_API_Commands::AACPL2XC      => 'AAC + PL2X Cinema',
         DENON_API_Commands::AACPL2XM       => 'AAC + PL2X Music',
         DENON_API_Commands::AACPL2XH       => 'AAC + PL2X Height',
         DENON_API_Commands::AACDS          => 'AAC + Dolby Surround',

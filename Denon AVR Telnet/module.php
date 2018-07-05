@@ -252,6 +252,8 @@ class DenonAVRTelnet extends AVRModule
             //die Liste ist noch zu überprüfen
             if ($APICommand == 'PSVOLLEV') {         // Dolby Volume Leveler
                 $this->SendRequest($APICommand, true);
+            } elseif ($APICommand == 'PSREFLEV') {   // ReferenceLevel (wird manchmal(!) nicht automatisch beantwortet)
+                $this->SendRequest($APICommand, true);
             } elseif ($APICommand == 'PSVOLMOD') {   // Dolby Volume Modeler
                 $this->SendRequest($APICommand, true);
             } elseif ($APICommand == 'PSDCO') {      // Dynamic Compressor

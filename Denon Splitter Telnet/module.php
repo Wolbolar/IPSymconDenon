@@ -412,9 +412,11 @@ public function __construct($InstanceID)
 
         // Empfangene Daten von der Device Instanz
         $data = json_decode($JSONString);
-        $datasend = $data->Buffer;
-        $this->SendDebug('Command Out:', print_r($datasend, true), 0);
+        $this->SendDebug('Command Out:', print_r($data->Buffer, true), 0);
 
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'send data: '.$data->Buffer);
+        }
         // Hier würde man den Buffer im Normalfall verarbeiten
         // z.B. CRC prüfen, in Einzelteile zerlegen
 
