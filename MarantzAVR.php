@@ -516,6 +516,7 @@ class Marantz_NR1608 extends Marantz_NR1607
 {
     public static $Name = 'Marantz-NR1608';
     public static $internalID = 95;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
 }
 
 /* ---------------------
@@ -838,6 +839,7 @@ class Marantz_SR5012 extends Marantz_SR5011
 {
     public static $Name = 'Marantz-SR5012';
     public static $internalID = 96;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
 }
 
 /* ---------------------
@@ -1318,6 +1320,7 @@ class Marantz_SR6012 extends Marantz_SR6011
 {
     public static $Name = 'Marantz-SR6012';
     public static $internalID = 97;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
     public static $VS_Commands = [
         DENON_API_Commands::VSASP,
         DENON_API_Commands::VSMONI,
@@ -1745,6 +1748,7 @@ class Marantz_SR7012 extends Marantz_SR7011
 {
     public static $Name = 'Marantz-SR7012';
     public static $internalID = 98;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSWR,
@@ -2103,6 +2107,7 @@ class Marantz_AV7704 extends Marantz_AV7703
 {
     public static $Name = 'Marantz-AV7704';
     public static $internalID = 99;
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSWR,
