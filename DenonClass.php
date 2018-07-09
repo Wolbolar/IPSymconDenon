@@ -2105,9 +2105,7 @@ class DENONIPSProfiles extends stdClass
                                                 'PropertyName'            => 'Z3Treble', 'Profilesettings' => ['Intensity', '', ' dB', -10, 10, 1, 0], 'Associations' => $assRange40to60, ],
 
             //Type String
-//            DENONIPSProfiles::ptFriendlyName => ["Type" => DENONIPSVarType::vtString, "Ident" => "FriendlyName", "Name" => "Name Denon AVR", "PropertyName" => "FriendlyName", "Profilesettings" => ["Information"]],
             self::ptMainZoneName => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'MainZoneName', 'Name' => 'MainZone Name', 'PropertyName' => 'ZoneName', 'Profilesettings' => ['Information']],
-//            DENONIPSProfiles::ptTopMenuLink => ["Type" => DENONIPSVarType::vtString, "Ident" => "TopMenuLink", "Name" => "Top Menu Link", "PropertyName" => "TopMenuLink", "Profilesettings" => ["Information"]],
             self::ptModel           => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'Model', 'Name' => 'Model', 'PropertyName' => 'Model', 'Profilesettings' => ['Information']],
             self::ptSurroundDisplay => ['Type'            => DENONIPSVarType::vtString, 'Ident' => DENON_API_Commands::SURROUNDDISPLAY, 'Name' => 'Surround Mode Display',
                                                     'PropertyName'    => 'SurroundDisplay', 'Profilesettings' => ['Information'], ],
@@ -2817,15 +2815,6 @@ class DENON_StatusHTML extends stdClass
     private function MainZoneXml(SimpleXMLElement $xml, $data, $VarMappings, $Inputs)
     {
 
-        //FriendlyName
-        /*
-        $FriendlyName = $xml->xpath('.//FriendlyName');
-        if ($FriendlyName)
-        {
-            $data['FriendlyName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$FriendlyName[0]->value, 'Subcommand' => 'Denon AVR Name');
-        }
-        */
-
         //Power
         $Element = $xml->xpath('.//Power');
         if ($Element) {
@@ -2847,33 +2836,6 @@ class DENON_StatusHTML extends stdClass
         if ($RenameZone) {
             $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim($RenameZone[0]->value), 'Subcommand' => 'MainZone Name'];
         }
-
-        //TopMenuLink
-        /*
-        $TopMenuLink = $xml->xpath('.//TopMenuLink');
-        if ($TopMenuLink)
-        {
-            $data['TopMenuLink'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$TopMenuLink[0]->value, 'Subcommand' => 'TopMenu Link');
-        }
-        */
-
-        //ModelId
-        /*
-        $ModelId = $xml->xpath('.//ModelId');
-        if ($ModelId)
-        {
-            $data['ModelId'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelId[0]->value, 'Subcommand' => 'ModelId');
-        }
-        */
-
-        //SalesArea
-        /*
-        $SalesArea = $xml->xpath('.//SalesArea');
-        if ($SalesArea)
-        {
-            $data['SalesArea'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SalesArea[0]->value, 'Subcommand' => 'SalesArea');
-        }
-        */
 
         //InputFuncSelectMain
         $Element = $xml->xpath('.//InputFuncSelectMain');

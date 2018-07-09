@@ -29,6 +29,7 @@ class Denon_AVR_3808A extends DenonAVR
     public static $Name = 'AVR-3808A';
     public static $internalID = 3;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,

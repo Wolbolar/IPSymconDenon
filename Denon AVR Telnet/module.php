@@ -85,10 +85,10 @@ class DenonAVRTelnet extends AVRModule
             $this->ValidateConfiguration($manufacturername, $AVRType);
 
 
-            // über http werden zusätliche Daten geholt (MainZoneName, Model)
+            // über http werden zusätzliche Daten geholt (MainZoneName, Model)
             if (AVRs::getCapabilities($AVRType)['httpMainZone'] != DENON_HTTP_Interface::NoHTTPInterface) {
                 $data = $this->GetStateHTTP();
-                //das Array muss für die weitere Verrabeitung in ein Object umgewandelt werden
+                //das Array muss für die weitere Verabeitung in ein Object umgewandelt werden
                 $data = $this->arrayToObject($data);
                 $this->UpdateVariable($data);
             }

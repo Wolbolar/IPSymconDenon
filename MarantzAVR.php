@@ -517,6 +517,22 @@ class Marantz_NR1608 extends Marantz_NR1607
     public static $Name = 'Marantz-NR1608';
     public static $internalID = 95;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+
+    public static $SI_SubCommands = [
+        DENON_API_Commands::CD,
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::AUX2,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
 }
 
 /* ---------------------
@@ -840,6 +856,22 @@ class Marantz_SR5012 extends Marantz_SR5011
     public static $Name = 'Marantz-SR5012';
     public static $internalID = 96;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::CD,
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::AUX2,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
+
 }
 
 /* ---------------------
@@ -1321,6 +1353,22 @@ class Marantz_SR6012 extends Marantz_SR6011
     public static $Name = 'Marantz-SR6012';
     public static $internalID = 97;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::PHONO,
+        DENON_API_Commands::CD,
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::AUX2,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
     public static $VS_Commands = [
         DENON_API_Commands::VSASP,
         DENON_API_Commands::VSMONI,
@@ -1749,6 +1797,22 @@ class Marantz_SR7012 extends Marantz_SR7011
     public static $Name = 'Marantz-SR7012';
     public static $internalID = 98;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::PHONO,
+        DENON_API_Commands::CD,
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::AUX2,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSWR,
@@ -2108,6 +2172,22 @@ class Marantz_AV7704 extends Marantz_AV7703
     public static $Name = 'Marantz-AV7704';
     public static $internalID = 99;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+    public static $InfoFunctions = [];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::PHONO,
+        DENON_API_Commands::CD,
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::AUX2,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
         DENON_API_Commands::PSSWR,
