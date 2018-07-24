@@ -1976,6 +1976,9 @@ class DENONIPSProfiles extends stdClass
             self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Top Surround',
                                                 'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
+            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Center Height',
+                                                'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
+                                                    'IndividualStatusRequest' => 'CV?', ],
             self::ptTopFrontLch => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTFL, 'Name' => 'Channel Volume Top Front Left',
                                                 'PropertyName'                => 'TopFrontLch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
@@ -2026,6 +2029,9 @@ class DENONIPSProfiles extends stdClass
                                                     'IndividualStatusRequest' => 'CV?', ],
             self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Channel Volume Top Surround',
                                                 'PropertyName'                => 'TopSurround', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
+                                                    'IndividualStatusRequest' => 'CV?', ],
+            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Channel Volume Center Height',
+                                                'PropertyName'                => 'CenterHeight', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
             //--- Attention: the order of the next two items may not be changed, because PSDEL is a substring of PSDELAY
             self::ptAudioDelay => ['Type'         => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSDELAY, 'Name' => 'Audio Delay',
@@ -4049,6 +4055,7 @@ class DENON_API_Commands extends stdClass
     const CVSHL = 'CVSHL'; // Surround Height Left
     const CVSHR = 'CVSHR'; // Surround Height Right
     const CVTS = 'CVTS'; // Top Surround
+    const CVCH = 'CVCH'; // Center Height
     const CVZRL = 'CVZRL'; // Reset Channel Volume Status
 
     const CVTFL = 'CVTFL'; // Top Front Left
