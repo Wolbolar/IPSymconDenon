@@ -114,11 +114,16 @@ class AVRs extends stdClass
                 Denon_AVR_X4000::$Name    => Denon_AVR_X4000::getCapabilities(),
                 Denon_AVR_X4100W::$Name   => Denon_AVR_X4100W::getCapabilities(),
                 Denon_AVR_X4200W::$Name   => Denon_AVR_X4200W::getCapabilities(),
+				Denon_AVR_X4400H::$Name   => Denon_AVR_X4400H::getCapabilities(),
                 Denon_AVR_X5200W::$Name   => Denon_AVR_X5200W::getCapabilities(),
                 Denon_AVR_X6200W::$Name   => Denon_AVR_X6200W::getCapabilities(),
+				Denon_AVR_X6300H::$Name  => Denon_AVR_X6300H::getCapabilities(),
+				Denon_AVR_X6400H::$Name  => Denon_AVR_X6400H::getCapabilities(),
                 Denon_AVR_X7200W::$Name   => Denon_AVR_X7200W::getCapabilities(),
                 Denon_AVR_X7200WA::$Name  => Denon_AVR_X7200WA::getCapabilities(),
-                Denon_AVR_X6300H::$Name  => Denon_AVR_X6300H::getCapabilities(),
+				Denon_AVC_X8500H::$Name  => Denon_AVC_X8500H::getCapabilities(),
+
+
                 Marantz_NR1504::$Name     => Marantz_NR1504::getCapabilities(),
                 Marantz_NR1506::$Name     => Marantz_NR1506::getCapabilities(),
                 Marantz_NR1508::$Name     => Marantz_NR1508::getCapabilities(),
@@ -441,18 +446,27 @@ class AVR extends stdClass
             case Denon_AVR_X4200W::$Name:
                 return new Denon_AVR_X4200W();
                 break;
+			case Denon_AVR_X4400H::$Name:
+				return new Denon_AVR_X4400H();
+				break;
             case Denon_AVR_X5200W::$Name:
                 return new Denon_AVR_X5200W();
                 break;
             case Denon_AVR_X6200W::$Name:
                 return new Denon_AVR_X6200W();
                 break;
+			case Denon_AVR_X6400H::$Name:
+				return new Denon_AVR_X6400H();
+				break;
             case Denon_AVR_X7200W::$Name:
                 return new Denon_AVR_X7200W();
                 break;
             case Denon_AVR_X7200WA::$Name:
                 return new Denon_AVR_X7200WA();
                 break;
+			case Denon_AVC_X8500H::$Name:
+				return new Denon_AVC_X8500H();
+				break;
             case Marantz_NR1504::$Name:
                 return new Marantz_NR1504();
                 break;
