@@ -638,7 +638,7 @@ class DenonAVRTelnet extends AVRModule
     }
 
     public function ChannelVolumeCH(float $Value)
-    { //Center Height ?? Range -12 to 12, Step 0.5 ??
+    { //Center Height Range -12 to 12, Step 0.5
         $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::CVCH, $Value);
         $this->SendCommand(DENON_API_Commands::CVCH.$SubCommand);
     }
