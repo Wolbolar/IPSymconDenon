@@ -390,7 +390,7 @@ class AVRModule extends IPSModule
                 IPS_LogMessage('Denon Telnet AVR', 'Variablenprofil angelegt: '.$ProfileName);
             }
         } else {
-            $this->checkProfileType($ProfileName, DENONIPSVarType::vtInteger);
+            $this->checkProfileType($ProfileName, 1);//integer
         }
 
         IPS_SetVariableProfileIcon($ProfileName, $Icon);
@@ -872,6 +872,7 @@ class DENONIPSProfiles extends stdClass
     const ptZone3Power = 'Zone3Power';
     const ptZone3Name = 'Zone3Name';
     const ptNavigation = 'Navigation';
+    const ptNavigationNetwork = 'NavigationNetwork';
     const ptSubwooferATT = 'SubwooferATT';
     //const ptDCOMPDirectChange = 'DCOMPDirectChange';
     const ptDolbyVolumeLeveler = 'DolbyVolumeLeveler';
@@ -882,8 +883,8 @@ class DENONIPSProfiles extends stdClass
     const ptMainZoneName = 'MainZoneName';
     const ptTopMenuLink = 'TopMenuLink';
     const ptModel = 'Model';
-    const ptGUISourceSelect = 'GUIMenuSourceSelect';
-    const ptGUIMenu = 'GUIMenu';
+    const ptGUIMenuSourceSelect = 'GUIMenuSourceSelect';
+    const ptGUIMenuSetup = 'GUIMenuSetup';
     const ptSurroundDisplay = 'SurroundDisplay';
     const ptDisplay = 'Display';
     const ptGraphicEQ = 'GraphicEQ';
@@ -948,11 +949,13 @@ class DENONIPSProfiles extends stdClass
         //Surround Mode
         self::ptSurroundMode,
         self::ptSurroundDisplay,
-        self::ptNavigation,
         self::ptDolbyVolume,
         self::ptDolbyVolumeLeveler,
         self::ptDolbyVolumeModeler,
+
+        //OnScreenDisplay
         self::ptDisplay,
+        self::ptNavigationNetwork,
 
         //Channel Volumes
         self::ptMasterVolume,
@@ -1064,8 +1067,9 @@ class DENONIPSProfiles extends stdClass
         self::ptVerticalStretch,
 
         //GUI
-        self::ptGUIMenu,
-        self::ptGUISourceSelect,
+        self::ptGUIMenuSetup,
+        self::ptGUIMenuSourceSelect,
+        self::ptNavigation,
         self::ptAllZoneStereo,
         self::ptDimmer,
         self::ptAutoLipSync,
@@ -1252,21 +1256,21 @@ class DENONIPSProfiles extends stdClass
                                                      [false, DENON_API_Commands::PSSWROFF],
                                                      [true, DENON_API_Commands::PSSWRON],
                                                  ], ],
-            self::ptLoudnessManagement => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PSLOM, 'Name' => 'Loudness Management',
+            self::ptLoudnessManagement  => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PSLOM, 'Name' => 'Loudness Management',
                                           'PropertyName'      => 'LoudnessManagement',
                                           'Associations'      => [
                                                      [false, DENON_API_Commands::PSLOMOFF],
                                                      [true, DENON_API_Commands::PSLOMON],
                                                  ], ],
-            self::ptGUIMenu => ['Type'       => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNMEN, 'Name' => 'GUI Menu',
-                                          'PropertyName' => 'GUIMenu',
-                                          'Associations' => [
+            self::ptGUIMenuSetup        => ['Type'         => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNMEN, 'Name' => 'GUI Setup Menu',
+                                            'PropertyName' => 'GUIMenu',
+                                            'Associations' => [
                                                 [false, DENON_API_Commands::MNMENOFF],
                                                 [true, DENON_API_Commands::MNMENON],
                                             ], ],
-            self::ptGUISourceSelect => ['Type' => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNSRC, 'Name' => 'GUI Source Select Menu',
-                                          'PropertyName'   => 'GUIMenuSource',
-                                          'Associations'   => [
+            self::ptGUIMenuSourceSelect => ['Type'         => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::MNSRC, 'Name' => 'GUI Source Select Menu',
+                                            'PropertyName' => 'GUIMenuSource',
+                                            'Associations' => [
                                                         [false, DENON_API_Commands::MNSRCOFF],
                                                         [true, DENON_API_Commands::MNSRCON],
                                                     ], ],
@@ -1376,7 +1380,7 @@ class DENONIPSProfiles extends stdClass
                                                      ],
                                                      'IndividualStatusRequest' => 'CV?',
             ],
-            self::ptNavigation => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MN, 'Name' => 'Navigation',
+            self::ptNavigation => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MN, 'Name' => 'Navigation Setup Menu',
                 'PropertyName'                        => 'Navigation',
                 'Profilesettings'                     => ['Move', '', '', 0, 0, 0, 0],
                 'Associations'                        => [
@@ -1386,6 +1390,21 @@ class DENONIPSProfiles extends stdClass
                     [3, 'Right', DENON_API_Commands::MNCRT],
                     [4, 'Enter', DENON_API_Commands::MNENT],
                     [5, 'Return', DENON_API_Commands::MNRTN],
+                ],
+            ],
+            self::ptNavigationNetwork => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::NS, 'Name' => 'Navigation Network',
+                'PropertyName'                        => 'NavigationNetwork',
+                'Profilesettings'                     => ['Move', '', '', 0, 0, 0, 0],
+                'Associations'                        => [
+                    [0, 'Up', DENON_API_Commands::NSUP],
+                    [1, 'Down', DENON_API_Commands::NSDOWN],
+                    [2, 'Left', DENON_API_Commands::NSLEFT],
+                    [3, 'Enter (Play/Pause)', DENON_API_Commands::NSENTER],
+                    [4, 'Stop', DENON_API_Commands::NSSTOP],
+                    [5, 'Skip <', DENON_API_Commands::NSSKIPMINUS],
+                    [6, 'Skip >', DENON_API_Commands::NSSKIPPLUS],
+                    [12, 'Page Previous', DENON_API_Commands::NSPAGEPREV],
+                    [13, 'Page Next', DENON_API_Commands::NSPAGENEXT],
                 ],
             ],
             self::ptQuickSelect => ['Type'            => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::MSQUICK, 'Name' => 'Quick Select',
@@ -2086,9 +2105,7 @@ class DENONIPSProfiles extends stdClass
                                                 'PropertyName'            => 'Z3Treble', 'Profilesettings' => ['Intensity', '', ' dB', -10, 10, 1, 0], 'Associations' => $assRange40to60, ],
 
             //Type String
-//            DENONIPSProfiles::ptFriendlyName => ["Type" => DENONIPSVarType::vtString, "Ident" => "FriendlyName", "Name" => "Name Denon AVR", "PropertyName" => "FriendlyName", "Profilesettings" => ["Information"]],
             self::ptMainZoneName => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'MainZoneName', 'Name' => 'MainZone Name', 'PropertyName' => 'ZoneName', 'Profilesettings' => ['Information']],
-//            DENONIPSProfiles::ptTopMenuLink => ["Type" => DENONIPSVarType::vtString, "Ident" => "TopMenuLink", "Name" => "Top Menu Link", "PropertyName" => "TopMenuLink", "Profilesettings" => ["Information"]],
             self::ptModel           => ['Type' => DENONIPSVarType::vtString, 'Ident' => 'Model', 'Name' => 'Model', 'PropertyName' => 'Model', 'Profilesettings' => ['Information']],
             self::ptSurroundDisplay => ['Type'            => DENONIPSVarType::vtString, 'Ident' => DENON_API_Commands::SURROUNDDISPLAY, 'Name' => 'Surround Mode Display',
                                                     'PropertyName'    => 'SurroundDisplay', 'Profilesettings' => ['Information'], ],
@@ -2274,7 +2291,7 @@ class DENONIPSProfiles extends stdClass
         $Associations = [];
 
         foreach ($Inputs as $Value => $Input) {
-            // Beispiel: Association[] = [1, 'CD', 'SONOS']
+            // Beispiel: Association[] = [1, 'SONOS', 'CD']
             $Associations[] = [$Value, str_replace(' ', '', $Input['RenameSource']), str_replace(' ', '', $Input['Source'])];
         }
 
@@ -2798,15 +2815,6 @@ class DENON_StatusHTML extends stdClass
     private function MainZoneXml(SimpleXMLElement $xml, $data, $VarMappings, $Inputs)
     {
 
-        //FriendlyName
-        /*
-        $FriendlyName = $xml->xpath('.//FriendlyName');
-        if ($FriendlyName)
-        {
-            $data['FriendlyName'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$FriendlyName[0]->value, 'Subcommand' => 'Denon AVR Name');
-        }
-        */
-
         //Power
         $Element = $xml->xpath('.//Power');
         if ($Element) {
@@ -2829,35 +2837,8 @@ class DENON_StatusHTML extends stdClass
             $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim($RenameZone[0]->value), 'Subcommand' => 'MainZone Name'];
         }
 
-        //TopMenuLink
-        /*
-        $TopMenuLink = $xml->xpath('.//TopMenuLink');
-        if ($TopMenuLink)
-        {
-            $data['TopMenuLink'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$TopMenuLink[0]->value, 'Subcommand' => 'TopMenu Link');
-        }
-        */
-
-        //ModelId
-        /*
-        $ModelId = $xml->xpath('.//ModelId');
-        if ($ModelId)
-        {
-            $data['ModelId'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$ModelId[0]->value, 'Subcommand' => 'ModelId');
-        }
-        */
-
-        //SalesArea
-        /*
-        $SalesArea = $xml->xpath('.//SalesArea');
-        if ($SalesArea)
-        {
-            $data['SalesArea'] =  array('VarType' => DENONIPSVarType::vtString, 'Value' => (string)$SalesArea[0]->value, 'Subcommand' => 'SalesArea');
-        }
-        */
-
-        //InputFuncSelect
-        $Element = $xml->xpath('.//InputFuncSelect');
+        //InputFuncSelectMain
+        $Element = $xml->xpath('.//InputFuncSelectMain');
         if ($Element) {
             $SubCommand = (string) $Element[0]->value;
 
@@ -2869,13 +2850,14 @@ class DENON_StatusHTML extends stdClass
                 }
             }
 
+            // some values are unusal and have to be mapped
             if (array_key_exists($SubCommand, DENON_API_Commands::$SIMapping)) {
                 $SubCommand = DENON_API_Commands::$SIMapping[$SubCommand];
             }
 
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping));
+                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping). ', SubCommand: ' . $SubCommand);
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
@@ -3324,24 +3306,24 @@ class DENON_API_Commands extends stdClass
     const NSB = 'NSB'; //Direct Preset CH Play 00-55,00=A1,01=A2,B1=08,G8=55
 
     // Display Network Audio Navigation
-    const NAUP = 'NS90'; // Network Audio Cursor Up Control
-    const NADOWN = 'NS91'; // Network Audio Cursor Down Control
-    const NALEFT = 'NS92'; // Network Audio Cursor Left Control
-    const NARIGHT = 'NS93'; // Network Audio Cursor Right Control
-    const NAENTER = 'NS94'; // Network Audio Cursor Enter Control
-    const NAPLAY = 'NS9A'; // Network Audio Play
-    const NAPAUSE = 'NS9B'; // Network Audio Pause
-    const NASTOP = 'NS9C'; // Network Audio Stop
-    const NASKIPPLUS = 'NS9D'; // Network Audio Skip +
-    const NASKIPMINUS = 'NS9E'; // Network Audio Skip -
-    const NAREPEATONE = 'NS9H'; // Network Audio Repeat One
-    const NAREPEATALL = 'NS9I'; // Network Audio Repeat All
-    const NAREPEATOFF = 'NS9J'; // Network Audio Repeat Off
-    const NARANDOMON = 'NS9K'; // Network Audio Random On
-    const NARANDOMOFF = 'NS9M'; // Network Audio Random Off
-    const NATOGGLE = 'NS9W'; // Network Audio Toggle Switch
-    const NAPAGENEXT = 'NS9X'; // Network Audio Page Next
-    const NAPAGEPREV = 'NS9Y'; // Network Audio Page Previous
+    const NSUP = '90'; // Network Audio Cursor Up Control
+    const NSDOWN = '91'; // Network Audio Cursor Down Control
+    const NSLEFT = '92'; // Network Audio Cursor Left Control
+    const NSRIGHT = '93'; // Network Audio Cursor Right Control
+    const NSENTER = '94'; // Network Audio Cursor Enter Control
+    const NSPLAY = '9A'; // Network Audio Play
+    const NSPAUSE = '9B'; // Network Audio Pause
+    const NSSTOP = '9C'; // Network Audio Stop
+    const NSSKIPPLUS = '9D'; // Network Audio Skip +
+    const NSSKIPMINUS = '9E'; // Network Audio Skip -
+    const NSREPEATONE = '9H'; // Network Audio Repeat One
+    const NSREPEATALL = '9I'; // Network Audio Repeat All
+    const NSREPEATOFF = '9J'; // Network Audio Repeat Off
+    const NSRANDOMON = '9K'; // Network Audio Random On
+    const NSRANDOMOFF = '9M'; // Network Audio Random Off
+    const NSTOGGLE = '9W'; // Network Audio Toggle Switch
+    const NSPAGENEXT = '9X'; // Network Audio Page Next
+    const NSPAGEPREV = '9Y'; // Network Audio Page Previous
 
     //Display
     const DISPLAY = 'Display'; // Display zur Anzeige
@@ -3407,6 +3389,7 @@ class DENON_API_Commands extends stdClass
     const SERVER = 'SERVER'; // Select Input Source Server
     const NAPSTER = 'NAPSTER'; // Select Input Source Napster
     const USB_IPOD = 'USB/IPOD'; // Select Input USB/IPOD
+    const MXPORT = 'MXPORT'; // Select Input MXPORT
     const SOURCE = 'SOURCE'; // Select Input Source of Main Zone
     const ON = 'ON'; // Select Input Source On
     const OFF = 'ON'; // Select Input Source Off
@@ -3416,13 +3399,16 @@ class DENON_API_Commands extends stdClass
                                  'Media Player'   => self::MPLAY,
                                  'Media Server'   => self::SERVER,
                                  'iPod/USB'       => self::USB_IPOD,
+                                 'M-XPORT'        => self::MXPORT,
                                  'TVAUDIO'        => self::TV,
+                                 'TV AUDIO'       => self::TV,
                                  'Bluetooth'      => self::BT,
                                  'Blu-ray'        => self::BD,
                                  'Online Music'   => self::NET,
                                  'NETWORK'        => self::NET,
                                  'Internet Radio' => self::IRADIO,
                                  'Last. fm'       => self::LASTFM,
+                                 'FM'             => self::TUNER,
         ];
 
     public static $SI_InputSettings = [
@@ -3454,6 +3440,7 @@ class DENON_API_Commands extends stdClass
                                 self::SERVER,
                                 self::NAPSTER,
                                 self::USB_IPOD,
+                                self::MXPORT,
                                 self::SOURCE,
                                 ];
 
@@ -3843,7 +3830,7 @@ class DENON_API_Commands extends stdClass
     const PSFRONTSPB = ' SPB'; //Speaker B
     const PSFRONTSPAB = ' SPA+B'; //Speaker A+B
 
-    //Cursor
+    //Cursor Menu
     const MNCUP = 'CUP'; // Cursor Up
     const MNCDN = 'CDN'; // Cursor Down
     const MNCRT = 'CRT'; // Cursor Right
@@ -3851,15 +3838,15 @@ class DENON_API_Commands extends stdClass
     const MNENT = 'ENT'; // Cursor Enter
     const MNRTN = 'RTN'; // Cursor Return
 
-    //GUI Menu
+    //GUI Menu (Setup Menu)
     const MNMEN = 'MNMEN'; // GUI Menu
     const MNMENON = ' ON'; // GUI Menu On
     const MNMENOFF = ' OFF'; // GUI Menu Off
 
     //GUI Source Select Menu
-    const MNSRC = 'MNSRC'; // GUI Menu
-    const MNSRCON = ' ON'; // GUI Menu On
-    const MNSRCOFF = ' OFF'; // GUI Menu Off
+    const MNSRC = 'MNSRC'; // Source Select Menu
+    const MNSRCON = ' ON'; // Source Select Menu On
+    const MNSRCOFF = ' OFF'; // Source Select Menu Off
 
     // Surround Modes Response
 
@@ -3931,6 +3918,7 @@ class DENON_API_Commands extends stdClass
     const DTSPL2XC = 'DTS+PL2X C'; // DTS+PL2X C
     const DTSPL2XM = 'DTS+PL2X M'; // DTS+PL2X M
     const DTSPL2ZH = 'DTS+PL2Z H'; // DTS+PL2Z H
+    const DTSDS = 'DTS+DS'; // DTS+DS
     const DTSPLUSNEO6 = 'DTS+NEO:6'; // DTS+NEO:6
     const DTSPLUSNEOXC = 'DTS+NEO:X C'; // DTS PLUS NEO:X C
     const DTSPLUSNEOXM = 'DTS+NEO:X M'; // DTS PLUS NEO:X M
@@ -3940,7 +3928,8 @@ class DENON_API_Commands extends stdClass
     const DTS96ESMTRX = 'DTS96 ES MTRX'; // DTS96 ES MTRX
     const DTSHDPL2XC = 'DTS HD+PL2X C'; // DTS HD+PL2X C
     const DTSHDPL2XM = 'DTS HD+PL2X M'; // DTS HD+PL2X M
-    const DTSHDPL2XH = 'DTS HD+PL2X H'; // DTS HD+PL2X H
+    const DTSHDPL2ZH = 'DTS HD+PL2Z H'; // DTS HD+PL2Z H
+    const DTSHDDS = 'DTS HD+DS'; // DTS HD+DS
     const NEO6CDSX = 'NEO:6 C DSX'; // NEO:6 C DSX
     const NEO6MDSX = 'NEO:6 M DSX'; // NEO:6 M DSX
     const DTSHD = 'DTS HD'; // DTS HD
@@ -3948,7 +3937,6 @@ class DENON_API_Commands extends stdClass
     const DTSHDNEO6 = 'DTS HD+NEO:6'; // DTS HD+NEO:6
     const DTSES8CHDSCRT = 'DTS ES 8CH DSCRT'; // DTS ES 8CH DSCRT
     const DTSEXPRESS = 'DTS EXPRESS'; // DTS EXPRESS
-    const DTSDS = 'DTS+DS'; // MSDTS+DS
     const DOLBYDNEOXC = 'DOLBY D+NEO:X C'; // MSDOLBY D+NEO:X C
     const DOLBYDNEOXM = 'DOLBY D+NEO:X M'; // MSDOLBY D+NEO:X M
     const DOLBYDNEOXG = 'DOLBY D+NEO:X G'; // MSDOLBY D+NEO:X G
@@ -3966,7 +3954,7 @@ class DENON_API_Commands extends stdClass
     const DOLBYHDNEOXC = 'DOLBY HD+NEO:X C'; // MSDOLBY HD+NEO:X C
     const DOLBYHDNEOXM = 'DOLBY HD+NEO:X M'; // MSDOLBY HD+NEO:X M
     const DOLBYHDNEOXG = 'DOLBY HD+NEO:X G'; // MSDOLBY HD+NEO:X G
-    const DTSHDDS = 'DTS HD+DS'; // MSDTS HD+DS
+    const DOLBYHDNEURALX = 'DOLBY HD+NEURAL:X'; // MSDOLBY HD+NEURAL:X
     const DTSHDNEOXC = 'DTS HD+NEO:X C'; // MSDTS HD+NEO:X C
     const DTSHDNEOXM = 'DTS HD+NEO:X M'; // MSDTS HD+NEO:X M
     const DTSHDNEOXG = 'DTS HD+NEO:X G'; // MSDTS HD+NEO:X G
@@ -4146,6 +4134,7 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::DOLBYHDNEOXC      => 'Dolby True HD + NEO:X Cinema',
         DENON_API_Commands::DOLBYHDNEOXM      => 'Dolby True HD + NEO:X Music',
         DENON_API_Commands::DOLBYHDNEOXG      => 'Dolby True HD + NEO:X Game',
+        DENON_API_Commands::DOLBYHDNEURALX    => 'Dolby HD + Neural:X',
     ];
 
     public static $DTSSurroundModes = [
@@ -4175,21 +4164,21 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::MCHINPL2XH     => 'Multi Channel In + Dolby Pro Logic IIx Height',
         DENON_API_Commands::MCHINDS        => 'Multi Channel In + Dolby Surround',
         DENON_API_Commands::MCHINNEOXC     => 'Multi Channel In + NEO:X Cinema',
-        DENON_API_Commands::MCHINNEOXM     => 'Multi Channel In + NEO:X Music',
-        DENON_API_Commands::MCHINNEOXG     => 'Multi Channel In + NEO:X Game',
-        DENON_API_Commands::DTSHD          => 'DTS HD',
-        DENON_API_Commands::DTSHDMSTR      => 'DTS HD Master',
-        DENON_API_Commands::DTSHDNEO6      => 'DTS HD + NEO:6',
-        DENON_API_Commands::DTSHDPL2XC     => 'DTS HD + Dolby Pro Logic IIx Cinema',
-        DENON_API_Commands::DTSHDPL2XM     => 'DTS HD + Dolby Pro Logic IIx Music',
-        DENON_API_Commands::DTSHDPL2XH     => 'DTS HD + Dolby Pro Logic IIx Height',
-        DENON_API_Commands::DTSES8CHDSCRT  => 'DTS Express 8 Channel Discrect',
-        DENON_API_Commands::DTSHDDS        => 'DTS HD + Dolby Surround',
-        DENON_API_Commands::DTSEXPRESS     => 'DTS Express',
-        DENON_API_Commands::DTSES8CHDSCRT  => 'DTS ES 8 CH Discrete',
-        DENON_API_Commands::MPEG2AAC       => 'MPEG2 AAC',
-        DENON_API_Commands::AACDOLBYEX     => 'AAC + Dolby EX',
-        DENON_API_Commands::AACPL2XC       => 'AAC + PL2X Cinema',
+        DENON_API_Commands::MCHINNEOXM    => 'Multi Channel In + NEO:X Music',
+        DENON_API_Commands::MCHINNEOXG    => 'Multi Channel In + NEO:X Game',
+        DENON_API_Commands::DTSHD         => 'DTS HD',
+        DENON_API_Commands::DTSHDMSTR     => 'DTS HD Master',
+        DENON_API_Commands::DTSHDNEO6     => 'DTS HD + NEO:6',
+        DENON_API_Commands::DTSHDPL2XC    => 'DTS HD + Dolby Pro Logic IIx Cinema',
+        DENON_API_Commands::DTSHDPL2XM    => 'DTS HD + Dolby Pro Logic IIx Music',
+        DENON_API_Commands::DTSHDPL2ZH    => 'DTS HD + Dolby Pro Logic IIx Height',
+        DENON_API_Commands::DTSES8CHDSCRT => 'DTS Express 8 Channel Discrect',
+        DENON_API_Commands::DTSHDDS       => 'DTS HD + Dolby Surround',
+        DENON_API_Commands::DTSEXPRESS    => 'DTS Express',
+        DENON_API_Commands::DTSES8CHDSCRT => 'DTS ES 8 CH Discrete',
+        DENON_API_Commands::MPEG2AAC      => 'MPEG2 AAC',
+        DENON_API_Commands::AACDOLBYEX    => 'AAC + Dolby EX',
+        DENON_API_Commands::AACPL2XC      => 'AAC + PL2X Cinema',
         DENON_API_Commands::AACPL2XM       => 'AAC + PL2X Music',
         DENON_API_Commands::AACPL2XH       => 'AAC + PL2X Height',
         DENON_API_Commands::AACDS          => 'AAC + Dolby Surround',
@@ -4240,22 +4229,26 @@ class DenonAVRCP_API_Data extends stdClass
 
     private function getDisplay($data)
     {
-        $Display = [];
-
         $debug = false;
+        if ($debug){
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'data: '.json_encode($data));
+        }
+
+        $Display = [];
 
         foreach ($data as $key => $response) {
             $Row = substr($response, 3, 1);
-            if ((stripos($response, 'NSA') !== false) || (stripos($response, 'NSE') !== false)) { //Display auslesen
-                //the first characters ('NSEx') are cut
-                $response = rtrim(substr($response, 4));
+            if ((stripos($response, 'NSA') === 0) || (stripos($response, 'NSE') === 0)) { //Display auslesen
                 if ($debug) {
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.'): '.json_encode($response));
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.'): '.bin2hex($response));
+                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.') found: '.json_encode($response));
+                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.') found (hex): '.bin2hex($response));
                 }
+                //the first characters ('NSEx', 'NSAx') are cut
+                $response = rtrim(substr($response, 4));
 
                 $Display[$Row] = $response;
             }
+
         }
 
         return $Display;

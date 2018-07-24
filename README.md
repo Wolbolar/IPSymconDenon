@@ -15,7 +15,7 @@ Modul für IP-Symcon ab Version 4.1. Ermöglicht die Kommunikation mit einem Den
 
 ## 1. Funktionsumfang
 
-Mit dem Modul lassen sich Befehle an einen Denon Receiver oder Marantz Receier absenden und die Statusrückmeldung in IP-Symcon (ab Version 4.1) empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
+Mit dem Modul lassen sich Befehle an einen Denon Receiver oder Marantz Receier absenden und die Statusrückmeldung in IP-Symcon empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
 Ein Modul nutzt als Kommunikation Port 23 über das Denon AVR Control Protocol. Das zweite Modul nutzt zur Kommunikation HTTP.
 Der Denon AVR kann jeweils nur einen einzige Verbindung auf Port 23 aufbauen. Daher kann, wenn dieses Modul benutzt wird, kein weiterer Client mehr den Denon AVR auf diese Weise über Port 23 steuern.
 Der Vorteil ist jedoch, dass sämtliche dokumentierte Befehle an den Denon AVR geschickt und auch eine Rückmeldung in IP-Symcon dafür empfangen werden kann. Die zweite Möglichkeit ist das Denon HTTP Modul zu benutzten.
@@ -34,14 +34,14 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Denon Modelle:  
 
-AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X2000,	AVR-X3000, AVR-X4000, AVR-X4100W,
+AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X1400H, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X3000, AVR-X3400H, AVR-X4000, AVR-X4100W,
 AVR-X4200W, AVR-X5200W, AVR-X6200W, AVR-X7200W, AVR-X7200WA, AVR-X6300H
 
 ### Marantz Modelle: 
 
-Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
-Marantz-SR5011,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
-Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV8801, Marantz-AV8802 
+Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1508,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607,	Marantz-NR1608, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
+Marantz-SR5011, Marantz-SR5012,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR6012, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
+Marantz-SR7011, Marantz-SR7012, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV7704, Marantz-AV8801, Marantz-AV8802 
 
 ## 2. Voraussetzungen
 
@@ -52,7 +52,7 @@ Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 m
 
 ### a. Laden des Moduls
 
-   Wir wechseln zu IP-Symcon (Ver. 4.1) und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
+   Wir wechseln zu IP-Symcon und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
 	
     `https://github.com/Wolbolar/IPSymconDenon`  
 
@@ -91,7 +91,7 @@ Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalt
 
 ## 4. Funktionsreferenz
 
-### Denon Splitter Telnet:
+### Denon Splitter Telnet
 Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt.
 	
 ### Denon Splitter  HTTP
@@ -182,7 +182,6 @@ DAVRT_MainZonePower(int $InstanceID, bool $Value)
 Einschalten / Ausschalten Mainzone
 Parameter $Value false (Off) / true (On)
 
-Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 ```php
 DAVRT_MainzoneAutoStandbySetting(int $InstanceID, int $Value)
 ```
@@ -190,7 +189,6 @@ DAVRT_MainzoneAutoStandbySetting(int $InstanceID, int $Value)
 Mainzone Auto Standby Setting in Minuten (0 ist Off)
 Parameter $Value  0 (Off) / 15 / 30 / 60 (Minuten)
 
-Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 ```php
 DAVRT_MainzoneEcoModeSetting(int $InstanceID, string $Value)
 ```
@@ -231,9 +229,7 @@ DAVRT_Input(int $InstanceID, string $Value)
 ```
 
 Auswählen Input Mainzone
-Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
-Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
+Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD, MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
 ```php

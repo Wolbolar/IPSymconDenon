@@ -396,9 +396,12 @@ public function __construct($InstanceID)
         $SetCommand = $APIData->GetCommandResponse($InputMapping);
         $this->SendDebug('Buffer IN:', json_encode($SetCommand), 0);
 
-        // Weiterleitung zu allen Gerät-/Device-Instanzen
+        // Weiterleitung zu allen Telnet Gerät-/Device-Instanzen wenn SetCommand gefüllt ist
 
-        $this->SendDataToChildren(json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $SetCommand])); //Denon Telnet Splitter Interface GUI
+        if ((count($SetCommand['Data']) > 0) || ($SetCommand['SurroundDisplay'] != '') || (count($SetCommand['Display']) > 0)){
+            $this->SendDataToChildren(json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $SetCommand])); //Denon Telnet Splitter Interface GUI
+        }
+
         return true;
     }
 
@@ -409,9 +412,11 @@ public function __construct($InstanceID)
 
         // Empfangene Daten von der Device Instanz
         $data = json_decode($JSONString);
-        $datasend = $data->Buffer;
-        $this->SendDebug('Command Out:', print_r($datasend, true), 0);
+        $this->SendDebug('Command Out:', print_r($data->Buffer, true), 0);
 
+        if ($this->debug) {
+            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'send data: '.$data->Buffer);
+        }
         // Hier würde man den Buffer im Normalfall verarbeiten
         // z.B. CRC prüfen, in Einzelteile zerlegen
 
