@@ -2363,7 +2363,9 @@ class DENONIPSProfiles extends stdClass
 
     public function SetupVariable($ident)
     {
-        IPS_LogMessage(get_class().'::'.__FUNCTION__, 'ident: '.$ident);
+        if ($this->debug){
+            $this->LogMessage('Setup Variable with ident ' . $ident, KL_MESSAGE);
+        }
 
         if (!array_key_exists($ident, $this->profiles)) {
             trigger_error('unknown ident: '.$ident);
@@ -2548,7 +2550,9 @@ class DENONIPSProfiles extends stdClass
         $ret = null;
         foreach ($this->profiles as $profile) {
             if (($profile['Ident'] == $Ident) && isset($profile['Associations'])) {
-                IPS_LogMessage(__FUNCTION__, 'Profile "'.$Ident.'" found: '.json_encode($profile));
+                if ($this->debug){
+                    $this->LogMessage('Profile "'.$Ident.'" found: '.json_encode($profile), KL_MESSAGE);
+                }
                 foreach ($profile['Associations'] as $item) {
                     switch ($profile['Type']) {
                         case DENONIPSVarType::vtBoolean:

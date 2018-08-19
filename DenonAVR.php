@@ -659,6 +659,14 @@ class Denon_AVR_X2100W extends Denon_AVR_X2000
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
     ];
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP,
+    ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
         DENON_API_Commands::MSMUSIC,
@@ -825,6 +833,34 @@ class Denon_AVR_X2300W extends Denon_AVR_X2200W
         DENON_API_Commands::CVSDL, DENON_API_Commands::CVSDR,
         DENON_API_Commands::CVZRL,
     ];
+    public static $PS_Commands = [
+        DENON_API_Commands::PSFRONT,
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSWL,
+        DENON_API_Commands::PSDIL,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSNEURAL,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSEFF,
+        DENON_API_Commands::PSDEL,
+        DENON_API_Commands::PSRSZ,
+        DENON_API_Commands::PSDELAY,
+        DENON_API_Commands::PSRSTR,
+    ];
+
 }
 
 class Denon_AVR_X2400H extends Denon_AVR_X2300W
@@ -1049,6 +1085,7 @@ class Denon_AVR_X1200W extends Denon_AVR_X1100W
         DENON_API_Commands::PSRSTR,
         DENON_API_Commands::PSFRONT,
     ];
+
 }
 
 class Denon_AVR_X1300W extends Denon_AVR_X1200W
@@ -1279,6 +1316,44 @@ class Denon_AVR_X3400H extends Denon_AVR_X3000
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
     ];
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP,
+    ];
+    public static $PS_Commands = [
+        DENON_API_Commands::PSFRONT,
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSWL,
+        DENON_API_Commands::PSSWL2,
+        DENON_API_Commands::PSDIL,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSNEURAL,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSLFC,
+        DENON_API_Commands::PSCNTAMT,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSEFF,
+        DENON_API_Commands::PSDEL,
+        DENON_API_Commands::PSRSZ,
+        DENON_API_Commands::PSDELAY,
+        DENON_API_Commands::PSRSTR,
+    ];
     public static $PV_Commands = [
         DENON_API_Commands::PVPICT,
         DENON_API_Commands::PVCN,
@@ -1461,6 +1536,14 @@ class Denon_AVR_X4100W extends Denon_AVR_X4000
         DENON_API_Commands::CVBDL, DENON_API_Commands::CVBDR,
         DENON_API_Commands::CVSHL, DENON_API_Commands::CVSHR,
         DENON_API_Commands::CVZRL,
+    ];
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -1645,6 +1728,7 @@ class Denon_AVR_X4400H extends Denon_AVR_X4300H
         DENON_API_Commands::PSEFF,
         DENON_API_Commands::PSDEL,
         DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSNEURAL,
         DENON_API_Commands::PSSWR,
         DENON_API_Commands::PSRSZ,
         DENON_API_Commands::PSDELAY,
@@ -1696,6 +1780,14 @@ class Denon_AVR_X5200W extends DenonAVR
         DENON_API_Commands::CD,
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
+    ];
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP,
     ];
     public static $SystemControl_Commands = [
         DENON_API_Commands::MN,
@@ -1836,6 +1928,14 @@ class Denon_AVR_X6200W extends DenonAVR
         DENON_API_Commands::CD,
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
+    ];
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP,
     ];
     public static $SystemControl_Commands = [
         DENON_API_Commands::MN,
@@ -2059,6 +2159,14 @@ class Denon_AVR_X7200W extends DenonAVR
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
     ];
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::ZM,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::STBY,
+        DENON_API_Commands::ECO,
+        DENON_API_Commands::SLP,
+    ];
     public static $SystemControl_Commands = [
         DENON_API_Commands::MN,
         DENON_API_Commands::MNMEN,
@@ -2115,6 +2223,8 @@ class Denon_AVR_X7200W extends DenonAVR
         DENON_API_Commands::PSDEL,
         DENON_API_Commands::PSCEG,
         DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSNEURAL,
         DENON_API_Commands::PSSWR,
         DENON_API_Commands::PSRSZ,
         DENON_API_Commands::PSDELAY,
