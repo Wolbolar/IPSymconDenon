@@ -117,7 +117,7 @@ public function __construct($InstanceID)
      * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:.
      */
 
-    public function RegisterTimer($Ident, $Milliseconds, $ScriptText)
+    protected function RegisterTimer($Ident, $Milliseconds, $ScriptText)
     {
         $id = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
 
@@ -330,7 +330,7 @@ public function __construct($InstanceID)
         return false;
     }
 
-    public function RequireParent($ModuleID)
+    protected function RequireParent($ModuleID)
     {
         $instance = IPS_GetInstance($this->InstanceID);
         if ($instance['ConnectionID'] == 0) {
@@ -341,7 +341,7 @@ public function __construct($InstanceID)
         }
     }
 
-    public function SetStatus($Status)
+    protected function SetStatus($Status)
     {
         parent::senddebug(__FUNCTION__, 'Status: '.$Status, 0);
 
