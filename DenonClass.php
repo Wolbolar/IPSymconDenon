@@ -3523,6 +3523,7 @@ class DENON_API_Commands extends stdClass
     const MSAUTO = 'AUTO'; // Auto
     const MSNEURAL = 'NEURAL'; // Neural
     const MSAURO3D = 'MSAURO3D'; //Auro 3D
+    const AURO3D = 'AURO3D'; //Auro 3D
     const MSAURO2DSURR = 'MSAURO2DSURR'; //Auro 2D
 
     const MSLEFT = 'LEFT'; // Change to previous Surround Mode
