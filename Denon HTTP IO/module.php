@@ -48,7 +48,7 @@ class DenonAVRIOHTTP extends IPSModule
         $this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRIO_GetStatus($id)');
     }
 
-    public function RegisterTimer($Ident, $Milliseconds, $ScriptText)
+    protected function RegisterTimer($Ident, $Milliseconds, $ScriptText)
     {
         $id = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
 
