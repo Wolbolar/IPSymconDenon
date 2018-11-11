@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
 
 require_once __DIR__.'/AVRModels.php';  // diverse Klassen
 
@@ -408,8 +408,8 @@ class AVRModule extends IPSModule
             return;
         }
 
-        $MinValue = $Associations[0][0];
-        $MaxValue = $Associations[count($Associations) - 1][0];
+        $MinValue = 0;
+        $MaxValue = 0;
 
         $this->CreateProfileInteger($ProfileName, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits);
 
@@ -1976,6 +1976,9 @@ class DENONIPSProfiles extends stdClass
             self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Top Surround',
                                                 'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
+            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Center Height',
+                                                'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
+                                                    'IndividualStatusRequest' => 'CV?', ],
             self::ptTopFrontLch => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTFL, 'Name' => 'Channel Volume Top Front Left',
                                                 'PropertyName'                => 'TopFrontLch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
@@ -2026,6 +2029,9 @@ class DENONIPSProfiles extends stdClass
                                                     'IndividualStatusRequest' => 'CV?', ],
             self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Channel Volume Top Surround',
                                                 'PropertyName'                => 'TopSurround', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
+                                                    'IndividualStatusRequest' => 'CV?', ],
+            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Channel Volume Center Height',
+                                                'PropertyName'                => 'CenterHeight', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
             //--- Attention: the order of the next two items may not be changed, because PSDEL is a substring of PSDELAY
             self::ptAudioDelay => ['Type'         => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSDELAY, 'Name' => 'Audio Delay',
@@ -2357,7 +2363,9 @@ class DENONIPSProfiles extends stdClass
 
     public function SetupVariable($ident)
     {
-        IPS_LogMessage(get_class().'::'.__FUNCTION__, 'ident: '.$ident);
+        if ($this->debug){
+            $this->LogMessage('Setup Variable with ident ' . $ident, KL_MESSAGE);
+        }
 
         if (!array_key_exists($ident, $this->profiles)) {
             trigger_error('unknown ident: '.$ident);
@@ -2542,7 +2550,9 @@ class DENONIPSProfiles extends stdClass
         $ret = null;
         foreach ($this->profiles as $profile) {
             if (($profile['Ident'] == $Ident) && isset($profile['Associations'])) {
-                IPS_LogMessage(__FUNCTION__, 'Profile "'.$Ident.'" found: '.json_encode($profile));
+                if ($this->debug){
+                    $this->LogMessage('Profile "'.$Ident.'" found: '.json_encode($profile), KL_MESSAGE);
+                }
                 foreach ($profile['Associations'] as $item) {
                     switch ($profile['Type']) {
                         case DENONIPSVarType::vtBoolean:
@@ -3513,6 +3523,7 @@ class DENON_API_Commands extends stdClass
     const MSAUTO = 'AUTO'; // Auto
     const MSNEURAL = 'NEURAL'; // Neural
     const MSAURO3D = 'AURO3D'; //Auro 3D
+ //   const AURO3D = 'AURO3D'; //Auro 3D
     const MSAURO2DSURR = 'AURO2DSURR'; //Auro 2D
 
     const MSLEFT = 'LEFT'; // Change to previous Surround Mode
@@ -4049,6 +4060,7 @@ class DENON_API_Commands extends stdClass
     const CVSHL = 'CVSHL'; // Surround Height Left
     const CVSHR = 'CVSHR'; // Surround Height Right
     const CVTS = 'CVTS'; // Top Surround
+    const CVCH = 'CVCH'; // Center Height
     const CVZRL = 'CVZRL'; // Reset Channel Volume Status
 
     const CVTFL = 'CVTFL'; // Top Front Left
@@ -4081,6 +4093,7 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::MSDOLBYDIGITAL   => 'Dolby Digital',
         DENON_API_Commands::MSDTSSURROUND    => 'DTS Surround',
         DENON_API_Commands::MSAURO3D         => 'Auro 3D',
+//        DENON_API_Commands::AURO3D           => 'Auro 3D', //beim AVR X8500 beobachtet
         DENON_API_Commands::MSAURO2DSURR     => 'Auro 2D Surround',
         DENON_API_Commands::MSMCHSTEREO      => 'Multi Channel Stereo',
         DENON_API_Commands::MS7CHSTEREO      => '7 Channel Stereo',

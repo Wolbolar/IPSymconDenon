@@ -35,7 +35,7 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 ### Denon Modelle:  
 
 AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X1400H, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X3000, AVR-X3400H, AVR-X4000, AVR-X4100W,
-AVR-X4200W, AVR-X4400, AVR-X5200W, AVR-X6200W, AVR-X6300H, AVR-X6400H, AVR-X7200W, AVR-X7200WA, AVC-X8500H
+AVR-X4200W, AVR-X4300H, AVR-X4400H, AVR-X5200W, AVR-X6200W, AVR-X6300H, AVR-X6400H, AVR-X7200W, AVR-X7200WA, AVC-X8500H
 
 ### Marantz Modelle: 
 
@@ -1013,7 +1013,7 @@ DAVRT_Zone2InputSource(int $InstanceID, string $Value)
 
 Auswählen Input Zone 2
 Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVC-8500H, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
@@ -1074,7 +1074,7 @@ DAVRT_Zone3InputSource(int $InstanceID, string $Value)
 
 Auswählen Input Zone 3
 Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVC-8500H, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
