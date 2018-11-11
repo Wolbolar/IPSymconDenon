@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
 
 require_once __DIR__.'/AVRModels.php';  // diverse Klassen
 
@@ -3522,9 +3522,9 @@ class DENON_API_Commands extends stdClass
     const MSGAME = 'GAME'; // Game
     const MSAUTO = 'AUTO'; // Auto
     const MSNEURAL = 'NEURAL'; // Neural
-    const MSAURO3D = 'MSAURO3D'; //Auro 3D
-    const AURO3D = 'AURO3D'; //Auro 3D
-    const MSAURO2DSURR = 'MSAURO2DSURR'; //Auro 2D
+    const MSAURO3D = 'AURO3D'; //Auro 3D
+ //   const AURO3D = 'AURO3D'; //Auro 3D
+    const MSAURO2DSURR = 'AURO2DSURR'; //Auro 2D
 
     const MSLEFT = 'LEFT'; // Change to previous Surround Mode
     const MSRIGHT = 'RIGHT'; // Change to next Surround Mode
@@ -4093,7 +4093,7 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::MSDOLBYDIGITAL   => 'Dolby Digital',
         DENON_API_Commands::MSDTSSURROUND    => 'DTS Surround',
         DENON_API_Commands::MSAURO3D         => 'Auro 3D',
-        DENON_API_Commands::AURO3D           => 'Auro 3D', //beim AVR X8500 beobachtet
+//        DENON_API_Commands::AURO3D           => 'Auro 3D', //beim AVR X8500 beobachtet
         DENON_API_Commands::MSAURO2DSURR     => 'Auro 2D Surround',
         DENON_API_Commands::MSMCHSTEREO      => 'Multi Channel Stereo',
         DENON_API_Commands::MS7CHSTEREO      => '7 Channel Stereo',
