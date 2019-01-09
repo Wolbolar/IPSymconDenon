@@ -7,7 +7,7 @@ class AVRModule extends IPSModule
     protected $debug = false;
     protected $testAllProperties = false;
 
-    const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
+    protected const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
     const STATUS_INST_IS_INACTIVE = 104;
     const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
     const STATUS_INST_NO_MANUFACTURER_SELECTED = 210;
@@ -87,7 +87,7 @@ class AVRModule extends IPSModule
     protected function UpdateVariable($data)
     {
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'data: '.json_encode($data));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'data: '.json_encode($data));
         }
         $ResponseType = $data->ResponseType;
 
@@ -133,12 +133,10 @@ class AVRModule extends IPSModule
                             $node = $doc->getElementById('NSARow'.$row);
                             if (($row > 0) && ($row < 8)) {
                                 if ((ord(substr($content, 0, 1)) & 8) == 8) { //Cursor Select (8) ist gesetzt
-                                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'row: '.$row.', content[0]: '.decbin(ord(substr($content, 0, 1))));
+                                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'row: '.$row.', content[0]: '.decbin(ord(substr($content, 0, 1))));
                                     $node->setAttribute('style', 'color:#FF0000');
-                                } else {
-                                    if ($node->hasAttribute('style')) {
-                                        $node->removeAttribute('style');
-                                    }
+                                } elseif ($node->hasAttribute('style')) {
+                                    $node->removeAttribute('style');
                                 }
                                 $content = substr($content, 1);
                             }
@@ -151,12 +149,12 @@ class AVRModule extends IPSModule
                 }
                 break;
             default:
-                trigger_error(get_class().'::'.__FUNCTION__.': Unknown response type: '.$ResponseType);
+                trigger_error(__CLASS__ .'::'.__FUNCTION__.': Unknown response type: '.$ResponseType);
 
                 return false;
         }
 
-        if (!isset($datavalues)) {
+        if ($datavalues===NULL) {
             IPS_LogMessage(__FUNCTION__, json_encode(debug_backtrace()));
 
             return false;
@@ -174,37 +172,37 @@ class AVRModule extends IPSModule
                         SetValueBoolean($VarID, $Subcommandvalue);
                         $this->SendDebug('Update '.$ResponseType.' ObjektID(boolean):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.(int) $Subcommandvalue.')', 0);
                         if ($this->debug) {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.(int) $Subcommandvalue.')');
+                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.(int) $Subcommandvalue.')');
                         }
                         break;
                     case 1: //Integer
                         SetValueInteger($VarID, $Subcommandvalue);
                         $this->SendDebug('Update '.$ResponseType.' ObjektID(integer):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.$Subcommandvalue.')', 0);
                         if ($this->debug) {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
+                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
                         }
                         break;
                     case 2: //Float
                         SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
                         $this->SendDebug('Update '.$ResponseType.' ObjektID(float):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.$Subcommandvalue.')', 0);
                         if ($this->debug) {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
+                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
                         }
                         break;
                     case 3: //String
                         SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
                         $this->SendDebug('Update '.$ResponseType.' ObjektID(string):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.$Subcommandvalue.')', 0);
                         if ($this->debug) {
-                            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommandvalue);
+                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommandvalue);
                         }
                         break;
                     default:
-                        trigger_error(get_class().'::'.__FUNCTION__.': invalid VarType: '.$VarType);
+                        trigger_error(__CLASS__ .'::'.__FUNCTION__.': invalid VarType: '.$VarType);
                 }
             } else {
                 // nichts zu tun. Variable ist nicht vorhanden
                 if ($this->debug) {
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, $this->InstanceID.': Info: Keine Variable mit dem Ident "'.$Ident.'" gefunden.');
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, $this->InstanceID.': Info: Keine Variable mit dem Ident "'.$Ident.'" gefunden.');
                 }
             }
         }
@@ -226,7 +224,9 @@ class AVRModule extends IPSModule
         $profiles = $DenonAVRVar->GetAllProfiles();
         foreach ($profiles as $profile) {
             //some variables were registered with 'true' in the former version. So due to compatibility reasons they where registered with 'true' again
-            $DefaultValue = in_array($profile['PropertyName'], [DENONIPSProfiles::ptPower,
+            $DefaultValue = in_array(
+                $profile['PropertyName'], [
+                DENONIPSProfiles::ptPower,
                 DENONIPSProfiles::ptMainZonePower,
                 DENONIPSProfiles::ptMainMute,
                 'InputSource',
@@ -241,11 +241,10 @@ class AVRModule extends IPSModule
                 DENONIPSProfiles::ptZone2Volume,
                 DENONIPSProfiles::ptZone3Volume,
                 DENONIPSProfiles::ptZone2InputSource,
-                DENONIPSProfiles::ptZone3InputSource,
-                ]
-                );
+                DENONIPSProfiles::ptZone3InputSource,], true
+            );
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Property registered: '.$profile['PropertyName']. '(' . (int) $DefaultValue . ')');
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Property registered: '.$profile['PropertyName']. '(' . (int) $DefaultValue . ')');
             }
             $this->RegisterPropertyBoolean($profile['PropertyName'], $DefaultValue);
         }
@@ -266,10 +265,10 @@ class AVRModule extends IPSModule
     protected function RegisterVariables(DENONIPSProfiles $DenonAVRVar, $idents, $AVRType, $manufacturername)
     {
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'variables: '.json_encode($idents));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'variables: '.json_encode($idents));
         }
 
-        if (!in_array($manufacturername, [DENONIPSProfiles::ManufacturerDenon, DENONIPSProfiles::ManufacturerMarantz])) {
+        if (!in_array($manufacturername, [DENONIPSProfiles::ManufacturerDenon, DENONIPSProfiles::ManufacturerMarantz], true)) {
             trigger_error('ManufacturerName not set');
 
             return false;
@@ -290,7 +289,7 @@ class AVRModule extends IPSModule
             if ($selected) {
                 switch ($statusvariable['Type']) {
                     case DENONIPSVarType::vtString:
-                        if ($statusvariable['ProfilName'] == '~HTMLBox') {
+                        if ($statusvariable['ProfilName'] === '~HTMLBox') {
                             $profilname = '~HTMLBox';
                         } else {
                             $profilname = $manufacturername.'.'.$AVRType.'.'.$statusvariable['ProfilName'];
@@ -335,7 +334,7 @@ class AVRModule extends IPSModule
                         break;
 
                     default:
-                        trigger_error(get_class().'::'.__FUNCTION__.': invalid Type: '.$statusvariable['Type']);
+                        trigger_error(__CLASS__ .'::'.__FUNCTION__.': invalid Type: '.$statusvariable['Type']);
 
                         return false;
 
@@ -376,7 +375,7 @@ class AVRModule extends IPSModule
     {
         $profile = IPS_GetVariableProfile($ProfileName);
         if ($profile['ProfileType'] != $VarType) {
-            throw new Exception('Variable profile type does not match for already existing profile "'.$ProfileName.'". The existing profile has to be deleted manually.'.PHP_EOL);
+            trigger_error('Variable profile type does not match for already existing profile "'.$ProfileName.'". The existing profile has to be deleted manually.');
         }
     }
 
@@ -466,7 +465,7 @@ class AVRModule extends IPSModule
             $APICommand = DENON_API_Commands::Z2;
         } elseif ($Ident == DENON_API_Commands::Z3POWER || $Ident == DENON_API_Commands::Z3INPUT || $Ident == DENON_API_Commands::Z3VOL) {
             $APICommand = DENON_API_Commands::Z3;
-        } elseif ($Ident == 'PVPICT') {
+        } elseif ($Ident === 'PVPICT') {
             $APICommand = 'PV';
         } else {
             $APICommand = str_replace('_', ' ', $Ident); //Ident _ von Ident mit Leerzeichen ersetzten
@@ -538,14 +537,14 @@ class AVRModule extends IPSModule
             $this->UnregisterVariable($Ident);
             $this->SendDebug('Variable gelöscht:', $Name.', [ObjektID: '.$vid.']', 0);
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Variable gelöscht - Name: '.$Name.', Ident: '.$Ident.', ObjektID: '.$vid);
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Variable gelöscht - Name: '.$Name.', Ident: '.$Ident.', ObjektID: '.$vid);
             }
             //delete Profile
             if (IPS_VariableProfileExists($Profile)) {
                 IPS_DeleteVariableProfile($Profile);
                 $this->SendDebug('Variablenprofilprofil gelöscht:', $Profile, 0);
                 if ($this->debug) {
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Variablenprofil gelöscht:'.$Profile);
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Variablenprofil gelöscht:'.$Profile);
                 }
             }
         }
@@ -575,9 +574,9 @@ class AVRModule extends IPSModule
         $IP = IPS_GetProperty($this->GetParent(), 'Host');
         if (!filter_var($IP, FILTER_VALIDATE_IP) === false) {
             return $IP;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     protected function FormSelectionZone()
@@ -683,17 +682,17 @@ class AVRModule extends IPSModule
     protected function getTypeItem($type, $command, $propertyname, $caption, $CapsItems = null)
     {
         if ($propertyname == '') {
-            trigger_error(get_class().'::'.__FUNCTION__.': '.$command.': PropertyName nicht gesetzt.');
+            trigger_error(__CLASS__ .'::'.__FUNCTION__.': '.$command.': PropertyName nicht gesetzt.');
 
             return false;
         }
 
         // is the command supported?
-        if (is_null($CapsItems) || in_array($command, $CapsItems)) {
+        if ($CapsItems === null || in_array($command, $CapsItems, true)) {
             return    '{ "type": "'.$type.'", "name": "'.$propertyname.'", "caption": "'.$caption.' ('.$command.')" },'.PHP_EOL;
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     private function WriteNEOScript($ObjectID, $FunctionName, $LogLabel)
@@ -1114,8 +1113,8 @@ class DENONIPSProfiles extends stdClass
         }
 
         if ($this->debug){
-            IPS_LogMessage(get_class() . '::' . __FUNCTION__,
-                'AVRType: ' . (is_null($AVRType) ? 'null' : $AVRType) . ', InputMapping: ' . (is_null($InputMapping) ? 'null': json_encode($InputMapping)));
+            IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__,
+                'AVRType: ' . ($AVRType === null ? 'null' : $AVRType) . ', InputMapping: ' . ($InputMapping === null ? 'null': json_encode($InputMapping)));
         }
 
         $assRange00to98_add05step = $this->GetAssociationOfAsciiTodB('00', '98', '80', 1, true, false);
@@ -2144,7 +2143,7 @@ class DENONIPSProfiles extends stdClass
             $this->profiles[self::ptZone2InputSource]['Associations'] = $associations;
             $this->profiles[self::ptZone3InputSource]['Associations'] = $associations;
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Association: '.json_encode($associations));
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Association: '.json_encode($associations));
             }
         }
     }
@@ -2158,7 +2157,7 @@ class DENONIPSProfiles extends stdClass
         }
         $subcommands = $caps[$ident.'_SubCommands'];
         for ($i = (count($associations) - 1); $i >= 0; $i--) {
-            if (!in_array($associations[$i][2], $subcommands)) {
+            if (!in_array($associations[$i][2], $subcommands, true)) {
                 unset($associations[$i]);
             }
         }
@@ -2219,7 +2218,7 @@ class DENONIPSProfiles extends stdClass
         }
 
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Associations: '.json_encode($Associations));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Associations: '.json_encode($Associations));
         }
 
         switch ($Zone) {
@@ -2277,7 +2276,7 @@ class DENONIPSProfiles extends stdClass
 
         for ($i = 0; $i <= $countinput - 1; $i++) {
             //manche AVRs(z.B. Marantz 7010 bei 'Online Music') liefern auch schon mal einen Leerstring anstelle von 'USE'
-            if (((string) $SourceDelete[0]->value[$i] == 'USE') || ((string) $SourceDelete[0]->value[$i] == '')) {
+            if (((string) $SourceDelete[0]->value[$i] === 'USE') || ((string) $SourceDelete[0]->value[$i] == '')) {
                 $UsedInput_i++;
                 if ($MainForm == DENON_HTTP_Interface::MainForm_old) {
                     $RenameInput = (string) $RenameSource[0]->value[$i];
@@ -2308,7 +2307,7 @@ class DENONIPSProfiles extends stdClass
     {
         $filename = 'http://'.$IP.$MainForm.'?_=&ZoneName=ZONE'.($Zone + 1);
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'filename: '.$filename);
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'filename: '.$filename);
         }
 
         $content = @file_get_contents($filename);
@@ -2327,9 +2326,7 @@ class DENONIPSProfiles extends stdClass
             return false;
         }
 
-        $Associations = $this->GetInputsFromXMLZone($xmlZone, $MainForm, $filename);
-
-        return $Associations;
+        return $this->GetInputsFromXMLZone($xmlZone, $MainForm, $filename);
 
     }
 
@@ -2355,7 +2352,7 @@ class DENONIPSProfiles extends stdClass
         $ret = ['AVRType' => $this->AVRType, 'Inputs' => $InputSourcesMapping, 'Writeprotected' => false];
 
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'return: '.json_encode($ret));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'return: '.json_encode($ret));
         }
 
         return $ret;
@@ -2364,7 +2361,7 @@ class DENONIPSProfiles extends stdClass
     public function SetupVariable($ident)
     {
         if ($this->debug){
-            $this->LogMessage('Setup Variable with ident ' . $ident, KL_MESSAGE);
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Setup Variable with ident ');
         }
 
         if (!array_key_exists($ident, $this->profiles)) {
@@ -2414,12 +2411,8 @@ class DENONIPSProfiles extends stdClass
                 break;
 
             case DENONIPSVarType::vtString:
-                if (isset($profile['ProfilName'])) {
-                    $profilename = $profile['ProfilName'];
-                } else {
-                    $profilename = $ident;
-                }
-                $ret = [
+                $profilename=$profile['ProfilName'] ?? $ident;
+                $ret        = [
                     'Name'         => $profile['Name'],
                     'Ident'        => $profile['Ident'],
                     'Type'         => $profile['Type'],
@@ -2493,13 +2486,13 @@ class DENONIPSProfiles extends stdClass
         $profile_without_pos = [];
         if (count(static::$order) != count($this->profiles)) {
             foreach ($this->profiles as $profileID => $profile) {
-                if (!in_array($profileID, static::$order)) {
+                if (!in_array($profileID, static::$order, true)) {
                     $profile_without_pos[] = $profileID;
                 }
             }
             if (count($profile_without_pos) > 0) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Order: '.json_encode(static::$order));
-                trigger_error(get_class().'::'.__FUNCTION__.': Profiles without positions: '.json_encode($profile_without_pos));
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Order: '.json_encode(static::$order));
+                trigger_error(__CLASS__ .'::'.__FUNCTION__.': Profiles without positions: '.json_encode($profile_without_pos));
 
                 return false;
             }
@@ -2514,9 +2507,9 @@ class DENONIPSProfiles extends stdClass
                 }
             }
             if (count($order_without_definition) > 0) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Profiles: '.json_encode($this->profiles));
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Keys: '.json_encode(array_keys($this->profiles)));
-                trigger_error(get_class().'::'.__FUNCTION__.': Order Element without definition: '.json_encode($order_without_definition));
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Profiles: '.json_encode($this->profiles));
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Keys: '.json_encode(array_keys($this->profiles)));
+                trigger_error(__CLASS__ .'::'.__FUNCTION__.': Order Element without definition: '.json_encode($order_without_definition));
 
                 return false;
             }
@@ -2530,14 +2523,14 @@ class DENONIPSProfiles extends stdClass
         //check if all profiles are at least used in Capabilities_max
         $profile_not_used_in_caps = [];
         foreach ($this->profiles as $profileID => $profile) {
-            if (!in_array($profile['Ident'], $all_capabilities)) {
+            if (!in_array($profile['Ident'], $all_capabilities, true)) {
                 $profile_not_used_in_caps[$profileID] = $profile['Ident'];
             }
         }
 
         if (count($profile_not_used_in_caps) > 0) {
-            trigger_error(get_class().'::'.__FUNCTION__.': Profiles not used in Capabilities(MAX):'.json_encode($profile_not_used_in_caps).PHP_EOL.'Capabilities: '.json_encode($all_capabilities));
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Profiles not used in Capabilities(MAX):'.json_encode($profile_not_used_in_caps).PHP_EOL.'Capabilities: '.json_encode($all_capabilities));
+            trigger_error(__CLASS__ .'::'.__FUNCTION__.': Profiles not used in Capabilities(MAX):'.json_encode($profile_not_used_in_caps).PHP_EOL.'Capabilities: '.json_encode($all_capabilities));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Profiles not used in Capabilities(MAX):'.json_encode($profile_not_used_in_caps).PHP_EOL.'Capabilities: '.json_encode($all_capabilities));
 
             return false;
         }
@@ -2551,7 +2544,7 @@ class DENONIPSProfiles extends stdClass
         foreach ($this->profiles as $profile) {
             if (($profile['Ident'] == $Ident) && isset($profile['Associations'])) {
                 if ($this->debug){
-                    $this->LogMessage('Profile "'.$Ident.'" found: '.json_encode($profile), KL_MESSAGE);
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Profile "'.$Ident.'" found: '.json_encode($profile));
                 }
                 foreach ($profile['Associations'] as $item) {
                     switch ($profile['Type']) {
@@ -2573,23 +2566,23 @@ class DENONIPSProfiles extends stdClass
                         default:
                             trigger_error(__FUNCTION__.': unknown type: '.$profile['Type']);
                     }
-                    if (!is_null($ret)) {
+                    if ($ret !== null) {
                         break;
                     }
                 }
             }
-            if (!is_null($ret)) {
+            if ($ret !== null) {
                 break;
             }
         }
 
-        if (is_null($ret)) {
+        if ($ret === null) {
             trigger_error('no subcommand found. Ident: '.$Ident.', Value: '.$Value);
 
             return false;
-        } else {
-            return (string) $ret;
         }
+
+        return (string) $ret;
     }
 
     public function GetSubCommandOfValueName($Ident, $ValueName)
@@ -2607,35 +2600,35 @@ class DENONIPSProfiles extends stdClass
                         default:
                             trigger_error(__FUNCTION__.': unknown type: '.$profile['Type']);
                     }
-                    if (!is_null($ret)) {
+                    if ($ret !== null) {
                         break;
                     }
                 }
             }
-            if (!is_null($ret)) {
+            if ($ret !== null) {
                 break;
             }
         }
 
-        if (is_null($ret)) {
+        if ($ret === null) {
             trigger_error('no subcommand found. Ident: '.$Ident.', Value: '.$ValueName);
 
             return false;
-        } else {
-            return (string) $ret;
         }
+
+        return (string) $ret;
     }
 
     private function getpos($profilename)
     {
-        $pos = array_search($profilename, static::$order);
+        $pos = array_search($profilename, static::$order, true);
         if ($pos === false) {
             trigger_error('unknown profile: '.$profilename);
 
             return false;
-        } else {
-            return ($pos + 1) * 10; //starting with 10, step size 10
         }
+
+        return ($pos + 1) * 10; //starting with 10, step size 10
     }
 
     private function GetAssociationOfAsciiTodB($ascii_from, $ascii_to, $ascii_of_0, $db_stepsize = 1, $add_05step = false, $leading_blank = true, $invertValue = false, $scalefactor_to_db = 1)
@@ -2650,7 +2643,6 @@ class DENONIPSProfiles extends stdClass
         $db_to = ((int) $ascii_to - (int) $ascii_of_0) * $scalefactor_to_db;
 
         $value_mapping = [];
-        $i = 0;
 
         if (!$invertValue) {
             $faktor = 1;
@@ -2675,8 +2667,7 @@ class DENONIPSProfiles extends stdClass
                 $value_mapping[] = [$prefix.$ascii.'5', ($db + 0.5) * $faktor];
             }
 
-            $db = $db + $db_stepsize;
-            $i++;
+            $db+=$db_stepsize;
         }
 
         return $value_mapping;
@@ -2717,9 +2708,9 @@ class DENON_StatusHTML extends stdClass
 
 
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMappings: '.json_encode($VarMappings));
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'InputVarMapping: '.json_encode($InputVarMapping));
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Inputs: '.json_encode($Inputs));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'VarMappings: '.json_encode($VarMappings));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'InputVarMapping: '.json_encode($InputVarMapping));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Inputs: '.json_encode($Inputs));
         }
 
 
@@ -2816,7 +2807,7 @@ class DENON_StatusHTML extends stdClass
                     ];
 
         if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'DataSend: '.json_encode($datasend));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'DataSend: '.json_encode($datasend));
         }
 
         return $datasend;
@@ -2867,7 +2858,7 @@ class DENON_StatusHTML extends stdClass
 
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping). ', SubCommand: ' . $SubCommand);
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping). ', SubCommand: ' . $SubCommand);
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
@@ -2905,7 +2896,7 @@ class DENON_StatusHTML extends stdClass
         if ($Element) {
             $VarMapping = $VarMappings[DENON_API_Commands::MV];
             $Value = (float) $Element[0]->value;
-            $SubCommand = array_search($Value, $VarMapping['ValueMapping']);
+            $SubCommand = array_search($Value, $VarMapping['ValueMapping'], true);
             $data[DENON_API_Commands::MV] = ['VarType' => $VarMapping['VarType'], 'Value' => $Value, 'Subcommand' => $SubCommand];
         }
 
@@ -4227,8 +4218,8 @@ class DenonAVRCP_API_Data extends stdClass
 
     public function __construct($AVRType, $Data)
     {
-        if (is_null($AVRType)) {
-            trigger_error(get_class().'::'.__FUNCTION__.': AVRType ist nicht gesetzt!');
+        if ($AVRType === null) {
+            trigger_error(__CLASS__ .'::'.__FUNCTION__.': AVRType ist nicht gesetzt!');
         }
 
         $this->AVRType = $AVRType;
@@ -4245,7 +4236,7 @@ class DenonAVRCP_API_Data extends stdClass
         } elseif (array_key_exists($response, static::$DTSSurroundModes)) {
             $showsurrounddisplay = static::$DTSSurroundModes[$response];
         } else {
-            trigger_error(get_class().'::'.__FUNCTION__.': unknown surround mode response: '.$response);
+            trigger_error(__CLASS__ .'::'.__FUNCTION__.': unknown surround mode response: '.$response);
         }
 
         return $showsurrounddisplay;
@@ -4255,7 +4246,7 @@ class DenonAVRCP_API_Data extends stdClass
     {
         $debug = false;
         if ($debug){
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'data: '.json_encode($data));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'data: '.json_encode($data));
         }
 
         $Display = [];
@@ -4264,8 +4255,8 @@ class DenonAVRCP_API_Data extends stdClass
             $Row = substr($response, 3, 1);
             if ((stripos($response, 'NSA') === 0) || (stripos($response, 'NSE') === 0)) { //Display auslesen
                 if ($debug) {
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.') found: '.json_encode($response));
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'response ('.$key.') found (hex): '.bin2hex($response));
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'response ('.$key.') found: '.json_encode($response));
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'response ('.$key.') found (hex): '.bin2hex($response));
                 }
                 //the first characters ('NSEx', 'NSAx') are cut
                 $response = rtrim(substr($response, 4));
@@ -4284,7 +4275,7 @@ class DenonAVRCP_API_Data extends stdClass
 
         //Debug Log
         if ($debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'data: '.json_encode($this->Data));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'data: '.json_encode($this->Data));
         }
 
         // Response an besondere Idents anpassen
@@ -4324,7 +4315,7 @@ class DenonAVRCP_API_Data extends stdClass
         foreach ($this->Data as $key => $response) {
             if (array_key_exists($response, $specialcommands)) {
                 if ($debug) {
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, $this->Data[$key].' replaced by '.$specialcommands[$response]);
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, $this->Data[$key].' replaced by '.$specialcommands[$response]);
                 }
                 $this->Data[$key] = $specialcommands[$response];
             }
@@ -4337,12 +4328,25 @@ class DenonAVRCP_API_Data extends stdClass
         $VarMapping = (new DENONIPSProfiles($this->AVRType, $InputMapping))->GetVarMapping();
 
         if ($VarMapping === false) {
-            trigger_error(get_class().'::'.__FUNCTION__.': VarMapping failed');
+            trigger_error(__CLASS__ .'::'.__FUNCTION__.': VarMapping failed');
         }
 
         foreach ($this->Data as $response) {
-            if (substr($response, 0, 2) == 'NS') {
+            if (strpos($response,'NS')===0) {
                 //die Antworten 'NSA' und 'NSE' werden separat ausgewertet
+                continue;
+            }
+
+            //die folgenden Antworten sind laut Denon Support zu ignorieren
+            $commandToBeIgnored = false;
+            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV'] as $Command){
+                if (substr($response, 0, strlen($Command)) === $Command) {
+                    $commandToBeIgnored = true;
+                    continue;
+                }
+            }
+
+            if ($commandToBeIgnored) {
                 continue;
             }
 
@@ -4350,7 +4354,7 @@ class DenonAVRCP_API_Data extends stdClass
             foreach ($VarMapping as $Command => $item) { //Zuordnung suchen
                 if (stripos($response, $Command) === 0) {// Subcommand ermitteln
                     $ResponseSubCommand = substr($response, strlen($Command));
-                    IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Command found: '.$Command.', SubCommand: '.$ResponseSubCommand);
+                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Command found: '.$Command.', SubCommand: '.$ResponseSubCommand);
 
                     switch ($Command) {
 
@@ -4377,7 +4381,7 @@ class DenonAVRCP_API_Data extends stdClass
 
                         default:
                             if (!isset($item['ValueMapping'])) {
-                                IPS_LogMessage(get_class().'::'.__FUNCTION__, 'ValueMapping not set - Item: '.json_encode($item));
+                                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'ValueMapping not set - Item: '.json_encode($item));
 
                                 return false;
                             }
@@ -4387,7 +4391,7 @@ class DenonAVRCP_API_Data extends stdClass
                                                          'Subcommand' => $ResponseSubCommand,
                                 ];
                             } else {
-                                IPS_LogMessage(get_class().'::'.__FUNCTION__, '*Warning*: No value found for SubCommand "'.$ResponseSubCommand.'"');
+                                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, '*Warning*: No value found for SubCommand "'.$ResponseSubCommand.'"');
                             }
                             break;
                     }
@@ -4397,7 +4401,7 @@ class DenonAVRCP_API_Data extends stdClass
                 }
             }
             if (!$response_found) {
-                IPS_LogMessage(get_class().'::'.__FUNCTION__, '*Warning*: No mapping found for response "'.$response.'"');
+                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, '*Warning*: No mapping found for response "'.$response.'"');
             }
         }
 
@@ -4410,7 +4414,7 @@ class DenonAVRCP_API_Data extends stdClass
 
         //Debug Log
         if ($debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'datasend:'.json_encode($datasend));
+            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'datasend:'.json_encode($datasend));
         }
 
         return $datasend;
