@@ -783,6 +783,63 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::PSATT.$SubCommand);
     }
 
+
+	/** Subwoofer Output Off
+	 *
+	 */
+	public function SubwooferOutputOff()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCSWF.DENON_API_Commands::NON);
+	}
+
+	/** Subwoofer Output One
+	 *
+	 */
+	public function SubwooferOutputOne()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCSWF.DENON_API_Commands::SPONE);
+	}
+
+	/** Subwoofer Output Two
+	 *
+	 */
+	public function SubwooferOutputTwo()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCSWF.DENON_API_Commands::SPTWO);
+	}
+
+	/** Speaker Front Small
+	 *
+	 */
+	public function SpeakerFrontSmall()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCFRO.DENON_API_Commands::SMA);
+	}
+
+	/** Speaker Front Large
+	 *
+	 */
+	public function SpeakerFrontLarge()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCFRO.DENON_API_Commands::LAR);
+	}
+
+	/** Subwoofer Output Two
+	 *
+	 */
+	public function SpeakerCenterSmall()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCCEN.DENON_API_Commands::SMA);
+	}
+
+	/** Subwoofer Output Two
+	 *
+	 */
+	public function SpeakerCenterLarge()
+	{
+		$this->SendCommand(DENON_API_Commands::SSSPCCEN.DENON_API_Commands::LAR);
+	}
+
     //Front Height
     public function FrontHeight(bool $Value)
     { // Front Height true (On) or false (Off)

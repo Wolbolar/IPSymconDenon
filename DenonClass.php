@@ -3253,6 +3253,17 @@ class DENON_API_Commands extends stdClass
     const PVDNRMID = ' MID'; // Digital Noise Reduction Middle
     const PVDNRHI = ' HI'; // Digital Noise Reduction High
 
+	// Speaker Setup
+	const SSSPC = 'SSSPC';
+	const SSSPCCEN = 'SSSPCCEN'; // Setup Center
+	const SSSPCFRO = 'SSSPCFRO'; // Setup Front
+	const SSSPCSWF = 'SSSPCSWF'; // Setup Subwoofer
+	const NON = ' NON'; // none Subwoofer
+	const SPONE = ' 1SP'; // Subwoofer 1
+	const SPTWO = ' 2SP'; // Subwoofer 2
+	const SMA = ' SMA'; // small
+	const LAR = ' LAR'; // large
+
     const SR = ' ?'; //Status Request
 
     //Zone 2
