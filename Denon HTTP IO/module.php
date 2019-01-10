@@ -33,10 +33,8 @@ class DenonAVRIOHTTP extends IPSModule
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 
         //IP Prüfen
-        $ip = $this->ReadPropertyString('Host');
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
-            $Open = $this->ReadPropertyBoolean('Open');
-            if ($Open) {
+        if (filter_var($this->ReadPropertyString('Host'), FILTER_VALIDATE_IP)) {
+            if ($this->ReadPropertyBoolean('Open')) {
                 $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
             } else {
                 $this->SetStatus(self::STATUS_INST_IS_INACTIVE);
