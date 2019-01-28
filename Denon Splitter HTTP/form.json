@@ -6,11 +6,11 @@
                     "type": "CheckBox",
                     "caption": "Open"
                 },
-				{ "type": "Label", "label": "AVR ip adress" },
+				{ "type": "Label", "label": "AVR ip address" },
                 {
                     "name": "Host",
                     "type": "ValidationTextBox",
-                    "caption": "ip adress"
+                    "caption": "ip address"
                 }
             ],
     "status":
@@ -33,7 +33,7 @@
                 {
                     "code": 202,
                     "icon": "error",
-                    "caption": "AVR ip adress must not be empty."
+                    "caption": "AVR ip address must not be empty."
                 },
                 {
                     "code": 203,
@@ -43,7 +43,7 @@
 				{
                     "code": 204,
                     "icon": "error",
-                    "caption": "no valid ip adress."
+                    "caption": "AVR ip address is not valid."
                 }
             ]
 }

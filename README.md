@@ -15,7 +15,7 @@ Modul für IP-Symcon ab Version 4.1. Ermöglicht die Kommunikation mit einem Den
 
 ## 1. Funktionsumfang
 
-Mit dem Modul lassen sich Befehle an einen Denon Receiver oder Marantz Receier absenden und die Statusrückmeldung in IP-Symcon (ab Version 4.1) empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
+Mit dem Modul lassen sich Befehle an einen Denon Receiver oder Marantz Receier absenden und die Statusrückmeldung in IP-Symcon empfangen. Es gibt zwei unterschiedliche Module die benutzt werden können.
 Ein Modul nutzt als Kommunikation Port 23 über das Denon AVR Control Protocol. Das zweite Modul nutzt zur Kommunikation HTTP.
 Der Denon AVR kann jeweils nur einen einzige Verbindung auf Port 23 aufbauen. Daher kann, wenn dieses Modul benutzt wird, kein weiterer Client mehr den Denon AVR auf diese Weise über Port 23 steuern.
 Der Vorteil ist jedoch, dass sämtliche dokumentierte Befehle an den Denon AVR geschickt und auch eine Rückmeldung in IP-Symcon dafür empfangen werden kann. Die zweite Möglichkeit ist das Denon HTTP Modul zu benutzten.
@@ -34,14 +34,14 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Denon Modelle:  
 
-AVR-1912, AVR-2313, AVR-3312, AVR-3313, AVR-3808A, AVR-4308A, AVR-4310, AVR-4311, AVR-X1000, AVR-X1000W, AVR-X1200W, AVR-X2000,	AVR-X2100W,	AVR-X2200W, AVR-X3000, AVR-X3100W, AVR-X3200W, AVR-X4000, AVR-X4100W,
-AVR-X4200W, AVR-X5200W, AVR-6200W, AVR-7200W, AVR-7200WA, S-700W, S-900W
+AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X1400H, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X3000, AVR-X3400H, AVR-X4000, AVR-X4100W,
+AVR-X4200W, AVR-X4300H, AVR-X4400H, AVR-X5200W, AVR-X6200W, AVR-X6300H, AVR-X6400H, AVR-X7200W, AVR-X7200WA, AVC-X8500H
 
 ### Marantz Modelle: 
 
-Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
-Marantz-SR5011,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
-Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV8801, Marantz-AV8802 
+Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1508,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607,	Marantz-NR1608, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
+Marantz-SR5011, Marantz-SR5012,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR6012, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
+Marantz-SR7011, Marantz-SR7012, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV7704, Marantz-AV8801, Marantz-AV8802 
 
 ## 2. Voraussetzungen
 
@@ -52,13 +52,13 @@ Marantz-SR7011, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 m
 
 ### a. Laden des Moduls
 
-   Wir wechseln zu IP-Symcon (Ver. 4.1) und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
+   Wir wechseln zu IP-Symcon und fügen unter Kerninstanzen über _*Modules*_ -> Hinzufügen das Modul hinzu mit der URL
 	
     `https://github.com/Wolbolar/IPSymconDenon`  
 
 ### b. Einrichtung in IPS
 
-In IP-Symcon wird von jede Zone des AV Receivers den wir nutzen wollen eine seperate Instanz angelegt. Der Denon IO und Denon Splitter wird
+In IP-Symcon wird für jede Zone des AV Receivers die wir nutzen wollen eine separate Instanz angelegt. Der Denon IO und Denon Splitter wird
 automatisch mit angelegt. Um die Instanz zu erstellen wechseln wir in die Kategorie, unter der wir die Instanz platzieren wollen
 und erstellen mit *CTRL+1* eine neue Instanz.
 
@@ -66,43 +66,42 @@ und erstellen mit *CTRL+1* eine neue Instanz.
 
 Über _**Denon**_ finden wir die Instanz und mit weiter und Ok wird diese angelegt.
 
-Zur Auswahl stehen in IP-Symcon Denon/Marantz AV Receiver HTTP Control oder Denon/Marantz AV Receiver Telnet Control. Die Denon/Marantz AV Receiver Telnet Control verfügt über den deutlich größeren Funktionsumfang und sollte nach Möglichkeit genutzt werden.
-Es kann aber jeweils nur ein gerät auf diese Weise mit dem AV Receiver verbunden sein. Sollte also bereits ein anderes Gerät oder Remote diese Verbindung nutzen kann auch alternativ Denon/Marantz AV Receiver HTTP Control genutzt werden. 
+Zur Auswahl stehen in IP-Symcon das Denon/Marantz AV Receiver HTTP Control und das Denon/Marantz AV Receiver Telnet Control. Die Denon/Marantz AV Receiver Telnet Control verfügt über den deutlich größeren Funktionsumfang und sollte nach Möglichkeit genutzt werden.
+Es kann aber jeweils nur ein Gerät auf diese Weise mit dem AV Receiver verbunden sein. Sollte also bereits ein anderes Gerät oder Remote diese Verbindung nutzen kann auch alternativ Denon/Marantz AV Receiver HTTP Control genutzt werden. 
 Bei dem entsprechenden Denon Splitter ist die IP Adresse des Denon AVR einzutragen.
 
-Bei dem Denon / Marantz Device ist zunächst der Hersteller auszuwählen und dann mit _Übernehmen_ zu bestätigen.
+Bei dem Denon/Marantz Device ist zunächst der Hersteller auszuwählen und dann mit _Übernehmen_ zu bestätigen.
 
 ![Herstellerauswahl](docs/config1.png?raw=true "Herstellerauswahl")
 
-Anschließend das AV Receiver Modell auszuwählen und wieder mit _Übernehmen_ bestätigen.
+Anschließend ist das AV Receiver Modell auszuwählen und wieder mit _Übernehmen_ zu bestätigen.
 
 ![AVRAuswahl](docs/config2.png?raw=true "AVR Auswahl")
 
-Jetzt noch die Zone selektieren die benutzt werden soll und mit _Übernehmen_ bestätigen.
+Jetzt noch die Zone selektieren, die benutzt werden soll, und mit _Übernehmen_ bestätigen.
 
 ![ZoneAuswahl](docs/config3.png?raw=true "Zone Auswahl")
 
-Jetzt wird abhänig von dem AV Receiver Modell und der Zone Befehle zum selektieren angezeigt. Das Konfigurationsformular passt sich ab IP-Symcon 4.1 je nach Auswahl des Modells an. Die Befehle die im Webfront genutzt werden sollen können nun ausgewählt werden oder auch wieder bei Bedarf abgewählt werden.
+Jetzt wird abhängig von dem AV Receiver Modell und der Zone Befehle zum Selektieren angezeigt. Das Konfigurationsformular passt sich je nach Auswahl des Modells an. Die Befehle, die im Webfront genutzt werden sollen, können nun ausgewählt werden oder auch wieder bei Bedarf abgewählt werden.
 Beim HTTP Modul wird der Status automatisch regelmäßig alle 10 Sekunden aktualisiert. Wenn ein Befehl über das Denon HTTP Modul versendet wird aktualisiert sich der Status unmittelbar nach dem Absetzten des Befehls.
+
 Beim Telnet Modul erfolgt ein Update des Status für die entsprechende Variable immer dann wenn ein Request angefordert wurde oder ein Befehl gesendet wurde.
-Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button  Status Initialisieren zu Verfügung.
+Um nach dem ersten Einrichten beim Telnet Modul einen aktuellen Status zu erhalten steht in der Testumgebung des Konfigurationsformulars (ganz unten) ein Button _Status initialisieren_ zur Verfügung.
 
 
 ## 4. Funktionsreferenz
 
-### Denon Splitter Telnet:
-Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt. Bei Öffnen ist ein Haken zu setzten.
+### Denon Splitter Telnet
+Die IP Adresse des Denon AVR ist einzutragen der Port bleibt auf 23 bei Telnet eingestellt.
 	
 ### Denon Splitter  HTTP
 Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu setzten.
  
 ### Denon AV Receiver Telnet Control
- AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen auswählen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
- Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
+ AVR Zone auswählen und die Befehle, die zur Verfügung stehen sollen, auswählen. Alle Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
  
 ### Denon AV Receiver HTTP Control
- AVR Zone auswählen und die Befehle die zur Verfügung stehen sollen. Wenn nur die Zone ausgewählt wird ohne eine zusätzliche Auswahl wird automatisch Power, Mainzonepower, Mute Volume und Input Source angelegt.
- Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
+ AVR Zone auswählen und die Befehle, die zur Verfügung stehen sollen, auswählen. Alle weiteren Befehle können einzeln bei Bedarf hinzugefügt oder auch wieder abgewählt werden.
 
 
 ## 5. Konfiguration:
@@ -111,7 +110,6 @@ Die IP Adresse des Denon AVR ist einzutragen und bei Öffnen ist ein Haken zu se
 
 | Eigenschaft | Typ     | Standardwert | Funktion                                  |
 | :---------: | :-----: | :----------: | :---------------------------------------: |
-| Open        | bool    | true         | Verbindung zum Denon AVR  aktiv / deaktiv |
 | Host        | string  |              | IP Adresse des Denon AVR                  |
 | Port        | int     |              | Kommunikationsport 23 (nicht ändern)      |
 
@@ -184,7 +182,6 @@ DAVRT_MainZonePower(int $InstanceID, bool $Value)
 Einschalten / Ausschalten Mainzone
 Parameter $Value false (Off) / true (On)
 
-Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 ```php
 DAVRT_MainzoneAutoStandbySetting(int $InstanceID, int $Value)
 ```
@@ -192,7 +189,6 @@ DAVRT_MainzoneAutoStandbySetting(int $InstanceID, int $Value)
 Mainzone Auto Standby Setting in Minuten (0 ist Off)
 Parameter $Value  0 (Off) / 15 / 30 / 60 (Minuten)
 
-Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 ```php
 DAVRT_MainzoneEcoModeSetting(int $InstanceID, string $Value)
 ```
@@ -233,9 +229,7 @@ DAVRT_Input(int $InstanceID, string $Value)
 ```
 
 Auswählen Input Mainzone
-Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
-Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
+Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD, MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
 ```php
@@ -438,6 +432,10 @@ DAVRT_ChannelVolumeTS(int $InstanceID, float $Value)
 
 Channel Volume Top Surround
 Parameter Range float $Value -12 to 12, Step 0.5
+
+```php
+DAVRT_ChannelVolumeZRL(int $InstanceID, float $Value)
+```
 
 ```php
 DAVRT_ChannelVolumeTFL(int $InstanceID, float $Value)
@@ -1015,7 +1013,7 @@ DAVRT_Zone2InputSource(int $InstanceID, string $Value)
 
 Auswählen Input Zone 2
 Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVC-8500H, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
@@ -1076,7 +1074,7 @@ DAVRT_Zone3InputSource(int $InstanceID, string $Value)
 
 Auswählen Input Zone 3
 Parameter $Value PHONO, CD, TUNER, DVD, BD, TV, SAT/CBL, DVR, GAME, AUX, DOCK, IPOD, NET/USB, NAPSTER, LASTFM, FLICKR, FAVORITES, IRADIO, SERVER, USB/IPOD
-zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
+zusätzliche Parameter Modelle bei AVR-X7200W, AVR-X5200W, AVR-X4100W, AVR-X3100W, AVR-X2100W, S900W, AVR-7200WA, AVC-8500H, AVR-6200W, AVR-4200W, AVR-3200W, AVR-2200W, AVR-1200W
 Parameter $Value MPLAY (Mediaplayer), NET (Online Music), BT (Bluetooth), USB (Select INPUT source USB and USB Start Playback), IPD	(Select INPUT source USB and iPod DIRECT Start Playback),
  IRP (Select INPUT source NET/USB and iRadio Recent Play), FVP (Select INPUT source NET/USB and Favorites Play)
 
