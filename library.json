@@ -1,11 +1,12 @@
 {
 	"id": "{128B5E62-33BB-40A7-923C-A9AB903F8272}",
-	"description": "Denon/Marantz AVR Modul",
-	"tags": "Denon",
-	"req_ips_version": "4.1",
 	"author": "Fonzo/bumaas",
 	"name": "Denon/Marantz AV Receiver",
 	"url": "www.denon.de",
+	"compatibility": {
+		"version": "4.2",
+		"date": 1491343200
+	},
 	"version": "2.00",
 	"build": 26,
 	"date": 1542386816
