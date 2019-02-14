@@ -102,9 +102,6 @@ public function __construct($InstanceID)
                 if ($this->HasActiveParent($ParentID)) {
                     //Instanz aktiv
                     $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
-
-                    //ein eventuell bestehender Timer aus Vorgängerversionen wird gelöscht, da nicht benötigt
-                    $this->UnRegisterTimer('Update');
                 }
             }
         } else {
@@ -116,50 +113,6 @@ public function __construct($InstanceID)
      * Die folgenden Funktionen stehen automatisch zur Verfügung, wenn das Modul über die "Module Control" eingefügt wurden.
      * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:.
      */
-
-    protected function RegisterTimer($Ident, $Milliseconds, $ScriptText)
-    {
-        $id = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
-
-        if ($id && IPS_GetEvent($id)['EventType'] != 1) {
-            IPS_DeleteEvent($id);
-            $id = 0;
-        }
-
-        if (!$id) {
-            $id = IPS_CreateEvent(1);
-            IPS_SetParent($id, $this->InstanceID);
-            IPS_SetIdent($id, $Ident);
-        }
-
-        IPS_SetName($id, $Ident);
-        IPS_SetHidden($id, true);
-        IPS_SetEventScript($id, "\$id = \$_IPS['TARGET'];\n$ScriptText;");
-
-        if (!IPS_EventExists($id)) {
-            throw new Exception("Ident with name $Ident is used for wrong object type");
-        }
-        if (!($Milliseconds > 0)) {
-            IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, 1);
-            IPS_SetEventActive($id, false);
-        } else {
-            IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, $Milliseconds);
-            IPS_SetEventActive($id, true);
-        }
-    }
-
-    private function UnRegisterTimer($Ident)
-    {
-        $id = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
-
-        if ($id && IPS_GetEvent($id)['EventType'] == 1) {
-            IPS_DeleteEvent($id);
-        }
-
-        if (IPS_EventExists($id)) {
-            throw new Exception("Ident with name $Ident is used for wrong object type");
-        }
-    }
 
     /**
      * @param string $MappingInputs Input MappingInputs als JSON
@@ -328,17 +281,6 @@ public function __construct($InstanceID)
         }
 
         return false;
-    }
-
-    protected function RequireParent($ModuleID)
-    {
-        $instance = IPS_GetInstance($this->InstanceID);
-        if ($instance['ConnectionID'] == 0) {
-            $parentID = IPS_CreateInstance($ModuleID);
-            $instance = IPS_GetInstance($parentID);
-            IPS_SetName($parentID, $instance['ModuleInfo']['ModuleName']);
-            IPS_ConnectInstance($this->InstanceID, $parentID);
-        }
     }
 
     protected function SetStatus($Status)

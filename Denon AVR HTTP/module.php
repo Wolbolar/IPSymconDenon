@@ -214,65 +214,128 @@ class DenonAVRHTTP extends AVRModule
         $this->SendCommand($Command);
     }
 
-    //################# Configuration Form ##############################################
+	/***********************************************************
+	 * Configuration Form
+	 ***********************************************************/
 
-    public function GetConfigurationForm()
-    {
-        $manufacturername = $this->GetManufacturerName();
-        $AVRType = $this->GetAVRType($manufacturername);
-        $zone = $this->ReadPropertyInteger('Zone');
-        $formhead = $this->FormHead();
-        $formselectionAVR = $this->FormSelectionAVR($manufacturername);
-        $formselectionzone = $this->FormSelectionZone();
-        $formselectionneo = $this->FormSelectionNEO();
-        $formactions = $this->FormActions();
-        $formelementsend = '{ "type": "Label", "label": "__________________________________________________________________________________________________" }';
-        $formstatus = $this->FormStatus();
+	/**
+	 * build configuration form
+	 * @return string
+	 */
+	public function GetConfigurationForm()
+	{
+		// return current form
+		return json_encode([
+			'elements' => $this->FormHead(),
+			'actions' => $this->FormActions(),
+			'status' => $this->FormStatus()
+		]);
+	}
 
-        if ($this->debug) {
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Manufacturername: '.$manufacturername.', AVRType: '.$AVRType.', Zone: '.$zone);
-        }
+	/**
+	 * return form configurations on configuration step
+	 * @return array
+	 */
+	private function FormHead()
+	{
+		$manufacturername = $this->GetManufacturerName();
+		$AVRType = $this->GetAVRType($manufacturername);
+		$zone = $this->ReadPropertyInteger('Zone');
 
-        if ($manufacturername == 'none') { // Auswahl Hersteller
-            $ret = '{ '.$formhead.$formelementsend.'],'.$formstatus.' }';
-        } elseif ($AVRType === false) { // Auswahl Modell
-            $ret = '{ '.$formhead.$formselectionAVR.$formelementsend.'],'.$formstatus.' }';
-        } elseif ($zone == 6) {
-            $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.'],'.$formstatus.' }';
-        } else {
-            if ($zone == 0) {
-                $formmainzone = $this->FormMainzone($AVRType);
-                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formmainzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
-            } else {
-                $formzone = $this->FormZone($zone, $AVRType);
-                $ret = '{ '.$formhead.$formselectionAVR.$formselectionzone.$formelementsend.','.$formzone.$formselectionneo.$formelementsend.'],'.$formactions.$formstatus.' }';
-            }
-        }
+		if ($this->debug) {
+			// $this->LogMessage('Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone, KL_WARNING);
+			IPS_LogMessage(__FUNCTION__, 'Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone);
+		}
 
-        if ($this->debug) {
-            file_put_contents(IPS_GetLogDir().'form_http_gen.json', $ret);
-        }
+		$form = [
+			[
+				'type' => 'Label',
+				'caption' => 'AV Receiver Control http'
+			],
+			[
+				'type' => 'Label',
+				'caption' => 'http control is working only with AVR types from 2011, only some commands are available.'
+			],
+			[
+				'type' => 'Label',
+				'caption' => 'Please select a manufacturer and push the \"Apply Changes\" button'
+			],
+			[
+				'type' => 'Select',
+				'name' => 'manufacturer',
+				'caption' => 'manufacturer',
+				'options' => [
+					[
+						'label' => 'Please Select',
+						'value' => 0
+					],
+					[
+						'label' => 'Denon',
+						'value' => 1
+					],
+					[
+						'label' => 'Marantz',
+						'value' => 2
+					]
+				]
 
-        return $ret;
-    }
+			]
+		];
 
-    private function FormHead()
-    {
-        $form = '"elements":
-           [
-			{ "type": "Label", "label": "AV Receiver Control http" },
-			{ "type": "Label", "label": "http control is working only with AVR types from 2011, only some commands are available." },
-			{ "type": "Label", "label": "Please select a manufacturer and push the \"apply\" button"},
-			{ "type": "Select", "name": "manufacturer", "caption": "manufacturer",
-					"options": [
-								{ "value": 0, "label": "Please Select" },
-								{ "value": 1, "label": "Denon" },
-								{ "value": 2, "label": "Marantz" }
-								]
-			},';
+		if($manufacturername == 'none')
+		{
+			$this->SendDebug("Form", "no manufacturer selected", 0);
+		}
 
-        return $form;
-    }
+		// selection model
+		elseif ($AVRType === false) {
+			$form = array_merge_recursive(
+				$form, $this->FormSelectionAVR($manufacturername)
+			);
+		}
+		elseif ($zone == 6) {
+			$form = array_merge_recursive(
+				$form, $this->FormSelectionAVR($manufacturername)
+			);
+			$form = array_merge_recursive(
+				$form, $this->FormSelectionZone()
+			);
+		}
+		else{
+			if ($zone == 0) {
+				$form = array_merge_recursive(
+					$form, $this->FormSelectionAVR($manufacturername)
+				);
+				$form = array_merge_recursive(
+					$form, $this->FormSelectionZone()
+				);
+				$form = array_merge_recursive(
+					$form, $this->FormMainzone($AVRType)
+				);
+				$form = array_merge_recursive(
+					$form, $this->FormSelectionNEO()
+				);
+			}
+			else{
+				$form = array_merge_recursive(
+					$form, $this->FormSelectionAVR($manufacturername)
+				);
+				$form = array_merge_recursive(
+					$form, $this->FormSelectionZone()
+				);
+				$form = array_merge_recursive(
+					$form, $this->FormZone($zone, $AVRType)
+				);
+				$form = array_merge_recursive(
+					$form, $this->FormSelectionNEO()
+				);
+			}
+		}
+		if ($this->debug) {
+			file_put_contents(IPS_GetLogDir() . 'form_http_gen.json', $form);
+		}
+		return $form;
+	}
 
     private function FormMainzone($AVRType)
     {
@@ -283,10 +346,16 @@ class DenonAVRHTTP extends AVRModule
 
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 
-        $form = '{ "type": "Label", "label": "main zone:" },';
-
-        $form .= '
-                    { "type": "Label", "label": "Main Zone Settings:" },';
+		$form = [
+			[
+				'type' => 'Label',
+				'caption' => 'main zone:'
+			],
+			[
+				'type' => 'Label',
+				'caption' => 'Main Zone Settings:'
+			]
+		];
 
         foreach ([
             DENONIPSProfiles::ptMainZoneName,
@@ -300,18 +369,14 @@ class DenonAVRHTTP extends AVRModule
             DENONIPSProfiles::ptSleep,
                 ] as $key) {
             $profile = $profiles[$key];
-            $form .= $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name']);
+			$form = array_merge_recursive(
+				$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'])
+			);
         }
 
-        $form .= '{ "type": "Label", "label": "more inputs:" },
-            { "type": "CheckBox", "name": "FAVORITES", "caption": "favorites" },
-            { "type": "CheckBox", "name": "IRADIO", "caption": "internet radio" },
-            { "type": "CheckBox", "name": "SERVER", "caption": "Server" },
-            { "type": "CheckBox", "name": "NAPSTER", "caption": "Napster" },
-            { "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
-            { "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
-            ';
-
+		$form = array_merge_recursive(
+			$form, $this->FormMoreInputs()
+		);
         return $form;
     }
 
@@ -325,10 +390,16 @@ class DenonAVRHTTP extends AVRModule
         $Zone = $Zone + 1;
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 
-        $form = '{ "type": "Label", "label": "Zone '.$Zone.':" },';
-
-        $form .= '
-                    { "type": "Label", "label": "Zone Settings:" },';
+		$form = [
+			[
+				'type' => 'Label',
+				'caption' => 'Zone '.$Zone.':'
+			],
+			[
+				'type' => 'Label',
+				'caption' => 'Zone Settings:'
+			]
+		];
 
         if ($Zone == 2) {
             $ZoneCommands = [
@@ -366,37 +437,48 @@ class DenonAVRHTTP extends AVRModule
 
         foreach ($ZoneCommands as $key) {
             $profile = $profiles[$key];
-            $form .= $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name']);
+			$form = array_merge_recursive(
+				$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'])
+			);
         }
-
-        $form .= '{ "type": "Label", "label": "more inputs:" },
-            { "type": "CheckBox", "name": "FAVORITES", "caption": "favorites" },
-            { "type": "CheckBox", "name": "IRADIO", "caption": "internet radio" },
-            { "type": "CheckBox", "name": "SERVER", "caption": "Server" },
-            { "type": "CheckBox", "name": "NAPSTER", "caption": "Napster" },
-            { "type": "CheckBox", "name": "LASTFM", "caption": "LastFM" },
-            { "type": "CheckBox", "name": "FLICKR", "caption": "Flickr" },
-            ';
-
+		$form = array_merge_recursive(
+			$form, $this->FormMoreInputs()
+		);
         return $form;
     }
 
-    private function FormActions()
-    {
-        $form = '"actions":
-           [
-               {
-                   "type": "Button",
-                   "label": "Power On",
-                   "onClick": "DAVRH_Power($id, true);"
-               },
-			{
-                   "type": "Button",
-                   "label": "Power Off",
-                   "onClick": "DAVRH_Power($id, false);"
-               }
-           ],';
+	/**
+	 * return form actions by token
+	 * @return array
+	 */
+	private function FormActions()
+	{
+		$manufacturername = $this->GetManufacturerName();
+		$form = [
+		];
+		if ($manufacturername == 'none') {
+			$form = array_merge_recursive(
+				$form,
+				[]
+			);
+		} else {
 
-        return  $form;
-    }
+			$form = array_merge_recursive(
+				$form,
+				[
+					[
+						'type' => 'Button',
+						'caption' => 'Power On',
+						'onClick' => 'DAVRH_Power($id, true);'
+					],
+					[
+						'type' => 'Button',
+						'caption' => 'Power Off',
+						'onClick' => 'DAVRH_Power($id, false);'
+					]
+				]
+			);
+		}
+		return $form;
+	}
 }
