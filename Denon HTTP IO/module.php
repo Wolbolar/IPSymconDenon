@@ -19,6 +19,7 @@ class DenonAVRIOHTTP extends IPSModule
         $this->RegisterPropertyBoolean('Open', false);
         $this->RegisterPropertyString('Host', '192.168.x.x');
         $this->RegisterPropertyInteger('UpdateInterval', 10);
+        $this->RegisterTimer('Update', 0, 'DAVRIO_GetStatus(' . $this->InstanceID . ');');
     }
 
     public function ApplyChanges()
@@ -42,40 +43,15 @@ class DenonAVRIOHTTP extends IPSModule
         } else {
             $this->SetStatus(self::STATUS_INST_IP_IS_INVALID); //IP Adresse ist ungültig
         }
-
-        $this->RegisterTimer('Update', $this->ReadPropertyInteger('UpdateInterval'), 'DAVRIO_GetStatus($id)');
+		$this->SetUpdateTimerInterval();
     }
 
-    protected function RegisterTimer($Ident, $Milliseconds, $ScriptText)
-    {
-        $id = @IPS_GetObjectIDByIdent($Ident, $this->InstanceID);
+	protected function SetUpdateTimerInterval()
+	{
+		$Interval = $this->ReadPropertyInteger('UpdateInterval') * 1000;
+		$this->SetTimerInterval("Update", $Interval);
+	}
 
-        if ($id && IPS_GetEvent($id)['EventType'] != 1) {
-            IPS_DeleteEvent($id);
-            $id = 0;
-        }
-
-        if (!$id) {
-            $id = IPS_CreateEvent(1);
-            IPS_SetParent($id, $this->InstanceID);
-            IPS_SetIdent($id, $Ident);
-        }
-
-        IPS_SetName($id, $Ident);
-        IPS_SetHidden($id, true);
-        IPS_SetEventScript($id, "\$id = \$_IPS['TARGET'];\n$ScriptText;");
-
-        if (!IPS_EventExists($id)) {
-            throw new Exception("Ident with name $Ident is used for wrong object type");
-        }
-        if (!($Milliseconds > 0)) {
-            IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, 1);
-            IPS_SetEventActive($id, false);
-        } else {
-            IPS_SetEventCyclic($id, 0, 0, 0, 0, 1, $Milliseconds);
-            IPS_SetEventActive($id, true);
-        }
-    }
 
     public function GetInputArrayStatus()
     {

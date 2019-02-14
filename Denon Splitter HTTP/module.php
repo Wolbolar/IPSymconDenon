@@ -125,17 +125,6 @@ class DenonSplitterHTTP extends IPSModule
         return false;
     }
 
-    protected function RequireParent($ModuleID)
-    {
-        $instance = IPS_GetInstance($this->InstanceID);
-        if ($instance['ConnectionID'] == 0) {
-            $parentID = IPS_CreateInstance($ModuleID);
-            $instance = IPS_GetInstance($parentID);
-            IPS_SetName($parentID, $instance['ModuleInfo']['ModuleName']);
-            IPS_ConnectInstance($this->InstanceID, $parentID);
-        }
-    }
-
     // Data an Child weitergeben
     public function ReceiveData($JSONString)
     {

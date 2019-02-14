@@ -581,51 +581,148 @@ class AVRModule extends IPSModule
 
     protected function FormSelectionZone()
     {
-        return '                { "type": "Label", "label": "Please select an AVR zone and push the \"apply\" button"},
-            { "type": "Select", "name": "Zone", "caption": "AVR Zone",
-                    "options": [
-                                { "value": 0, "label": "Main Zone" },
-                                { "value": 1, "label": "Zone 2" },
-                                { "value": 2, "label": "Zone 3" },
-                                { "value": 6, "label": "select zone" }
-                               ]
-            },';
+		$form = [
+			[
+				'type' => 'Label',
+				'caption' => 'Please select an AVR zone and push the "Apply Changes" button'
+			],
+			[
+				'type' => 'Select',
+				'name' => 'Zone',
+				'caption' => 'AVR Zone',
+				'options' => [
+					[
+						'label' => 'Main Zone',
+						'value' => 0
+					],
+					[
+						'label' => 'Zone 2',
+						'value' => 1
+					],
+					[
+						'label' => 'Zone 3',
+						'value' => 2
+					],
+					[
+						'label' => 'select zone',
+						'value' => 6
+					]
+				]
+			]
+		];
+    	return $form;
     }
 
     protected function FormSelectionAVR($manufacturer)
     {
-        $form =
-            '
-            { "type": "Label", "label": "Please select an AVR type and push the \"apply\" button"},
-            { "type": "Select", "name": "AVRType'.$manufacturer.'", "caption": "Type AVR '.$manufacturer.'",
-                    "options": [
-                                { "value": 50, "label": "select AVR Type" },
-';
-
-        foreach (AVRs::getAllAVRs() as $AVRName => $Caps) {
-            if ($Caps['Manufacturer'] == $manufacturer) {
-                $form .=
-                    '                                    { "value": '.$Caps['internalID'].', "label": "'.$AVRName.'" },'.PHP_EOL;
-            }
-        }
-
-        // JSON standard does not allow trailing comma
-        $form = substr($form, 0, -(strlen(PHP_EOL) + 1)).PHP_EOL;
-
-        $form .=
-            '                                   ]
-            },'.PHP_EOL;
-
-        return $form;
+		$form = [
+			[
+				'type' => 'Label',
+				'caption' => 'Please select an AVR zone and push the "Apply Changes" button'
+			],
+			[
+				'type' => 'Select',
+				'name' => 'AVRType'.$manufacturer,
+				'caption' => 'Type AVR'.$manufacturer,
+				'options' => $this->FormSelectionAVROptions($manufacturer)
+			]
+		];
+		return $form;
     }
+
+	protected function FormSelectionAVROptions($manufacturer)
+	{
+		$form = [
+			[
+				'value' => 50,
+				'caption' => 'select AVR Type'
+			]
+		];
+		foreach (AVRs::getAllAVRs() as $AVRName => $Caps) {
+			if ($Caps['Manufacturer'] == $manufacturer) {
+				$form = array_merge_recursive(
+					$form,
+					[
+						[
+							'value' => $Caps['internalID'],
+							'caption' => $AVRName
+						]
+					]
+				);
+			}
+		}
+		return $form;
+	}
 
     protected function FormSelectionNEO()
     {
-        return  '{ "type": "Label", "label": "create helper scripts for toggling with NEO (Mediola):" },
-            { "type": "CheckBox", "name": "NEOToggle", "caption": "create separate NEO toggle scripts" },
-            { "type": "Label", "label": "category for creating NEO scripts:" },
-            { "type": "SelectCategory", "name": "NEOToggleCategoryID", "caption": "script category" },';
+		$form = [
+			[
+				'type' => 'ExpansionPanel',
+				'caption' => 'create helper scripts for toggling with NEO (Mediola)',
+				'items' => [
+					[
+						'type' => 'CheckBox',
+						'name' => 'NEOToggle',
+						'caption' => 'create separate NEO toggle scripts'
+					],
+					[
+						'type' => 'Label',
+						'caption' => 'category for creating NEO scripts:'
+					],
+					[
+						'type' => 'SelectCategory',
+						'name' => 'NEOToggleCategoryID',
+						'caption' => 'script category'
+					]
+				]
+			]
+		];
+		return $form;
     }
+
+	protected function FormMoreInputs()
+	{
+		$form = [
+			[
+				'type' => 'ExpansionPanel',
+				'caption' => 'more inputs',
+				'items' => [
+					[
+						'type' => 'CheckBox',
+						'name' => 'FAVORITES',
+						'caption' => 'favorites'
+					],
+					[
+						'type' => 'CheckBox',
+						'name' => 'IRADIO',
+						'caption' => 'internet radio'
+					],
+					[
+						'type' => 'CheckBox',
+						'name' => 'SERVER',
+						'caption' => 'Server'
+					],
+					[
+						'type' => 'CheckBox',
+						'name' => 'NAPSTER',
+						'caption' => 'Napster'
+					],
+					[
+						'type' => 'CheckBox',
+						'name' => 'LASTFM',
+						'caption' => 'LastFM'
+					],
+					[
+						'type' => 'CheckBox',
+						'name' => 'FLICKR',
+						'caption' => 'Flickr'
+					],
+				]
+			]
+		];
+		return $form;
+	}
 
     protected function FormStatus()
     {
@@ -689,10 +786,16 @@ class AVRModule extends IPSModule
 
         // is the command supported?
         if ($CapsItems === null || in_array($command, $CapsItems, true)) {
-            return    '{ "type": "'.$type.'", "name": "'.$propertyname.'", "caption": "'.$caption.' ('.$command.')" },'.PHP_EOL;
+            $form = [
+				[
+					'type' => $type,
+					'name' => $propertyname,
+					'caption' => $caption.' ('.$command.')'
+				]
+            	];
+        	return $form;
         }
-
-        return '';
+        return [];
     }
 
     private function WriteNEOScript($ObjectID, $FunctionName, $LogLabel)
