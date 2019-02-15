@@ -30,7 +30,7 @@
 			"main zone:":"Main Zone:",
 			"speaker settings are only available with the telnet remote mode:":"Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:",
 			"speaker:":"Lautsprecher:",
-			"create helper scripts for toggling with NEO (Mediola):":"Hilfskripte für Toggle anlegen für NEO (Mediola):",
+			"create helper scripts for toggling with NEO (Mediola)":"Hilfskripte für Toggle anlegen für NEO (Mediola)",
 			"create separate NEO toggle scripts":"NEO Toggle Skripte separat anlegen",
 			"category for creating NEO scripts":"Kategorie zum Anlegen der NEO Skripte",
 			"category for scripts":"Kategorie zum Anlegen der Skripte",

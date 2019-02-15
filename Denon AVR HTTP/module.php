@@ -258,7 +258,7 @@ class DenonAVRHTTP extends AVRModule
 			],
 			[
 				'type' => 'Label',
-				'caption' => 'Please select a manufacturer and push the \"Apply Changes\" button'
+				'caption' => 'Please select a manufacturer and push the "Apply Changes" button'
 			],
 			[
 				'type' => 'Select',
