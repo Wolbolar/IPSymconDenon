@@ -158,7 +158,6 @@ class Denon_AVR_3311 extends Denon_AVR_3310
     // see AVR3311CI_AVR3311_991_PROTOCOL_V710.pdf
     public static $Name = 'AVR-3311';
     public static $internalID = 33;
-    public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -536,7 +535,6 @@ class Denon_AVR_X2000 extends DenonAVR
     // see AVRX2000_E400_PROTOCOL(1010)_V04.pdf
     public static $Name = 'AVR-X2000';
     public static $internalID = 10;
-    public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -556,12 +554,6 @@ class Denon_AVR_X2000 extends DenonAVR
         DENON_API_Commands::CD,
         DENON_API_Commands::ON,
         DENON_API_Commands::OFF,
-    ];
-    public static $SystemControl_Commands = [
-        DENON_API_Commands::MN,
-        DENON_API_Commands::MNMEN,
-        DENON_API_Commands::DISPLAY,
-        DENON_API_Commands::NS,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -785,34 +777,6 @@ class Denon_AVR_X2200W extends Denon_AVR_X2100W
         DENON_API_Commands::PSRSTR,
         DENON_API_Commands::PSFRONT,
     ];
-    public static $PV_Commands = [
-        DENON_API_Commands::PVPICT,
-        DENON_API_Commands::PVCN,
-        DENON_API_Commands::PVBR,
-        DENON_API_Commands::PVST,
-        DENON_API_Commands::PVDNR,
-        DENON_API_Commands::PVENH,
-    ];
-    public static $VS_Commands = [
-        DENON_API_Commands::VSASP,
-        DENON_API_Commands::VSMONI,
-        DENON_API_Commands::VSSC, DENON_API_Commands::VSSCH,
-        DENON_API_Commands::VSAUDIO,
-        DENON_API_Commands::VSVPM,
-    ];
-    public static $Zone_Commands = [
-        'Model', DENON_API_Commands::PW,
-        'Zone2Name', 'Zone3Name',
-        DENON_API_Commands::Z2INPUT, DENON_API_Commands::Z3INPUT,
-        DENON_API_Commands::Z2VOL, DENON_API_Commands::Z3VOL,
-        DENON_API_Commands::Z2POWER, DENON_API_Commands::Z3POWER,
-        DENON_API_Commands::Z2MU, DENON_API_Commands::Z3MU,
-        DENON_API_Commands::Z2CVFL, DENON_API_Commands::Z3CVFL, DENON_API_Commands::Z2CVFR, DENON_API_Commands::Z3CVFR,
-        DENON_API_Commands::Z2QUICK, DENON_API_Commands::Z3QUICK,
-        DENON_API_Commands::Z2SLP, DENON_API_Commands::Z3SLP,
-        DENON_API_Commands::Z2STBY, DENON_API_Commands::Z3STBY,
-    ];
-
 }
 
 class Denon_AVR_X2300W extends Denon_AVR_X2200W
@@ -917,12 +881,6 @@ class Denon_AVR_X1100W extends DenonAVR
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVZRL,
     ];
-    public static $InputSettings = [DENON_API_Commands::SI,
-        DENON_API_Commands::MSQUICK,
-        DENON_API_Commands::SD,
-        DENON_API_Commands::DC,
-        DENON_API_Commands::SV,
-    ];
     public static $PowerFunctions = [
         DENON_API_Commands::PW,
         DENON_API_Commands::ZM,
@@ -1018,13 +976,6 @@ class Denon_AVR_X1200W extends Denon_AVR_X1100W
         DENON_API_Commands::CVTFL, DENON_API_Commands::CVTFR,
         DENON_API_Commands::CVTML, DENON_API_Commands::CVTMR,
         DENON_API_Commands::CVZRL,
-    ];
-    public static $InputSettings = [
-        DENON_API_Commands::SI,
-        DENON_API_Commands::MSQUICK,
-        DENON_API_Commands::SD,
-        DENON_API_Commands::DC,
-        DENON_API_Commands::SV,
     ];
     public static $SV_SubCommands = [
         DENON_API_Commands::DVD,
@@ -1149,7 +1100,6 @@ class Denon_AVR_X3000 extends DenonAVR
     public static $Name = 'AVR-X3000';
     public static $internalID = 13;
 
-    public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -1396,7 +1346,6 @@ class Denon_AVR_X4000 extends DenonAVR
     public static $Name = 'AVR-X4000';
     public static $internalID = 16;
 
-    public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -1600,15 +1549,6 @@ class Denon_AVR_X4100W extends Denon_AVR_X4000
         DENON_API_Commands::PSAUROPR,
         DENON_API_Commands::PSAUROST,
     ];
-    public static $PV_Commands = [
-        DENON_API_Commands::PVPICT,
-        DENON_API_Commands::PVCN,
-        DENON_API_Commands::PVBR,
-        DENON_API_Commands::PVST,
-        DENON_API_Commands::PVHUE,
-        DENON_API_Commands::PVDNR,
-        DENON_API_Commands::PVENH,
-    ];
     public static $VS_Commands = [
         DENON_API_Commands::VSASP,
         DENON_API_Commands::VSMONI,
@@ -1748,7 +1688,6 @@ class Denon_AVR_X5200W extends DenonAVR
     public static $Name = 'AVR-X5200W';
     public static $internalID = 19;
 
-    public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -2126,7 +2065,6 @@ class Denon_AVR_X7200W extends DenonAVR
     public static $Name = 'AVR-X7200W';
     public static $internalID = 21;
 
-    public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,

@@ -90,7 +90,7 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
 
 class AVRs extends stdClass
 {
-    public static function getAllAVRs()
+    public static function getAllAVRs(): array
     {
         //supported Denon and Marantz models
         //Hint: the order of this list determines the order of selectable AVRs in IPS Instances
@@ -179,7 +179,7 @@ class AVRs extends stdClass
 class AVR extends stdClass
 {
     public static $Name = __CLASS__;
-    public static $internalID = null;
+    public static $internalID;
 
     public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $InfoFunctions_max = ['MainZoneName', 'Model'];
@@ -382,7 +382,7 @@ class AVR extends stdClass
 
     public static $httpMainZone = DENON_HTTP_Interface::MainForm;
 
-    public static function getCapabilities()
+    public static function getCapabilities(): array
     {
         return ['Name'               => static::$Name,
             'internalID'             => static::$internalID,
@@ -592,7 +592,7 @@ class AVR extends stdClass
     public function getAVRCapabilitiesByAVRId($id)
     {
         foreach (AVRs::getAllAVRs() as $AVRType => $Caps) {
-            if ($Caps['internalID'] == $id) {
+            if ($Caps['internalID'] === $id) {
                 return $Caps;
             }
         }

@@ -35,8 +35,6 @@ class DenonAVRHTTP extends AVRModule
     private function ValidateConfiguration()
     {
         if (IPS_GetKernelRunlevel() != 10103) { //Kernel ready
-            IPS_LogMessage(get_class().'::'.__FUNCTION__, 'Kernel is not ready ('.IPS_GetKernelRunlevel().')');
-
             return;
         }
 
