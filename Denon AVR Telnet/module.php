@@ -1423,9 +1423,9 @@ class DenonAVRTelnet extends AVRModule
 	{
 		// return current form
 		return json_encode([
-			'elements' => $this->FormHead(),
-			'actions' => $this->FormActions(),
-			'status' => $this->FormStatus()
+                               'elements' => $this->FormElements(),
+                               'actions' => $this->FormActions(),
+                               'status' => $this->FormStatus()
 		]);
 	}
 
@@ -1433,7 +1433,7 @@ class DenonAVRTelnet extends AVRModule
 	 * return form configurations on configuration step
 	 * @return array
 	 */
-	private function FormHead()
+	private function FormElements()
 	{
 		$manufacturername = $this->GetManufacturerName();
 		$AVRType = $this->GetAVRType($manufacturername);
@@ -1477,54 +1477,31 @@ class DenonAVRTelnet extends AVRModule
 
 			]
 		];
-		if($manufacturername == 'none')
+
+		if($manufacturername === 'none')
 		{
 			$this->SendDebug("Form", "no manufacturer selected", 0);
 		}
 
 		// selection model
 		elseif ($AVRType === false) {
-			$form = array_merge_recursive(
-				$form, $this->FormSelectionAVR($manufacturername)
-			);
+			$form = array_merge($form, $this->FormSelectionAVR($manufacturername));
 		}
-		elseif ($zone == 6) {
-			$form = array_merge_recursive(
-				$form, $this->FormSelectionAVR($manufacturername)
-			);
-			$form = array_merge_recursive(
-				$form, $this->FormSelectionZone()
-			);
+		elseif ($zone === 6) {
+			$form = array_merge($form, $this->FormSelectionAVR($manufacturername), $this->FormSelectionZone());
 		}
 		else{
-			if ($zone == 0) {
-				$form = array_merge_recursive(
-					$form, $this->FormSelectionAVR($manufacturername)
-				);
-				$form = array_merge_recursive(
-					$form, $this->FormSelectionZone()
-				);
-				$form = array_merge_recursive(
-					$form, $this->FormMainzone($zone, $AVRType)
-				);
-				$form = array_merge_recursive(
-					$form, $this->FormSelectionNEO()
-				);
-			}
-			else{
-				$form = array_merge_recursive(
-					$form, $this->FormSelectionAVR($manufacturername)
-				);
-				$form = array_merge_recursive(
-					$form, $this->FormSelectionZone()
-				);
-				$form = array_merge_recursive(
-					$form, $this->FormZone($zone, $AVRType)
-				);
-				$form = array_merge_recursive(
-					$form, $this->FormSelectionNEO()
-				);
-			}
+            if ($zone === 0) {
+                $form = array_merge(
+                    $form, $this->FormSelectionAVR($manufacturername), $this->FormSelectionZone(), $this->FormMainzone($zone, $AVRType),
+                    $this->FormSelectionNEO()
+                );
+            } else {
+                $form = array_merge(
+                    $form, $this->FormSelectionAVR($manufacturername), $this->FormSelectionZone(), $this->FormZone($zone, $AVRType),
+                    $this->FormSelectionNEO()
+                );
+            }
 		}
 		if ($this->debug) {
 			file_put_contents(IPS_GetLogDir() . 'form_telnet_gen.json', $form);
@@ -1542,12 +1519,9 @@ class DenonAVRTelnet extends AVRModule
 			IPS_LogMessage(get_class() . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
 		}
 
-		$form = [
-			[
-				'type' => 'Label',
-				'caption' => 'main zone:'
-			]
-		];
+        $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
+
+        $form = [];
 
 		$CommandAreas = [
 			//Label => Caps CommandArea
@@ -1563,70 +1537,52 @@ class DenonAVRTelnet extends AVRModule
 		];
 
 		foreach ($CommandAreas as $label => $commandArea) {
-			if (count($AVRCaps[$commandArea]) == 0) {
+			if (count($AVRCaps[$commandArea]) === 0) {
 				continue;
 			}
-			$form = array_merge_recursive(
-				$form,
-				[
-					[
-						'type' => 'ExpansionPanel',
-						'caption' => $label,
-						'items' => $this->FormAVRProfile($Zone, $AVRType, $commandArea)
-					]
-				]
-			);
+            $form[] = [
+                    'type'    => 'ExpansionPanel',
+                    'caption' => $label,
+                    'items'   => $this->FormAVRProfile($Zone, $AVRType, $commandArea, $profiles)];
 		}
 
-		$form = array_merge_recursive(
-			$form, $this->FormMoreInputs()
-		);
+		$form = array_merge($form, $this->FormMoreInputs());
+
 		return $form;
 	}
 
-	private function FormZone($Zone, $AVRType)
-	{
-		$Zone = $Zone + 1;
+    private function FormZone($Zone, $AVRType): array
+    {
+        $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 
-		$form = [
-			[
-				'type' => 'Label',
-				'caption' => 'Zone ' . $Zone . ':'
-			]
-		];
+        ++$Zone;
 
-		$CommandAreas = [
-			//Label => Caps CommandArea
-			'Zone Settings' => 'Zone_Commands',      //Zone commands
-		];
+        $form = [];
 
-		foreach ($CommandAreas as $label => $commandArea) {
-			$form = array_merge_recursive(
-				$form,
-				[
-					[
-						'type' => 'ExpansionPanel',
-						'caption' => $label,
-						'items' => $this->FormAVRProfile($Zone, $AVRType, $commandArea)
-					]
-				]
-			);
-		}
-		$form = array_merge_recursive(
-			$form, $this->FormMoreInputs()
-		);
-		return $form;
-	}
+        $CommandAreas = [
+            //Label => Caps CommandArea
+            'Zone Settings' => 'Zone_Commands',      //Zone commands
+        ];
 
-	private function FormAVRProfile($Zone, $AVRType, $commandArea)
+        foreach ($CommandAreas as $label => $commandArea) {
+            $form[] = [
+                'type'    => 'ExpansionPanel',
+                'caption' => $label,
+                'items'   => $this->FormAVRProfile($Zone, $AVRType, $commandArea, $profiles)];
+        }
+
+        $form = array_merge($form, $this->FormMoreInputs());
+        return $form;
+    }
+
+	private function FormAVRProfile($Zone, $AVRType, $commandArea, $profiles): array
 	{
 		$AVRCaps = AVRs::getCapabilities($AVRType);
 		if ($this->debug) {
 			IPS_LogMessage(get_class() . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
 		}
-		$profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 		$form = [];
-		if($Zone == 0)
+		if($Zone === 0)
 		{
 			foreach ($profiles as $profile) {
 				if ($this->testAllProperties) {
@@ -1635,9 +1591,10 @@ class DenonAVRTelnet extends AVRModule
 				} else {
 					$Caps = $AVRCaps[$commandArea];
 				}
-				$form = array_merge_recursive(
-					$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'], $Caps)
-				);
+				$item = $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'], $Caps);
+				if ($item){
+                    $form[] = $item;
+                }
 			}
 		}
 		else
@@ -1650,14 +1607,16 @@ class DenonAVRTelnet extends AVRModule
 					//select only the idents of the current zone
 					if ((substr($profile['Ident'], 0, 2) == 'Z' . ($Zone))
 						|| (substr($profile['Ident'], 0, 5) == 'Zone' . ($Zone))) {
-						$form = array_merge_recursive(
-							$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'], $AVRCaps['Zone_Commands'])
-						);
+						$item = $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'], $AVRCaps['Zone_Commands']);
+						if ($item){
+						    $form[] = $item;
+                        }
 					}
 				} else {
-					$form = array_merge_recursive(
-						$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'], $AVRCaps['Zone_Commands'])
-					);
+					$item = $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'], $AVRCaps['Zone_Commands']);
+                    if ($item){
+                        $form[] = $item;
+                    }
 				}
 			}
 		}
@@ -1671,18 +1630,11 @@ class DenonAVRTelnet extends AVRModule
 	private function FormActions()
 	{
 		$manufacturername = $this->GetManufacturerName();
-		$form = [
-		];
-		if ($manufacturername == 'none') {
-			$form = array_merge_recursive(
-				$form,
-				[]
-			);
+		if ($manufacturername === 'none') {
+			$form = [];
 		} else {
 
-			$form = array_merge_recursive(
-				$form,
-				[
+			$form = [
 					[
 						'type' => 'Button',
 						'caption' => 'Power On',
@@ -1698,9 +1650,9 @@ class DenonAVRTelnet extends AVRModule
 						'caption' => 'Status initialisieren',
 						'onClick' => 'DAVRT_GetStates($id);'
 					]
-				]
-			);
+				];
 		}
+
 		return $form;
 	}
 

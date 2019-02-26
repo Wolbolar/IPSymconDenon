@@ -16,7 +16,7 @@
 			"Please select an AVR zone and push the \"Apply Changes\" button":"Bitte eine Zone auswählen und mit \"Übernehmen\" bestätigen",
 			"AV Receiver Zone:":"AV Receiver Zone:",
 			"AVR Zone":"AVR Zone",
-			"select zone":"Zone Wählen",
+			"select zone":"Zone wählen",
 			"Power Settings": "Power Einstellungen",
 			"Input Settings": "Input Einstellungen",
 			"Surround Mode": "Surround-Modus",
@@ -50,7 +50,7 @@
 			"please select a Denon AVR type.":"Bitte ein Denon AVR Modell auswählen.",
 			"please select a Marantz AVR type.":"Bitte ein Marantz AVR Modell auswählen.",
 			"select a manufacturer.":"Bitte einen Hersteller auswählen.",
-			"Please Select":"Bitte Auswählen"
+			"Please Select":"Bitte auswählen"
 		}
 	}
 }

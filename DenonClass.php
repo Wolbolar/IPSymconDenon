@@ -776,26 +776,24 @@ class AVRModule extends IPSModule
         return $form;
     }
 
-    protected function getTypeItem($type, $command, $propertyname, $caption, $CapsItems = null)
+    protected function getTypeItem($type, $command, $propertyname, $caption, $CapsItems = null):?array
     {
         if ($propertyname == '') {
             trigger_error(__CLASS__ .'::'.__FUNCTION__.': '.$command.': PropertyName nicht gesetzt.');
 
-            return false;
+            return null;
         }
 
         // is the command supported?
         if ($CapsItems === null || in_array($command, $CapsItems, true)) {
-            $form = [
-				[
+            $item = [
 					'type' => $type,
 					'name' => $propertyname,
 					'caption' => $caption.' ('.$command.')'
-				]
             	];
-        	return $form;
+        	return $item;
         }
-        return [];
+        return null;
     }
 
     private function WriteNEOScript($ObjectID, $FunctionName, $LogLabel)
