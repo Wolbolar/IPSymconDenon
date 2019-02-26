@@ -2227,11 +2227,15 @@ class Denon_AVR_X7200WA extends Denon_AVR_X7200W
    --------------------*/
 class Denon_AVC_X8500H extends Denon_AVR_X7200WA
 {
-	public static $Name = 'AVC-X8500H';
-	public static $internalID = 39;
-    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
 
-	public static $InfoFunctions = [];
+    public static $Name           = 'AVC-X8500H';
+
+    public static $internalID     = 39;
+
+    public static $httpMainZone   = DENON_HTTP_Interface::NoHTTPInterface;
+
+    public static $InfoFunctions  = [];
+
     public static $SI_SubCommands = [
         DENON_API_Commands::PHONO,
         DENON_API_Commands::CD,
@@ -2245,14 +2249,17 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::AUX1,
         DENON_API_Commands::AUX2,
         DENON_API_Commands::BT,
-    ];
-    public static $CV_Commands = [
+        ];
+
+    public static $CV_Commands    = [
         DENON_API_Commands::MV,
-        DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
+        DENON_API_Commands::CVFL, DENON_API_Commands::CVFR,
+        DENON_API_Commands::CVC,
         DENON_API_Commands::CVSW,
         DENON_API_Commands::CVSW2,
         DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
-        DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
+        DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR,
+        DENON_API_Commands::CVSB,
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
         DENON_API_Commands::CVTFL, DENON_API_Commands::CVTFR,
@@ -2262,10 +2269,12 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::CVFDL, DENON_API_Commands::CVFDR,
         DENON_API_Commands::CVSDL, DENON_API_Commands::CVSDR,
         DENON_API_Commands::CVBDL, DENON_API_Commands::CVBDR,
-        DENON_API_Commands::CVSHL, DENON_API_Commands::CVSHR, DENON_API_Commands::CVTS,
+        DENON_API_Commands::CVSHL, DENON_API_Commands::CVSHR,
+        DENON_API_Commands::CVTS,
         DENON_API_Commands::CVCH,
         DENON_API_Commands::CVZRL,
-    ];
+        ];
+
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
         DENON_API_Commands::MSMUSIC,
@@ -2284,7 +2293,70 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::MSMATRIX,
         DENON_API_Commands::MSVIDEOGAME,
         DENON_API_Commands::MSVIRTUAL,
+        ];
+}
+    /* ---------------------
+     * Denon CEOL Serie
+       --------------------*/
+class Denon_DRA_N5 extends DenonAVR
+{
+    // see DRAN5_RCDN8_PROTOCOL_V.1.0.0.pdf
+    public static $Name = 'DRA-N5';
+
+    public static $internalID = 40;
+
+    public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
+
+    public static $InfoFunctions = [];
+
+    public static $InputSettings = [
+        DENON_API_Commands::SI,
     ];
 
+    public static $PowerFunctions = [
+        DENON_API_Commands::PW,
+        DENON_API_Commands::MU,
+        DENON_API_Commands::SLP,
+    ];
+
+    public static $CV_Commands = [
+        DENON_API_Commands::MV,
+        ];
+
+    public static $PS_Commands = [
+        DENON_API_Commands::PSBAS,
+        DENON_API_Commands::PSTRE,
+    ];
+
+    public static $SI_SubCommands = [
+        DENON_API_Commands::IRADIO,
+        DENON_API_Commands::SERVER,
+        DENON_API_Commands::IPOD,
+    ];
+
+    public static $SystemControl_Commands = [
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::NS,
+    ];
+
+    public static $SurroundMode = [];
+
+    public static $VS_Commands = [];
+
+}
+
+class Denon_RCD_N8 extends Denon_DRA_N5
+{
+    // see DRAN5_RCDN8_PROTOCOL_V.1.0.0.pdf
+    public static $Name = 'RCD-N8';
+
+    public static $internalID = 41;
+
+    public static $SI_SubCommands = [
+        DENON_API_Commands::IRADIO,
+        DENON_API_Commands::SERVER,
+        DENON_API_Commands::IPOD,
+        DENON_API_Commands::CD,
+    ];
 
 }
