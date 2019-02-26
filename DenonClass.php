@@ -7,8 +7,6 @@ class AVRModule extends IPSModule
     protected $debug = false;
     protected $testAllProperties = false;
 
-    protected const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
-    const STATUS_INST_IS_INACTIVE = 104;
     const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
     const STATUS_INST_NO_MANUFACTURER_SELECTED = 210;
     const STATUS_INST_NO_NEO_CATEGORY_SELECTED = 211;
@@ -27,7 +25,7 @@ class AVRModule extends IPSModule
 
     protected function SetInstanceStatus()
     {
-        if (IPS_GetKernelRunlevel() != 10103) { //Kernel ready
+        if (IPS_GetKernelRunlevel() != KR_READY) {
             return false;
         }
         //Zone prüfen
@@ -53,12 +51,12 @@ class AVRModule extends IPSModule
             // Status keine gültige IP
             $Status = self::STATUS_INST_IP_IS_INVALID;
         } else {
-            $Status = self::STATUS_INST_IS_ACTIVE;
+            $Status = IS_ACTIVE;
         }
 
         $this->SetStatus($Status);
 
-        return $Status == self::STATUS_INST_IS_ACTIVE;
+        return $Status == IS_ACTIVE;
     }
 
     private function isNeoCategoryValid()
@@ -261,6 +259,24 @@ class AVRModule extends IPSModule
         $this->RegisterPropertyBoolean('NEOToggle', false);
         $this->RegisterPropertyInteger('NEOToggleCategoryID', 0);
     }
+
+    protected function RegisterReferences(): void
+    {
+        $objectIDs = [
+            $this->ReadPropertyInteger('NEOToggleCategoryID')
+        ];
+
+        foreach ($this->GetReferenceList() as $ref) {
+            $this->UnregisterReference($ref);
+        }
+
+        foreach ($objectIDs as $id) {
+            if ($id !== 0) {
+                $this->RegisterReference($id);
+            }
+        }
+    }
+
 
     protected function RegisterVariables(DENONIPSProfiles $DenonAVRVar, $idents, $AVRType, $manufacturername)
     {
@@ -727,21 +743,6 @@ class AVRModule extends IPSModule
     protected function FormStatus()
     {
         $form =  [
-            [
-                'code' => 101,
-                'icon' => 'inactive',
-                'caption' => 'creating instance.'
-            ],
-            [
-                'code' => 102,
-                'icon' => 'active',
-                'caption' => 'configuration is valid.'
-            ],
-            [
-                'code' => 104,
-                'icon' => 'inactive',
-                'caption' => 'AVR ist inaktiv.'
-            ],
             [
                 'code' => 204,
                 'icon' => 'error',

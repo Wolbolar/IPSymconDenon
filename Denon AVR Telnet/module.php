@@ -39,7 +39,7 @@ class DenonAVRTelnet extends AVRModule
 		$this->RegisterProperties();
 
 		//we will wait until the kernel is ready
-		$this->RegisterMessage(0, 10100); //IPS_BASE + IPS_KERNELMESSAGE
+		$this->RegisterMessage(0, IPS_KERNELMESSAGE);
 	}
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
@@ -97,7 +97,9 @@ class DenonAVRTelnet extends AVRModule
 				$this->UpdateVariable($data);
 			}
 		}
-	}
+
+        $this->RegisterReferences();
+    }
 
 	private function ValidateConfiguration($manufacturername, $AVRType): void
     {

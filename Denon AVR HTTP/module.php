@@ -34,7 +34,7 @@ class DenonAVRHTTP extends AVRModule
 
     private function ValidateConfiguration()
     {
-        if (IPS_GetKernelRunlevel() != 10103) { //Kernel ready
+        if (IPS_GetKernelRunlevel() != KR_READY) {
             return;
         }
 
@@ -55,7 +55,7 @@ class DenonAVRHTTP extends AVRModule
         $AVRCaps = AVRs::getCapabilities($AVRType);
 
         if ($this->GetIPParent() !== false) {
-            $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
+            $this->SetStatus(IS_ACTIVE);
         }
 
         $profiles = $DenonAVRVar->GetAllProfilesSortedByPos();
@@ -367,9 +367,10 @@ class DenonAVRHTTP extends AVRModule
             DENONIPSProfiles::ptSleep,
                 ] as $key) {
             $profile = $profiles[$key];
-			$form = array_merge_recursive(
-				$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'])
-			);
+            $item = $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name']);
+            if ($item){
+                $form[] = $item;
+            }
         }
 
 		$form = array_merge_recursive(
