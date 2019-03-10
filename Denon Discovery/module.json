@@ -1,0 +1,13 @@
+{
+  "id": "{4A76B170-60F9-C387-2303-3E3587282296}",
+  "name": "DenonDiscovery",
+  "type": 5,
+  "vendor": "Denon/Marantz",
+  "aliases": [
+    "Denon/Marantz Discovery"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "DenonDiscovery"
+}
