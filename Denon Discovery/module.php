@@ -98,11 +98,11 @@ class DenonDiscovery extends IPSModule
 					"model" => $model,
 					"create" => [
 						[
-							'moduleID' => '{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}',
+							'moduleID' => '{DC733830-533B-43CD-98F5-23FC2E61287F}',
 							'configuration' => [
-								'Host' => $host,
-								'Port' => 23,
-								'Open' => true
+								'manufacturer' => 1,
+								'AVRTypeDenon' => $this->SetAVRType($model),
+								'Zone' => 0
 							]
 						],
 						[
@@ -113,11 +113,11 @@ class DenonDiscovery extends IPSModule
 							]
 						],
 						[
-							'moduleID' => '{DC733830-533B-43CD-98F5-23FC2E61287F}',
+							'moduleID' => '{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}',
 							'configuration' => [
-								'manufacturer' => 1,
-								'AVRTypeDenon' => $this->SetAVRType($model),
-								'Zone' => 0
+								'Host' => $host,
+								'Port' => 23,
+								'Open' => true
 							]
 						]
 					]
