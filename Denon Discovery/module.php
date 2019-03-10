@@ -1,6 +1,8 @@
 <?
 declare(strict_types=1);
 
+require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
+
 class DenonDiscovery extends IPSModule
 {
 
