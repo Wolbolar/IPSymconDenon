@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 class DenonDiscovery extends IPSModule
 {
-	use BufferHelper,
-		DebugHelper;
 
 	public function Create()
 	{
