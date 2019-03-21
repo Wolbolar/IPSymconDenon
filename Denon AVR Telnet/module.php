@@ -1532,7 +1532,7 @@ class DenonAVRTelnet extends AVRModule
             );
         }
 		if ($this->debug) {
-			file_put_contents(IPS_GetLogDir() . 'form_telnet_gen.json', $form);
+			file_put_contents(IPS_GetLogDir() . 'form_telnet_gen.json', json_encode($form));
 		}
 		return $form;
 	}

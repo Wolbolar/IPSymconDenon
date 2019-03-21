@@ -2229,6 +2229,12 @@ class DENONIPSProfiles extends stdClass
             $this->updateProfileAccordingToCaps(self::ptSpeakerOutput, $caps);
             $this->updateProfileAccordingToCaps(self::ptDynamicVolume, $caps);
             $this->updateProfileAccordingToCaps(self::ptVideoSelect, $caps);
+
+            if (in_array($AVRType, ['DRA-N5', 'RCD-N8'])){
+                $this->profiles[self::ptMasterVolume] = ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::MV, 'Name' => 'Master Volume',
+                                                         'PropertyName'               => self::ptMasterVolume, 'Profilesettings' => ['Intensity', '', '', 0, 60, 0, 1], 'Associations' => $this->GetAssociationOfAsciiTodB('00', '60', '00'),
+                                                         'IndividualStatusRequest'     => 'MV?', ];
+            }
         }
 
         if ($InputMapping !== null) {
