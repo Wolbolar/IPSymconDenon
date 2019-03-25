@@ -2232,7 +2232,7 @@ class DENONIPSProfiles extends stdClass
 
             if (in_array($AVRType, ['DRA-N5', 'RCD-N8'])){
                 $this->profiles[self::ptMasterVolume] = ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::MV, 'Name' => 'Master Volume',
-                                                         'PropertyName'               => self::ptMasterVolume, 'Profilesettings' => ['Intensity', '', '', 0, 60, 0, 1], 'Associations' => $this->GetAssociationOfAsciiTodB('00', '60', '00'),
+                                                         'PropertyName'               => self::ptMasterVolume, 'Profilesettings' => ['Intensity', '', '', 0, 60, 1, 0], 'Associations' => $this->GetAssociationOfAsciiTodB('00', '60', '00', 1, false, false),
                                                          'IndividualStatusRequest'     => 'MV?', ];
             }
         }
