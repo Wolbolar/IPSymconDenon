@@ -2230,10 +2230,32 @@ class DENONIPSProfiles extends stdClass
             $this->updateProfileAccordingToCaps(self::ptDynamicVolume, $caps);
             $this->updateProfileAccordingToCaps(self::ptVideoSelect, $caps);
 
-            if (in_array($AVRType, ['DRA-N5', 'RCD-N8'])){
-                $this->profiles[self::ptMasterVolume] = ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::MV, 'Name' => 'Master Volume',
-                                                         'PropertyName'               => self::ptMasterVolume, 'Profilesettings' => ['Intensity', '', '', 0, 60, 1, 0], 'Associations' => $this->GetAssociationOfAsciiTodB('00', '60', '00', 1, false, false),
-                                                         'IndividualStatusRequest'     => 'MV?', ];
+            if (in_array($AVRType, ['DRA-N5', 'RCD-N8'])) {
+                $this->profiles[self::ptMasterVolume] = [
+                    'Type'                    => DENONIPSVarType::vtFloat,
+                    'Ident'                   => DENON_API_Commands::MV,
+                    'Name'                    => 'Master Volume',
+                    'PropertyName'            => self::ptMasterVolume,
+                    'Profilesettings'         => ['Intensity', '', '', 0, 60, 1, 0],
+                    'Associations'            => $this->GetAssociationOfAsciiTodB('00', '60', '00', 1, false, false),
+                    'IndividualStatusRequest' => 'MV?',];
+
+                $this->profiles[self::ptBassLevel]    = [
+                    'Type'            => DENONIPSVarType::vtFloat,
+                    'Ident'           => DENON_API_Commands::PSBAS,
+                    'Name'            => 'Bass Level',
+                    'PropertyName'    => self::ptBassLevel,
+                    'Profilesettings' => ['Intensity', '', ' dB', -10, 10, 2, 0],
+                    'Associations'    => $this->GetAssociationOfAsciiTodB('40', '60', '50', 2, false, false)];
+
+                $this->profiles[self::ptTrebleLevel] = [
+                    'Type'            => DENONIPSVarType::vtFloat,
+                    'Ident'           => DENON_API_Commands::PSTRE,
+                    'Name'            => 'Treble Level',
+                    'PropertyName'    => self::ptTrebleLevel,
+                    'Profilesettings' => ['Intensity', '', ' dB', -10, 10, 2, 0],
+                    'Associations'    => $this->GetAssociationOfAsciiTodB('40', '60', '50', 2, false, false)];
+
             }
         }
 
