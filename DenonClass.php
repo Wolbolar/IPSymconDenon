@@ -2246,7 +2246,7 @@ class DENONIPSProfiles extends stdClass
                     'Name'            => 'Bass Level',
                     'PropertyName'    => self::ptBassLevel,
                     'Profilesettings' => ['Intensity', '', ' dB', -10, 10, 2, 0],
-                    'Associations'    => $this->GetAssociationOfAsciiTodB('40', '60', '50', 2, false, false)];
+                    'Associations'    => $this->GetAssociationOfAsciiTodB('40', '60', '50', 2)];
 
                 $this->profiles[self::ptTrebleLevel] = [
                     'Type'            => DENONIPSVarType::vtFloat,
@@ -2254,7 +2254,7 @@ class DENONIPSProfiles extends stdClass
                     'Name'            => 'Treble Level',
                     'PropertyName'    => self::ptTrebleLevel,
                     'Profilesettings' => ['Intensity', '', ' dB', -10, 10, 2, 0],
-                    'Associations'    => $this->GetAssociationOfAsciiTodB('40', '60', '50', 2, false, false)];
+                    'Associations'    => $this->GetAssociationOfAsciiTodB('40', '60', '50', 2)];
 
             }
         }
