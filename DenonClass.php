@@ -4412,6 +4412,7 @@ class DenonAVRCP_API_Data extends stdClass
                             DENON_API_Commands::TONECTRL.' ON'                   => 'PSTONE_CTRL ON',
                             DENON_API_Commands::PSEFF.' ON'                      => 'PSEFF_ON',
                             DENON_API_Commands::PSEFF.' OFF'                     => 'PSEFF_OFF',
+                            DENON_API_Commands::SLP.' OFF'                       => DENON_API_Commands::SLP.'OFF',
                             DENON_API_Commands::PV.DENON_API_Commands::PVPICTOFF => DENON_API_Commands::PVPICT.DENON_API_Commands::PVPICTOFF,
                             DENON_API_Commands::PV.DENON_API_Commands::PVPICTSTD => DENON_API_Commands::PVPICT.DENON_API_Commands::PVPICTSTD,
                             DENON_API_Commands::PV.DENON_API_Commands::PVPICTMOV => DENON_API_Commands::PVPICT.DENON_API_Commands::PVPICTMOV,
