@@ -1015,6 +1015,7 @@ class DENONIPSProfiles extends stdClass
     public const ptSurroundHeightLch = 'SurroundHeightLch';
     public const ptSurroundHeightRch = 'SurroundHeightRch';
     public const ptTopSurround = 'TopSurround';
+    public const ptCenterHeight = 'CenterHeight';
     public const ptChannelVolumeReset = 'ChannelVolumeReset';
     public const ptZone2HDMIAudio = 'Zone2HDMIAudio';
     public const ptZone2AutoStandbySetting = 'Zone2AutoStandbySetting';
@@ -1085,6 +1086,7 @@ class DENONIPSProfiles extends stdClass
         self::ptSurroundHeightLch,
         self::ptSurroundHeightRch,
         self::ptTopSurround,
+        self::ptCenterHeight,
         self::ptChannelVolumeReset,
 
         //Sound Processing (Audio Setting)
@@ -2073,7 +2075,7 @@ class DENONIPSProfiles extends stdClass
             self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Top Surround',
                                                 'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
-            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Center Height',
+            self::ptCenterHeight => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Center Height',
                                                 'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
             self::ptTopFrontLch => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTFL, 'Name' => 'Channel Volume Top Front Left',
@@ -2118,18 +2120,7 @@ class DENONIPSProfiles extends stdClass
             self::ptBackDolbyRch => ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVBDR, 'Name' => 'Channel Volume Back Dolby Right',
                                                  'PropertyName'               => 'BackDolbyRch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
-            self::ptSurroundHeightLch => ['Type'                  => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVSHL, 'Name' => 'Channel Volume Surround Height Left',
-                                                      'PropertyName'          => 'SurroundHeightLch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
-                                                    'IndividualStatusRequest' => 'CV?', ],
-            self::ptSurroundHeightRch => ['Type'                  => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVSHR, 'Name' => 'Channel Volume Surround Height Right',
-                                                      'PropertyName'          => 'SurroundHeightRch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
-                                                    'IndividualStatusRequest' => 'CV?', ],
-            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Channel Volume Top Surround',
-                                                'PropertyName'                => 'TopSurround', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
-                                                    'IndividualStatusRequest' => 'CV?', ],
-            self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Channel Volume Center Height',
-                                                'PropertyName'                => 'CenterHeight', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
-                                                    'IndividualStatusRequest' => 'CV?', ],
+
             //--- Attention: the order of the next two items may not be changed, because PSDEL is a substring of PSDELAY
             self::ptAudioDelay => ['Type'         => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSDELAY, 'Name' => 'Audio Delay',
                                                'PropertyName' => 'AudioDelay', 'Profilesettings' => ['Intensity', '', ' ms', 0, 200, 1, 0], 'Associations' => $assRange000to200, ],
@@ -2311,36 +2302,34 @@ class DENONIPSProfiles extends stdClass
         } else {
             //Assoziationen aufbauen
             $Associations = [];
-            $SI_SubCommands = $caps['SI_SubCommands'];
-            for ($i = 0; $i <= count($SI_SubCommands) - 1; $i++) {
-                $Associations[] = [$i, $SI_SubCommands[$i], $SI_SubCommands[$i]];
+            foreach ($caps['SI_SubCommands'] as $key=>$subcommand){
+                $Associations[] = [$key, $subcommand, $subcommand];
             }
         }
 
         //zusätzliche Auswahl 'SOURCE' bei Zonen
-        $i = count($Associations) - 1;
         if ($Zone > 0) {
-            $Associations[] = [++$i, 'SOURCE', DENON_API_Commands::SOURCE];
+            $Associations[] = [count($Associations), 'SOURCE', DENON_API_Commands::SOURCE];
         }
 
         //zusätzliche Inputs bei Auswahl
-        if ($FAVORITES) {
-            $Associations[] = [++$i, 'Favoriten', DENON_API_Commands::FAVORITES];
+        if ($FAVORITES && (!in_array(DENON_API_Commands::FAVORITES, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Favoriten', DENON_API_Commands::FAVORITES];
         }
-        if ($IRADIO) {
-            $Associations[] = [++$i, 'Internet Radio', DENON_API_Commands::IRADIO];
+        if ($IRADIO && (!in_array(DENON_API_Commands::IRADIO, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Internet Radio', DENON_API_Commands::IRADIO];
         }
-        if ($SERVER) {
-            $Associations[] = [++$i, 'Server', DENON_API_Commands::SERVER];
+        if ($SERVER && (!in_array(DENON_API_Commands::SERVER, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Server', DENON_API_Commands::SERVER];
         }
-        if ($NAPSTER) {
-            $Associations[] = [++$i, 'Napster', DENON_API_Commands::NAPSTER];
+        if ($NAPSTER && (!in_array(DENON_API_Commands::LASTFM, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Napster', DENON_API_Commands::NAPSTER];
         }
-        if ($LASTFM) {
-            $Associations[] = [++$i, 'LastFM', DENON_API_Commands::LASTFM];
+        if ($LASTFM && (!in_array(DENON_API_Commands::FAVORITES, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'LastFM', DENON_API_Commands::LASTFM];
         }
-        if ($FLICKR) {
-            $Associations[] = [++$i, 'Flickr', DENON_API_Commands::FLICKR];
+        if ($FLICKR && (!in_array(DENON_API_Commands::FLICKR, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Flickr', DENON_API_Commands::FLICKR];
         }
 
         if ($this->debug) {
@@ -4317,7 +4306,6 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::DTSES8CHDSCRT => 'DTS Express 8 Channel Discrect',
         DENON_API_Commands::DTSHDDS       => 'DTS HD + Dolby Surround',
         DENON_API_Commands::DTSEXPRESS    => 'DTS Express',
-        DENON_API_Commands::DTSES8CHDSCRT => 'DTS ES 8 CH Discrete',
         DENON_API_Commands::MPEG2AAC      => 'MPEG2 AAC',
         DENON_API_Commands::AACDOLBYEX    => 'AAC + Dolby EX',
         DENON_API_Commands::AACPL2XC      => 'AAC + PL2X Cinema',
