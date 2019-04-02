@@ -241,7 +241,7 @@ class AVRModule extends IPSModule
                 DENONIPSProfiles::ptZone3InputSource,], true
             );
             if ($this->debug) {
-                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Property registered: '.$profile['PropertyName']. '(' . (int) $DefaultValue . ')');
+                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'Property registered: ' . $profile['PropertyName'] . '(' . (int) $DefaultValue . ')');
             }
             $this->RegisterPropertyBoolean($profile['PropertyName'], $DefaultValue);
         }
@@ -2073,10 +2073,10 @@ class DENONIPSProfiles extends stdClass
                                                       'PropertyName'          => 'SurroundHeightRch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
             self::ptTopSurround => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTS, 'Name' => 'Top Surround',
-                                                'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
+                                                'PropertyName'                => 'TopSurround', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
             self::ptCenterHeight => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVCH, 'Name' => 'Center Height',
-                                                'PropertyName'                => '', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
+                                                'PropertyName'                => 'CenterHeight', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
                                                     'IndividualStatusRequest' => 'CV?', ],
             self::ptTopFrontLch => ['Type'                        => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::CVTFL, 'Name' => 'Channel Volume Top Front Left',
                                                 'PropertyName'                => 'TopFrontLch', 'Profilesettings' => ['Intensity',  '', ' dB', -12, 12, 0.5, 1], 'Associations' => $assRange38to62_add05step,
