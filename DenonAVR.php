@@ -2332,6 +2332,9 @@ class Denon_DRA_N5 extends DenonAVR
         DENON_API_Commands::IRADIO,
         DENON_API_Commands::SERVER,
         DENON_API_Commands::IPOD,
+        DENON_API_Commands::USB,
+        DENON_API_Commands::AUXB,
+        DENON_API_Commands::AUXD,
     ];
 
     public static $SystemControl_Commands = [
@@ -2357,6 +2360,8 @@ class Denon_RCD_N8 extends Denon_DRA_N5
         DENON_API_Commands::SERVER,
         DENON_API_Commands::IPOD,
         DENON_API_Commands::CD,
+        DENON_API_Commands::FM,
+        DENON_API_Commands::DAB,
     ];
 
 }

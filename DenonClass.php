@@ -1456,19 +1456,19 @@ class DENONIPSProfiles extends stdClass
             self::ptInputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::SI, 'Name' => 'Input Source',
                 'PropertyName'                         => 'InputSource',
                 'Profilesettings'                      => ['Database', '', '', 0, 0, 0, 0],
-                'Associations'                         => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
+                'Associations'                         => [], //are adapted by function SetInputSources()
                 'IndividualStatusRequest'              => 'SI?',
             ],
             self::ptZone2InputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::Z2INPUT, 'Name' => 'Zone 2 Input Source',
                 'PropertyName'                              => self::ptZone2InputSource,
                 'Profilesettings'                           => ['Database', '', '', 0, 0, 0, 0],
-                'Associations'                              => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
+                'Associations'                              => [], //are adapted by function SetInputSources()
                 'IndividualStatusRequest'                   => 'Z2?',
             ],
             self::ptZone3InputSource => ['Type' => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::Z3INPUT, 'Name' => 'Zone 3 Input Source',
                  'PropertyName'                             => self::ptZone3InputSource,
                  'Profilesettings'                          => ['Database', '', '', 0, 0, 0, 0],
-                 'Associations'                             => DENON_API_Commands::$SI_DefaultAssociations, //are adapted by function SetInputSources()
+                 'Associations'                             => [], //are adapted by function SetInputSources()
                  'IndividualStatusRequest'                  => 'Z3?',
             ],
             self::ptChannelVolumeReset => ['Type'          => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::CVZRL, 'Name' => 'Channel Volume Reset',
@@ -3492,6 +3492,8 @@ class DENON_API_Commands extends stdClass
     public const PHONO = 'PHONO'; // Select Input Source Phono
     public const CD = 'CD'; // Select Input Source CD
     public const TUNER = 'TUNER'; // Select Input Source Tuner
+    public const FM = 'FM'; // Select Input Source FM
+    public const DAB = 'DAB'; // Select Input Source DAB
     public const DVD = 'DVD'; // Select Input Source DVD
     public const BD = 'BD'; // Select Input Source BD
     public const BT = 'BT'; // Select Input Source Blutooth
@@ -3508,6 +3510,11 @@ class DENON_API_Commands extends stdClass
     public const VAUX = 'V.AUX'; // Select Input Source V.AUX
     public const DOCK = 'DOCK'; // Select Input Source Dock
     public const IPOD = 'IPOD'; // Select Input Source iPOD
+    public const USB = 'USB'; // Select Input Source USB
+    public const AUXA = 'AUXA'; // Select Input Source AUXA
+    public const AUXB = 'AUXB'; // Select Input Source AUXB
+    public const AUXC = 'AUXC'; // Select Input Source AUXC
+    public const AUXD = 'AUXC'; // Select Input Source AUXD
     public const NETUSB = 'NET/USB'; // Select Input Source NET/USB
     public const NET = 'NET'; // Select Input Source NET
     public const LASTFM = 'LASTFM'; // Select Input Source LastFM
@@ -3555,6 +3562,11 @@ class DENON_API_Commands extends stdClass
                                 self::GAME,
                                 self::GAME2,
                                 self::AUX1,
+                                self::AUX2,
+                                self::AUXA,
+                                self::AUXB,
+                                self::AUXC,
+                                self::AUXD,
                                 self::NETUSB,
                                 self::VAUX,
                                 self::DOCK,
@@ -3567,12 +3579,13 @@ class DENON_API_Commands extends stdClass
                                 self::IRADIO,
                                 self::SERVER,
                                 self::NAPSTER,
+                                self::USB,
                                 self::USB_IPOD,
                                 self::MXPORT,
                                 self::SOURCE,
                                 ];
 
-    public static $SI_DefaultAssociations = [
+    /*public static $SI_DefaultAssociations = [
                                 [0, 'Phono', self::PHONO],
                                 [1, 'CD', self::CD],
                                 [2, 'Tuner', self::TUNER],
@@ -3598,6 +3611,7 @@ class DENON_API_Commands extends stdClass
                                 [22, 'IRadio', self::IRADIO],
                                 [23, 'Server', self::SERVER],
                                 ];
+*/
 
     //ZM Mainzone
     public const ZMOFF = 'OFF'; // Power Off
@@ -4410,6 +4424,10 @@ class DenonAVRCP_API_Data extends stdClass
                             DENON_API_Commands::PV.DENON_API_Commands::PVPICTDAY => DENON_API_Commands::PVPICT.DENON_API_Commands::PVPICTDAY,
                             DENON_API_Commands::PV.DENON_API_Commands::PVPICTNGT => DENON_API_Commands::PVPICT.DENON_API_Commands::PVPICTNGT,
         ];
+
+        if (in_array($this->AVRType, ['DRA-N5', 'RCD-N8'])) {
+            $specialcommands[] = [DENON_API_Commands::USB_IPOD           => DENON_API_Commands::USB]; //not documented, but tested
+        }
 
         // add special commands for zone responses
         for ($Zone = 2; $Zone <= 3; $Zone++) {
