@@ -3514,7 +3514,7 @@ class DENON_API_Commands extends stdClass
     public const AUXA = 'AUXA'; // Select Input Source AUXA
     public const AUXB = 'AUXB'; // Select Input Source AUXB
     public const AUXC = 'AUXC'; // Select Input Source AUXC
-    public const AUXD = 'AUXC'; // Select Input Source AUXD
+    public const AUXD = 'AUXD'; // Select Input Source AUXD
     public const NETUSB = 'NET/USB'; // Select Input Source NET/USB
     public const NET = 'NET'; // Select Input Source NET
     public const LASTFM = 'LASTFM'; // Select Input Source LastFM
@@ -4426,7 +4426,7 @@ class DenonAVRCP_API_Data extends stdClass
         ];
 
         if (in_array($this->AVRType, ['DRA-N5', 'RCD-N8'])) {
-            $specialcommands[] = [DENON_API_Commands::USB_IPOD           => DENON_API_Commands::USB]; //not documented, but tested
+            $specialcommands[DENON_API_Commands::USB_IPOD] = DENON_API_Commands::USB; //not documented, but tested
         }
 
         // add special commands for zone responses
