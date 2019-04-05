@@ -2338,6 +2338,7 @@ class Denon_DRA_N5 extends DenonAVR
     ];
 
     public static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
         DENON_API_Commands::DISPLAY,
         DENON_API_Commands::NS,
     ];

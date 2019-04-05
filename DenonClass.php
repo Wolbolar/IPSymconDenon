@@ -4426,7 +4426,7 @@ class DenonAVRCP_API_Data extends stdClass
         ];
 
         if (in_array($this->AVRType, ['DRA-N5', 'RCD-N8'])) {
-            $specialcommands[DENON_API_Commands::USB_IPOD] = DENON_API_Commands::USB; //not documented, but tested
+            $specialcommands[DENON_API_Commands::SI.DENON_API_Commands::USB_IPOD] = DENON_API_Commands::SI.DENON_API_Commands::USB; //not documented, but tested
         }
 
         // add special commands for zone responses
