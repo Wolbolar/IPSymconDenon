@@ -49,7 +49,7 @@ class DenonSplitterHTTP extends IPSModule
                     $change = true;
                 }
 
-                $ParentOpen = $this->HasActiveParent($this->GetParent());
+                $ParentOpen = $this->HasActiveParent();
 
                 // Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
 
@@ -73,7 +73,7 @@ class DenonSplitterHTTP extends IPSModule
 
                 // Wenn I/O verbunden ist
 
-                if (($this->ReadPropertyBoolean('Open')) && $this->HasActiveParent($ParentID)) {
+                if (($this->ReadPropertyBoolean('Open')) && $this->HasActiveParent()) {
                     //Instanz aktiv
                     $this->SetStatus(IS_ACTIVE);
                 }
@@ -110,20 +110,7 @@ class DenonSplitterHTTP extends IPSModule
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
 
-    private function HasActiveParent($ParentID)
-    {
-        if ($ParentID > 0) {
-            if (IPS_GetInstance($ParentID)['InstanceStatus'] == IS_ACTIVE) {
-                return true;
-            }
-        }
-
-        $this->SetStatus(self::STATUS_INST_CONNECTION_LOST);
-
-        return false;
-    }
-
-    // Data an Child weitergeben
+        // Data an Child weitergeben
     public function ReceiveData($JSONString)
     {
 

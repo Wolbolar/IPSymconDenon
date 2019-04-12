@@ -82,7 +82,7 @@ public function __construct($InstanceID)
                     $PropertyChanged = true;
                 }
 
-                $ParentOpen = $this->HasActiveParent($this->GetParent());
+                $ParentOpen = $this->HasActiveParent();
 
                 // Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
 
@@ -100,7 +100,7 @@ public function __construct($InstanceID)
 
                 // Wenn I/O verbunden ist
 
-                if ($this->HasActiveParent($ParentID)) {
+                if ($this->HasActiveParent()) {
                     //Instanz aktiv
                     $this->SetStatus(IS_ACTIVE);
                 }
@@ -200,16 +200,6 @@ public function __construct($InstanceID)
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
 
-    private function HasActiveParent($ParentID):bool
-    {
-        if (($ParentID > 0) && IPS_GetInstance($ParentID)['InstanceStatus'] === IS_ACTIVE) {
-            return true;
-        }
-
-        $this->SetStatus(self::STATUS_INST_CONNECTION_LOST);
-
-        return false;
-    }
 
     public function GetStatusHTTP()
     {
