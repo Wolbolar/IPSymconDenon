@@ -44,6 +44,8 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
                 37 => "AVR-X1400H",
                 38 => "AVR-X4400H",
                 39 => "AVR-X8500H",
+                40 => "DRA-N5",
+                41 => "RCD-N8",
 
                 60 => "Marantz-NR1504", //
                 61 => "Marantz-NR1506", //
@@ -90,7 +92,7 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
 
 class AVRs extends stdClass
 {
-    public static function getAllAVRs()
+    public static function getAllAVRs(): array
     {
         //supported Denon and Marantz models
         //Hint: the order of this list determines the order of selectable AVRs in IPS Instances
@@ -125,6 +127,8 @@ class AVRs extends stdClass
                 Denon_AVR_X7200W::$Name   => Denon_AVR_X7200W::getCapabilities(),
                 Denon_AVR_X7200WA::$Name  => Denon_AVR_X7200WA::getCapabilities(),
 				Denon_AVC_X8500H::$Name  => Denon_AVC_X8500H::getCapabilities(),
+				Denon_DRA_N5::$Name  => Denon_DRA_N5::getCapabilities(),
+				Denon_RCD_N8::$Name  => Denon_RCD_N8::getCapabilities(),
 
 
                 Marantz_NR1504::$Name     => Marantz_NR1504::getCapabilities(),
@@ -179,7 +183,7 @@ class AVRs extends stdClass
 class AVR extends stdClass
 {
     public static $Name = __CLASS__;
-    public static $internalID = null;
+    public static $internalID;
 
     public static $InfoFunctions = ['MainZoneName', 'Model'];
     public static $InfoFunctions_max = ['MainZoneName', 'Model'];
@@ -382,7 +386,7 @@ class AVR extends stdClass
 
     public static $httpMainZone = DENON_HTTP_Interface::MainForm;
 
-    public static function getCapabilities()
+    public static function getCapabilities(): array
     {
         return ['Name'               => static::$Name,
             'internalID'             => static::$internalID,
@@ -592,7 +596,7 @@ class AVR extends stdClass
     public function getAVRCapabilitiesByAVRId($id)
     {
         foreach (AVRs::getAllAVRs() as $AVRType => $Caps) {
-            if ($Caps['internalID'] == $id) {
+            if ($Caps['internalID'] === $id) {
                 return $Caps;
             }
         }

@@ -16,21 +16,6 @@
     "status":
             [
                 {
-                    "code": 101,
-                    "icon": "inactive",
-                    "caption": "creating instance."
-                },
-				{
-                    "code": 102,
-                    "icon": "active",
-                    "caption": "configuration is valid."
-                },
-                {
-                    "code": 104,
-                    "icon": "inactive",
-                    "caption": "AVR is inactive."
-                },
-                {
                     "code": 202,
                     "icon": "error",
                     "caption": "AVR ip address must not be empty."

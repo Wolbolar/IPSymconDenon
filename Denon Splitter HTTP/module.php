@@ -4,8 +4,6 @@ require_once __DIR__.'/../DenonClass.php';  // diverse Klassen
 
 class DenonSplitterHTTP extends IPSModule
 {
-    const STATUS_INST_IS_ACTIVE = 102; //Instanz aktiv
-    const STATUS_INST_IS_INACTIVE = 104;
     const STATUS_INST_IP_IS_EMPTY = 202;
     const STATUS_INST_CONNECTION_LOST = 203;
     const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
@@ -51,12 +49,12 @@ class DenonSplitterHTTP extends IPSModule
                     $change = true;
                 }
 
-                $ParentOpen = $this->HasActiveParent($this->GetParent());
+                $ParentOpen = $this->HasActiveParent();
 
                 // Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
 
                 if (!$ParentOpen) {
-                    $this->SetStatus(self::STATUS_INST_IS_INACTIVE);
+                    $this->SetStatus(IS_INACTIVE);
                 }
 
                 if ($this->ReadPropertyString('Host') == '') {
@@ -75,9 +73,9 @@ class DenonSplitterHTTP extends IPSModule
 
                 // Wenn I/O verbunden ist
 
-                if (($this->ReadPropertyBoolean('Open')) && $this->HasActiveParent($ParentID)) {
+                if (($this->ReadPropertyBoolean('Open')) && $this->HasActiveParent()) {
                     //Instanz aktiv
-                    $this->SetStatus(self::STATUS_INST_IS_ACTIVE);
+                    $this->SetStatus(IS_ACTIVE);
                 }
             }
         } else {
@@ -112,20 +110,7 @@ class DenonSplitterHTTP extends IPSModule
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
 
-    private function HasActiveParent($ParentID)
-    {
-        if ($ParentID > 0) {
-            if (IPS_GetInstance($ParentID)['InstanceStatus'] == self::STATUS_INST_IS_ACTIVE) {
-                return true;
-            }
-        }
-
-        $this->SetStatus(self::STATUS_INST_CONNECTION_LOST);
-
-        return false;
-    }
-
-    // Data an Child weitergeben
+        // Data an Child weitergeben
     public function ReceiveData($JSONString)
     {
 
