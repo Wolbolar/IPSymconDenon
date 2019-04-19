@@ -1068,6 +1068,7 @@ class DenonAVRTelnet extends AVRModule
 
     /** HDMI Monitor
      *
+     * @param int $Value 0 / 1 / 2
      */
 	public function HDMIMonitor(int $Value): void
     { // HDMI Monitor AUTO / Monitor 1 / Monitor 2
@@ -1665,19 +1666,11 @@ class DenonAVRTelnet extends AVRModule
 			$form = [
 					[
 						'type' => 'Button',
-						'caption' => 'Power On',
-						'onClick' => 'DAVRT_Power($id, true);'
-					],
-					[
-						'type' => 'Button',
-						'caption' => 'Power Off',
-						'onClick' => 'DAVRT_Power($id, false);'
-					],
-					[
-						'type' => 'Button',
 						'caption' => 'Status initialisieren',
 						'onClick' => 'DAVRT_GetStates($id);'
-					]
+					],
+                    [
+                        'type' => 'TestCenter']
 				];
 		}
 
