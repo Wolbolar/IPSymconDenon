@@ -2653,7 +2653,7 @@ class DENONIPSProfiles extends stdClass
         return true;
     }
 
-    public function GetSubCommandOfValue(string $Ident, $Value)
+    public function GetSubCommandOfValue($Ident, $Value)
     {
         $ret = null;
         foreach ($this->profiles as $profile) {
