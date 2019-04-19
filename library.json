@@ -1,12 +1,10 @@
 {
-	"id": "{128B5E62-33BB-40A7-923C-A9AB903F8272}",
-	"author": "Fonzo/bumaas",
-	"name": "Denon/Marantz AV Receiver",
-	"url": "www.denon.de",
-	"compatibility": {
-		"version": "5.1"
-	},
-	"version": "2.10",
-	"build": 15,
-	"date": 1555052508
+  "id":            "{128B5E62-33BB-40A7-923C-A9AB903F8272}",
+  "author":        "Fonzo/bumaas",
+  "name":          "Denon/Marantz AV Receiver",
+  "url":           "www.denon.de",
+  "compatibility": {
+    "version": "5.1"
+  },
+  "version":       "2.10",
 }

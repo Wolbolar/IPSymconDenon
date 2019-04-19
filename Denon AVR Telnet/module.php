@@ -56,7 +56,7 @@ class DenonAVRTelnet extends AVRModule
 		}
 	}
 
-	private function arrayToObject($array): \stdClass
+	private function arrayToObject($array): stdClass
 	{
 		$object = new stdClass();
 		foreach ($array as $key => $value) {
@@ -398,7 +398,7 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Mainzone Standby Setting
-	public function MainzoneEcoModeSetting(string $Value): void
+	public function MainzoneEcoModeSetting(int $Value): void
     { // On / Auto / Off
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::ECO, $Value);
 		$this->SendCommand(DENON_API_Commands::ECO . $SubCommand);
@@ -491,7 +491,7 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Dynamic Volume
-	public function DynamicVolume(string $Value): void
+	public function DynamicVolume(int $Value): void
     { // Dynamic Volume  Midnight / Evening / Day
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSDYNVOL, $Value);
 		$this->SendCommand(DENON_API_Commands::PSDYNVOL . $SubCommand);
@@ -505,35 +505,35 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Dolby Volume Modeler
-	public function DolbyVolumeModeler(string $Value): void
+	public function DolbyVolumeModeler(int $Value): void
     { // Dolby Volume Modeler Off / Half / Full
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSVOLMOD, $Value);
 		$this->SendCommand(DENON_API_Commands::PSVOLMOD . $SubCommand);
 	}
 
 	//Dolby Volume Leveler
-	public function DolbyVolumeLeveler(string $Value): void
+	public function DolbyVolumeLeveler(int $Value): void
     { // Dolby Volume Leveler Low / Middle / High
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSVOLLEV, $Value);
 		$this->SendCommand(DENON_API_Commands::PSVOLLEV . $SubCommand);
 	}
 
 	//Dynamic Compressor
-	public function DynamicCompressor(string $Value): void
+	public function DynamicCompressor(int $Value): void
     { // Dynamic Compressor Off / Low / Middle / High
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSDCO, $Value);
 		$this->SendCommand(DENON_API_Commands::PSDCO . $SubCommand);
 	}
 
 	//Dynamic Range Compression
-	public function DynamicRangeCompression(string $Value): void
+	public function DynamicRangeCompression(int $Value): void
     { // Dynamic Range Compression Off / Auto / Low / Middle / High
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSDRC, $Value);
 		$this->SendCommand(DENON_API_Commands::PSDRC . $SubCommand);
 	}
 
 	//Audyssey DSX
-	public function AudysseyDSX(string $Value): void
+	public function AudysseyDSX(int $Value): void
     { // Audyssey DSX Off / Wide (Audyssey DSX ON(Wide)) / Height (Audyssey DSX ON(Height)) / Height/Wide (Audyssey DSX ON(Height/Wide))
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSDSX, $Value);
 		$this->SendCommand(DENON_API_Commands::PSDSX . $SubCommand);
@@ -891,7 +891,7 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Speaker Output Front
-	public function SpeakerOutputFront(string $Value): void
+	public function SpeakerOutputFront(int $Value): void
     { // Speaker Output Front Off / Wide / Height / Height/Wide
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSP, $Value);
 		$this->SendCommand(DENON_API_Commands::PSSP . $SubCommand);
@@ -905,14 +905,14 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//ASP
-	public function ASP(string $Value): void
+	public function ASP(int $Value): void
     { // ASP Normal / Full
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::VSASP, $Value);
 		$this->SendCommand(DENON_API_Commands::VSASP . $SubCommand);
 	}
 
 	//Audio Restorer
-	public function AudioRestorer(string $Value): void
+	public function AudioRestorer(int $Value): void
     { // Audio Restorer Off / 64 / 96 / HQ
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSRSTR, $Value);
 		$this->SendCommand(DENON_API_Commands::PSRSTR . $SubCommand);
@@ -933,14 +933,14 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Input Mode
-	public function SelectDecodeMode(string $Value): void
+	public function SelectDecodeMode(int $Value): void
     { // AUTO; HDMI; DIGITAL; ANALOG
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::SD, $Value);
 		$this->SendCommand(DENON_API_Commands::SD . $SubCommand);
 	}
 
 	//Digital Input Mode
-	public function DigitalInputMode(string $Value): void
+	public function DigitalInputMode(int $Value): void
     { // Digital Input Mode Auto / PCM / DTS
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::DC, $Value);
 		$this->SendCommand(DENON_API_Commands::DC . $SubCommand);
@@ -961,21 +961,21 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//HDMI Audio Output
-	public function HDMIAudioOutput(string $Value): void
+	public function HDMIAudioOutput(int $Value): void
     { // HDMI Audio Output TV / AMP
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::VSAUDIO, $Value);
 		$this->SendCommand(DENON_API_Commands::VSAUDIO . $SubCommand);
 	}
 
 	//Multi EQ Mode
-	public function MultiEQMode(string $Value): void
+	public function MultiEQMode(int $Value): void
     { // Multi EQ Mode Audyssey / BYP.LR / Flat / Manual / Off
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSMULTEQ, $Value);
 		$this->SendCommand(DENON_API_Commands::PSMULTEQ . $SubCommand);
 	}
 
 	//PLIIZHeightGain
-	public function PLIIZHeightGain(string $Value): void
+	public function PLIIZHeightGain(int $Value): void
     { // PLIIZHeightGain Low / Middle / High
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSPHG, $Value);
 		$this->SendCommand(DENON_API_Commands::PSPHG . $SubCommand);
@@ -989,7 +989,7 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Room Size
-	public function RoomSize(string $Value): void
+	public function RoomSize(int $Value): void
     { // Room Size Small / Small/Medium / Medium / Medium/Large / Large
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSRSZ, $Value);
 		$this->SendCommand(DENON_API_Commands::PSRSZ . $SubCommand);
@@ -1010,14 +1010,14 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Surround Back Mode
-	public function SurroundBackMode(string $Value): void
+	public function SurroundBackMode(int $Value): void
     { // Surround Back Mode Off / On / Matrix / Cinema / Music
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSB, $Value);
 		$this->SendCommand(DENON_API_Commands::PSSB . $SubCommand);
 	}
 
 	//Surround Play Mode
-	public function SurroundPlayMode(string $Value): void
+	public function SurroundPlayMode(int $Value): void
     { // Surround Play Mode Music / Cinema / Game / Pro Logic
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSMODE, $Value);
 		$this->SendCommand(DENON_API_Commands::PSMODE . $SubCommand);
@@ -1052,7 +1052,7 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Digital Noise Reduction
-	public function DigitalNoiseReduction(string $Value): void
+	public function DigitalNoiseReduction(int $Value): void
     { // Digital Noise Reduction Off / Low / Middle / High
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PVDNR, $Value);
 		$this->SendCommand(DENON_API_Commands::PVDNR . $SubCommand);
@@ -1066,10 +1066,10 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 
-	/** HDMI Monitor
-	 * @param string $Value AUTO / 1 / 2
-	 */
-	public function HDMIMonitor(string $Value): void
+    /** HDMI Monitor
+     *
+     */
+	public function HDMIMonitor(int $Value): void
     { // HDMI Monitor AUTO / Monitor 1 / Monitor 2
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::VSMONI, $Value);
         $this->SendCommand(DENON_API_Commands::VSMONI . $SubCommand);
@@ -1083,21 +1083,21 @@ class DenonAVRTelnet extends AVRModule
 	}
 
 	//Resolution
-	public function Resolution(string $Value): void
+	public function Resolution(int $Value): void
     { // Resolution 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto / 4K / 4K(60/50)
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::VSSC, $Value);
 		$this->SendCommand(DENON_API_Commands::VSSC . $SubCommand);
 	}
 
 	//Resolution HDMI
-	public function ResolutionHDMI(string $Value): void
+	public function ResolutionHDMI(int $Value): void
     { //Resolution HDMI 480p/576p / 1080i / 720p / 1080p / 1080p:24Hz / Auto / 4K / 4K(60/50)
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::VSSCH, $Value);
 		$this->SendCommand(DENON_API_Commands::VSSCH . $SubCommand);
 	}
 
 	//Video Processing Mode
-	public function VideoProcessingMode(string $Value): void
+	public function VideoProcessingMode(int $Value): void
     { // Video Processing Mode Auto / Game / Movie
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::VSVPM, $Value);
 		$this->SendCommand(DENON_API_Commands::VSVPM . $SubCommand);
@@ -1349,20 +1349,20 @@ class DenonAVRTelnet extends AVRModule
 		$this->SendCommand(DENON_API_Commands::Z2CVFR . $SubCommand);
 	}
 
-	public function Zone2ChannelSetting(string $Value): void
+	public function Zone2ChannelSetting(int $Value): void
     { // Zone 2 Channel Setting: Stereo/Mono
 		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::Z2CS, $Value);
 		$this->SendCommand(DENON_API_Commands::Z2CS . $SubCommand);
 	}
 
-	public function Zone2QuickSelect(string $command): void
+	public function Zone2QuickSelect(int $command): void
     { // Zone 2 Quickselect 1-5
 		$this->SendCommand(DENON_API_Commands::Z2QUICK . $command);
 	}
 
 	//######################### Zone 3 Functions ####################################
 
-	public function Z3_Volume(string $command): void
+	public function Z3_Volume(int $command): void
     { // "UP" or "DOWN"
 		$this->SendCommand(DENON_API_Commands::Z3 . $command);
 	}
