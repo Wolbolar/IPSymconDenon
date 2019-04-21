@@ -907,7 +907,7 @@ class DenonAVRTelnet extends AVRModule
 	//ASP
 	public function ASP(string $Value): void
     { // ASP Normal / Full
-		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::VSASP, $Value);
+		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::VSASP, $Value);
 		$this->SendCommand(DENON_API_Commands::VSASP . $SubCommand);
 	}
 
@@ -963,7 +963,7 @@ class DenonAVRTelnet extends AVRModule
 	//HDMI Audio Output
 	public function HDMIAudioOutput(string $Value): void
     { // HDMI Audio Output TV / AMP
-		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::VSAUDIO, $Value);
+		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::VSAUDIO, $Value);
 		$this->SendCommand(DENON_API_Commands::VSAUDIO . $SubCommand);
 	}
 
@@ -1071,7 +1071,7 @@ class DenonAVRTelnet extends AVRModule
 	 */
 	public function HDMIMonitor(string $Value): void
     { // HDMI Monitor AUTO / Monitor 1 / Monitor 2
-		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::VSMONI, $Value);
+		$SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValue(DENON_API_Commands::VSMONI, $Value);
         $this->SendCommand(DENON_API_Commands::VSMONI . $SubCommand);
 	}
 
@@ -1665,12 +1665,19 @@ class DenonAVRTelnet extends AVRModule
 			$form = [
 					[
 						'type' => 'Button',
+						'caption' => 'Power On',
+						'onClick' => 'DAVRT_Power($id, true);'
+					],
+					[
+						'type' => 'Button',
+						'caption' => 'Power Off',
+						'onClick' => 'DAVRT_Power($id, false);'
+					],
+					[
+						'type' => 'Button',
 						'caption' => 'Status initialisieren',
 						'onClick' => 'DAVRT_GetStates($id);'
-					],
-                    [
-                        'type' => 'TestCenter'
-                    ]
+					]
 				];
 		}
 

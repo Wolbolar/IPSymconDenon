@@ -2653,7 +2653,7 @@ class DENONIPSProfiles extends stdClass
         return true;
     }
 
-    public function GetSubCommandOfValue(string $Ident, $Value):?string
+    public function GetSubCommandOfValue($Ident, $Value)
     {
         $ret = null;
         foreach ($this->profiles as $profile) {
@@ -2693,13 +2693,14 @@ class DENONIPSProfiles extends stdClass
 
         if ($ret === null) {
             trigger_error('no subcommand found. Ident: '.$Ident.', Value: '.$Value);
-            return null;
+
+            return false;
         }
 
         return (string) $ret;
     }
 
-    public function GetSubCommandOfValueName(string $Ident, string $ValueName):?string
+    public function GetSubCommandOfValueName($Ident, $ValueName)
     {
         $ret = null;
         foreach ($this->profiles as $profile) {
@@ -2728,7 +2729,7 @@ class DENONIPSProfiles extends stdClass
         if ($ret === null) {
             trigger_error('no subcommand found. Ident: '.$Ident.', Value: '.$ValueName);
 
-            return null;
+            return false;
         }
 
         return (string) $ret;
