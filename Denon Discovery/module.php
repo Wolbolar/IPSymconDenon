@@ -15,7 +15,7 @@ class DenonDiscovery extends IPSModule
 		//we will wait until the kernel is ready
 		$this->RegisterMessage(0, IPS_KERNELMESSAGE);
 		$this->RegisterMessage(0, IPS_KERNELSTARTED);
-		$this->RegisterTimer('Discovery', 0, 'DenonDiscovery_Dicover($_IPS[\'TARGET\']);');
+		$this->RegisterTimer('Discovery', 0, 'DenonDiscovery_Discover($_IPS[\'TARGET\']);');
 	}
 
 	/**
