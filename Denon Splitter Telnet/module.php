@@ -32,9 +32,6 @@ public function __construct($InstanceID)
         // ClientSocket benötigt
         $this->RequireParent('{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'); //Clientsocket
 
-        $this->RegisterPropertyString('Host', '192.168.x.x');
-        $this->RegisterPropertyInteger('Port', 23);
-
         //we will set the instance status when the parent status changes
         $this->RegisterMessage($this->GetParent(), IM_CHANGESTATUS);
     }
@@ -66,48 +63,14 @@ public function __construct($InstanceID)
         $this->RegisterVariableString('AVRType', 'AVRType', '', 2);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 
-        //IP Prüfen
-        $ip = $this->ReadPropertyString('Host');
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
-
-            // Zwangskonfiguration des ClientSocket
-            $ParentID = $this->GetParent();
-            if ($ParentID) {
-                if (IPS_GetProperty($ParentID, 'Host') !== $this->ReadPropertyString('Host')) {
-                    IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
-                    $PropertyChanged = true;
-                }
-                if (IPS_GetProperty($ParentID, 'Port') !== $this->ReadPropertyInteger('Port')) {
-                    IPS_SetProperty($ParentID, 'Port', $this->ReadPropertyInteger('Port'));
-                    $PropertyChanged = true;
-                }
-
-                $ParentOpen = $this->HasActiveParent();
-
-                // Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
-
-                if (!$ParentOpen) {
-                    $this->SetStatus(IS_INACTIVE);
-                }
-
-                if ($this->ReadPropertyString('Host') === '') {
-                    $this->SetStatus(self::STATUS_INST_IP_IS_EMPTY);
-                }
-
-                if ($PropertyChanged) {
-                    IPS_ApplyChanges($ParentID);
-                }
-
-                // Wenn I/O verbunden ist
-
-                if ($this->HasActiveParent()) {
-                    //Instanz aktiv
-                    $this->SetStatus(IS_ACTIVE);
-                }
-            }
-        } else {
-            $this->SetStatus(self::STATUS_INST_IP_IS_INVALID); //IP Adresse ist ungültig
-        }
+		$ParentOpen = $this->HasActiveParent();
+		if (!$ParentOpen) {
+			$this->SetStatus(IS_INACTIVE);
+		}
+		if ($this->HasActiveParent()) {
+			//Instanz aktiv
+			$this->SetStatus(IS_ACTIVE);
+		}
     }
 
     /**

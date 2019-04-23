@@ -1,17 +1,6 @@
 {
     "elements":
             [
-				{ "type": "Label", "label": "AVR ip address / port telnet 23" },
-                {
-                    "name": "Host",
-                    "type": "ValidationTextBox",
-                    "caption": "ip address"
-                },
-                {
-                    "name": "Port",
-                    "type": "NumberSpinner",
-                    "caption": "port"
-                }
             ],
     "status":
             [
