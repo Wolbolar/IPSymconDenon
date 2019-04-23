@@ -27,8 +27,6 @@ class DenonSplitterHTTP extends IPSModule
         //You cannot use variables here. Just static values.
         $this->RequireParent('{6CC8F890-06DF-4A0E-9C7F-484D04101C8D}'); //Denon HTTP Socket
 
-        $this->RegisterPropertyString('Host', '192.168.x.x');
-        $this->RegisterPropertyBoolean('Open', false);
     }
 
     public function ApplyChanges()
@@ -37,50 +35,14 @@ class DenonSplitterHTTP extends IPSModule
         parent::ApplyChanges();
         $change = false;
 
-        //IP Prüfen
-        $ip = $this->ReadPropertyString('Host');
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
-
-            // Zwangskonfiguration des ClientSocket
-            $ParentID = $this->GetParent();
-            if ($ParentID) {
-                if (IPS_GetProperty($ParentID, 'Host') != $this->ReadPropertyString('Host')) {
-                    IPS_SetProperty($ParentID, 'Host', $this->ReadPropertyString('Host'));
-                    $change = true;
-                }
-
-                $ParentOpen = $this->HasActiveParent();
-
-                // Keine Verbindung erzwingen wenn IP leer ist, sonst folgt später Exception.
-
-                if (!$ParentOpen) {
-                    $this->SetStatus(IS_INACTIVE);
-                }
-
-                if ($this->ReadPropertyString('Host') == '') {
-                    $this->SetStatus(self::STATUS_INST_IP_IS_EMPTY);
-                    $ParentOpen = false;
-                }
-
-                //IO Denon HTTP Open
-                if (IPS_GetProperty($ParentID, 'Open') != $ParentOpen) {
-                    IPS_SetProperty($ParentID, 'Open', $ParentOpen);
-                    $change = true;
-                }
-                if ($change) {
-                    @IPS_ApplyChanges($ParentID);
-                }
-
-                // Wenn I/O verbunden ist
-
-                if (($this->ReadPropertyBoolean('Open')) && $this->HasActiveParent()) {
-                    //Instanz aktiv
-                    $this->SetStatus(IS_ACTIVE);
-                }
-            }
-        } else {
-            $this->SetStatus(self::STATUS_INST_IP_IS_INVALID); //IP Adresse ist ungültig
-        }
+		$ParentOpen = $this->HasActiveParent();
+		if (!$ParentOpen) {
+			$this->SetStatus(IS_INACTIVE);
+		}
+		if ($this->HasActiveParent()) {
+			//Instanz aktiv
+			$this->SetStatus(IS_ACTIVE);
+		}
     }
 
     /**
