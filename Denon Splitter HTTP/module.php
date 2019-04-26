@@ -4,10 +4,6 @@ require_once __DIR__.'/../DenonClass.php';  // diverse Klassen
 
 class DenonSplitterHTTP extends IPSModule
 {
-    const STATUS_INST_IP_IS_EMPTY = 202;
-    const STATUS_INST_CONNECTION_LOST = 203;
-    const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
-
     protected $debug = false;
 
     public function __construct($InstanceID) {
@@ -33,7 +29,6 @@ class DenonSplitterHTTP extends IPSModule
     {
         //Never delete this line!
         parent::ApplyChanges();
-        $change = false;
 
 		$ParentOpen = $this->HasActiveParent();
 		if (!$ParentOpen) {
@@ -77,7 +72,7 @@ class DenonSplitterHTTP extends IPSModule
     {
 
         // Empfangene Daten vom Denon HTTP I/O
-        $data = json_decode($JSONString);
+        $data = json_decode($JSONString, false);
         $dataio = json_encode($data->Buffer);
         $this->SendDebug('Buffer IN', $dataio, 0);
 
@@ -96,7 +91,7 @@ class DenonSplitterHTTP extends IPSModule
     {
 
         // Empfangene Daten von der Device Instanz
-        $data = json_decode($JSONString);
+        $data = json_decode($JSONString, false);
         $datasend = $data->Buffer;
         $this->SendDebug('Command Out', print_r($datasend, true), 0);
 

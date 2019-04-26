@@ -76,7 +76,7 @@ class AVRModule extends IPSModule
     {
 
         // Empfangene Daten vom Splitter
-        $data = json_decode($JSONString);
+        $data = json_decode($JSONString, false);
         $this->SendDebug('Received Data:', json_encode($data->Buffer->Data), 0);
         $this->UpdateVariable($data->Buffer);
     }
