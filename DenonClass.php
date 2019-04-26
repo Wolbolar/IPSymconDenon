@@ -76,7 +76,7 @@ class AVRModule extends IPSModule
     {
 
         // Empfangene Daten vom Splitter
-        $data = json_decode($JSONString);
+        $data = json_decode($JSONString, false);
         $this->SendDebug('Received Data:', json_encode($data->Buffer->Data), 0);
         $this->UpdateVariable($data->Buffer);
     }
@@ -583,16 +583,16 @@ class AVRModule extends IPSModule
         return $DenonAVRVar->GetInputVarMapping($Zone);
     }
 
-    //IP des AVR aus der Spitter Instanz
+    //IP des AVR aus der IO Instanz
     protected function GetIPParent()
     {
 		$io_instance =  IPS_GetInstance($this->GetParent())['ConnectionID'];
-    	$IP = IPS_GetProperty($io_instance, 'Host');
-        if (!filter_var($IP, FILTER_VALIDATE_IP) === false) {
-            return $IP;
-        }
+		$IP = IPS_GetProperty($io_instance, 'Host');
+		if (!filter_var($IP, FILTER_VALIDATE_IP) === false) {
+			return $IP;
+		}
 
-        return false;
+		return false;
     }
 
     protected function FormSelectionZone(): array

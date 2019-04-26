@@ -169,10 +169,12 @@ class DenonDiscovery extends IPSModule
 		$msg .= '' . "\r\n";
 		// MULTICAST MESSAGE
 		$socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP);
+        $this->SendDebug('----' . __FUNCTION__, 'Socket: ' . $socket, 0);
 		if (!$socket) {
 			return [];
 		}
-		socket_set_option($socket, SOL_SOCKET, SO_BROADCAST, true);
+
+        socket_set_option($socket, SOL_SOCKET, SO_BROADCAST, true);
 		socket_set_option($socket, SOL_SOCKET, SO_REUSEADDR, true);
 		// SET TIMEOUT FOR RECIEVE
 		socket_set_option($socket, SOL_SOCKET, SO_RCVTIMEO, array("sec" => $sockTimout, "usec" => 100000));
@@ -281,6 +283,7 @@ class DenonDiscovery extends IPSModule
 
 	protected function GetDenonInfo($result)
 	{
+	    $this->SendDebug(__FUNCTION__, print_r($result, true), 0);
 		$denon_info = [];
 		foreach ($result as $device) {
 			$uuid = $device["uuid"];

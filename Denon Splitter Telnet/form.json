@@ -4,20 +4,5 @@
             ],
     "status":
             [
-                {
-                    "code": 202,
-                    "icon": "error",
-                    "caption": "AVR ip address must not be empty."
-                },
-                {
-                    "code": 203,
-                    "icon": "error",
-                    "caption": "connection lost to AVR."
-                },
-				{
-                    "code": 204,
-                    "icon": "error",
-                    "caption": "AVR ip address is not valid."
-                }
             ]
 }

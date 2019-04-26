@@ -56,7 +56,7 @@ class DenonAVRTelnet extends AVRModule
 		}
 	}
 
-	private function arrayToObject($array): \stdClass
+	private function arrayToObject($array): stdClass
 	{
 		$object = new stdClass();
 		foreach ($array as $key => $value) {
