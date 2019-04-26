@@ -6,10 +6,6 @@ require_once __DIR__.'/../DenonClass.php';  // diverse Klassen
 
 class DenonSplitterTelnet extends IPSModule
 {
-    private const STATUS_INST_IP_IS_EMPTY = 202;
-    private const STATUS_INST_CONNECTION_LOST = 203;
-    private const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
-
     private $debug = false;
 
 public function __construct($InstanceID)
@@ -56,7 +52,7 @@ public function __construct($InstanceID)
     {
         //Never delete this line!
         parent::ApplyChanges();
-        $PropertyChanged = false;
+
         $this->RegisterVariableString('InputMapping', 'Input Mapping', '', 1);
         IPS_SetHidden($this->GetIDForIdent('InputMapping'), true);
 
@@ -102,14 +98,14 @@ public function __construct($InstanceID)
         if ($idInputMapping) {
             $InputsMapping = GetValue($idInputMapping);
             if (($InputsMapping !== '') && ($InputsMapping !== 'null')) { //Auslesen wenn Variable nicht leer
-                $Writeprotected = json_decode($InputsMapping)->Writeprotected;
+                $Writeprotected = json_decode($InputsMapping, false)->Writeprotected;
                 if (!$Writeprotected) { // Auf Schreibschutz prüfen
                     $this->SetValue('InputMapping', $MappingInputs);
-                    $this->SetValue('AVRType', json_decode($MappingInputs)->AVRType);
+                    $this->SetValue('AVRType', json_decode($MappingInputs, false)->AVRType);
                 }
             } else { // Schreiben wenn Variable noch nicht gesetzt
                 $this->SetValue('InputMapping', $MappingInputs);
-                $this->SetValue('AVRType', json_decode($MappingInputs)->AVRType);
+                $this->SetValue('AVRType', json_decode($MappingInputs, false)->AVRType);
             }
 
             return true;
@@ -124,7 +120,7 @@ public function __construct($InstanceID)
     public function SaveOwnInputVarmapping(string $MappingInputs):void
     {
         if ($this->GetIDForIdent('InputMapping')) {
-            $MappingInputsArr = json_decode($MappingInputs);
+            $MappingInputsArr = json_decode($MappingInputs, false);
             $AVRType = $MappingInputsArr->AVRType;
             $this->SetValue('InputMapping', $MappingInputs);
             $this->SetValue('AVRType', $AVRType);
@@ -139,7 +135,7 @@ public function __construct($InstanceID)
             IPS_LogMessage(__CLASS__.'::'.__FUNCTION__, 'InputsMapping: '.$InputsMapping);
         }
 
-        $InputsMapping = json_decode($InputsMapping);
+        $InputsMapping = json_decode($InputsMapping, false);
 
         if ($InputsMapping === null) {
             trigger_error(__FUNCTION__.': InputMapping cannot be decoded');
@@ -174,7 +170,7 @@ public function __construct($InstanceID)
     public function GetStatusHTTP()
     {
         $data = '';
-        $InputsMapping = json_decode($this->GetValue('InputMapping'));
+        $InputsMapping = json_decode($this->GetValue('InputMapping'), false);
 
         if (!isset($InputsMapping->AVRType)) {
             IPS_LogMessage(__FUNCTION__, 'AVRType not set!');
@@ -241,8 +237,8 @@ public function __construct($InstanceID)
     {
 
         // Empfangene Daten vom I/O
-        $payload = json_decode($JSONString);
-        $dataio = json_decode($this->GetBuffer(__FUNCTION__)).$payload->Buffer;
+        $payload = json_decode($JSONString, false);
+        $dataio = json_decode($this->GetBuffer(__FUNCTION__), false).$payload->Buffer;
         $this->SetBuffer(__FUNCTION__, '');
         $this->SendDebug('Data from I/O:', json_encode($dataio), 0);
 
@@ -286,7 +282,7 @@ public function __construct($InstanceID)
     {
 
         // Empfangene Daten von der Device Instanz
-        $data = json_decode($JSONString);
+        $data = json_decode($JSONString, false);
         $this->SendDebug('Command Out:', print_r($data->Buffer, true), 0);
 
         if ($this->debug) {

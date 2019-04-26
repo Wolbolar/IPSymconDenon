@@ -224,9 +224,9 @@ class DenonAVRHTTP extends AVRModule
 	{
 		// return current form
 		return json_encode([
-			'elements' => $this->FormHead(),
-			'actions' => $this->FormActions(),
-			'status' => $this->FormStatus()
+                               'elements' => $this->FormElements(),
+                               'actions' => $this->FormActions(),
+                               'status' => $this->FormStatus()
 		]);
 	}
 
@@ -234,7 +234,7 @@ class DenonAVRHTTP extends AVRModule
 	 * return form configurations on configuration step
 	 * @return array
 	 */
-	private function FormHead()
+	private function FormElements()
 	{
 		$manufacturername = $this->GetManufacturerName();
 		$AVRType = $this->GetAVRType($manufacturername);
@@ -330,7 +330,7 @@ class DenonAVRHTTP extends AVRModule
 			}
 		}
 		if ($this->debug) {
-			file_put_contents(IPS_GetLogDir() . 'form_http_gen.json', $form);
+			file_put_contents(IPS_GetLogDir() . 'form_http_gen.json', json_encode($form));
 		}
 		return $form;
 	}
@@ -373,7 +373,7 @@ class DenonAVRHTTP extends AVRModule
             }
         }
 
-		$form = array_merge_recursive(
+		$form = array_merge(
 			$form, $this->FormMoreInputs()
 		);
         return $form;
@@ -436,11 +436,13 @@ class DenonAVRHTTP extends AVRModule
 
         foreach ($ZoneCommands as $key) {
             $profile = $profiles[$key];
-			$form = array_merge_recursive(
-				$form, $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name'])
-			);
-        }
-		$form = array_merge_recursive(
+            $item = $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name']);
+            if ($item){
+                $form[] = $item;
+            }
+       }
+
+		$form = array_merge(
 			$form, $this->FormMoreInputs()
 		);
         return $form;
