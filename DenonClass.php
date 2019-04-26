@@ -583,15 +583,16 @@ class AVRModule extends IPSModule
         return $DenonAVRVar->GetInputVarMapping($Zone);
     }
 
-    //IP des AVR aus der Spitter Instanz
+    //IP des AVR aus der IO Instanz
     protected function GetIPParent()
     {
-        $IP = IPS_GetProperty($this->GetParent(), 'Host');
-        if (!filter_var($IP, FILTER_VALIDATE_IP) === false) {
-            return $IP;
-        }
+		$io_instance =  IPS_GetInstance($this->GetParent())['ConnectionID'];
+		$IP = IPS_GetProperty($io_instance, 'Host');
+		if (!filter_var($IP, FILTER_VALIDATE_IP) === false) {
+			return $IP;
+		}
 
-        return false;
+		return false;
     }
 
     protected function FormSelectionZone(): array
