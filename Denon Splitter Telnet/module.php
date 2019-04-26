@@ -78,6 +78,13 @@ public function __construct($InstanceID)
      * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:.
      */
 
+	public function GetConfigurationForParent()
+	{
+		$Config['Port'] = 23;
+		return json_encode($Config);
+	}
+
+
     /**
      * @param string $MappingInputs Input MappingInputs als JSON
      *

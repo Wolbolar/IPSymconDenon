@@ -586,8 +586,7 @@ class AVRModule extends IPSModule
     //IP des AVR aus der Spitter Instanz
     protected function GetIPParent()
     {
-		$io_instance =  IPS_GetInstance($this->GetParent())['ConnectionID'];
-    	$IP = IPS_GetProperty($io_instance, 'Host');
+        $IP = IPS_GetProperty($this->GetParent(), 'Host');
         if (!filter_var($IP, FILTER_VALIDATE_IP) === false) {
             return $IP;
         }
