@@ -542,12 +542,6 @@ class AVRModule extends IPSModule
         $vid = @$this->GetIDForIdent($Ident);
         if ($vid !== false) {
             $Name = IPS_GetName($vid);
-            // delete links to Variable
-            foreach ($links as $key=>$value) {
-                if ($value['TargetID'] === $vid) {
-                    IPS_DeleteLink($value['LinkID']);
-                }
-            }
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
             $this->SendDebug('Variable gelöscht:', $Name.', [ObjektID: '.$vid.']', 0);
