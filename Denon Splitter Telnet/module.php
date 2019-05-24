@@ -1,21 +1,15 @@
 <?php
 
-require_once __DIR__.'/../DenonClass.php';  // diverse Klassen
+require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 /** @noinspection AutoloadingIssuesInspection */
 
 class DenonSplitterTelnet extends IPSModule
 {
-    private $debug = false;
 
-public function __construct($InstanceID)
-{
-    parent::__construct($InstanceID);
+    private const PROPERTY_PORT = 'Port';
+    private const PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE = 'WriteDebugInformationToLogfile';
 
-    if (file_exists(IPS_GetLogDir().'denondebug.txt')){
-        $this->debug = true;
-    }
-}
 
     public function Create()
     {
@@ -24,6 +18,9 @@ public function __construct($InstanceID)
 
         //These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
+
+        $this->RegisterPropertyInteger(self::PROPERTY_PORT, 23);
+        $this->RegisterPropertyBoolean(self::PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE, false);
 
         // ClientSocket benötigt
         $this->RequireParent('{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'); //Clientsocket
@@ -34,9 +31,7 @@ public function __construct($InstanceID)
 
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
     {
-        if ($this->debug) {
-            IPS_LogMessage(__CLASS__.'::'.__FUNCTION__, 'SenderID: '.$SenderID.', Message: '.$Message.', Data:'.json_encode($Data));
-        }
+        $this->Logger_Dbg(__FUNCTION__, 'SenderID: ' . $SenderID . ', Message: ' . $Message . ', Data:' . json_encode($Data));
 
         /** @noinspection DegradedSwitchInspection */
         switch ($Message) {
@@ -44,8 +39,9 @@ public function __construct($InstanceID)
                 $this->ApplyChanges();
                 break;
             default:
-                trigger_error('Unexpected Message: '.$Message);
-         }
+                $this->Logger_Err('Unexpected Message: ' . $Message);
+                trigger_error('Unexpected Message: ' . $Message);
+        }
     }
 
     public function ApplyChanges()
@@ -59,14 +55,14 @@ public function __construct($InstanceID)
         $this->RegisterVariableString('AVRType', 'AVRType', '', 2);
         IPS_SetHidden($this->GetIDForIdent('AVRType'), true);
 
-		$ParentOpen = $this->HasActiveParent();
-		if (!$ParentOpen) {
-			$this->SetStatus(IS_INACTIVE);
-		}
-		if ($this->HasActiveParent()) {
-			//Instanz aktiv
-			$this->SetStatus(IS_ACTIVE);
-		}
+        $ParentOpen = $this->HasActiveParent();
+        if (!$ParentOpen) {
+            $this->SetStatus(IS_INACTIVE);
+        }
+        if ($this->HasActiveParent()) {
+            //Instanz aktiv
+            $this->SetStatus(IS_ACTIVE);
+        }
     }
 
     /**
@@ -74,11 +70,32 @@ public function __construct($InstanceID)
      * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:.
      */
 
-	public function GetConfigurationForParent()
-	{
-		$Config['Port'] = 23;
-		return json_encode($Config);
-	}
+
+    /**
+     * build configuration form
+     * @return string
+     */
+    public function GetConfigurationForm(): string
+    {
+        // return current form
+        return json_encode(
+            [
+                'elements' => [
+                    [
+                        'type'    => 'NumberSpinner',
+                        'name'    => self::PROPERTY_PORT,
+                        'caption' => 'Port',
+                        'digits'  => 0],
+                    [
+                        'type'    => 'ExpansionPanel',
+                        'caption' => 'Expert Parameters',
+                        'items'   => [
+                            [
+                                'type'    => 'CheckBox',
+                                'name'    => self::PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE,
+                                'caption' => 'Debug information are written additionally to standard logfile']]]]]
+        );
+    }
 
 
     /**
@@ -86,9 +103,10 @@ public function __construct($InstanceID)
      *
      * @return bool
      */
-    public function SaveInputVarmapping(string $MappingInputs):bool
+    public function SaveInputVarmapping(string $MappingInputs): bool
     {
         if ($MappingInputs === 'null') {
+            $this->Logger_Err('MappingInputs is NULL');
             trigger_error('MappingInputs is NULL');
 
             return false;
@@ -111,17 +129,18 @@ public function __construct($InstanceID)
             return true;
         }
 
+        $this->Logger_Err('InputMapping Variable not found!');
         trigger_error('InputMapping Variable not found!');
 
         return false;
     }
 
     // Input MappingInputs als JSON
-    public function SaveOwnInputVarmapping(string $MappingInputs):void
+    public function SaveOwnInputVarmapping(string $MappingInputs): void
     {
         if ($this->GetIDForIdent('InputMapping')) {
             $MappingInputsArr = json_decode($MappingInputs, false);
-            $AVRType = $MappingInputsArr->AVRType;
+            $AVRType          = $MappingInputsArr->AVRType;
             $this->SetValue('InputMapping', $MappingInputs);
             $this->SetValue('AVRType', $AVRType);
         }
@@ -131,20 +150,20 @@ public function __construct($InstanceID)
     public function GetInputVarMapping()
     {
         $InputsMapping = $this->GetValue('InputMapping');
-        if ($this->debug) {
-            IPS_LogMessage(__CLASS__.'::'.__FUNCTION__, 'InputsMapping: '.$InputsMapping);
-        }
+        $this->Logger_Dbg(__FUNCTION__, 'InputsMapping: ' . $InputsMapping);
+
 
         $InputsMapping = json_decode($InputsMapping, false);
 
         if ($InputsMapping === null) {
-            trigger_error(__FUNCTION__.': InputMapping cannot be decoded');
+            $this->Logger_Err(__FUNCTION__ . ': InputMapping cannot be decoded');
+            trigger_error(__FUNCTION__ . ': InputMapping cannot be decoded');
 
             return false;
         }
 
         //Varmapping generieren
-        $Inputs = $InputsMapping->Inputs;
+        $Inputs     = $InputsMapping->Inputs;
         $Varmapping = [];
         foreach ($Inputs as $Key => $Input) {
             $Command = $Input->Source;
@@ -169,7 +188,7 @@ public function __construct($InstanceID)
 
     public function GetStatusHTTP()
     {
-        $data = '';
+        $data          = '';
         $InputsMapping = json_decode($this->GetValue('InputMapping'), false);
 
         if (!isset($InputsMapping->AVRType)) {
@@ -188,9 +207,9 @@ public function __construct($InstanceID)
                 try {
                     //Daten abholen
                     $DenonStatusHTTP = new DENON_StatusHTML();
-                    $ipdenon = $this->ReadPropertyString('Host');
-                    $AVRType = $this->GetValue('AVRType');
-                    $InputMapping = $this->GetInputVarMapping();
+                    $ipdenon         = $this->ReadPropertyString('Host');
+                    $AVRType         = $this->GetValue('AVRType');
+                    $InputMapping    = $this->GetInputVarMapping();
                     if ($InputMapping === false) {
                         //InputMapping konnte nicht geleden werden
                         return false;
@@ -199,15 +218,20 @@ public function __construct($InstanceID)
                     $this->SendDebug('HTTP States:', json_encode($data), 0);
 
                     // Weiterleitung zu allen Gerät-/Device-Instanzen
-                    $this->SendDataToChildren(json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $data])); //Denon Telnet Splitter Interface GUI
-                } catch (Exception $exc) {
+                    $this->SendDataToChildren(
+                        json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $data])
+                    ); //Denon Telnet Splitter Interface GUI
+                }
+                catch(Exception $exc) {
                     // Senden fehlgeschlagen
                     $this->unlock('HTTPGetState');
 
+                    $this->Logger_Err('HTTPGetState failed');
                     trigger_error('HTTPGetState failed');
                 }
                 $this->unlock('HTTPGetState');
             } else {
+                $this->Logger_Err('Can not set lock \'HTTPGetState\'');
                 trigger_error('Can not set lock \'HTTPGetState\'');
             }
 
@@ -219,7 +243,7 @@ public function __construct($InstanceID)
 
     protected function SetStatus($Status)
     {
-        $this->senddebug(__FUNCTION__, 'Status: '.$Status, 0);
+        $this->senddebug(__FUNCTION__, 'Status: ' . $Status, 0);
 
         if ($Status !== IPS_GetInstance($this->InstanceID)['InstanceStatus']) {
             parent::SetStatus($Status);
@@ -233,20 +257,18 @@ public function __construct($InstanceID)
     //################# Datapoints
 
     // Data an Child weitergeben
-    public function ReceiveData($JSONString):bool
+    public function ReceiveData($JSONString): bool
     {
 
         // Empfangene Daten vom I/O
         $payload = json_decode($JSONString, false);
-        $dataio = json_decode($this->GetBuffer(__FUNCTION__), false).$payload->Buffer;
+        $dataio  = json_decode($this->GetBuffer(__FUNCTION__), false) . $payload->Buffer;
         $this->SetBuffer(__FUNCTION__, '');
         $this->SendDebug('Data from I/O:', json_encode($dataio), 0);
 
         // the received data must be terminated with \r
         if (substr($dataio, strlen($dataio) - 1) !== "\r") {
-            if ($this->debug) {
-                IPS_LogMessage(__CLASS__.'::'.__FUNCTION__, 'received data are buffered, because they are not terminated: '.json_encode($dataio));
-            }
+            $this->Logger_Dbg(__FUNCTION__, 'received data are buffered, because they are not terminated: ' . json_encode($dataio));
             $this->SetBuffer(__FUNCTION__, json_encode($dataio));
 
             return false;
@@ -257,20 +279,20 @@ public function __construct($InstanceID)
         array_pop($data);
 
         $this->SendDebug('Received Data:', json_encode($data), 0);
-        if ($this->debug) {
-            IPS_LogMessage(__CLASS__.'::'.__FUNCTION__, 'received data: '.json_encode($data));
-        }
+        $this->Logger_Dbg(__FUNCTION__, 'received data: ' . json_encode($data));
 
         $APIData = new DenonAVRCP_API_Data($this->GetValue('AVRType'), $data);
 
         $InputMapping = $this->GetInputVarMapping();
-        $SetCommand = $APIData->GetCommandResponse($InputMapping);
+        $SetCommand   = $APIData->GetCommandResponse($InputMapping);
         $this->SendDebug('Buffer IN:', json_encode($SetCommand), 0);
 
         // Weiterleitung zu allen Telnet Gerät-/Device-Instanzen wenn SetCommand gefüllt ist
 
-        if (($SetCommand['SurroundDisplay'] !== '') ||(count($SetCommand['Data']) > 0) || (count($SetCommand['Display']) > 0)){
-            $this->SendDataToChildren(json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $SetCommand])); //Denon Telnet Splitter Interface GUI
+        if (($SetCommand['SurroundDisplay'] !== '') || (count($SetCommand['Data']) > 0) || (count($SetCommand['Display']) > 0)) {
+            $this->SendDataToChildren(
+                json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $SetCommand])
+            ); //Denon Telnet Splitter Interface GUI
         }
 
         return true;
@@ -285,19 +307,19 @@ public function __construct($InstanceID)
         $data = json_decode($JSONString, false);
         $this->SendDebug('Command Out:', print_r($data->Buffer, true), 0);
 
-        if ($this->debug) {
-            IPS_LogMessage(__CLASS__.'::'.__FUNCTION__, 'send data: '.$data->Buffer);
-        }
+        $this->Logger_Dbg(__FUNCTION__, 'send data: ' . $data->Buffer);
         // Hier würde man den Buffer im Normalfall verarbeiten
         // z.B. CRC prüfen, in Einzelteile zerlegen
 
         try {
             // Weiterleiten zur I/O Instanz
-            $resultat = $this->SendDataToParent(json_encode(['DataID' => '{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}', 'Buffer' => $data->Buffer])); //TX GUID
+            $resultat =
+                $this->SendDataToParent(json_encode(['DataID' => '{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}', 'Buffer' => $data->Buffer])); //TX GUID
 
-        } catch (Exception $ex) {
+        }
+        catch(Exception $ex) {
             echo $ex->getMessage();
-            echo ' in '.$ex->getFile().' line: '.$ex->getLine().'.';
+            echo ' in ' . $ex->getFile() . ' line: ' . $ex->getLine() . '.';
 
             return false;
         }
@@ -315,6 +337,33 @@ public function __construct($InstanceID)
 
     private function unlock($ident): bool
     {
-        return IPS_SemaphoreLeave('DENONAVRT_'. $this->InstanceID . $ident);
+        return IPS_SemaphoreLeave('DENONAVRT_' . $this->InstanceID . $ident);
     }
+
+    private function Logger_Err(string $message): void
+    {
+        $this->SendDebug('LOG_ERR', $message, 0);
+        /*
+        if (function_exists('IPSLogger_Err') && $this->ReadPropertyBoolean('WriteLogInformationToIPSLogger')) {
+            IPSLogger_Err(__CLASS__, $message);
+        }
+        */
+        $this->LogMessage($message, KL_ERROR);
+
+    }
+
+    private function Logger_Dbg(string $message, string $data): void
+    {
+        $this->SendDebug($message, $data, 0);
+        /*
+        if (function_exists('IPSLogger_Dbg') && $this->ReadPropertyBoolean('WriteDebugInformationToIPSLogger')) {
+            IPSLogger_Dbg(__CLASS__ . '.' . IPS_GetObject($this->InstanceID)['ObjectName'] . '.' . $message, $data);
+        }
+        */
+        if ($this->ReadPropertyBoolean(self::PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE)) {
+            $this->LogMessage(sprintf('%s: %s', $message, $data), KL_DEBUG);
+        }
+    }
+
+
 }

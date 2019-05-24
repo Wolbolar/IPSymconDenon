@@ -87,6 +87,13 @@ require_once __DIR__.'/DenonAVR.php';  // diverse Klassen
                 97 => "Marantz-SR6012", //
                 98 => "Marantz-SR7012", //
                 99 => "Marantz-AV7704", //
+                100 => "Marantz-AV1509", //
+                101 => "Marantz-AV1609", //
+                102 => "Marantz-SR5013", //
+                103 => "Marantz-SR6013", //
+                104 => "Marantz-SR7013", //
+                105 => "Marantz-AV7705", //
+
                 50 => "None"
  */
 
@@ -134,6 +141,7 @@ class AVRs extends stdClass
                 Marantz_NR1504::$Name     => Marantz_NR1504::getCapabilities(),
                 Marantz_NR1506::$Name     => Marantz_NR1506::getCapabilities(),
                 Marantz_NR1508::$Name     => Marantz_NR1508::getCapabilities(),
+                Marantz_NR1509::$Name     => Marantz_NR1509::getCapabilities(),
                 Marantz_NR1602::$Name     => Marantz_NR1602::getCapabilities(),
                 Marantz_NR1603::$Name     => Marantz_NR1603::getCapabilities(),
                 Marantz_NR1604::$Name     => Marantz_NR1604::getCapabilities(),
@@ -141,6 +149,7 @@ class AVRs extends stdClass
                 Marantz_NR1606::$Name     => Marantz_NR1606::getCapabilities(),
                 Marantz_NR1607::$Name     => Marantz_NR1607::getCapabilities(),
                 Marantz_NR1608::$Name     => Marantz_NR1608::getCapabilities(),
+                Marantz_NR1609::$Name     => Marantz_NR1609::getCapabilities(),
                 Marantz_SR5006::$Name     => Marantz_SR5006::getCapabilities(),
                 Marantz_SR5007::$Name     => Marantz_SR5007::getCapabilities(),
                 Marantz_SR5008::$Name     => Marantz_SR5008::getCapabilities(),
@@ -148,6 +157,7 @@ class AVRs extends stdClass
                 Marantz_SR5010::$Name     => Marantz_SR5010::getCapabilities(),
                 Marantz_SR5011::$Name     => Marantz_SR5011::getCapabilities(),
                 Marantz_SR5012::$Name     => Marantz_SR5012::getCapabilities(),
+                Marantz_SR5013::$Name     => Marantz_SR5013::getCapabilities(),
                 Marantz_SR6005::$Name     => Marantz_SR6005::getCapabilities(),
                 Marantz_SR6006::$Name     => Marantz_SR6006::getCapabilities(),
                 Marantz_SR6007::$Name     => Marantz_SR6007::getCapabilities(),
@@ -156,6 +166,7 @@ class AVRs extends stdClass
                 Marantz_SR6010::$Name     => Marantz_SR6010::getCapabilities(),
                 Marantz_SR6011::$Name     => Marantz_SR6011::getCapabilities(),
                 Marantz_SR6012::$Name     => Marantz_SR6012::getCapabilities(),
+                Marantz_SR6013::$Name     => Marantz_SR6013::getCapabilities(),
                 Marantz_SR7005::$Name     => Marantz_SR7005::getCapabilities(),
                 Marantz_SR7007::$Name     => Marantz_SR7007::getCapabilities(),
                 Marantz_SR7008::$Name     => Marantz_SR7008::getCapabilities(),
@@ -163,12 +174,14 @@ class AVRs extends stdClass
                 Marantz_SR7010::$Name     => Marantz_SR7010::getCapabilities(),
                 Marantz_SR7011::$Name     => Marantz_SR7011::getCapabilities(),
                 Marantz_SR7012::$Name     => Marantz_SR7012::getCapabilities(),
+                Marantz_SR7013::$Name     => Marantz_SR7013::getCapabilities(),
                 Marantz_AV7005::$Name     => Marantz_AV7005::getCapabilities(),
                 Marantz_AV7701::$Name     => Marantz_AV7701::getCapabilities(),
                 Marantz_AV7702::$Name     => Marantz_AV7702::getCapabilities(),
                 Marantz_AV7702MKII::$Name => Marantz_AV7702MKII::getCapabilities(),
                 Marantz_AV7703::$Name     => Marantz_AV7703::getCapabilities(),
                 Marantz_AV7704::$Name     => Marantz_AV7704::getCapabilities(),
+                Marantz_AV7705::$Name     => Marantz_AV7705::getCapabilities(),
                 Marantz_AV8801::$Name     => Marantz_AV8801::getCapabilities(),
                 Marantz_AV8802::$Name     => Marantz_AV8802::getCapabilities(),
         ];
@@ -311,6 +324,7 @@ class AVR extends stdClass
         DENON_API_Commands::PSSWL,
         DENON_API_Commands::PSSWL2,
         DENON_API_Commands::PSDIL,
+        DENON_API_Commands::PSCLV,
         DENON_API_Commands::PSLFE,
         DENON_API_Commands::PSLFL,
         DENON_API_Commands::PSPAN,
@@ -487,6 +501,9 @@ class AVR extends stdClass
             case Marantz_NR1508::$Name:
                 return new Marantz_NR1508();
                 break;
+            case Marantz_NR1509::$Name:
+                return new Marantz_NR1509();
+                break;
             case Marantz_NR1602::$Name:
                 return new Marantz_NR1602();
                 break;
@@ -508,6 +525,9 @@ class AVR extends stdClass
             case Marantz_NR1608::$Name:
                 return new Marantz_NR1608();
                 break;
+            case Marantz_NR1609::$Name:
+                return new Marantz_NR1609();
+                break;
             case Marantz_SR5006::$Name:
                 return new Marantz_SR5006();
                 break;
@@ -528,6 +548,9 @@ class AVR extends stdClass
                 break;
             case Marantz_SR5012::$Name:
                 return new Marantz_SR5012();
+                break;
+            case Marantz_SR5013::$Name:
+                return new Marantz_SR5013();
                 break;
             case Marantz_SR6005::$Name:
                 return new Marantz_SR6005();
@@ -553,6 +576,9 @@ class AVR extends stdClass
             case Marantz_SR6012::$Name:
                 return new Marantz_SR6012();
                 break;
+            case Marantz_SR6013::$Name:
+                return new Marantz_SR6013();
+                break;
             case Marantz_AV7005::$Name:
                 return new Marantz_AV7005();
                 break;
@@ -564,6 +590,9 @@ class AVR extends stdClass
                 break;
             case Marantz_SR7012::$Name:
                 return new Marantz_SR7012();
+                break;
+            case Marantz_SR7013::$Name:
+                return new Marantz_SR7013();
                 break;
             case Marantz_AV7701::$Name:
                 return new Marantz_AV7701();
@@ -579,6 +608,9 @@ class AVR extends stdClass
                 break;
             case Marantz_AV7704::$Name:
                 return new Marantz_AV7704();
+                break;
+            case Marantz_AV7705::$Name:
+                return new Marantz_AV7705();
                 break;
             case Marantz_AV8801::$Name:
                 return new Marantz_AV8801();

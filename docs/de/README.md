@@ -41,9 +41,9 @@ AVR-X4200W, AVR-X4300H, AVR-X4400H, AVR-X5200W, AVR-X6200W, AVR-X6300H, AVR-X640
 
 ### Marantz Modelle: 
 
-Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1508,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607,	Marantz-NR1608, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
-Marantz-SR5011, Marantz-SR5012,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR6012, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
-Marantz-SR7011, Marantz-SR7012, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV7704, Marantz-AV8801, Marantz-AV8802 
+Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1508,	Marantz-NR1509,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607,	Marantz-NR1608,Marantz-NR1609, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
+Marantz-SR5011, Marantz-SR5012, Marantz-SR5013,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR6012, Marantz-SR6013, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
+Marantz-SR7011, Marantz-SR7012,  Marantz-SR7013, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV7704, Marantz-AV7705, Marantz-AV8801, Marantz-AV8802 
 	  
 ## 2. Voraussetzungen
 
