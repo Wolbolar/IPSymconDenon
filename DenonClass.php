@@ -4502,7 +4502,7 @@ class DenonAVRCP_API_Data extends stdClass
 
             //die folgenden Antworten sind laut Denon Support zu ignorieren
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV'] as $Command){
+            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
                     continue;
@@ -4556,7 +4556,7 @@ class DenonAVRCP_API_Data extends stdClass
                                                          'Subcommand' => $ResponseSubCommand,
                                 ];
                             } else {
-                                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, '*Warning*: No value found for SubCommand "'.$ResponseSubCommand.'"');
+                                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in \'%s\'', $ResponseSubCommand, $response));
                             }
                             break;
                     }
