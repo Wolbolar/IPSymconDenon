@@ -6,7 +6,7 @@ require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 class DenonAVRTelnet extends AVRModule
 {
-	public static $NEO_Parameter = ['PW' => ['DAVRT_Power', 'Power'],
+    public static $NEO_Parameter = ['PW' => ['DAVRT_Power', 'Power'],
 		'ZM' => ['DAVRT_MainZonePower', 'MainZonePower'],
 		'MU' => ['DAVRT_MainMute', 'Mute'],
 		'Z2POWER' => ['DAVRT_Zone2Power', 'Zone2Power'],
@@ -28,7 +28,8 @@ class DenonAVRTelnet extends AVRModule
 		'MNSRC' => ['DAVRT_GUISourceSelectMenu', 'GUI Source Select Menu'],
 	];
 
-	public function Create()
+
+    public function Create()
 	{
 		//Never delete this line!
 		parent::Create();
@@ -44,9 +45,7 @@ class DenonAVRTelnet extends AVRModule
 
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
 	{
-		if ($this->debug) {
-			IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'SenderID: ' . $SenderID . ', Message: ' . $Message . ', Data:' . json_encode($Data));
-		}
+	    $this->Logger_Dbg(__FUNCTION__, 'SenderID: ' . $SenderID . ', Message: ' . $Message . ', Data:' . json_encode($Data));
         /** @noinspection DegradedSwitchInspection */
         switch ($Message) {
 			case IPS_KERNELMESSAGE:
@@ -257,9 +256,7 @@ class DenonAVRTelnet extends AVRModule
 		$APISubCommand = (new DENONIPSProfiles($AVRType, $InputMapping))->GetSubCommandOfValue($Ident, $Value);
 		IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'Ident: ' . $Ident . ', Value: ' . $Value . ', SubCommand: ' . $APISubCommand);
 
-		if ($this->debug) {
-			IPS_LogMessage('Denon Telnet AVR', 'Denon Subcommand: ' . $APISubCommand);
-		}
+		$this->Logger_Dbg(__FUNCTION__, 'Denon Telnet AVR, Denon Subcommand: ' . $APISubCommand);
 
 		// Daten senden
 		try {
@@ -1469,10 +1466,8 @@ class DenonAVRTelnet extends AVRModule
 		$AVRType = $this->GetAVRType($manufacturername);
 		$zone = $this->ReadPropertyInteger('Zone');
 
-		if ($this->debug) {
-			// $this->LogMessage('Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone, KL_WARNING);
-			IPS_LogMessage(__FUNCTION__, 'Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone);
-		}
+		$this->Logger_Dbg(__FUNCTION__, 'Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone);
+
 		$form = [
 			[
 				'type' => 'Label',
@@ -1531,9 +1526,10 @@ class DenonAVRTelnet extends AVRModule
                 $this->FormSelectionNEO()
             );
         }
-		if ($this->debug) {
-			file_put_contents(IPS_GetLogDir() . 'form_telnet_gen.json', json_encode($form));
-		}
+
+		$form = array_merge($form, $this->FormExpertParameters());
+
+    	$this->Logger_Dbg(__FUNCTION__, 'form_telnet_gen.json: ' . json_encode($form));
 		return $form;
 	}
 
@@ -1543,9 +1539,7 @@ class DenonAVRTelnet extends AVRModule
 	private function FormMainzone($Zone, $AVRType): array
     {
 		$AVRCaps = AVRs::getCapabilities($AVRType);
-		if ($this->debug) {
-			IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
-		}
+		$this->Logger_Dbg(__FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
 
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 
@@ -1606,9 +1600,8 @@ class DenonAVRTelnet extends AVRModule
 	private function FormAVRProfile($Zone, $AVRType, $commandArea, $profiles): array
 	{
 		$AVRCaps = AVRs::getCapabilities($AVRType);
-		if ($this->debug) {
-			IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
-		}
+		$this->Logger_Dbg(__FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
+
 		$form = [];
 		if($Zone === 0)
 		{

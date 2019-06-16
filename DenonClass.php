@@ -4,7 +4,8 @@ require_once __DIR__.'/AVRModels.php';  // diverse Klassen
 
 class AVRModule extends IPSModule
 {
-    protected $debug = false;
+    private const PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE = 'WriteDebugInformationToLogfile';
+
     protected $testAllProperties = false;
 
     private const STATUS_INST_IP_IS_INVALID = 204; //IP Adresse ist ungültig
@@ -14,14 +15,7 @@ class AVRModule extends IPSModule
     private const STATUS_INST_NO_DENON_AVR_TYPE_SELECTED = 213;
     private const STATUS_INST_NO_MARANTZ_AVR_TYPE_SELECTED = 214;
 
-    public function __construct($InstanceID)
-    {
-        parent::__construct($InstanceID);
 
-        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
-            $this->debug = true;
-        }
-    }
 
     protected function SetInstanceStatus(): bool
     {
@@ -77,20 +71,19 @@ class AVRModule extends IPSModule
 
         // Empfangene Daten vom Splitter
         $data = json_decode($JSONString, false);
-        $this->SendDebug('Received Data:', json_encode($data->Buffer->Data), 0);
+        $this->Logger_Dbg(__FUNCTION__, json_encode($data->Buffer->Data));
         $this->UpdateVariable($data->Buffer);
     }
 
     // Wertet Response aus und setzt Variable
     protected function UpdateVariable($data): bool
     {
-        if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'data: '.json_encode($data));
-        }
+        $this->Logger_Dbg(__FUNCTION__, 'data: '.json_encode($data));
+
         $ResponseType = $data->ResponseType;
 
-        $this->SendDebug('Response Type:', $ResponseType, 0);
         $Zone = $this->ReadPropertyInteger('Zone');
+        $this->Logger_Dbg(__FUNCTION__, sprintf('ResponseType: %s, Zone: %s', $ResponseType, $Zone));
 
         $datavalues = null;
 
@@ -106,24 +99,21 @@ class AVRModule extends IPSModule
                 break;
             case 'TELNET':
                 $datavalues = $data->Data;
-                $this->SendDebug('Data Telnet:', json_encode($datavalues), 0);
+                $this->Logger_Dbg(__FUNCTION__, 'Data Telnet: ' . json_encode($datavalues));
 
                 if ($Zone === 0) {
                     //SurroundDisplay
                     if ($this->ReadPropertyBoolean('SurroundDisplay')) {
                         $SurroundDisplay = $data->SurroundDisplay;
                         if ($SurroundDisplay !== '') {
-                            $this->SendDebug('Surround Display:', $SurroundDisplay, 0);
+                            $this->Logger_Dbg(__FUNCTION__, 'Surround Display: ' . $SurroundDisplay);
                             SetValueString($this->GetIDForIdent('SurroundDisplay'), $SurroundDisplay);
                         }
                     }
                     // OnScreenDisplay
                     if ($this->ReadPropertyBoolean('Display')) {
                         $OnScreenDisplay = $data->Display;
-                        $this->SendDebug('Display:', json_encode($OnScreenDisplay), 0);
-                        if ($this->debug) {
-                            IPS_LogMessage('Denon Telnet AVR', 'Display: '.json_encode($OnScreenDisplay));
-                        }
+                        $this->Logger_Dbg(__FUNCTION__, 'Display: ' . json_encode($OnScreenDisplay));
 
                         $idDisplay = $this->GetIDForIdent(DENON_API_Commands::DISPLAY);
                         $DisplayHTML = GetValue($idDisplay);
@@ -133,7 +123,7 @@ class AVRModule extends IPSModule
                             $node = $doc->getElementById('NSARow'.$row);
                             if (($row > 0) && ($row < 8)) {
                                 if ((ord(substr($content, 0, 1)) & 8) === 8) { //Cursor Select (8) ist gesetzt
-                                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'row: '.$row.', content[0]: '.decbin(ord(substr($content, 0, 1))));
+                                    $this->Logger_Dbg(__FUNCTION__, 'row: '.$row.', content[0]: '.decbin(ord(substr($content, 0, 1))));
                                     $node->setAttribute('style', 'color:#FF0000');
                                 } elseif ($node->hasAttribute('style')) {
                                     $node->removeAttribute('style');
@@ -155,8 +145,7 @@ class AVRModule extends IPSModule
         }
 
         if ($datavalues === null) {
-            IPS_LogMessage(__FUNCTION__, json_encode(debug_backtrace()));
-
+            $this->Logger_Err(__FUNCTION__. ': ' . json_encode(debug_backtrace()));
             return false;
         }
 
@@ -170,37 +159,25 @@ class AVRModule extends IPSModule
                 switch ($VarType) {
                     case 0: //Boolean
                         SetValueBoolean($VarID, $Subcommandvalue);
-                        $this->SendDebug('Update '.$ResponseType.' ObjektID(boolean):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.(int) $Subcommandvalue.')', 0);
-                        if ($this->debug) {
-                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.(int) $Subcommandvalue.')');
-                        }
+                        $this->Logger_Dbg(__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.(int) $Subcommandvalue.')');
                         break;
                     case 1: //Integer
                         SetValueInteger($VarID, $Subcommandvalue);
-                        $this->SendDebug('Update '.$ResponseType.' ObjektID(integer):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.$Subcommandvalue.')', 0);
-                        if ($this->debug) {
-                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
-                        }
+                        $this->Logger_Dbg(__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
                         break;
                     case 2: //Float
                         SetValueFloat($this->GetIDForIdent($Ident), $Subcommandvalue);
-                        $this->SendDebug('Update '.$ResponseType.' ObjektID(float):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.$Subcommandvalue.')', 0);
-                        if ($this->debug) {
-                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
-                        }
+                        $this->Logger_Dbg(__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommand.'('.$Subcommandvalue.')');
                         break;
                     case 3: //String
                         SetValueString($this->GetIDForIdent($Ident), $Subcommandvalue);
-                        $this->SendDebug('Update '.$ResponseType.' ObjektID(string):', IPS_GetName($VarID).'('.$VarID.') mit Command: '.$Subcommand.'('.$Subcommandvalue.')', 0);
-                        if ($this->debug) {
-                            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommandvalue);
-                        }
+                        $this->Logger_Dbg(__FUNCTION__, 'Update ObjektID '.$VarID.' ('.IPS_GetName($VarID).'): '.$Subcommandvalue);
                         break;
                     default:
                         trigger_error(__CLASS__ .'::'.__FUNCTION__.': invalid VarType: '.$VarType);
                 }
-            } elseif ($this->debug) {
-                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, $this->InstanceID.': Info: Keine Variable mit dem Ident "'.$Ident.'" gefunden.');
+            } else {
+                $this->Logger_Dbg(__FUNCTION__, $this->InstanceID . ': Info: Keine Variable mit dem Ident "' . $Ident . '" gefunden.');
             }
         }
 
@@ -210,13 +187,18 @@ class AVRModule extends IPSModule
 
     protected function RegisterProperties(): void
     {
+        //Expert Parameters, must set first, because Logging functions are using it
+        $this->RegisterPropertyBoolean(self::PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE, false);
+
         $this->RegisterPropertyInteger('manufacturer', 0);
         $this->RegisterPropertyInteger('AVRTypeDenon', 50);
         $this->RegisterPropertyInteger('AVRTypeMarantz', 50);
         $this->RegisterPropertyInteger('Zone', 6);
 
         // all Checkboxes for the selection of the variables have to be registered
-        $DenonAVRVar = new DENONIPSProfiles();
+        $DenonAVRVar = new DENONIPSProfiles(null, null, function(string $message, string $data) {
+            $this->Logger_Dbg($message, $data);
+        } );
 
         $profiles = $DenonAVRVar->GetAllProfiles();
         foreach ($profiles as $profile) {
@@ -240,9 +222,7 @@ class AVRModule extends IPSModule
                 DENONIPSProfiles::ptZone2InputSource,
                 DENONIPSProfiles::ptZone3InputSource,], true
             );
-            if ($this->debug) {
-                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'Property registered: ' . $profile['PropertyName'] . '(' . (int) $DefaultValue . ')');
-            }
+            $this->Logger_Dbg(__FUNCTION__, 'Property registered: ' . $profile['PropertyName'] . '(' . (int) $DefaultValue . ')');
             $this->RegisterPropertyBoolean($profile['PropertyName'], $DefaultValue);
         }
 
@@ -257,6 +237,8 @@ class AVRModule extends IPSModule
         //Neo
         $this->RegisterPropertyBoolean('NEOToggle', false);
         $this->RegisterPropertyInteger('NEOToggleCategoryID', 0);
+
+
     }
 
     protected function RegisterReferences(): void
@@ -279,9 +261,7 @@ class AVRModule extends IPSModule
 
     protected function RegisterVariables(DENONIPSProfiles $DenonAVRVar, $idents, $AVRType, $manufacturername): bool
     {
-        if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'variables: '.json_encode($idents));
-        }
+        $this->Logger_Dbg(__FUNCTION__, 'variables: '.json_encode($idents));
 
         if (!in_array($manufacturername, [DENONIPSProfiles::ManufacturerDenon, DENONIPSProfiles::ManufacturerMarantz], true)) {
             trigger_error('ManufacturerName not set');
@@ -290,11 +270,6 @@ class AVRModule extends IPSModule
         }
 
         // Add/Remove according to feature activation
-        // create link list for deletion of links if target is deleted
-        $links = [];
-        foreach (IPS_GetLinkList() as $key=>$LinkID) {
-            $links[] = ['LinkID' => $LinkID, 'TargetID' => IPS_GetLink($LinkID)['TargetID']];
-        }
 
         //Selektierte Variablen anlegen
         foreach ($idents as $ident => $selected) {
@@ -314,7 +289,8 @@ class AVRModule extends IPSModule
                         $this->RegisterVariableString($statusvariable['Ident'], $statusvariable['Name'], $profilname, $statusvariable['Position']);
 
                         if ($ident === DENON_API_Commands::DISPLAY) {
-                            $DisplayHTML = '<html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
+                            $DisplayHTML = '<!--suppress HtmlRequiredLangAttribute -->
+<html><body><div id="NSARow0"></div><div id="NSARow1"></div><div id="NSARow2"></div><div id="NSARow3"></div><div id="NSARow4"></div><div id="NSARow5"></div><div id="NSARow6"></div><div id="NSARow7"></div><div id="NSARow8"></div></body></html>';
                             SetValueString($this->GetIDForIdent(DENON_API_Commands::DISPLAY), $DisplayHTML);
                         }
                         break;
@@ -340,10 +316,7 @@ class AVRModule extends IPSModule
                     case DENONIPSVarType::vtFloat:
                         $profilname = $manufacturername.'.'.$AVRType.'.'.$statusvariable['ProfilName'];
                         $this->CreateProfileFloat($profilname, $statusvariable['Icon'], $statusvariable['Prefix'], $statusvariable['Suffix'], $statusvariable['MinValue'], $statusvariable['MaxValue'], $statusvariable['Stepsize'], $statusvariable['Digits']);
-                        $this->SendDebug('Variablenprofil angelegt: ', $profilname, 0);
-                        if ($this->debug) {
-                            IPS_LogMessage('Denon Telnet AVR', 'Variablenprofil angelegt: '.$profilname);
-                        }
+                        $this->Logger_Dbg(__FUNCTION__, 'Variablenprofil angelegt: '.$profilname);
                         $this->RegisterVariableFloat($statusvariable['Ident'], $statusvariable['Name'], $profilname, $statusvariable['Position']);
                         $this->EnableAction($statusvariable['Ident']);
                         break;
@@ -357,7 +330,7 @@ class AVRModule extends IPSModule
             }
             // wenn nicht selektiert löschen
             else {
-                $this->removeVariableAction($statusvariable['Ident'], $links, $ident);
+                $this->removeVariableAction($statusvariable['Ident'], $ident);
             }
         }
 
@@ -399,10 +372,7 @@ class AVRModule extends IPSModule
         if (!IPS_VariableProfileExists($ProfileName)) {
             IPS_CreateVariableProfile($ProfileName, 1);
 
-            $this->SendDebug('Variablenprofil angelegt: ', $ProfileName, 0);
-            if ($this->debug) {
-                IPS_LogMessage('Denon Telnet AVR', 'Variablenprofil angelegt: '.$ProfileName);
-            }
+            $this->Logger_Inf('Variablenprofil angelegt: '.$ProfileName);
         } else {
             $this->checkProfileType($ProfileName, 1);//integer
         }
@@ -444,10 +414,7 @@ class AVRModule extends IPSModule
         if (!IPS_VariableProfileExists($ProfileName)) {
             IPS_CreateVariableProfile($ProfileName, DENONIPSVarType::vtString);
 
-            $this->SendDebug('Variablenprofil angelegt: ', $ProfileName, 0);
-            if ($this->debug) {
-                IPS_LogMessage('Denon Telnet AVR', 'Variablenprofil angelegt: '.$ProfileName);
-            }
+            $this->Logger_Inf('Variablenprofil angelegt: '.$ProfileName);
         } else {
             $this->checkProfileType($ProfileName, DENONIPSVarType::vtString);
         }
@@ -460,10 +427,7 @@ class AVRModule extends IPSModule
         if (!IPS_VariableProfileExists($ProfileName)) {
             IPS_CreateVariableProfile($ProfileName, DENONIPSVarType::vtFloat);
 
-            $this->SendDebug('Variablenprofil angelegt: ', $ProfileName, 0);
-            if ($this->debug) {
-                IPS_LogMessage('Denon Telnet AVR', 'Variablenprofil angelegt: '.$ProfileName);
-            }
+            $this->Logger_Inf('Variablenprofil angelegt: '.$ProfileName);
         } else {
             $this->checkProfileType($ProfileName, DENONIPSVarType::vtFloat);
         }
@@ -537,24 +501,18 @@ class AVRModule extends IPSModule
         return false;
     }
 
-    protected function removeVariableAction($Ident, $links, $Profile): void
+    protected function removeVariableAction($Ident, $Profile): void
     {
         $vid = @$this->GetIDForIdent($Ident);
         if ($vid !== false) {
             $Name = IPS_GetName($vid);
             $this->DisableAction($Ident);
             $this->UnregisterVariable($Ident);
-            $this->SendDebug('Variable gelöscht:', $Name.', [ObjektID: '.$vid.']', 0);
-            if ($this->debug) {
-                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Variable gelöscht - Name: '.$Name.', Ident: '.$Ident.', ObjektID: '.$vid);
-            }
+            $this->Logger_Inf('Variable gelöscht - Name: '.$Name.', Ident: '.$Ident.', ObjektID: '.$vid);
             //delete Profile
             if (IPS_VariableProfileExists($Profile)) {
                 IPS_DeleteVariableProfile($Profile);
-                $this->SendDebug('Variablenprofilprofil gelöscht:', $Profile, 0);
-                if ($this->debug) {
-                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Variablenprofil gelöscht:'.$Profile);
-                }
+                $this->Logger_Inf('Variablenprofil gelöscht:'.$Profile);
             }
         }
     }
@@ -729,6 +687,22 @@ class AVRModule extends IPSModule
 		return $form;
 	}
 
+    protected function FormExpertParameters(): array
+    {
+        return [
+            [
+                'type'    => 'ExpansionPanel',
+                'caption' => 'Expert Parameters',
+                'items'   => [
+                    [
+                        'type'    => 'CheckBox',
+                        'name'    => 'WriteDebugInformationToLogfile',
+                        'caption' => 'Debug information are written additionally to standard logfile'],
+
+                ]]];
+    }
+
+
     protected function FormStatus(): array
     {
         $form =  [
@@ -824,6 +798,43 @@ elseif ($status == true)// Ausschalten
 
         return false;
     }
+
+    protected function Logger_Err(string $message): void
+    {
+        $this->SendDebug('LOG_ERR', $message, 0);
+        /*
+        if (function_exists('IPSLogger_Err') && $this->ReadPropertyBoolean('WriteLogInformationToIPSLogger')) {
+            IPSLogger_Err(__CLASS__, $message);
+        }
+        */
+        $this->LogMessage($message, KL_ERROR);
+
+    }
+
+    protected function Logger_Inf(string $message): void
+    {
+        $this->SendDebug('LOG_INFO', $message, 0);
+        $this->LogMessage($message, KL_NOTIFY);
+    }
+
+    protected function Logger_Dbg(string $message, string $data): void
+    {
+        $this->SendDebug($message, $data, 0);
+        /*
+        if (function_exists('IPSLogger_Dbg') && $this->ReadPropertyBoolean('WriteDebugInformationToIPSLogger')) {
+            IPSLogger_Dbg(__CLASS__ . '.' . IPS_GetObject($this->InstanceID)['ObjectName'] . '.' . $message, $data);
+        }
+        */
+        if ($this->ReadPropertyBoolean(self::PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE)) {
+            $this->LogMessage(sprintf('%s: %s', $message, $data), KL_DEBUG);
+        }
+    }
+
+
+
+
+
+
 }
 
 class DENONIPSVarType extends stdClass
@@ -902,6 +913,7 @@ class DENONIPSProfiles extends stdClass
     public const ptDynamicRangeCompression = 'DynamicRangeCompression';
     public const ptMDAX = 'MDAX';
     public const ptDynamicCompressor = 'DynamicCompressor';
+    public const ptCenterLevelAdjust = 'CenterLevelAdjust';
     public const ptLFELevel = 'LFELevel';
     public const ptLFE71Level = 'LFE71Level';
     public const ptEffectLevel = 'EffectLevel';
@@ -1100,6 +1112,7 @@ class DENONIPSProfiles extends stdClass
         self::ptSubwoofer2Level,
         self::ptDialogLevelAdjust,
         self::ptDialogLevelAdjust,
+        self::ptCenterLevelAdjust,
         self::ptLFELevel,
         self::ptLFE71Level,
         self::ptPanorama,
@@ -1199,17 +1212,15 @@ class DENONIPSProfiles extends stdClass
         self::ptZone3AutoStandbySetting,
         ];
 
-    public function __construct($AVRType = null, $InputMapping = null)
+    public function __construct($AVRType = null, $InputMapping = null, callable $Logger_Dbg = null)
     {
-        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+        if (isset($Logger_Dbg)){
             $this->debug = true;
+            $this->Logger_Dbg = $Logger_Dbg;
         }
 
         if ($this->debug) {
-            IPS_LogMessage(
-                __CLASS__ . '::' . __FUNCTION__,
-                'AVRType: ' . ($AVRType ?? 'null') . ', InputMapping: ' . ($InputMapping === null ? 'null' : json_encode($InputMapping))
-            );
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'AVRType: ' . ($AVRType ?? 'null') . ', InputMapping: ' . ($InputMapping === null ? 'null' : json_encode($InputMapping)));
         }
 
         $assRange00to98_add05step = $this->GetAssociationOfAsciiTodB('00', '98', '80', 1, true, false);
@@ -2122,6 +2133,8 @@ class DENONIPSProfiles extends stdClass
             self::ptDelay => ['Type'              => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSDEL, 'Name' => 'Delay',
                                           'PropertyName'      => 'Delay', 'Profilesettings' => ['Intensity', '', ' ms', 0, 300, 1, 0], 'Associations' => $assRange000to300, ],
             //---
+            self::ptCenterLevelAdjust => ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSCLV, 'Name' => 'Center Level Adjust',
+                                             'PropertyName'               => 'CenterLevelAdjust', 'Profilesettings' => ['Intensity', '', ' dB', -12, 12, 1, 0], 'Associations' => $assRange38to62],
             self::ptLFELevel => ['Type'                       => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSLFE, 'Name' => 'LFE Level',
                                              'PropertyName'               => 'LFELevel', 'Profilesettings' => ['Intensity', '', ' dB', -10.0, 0.0, 1, 0], 'Associations' => $assRange00to10_invert, ],
             self::ptLFE71Level => ['Type'                     => DENONIPSVarType::vtFloat, 'Ident' => DENON_API_Commands::PSLFL, 'Name' => 'LFE 7.1 Level',
@@ -2255,7 +2268,7 @@ class DENONIPSProfiles extends stdClass
             $this->profiles[self::ptZone2InputSource]['Associations'] = $associations;
             $this->profiles[self::ptZone3InputSource]['Associations'] = $associations;
             if ($this->debug) {
-                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Association: '.json_encode($associations));
+                call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'Association: '.json_encode($associations));
             }
         }
     }
@@ -2328,7 +2341,7 @@ class DENONIPSProfiles extends stdClass
         }
 
         if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Associations: '.json_encode($Associations));
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'Associations: '.json_encode($Associations));
         }
 
         switch ($Zone) {
@@ -2417,7 +2430,7 @@ class DENONIPSProfiles extends stdClass
     {
         $filename = 'http://'.$IP.$MainForm.'?_=&ZoneName=ZONE'.($Zone + 1);
         if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'filename: '.$filename);
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'filename: '.$filename);
         }
 
         $content = @file_get_contents($filename);
@@ -2462,7 +2475,7 @@ class DENONIPSProfiles extends stdClass
         $ret = ['AVRType' => $this->AVRType, 'Inputs' => $InputSourcesMapping, 'Writeprotected' => false];
 
         if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'return: '.json_encode($ret));
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'return: '.json_encode($ret));
         }
 
         return $ret;
@@ -2471,7 +2484,7 @@ class DENONIPSProfiles extends stdClass
     public function SetupVariable($ident)
     {
         if ($this->debug){
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Setup Variable with ident ');
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'Setup Variable with ident ' . $ident);
         }
 
         if (!array_key_exists($ident, $this->profiles)) {
@@ -2482,7 +2495,7 @@ class DENONIPSProfiles extends stdClass
 
         $profile = $this->profiles[$ident];
         if (!isset($profile['Type'])) {
-            trigger_error(__FUNCTION__.': Type not set in profile "'.$ident.'"');
+            trigger_error(__CLASS__ .'::'.__FUNCTION__.': Type not set in profile "'.$ident.'"');
 
             return false;
         }
@@ -2580,9 +2593,8 @@ class DENONIPSProfiles extends stdClass
     public function GetAllProfilesSortedByPos(): array
     {
         $ret = [];
-        if ($this->debug) {
-            $this->checkProfiles();
-        }
+        $this->checkProfiles();
+
         foreach (static::$order as $profileID) {
             $ret[$profileID] = $this->profiles[$profileID];
         }
@@ -2654,7 +2666,7 @@ class DENONIPSProfiles extends stdClass
         foreach ($this->profiles as $profile) {
             if (($profile['Ident'] === $Ident) && isset($profile['Associations'])) {
                 if ($this->debug){
-                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Profile "'.$Ident.'" found: '.json_encode($profile));
+                    call_user_func($this->Logger_Dbg, __FUNCTION__, 'Profile "'.$Ident.'" found: '.json_encode($profile));
                 }
                 foreach ($profile['Associations'] as $item) {
                     switch ($profile['Type']) {
@@ -2788,11 +2800,13 @@ class DENON_StatusHTML extends stdClass
 {
     private $debug = false;
 
-    public function __construct()
+    public function __construct(callable $Logger_Dbg = null)
     {
-        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+        if (isset($Logger_Dbg)){
             $this->debug = true;
+            $this->Logger_Dbg = $Logger_Dbg;
         }
+
     }
 
     //Status
@@ -2818,9 +2832,10 @@ class DENON_StatusHTML extends stdClass
 
 
         if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'VarMappings: '.json_encode($VarMappings));
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'InputVarMapping: '.json_encode($InputVarMapping));
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Inputs: '.json_encode($Inputs));
+
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'VarMappings: '.json_encode($VarMappings));
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'InputVarMapping: '.json_encode($InputVarMapping));
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'Inputs: '.json_encode($Inputs));
         }
 
 
@@ -2917,7 +2932,7 @@ class DENON_StatusHTML extends stdClass
                     ];
 
         if ($this->debug) {
-            IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'DataSend: '.json_encode($datasend));
+            call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'DataSend: '.json_encode($datasend));
         }
 
         return $datasend;
@@ -2968,7 +2983,7 @@ class DENON_StatusHTML extends stdClass
 
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
-                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping). ', SubCommand: ' . $SubCommand);
+                call_user_func($this->Logger_Dbg, __CLASS__ .'::'.__FUNCTION__, 'VarMapping: '.json_encode($VarMapping). ', SubCommand: ' . $SubCommand);
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
@@ -3312,6 +3327,7 @@ class DENON_API_Commands extends stdClass
     public const PSDRC = 'PSDRC'; // DRC direct change
     public const PSMDAX = 'PSMDAX'; // M-DAX
     public const PSDCO = 'PSDCO'; // D.COMP direct change
+    public const PSCLV = 'PSCLV'; // Center Level Volume
     public const PSLFE = 'PSLFE'; // LFE
     public const PSLFL = 'PSLFL'; // LFF
     public const PSEFF = 'PSEFF'; // EFFECT direct change	Level
@@ -3991,6 +4007,9 @@ class DENON_API_Commands extends stdClass
 
     //Dolby Digital
     public const DOLBYPROLOGIC = 'DOLBY PRO LOGIC'; // DOLBY PRO LOGIC
+    public const DOLBYPLIIMV = 'DOLBY PLII MV';
+    public const DOLBYPLIIMS= 'DOLBY PLII MS';
+    public const DOLBYPLIIGM = 'DOLBY PLII GM';
     public const DOLBYPL2C = 'DOLBY PL2 C'; // DOLBY PL2 C
     public const DOLBYPL2M = 'DOLBY PL2 M'; // DOLBY PL2 M
     public const DOLBYPL2G = 'DOLBY PL2 G'; // DOLBY PL2 G
@@ -4000,9 +4019,10 @@ class DENON_API_Commands extends stdClass
     public const DOLBYPL2ZH = 'DOLBY PL2Z H'; // DOLBY PL2Z H
     public const DOLBYPL2XH = 'DOLBY PL2X H'; // DOLBY PL2X H
     public const DOLBYDEX = 'DOLBY D EX'; // DOLBY D EX
-    public const DOLBYDPL2XC = 'DOLBY D+PL2X C'; // DOLBY D+PL2X C
-    public const DOLBYDPL2XM = 'DOLBY D+PL2X M'; // DOLBY D+PL2X M
-    public const DOLBYDPL2XH = 'DOLBY D+PL2X H'; // DOLBY D+PL2X H
+    public const DOLBYDPL2XC = 'DOLBY D+PL2X C';
+    public const DOLBYDPL2XM = 'DOLBY D+PL2X M';
+    public const DOLBYDPL2ZH = 'DOLBY D+PL2Z H';
+    public const DOLBYAUDIODDDSUR = 'DOLBY AUDIO-DD+DSUR';
     public const PLDSX = 'PL DSX'; // PL DSX
     public const PL2CDSX = 'PL2 C DSX'; // PL2 C DSX
     public const PL2MDSX = 'PL2 M DSX'; // PL2 M DSX
@@ -4031,6 +4051,8 @@ class DENON_API_Commands extends stdClass
 
     public const DOLBYSURROUND = 'DOLBY SURROUND'; // MSDOLBY SURROUND
     public const DOLBYATMOS = 'DOLBY ATMOS'; // MSDOLBY ATMOS
+    public const DOLBYAUDIODSUR = 'DOLBY AUDIO-DSUR';
+    public const DOLBYAUDIODD = 'DOLBY AUDIO-DD';
     public const DOLBYDIGITAL = 'DOLBY DIGITAL'; // MSDOLBY DIGITAL
     public const DOLBYDDS = 'DOLBY D+DS'; // MSDOLBY D+DS
     public const MPEG2AAC = 'MPEG2 AAC'; // MSMPEG2 AAC
@@ -4077,17 +4099,23 @@ class DENON_API_Commands extends stdClass
     public const DOLBYDNEOXC = 'DOLBY D+NEO:X C'; // MSDOLBY D+NEO:X C
     public const DOLBYDNEOXM = 'DOLBY D+NEO:X M'; // MSDOLBY D+NEO:X M
     public const DOLBYDNEOXG = 'DOLBY D+NEO:X G'; // MSDOLBY D+NEO:X G
+    public const DOLBYAUDIODDPLUSNEURALX = 'DOLBY AUDIO-DD+NEURAL:X';
+    public const DOLBYAUDIODDPLUS = 'DOLBY AUDIO-DD+';
     public const DOLBYDNEURALX = 'DOLBY D+NEURAL:X'; // MSDOLBY D+NEURAL:X
     public const MCHINDS = 'M CH IN+DS'; // MSM CH IN+DS
     public const MCHINNEOXC = 'M CH IN+NEO:X C'; // MSM CH IN+NEO:X C
     public const MCHINNEOXM = 'M CH IN+NEO:X M'; // MSM CH IN+NEO:X M
     public const MCHINNEOXG = 'M CH IN+NEO:X G'; // MSM CH IN+NEO:G C
     public const DOLBYDPLUSDS = 'DOLBY D+ +DS'; // MSDOLBY D+ +DS
+    public const DOLBYAUDIODDPLUSDSUR = 'DOLBY AUDIO-DD+ +DSUR';
     public const DOLBYDPLUSNEOXC = 'DOLBY D+ +NEO:X C'; // MSDOLBY D+ +NEO:X C
     public const DOLBYDPLUSNEOXM = 'DOLBY D+ +NEO:X M'; // MSDOLBY D+ +NEO:X M
     public const DOLBYDPLUSNEOXG = 'DOLBY D+ +NEO:X G'; // MSDOLBY D+ +NEO:X G
+    public const DOLBYAUDIODDPLUSPLUSNEURALX = 'DOLBY AUDIO-DD+ +NEURAL:X';
+    public const DOLBYAUDIOTRUEHD = 'DOLBY AUDIO-TRUEHD';
     public const DOLBYDPLUSNEURALX = 'DOLBY D+ +NEURAL:X'; // MSDOLBY D+ +NEURAL:X
     public const DOLBYHDDS = 'DOLBY HD+DS'; // MSDOLBY HD+DS
+    public const DOLBYAUDIOTRUEHDDSUR = 'DOLBY AUDIO-TRUEHD+DSUR';
     public const DOLBYHDNEOXC = 'DOLBY HD+NEO:X C'; // MSDOLBY HD+NEO:X C
     public const DOLBYHDNEOXM = 'DOLBY HD+NEO:X M'; // MSDOLBY HD+NEO:X M
     public const DOLBYHDNEOXG = 'DOLBY HD+NEO:X G'; // MSDOLBY HD+NEO:X G
@@ -4236,45 +4264,52 @@ class DenonAVRCP_API_Data extends stdClass
 
     public static $DolbySurroundModes = [
         //show display => response display
-        DENON_API_Commands::DOLBYPROLOGIC     => 'Dolby Pro Logic',
-        DENON_API_Commands::DOLBYPL2C         => 'Dolby Pro Logic II Cinema',
-        DENON_API_Commands::DOLBYPL2M         => 'Dolby Pro Logic II Music',
-        DENON_API_Commands::DOLBYPL2H         => 'Dolby Pro Logic II Height',
-        DENON_API_Commands::DOLBYPL2G         => 'Dolby Pro Logic II Game',
-        DENON_API_Commands::DOLBYPL2XC        => 'Dolby Pro Logic IIx Cinema',
-        DENON_API_Commands::DOLBYPL2XM        => 'Dolby Pro Logic IIx Music',
-        DENON_API_Commands::DOLBYPL2XH        => 'Dolby Pro Logic IIx Height',
-        DENON_API_Commands::DOLBYPL2XG        => 'Dolby Pro Logic IIx Game',
-        DENON_API_Commands::DOLBYPL2ZH        => 'Dolby Pro Logic IIz Height',
-        DENON_API_Commands::DOLBYSURROUND     => 'Dolby Surround',
-        DENON_API_Commands::DOLBYATMOS        => 'Dolby Atmos',
-        DENON_API_Commands::DOLBYDEX          => 'Dolby Digital Ex',
-        DENON_API_Commands::DOLBYDDS          => 'Dolby Digital + DS',
-        DENON_API_Commands::DOLBYDNEOXC       => 'Dolby Digital + NEO:X Cinema',
-        DENON_API_Commands::DOLBYDNEOXM       => 'Dolby Digital + NEO:X Music',
-        DENON_API_Commands::DOLBYDNEOXG       => 'Dolby Digital + NEO:X Game',
-        DENON_API_Commands::DOLBYDNEURALX     => 'Dolby Digital + Neural:X',
-        DENON_API_Commands::DOLBYDPLUSDS      => 'Dolby Digital Plus + Dolby Surround',
-        DENON_API_Commands::DOLBYDPLUSNEOXC   => 'Dolby Digital Plus + NEO:X Cinema',
-        DENON_API_Commands::DOLBYDPLUSNEOXM   => 'Dolby Digital Plus + NEO:X Music',
-        DENON_API_Commands::DOLBYDPLUSNEOXG   => 'Dolby Digital Plus + NEO:X Game',
-        DENON_API_Commands::DOLBYDPLUSNEURALX => 'Dolby Digital Plus + Neural:X',
-        DENON_API_Commands::DOLBYDPLUS        => 'Dolby Digital Plus',
-        DENON_API_Commands::DOLBYDPLUSPL2XC   => 'Dolby Digital Plus + Dolby Pro Logic IIx Cinema',
-        DENON_API_Commands::DOLBYDPLUSPL2XM   => 'Dolby Digital Plus + Dolby Pro Logic IIx Music',
-        DENON_API_Commands::DOLBYDPLUSPL2XH   => 'Dolby Digital Plus + Dolby Pro Logic IIx Height',
-        DENON_API_Commands::DOLBYTRUEHD       => 'Dolby True HD',
-        DENON_API_Commands::DOLBYHD           => 'Dolby HD',
-        DENON_API_Commands::DOLBYHDEX         => 'Dolby HD + Ex',
-        DENON_API_Commands::DOLBYHDPL2XC      => 'Dolby HD + Dolby Pro Logic IIx Cinema',
-        DENON_API_Commands::DOLBYHDPL2XM      => 'Dolby HD + Dolby Pro Logic IIx Music',
-        DENON_API_Commands::DOLBYHDPL2XH      => 'Dolby HD + Dolby Pro Logic IIx Height',
-        DENON_API_Commands::DOLBYHDDS         => 'Dolby True HD + Dolby Surround',
-        DENON_API_Commands::DOLBYHDNEOXC      => 'Dolby True HD + NEO:X Cinema',
-        DENON_API_Commands::DOLBYHDNEOXM      => 'Dolby True HD + NEO:X Music',
-        DENON_API_Commands::DOLBYHDNEOXG      => 'Dolby True HD + NEO:X Game',
-        DENON_API_Commands::DOLBYHDNEURALX    => 'Dolby HD + Neural:X',
-    ];
+        DENON_API_Commands::DOLBYPROLOGIC               => 'Dolby Pro Logic',
+        DENON_API_Commands::DOLBYPL2C                   => 'Dolby Pro Logic II Cinema',
+        DENON_API_Commands::DOLBYPL2M                   => 'Dolby Pro Logic II Music',
+        DENON_API_Commands::DOLBYPL2H                   => 'Dolby Pro Logic II Height',
+        DENON_API_Commands::DOLBYPL2G                   => 'Dolby Pro Logic II Game',
+        DENON_API_Commands::DOLBYPLIIMV                 => 'Dolby Pro Logic II MV',
+        DENON_API_Commands::DOLBYPLIIMS                 => 'Dolby Pro Logic II MS',
+        DENON_API_Commands::DOLBYPLIIGM                 => 'Dolby Pro Logic II GM',
+        DENON_API_Commands::DOLBYPL2XC                  => 'Dolby Pro Logic IIx Cinema',
+        DENON_API_Commands::DOLBYPL2XM                  => 'Dolby Pro Logic IIx Music',
+        DENON_API_Commands::DOLBYPL2XH                  => 'Dolby Pro Logic IIx Height',
+        DENON_API_Commands::DOLBYPL2XG                  => 'Dolby Pro Logic IIx Game',
+        DENON_API_Commands::DOLBYPL2ZH                  => 'Dolby Pro Logic IIz Height',
+        DENON_API_Commands::DOLBYSURROUND               => 'Dolby Surround',
+        DENON_API_Commands::DOLBYATMOS                  => 'Dolby Atmos',
+        DENON_API_Commands::DOLBYAUDIODSUR              => 'Dolby Audio DSUR',
+        DENON_API_Commands::DOLBYAUDIODD                => 'Dolby Audio Digital',
+        DENON_API_Commands::DOLBYAUDIODDPLUSPLUSNEURALX => 'Dolby Audio Digital Plus + Neural:X',
+        DENON_API_Commands::DOLBYAUDIODDPLUS            => 'Dolby Audio Digital Plus',
+        DENON_API_Commands::DOLBYDEX                    => 'Dolby Digital Ex',
+        DENON_API_Commands::DOLBYDDS                    => 'Dolby Digital + DS',
+        DENON_API_Commands::DOLBYAUDIODDPLUSDSUR        => 'Dolby Audio Digital Plus + DSUR',
+        DENON_API_Commands::DOLBYDNEOXC                 => 'Dolby Digital + NEO:X Cinema',
+        DENON_API_Commands::DOLBYDNEOXM                 => 'Dolby Digital + NEO:X Music',
+        DENON_API_Commands::DOLBYDNEOXG                 => 'Dolby Digital + NEO:X Game',
+        DENON_API_Commands::DOLBYDNEURALX               => 'Dolby Digital + Neural:X',
+        DENON_API_Commands::DOLBYDPLUSDS                => 'Dolby Digital Plus + Dolby Surround',
+        DENON_API_Commands::DOLBYDPLUSNEOXC             => 'Dolby Digital Plus + NEO:X Cinema',
+        DENON_API_Commands::DOLBYDPLUSNEOXM             => 'Dolby Digital Plus + NEO:X Music',
+        DENON_API_Commands::DOLBYDPLUSNEOXG             => 'Dolby Digital Plus + NEO:X Game',
+        DENON_API_Commands::DOLBYDPLUSNEURALX           => 'Dolby Digital Plus + Neural:X',
+        DENON_API_Commands::DOLBYDPLUS                  => 'Dolby Digital Plus',
+        DENON_API_Commands::DOLBYDPLUSPL2XC             => 'Dolby Digital Plus + Dolby Pro Logic IIx Cinema',
+        DENON_API_Commands::DOLBYDPLUSPL2XM             => 'Dolby Digital Plus + Dolby Pro Logic IIx Music',
+        DENON_API_Commands::DOLBYDPLUSPL2XH             => 'Dolby Digital Plus + Dolby Pro Logic IIx Height',
+        DENON_API_Commands::DOLBYTRUEHD                 => 'Dolby True HD',
+        DENON_API_Commands::DOLBYHD                     => 'Dolby HD',
+        DENON_API_Commands::DOLBYHDEX                   => 'Dolby HD + Ex',
+        DENON_API_Commands::DOLBYHDPL2XC                => 'Dolby HD + Dolby Pro Logic IIx Cinema',
+        DENON_API_Commands::DOLBYHDPL2XM                => 'Dolby HD + Dolby Pro Logic IIx Music',
+        DENON_API_Commands::DOLBYHDPL2XH                => 'Dolby HD + Dolby Pro Logic IIx Height',
+        DENON_API_Commands::DOLBYHDDS                   => 'Dolby True HD + Dolby Surround',
+        DENON_API_Commands::DOLBYHDNEOXC                => 'Dolby True HD + NEO:X Cinema',
+        DENON_API_Commands::DOLBYHDNEOXM                => 'Dolby True HD + NEO:X Music',
+        DENON_API_Commands::DOLBYHDNEOXG                => 'Dolby True HD + NEO:X Game',
+        DENON_API_Commands::DOLBYHDNEURALX              => 'Dolby HD + Neural:X',];
 
     public static $DTSSurroundModes = [
         //show display => response display
@@ -4339,7 +4374,7 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::DSDPUREDIRECT  => 'DSD Pure Direct',
     ];
 
-    public function __construct($AVRType, $Data)
+    public function __construct($AVRType, array $Data)
     {
         if ($AVRType === null) {
             trigger_error(__CLASS__ .'::'.__FUNCTION__.': AVRType ist nicht gesetzt!');
@@ -4467,7 +4502,7 @@ class DenonAVRCP_API_Data extends stdClass
 
             //die folgenden Antworten sind laut Denon Support zu ignorieren
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV'] as $Command){
+            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
                     continue;
@@ -4482,8 +4517,9 @@ class DenonAVRCP_API_Data extends stdClass
             foreach ($VarMapping as $Command => $item) { //Zuordnung suchen
                 if (stripos($response, $Command) === 0) {// Subcommand ermitteln
                     $ResponseSubCommand = substr($response, strlen($Command));
-                    IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, 'Command found: '.$Command.', SubCommand: '.$ResponseSubCommand);
-
+                    if ($debug) {
+                        IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'Command found: ' . $Command . ', SubCommand: ' . $ResponseSubCommand);
+                    }
                     /** @noinspection DegradedSwitchInspection */
                     switch ($Command) {
 
@@ -4520,7 +4556,7 @@ class DenonAVRCP_API_Data extends stdClass
                                                          'Subcommand' => $ResponseSubCommand,
                                 ];
                             } else {
-                                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, '*Warning*: No value found for SubCommand "'.$ResponseSubCommand.'"');
+                                IPS_LogMessage(__CLASS__ .'::'.__FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in \'%s\'', $ResponseSubCommand, $response));
                             }
                             break;
                     }
@@ -4548,4 +4584,5 @@ class DenonAVRCP_API_Data extends stdClass
 
         return $datasend;
     }
+
 }
