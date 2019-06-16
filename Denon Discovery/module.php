@@ -109,7 +109,7 @@ class DenonDiscovery extends IPSModule
 							'moduleID' => '{9AE3087F-DC25-4ADB-AB46-AD7455E71032}',
 							'configuration' => [
 								'Host' => $host,
-								'Port' => 23
+								'uuid' => $uuid
 							]
 						],
 						[

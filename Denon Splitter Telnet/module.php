@@ -28,6 +28,9 @@ public function __construct($InstanceID)
         // ClientSocket benötigt
         $this->RequireParent('{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'); //Clientsocket
 
+		$this->RegisterPropertyString('uuid', '');
+		$this->RegisterPropertyString('Host', '');
+
         //we will set the instance status when the parent status changes
         $this->RegisterMessage($this->GetParent(), IM_CHANGESTATUS);
     }
