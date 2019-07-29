@@ -1,15 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 /** @noinspection AutoloadingIssuesInspection */
-
 class DenonSplitterTelnet extends IPSModule
 {
-
     private const PROPERTY_PORT = 'Port';
     private const PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE = 'WriteDebugInformationToLogfile';
-
 
     public function Create()
     {
@@ -25,8 +24,8 @@ class DenonSplitterTelnet extends IPSModule
         // ClientSocket benötigt
         $this->RequireParent('{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'); //Clientsocket
 
-		$this->RegisterPropertyString('uuid', '');
-		$this->RegisterPropertyString('Host', '');
+        $this->RegisterPropertyString('uuid', '');
+        $this->RegisterPropertyString('Host', '');
 
         //we will set the instance status when the parent status changes
         $this->RegisterMessage($this->GetParent(), IM_CHANGESTATUS);
@@ -73,9 +72,9 @@ class DenonSplitterTelnet extends IPSModule
      * Die Funktionen werden, mit dem selbst eingerichteten Prefix, in PHP und JSON-RPC wiefolgt zur Verfügung gestellt:.
      */
 
-
     /**
-     * build configuration form
+     * build configuration form.
+     *
      * @return string
      */
     public function GetConfigurationForm(): string
@@ -99,7 +98,6 @@ class DenonSplitterTelnet extends IPSModule
                                 'caption' => 'Debug information are written additionally to standard logfile']]]]]
         );
     }
-
 
     /**
      * @param string $MappingInputs Input MappingInputs als JSON
@@ -149,12 +147,10 @@ class DenonSplitterTelnet extends IPSModule
         }
     }
 
-
     public function GetInputVarMapping()
     {
         $InputsMapping = $this->GetValue('InputMapping');
         $this->Logger_Dbg(__FUNCTION__, 'InputsMapping: ' . $InputsMapping);
-
 
         $InputsMapping = json_decode($InputsMapping, false);
 
@@ -187,7 +183,6 @@ class DenonSplitterTelnet extends IPSModule
 
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
-
 
     public function GetStatusHTTP()
     {
@@ -367,6 +362,4 @@ class DenonSplitterTelnet extends IPSModule
             $this->LogMessage(sprintf('%s: %s', $message, $data), KL_DEBUG);
         }
     }
-
-
 }

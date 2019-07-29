@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__.'/../DenonClass.php';  // diverse Klassen
+declare(strict_types=1);
+
+require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 class DenonSplitterHTTP extends IPSModule
 {
@@ -9,7 +11,7 @@ class DenonSplitterHTTP extends IPSModule
     public function __construct($InstanceID) {
         parent::__construct($InstanceID);
 
-        if (file_exists(IPS_GetLogDir().'denondebug.txt')){
+        if (file_exists(IPS_GetLogDir() . 'denondebug.txt')){
             $this->debug = true;
         }
     }
@@ -30,14 +32,14 @@ class DenonSplitterHTTP extends IPSModule
         //Never delete this line!
         parent::ApplyChanges();
 
-		$ParentOpen = $this->HasActiveParent();
-		if (!$ParentOpen) {
-			$this->SetStatus(IS_INACTIVE);
-		}
-		if ($this->HasActiveParent()) {
-			//Instanz aktiv
-			$this->SetStatus(IS_ACTIVE);
-		}
+        $ParentOpen = $this->HasActiveParent();
+        if (!$ParentOpen) {
+            $this->SetStatus(IS_INACTIVE);
+        }
+        if ($this->HasActiveParent()) {
+            //Instanz aktiv
+            $this->SetStatus(IS_ACTIVE);
+        }
     }
 
     /**
