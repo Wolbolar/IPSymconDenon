@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__.'/../DenonClass.php';  // diverse Klassen
+declare(strict_types=1);
+
+require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 class DenonAVRIOHTTP extends IPSModule
 {
@@ -41,15 +43,14 @@ class DenonAVRIOHTTP extends IPSModule
         } else {
             $this->SetStatus(self::STATUS_INST_IP_IS_INVALID); //IP Adresse ist ungültig
         }
-		$this->SetUpdateTimerInterval();
+        $this->SetUpdateTimerInterval();
     }
 
-	protected function SetUpdateTimerInterval()
-	{
-		$Interval = $this->ReadPropertyInteger('UpdateInterval') * 1000;
-		$this->SetTimerInterval("Update", $Interval);
-	}
-
+    protected function SetUpdateTimerInterval()
+    {
+        $Interval = $this->ReadPropertyInteger('UpdateInterval') * 1000;
+        $this->SetTimerInterval('Update', $Interval);
+    }
 
     public function GetInputArrayStatus()
     {
@@ -84,12 +85,12 @@ class DenonAVRIOHTTP extends IPSModule
         try {
             // Absenden an Denon AVR
             $command = $data->Buffer;
-            IPS_LogMessage('Denon AVR I/O', 'HTTP Command Out '.json_encode($command));
+            IPS_LogMessage('Denon AVR I/O', 'HTTP Command Out ' . json_encode($command));
             $this->SendDebug('Command Out', json_encode($command), 0);
             $this->SendCommand($command);
         } catch (Exception $ex) {
             echo $ex->getMessage();
-            echo ' in '.$ex->getFile().' line: '.$ex->getLine().'.';
+            echo ' in ' . $ex->getFile() . ' line: ' . $ex->getLine() . '.';
         }
     }
 
@@ -145,7 +146,7 @@ class DenonAVRIOHTTP extends IPSModule
         if ($this->lock('HTTPCommandSend')) {
 
             //Command für URL Codieren
-            $httpcommand = 'http://'.$ip.'/goform/formiPhoneAppDirect.xml?'.rawurlencode($command);
+            $httpcommand = 'http://' . $ip . '/goform/formiPhoneAppDirect.xml?' . rawurlencode($command);
             $this->SendDebug('HTTP Command Send', $httpcommand, 0);
 
             // Daten senden
@@ -251,7 +252,7 @@ class DenonAVRIOHTTP extends IPSModule
     private function lock($ident)
     {
         for ($i = 0; $i < 10; $i++) {
-            if (IPS_SemaphoreEnter(get_class().'_'.(string) $this->InstanceID.(string) $ident, 1000)) {
+            if (IPS_SemaphoreEnter(get_class() . '_' . (string) $this->InstanceID . (string) $ident, 1000)) {
                 return true;
             } else {
                 IPS_Sleep(mt_rand(1, 5));
@@ -263,6 +264,6 @@ class DenonAVRIOHTTP extends IPSModule
 
     private function unlock($ident)
     {
-        IPS_SemaphoreLeave(get_class().'_'.(string) $this->InstanceID.(string) $ident);
+        IPS_SemaphoreLeave(get_class() . '_' . (string) $this->InstanceID . (string) $ident);
     }
 }
