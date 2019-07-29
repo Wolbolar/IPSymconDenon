@@ -7,7 +7,7 @@ require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 class DenonSplitterTelnet extends IPSModule
 {
 
-    private const PROPERTY_PORT = 'Port';
+    private const PROPERTY_PORT                               = 'Port';
     private const PROPERTY_WRITE_DEBUG_INFORMATION_TO_LOGFILE = 'WriteDebugInformationToLogfile';
 
 
@@ -25,8 +25,8 @@ class DenonSplitterTelnet extends IPSModule
         // ClientSocket benötigt
         $this->RequireParent('{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'); //Clientsocket
 
-		$this->RegisterPropertyString('uuid', '');
-		$this->RegisterPropertyString('Host', '');
+        $this->RegisterPropertyString('uuid', '');
+        $this->RegisterPropertyString('Host', '');
 
         //we will set the instance status when the parent status changes
         $this->RegisterMessage($this->GetParent(), IM_CHANGESTATUS);
@@ -76,6 +76,7 @@ class DenonSplitterTelnet extends IPSModule
 
     /**
      * build configuration form
+     *
      * @return string
      */
     public function GetConfigurationForm(): string
@@ -224,8 +225,7 @@ class DenonSplitterTelnet extends IPSModule
                     $this->SendDataToChildren(
                         json_encode(['DataID' => '{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}', 'Buffer' => $data])
                     ); //Denon Telnet Splitter Interface GUI
-                }
-                catch(Exception $exc) {
+                } catch (Exception $exc) {
                     // Senden fehlgeschlagen
                     $this->unlock('HTTPGetState');
 
@@ -319,8 +319,7 @@ class DenonSplitterTelnet extends IPSModule
             $resultat =
                 $this->SendDataToParent(json_encode(['DataID' => '{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}', 'Buffer' => $data->Buffer])); //TX GUID
 
-        }
-        catch(Exception $ex) {
+        } catch (Exception $ex) {
             echo $ex->getMessage();
             echo ' in ' . $ex->getFile() . ' line: ' . $ex->getLine() . '.';
 
