@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 class DenonAVRIOHTTP extends IPSModule
@@ -47,9 +49,8 @@ class DenonAVRIOHTTP extends IPSModule
     protected function SetUpdateTimerInterval()
     {
         $Interval = $this->ReadPropertyInteger('UpdateInterval') * 1000;
-        $this->SetTimerInterval("Update", $Interval);
+        $this->SetTimerInterval('Update', $Interval);
     }
-
 
     public function GetInputArrayStatus()
     {
