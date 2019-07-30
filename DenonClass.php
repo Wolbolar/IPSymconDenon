@@ -353,7 +353,7 @@ class AVRModule extends IPSModule
     protected function GetParent()
     {
         $instance = IPS_GetInstance($this->InstanceID); //array
-        return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false; //ConnectionID
+        return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : 0; //ConnectionID
     }
 
     private function checkProfileType($ProfileName, $VarType): void
@@ -2769,9 +2769,9 @@ class DENONIPSProfiles extends stdClass
         }
 
         while ($db <= $db_to) {
-            $ascii = (int) $ascii_of_0 + $db / $scalefactor_to_db;
+            $ascii = intval($ascii_of_0 + $db / $scalefactor_to_db);
             $pad_length = strlen($ascii_to);
-            $ascii = str_pad($ascii, $pad_length, '0', STR_PAD_LEFT);
+            $ascii = str_pad(strval($ascii), $pad_length, '0', STR_PAD_LEFT);
 
             $value_mapping[] = [$prefix . $ascii, $db * $faktor];
 
