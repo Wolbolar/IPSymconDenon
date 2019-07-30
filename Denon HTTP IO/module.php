@@ -57,12 +57,12 @@ class DenonAVRIOHTTP extends IPSModule
         $InputsMapping = GetValue($this->GetIDForIdent('InputMapping'));
         $InputsMapping = json_decode($InputsMapping);
         //Varmapping generieren
-        $AVRType = $InputsMapping->AVRType;
+        $AVRType        = $InputsMapping->AVRType;
         $Writeprotected = $InputsMapping->Writeprotected;
-        $Inputs = $InputsMapping->Inputs;
-        $Varmapping = [];
+        $Inputs         = $InputsMapping->Inputs;
+        $Varmapping     = [];
         foreach ($Inputs as $Key => $Input) {
-            $Command = $Input->Source;
+            $Command              = $Input->Source;
             $Varmapping[$Command] = $Key;
         }
         $InputArray = ['AVRType' => $AVRType, 'Writeprotected' => $Writeprotected, 'Inputs' => $Inputs];
@@ -103,10 +103,10 @@ class DenonAVRIOHTTP extends IPSModule
             // Daten senden
             try {
                 //Daten abholen
-                $DenonStatus = new DENON_StatusHTML();
-                $ipdenon = $this->ReadPropertyString('Host');
+                $DenonStatus  = new DENON_StatusHTML();
+                $ipdenon      = $this->ReadPropertyString('Host');
                 $InputMapping = $this->GetInputVarMapping();
-                $AVRType = $this->GetAVRType();
+                $AVRType      = $this->GetAVRType();
 
                 $data = $DenonStatus->getStates($ipdenon, $InputMapping, $AVRType);
 
@@ -194,17 +194,17 @@ class DenonAVRIOHTTP extends IPSModule
         if ($this->GetIDForIdent('InputMapping')) {
             $InputsMapping = GetValue($this->GetIDForIdent('InputMapping'));
             if (($InputsMapping !== '') && ($InputsMapping !== 'null')) {
-                $InputsMapping = json_decode($InputsMapping);
+                $InputsMapping  = json_decode($InputsMapping);
                 $Writeprotected = $InputsMapping->Writeprotected;
                 if (!$Writeprotected) {
                     $MappingInputsArr = json_decode($MappingInputs);
-                    $AVRType = $MappingInputsArr->AVRType;
+                    $AVRType          = $MappingInputsArr->AVRType;
                     SetValue($this->GetIDForIdent('InputMapping'), $MappingInputs);
                     SetValue($this->GetIDForIdent('AVRType'), $AVRType);
                 }
             } else {
                 $MappingInputsArr = json_decode($MappingInputs);
-                $AVRType = $MappingInputsArr->AVRType;
+                $AVRType          = $MappingInputsArr->AVRType;
                 SetValue($this->GetIDForIdent('InputMapping'), $MappingInputs);
                 SetValue($this->GetIDForIdent('AVRType'), $AVRType);
             }
@@ -216,7 +216,7 @@ class DenonAVRIOHTTP extends IPSModule
     {
         if ($this->GetIDForIdent('InputMapping')) {
             $MappingInputsArr = json_decode($MappingInputs);
-            $AVRType = $MappingInputsArr->AVRType;
+            $AVRType          = $MappingInputsArr->AVRType;
             SetValue($this->GetIDForIdent('InputMapping'), $MappingInputs);
             SetValue($this->GetIDForIdent('AVRType'), $AVRType);
         }
@@ -227,7 +227,7 @@ class DenonAVRIOHTTP extends IPSModule
         $InputsMapping = GetValue($this->GetIDForIdent('InputMapping'));
         $InputsMapping = json_decode($InputsMapping);
         //Varmapping generieren
-        $Inputs = $InputsMapping->Inputs;
+        $Inputs     = $InputsMapping->Inputs;
         $Varmapping = [];
         foreach ($Inputs as $Key => $Input) {
             $Command = $Input->Source;

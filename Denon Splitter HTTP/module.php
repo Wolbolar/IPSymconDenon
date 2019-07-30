@@ -8,10 +8,11 @@ class DenonSplitterHTTP extends IPSModule
 {
     protected $debug = false;
 
-    public function __construct($InstanceID) {
+    public function __construct($InstanceID)
+    {
         parent::__construct($InstanceID);
 
-        if (file_exists(IPS_GetLogDir() . 'denondebug.txt')){
+        if (file_exists(IPS_GetLogDir() . 'denondebug.txt')) {
             $this->debug = true;
         }
     }
@@ -69,12 +70,12 @@ class DenonSplitterHTTP extends IPSModule
         return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
     }
 
-        // Data an Child weitergeben
+    // Data an Child weitergeben
     public function ReceiveData($JSONString)
     {
 
         // Empfangene Daten vom Denon HTTP I/O
-        $data = json_decode($JSONString, false);
+        $data   = json_decode($JSONString, false);
         $dataio = json_encode($data->Buffer);
         $this->SendDebug('Buffer IN', $dataio, 0);
 
@@ -84,7 +85,9 @@ class DenonSplitterHTTP extends IPSModule
 
         // Weiterleitung zu allen Gerät-/Device-Instanzen
 
-        $this->SendDataToChildren(json_encode(['DataID' => '{D9209251-0036-48C2-AF96-9F5EDE761A52}', 'Buffer' => $data->Buffer])); //Denon HTTP Splitter Interface GUI
+        $this->SendDataToChildren(
+            json_encode(['DataID' => '{D9209251-0036-48C2-AF96-9F5EDE761A52}', 'Buffer' => $data->Buffer])
+        ); //Denon HTTP Splitter Interface GUI
     }
 
     //################# DATAPOINT RECEIVE FROM CHILD
@@ -93,12 +96,14 @@ class DenonSplitterHTTP extends IPSModule
     {
 
         // Empfangene Daten von der Device Instanz
-        $data = json_decode($JSONString, false);
+        $data     = json_decode($JSONString, false);
         $datasend = $data->Buffer;
         $this->SendDebug('Command Out', print_r($datasend, true), 0);
 
         // Weiterleiten zur I/O Instanz
-        $resultat = $this->SendDataToParent(json_encode(['DataID' => '{B403182C-3506-466C-B8D5-842D9237BF02}', 'Buffer' => $data->Buffer])); // Denon I/O HTTP TX GUI
+        $resultat = $this->SendDataToParent(
+            json_encode(['DataID' => '{B403182C-3506-466C-B8D5-842D9237BF02}', 'Buffer' => $data->Buffer])
+        ); // Denon I/O HTTP TX GUI
 
         // Weiterverarbeiten und durchreichen
         return $resultat;
