@@ -243,11 +243,7 @@ class DenonAVRHTTP extends AVRModule
         $manufacturername = $this->GetManufacturerName();
         $AVRType = $this->GetAVRType($manufacturername);
         $zone = $this->ReadPropertyInteger('Zone');
-
-        if ($this->debug) {
-            // $this->LogMessage('Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone, KL_WARNING);
-            IPS_LogMessage(__FUNCTION__, 'Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone);
-        }
+        $this->SendDebug(__FUNCTION__, 'Manufacturername: ' . $manufacturername . ', AVRType: ' . $AVRType . ', Zone: ' . $zone, 0);
 
         $form = [
             [
@@ -333,18 +329,15 @@ class DenonAVRHTTP extends AVRModule
                 );
             }
         }
-        if ($this->debug) {
-            file_put_contents(IPS_GetLogDir() . 'form_http_gen.json', json_encode($form));
-        }
+        $this->SendDebug('form_http_gen.json', json_encode($form), 0);
+        // file_put_contents(IPS_GetLogDir() . 'form_http_gen.json', json_encode($form));
         return $form;
     }
 
     private function FormMainzone($AVRType)
     {
         $AVRCaps = AVRs::getCapabilities($AVRType);
-        if ($this->debug) {
-            IPS_LogMessage(get_class() . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
-        }
+        $this->SendDebug(get_class() . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps), 0);
 
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
 
@@ -386,9 +379,7 @@ class DenonAVRHTTP extends AVRModule
     private function FormZone($Zone, $AVRType)
     {
         $AVRCaps = AVRs::getCapabilities($AVRType);
-        if ($this->debug) {
-            IPS_LogMessage(get_class() . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps));
-        }
+        $this->SendDebug(get_class() . '::' . __FUNCTION__, 'AVR Caps (' . $AVRType . '): ' . json_encode($AVRCaps), 0);
 
         $Zone = $Zone + 1;
         $profiles = (new DENONIPSProfiles($AVRType))->GetAllProfilesSortedByPos();
