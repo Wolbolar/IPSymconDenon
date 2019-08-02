@@ -4457,7 +4457,7 @@ class DenonAVRCP_API_Data extends stdClass
 
             // add special commands for volume response Z2** and Z3**
             for ($Vol = 0; $Vol <= 99; $Vol++) {
-                $formattedVolume = str_pad($Vol, 2, '0', STR_PAD_LEFT);
+                $formattedVolume = str_pad(strval($Vol), 2, '0', STR_PAD_LEFT);
                 $specialcommands['Z' . $Zone . $formattedVolume] = 'Z' . $Zone . 'VOL' . $formattedVolume;
             }
         }
