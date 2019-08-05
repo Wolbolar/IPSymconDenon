@@ -50,7 +50,10 @@
 			"please select a Denon AVR type.":"Bitte ein Denon AVR Modell auswählen.",
 			"please select a Marantz AVR type.":"Bitte ein Marantz AVR Modell auswählen.",
 			"select a manufacturer.":"Bitte einen Hersteller auswählen.",
-			"Please Select":"Bitte auswählen"
+			"Please Select":"Bitte auswählen",
+			"Expert Parameters": "Experten Einstellungen",
+			"Port": "Port",
+			"Debug information are written additionally to standard logfile": "Debug Informationen werden ergänzend in das Standard Log File geschrieben"
 		}
 	}
 }

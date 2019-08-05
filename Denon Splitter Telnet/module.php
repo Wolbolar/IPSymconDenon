@@ -28,7 +28,10 @@ class DenonSplitterTelnet extends IPSModule
         $this->RegisterPropertyString('Host', '');
 
         //we will set the instance status when the parent status changes
-        $this->RegisterMessage($this->GetParent(), IM_CHANGESTATUS);
+        if($this->GetParent() > 0)
+        {
+            $this->RegisterMessage($this->GetParent(), IM_CHANGESTATUS);
+        }
     }
 
     public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
@@ -181,7 +184,7 @@ class DenonSplitterTelnet extends IPSModule
     {
         $instance = IPS_GetInstance($this->InstanceID);
 
-        return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : false;
+        return ($instance['ConnectionID'] > 0) ? $instance['ConnectionID'] : 0;
     }
 
     public function GetStatusHTTP()
