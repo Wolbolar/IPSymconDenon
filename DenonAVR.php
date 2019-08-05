@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /* -----------------------------------------------------------------------------
  *                       Denon
    ---------------------------------------------------------------------------*/
@@ -1637,9 +1639,9 @@ class Denon_AVR_X4300H extends Denon_AVR_X4200W
 
 class Denon_AVR_X4400H extends Denon_AVR_X4300H
 {
-	// see Denon_8500H.xlsx
-	public static $Name = 'AVR-X4400H';
-	public static $internalID = 38;
+    // see Denon_8500H.xlsx
+    public static $Name = 'AVR-X4400H';
+    public static $internalID = 38;
     public static $PS_Commands = [
         DENON_API_Commands::PSTONECTRL,
         DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
@@ -2019,8 +2021,8 @@ class Denon_AVR_X6300H extends Denon_AVR_X6200W
 class Denon_AVR_X6400H extends Denon_AVR_X6300H
 {
     // see Denon_8500H.xlsx
-	public static $Name = 'AVR-X6400H';
-	public static $internalID = 26;
+    public static $Name = 'AVR-X6400H';
+    public static $internalID = 26;
 
     public static $PS_Commands = [
         DENON_API_Commands::PSTONECTRL,
@@ -2210,7 +2212,6 @@ class Denon_AVR_X7200W extends DenonAVR
         DENON_API_Commands::Z2STBY, DENON_API_Commands::Z3STBY,
     ];
 
-
 }
 
 class Denon_AVR_X7200WA extends Denon_AVR_X7200W
@@ -2227,7 +2228,6 @@ class Denon_AVR_X7200WA extends Denon_AVR_X7200W
    --------------------*/
 class Denon_AVC_X8500H extends Denon_AVR_X7200WA
 {
-
     public static $Name           = 'AVC-X8500H';
 
     public static $internalID     = 39;
