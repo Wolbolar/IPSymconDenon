@@ -11,7 +11,10 @@
 			"AVR is inactive.":"AVR ist inaktiv.",
 			"AVR ip address must not be empty.":"AVR IP Adresse darf nicht leer sein.",
 			"connection lost to AVR.":"Verbindung zum AVR verloren.",
-			"AVR ip address is not valid.":"Keine gültige IP Adresse."
+			"AVR ip address is not valid.":"Keine gültige IP Adresse.",
+			"Expert Parameters": "Experten Einstellungen",
+			"Port": "Port",
+			"Debug information are written additionally to standard logfile": "Debug Informationen werden ergänzend in das Standard Log File geschrieben"
 		}
 	}
 }

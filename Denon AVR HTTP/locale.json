@@ -27,9 +27,10 @@
 			"internet radio":"Internet Radio",
 			"display: (testmode)":"Display: (Testmode)",
 			"display":"Display",
-			"main zone:":"Main Zone:",
+			"main zone:":"Hauptzone (Main Zone):",
 			"speaker settings are only available with the telnet remote mode:":"Lautsprecher Einstellungen sind nur im Modus Telnet Steuerung nutzbar:",
 			"speaker:":"Lautsprecher:",
+			"category for creating NEO scripts:":"Kategorie zum Anlegen der NEO Skripte:",
 			"create helper scripts for toggling with NEO (Mediola)":"Hilfskripte für Toggle anlegen für NEO (Mediola)",
 			"create separate NEO toggle scripts":"NEO Toggle Skripte separat anlegen",
 			"category for creating NEO scripts":"Kategorie zum Anlegen der NEO Skripte",
@@ -45,7 +46,10 @@
 			"please select a Marantz AVR type.":"Bitte ein Marantz AVR Modell auswählen.",
 			"Please Select":"Bitte auswählen",
 			"select a manufacturer.":"Bitte einen Hersteller auswählen.",
-			"configure AVR splitter.":"AVR Splitter konfigurieren."
+			"configure AVR splitter.":"AVR Splitter konfigurieren.",
+			"Zone Settings:": "Zonen Einstellungen",
+			"Main Zone Settings:": "Hauptzone Einstellungen:"
+
 		}
 	}
 }

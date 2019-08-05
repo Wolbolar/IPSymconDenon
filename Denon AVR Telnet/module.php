@@ -995,14 +995,14 @@ class DenonAVRTelnet extends AVRModule
     //Stage Width
     public function StageWidth(float $Value): void
     { //Stage Width can be operated from -10 to +10 Step 0.5
-        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTW, $Value);
+        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTW, strval($Value));
         $this->SendCommand(DENON_API_Commands::PSSTW . $SubCommand);
     }
 
     //Stage Height
     public function StageHeight(float $Value): void
     { //Stage Width can be operated from -10 to +10 Step 0.5
-        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTH, $Value);
+        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTH, strval($Value));
         $this->SendCommand(DENON_API_Commands::PSSTH . $SubCommand);
     }
 
