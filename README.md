@@ -5,10 +5,10 @@ IPSymconDenonAVR PHP Module for IP-Symcon
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![StyleCI](https://github.styleci.io/repos/57190839/shield?branch=master)](https://github.styleci.io/repos/57190839)
 
-Modul für IP-Symcon ab Version 4.1. Ermöglicht die Kommunikation mit einem Denon AV Receiver oder Marantz AV Receiver.
+Modul für IP-Symcon ab Version 5.1. Ermöglicht die Kommunikation mit einem Denon AV Receiver oder Marantz AV Receiver.
 
  - [Deutsche Dokumentation](docs/de/README.md "Deutsche Dokumentation")
  
-Module for IP-Symcon version 4.1 or higher. Allows communication with a Denon AV Receiver or Marantz AV Receiver.
+Module for IP-Symcon version 5.1 or higher. Allows communication with a Denon AV Receiver or Marantz AV Receiver.
 
  - [English Documentation](docs/en/README.md "English documentation") 
