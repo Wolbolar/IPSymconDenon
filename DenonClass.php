@@ -128,7 +128,9 @@ class AVRModule extends IPSModule
                                 } elseif ($node->hasAttribute('style')) {
                                     $node->removeAttribute('style');
                                 }
-                                $content = substr($content, 1);
+                                if ($content !== ''){
+                                    $content = substr($content, 1);
+                                }
                             }
 
                             $node->nodeValue = utf8_decode($content);
@@ -2947,8 +2949,8 @@ class DENON_StatusHTML extends stdClass
 
         //RenameZone
         $RenameZone = $xml->xpath('.//RenameZone');
-        if ($RenameZone) {
-            $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim($RenameZone[0]->value), 'Subcommand' => 'MainZone Name'];
+        if ($RenameZone !== false) {
+            $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim((string) $RenameZone[0]->value), 'Subcommand' => 'MainZone Name'];
         }
 
         //InputFuncSelectMain
@@ -3092,7 +3094,7 @@ class DENON_StatusHTML extends stdClass
         //ModelName
         $ModelName = $xml->xpath('.//ModelName');
         if ($ModelName) {
-            $data['ModelName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim($ModelName[0]), 'Subcommand' => 'ModelName'];
+            $data['ModelName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim((string) $ModelName[0]->value), 'Subcommand' => 'ModelName'];
         }
 
         return $data;
@@ -3103,7 +3105,7 @@ class DENON_StatusHTML extends stdClass
         //Model
         $Model = $xml->xpath('.//Model');
         if ($Model) {
-            $ModelValue = str_replace(' ', '', trim($Model[0]->value));
+            $ModelValue = str_replace(' ', '', trim((string) $Model[0]->value));
             $data['Model'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => $ModelValue, 'Subcommand' => 'Model'];
         }
 
