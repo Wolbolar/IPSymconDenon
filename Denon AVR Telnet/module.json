@@ -9,5 +9,6 @@
     "parentRequirements": ["{01A68655-DDAF-4F79-9F35-65878A86F344}"],
     "childRequirements": [],
     "implemented": ["{7DC37CD4-44A1-4BA6-AC77-58369F5025BD}"],
-    "prefix": "DAVRT"
+    "prefix": "DAVRT",
+    "url": "https://github.com/Wolbolar/IPSymconDenon/blob/master/README.md"
 }

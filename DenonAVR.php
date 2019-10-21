@@ -868,7 +868,7 @@ class Denon_AVR_X2400H extends Denon_AVR_X2300W
 
 class Denon_AVR_X2500H extends Denon_AVR_X2400H
 {
-    // see AVR-X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
+    // see AVC-X6500H_AVR-X6500H_X4500H_X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
     public static $Name = 'AVR-X2500H';
     public static $internalID = 43;
     public static $SI_SubCommands = [
@@ -1144,7 +1144,7 @@ class Denon_AVR_X1400H extends Denon_AVR_X1300W
 
 class Denon_AVR_X1500H extends Denon_AVR_X1400H
 {
-    // see AVR-X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
+    // see AVC-X6500H_AVR-X6500H_X4500H_X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
     public static $Name = 'AVR-X1500H';
     public static $internalID = 42;
     public static $SI_SubCommands = [
@@ -1441,7 +1441,7 @@ class Denon_AVR_X3400H extends Denon_AVR_X3000
 
 class Denon_AVR_X3500H extends Denon_AVR_X3400H
 {
-    // see AVR-X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
+    // see AVC-X6500H_AVR-X6500H_X4500H_X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
     public static $Name = 'AVR-X3500H';
     public static $internalID = 44;
     public static $SI_SubCommands = [
@@ -1798,6 +1798,50 @@ class Denon_AVR_X4400H extends Denon_AVR_X4300H
         DENON_API_Commands::PSTONECTRL,
         DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
         DENON_API_Commands::PSDIL,
+        DENON_API_Commands::PSBSC,
+        DENON_API_Commands::PSSWL, DENON_API_Commands::PSSWL2,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSP,
+        DENON_API_Commands::PSPHG,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSLFC,
+        DENON_API_Commands::PSCNTAMT,
+        DENON_API_Commands::PSDSX,
+        DENON_API_Commands::PSSTW,
+        DENON_API_Commands::PSSTH,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSEFF,
+        DENON_API_Commands::PSDEL,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSNEURAL,
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSRSZ,
+        DENON_API_Commands::PSDELAY,
+        DENON_API_Commands::PSRSTR,
+        DENON_API_Commands::PSFRONT,
+        DENON_API_Commands::PSAUROPR,
+        DENON_API_Commands::PSAUROST,
+    ];
+}
+
+class Denon_AVR_X4500H extends Denon_AVR_X4400H
+{
+    // see AVC-X6500H_AVR-X6500H_X4500H_X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
+    public static $Name = 'AVR-X4500H';
+    public static $internalID = 45;
+    public static $PS_Commands = [
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSCLV,
         DENON_API_Commands::PSBSC,
         DENON_API_Commands::PSSWL, DENON_API_Commands::PSSWL2,
         DENON_API_Commands::PSCINEMAEQ,
@@ -2208,6 +2252,14 @@ class Denon_AVR_X6400H extends Denon_AVR_X6300H
         DENON_API_Commands::PSAUROPR,
         DENON_API_Commands::PSAUROST,
     ];
+}
+
+class Denon_AVR_X6500H extends Denon_AVR_X6400H
+{
+    // see AVC-X6500H_AVR-X6500H_X4500H_X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
+    public static $Name = 'AVR-X6500H';
+    public static $internalID = 46;
+
 }
 
 /* ---------------------
