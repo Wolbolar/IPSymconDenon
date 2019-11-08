@@ -4236,7 +4236,6 @@ class DenonAVRCP_API_Data extends stdClass
         DENON_API_Commands::MSDOLBYDIGITAL   => 'Dolby Digital',
         DENON_API_Commands::MSDTSSURROUND    => 'DTS Surround',
         DENON_API_Commands::MSAURO3D         => 'Auro 3D',
-//        DENON_API_Commands::AURO3D           => 'Auro 3D', //beim AVR X8500 beobachtet
         DENON_API_Commands::MSAURO2DSURR     => 'Auro 2D Surround',
         DENON_API_Commands::MSMCHSTEREO      => 'Multi Channel Stereo',
         DENON_API_Commands::MS7CHSTEREO      => '7 Channel Stereo',
