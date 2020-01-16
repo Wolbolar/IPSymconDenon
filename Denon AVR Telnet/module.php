@@ -94,9 +94,12 @@ class DenonAVRTelnet extends AVRModule
                 $data = $this->arrayToObject($data);
                 $this->UpdateVariable($data);
             }
+
+            $this->SetSummary(sprintf('%s:%s', $AVRType, $this->ReadPropertyInteger('Zone')));
         }
 
         $this->RegisterReferences();
+
     }
 
     private function ValidateConfiguration($manufacturername, $AVRType): void

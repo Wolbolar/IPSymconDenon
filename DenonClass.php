@@ -988,6 +988,7 @@ class DENONIPSProfiles extends stdClass
     public const ptMAINZONEAutoStandbySetting = 'MAINZONEAutoStandbySetting';
     public const ptMAINZONEECOModeSetting = 'MAINZONEECOModeSetting';
     public const ptCenterSpread = 'Centerspread';
+    public const ptSpeakerVirtualizer = 'SpeakerVirtualizer';
     public const ptNeural = 'Neural';
     public const ptAllZoneStereo = 'AllZoneStereo';
     public const ptAutoLipSync = 'AutoLipSync';
@@ -1115,6 +1116,7 @@ class DENONIPSProfiles extends stdClass
         self::ptCenterGain,
         self::ptDialogControl,
         self::ptNeural,
+        self::ptSpeakerVirtualizer,
         self::ptSurroundPlayMode,
         self::ptPLIIZHeightGain,
         self::ptAudysseyDSX,
@@ -1388,6 +1390,12 @@ class DENONIPSProfiles extends stdClass
                                                     'Associations' => [
                                                         [false, DENON_API_Commands::PSCESOFF],
                                                         [true, DENON_API_Commands::PSCESON],
+                                                    ], ],
+            self::ptSpeakerVirtualizer    => ['Type'                     => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PSSPV, 'Name' => 'Speaker Virtualizer',
+                                                    'PropertyName' => 'SpeakerVirtualizer',
+                                                    'Associations' => [
+                                                        [false, DENON_API_Commands::PSSPVOFF],
+                                                        [true, DENON_API_Commands::PSSPVON],
                                                     ], ],
             self::ptNeural   => ['Type'                     => DENONIPSVarType::vtBoolean, 'Ident' => DENON_API_Commands::PSNEURAL, 'Name' => 'Neural:X',
                                              'PropertyName' => 'Neural',
@@ -3627,6 +3635,7 @@ class DENON_API_Commands extends stdClass
     public const SDEXTIN = 'EXT.IN'; // Ext.In Mode
     public const SD71IN = '7.1IN'; // 7.1 In Mode
     public const SDNO = 'NO'; // no Input
+    public const SDARC = 'ARC'; // ARC (nur im Event)
 
     //DC Digital Input
     public const DCAUTO = 'AUTO'; // Auto Mode
@@ -4186,6 +4195,10 @@ class DENON_API_Commands extends stdClass
     public const PSCESON = ' ON'; // Center Spread On
     public const PSCESOFF = ' OFF'; // Center Spread Off
 
+    public const PSSPV = 'PSSPV'; // Speaker Virtualizer
+    public const PSSPVON = ' ON'; // Speaker Virtualizer On
+    public const PSSPVOFF = ' OFF'; // Speaker Virtualizer Off
+
     public const PSNEURAL = 'PSNEURAL'; // Center Spread
     public const PSNEURALON = ' ON'; // Center Spread On
     public const PSNEURALOFF = ' OFF'; // Center Spread Off
@@ -4508,9 +4521,10 @@ class DenonAVRCP_API_Data extends stdClass
                 continue;
             }
 
-            //die folgenden Antworten sind laut Denon Support zu ignorieren
+            //die Antworten 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS' sind laut Denon Support zu ignorieren
+            //auch mit SDARC und MS MAXxxx können wir nichts anfangen
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS'] as $Command){
+            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS', 'MS MAX', 'SDARC'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
                     continue;
@@ -4526,8 +4540,9 @@ class DenonAVRCP_API_Data extends stdClass
                 if (stripos($response, $Command) === 0) {// Subcommand ermitteln
                     $ResponseSubCommand = substr($response, strlen($Command));
                     if ($debug) {
-                        IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'Command found: ' . $Command . ', SubCommand: ' . $ResponseSubCommand);
+                        IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('Command found: %s, SubCommand: %s', $Command, $ResponseSubCommand));
                     }
+
                     /** @noinspection DegradedSwitchInspection */
                     switch ($Command) {
 
