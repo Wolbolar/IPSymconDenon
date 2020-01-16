@@ -53,6 +53,8 @@ require_once __DIR__ . '/DenonAVR.php';  // diverse Klassen
                 44 => "AVR-X3500H",
                 45 => "AVR-X4500H",
                 46 => "AVR-X6500H",
+                47 => "AVR-X1600H",
+                48 => "AVR-X2600H",
 
                 60 => "Marantz-NR1504", //
                 61 => "Marantz-NR1506", //
@@ -123,12 +125,14 @@ class AVRs extends stdClass
                 Denon_AVR_X1300W::$Name    => Denon_AVR_X1300W::getCapabilities(),
                 Denon_AVR_X1400H::$Name    => Denon_AVR_X1400H::getCapabilities(),
                 Denon_AVR_X1500H::$Name    => Denon_AVR_X1500H::getCapabilities(),
+                Denon_AVR_X1600H::$Name    => Denon_AVR_X1600H::getCapabilities(),
                 Denon_AVR_X2000::$Name     => Denon_AVR_X2000::getCapabilities(),
                 Denon_AVR_X2100W::$Name    => Denon_AVR_X2100W::getCapabilities(),
                 Denon_AVR_X2200W::$Name    => Denon_AVR_X2200W::getCapabilities(),
                 Denon_AVR_X2300W::$Name    => Denon_AVR_X2300W::getCapabilities(),
                 Denon_AVR_X2400H::$Name    => Denon_AVR_X2400H::getCapabilities(),
                 Denon_AVR_X2500H::$Name    => Denon_AVR_X2500H::getCapabilities(),
+                Denon_AVR_X2600H::$Name    => Denon_AVR_X2600H::getCapabilities(),
                 Denon_AVR_X3000::$Name     => Denon_AVR_X3000::getCapabilities(),
                 Denon_AVR_X3400H::$Name    => Denon_AVR_X3400H::getCapabilities(),
                 Denon_AVR_X3500H::$Name    => Denon_AVR_X3500H::getCapabilities(),
@@ -342,6 +346,7 @@ class AVR extends stdClass
         DENON_API_Commands::PSDIM,
         DENON_API_Commands::PSCEN,
         DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSSPV,
         DENON_API_Commands::PSCEI,
         DENON_API_Commands::PSCEG,
         DENON_API_Commands::PSDIC,
@@ -484,6 +489,9 @@ class AVR extends stdClass
                 break;
             case Denon_AVR_X2500H::$Name:
                 return new Denon_AVR_X2500H();
+                break;
+            case Denon_AVR_X2600H::$Name:
+                return new Denon_AVR_X2600H();
                 break;
             case Denon_AVR_X4100W::$Name:
                 return new Denon_AVR_X4100W();
