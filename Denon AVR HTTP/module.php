@@ -7,13 +7,13 @@ require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 class DenonAVRHTTP extends AVRModule
 {
     public static $NEO_Parameter = ['PW'      => ['DAVRH_Power', 'Power'],
-                             'ZM'             => ['DAVRH_MainZonePower', 'MainZonePower'],
-                             'MU'             => ['DAVRH_MainMute', 'Mute'],
-                             'Z2POWER'        => ['DAVRH_Zone2Power', 'Zone2Power'],
-                             'Z3POWER'        => ['DAVRH_Zone3Power', 'Zone3Power'],
-                             'Z2MU'           => ['DAVRH_Zone2Mute', 'Zone 2 Mute'],
-                             'Z3MU'           => ['DAVRH_Zone3Mute', 'Zone 3 Mute'],
-                            ];
+        'ZM'                                  => ['DAVRH_MainZonePower', 'MainZonePower'],
+        'MU'                                  => ['DAVRH_MainMute', 'Mute'],
+        'Z2POWER'                             => ['DAVRH_Zone2Power', 'Zone2Power'],
+        'Z3POWER'                             => ['DAVRH_Zone3Power', 'Zone3Power'],
+        'Z2MU'                                => ['DAVRH_Zone2Mute', 'Zone 2 Mute'],
+        'Z3MU'                                => ['DAVRH_Zone3Mute', 'Zone 3 Mute'],
+    ];
 
     public function Create()
     {
@@ -227,9 +227,9 @@ class DenonAVRHTTP extends AVRModule
     {
         // return current form
         return json_encode([
-                               'elements' => $this->FormElements(),
-                               'actions'  => $this->FormActions(),
-                               'status'   => $this->FormStatus()
+            'elements' => $this->FormElements(),
+            'actions'  => $this->FormActions(),
+            'status'   => $this->FormStatus()
         ]);
     }
 
@@ -362,7 +362,7 @@ class DenonAVRHTTP extends AVRModule
             //DENONIPSProfiles::ptSurroundMode, //z.Zt. nicht unterstützt, da der SR7010 z.B. mit 'DOLBY SURROUND' antwortet
             DENONIPSProfiles::ptMasterVolume,
             DENONIPSProfiles::ptSleep,
-                ] as $key) {
+        ] as $key) {
             $profile = $profiles[$key];
             $item = $this->getTypeItem('CheckBox', $profile['Ident'], $profile['PropertyName'], $profile['Name']);
             if ($item){
