@@ -774,20 +774,20 @@ class DenonAVRTelnet extends AVRModule
         if ($command === 'AUX') {
             if (in_array(
                 $AVRType, [
-                'AVR-X7200W',
-                'AVR-X5200W',
-                'AVR-X4100W',
-                'AVR-X3100W',
-                'AVR-X2000',
-                'AVR-X2100W',
-                'AVR-X2200W',
-                'AVR-X2300W',
-                'S900W',
-                'AVR-X7200WA',
-                'AVR-X6200W',
-                'AVR-X4200W',
-                'AVR-X3200W',
-                'AVR-X1200W']
+                    'AVR-X7200W',
+                    'AVR-X5200W',
+                    'AVR-X4100W',
+                    'AVR-X3100W',
+                    'AVR-X2000',
+                    'AVR-X2100W',
+                    'AVR-X2200W',
+                    'AVR-X2300W',
+                    'S900W',
+                    'AVR-X7200WA',
+                    'AVR-X6200W',
+                    'AVR-X4200W',
+                    'AVR-X3200W',
+                    'AVR-X1200W']
             )) {
                 $command = 'AUX1';
             } else {
@@ -1453,9 +1453,9 @@ class DenonAVRTelnet extends AVRModule
     {
         // return current form
         return json_encode([
-                               'elements' => $this->FormElements(),
-                               'actions'  => $this->FormActions(),
-                               'status'   => $this->FormStatus()
+            'elements' => $this->FormElements(),
+            'actions'  => $this->FormActions(),
+            'status'   => $this->FormStatus()
         ]);
     }
 
@@ -1564,9 +1564,9 @@ class DenonAVRTelnet extends AVRModule
                 continue;
             }
             $form[] = [
-                    'type'    => 'ExpansionPanel',
-                    'caption' => $label,
-                    'items'   => $this->FormAVRProfile($Zone, $AVRType, $commandArea, $profiles)];
+                'type'    => 'ExpansionPanel',
+                'caption' => $label,
+                'items'   => $this->FormAVRProfile($Zone, $AVRType, $commandArea, $profiles)];
         }
 
         $form = array_merge($form, $this->FormMoreInputs());
@@ -1658,15 +1658,15 @@ class DenonAVRTelnet extends AVRModule
         } else {
 
             $form = [
-                    [
-                        'type'    => 'Button',
-                        'caption' => 'Status initialisieren',
-                        'onClick' => 'DAVRT_GetStates($id);'
-                    ],
-                    [
-                        'type' => 'TestCenter'
-                    ]
-                ];
+                [
+                    'type'    => 'Button',
+                    'caption' => 'Status initialisieren',
+                    'onClick' => 'DAVRT_GetStates($id);'
+                ],
+                [
+                    'type' => 'TestCenter'
+                ]
+            ];
         }
 
         return $form;
