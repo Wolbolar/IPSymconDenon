@@ -915,6 +915,44 @@ class Denon_AVR_X2500H extends Denon_AVR_X2400H
     ];
 }
 
+class Denon_AVR_X2600H extends Denon_AVR_X2500H
+{
+    // see AVR-X2600H_X1600H_S950H_S750H_S650H_PROTOCOL_V01_20190729092628626.xlsx
+    public static $Name       = 'AVR-X2600H';
+
+    public static $internalID = 48;
+
+    public static $PS_Commands = [
+        DENON_API_Commands::PSFRONT,
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSWL,
+        DENON_API_Commands::PSCLV,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSSPV,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSNEURAL,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSEFF,
+        DENON_API_Commands::PSDEL,
+        DENON_API_Commands::PSRSZ,
+        DENON_API_Commands::PSDELAY,
+        DENON_API_Commands::PSRSTR,
+    ];
+
+}
+
 /* ---------------------
  * Denon AVR-X1x00W Serie
    --------------------*/
@@ -1193,6 +1231,13 @@ class Denon_AVR_X1500H extends Denon_AVR_X1400H
 
 }
 
+class Denon_AVR_X1600H extends Denon_AVR_X1500H
+{
+    // see AVR-X2600H_X1600H_S950H_S750H_S650H_PROTOCOL_V01_20190729092628626.xlsx
+    public static $Name       = 'AVR-X1600H';
+
+    public static $internalID = 47;
+}
 /* ---------------------
  * Denon AVR-X3x00 Serie
    --------------------*/
@@ -2453,7 +2498,7 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::AUX1,
         DENON_API_Commands::AUX2,
         DENON_API_Commands::BT,
-        ];
+    ];
 
     public static $CV_Commands    = [
         DENON_API_Commands::MV,
@@ -2477,7 +2522,7 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::CVTS,
         DENON_API_Commands::CVCH,
         DENON_API_Commands::CVZRL,
-        ];
+    ];
 
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -2497,7 +2542,7 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::MSMATRIX,
         DENON_API_Commands::MSVIDEOGAME,
         DENON_API_Commands::MSVIRTUAL,
-        ];
+    ];
 }
     /* ---------------------
      * Denon CEOL Serie
@@ -2525,7 +2570,7 @@ class Denon_DRA_N5 extends DenonAVR
 
     public static $CV_Commands = [
         DENON_API_Commands::MV,
-        ];
+    ];
 
     public static $PS_Commands = [
         DENON_API_Commands::PSBAS,
