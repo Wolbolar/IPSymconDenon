@@ -55,6 +55,7 @@ require_once __DIR__ . '/DenonAVR.php';  // diverse Klassen
                 46 => "AVR-X6500H",
                 47 => "AVR-X1600H",
                 48 => "AVR-X2600H",
+                49 => "AVR-4810",
 
                 60 => "Marantz-NR1504", //
                 61 => "Marantz-NR1506", //
@@ -120,6 +121,7 @@ class AVRs extends stdClass
             Denon_AVR_3313::$Name      => Denon_AVR_3313::getCapabilities(),
             Denon_AVR_4310::$Name      => Denon_AVR_4310::getCapabilities(),
             Denon_AVR_4311::$Name      => Denon_AVR_4311::getCapabilities(),
+            Denon_AVR_4810::$Name      => Denon_AVR_4810::getCapabilities(),
             Denon_AVR_X1100W::$Name    => Denon_AVR_X1100W::getCapabilities(),
             Denon_AVR_X1200W::$Name    => Denon_AVR_X1200W::getCapabilities(),
             Denon_AVR_X1300W::$Name    => Denon_AVR_X1300W::getCapabilities(),
@@ -471,6 +473,9 @@ class AVR extends stdClass
                 break;
             case Denon_AVR_4311::$Name:
                 return new Denon_AVR_4311();
+                break;
+            case Denon_AVR_4810::$Name:
+                return new Denon_AVR_4810();
                 break;
             case Denon_AVR_X2000::$Name:
                 return new Denon_AVR_X2000();
