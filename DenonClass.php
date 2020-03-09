@@ -205,7 +205,8 @@ class AVRModule extends IPSModule
         foreach ($profiles as $profile) {
             //some variables were registered with 'true' in the former version. So due to compatibility reasons they where registered with 'true' again
             $DefaultValue = in_array(
-                $profile['PropertyName'], [
+                $profile['PropertyName'],
+                [
                     DENONIPSProfiles::ptPower,
                     DENONIPSProfiles::ptMainZonePower,
                     DENONIPSProfiles::ptMainMute,
@@ -221,7 +222,8 @@ class AVRModule extends IPSModule
                     DENONIPSProfiles::ptZone2Volume,
                     DENONIPSProfiles::ptZone3Volume,
                     DENONIPSProfiles::ptZone2InputSource,
-                    DENONIPSProfiles::ptZone3InputSource, ], true
+                    DENONIPSProfiles::ptZone3InputSource, ],
+                true
             );
             $this->Logger_Dbg(__FUNCTION__, 'Property registered: ' . $profile['PropertyName'] . '(' . (int) $DefaultValue . ')');
             $this->RegisterPropertyBoolean($profile['PropertyName'], $DefaultValue);
@@ -302,9 +304,12 @@ class AVRModule extends IPSModule
                     case DENONIPSVarType::vtInteger:
                         $profilname = $manufacturername . '.' . $AVRType . '.' . $statusvariable['ProfilName'];
                         $this->CreateProfileIntegerAss(
-                            $profilname, $statusvariable['Icon'],
-                            $statusvariable['Prefix'], $statusvariable['Suffix'],
-                            $statusvariable['Stepsize'], $statusvariable['Digits'],
+                            $profilname,
+                            $statusvariable['Icon'],
+                            $statusvariable['Prefix'],
+                            $statusvariable['Suffix'],
+                            $statusvariable['Stepsize'],
+                            $statusvariable['Digits'],
                             $statusvariable['Associations']
                         );
 
@@ -2299,7 +2304,9 @@ class DENONIPSProfiles extends stdClass
                 return;
             }
             $Associations = $this->GetAssociationsOfInputSourcesAccordingToHTTPInfo(
-                $DenonIP, $caps['httpMainZone'], $Zone
+                $DenonIP,
+                $caps['httpMainZone'],
+                $Zone
             );
 
             if ($Associations === null) {
@@ -2639,7 +2646,16 @@ class DENONIPSProfiles extends stdClass
 
         //check if all profiles are used in MAX Capabilities
         $all_capabilities = array_merge(
-            AVR::$InfoFunctions_max, AVR::$PowerFunctions_max, AVR::$CV_Commands_max, AVR::$InputSettings_max, AVR::$PS_Commands_max, AVR::$PV_Commands_max, AVR::$SurroundMode_max, AVR::$VS_Commands_max, AVR::$SystemControl_Commands_max, AVR::$Zone_Commands_max
+            AVR::$InfoFunctions_max,
+            AVR::$PowerFunctions_max,
+            AVR::$CV_Commands_max,
+            AVR::$InputSettings_max,
+            AVR::$PS_Commands_max,
+            AVR::$PV_Commands_max,
+            AVR::$SurroundMode_max,
+            AVR::$VS_Commands_max,
+            AVR::$SystemControl_Commands_max,
+            AVR::$Zone_Commands_max
         );
 
         //check if all profiles are at least used in Capabilities_max

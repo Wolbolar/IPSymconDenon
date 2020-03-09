@@ -773,7 +773,8 @@ class DenonAVRTelnet extends AVRModule
         $AVRType          = $this->GetAVRType($manufacturername);
         if ($command === 'AUX') {
             if (in_array(
-                $AVRType, [
+                $AVRType,
+                [
                     'AVR-X7200W',
                     'AVR-X5200W',
                     'AVR-X4100W',
@@ -813,7 +814,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::PSATT . $SubCommand);
     }
 
-    /** Subwoofer Output Off
+    /** Subwoofer Output Off.
      *
      */
     public function SubwooferOutputOff(): void
@@ -821,7 +822,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::SSSPCSWF . DENON_API_Commands::NON);
     }
 
-    /** Subwoofer Output One
+    /** Subwoofer Output One.
      *
      */
     public function SubwooferOutputOne(): void
@@ -829,7 +830,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::SSSPCSWF . DENON_API_Commands::SPONE);
     }
 
-    /** Subwoofer Output Two
+    /** Subwoofer Output Two.
      *
      */
     public function SubwooferOutputTwo(): void
@@ -837,7 +838,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::SSSPCSWF . DENON_API_Commands::SPTWO);
     }
 
-    /** Speaker Front Small
+    /** Speaker Front Small.
      *
      */
     public function SpeakerFrontSmall(): void
@@ -845,7 +846,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::SSSPCFRO . DENON_API_Commands::SMA);
     }
 
-    /** Speaker Front Large
+    /** Speaker Front Large.
      *
      */
     public function SpeakerFrontLarge(): void
@@ -853,7 +854,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::SSSPCFRO . DENON_API_Commands::LAR);
     }
 
-    /** Subwoofer Output Two
+    /** Subwoofer Output Two.
      *
      */
     public function SpeakerCenterSmall(): void
@@ -861,7 +862,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::SSSPCCEN . DENON_API_Commands::SMA);
     }
 
-    /** Subwoofer Output Two
+    /** Subwoofer Output Two.
      *
      */
     public function SpeakerCenterLarge(): void
@@ -1065,7 +1066,7 @@ class DenonAVRTelnet extends AVRModule
         $this->SendCommand(DENON_API_Commands::PVENH . $SubCommand);
     }
 
-    /** HDMI Monitor
+    /** HDMI Monitor.
      * @param string $Value AUTO / 1 / 2
      */
     public function HDMIMonitor(string $Value): void
@@ -1521,12 +1522,18 @@ class DenonAVRTelnet extends AVRModule
         }
         elseif ($zone === 0) {
             $form = array_merge(
-                $form, $this->FormSelectionAVR($manufacturername), $this->FormSelectionZone(), $this->FormMainzone($zone, $AVRType),
+                $form,
+                $this->FormSelectionAVR($manufacturername),
+                $this->FormSelectionZone(),
+                $this->FormMainzone($zone, $AVRType),
                 $this->FormSelectionNEO()
             );
         } else {
             $form = array_merge(
-                $form, $this->FormSelectionAVR($manufacturername), $this->FormSelectionZone(), $this->FormZone($zone, $AVRType),
+                $form,
+                $this->FormSelectionAVR($manufacturername),
+                $this->FormSelectionZone(),
+                $this->FormZone($zone, $AVRType),
                 $this->FormSelectionNEO()
             );
         }

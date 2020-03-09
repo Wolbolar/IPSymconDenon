@@ -288,44 +288,55 @@ class DenonAVRHTTP extends AVRModule
         // selection model
         elseif ($AVRType === false) {
             $form = array_merge_recursive(
-                $form, $this->FormSelectionAVR($manufacturername)
+                $form,
+                $this->FormSelectionAVR($manufacturername)
             );
         }
         elseif ($zone == 6) {
             $form = array_merge_recursive(
-                $form, $this->FormSelectionAVR($manufacturername)
+                $form,
+                $this->FormSelectionAVR($manufacturername)
             );
             $form = array_merge_recursive(
-                $form, $this->FormSelectionZone()
+                $form,
+                $this->FormSelectionZone()
             );
         }
         else{
             if ($zone == 0) {
                 $form = array_merge_recursive(
-                    $form, $this->FormSelectionAVR($manufacturername)
+                    $form,
+                    $this->FormSelectionAVR($manufacturername)
                 );
                 $form = array_merge_recursive(
-                    $form, $this->FormSelectionZone()
+                    $form,
+                    $this->FormSelectionZone()
                 );
                 $form = array_merge_recursive(
-                    $form, $this->FormMainzone($AVRType)
+                    $form,
+                    $this->FormMainzone($AVRType)
                 );
                 $form = array_merge_recursive(
-                    $form, $this->FormSelectionNEO()
+                    $form,
+                    $this->FormSelectionNEO()
                 );
             }
             else{
                 $form = array_merge_recursive(
-                    $form, $this->FormSelectionAVR($manufacturername)
+                    $form,
+                    $this->FormSelectionAVR($manufacturername)
                 );
                 $form = array_merge_recursive(
-                    $form, $this->FormSelectionZone()
+                    $form,
+                    $this->FormSelectionZone()
                 );
                 $form = array_merge_recursive(
-                    $form, $this->FormZone($zone, $AVRType)
+                    $form,
+                    $this->FormZone($zone, $AVRType)
                 );
                 $form = array_merge_recursive(
-                    $form, $this->FormSelectionNEO()
+                    $form,
+                    $this->FormSelectionNEO()
                 );
             }
         }
@@ -371,7 +382,8 @@ class DenonAVRHTTP extends AVRModule
         }
 
         $form = array_merge(
-            $form, $this->FormMoreInputs()
+            $form,
+            $this->FormMoreInputs()
         );
         return $form;
     }
@@ -438,7 +450,8 @@ class DenonAVRHTTP extends AVRModule
        }
 
         $form = array_merge(
-            $form, $this->FormMoreInputs()
+            $form,
+            $this->FormMoreInputs()
         );
         return $form;
     }
