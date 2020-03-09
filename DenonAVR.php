@@ -530,6 +530,16 @@ class Denon_AVR_4311 extends Denon_AVR_4310
 }
 
 /* ---------------------
+ * Denon AVR-481x Serie
+   --------------------*/
+class Denon_AVR_4810 extends Denon_AVR_4310
+{
+    // see AVR4810CI_4810_PROTOCOL_V6.6.0.a.pdf (the same as 4310 but with 4 Zones)
+    public static $Name = 'AVR-4810';
+    public static $internalID = 49;
+}
+
+/* ---------------------
  * Denon AVR-X2x00 Serie
    --------------------*/
 class Denon_AVR_X2000 extends DenonAVR
