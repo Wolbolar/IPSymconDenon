@@ -35,10 +35,10 @@ class MarantzAVR extends AVR
         DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
         DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
         DENON_API_Commands::CVZRL,
-        ];
+    ];
     public static $PS_Commands = [
         DENON_API_Commands::PSDELAY,
-        ];
+    ];
 }
 
 /* ---------------------
@@ -2628,7 +2628,7 @@ class Marantz_AV8802 extends Marantz_AV8801
         DENON_API_Commands::CVBDL, DENON_API_Commands::CVBDR,
         DENON_API_Commands::CVSHL, DENON_API_Commands::CVSHR, DENON_API_Commands::CVTS,
         DENON_API_Commands::CVZRL,
-        ];
+    ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
         DENON_API_Commands::MSMUSIC,
