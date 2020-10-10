@@ -249,7 +249,7 @@ class DenonAVRTelnet extends AVRModule
 
         //Input übergeben
         $InputMapping = DAVRST_GetInputVarMapping($this->GetParent());
-        IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'InputMapping: ' . json_encode($InputMapping));
+        $this->Logger_Dbg(__FUNCTION__, 'Denon Telnet AVR: InputMapping: ' . json_encode($InputMapping));
 
         //Command aus Ident
         $APICommand = $this->GetAPICommandFromIdent($Ident);
@@ -257,9 +257,7 @@ class DenonAVRTelnet extends AVRModule
         // Subcommand holen
         $AVRType = $this->GetAVRType($this->GetManufacturerName());
         $APISubCommand = (new DENONIPSProfiles($AVRType, $InputMapping))->GetSubCommandOfValue($Ident, $Value);
-        IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, 'Ident: ' . $Ident . ', Value: ' . $Value . ', SubCommand: ' . $APISubCommand);
-
-        $this->Logger_Dbg(__FUNCTION__, 'Denon Telnet AVR, Denon Subcommand: ' . $APISubCommand);
+        $this->Logger_Dbg(__FUNCTION__, 'Denon Telnet AVR: Ident: ' . $Ident . ', Value: ' . $Value . ', SubCommand: ' . $APISubCommand);
 
         // Daten senden
         try {

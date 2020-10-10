@@ -4521,10 +4521,10 @@ class DenonAVRCP_API_Data extends stdClass
                 continue;
             }
 
-            //die Antworten 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS' sind laut Denon Support zu ignorieren
-            //auch mit SDARC und MS MAXxxx können wir nichts anfangen
+            //die Antworten 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSSMG', 'SSALS' sind laut Denon Support zu ignorieren
+            //auch mit SDARC, MS MAXxxx und CVEND können wir nichts anfangen
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS', 'MVMAX', 'SDARC'] as $Command){
+            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV','SSSMG', 'SSALS', 'MVMAX', 'SDARC', 'CVEND'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
                     continue;
@@ -4579,7 +4579,7 @@ class DenonAVRCP_API_Data extends stdClass
                                                          'Subcommand' => $ResponseSubCommand,
                                 ];
                             } else {
-                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in \'%s\'', $ResponseSubCommand, $response));
+                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in \'%s\', Model: %s', $ResponseSubCommand, $response, $this->AVRType));
                             }
                             break;
                     }
@@ -4589,7 +4589,7 @@ class DenonAVRCP_API_Data extends stdClass
                 }
             }
             if (!$response_found) {
-                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, '*Warning*: No mapping found for response "' . $response . '"');
+                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No mapping found for response \'%s\', Model: %s', $response, $this->AVRType));
             }
         }
 
