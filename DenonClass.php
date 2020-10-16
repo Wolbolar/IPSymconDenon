@@ -4466,7 +4466,7 @@ class DenonAVRCP_API_Data extends stdClass
 
     public function GetCommandResponse($InputMapping): ?array
     {
-        $debug = false;
+        $debug = true;
 
         //Debug Log
         if ($debug) {
@@ -4538,12 +4538,12 @@ class DenonAVRCP_API_Data extends stdClass
             }
 
             //die Antworten 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSSMG', 'SSALS' sind laut Denon Support zu ignorieren
-            //auch mit SDARC, MS MAXxxx und CVEND können wir nichts anfangen
+            //auch mit SDARC, SSIM, SSVCT, MS MAXxxx und CVEND können wir nichts anfangen
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV','SSSMG', 'SSALS', 'MVMAX', 'SDARC', 'CVEND'] as $Command){
+            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV','SSSMG', 'SSALS', 'SSIM', 'SSVCT', 'MVMAX', 'SDARC', 'CVEND'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
-                    continue;
+                    break;
                 }
             }
 
@@ -4595,7 +4595,8 @@ class DenonAVRCP_API_Data extends stdClass
                                     'Subcommand'                      => $ResponseSubCommand,
                                 ];
                             } else {
-                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in \'%s\', Model: %s', $ResponseSubCommand, $response, $this->AVRType));
+                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in response \'%s\', ValueMapping: %s, Model: %s, '
+                                    , $ResponseSubCommand, $response, json_encode($item['ValueMapping']), $this->AVRType));
                             }
                             break;
                     }
