@@ -1015,6 +1015,7 @@ class Denon_AVR_X1100W extends DenonAVR
         DENON_API_Commands::TUNER,
         DENON_API_Commands::AUX1,
         DENON_API_Commands::NET,
+        DENON_API_Commands::SERVER,
         DENON_API_Commands::BT,
     ];
     public static $PS_Commands = [
@@ -1188,6 +1189,19 @@ class Denon_AVR_X1400H extends Denon_AVR_X1300W
         DENON_API_Commands::CVSDL, DENON_API_Commands::CVSDR,
         DENON_API_Commands::CVZRL,
     ];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
+
 }
 
 class Denon_AVR_X1500H extends Denon_AVR_X1400H
