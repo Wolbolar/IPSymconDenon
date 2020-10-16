@@ -3553,7 +3553,7 @@ class DENON_API_Commands extends stdClass
     public const MXPORT = 'MXPORT'; // Select Input MXPORT
     public const SOURCE = 'SOURCE'; // Select Input Source of Main Zone
     public const ON = 'ON'; // Select Input Source On
-    public const OFF = 'ON'; // Select Input Source Off
+    public const OFF = 'OFF'; // Select Input Source Off
 
     public static $SIMapping = ['CBL/SAT'         => self::SAT_CBL,
         'MediaPlayer'                             => self::MPLAY,
@@ -4595,7 +4595,7 @@ class DenonAVRCP_API_Data extends stdClass
                                     'Subcommand'                      => $ResponseSubCommand,
                                 ];
                             } else {
-                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in response \'%s\', ValueMapping: %s, Model: %s, '
+                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in response \'%s\', ValueMapping: %s, Model: %s'
                                     , $ResponseSubCommand, $response, json_encode($item['ValueMapping']), $this->AVRType));
                             }
                             break;
