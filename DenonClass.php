@@ -4495,6 +4495,10 @@ class DenonAVRCP_API_Data extends stdClass
             $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::USB_IPOD] = DENON_API_Commands::SI . DENON_API_Commands::USB; //not documented, but tested
         }
 
+        if (in_array($this->AVRType, ['AVR-X1200W'])) {
+            $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::AUX1] = DENON_API_Commands::SI . 'AUX'; //not documented, but tested with AVR-X1200W
+        }
+
         // add special commands for zone responses
         for ($Zone = 2; $Zone <= 3; $Zone++) {
             $specialcommands['Z' . $Zone . 'ON'] = 'Z' . $Zone . 'POWERON';
@@ -4532,15 +4536,15 @@ class DenonAVRCP_API_Data extends stdClass
         }
 
         foreach ($this->Data as $response) {
-            if (strpos($response, 'NS')===0) {
-                //die Antworten 'NSA' und 'NSE' werden separat ausgewertet
+            if (strpos($response, 'NS') === 0) {
+                //die Antworten 'NSA' und 'NSE' werden separat in getDisplay ausgewertet
                 continue;
             }
 
-            //die Antworten 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSSMG', 'SSALS' sind laut Denon Support zu ignorieren
-            //auch mit SDARC, SSIM, SSVCT, MS MAXxxx und CVEND können wir nichts anfangen
+            //Antworten wie 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSSMG', 'SSALS' sind laut Denon Support zu ignorieren
+            //auch mit SDARC, OPT, MS MAXxxx und CVEND können wir nichts anfangen
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV','SSSMG', 'SSALS', 'SSIM', 'SSVCT', 'MVMAX', 'SDARC', 'CVEND'] as $Command){
+            foreach (['SS', 'AIS', 'SY', 'OPT', 'MVMAX', 'SDARC', 'CVEND'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
                     break;
@@ -4590,10 +4594,14 @@ class DenonAVRCP_API_Data extends stdClass
                                 return null;
                             }
                             if (array_key_exists($ResponseSubCommand, $item['ValueMapping'])) {
-                                $datavalues[$Command] = ['VarType'    => $item['VarType'],
-                                    'Value'                           => $item['ValueMapping'][$ResponseSubCommand],
-                                    'Subcommand'                      => $ResponseSubCommand,
+                                $datavalues[$Command] = [
+                                    'VarType'    => $item['VarType'],
+                                    'Value'      => $item['ValueMapping'][$ResponseSubCommand],
+                                    'Subcommand' => $ResponseSubCommand,
                                 ];
+                            } elseif (in_array($Command, [DENON_API_Commands::SI, DENON_API_Commands::Z2INPUT, DENON_API_Commands::Z3INPUT]) && in_array($ResponseSubCommand, [DENON_API_Commands::FAVORITES, DENON_API_Commands::IRADIO, DENON_API_Commands::SERVER, DENON_API_Commands::NAPSTER, DENON_API_Commands::LASTFM, DENON_API_Commands::FLICKR])) {
+                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Hint*: Input Source %s not configured, check your configuration. Current inputs: %s'
+                                    , $ResponseSubCommand, json_encode($item['ValueMapping'])));
                             } else {
                                 IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in response \'%s\', ValueMapping: %s, Model: %s'
                                     , $ResponseSubCommand, $response, json_encode($item['ValueMapping']), $this->AVRType));
