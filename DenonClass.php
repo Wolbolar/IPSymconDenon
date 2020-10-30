@@ -2975,9 +2975,9 @@ class DENON_StatusHTML extends stdClass
         }
 
         //RenameZone
-        $RenameZone = $xml->xpath('.//RenameZone');
-        if ($RenameZone !== false) {
-            $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim((string) $RenameZone[0]->value), 'Subcommand' => 'MainZone Name'];
+        $Element = $xml->xpath('.//RenameZone');
+        if ($Element) {
+            $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim((string) $Element[0]->value), 'Subcommand' => 'MainZone Name'];
         }
 
         //InputFuncSelectMain
