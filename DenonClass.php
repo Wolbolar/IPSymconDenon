@@ -2963,6 +2963,7 @@ class DENON_StatusHTML extends stdClass
         if ($Element) {
             $VarMapping = $VarMappings[DENON_API_Commands::PW];
             $SubCommand = strtoupper((string) $Element[0]->value);
+            $SubCommand = str_replace(DENON_API_Commands::OFF, DENON_API_Commands::PWSTANDBY, $SubCommand); //beim X1200 beobachtet
             $data[DENON_API_Commands::PW] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand];
         }
 
@@ -3509,6 +3510,7 @@ class DENON_API_Commands extends stdClass
     //PW
     public const PWON = 'ON'; // Power On
     public const PWSTANDBY = 'STANDBY'; // Power Standbye
+    public const PWOFF = 'OFF'; // Power OFF - beim X1200 im XML beobachtet
 
     //MV
     public const MVUP = 'UP'; // Master Volume Up
