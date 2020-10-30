@@ -2857,7 +2857,7 @@ class DENON_StatusHTML extends stdClass
         }
 
         try {
-            $xmlMainZone = @new SimpleXMLElement(file_get_contents('http://' . $ip . '/goform/formMainZone_MainZoneXml.xml'));
+            $xmlMainZone = @new SimpleXMLElement(file_get_contents('http://' . $ip . AVRs::getCapabilities($AVRType)['httpMainZone']));
             if ($xmlMainZone) {
                 $DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $VarMappings, $Inputs);
             } else {
@@ -3531,6 +3531,7 @@ class DENON_API_Commands extends stdClass
     public const DVR = 'DVR'; // Select Input Source DVR
     public const GAME = 'GAME'; // Select Input Source Game
     public const GAME2 = 'GAME2'; // Select Input Source Game
+    public const AUX = 'AUX'; // Select Input Source AUX
     public const AUX1 = 'AUX1'; // Select Input Source AUX1
     public const AUX2 = 'AUX2'; // Select Input Source AUX2
     public const VAUX = 'V.AUX'; // Select Input Source V.AUX
@@ -3587,6 +3588,7 @@ class DENON_API_Commands extends stdClass
         self::DVR,
         self::GAME,
         self::GAME2,
+        self::AUX,
         self::AUX1,
         self::AUX2,
         self::AUXA,
