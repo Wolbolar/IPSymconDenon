@@ -121,6 +121,9 @@ class AVRModule extends IPSModule
                         $doc->loadHTML($DisplayHTML);
                         foreach ($OnScreenDisplay as $row => $content) {
                             $node = $doc->getElementById('NSARow' . $row);
+                            if (!isset($node)){
+                                continue;
+                            }
                             if (($row > 0) && ($row < 8)) {
                                 if ((ord(substr($content, 0, 1)) & 8) === 8) { //Cursor Select (8) ist gesetzt
                                     $this->Logger_Dbg(__FUNCTION__, 'row: ' . $row . ', content[0]: ' . decbin(ord(substr($content, 0, 1))));
@@ -846,7 +849,7 @@ class DENONIPSVarType extends stdClass
 
 class DENONIPSProfiles extends stdClass
 {
-    private $debug = false;
+    private $debug = false; //wird im Constructor gesetzt
 
     private $AVRType;
     private $profiles;
@@ -2296,6 +2299,24 @@ class DENONIPSProfiles extends stdClass
 
     public function SetInputSources($DenonIP, $Zone, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR): void
     {
+        if ($this->debug) {
+            call_user_func(
+                $this->Logger_Dbg,
+                __CLASS__ . '::' . __FUNCTION__,
+                sprintf(
+                    'Parameters - IP: %s, Zone: %s, Favorites: %s, IRadio: %s, Server: %s, Nampster: %s, LastFM: %s, Flickr: %s',
+                    $DenonIP,
+                    $Zone,
+                    (int)$FAVORITES,
+                    (int)$IRADIO,
+                    (int)$SERVER,
+                    (int)$NAPSTER,
+                    (int)$LASTFM,
+                    (int)$FLICKR
+                )
+            );
+        }
+
         $caps = AVRs::getCapabilities($this->AVRType);
         if ($caps['httpMainZone'] !== DENON_HTTP_Interface::NoHTTPInterface) {
             if (!filter_var($DenonIP, FILTER_VALIDATE_IP)) {
@@ -4470,7 +4491,7 @@ class DenonAVRCP_API_Data extends stdClass
 
     public function GetCommandResponse($InputMapping): ?array
     {
-        $debug = true;
+        $debug = false;
 
         //Debug Log
         if ($debug) {

@@ -105,7 +105,9 @@ class DenonAVRTelnet extends AVRModule
     private function ValidateConfiguration($manufacturername, $AVRType): void
     {
         $Zone = $this->ReadPropertyInteger('Zone');
-        $DenonAVRVar = new DENONIPSProfiles($AVRType);
+        $DenonAVRVar = new DENONIPSProfiles($AVRType, null, function (string $message, string $data) {
+            $this->Logger_Dbg($message, $data);
+        });
         //Input ablegen, damit sie später dem Splitter zur Verfügung stehen
         try {
             DAVRST_SaveInputVarmapping($this->GetParent(), json_encode($this->GetInputsAVR($DenonAVRVar)));
