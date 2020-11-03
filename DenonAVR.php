@@ -1005,19 +1005,6 @@ class Denon_AVR_X1100W extends DenonAVR
         DENON_API_Commands::MSVIDEOGAME,
         DENON_API_Commands::MSVIRTUAL,
     ];
-    public static $SI_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::SERVER,
-        DENON_API_Commands::BT,
-    ];
     public static $PS_Commands = [
         DENON_API_Commands::PSTONECTRL,
         DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,

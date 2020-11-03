@@ -206,7 +206,13 @@ class AVRs extends stdClass
 
     public static function getCapabilities($AVRType)
     {
-        return self::getAllAVRs()[$AVRType];
+        $caps = self::getAllAVRs()[$AVRType];
+        if (($caps['httpMainZone'] !== DENON_HTTP_Interface::NoHTTPInterface) && (count($caps['SI_SubCommands']) > 0)){
+            trigger_error('Faulty configuration: No SI_SubCommands expected when httpMainZone is set', E_USER_ERROR);
+        } elseif (($caps['httpMainZone'] === DENON_HTTP_Interface::NoHTTPInterface) && (count($caps['SI_SubCommands']) === 0)){
+            trigger_error('Faulty configuration: No SI_SubCommands defined although httpMainZone is not set', E_USER_ERROR);
+        }
+        return $caps;
     }
 }
 
