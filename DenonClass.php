@@ -1219,9 +1219,6 @@ class DENONIPSProfiles extends stdClass
         if (isset($Logger_Dbg)){
             $this->debug = true;
             $this->Logger_Dbg = $Logger_Dbg;
-        }
-
-        if ($this->debug) {
             call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, 'AVRType: ' . ($AVRType ?? 'null') . ', InputMapping: ' . ($InputMapping === null ? 'null' : json_encode($InputMapping)));
         }
 
@@ -2488,7 +2485,7 @@ class DENONIPSProfiles extends stdClass
         } elseif ($Zone === 1) {
             $associations = $this->profiles[self::ptZone2InputSource]['Associations'];
         } elseif ($Zone === 2) {
-            $associations = $this->profiles[self::ptZone2InputSource]['Associations'];
+            $associations = $this->profiles[self::ptZone3InputSource]['Associations'];
         } else {
             trigger_error('unknown zone: ' . $Zone);
 
@@ -2838,7 +2835,7 @@ class DENONIPSProfiles extends stdClass
 
 class DENON_StatusHTML extends stdClass
 {
-    private $debug = false;
+    private $debug = false; //wird im Constructor gesetzt
 
     public function __construct(callable $Logger_Dbg = null)
     {
@@ -2854,7 +2851,12 @@ class DENON_StatusHTML extends stdClass
     {
         //Main
         $DataMain = [];
-        $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping);
+        if ($this->debug) {
+            $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping, $this->Logger_Dbg);
+        } else {
+            $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping);
+        }
+
         $VarMappings = $DenonAVRVar->GetVarMapping();
         $DenonAVRVar->SetInputSources(
             $ip,
@@ -2878,7 +2880,11 @@ class DENON_StatusHTML extends stdClass
         }
 
         try {
-            $xmlMainZone = @new SimpleXMLElement(file_get_contents('http://' . $ip . AVRs::getCapabilities($AVRType)['httpMainZone']));
+            $http = 'http://' . $ip . AVRs::getCapabilities($AVRType)['httpMainZone'];
+            if ($this->debug) {
+                call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, 'http (MainZone): ' . $http);
+            }
+            $xmlMainZone = @new SimpleXMLElement(file_get_contents($http));
             if ($xmlMainZone) {
                 $DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $VarMappings, $Inputs);
             } else {
@@ -3022,7 +3028,7 @@ class DENON_StatusHTML extends stdClass
 
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
-                call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, 'VarMapping: ' . json_encode($VarMapping) . ', SubCommand: ' . $SubCommand);
+                call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, sprintf('VarMapping: %s, SubCommand: %s', json_encode($VarMapping), $SubCommand));
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
@@ -3138,7 +3144,7 @@ class DENON_StatusHTML extends stdClass
         return $data;
     }
 
-    private function Deviceinfo(SimpleXMLElement $xml, $data)
+    private function Deviceinfo(SimpleXMLElement $xml, $data): array
     {
         //ModelName
         $ModelName = $xml->xpath('.//ModelName');
