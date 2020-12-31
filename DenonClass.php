@@ -78,6 +78,7 @@ class AVRModule extends IPSModule
     // Wertet Response aus und setzt Variable
     protected function UpdateVariable($data): bool
     {
+        //$data = json_decode('{"ResponseType":"TELNET","Data":[],"SurroundDisplay":"","Display":{"1":"\u0001GAMPER & DADONI - BITTERSWEET SYMPHONY (feat. Emily Roberts)","2":"\u0001Radio 7"}}');
         $this->Logger_Dbg(__FUNCTION__, 'data: ' . json_encode($data));
 
         $ResponseType = $data->ResponseType;
@@ -136,7 +137,6 @@ class AVRModule extends IPSModule
                                 }
                             }
 
-                            $node->nodeValue = utf8_decode($content);
                         }
 
                         SetValueString($idDisplay, $doc->saveHTML());

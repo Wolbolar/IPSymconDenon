@@ -2555,9 +2555,21 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::MSVIRTUAL,
     ];
 }
-    /* ---------------------
-     * Denon CEOL Serie
-       --------------------*/
+
+/* ---------------------
+ * Denon S Serie
+   --------------------*/
+class Denon_AVR_S750H extends Denon_AVR_X1600H
+{
+    // see AVR-X2600H_X1600H_S950H_S750H_S650H_PROTOCOL_V01_20190729092628626.xlsx
+    public static $Name       = 'AVR-S750H';
+
+    public static $internalID = 200;
+}
+
+/* ---------------------
+ * Denon CEOL Serie
+   --------------------*/
 class Denon_DRA_N5 extends DenonAVR
 {
     // see DRAN5_RCDN8_PROTOCOL_V.1.0.0.pdf
