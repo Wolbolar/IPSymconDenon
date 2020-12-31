@@ -137,6 +137,7 @@ class AVRModule extends IPSModule
                                 }
                             }
 
+                            $node->textContent = $content;
                         }
 
                         SetValueString($idDisplay, $doc->saveHTML());
