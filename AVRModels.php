@@ -56,6 +56,7 @@ require_once __DIR__ . '/DenonAVR.php';  // diverse Klassen
                 47 => "AVR-X1600H",
                 48 => "AVR-X2600H",
                 49 => "AVR-4810",
+                200 => "AVR-S750H",
 
                 60 => "Marantz-NR1504", //
                 61 => "Marantz-NR1506", //
@@ -152,6 +153,7 @@ class AVRs extends stdClass
             Denon_AVR_X7200W::$Name    => Denon_AVR_X7200W::getCapabilities(),
             Denon_AVR_X7200WA::$Name   => Denon_AVR_X7200WA::getCapabilities(),
             Denon_AVC_X8500H::$Name    => Denon_AVC_X8500H::getCapabilities(),
+            Denon_AVR_S750H::$Name     => Denon_AVR_S750H::getCapabilities(),
             Denon_DRA_N5::$Name        => Denon_DRA_N5::getCapabilities(),
             Denon_RCD_N8::$Name        => Denon_RCD_N8::getCapabilities(),
 
@@ -206,7 +208,13 @@ class AVRs extends stdClass
 
     public static function getCapabilities($AVRType)
     {
-        return self::getAllAVRs()[$AVRType];
+        $caps = self::getAllAVRs()[$AVRType];
+        if (($caps['httpMainZone'] !== DENON_HTTP_Interface::NoHTTPInterface) && (count($caps['SI_SubCommands']) > 0)){
+            trigger_error('Faulty configuration: No SI_SubCommands expected when httpMainZone is set', E_USER_ERROR);
+        } elseif (($caps['httpMainZone'] === DENON_HTTP_Interface::NoHTTPInterface) && (count($caps['SI_SubCommands']) === 0)){
+            trigger_error('Faulty configuration: No SI_SubCommands defined although httpMainZone is not set', E_USER_ERROR);
+        }
+        return $caps;
     }
 }
 
@@ -449,214 +457,146 @@ class AVR extends stdClass
         switch ($AVRType) {
             case Denon_AVR_X3000::$Name:
                 return new Denon_AVR_X3000();
-                break;
             case Denon_AVR_X3400H::$Name:
                 return new Denon_AVR_X3400H();
-                break;
             case Denon_AVR_X3500H::$Name:
                 return new Denon_AVR_X3500H();
-                break;
             case Denon_AVR_3310::$Name:
                 return new Denon_AVR_3310();
-                break;
             case Denon_AVR_3311::$Name:
                 return new Denon_AVR_3311();
-                break;
             case Denon_AVR_3312::$Name:
                 return new Denon_AVR_3312();
-                break;
             case Denon_AVR_3313::$Name:
                 return new Denon_AVR_3313();
-                break;
             case Denon_AVR_4310::$Name:
                 return new Denon_AVR_4310();
-                break;
             case Denon_AVR_4311::$Name:
                 return new Denon_AVR_4311();
-                break;
             case Denon_AVR_4810::$Name:
                 return new Denon_AVR_4810();
-                break;
             case Denon_AVR_X2000::$Name:
                 return new Denon_AVR_X2000();
-                break;
             case Denon_AVR_X2100W::$Name:
                 return new Denon_AVR_X2100W();
-                break;
             case Denon_AVR_X2200W::$Name:
                 return new Denon_AVR_X2200W();
-                break;
             case Denon_AVR_X2300W::$Name:
                 return new Denon_AVR_X2300W();
-                break;
             case Denon_AVR_X2400H::$Name:
                 return new Denon_AVR_X2400H();
-                break;
             case Denon_AVR_X2500H::$Name:
                 return new Denon_AVR_X2500H();
-                break;
             case Denon_AVR_X2600H::$Name:
                 return new Denon_AVR_X2600H();
-                break;
             case Denon_AVR_X4100W::$Name:
                 return new Denon_AVR_X4100W();
-                break;
             case Denon_AVR_X4200W::$Name:
                 return new Denon_AVR_X4200W();
-                break;
             case Denon_AVR_X4300H::$Name:
                 return new Denon_AVR_X4300H();
-                break;
             case Denon_AVR_X4400H::$Name:
                 return new Denon_AVR_X4400H();
-                break;
             case Denon_AVR_X5200W::$Name:
                 return new Denon_AVR_X5200W();
-                break;
             case Denon_AVR_X6200W::$Name:
                 return new Denon_AVR_X6200W();
-                break;
             case Denon_AVR_X6400H::$Name:
                 return new Denon_AVR_X6400H();
-                break;
             case Denon_AVR_X7200W::$Name:
                 return new Denon_AVR_X7200W();
-                break;
             case Denon_AVR_X7200WA::$Name:
                 return new Denon_AVR_X7200WA();
-                break;
             case Denon_AVC_X8500H::$Name:
                 return new Denon_AVC_X8500H();
-                break;
+            case Denon_AVR_S750H::$Name:
+                return new Denon_AVR_S750H();
             case Marantz_NR1504::$Name:
                 return new Marantz_NR1504();
-                break;
             case Marantz_NR1506::$Name:
                 return new Marantz_NR1506();
-                break;
             case Marantz_NR1508::$Name:
                 return new Marantz_NR1508();
-                break;
             case Marantz_NR1509::$Name:
                 return new Marantz_NR1509();
-                break;
             case Marantz_NR1602::$Name:
                 return new Marantz_NR1602();
-                break;
             case Marantz_NR1603::$Name:
                 return new Marantz_NR1603();
-                break;
             case Marantz_NR1604::$Name:
                 return new Marantz_NR1604();
-                break;
             case Marantz_NR1605::$Name:
                 return new Marantz_NR1605();
-                break;
             case Marantz_NR1606::$Name:
                 return new Marantz_NR1606();
-                break;
             case Marantz_NR1607::$Name:
                 return new Marantz_NR1607();
-                break;
             case Marantz_NR1608::$Name:
                 return new Marantz_NR1608();
-                break;
             case Marantz_NR1609::$Name:
                 return new Marantz_NR1609();
-                break;
             case Marantz_SR5006::$Name:
                 return new Marantz_SR5006();
-                break;
             case Marantz_SR5007::$Name:
                 return new Marantz_SR5007();
-                break;
             case Marantz_SR5008::$Name:
                 return new Marantz_SR5008();
-                break;
             case Marantz_SR5009::$Name:
                 return new Marantz_SR5009();
-                break;
             case Marantz_SR5010::$Name:
                 return new Marantz_SR5010();
-                break;
             case Marantz_SR5011::$Name:
                 return new Marantz_SR5011();
-                break;
             case Marantz_SR5012::$Name:
                 return new Marantz_SR5012();
-                break;
             case Marantz_SR5013::$Name:
                 return new Marantz_SR5013();
-                break;
             case Marantz_SR6005::$Name:
                 return new Marantz_SR6005();
-                break;
             case Marantz_SR6006::$Name:
                 return new Marantz_SR6006();
-                break;
             case Marantz_SR6007::$Name:
                 return new Marantz_SR6007();
-                break;
             case Marantz_SR6008::$Name:
                 return new Marantz_SR6008();
-                break;
             case Marantz_SR6009::$Name:
                 return new Marantz_SR6009();
-                break;
             case Marantz_SR6010::$Name:
                 return new Marantz_SR6010();
-                break;
             case Marantz_SR6011::$Name:
                 return new Marantz_SR6011();
-                break;
             case Marantz_SR6012::$Name:
                 return new Marantz_SR6012();
-                break;
             case Marantz_SR6013::$Name:
                 return new Marantz_SR6013();
-                break;
             case Marantz_AV7005::$Name:
                 return new Marantz_AV7005();
-                break;
             case Marantz_SR7010::$Name:
                 return new Marantz_SR7010();
-                break;
             case Marantz_SR7011::$Name:
                 return new Marantz_SR7011();
-                break;
             case Marantz_SR7012::$Name:
                 return new Marantz_SR7012();
-                break;
             case Marantz_SR7013::$Name:
                 return new Marantz_SR7013();
-                break;
             case Marantz_AV7701::$Name:
                 return new Marantz_AV7701();
-                break;
             case Marantz_AV7702::$Name:
                 return new Marantz_AV7702();
-                break;
             case Marantz_AV7702MKII::$Name:
                 return new Marantz_AV7702MKII();
-                break;
             case Marantz_AV7703::$Name:
                 return new Marantz_AV7703();
-                break;
             case Marantz_AV7704::$Name:
                 return new Marantz_AV7704();
-                break;
             case Marantz_AV7705::$Name:
                 return new Marantz_AV7705();
-                break;
             case Marantz_AV8801::$Name:
                 return new Marantz_AV8801();
-                break;
             case Marantz_AV8802::$Name:
                 return new Marantz_AV8802();
-                break;
             default:
                 trigger_error('unknown AVRType: ' . $AVRType);
-
                 return false;
         }
     }
