@@ -1005,18 +1005,6 @@ class Denon_AVR_X1100W extends DenonAVR
         DENON_API_Commands::MSVIDEOGAME,
         DENON_API_Commands::MSVIRTUAL,
     ];
-    public static $SI_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::BT,
-    ];
     public static $PS_Commands = [
         DENON_API_Commands::PSTONECTRL,
         DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
@@ -1188,6 +1176,19 @@ class Denon_AVR_X1400H extends Denon_AVR_X1300W
         DENON_API_Commands::CVSDL, DENON_API_Commands::CVSDR,
         DENON_API_Commands::CVZRL,
     ];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::BD,
+        DENON_API_Commands::TV,
+        DENON_API_Commands::SAT_CBL,
+        DENON_API_Commands::MPLAY,
+        DENON_API_Commands::GAME,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::AUX1,
+        DENON_API_Commands::NET,
+        DENON_API_Commands::BT,
+    ];
+
 }
 
 class Denon_AVR_X1500H extends Denon_AVR_X1400H
@@ -2554,9 +2555,21 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
         DENON_API_Commands::MSVIRTUAL,
     ];
 }
-    /* ---------------------
-     * Denon CEOL Serie
-       --------------------*/
+
+/* ---------------------
+ * Denon S Serie
+   --------------------*/
+class Denon_AVR_S750H extends Denon_AVR_X1600H
+{
+    // see AVR-X2600H_X1600H_S950H_S750H_S650H_PROTOCOL_V01_20190729092628626.xlsx
+    public static $Name       = 'AVR-S750H';
+
+    public static $internalID = 200;
+}
+
+/* ---------------------
+ * Denon CEOL Serie
+   --------------------*/
 class Denon_DRA_N5 extends DenonAVR
 {
     // see DRAN5_RCDN8_PROTOCOL_V.1.0.0.pdf

@@ -78,6 +78,7 @@ class AVRModule extends IPSModule
     // Wertet Response aus und setzt Variable
     protected function UpdateVariable($data): bool
     {
+        //$data = json_decode('{"ResponseType":"TELNET","Data":[],"SurroundDisplay":"","Display":{"1":"\u0001GAMPER & DADONI - BITTERSWEET SYMPHONY (feat. Emily Roberts)","2":"\u0001Radio 7"}}');
         $this->Logger_Dbg(__FUNCTION__, 'data: ' . json_encode($data));
 
         $ResponseType = $data->ResponseType;
@@ -121,6 +122,9 @@ class AVRModule extends IPSModule
                         $doc->loadHTML($DisplayHTML);
                         foreach ($OnScreenDisplay as $row => $content) {
                             $node = $doc->getElementById('NSARow' . $row);
+                            if (!isset($node)){
+                                continue;
+                            }
                             if (($row > 0) && ($row < 8)) {
                                 if ((ord(substr($content, 0, 1)) & 8) === 8) { //Cursor Select (8) ist gesetzt
                                     $this->Logger_Dbg(__FUNCTION__, 'row: ' . $row . ', content[0]: ' . decbin(ord(substr($content, 0, 1))));
@@ -133,7 +137,7 @@ class AVRModule extends IPSModule
                                 }
                             }
 
-                            $node->nodeValue = utf8_decode($content);
+                            $node->textContent = $content;
                         }
 
                         SetValueString($idDisplay, $doc->saveHTML());
@@ -846,7 +850,7 @@ class DENONIPSVarType extends stdClass
 
 class DENONIPSProfiles extends stdClass
 {
-    private $debug = false;
+    private $debug = false; //wird im Constructor gesetzt
 
     private $AVRType;
     private $profiles;
@@ -1216,9 +1220,6 @@ class DENONIPSProfiles extends stdClass
         if (isset($Logger_Dbg)){
             $this->debug = true;
             $this->Logger_Dbg = $Logger_Dbg;
-        }
-
-        if ($this->debug) {
             call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, 'AVRType: ' . ($AVRType ?? 'null') . ', InputMapping: ' . ($InputMapping === null ? 'null' : json_encode($InputMapping)));
         }
 
@@ -2296,6 +2297,24 @@ class DENONIPSProfiles extends stdClass
 
     public function SetInputSources($DenonIP, $Zone, $FAVORITES, $IRADIO, $SERVER, $NAPSTER, $LASTFM, $FLICKR): void
     {
+        if ($this->debug) {
+            call_user_func(
+                $this->Logger_Dbg,
+                __CLASS__ . '::' . __FUNCTION__,
+                sprintf(
+                    'Parameters - IP: %s, Zone: %s, Favorites: %s, IRadio: %s, Server: %s, Nampster: %s, LastFM: %s, Flickr: %s',
+                    $DenonIP,
+                    $Zone,
+                    (int)$FAVORITES,
+                    (int)$IRADIO,
+                    (int)$SERVER,
+                    (int)$NAPSTER,
+                    (int)$LASTFM,
+                    (int)$FLICKR
+                )
+            );
+        }
+
         $caps = AVRs::getCapabilities($this->AVRType);
         if ($caps['httpMainZone'] !== DENON_HTTP_Interface::NoHTTPInterface) {
             if (!filter_var($DenonIP, FILTER_VALIDATE_IP)) {
@@ -2467,7 +2486,7 @@ class DENONIPSProfiles extends stdClass
         } elseif ($Zone === 1) {
             $associations = $this->profiles[self::ptZone2InputSource]['Associations'];
         } elseif ($Zone === 2) {
-            $associations = $this->profiles[self::ptZone2InputSource]['Associations'];
+            $associations = $this->profiles[self::ptZone3InputSource]['Associations'];
         } else {
             trigger_error('unknown zone: ' . $Zone);
 
@@ -2817,7 +2836,7 @@ class DENONIPSProfiles extends stdClass
 
 class DENON_StatusHTML extends stdClass
 {
-    private $debug = false;
+    private $debug = false; //wird im Constructor gesetzt
 
     public function __construct(callable $Logger_Dbg = null)
     {
@@ -2833,7 +2852,12 @@ class DENON_StatusHTML extends stdClass
     {
         //Main
         $DataMain = [];
-        $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping);
+        if ($this->debug) {
+            $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping, $this->Logger_Dbg);
+        } else {
+            $DenonAVRVar = new DENONIPSProfiles($AVRType, $InputMapping);
+        }
+
         $VarMappings = $DenonAVRVar->GetVarMapping();
         $DenonAVRVar->SetInputSources(
             $ip,
@@ -2857,7 +2881,11 @@ class DENON_StatusHTML extends stdClass
         }
 
         try {
-            $xmlMainZone = @new SimpleXMLElement(file_get_contents('http://' . $ip . '/goform/formMainZone_MainZoneXml.xml'));
+            $http = 'http://' . $ip . AVRs::getCapabilities($AVRType)['httpMainZone'];
+            if ($this->debug) {
+                call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, 'http (MainZone): ' . $http);
+            }
+            $xmlMainZone = @new SimpleXMLElement(file_get_contents($http));
             if ($xmlMainZone) {
                 $DataMain = $this->MainZoneXml($xmlMainZone, $DataMain, $VarMappings, $Inputs);
             } else {
@@ -2963,6 +2991,7 @@ class DENON_StatusHTML extends stdClass
         if ($Element) {
             $VarMapping = $VarMappings[DENON_API_Commands::PW];
             $SubCommand = strtoupper((string) $Element[0]->value);
+            $SubCommand = str_replace(DENON_API_Commands::OFF, DENON_API_Commands::PWSTANDBY, $SubCommand); //beim X1200 beobachtet
             $data[DENON_API_Commands::PW] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand];
         }
 
@@ -2975,9 +3004,9 @@ class DENON_StatusHTML extends stdClass
         }
 
         //RenameZone
-        $RenameZone = $xml->xpath('.//RenameZone');
-        if ($RenameZone !== false) {
-            $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim((string) $RenameZone[0]->value), 'Subcommand' => 'MainZone Name'];
+        $Element = $xml->xpath('.//RenameZone');
+        if ($Element) {
+            $data['MainZoneName'] = ['VarType' => DENONIPSVarType::vtString, 'Value' => trim((string) $Element[0]->value), 'Subcommand' => 'MainZone Name'];
         }
 
         //InputFuncSelectMain
@@ -3000,7 +3029,7 @@ class DENON_StatusHTML extends stdClass
 
             $VarMapping = $VarMappings[DENON_API_Commands::SI];
             if ($this->debug) {
-                call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, 'VarMapping: ' . json_encode($VarMapping) . ', SubCommand: ' . $SubCommand);
+                call_user_func($this->Logger_Dbg, __CLASS__ . '::' . __FUNCTION__, sprintf('VarMapping: %s, SubCommand: %s', json_encode($VarMapping), $SubCommand));
             }
 
             $data[DENON_API_Commands::SI] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][strtoupper($SubCommand)], 'Subcommand' => $SubCommand];
@@ -3116,7 +3145,7 @@ class DENON_StatusHTML extends stdClass
         return $data;
     }
 
-    private function Deviceinfo(SimpleXMLElement $xml, $data)
+    private function Deviceinfo(SimpleXMLElement $xml, $data): array
     {
         //ModelName
         $ModelName = $xml->xpath('.//ModelName');
@@ -3509,6 +3538,7 @@ class DENON_API_Commands extends stdClass
     //PW
     public const PWON = 'ON'; // Power On
     public const PWSTANDBY = 'STANDBY'; // Power Standbye
+    public const PWOFF = 'OFF'; // Power OFF - beim X1200 im XML beobachtet
 
     //MV
     public const MVUP = 'UP'; // Master Volume Up
@@ -3531,6 +3561,7 @@ class DENON_API_Commands extends stdClass
     public const DVR = 'DVR'; // Select Input Source DVR
     public const GAME = 'GAME'; // Select Input Source Game
     public const GAME2 = 'GAME2'; // Select Input Source Game
+    public const AUX = 'AUX'; // Select Input Source AUX
     public const AUX1 = 'AUX1'; // Select Input Source AUX1
     public const AUX2 = 'AUX2'; // Select Input Source AUX2
     public const VAUX = 'V.AUX'; // Select Input Source V.AUX
@@ -3553,7 +3584,7 @@ class DENON_API_Commands extends stdClass
     public const MXPORT = 'MXPORT'; // Select Input MXPORT
     public const SOURCE = 'SOURCE'; // Select Input Source of Main Zone
     public const ON = 'ON'; // Select Input Source On
-    public const OFF = 'ON'; // Select Input Source Off
+    public const OFF = 'OFF'; // Select Input Source Off
 
     public static $SIMapping = ['CBL/SAT'         => self::SAT_CBL,
         'MediaPlayer'                             => self::MPLAY,
@@ -3587,6 +3618,7 @@ class DENON_API_Commands extends stdClass
         self::DVR,
         self::GAME,
         self::GAME2,
+        self::AUX,
         self::AUX1,
         self::AUX2,
         self::AUXA,
@@ -4495,6 +4527,10 @@ class DenonAVRCP_API_Data extends stdClass
             $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::USB_IPOD] = DENON_API_Commands::SI . DENON_API_Commands::USB; //not documented, but tested
         }
 
+        if (in_array($this->AVRType, ['AVR-X1200W'])) {
+            $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::AUX1] = DENON_API_Commands::SI . 'AUX'; //not documented, but tested with AVR-X1200W
+        }
+
         // add special commands for zone responses
         for ($Zone = 2; $Zone <= 3; $Zone++) {
             $specialcommands['Z' . $Zone . 'ON'] = 'Z' . $Zone . 'POWERON';
@@ -4532,18 +4568,18 @@ class DenonAVRCP_API_Data extends stdClass
         }
 
         foreach ($this->Data as $response) {
-            if (strpos($response, 'NS')===0) {
-                //die Antworten 'NSA' und 'NSE' werden separat ausgewertet
+            if (strpos($response, 'NS') === 0) {
+                //die Antworten 'NSA' und 'NSE' werden separat in getDisplay ausgewertet
                 continue;
             }
 
-            //die Antworten 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS' sind laut Denon Support zu ignorieren
-            //auch mit SDARC und MS MAXxxx können wir nichts anfangen
+            //Antworten wie 'SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSSMG', 'SSALS' sind laut Denon Support zu ignorieren
+            //auch mit SDARC, OPT, MS MAXxxx und CVEND können wir nichts anfangen
             $commandToBeIgnored = false;
-            foreach (['SSINF', 'AISFSV', 'AISSIG', 'SSSMV', 'SSALS', 'MVMAX', 'SDARC'] as $Command){
+            foreach (['SS', 'AIS', 'SY', 'OPT', 'MVMAX', 'SDARC', 'CVEND'] as $Command){
                 if (strpos($response, $Command) === 0) {
                     $commandToBeIgnored = true;
-                    continue;
+                    break;
                 }
             }
 
@@ -4590,12 +4626,17 @@ class DenonAVRCP_API_Data extends stdClass
                                 return null;
                             }
                             if (array_key_exists($ResponseSubCommand, $item['ValueMapping'])) {
-                                $datavalues[$Command] = ['VarType'    => $item['VarType'],
-                                    'Value'                           => $item['ValueMapping'][$ResponseSubCommand],
-                                    'Subcommand'                      => $ResponseSubCommand,
+                                $datavalues[$Command] = [
+                                    'VarType'    => $item['VarType'],
+                                    'Value'      => $item['ValueMapping'][$ResponseSubCommand],
+                                    'Subcommand' => $ResponseSubCommand,
                                 ];
+                            } elseif (in_array($Command, [DENON_API_Commands::SI, DENON_API_Commands::Z2INPUT, DENON_API_Commands::Z3INPUT]) && in_array($ResponseSubCommand, [DENON_API_Commands::FAVORITES, DENON_API_Commands::IRADIO, DENON_API_Commands::SERVER, DENON_API_Commands::NAPSTER, DENON_API_Commands::LASTFM, DENON_API_Commands::FLICKR])) {
+                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Hint*: Input Source %s not configured, check your configuration. Current inputs: %s'
+                                    , $ResponseSubCommand, json_encode($item['ValueMapping'])));
                             } else {
-                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in \'%s\'', $ResponseSubCommand, $response));
+                                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No value found for SubCommand \'%s\' in response \'%s\', ValueMapping: %s, Model: %s'
+                                    , $ResponseSubCommand, $response, json_encode($item['ValueMapping']), $this->AVRType));
                             }
                             break;
                     }
@@ -4605,7 +4646,7 @@ class DenonAVRCP_API_Data extends stdClass
                 }
             }
             if (!$response_found) {
-                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, '*Warning*: No mapping found for response "' . $response . '"');
+                IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Warning*: No mapping found for response \'%s\', Model: %s', $response, $this->AVRType));
             }
         }
 
