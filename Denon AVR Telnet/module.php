@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection PhpVariableVariableInspection */
 require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 /** @noinspection AutoloadingIssuesInspection */
@@ -63,6 +62,7 @@ class DenonAVRTelnet extends AVRModule
                 /** @noinspection PhpVariableVariableInspection */
                 $object->$key = $this->arrayToObject($value);
             } else {
+                /** @noinspection PhpVariableVariableInspection */
                 $object->$key = $value;
             }
         }
@@ -142,6 +142,7 @@ class DenonAVRTelnet extends AVRModule
             foreach ($CommandAreas as $commandArea) {
                 if ($this->testAllProperties) {
                     $commandArea_max = $commandArea . '_max';
+                    /** @noinspection PhpVariableVariableInspection */
                     $Caps = AVR::$$commandArea_max;
                 } else {
                     $Caps = $AVRCaps[$commandArea];
@@ -1616,6 +1617,7 @@ class DenonAVRTelnet extends AVRModule
             foreach ($profiles as $profile) {
                 if ($this->testAllProperties) {
                     $commandArea_max = $commandArea . '_max';
+                    /** @noinspection PhpVariableVariableInspection */
                     $Caps = AVR::$$commandArea_max;
                 } else {
                     $Caps = $AVRCaps[$commandArea];

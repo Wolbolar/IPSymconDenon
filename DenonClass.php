@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection SpellCheckingInspection */
 require_once __DIR__ . '/AVRModels.php';  // diverse Klassen
 
 class AVRModule extends IPSModule
@@ -3551,10 +3550,12 @@ class DENON_API_Commands extends stdClass
     public const FM = 'FM'; // Select Input Source FM
     public const DAB = 'DAB'; // Select Input Source DAB
     public const DVD = 'DVD'; // Select Input Source DVD
+    public const HDP = 'HDP'; // Select Input Source HDP
     public const BD = 'BD'; // Select Input Source BD
     public const BT = 'BT'; // Select Input Source Blutooth
     public const MPLAY = 'MPLAY'; // Select Input Source Mediaplayer
     public const TV = 'TV'; // Select Input Source TV
+    public const TV_CBL = 'TV/CBL'; // Select Input Source TV/CBL
     public const SAT_CBL = 'SAT/CBL'; // Select Input Source Sat/CBL
     public const SAT = 'SAT'; // Select Input Source Sat
     public const VCR = 'VCR'; // Select Input Source VCR
@@ -3607,11 +3608,13 @@ class DENON_API_Commands extends stdClass
         self::PHONO,
         self::CD,
         self::TUNER,
-        self::DVR,
+        self::DVD,
+        self::HDP,
         self::BD,
         self::BT,
         self::MPLAY,
         self::TV,
+        self::TV_CBL,
         self::SAT_CBL,
         self::SAT,
         self::VCR,
@@ -4527,7 +4530,7 @@ class DenonAVRCP_API_Data extends stdClass
             $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::USB_IPOD] = DENON_API_Commands::SI . DENON_API_Commands::USB; //not documented, but tested
         }
 
-        if (in_array($this->AVRType, ['AVR-X1200W'])) {
+        if ($this->AVRType === 'AVR-X1200W') {
             $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::AUX1] = DENON_API_Commands::SI . 'AUX'; //not documented, but tested with AVR-X1200W
         }
 

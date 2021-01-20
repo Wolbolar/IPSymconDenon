@@ -32,6 +32,20 @@ class Denon_AVR_3808A extends DenonAVR
     public static $internalID = 3;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
     public static $InfoFunctions = [];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::PHONO,
+        DENON_API_Commands::CD,
+        DENON_API_Commands::TUNER,
+        DENON_API_Commands::DVD,
+        DENON_API_Commands::HDP,
+        DENON_API_Commands::TV_CBL,
+        DENON_API_Commands::SAT,
+        DENON_API_Commands::VCR,
+        DENON_API_Commands::DVR,
+        DENON_API_Commands::VAUX,
+        DENON_API_Commands::NETUSB,
+        DENON_API_Commands::IPOD,
+    ];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
