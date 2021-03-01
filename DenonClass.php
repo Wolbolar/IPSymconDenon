@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection SpellCheckingInspection */
 require_once __DIR__ . '/AVRModels.php';  // diverse Klassen
 
 class AVRModule extends IPSModule
@@ -557,7 +556,7 @@ class AVRModule extends IPSModule
 
     protected function FormSelectionZone(): array
     {
-        $form = [
+        return [
             [
                 'type'    => 'Label',
                 'caption' => 'Please select an AVR zone and push the "Apply Changes" button'
@@ -586,12 +585,11 @@ class AVRModule extends IPSModule
                 ]
             ]
         ];
-        return $form;
     }
 
     protected function FormSelectionAVR($manufacturer): array
     {
-        $form = [
+        return [
             [
                 'type'    => 'Label',
                 'caption' => 'Please select an AVR zone and push the "Apply Changes" button'
@@ -603,7 +601,6 @@ class AVRModule extends IPSModule
                 'options' => $this->FormSelectionAVROptions($manufacturer)
             ]
         ];
-        return $form;
     }
 
     protected function FormSelectionAVROptions(string $manufacturer): array
@@ -627,7 +624,7 @@ class AVRModule extends IPSModule
 
     protected function FormSelectionNEO(): array
     {
-        $form = [
+        return [
             [
                 'type'    => 'ExpansionPanel',
                 'caption' => 'create helper scripts for toggling with NEO (Mediola)',
@@ -649,12 +646,11 @@ class AVRModule extends IPSModule
                 ]
             ]
         ];
-        return $form;
     }
 
     protected function FormMoreInputs(): array
     {
-        $form = [
+        return [
             [
                 'type'    => 'ExpansionPanel',
                 'caption' => 'more inputs',
@@ -692,7 +688,6 @@ class AVRModule extends IPSModule
                 ]
             ]
         ];
-        return $form;
     }
 
     protected function FormExpertParameters(): array
@@ -712,7 +707,7 @@ class AVRModule extends IPSModule
 
     protected function FormStatus(): array
     {
-        $form =  [
+        return  [
             [
                 'code'    => 204,
                 'icon'    => 'error',
@@ -744,7 +739,6 @@ class AVRModule extends IPSModule
                 'caption' => 'please select a Marantz AVR type.'
             ]
         ];
-        return $form;
     }
 
     protected function getTypeItem($type, $command, $propertyname, $caption, $CapsItems = null): ?array
@@ -757,12 +751,11 @@ class AVRModule extends IPSModule
 
         // is the command supported?
         if ($CapsItems === null || in_array($command, $CapsItems, true)) {
-            $item = [
+            return [
                 'type'    => $type,
                 'name'    => $propertyname,
                 'caption' => $caption . ' (' . $command . ')'
             ];
-            return $item;
         }
         return null;
     }
@@ -841,7 +834,6 @@ elseif ($status == true)// Ausschalten
 class DENONIPSVarType extends stdClass
 {
     //  API Datentypen
-    public const vtNone = -1;
     public const vtBoolean = 0;
     public const vtInteger = 1;
     public const vtFloat = 2;
@@ -939,6 +931,8 @@ class DENONIPSProfiles extends stdClass
     public const ptDigitalNoiseReduction = 'DNRDirectChange';
     public const ptPictureMode = 'PictureMode';
     public const ptEnhancer = 'Enhancer';
+    public const ptBluetoothTransmitter = 'BluetoothTransmitter';
+    public const ptSpeakerPreset = 'SpeakerPreset';
 
     public const ptZone2Power = 'Zone2Power';
     public const ptZone2InputSource = 'Zone2InputSource';
@@ -1679,23 +1673,23 @@ class DENONIPSProfiles extends stdClass
                 'PropertyName'                         => 'VideoSelect',
                 'Profilesettings'                      => ['Database', '', '', 0, 0, 0, 0],
                 'Associations'                         => [
-                    [0, 'DVD', DENON_API_Commands::DVD],
-                    [1, 'BD', DENON_API_Commands::BD],
-                    [2, 'TV', DENON_API_Commands::TV],
-                    [3, 'Sat/CBL', DENON_API_Commands::SAT_CBL],
-                    [4, 'Sat', DENON_API_Commands::SAT],
-                    [5, 'MediaPlayer', DENON_API_Commands::MPLAY],
-                    [6, 'VCR', DENON_API_Commands::VCR],
-                    [7, 'DVR', DENON_API_Commands::DVR],
-                    [8, 'Game', DENON_API_Commands::GAME],
-                    [9, 'Game2', DENON_API_Commands::GAME2],
-                    [10, 'V.AUX', DENON_API_Commands::VAUX],
-                    [11, 'AUX1', DENON_API_Commands::AUX1],
-                    [12, 'AUX2', DENON_API_Commands::AUX2],
-                    [13, 'CD', DENON_API_Commands::CD],
-                    [14, 'Source', DENON_API_Commands::SOURCE],
-                    [15, 'On', DENON_API_Commands::ON],
-                    [16, 'Off', DENON_API_Commands::OFF],
+                    [0, 'DVD', DENON_API_Commands::IS_DVD],
+                    [1, 'BD', DENON_API_Commands::IS_BD],
+                    [2, 'TV', DENON_API_Commands::IS_TV],
+                    [3, 'Sat/CBL', DENON_API_Commands::IS_SAT_CBL],
+                    [4, 'Sat', DENON_API_Commands::IS_SAT],
+                    [5, 'MediaPlayer', DENON_API_Commands::IS_MPLAY],
+                    [6, 'VCR', DENON_API_Commands::IS_VCR],
+                    [7, 'DVR', DENON_API_Commands::IS_DVR],
+                    [8, 'Game', DENON_API_Commands::IS_GAME],
+                    [9, 'Game2', DENON_API_Commands::IS_GAME2],
+                    [10, 'V.AUX', DENON_API_Commands::IS_VAUX],
+                    [11, 'AUX1', DENON_API_Commands::IS_AUX1],
+                    [12, 'AUX2', DENON_API_Commands::IS_AUX2],
+                    [13, 'CD', DENON_API_Commands::IS_CD],
+                    [14, 'Source', DENON_API_Commands::IS_SOURCE],
+                    [15, 'On', DENON_API_Commands::IS_ON],
+                    [16, 'Off', DENON_API_Commands::IS_OFF],
                 ],
             ],
             self::ptSurroundBackMode => ['Type'             => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::PSSB, 'Name' => 'Surround Back Mode',
@@ -1837,6 +1831,24 @@ class DENONIPSProfiles extends stdClass
                     [6, 'No', DENON_API_Commands::SDNO],
                 ],
             ],
+            self::ptBluetoothTransmitter => ['Type'             => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::BTTX, 'Name' => 'Bluetooth Transmitter',
+                'PropertyName'                       => 'BluetoothTransmitter',
+                'Profilesettings'                    => ['Database', '', '', 0, 0, 0, 0],
+                'Associations'                       => [
+                    [0, 'Off', DENON_API_Commands::BTTXOFF],
+                    [1, 'On', DENON_API_Commands::BTTXON],
+                    [2, 'Bluetooth + Speaker', DENON_API_Commands::BTTXSP],
+                    [3, 'Bluetooth only', DENON_API_Commands::BTTXBT],
+                ],
+            ],
+            self::ptSpeakerPreset => ['Type'             => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::SPPR, 'Name' => 'Speaker Preset',
+                'PropertyName'                       => 'SpeakerPreset',
+                'Profilesettings'                    => ['Database', '', '', 0, 0, 0, 0],
+                'Associations'                       => [
+                    [0, 'Preset 1', DENON_API_Commands::SPPR_1],
+                    [1, 'Preset 2', DENON_API_Commands::SPPR_2],
+                ],
+            ],
             self::ptDialogEnhancer => ['Type'             => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::PSDEH, 'Name' => 'Dialog Enhancer',
                 'PropertyName'                            => 'DialogEnhancer',
                 'Profilesettings'                         => ['Intensity', '', '', 0, 0, 0, 0],
@@ -1911,7 +1923,8 @@ class DENONIPSProfiles extends stdClass
                     [4, '1080p 24Hz', DENON_API_Commands::SCH10P24],
                     [5, '4K', DENON_API_Commands::SCH4K],
                     [6, '4K(60/50)', DENON_API_Commands::SCH4KF],
-                    [7, 'Auto', DENON_API_Commands::SCHAUTO],
+                    [7, '8K', DENON_API_Commands::SCH8K],
+                    [8, 'Auto', DENON_API_Commands::SCHAUTO],
                 ],
             ],
             self::ptResolution => ['Type'                        => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::VSSC, 'Name' => 'Resolution',
@@ -1925,7 +1938,8 @@ class DENONIPSProfiles extends stdClass
                     [4, '1080p 24Hz', DENON_API_Commands::SC10P24],
                     [5, '4K', DENON_API_Commands::SC4K],
                     [6, '4K(60/50)', DENON_API_Commands::SC4KF],
-                    [7, 'Auto', DENON_API_Commands::SCAUTO],
+                    [7, '8K', DENON_API_Commands::SC8K],
+                    [8, 'Auto', DENON_API_Commands::SCAUTO],
                 ],
             ],
             self::ptDimension => ['Type'                        => DENONIPSVarType::vtInteger, 'Ident' => DENON_API_Commands::PSDIM, 'Name' => 'Dimension',
@@ -2343,27 +2357,27 @@ class DENONIPSProfiles extends stdClass
 
         //zusätzliche Auswahl 'SOURCE' bei Zonen
         if ($Zone > 0) {
-            $Associations[] = [count($Associations), 'SOURCE', DENON_API_Commands::SOURCE];
+            $Associations[] = [count($Associations), 'SOURCE', DENON_API_Commands::IS_SOURCE];
         }
 
         //zusätzliche Inputs bei Auswahl
-        if ($FAVORITES && (!in_array(DENON_API_Commands::FAVORITES, $caps['SI_SubCommands'], true))) {
-            $Associations[] = [count($Associations), 'Favoriten', DENON_API_Commands::FAVORITES];
+        if ($FAVORITES && (!in_array(DENON_API_Commands::IS_FAVORITES, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Favoriten', DENON_API_Commands::IS_FAVORITES];
         }
-        if ($IRADIO && (!in_array(DENON_API_Commands::IRADIO, $caps['SI_SubCommands'], true))) {
-            $Associations[] = [count($Associations), 'Internet Radio', DENON_API_Commands::IRADIO];
+        if ($IRADIO && (!in_array(DENON_API_Commands::IS_IRADIO, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Internet Radio', DENON_API_Commands::IS_IRADIO];
         }
-        if ($SERVER && (!in_array(DENON_API_Commands::SERVER, $caps['SI_SubCommands'], true))) {
-            $Associations[] = [count($Associations), 'Server', DENON_API_Commands::SERVER];
+        if ($SERVER && (!in_array(DENON_API_Commands::IS_SERVER, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Server', DENON_API_Commands::IS_SERVER];
         }
-        if ($NAPSTER && (!in_array(DENON_API_Commands::LASTFM, $caps['SI_SubCommands'], true))) {
-            $Associations[] = [count($Associations), 'Napster', DENON_API_Commands::NAPSTER];
+        if ($NAPSTER && (!in_array(DENON_API_Commands::IS_LASTFM, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Napster', DENON_API_Commands::IS_NAPSTER];
         }
-        if ($LASTFM && (!in_array(DENON_API_Commands::FAVORITES, $caps['SI_SubCommands'], true))) {
-            $Associations[] = [count($Associations), 'LastFM', DENON_API_Commands::LASTFM];
+        if ($LASTFM && (!in_array(DENON_API_Commands::IS_FAVORITES, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'LastFM', DENON_API_Commands::IS_LASTFM];
         }
-        if ($FLICKR && (!in_array(DENON_API_Commands::FLICKR, $caps['SI_SubCommands'], true))) {
-            $Associations[] = [count($Associations), 'Flickr', DENON_API_Commands::FLICKR];
+        if ($FLICKR && (!in_array(DENON_API_Commands::IS_FLICKR, $caps['SI_SubCommands'], true))) {
+            $Associations[] = [count($Associations), 'Flickr', DENON_API_Commands::IS_FLICKR];
         }
 
         if ($this->debug) {
@@ -2991,7 +3005,7 @@ class DENON_StatusHTML extends stdClass
         if ($Element) {
             $VarMapping = $VarMappings[DENON_API_Commands::PW];
             $SubCommand = strtoupper((string) $Element[0]->value);
-            $SubCommand = str_replace(DENON_API_Commands::OFF, DENON_API_Commands::PWSTANDBY, $SubCommand); //beim X1200 beobachtet
+            $SubCommand = str_replace(DENON_API_Commands::IS_OFF, DENON_API_Commands::PWSTANDBY, $SubCommand); //beim X1200 beobachtet
             $data[DENON_API_Commands::PW] = ['VarType' => $VarMapping['VarType'], 'Value' => $VarMapping['ValueMapping'][$SubCommand], 'Subcommand' => $SubCommand];
         }
 
@@ -3324,6 +3338,7 @@ class DENON_API_Commands extends stdClass
     public const SV = 'SV'; // Video Select
     public const SLP = 'SLP'; // Main Zone Sleep Timer
     public const MS = 'MS'; // Select Surround Mode
+    public const SP = 'SP'; // Speaker Preset
     public const MN = 'MN'; // System
     public const MSQUICK = 'MSQUICK'; // Quick Select Mode Select (Denon)
     public const MSQUICKMEMORY = 'MEMORY'; // Quick Select Mode Memory
@@ -3389,6 +3404,9 @@ class DENON_API_Commands extends stdClass
     public const PSFRONT = 'PSFRONT'; //Front Speaker
     public const PSRSZ = 'PSRSZ'; //Room Size
     public const PSSWR = 'PSSWR'; //Subwoofer
+
+    public const BTTX = 'BTTX'; //Bluetooth Transmitter
+    public const SPPR = 'SPPR'; //Speaker Preset
 
     //PV
     public const PV = 'PV'; // Picture Mode
@@ -3475,8 +3493,8 @@ class DENON_API_Commands extends stdClass
     public const TP = 'TP'; // Tuner Preset
     public const TM = 'TM'; // Tuner Mode
     public const NS = 'NS'; // Network Audio
-    public const TR = 'TR'; // Trigger
     public const SY = 'SY'; // Remote Lock
+    public const TR = 'TR'; // Trigger
     public const UG = 'UG'; // Upgrade ID Display
 
     //Analog Tuner
@@ -3545,131 +3563,108 @@ class DENON_API_Commands extends stdClass
     public const MVDOWN = 'DOWN'; // Master Volume Down
 
     //SI + SV
-    public const PHONO = 'PHONO'; // Select Input Source Phono
-    public const CD = 'CD'; // Select Input Source CD
-    public const TUNER = 'TUNER'; // Select Input Source Tuner
-    public const FM = 'FM'; // Select Input Source FM
-    public const DAB = 'DAB'; // Select Input Source DAB
-    public const DVD = 'DVD'; // Select Input Source DVD
-    public const BD = 'BD'; // Select Input Source BD
-    public const BT = 'BT'; // Select Input Source Blutooth
-    public const MPLAY = 'MPLAY'; // Select Input Source Mediaplayer
-    public const TV = 'TV'; // Select Input Source TV
-    public const SAT_CBL = 'SAT/CBL'; // Select Input Source Sat/CBL
-    public const SAT = 'SAT'; // Select Input Source Sat
-    public const VCR = 'VCR'; // Select Input Source VCR
-    public const DVR = 'DVR'; // Select Input Source DVR
-    public const GAME = 'GAME'; // Select Input Source Game
-    public const GAME2 = 'GAME2'; // Select Input Source Game
-    public const AUX = 'AUX'; // Select Input Source AUX
-    public const AUX1 = 'AUX1'; // Select Input Source AUX1
-    public const AUX2 = 'AUX2'; // Select Input Source AUX2
-    public const VAUX = 'V.AUX'; // Select Input Source V.AUX
-    public const DOCK = 'DOCK'; // Select Input Source Dock
-    public const IPOD = 'IPOD'; // Select Input Source iPOD
-    public const USB = 'USB'; // Select Input Source USB
-    public const AUXA = 'AUXA'; // Select Input Source AUXA
-    public const AUXB = 'AUXB'; // Select Input Source AUXB
-    public const AUXC = 'AUXC'; // Select Input Source AUXC
-    public const AUXD = 'AUXD'; // Select Input Source AUXD
-    public const NETUSB = 'NET/USB'; // Select Input Source NET/USB
-    public const NET = 'NET'; // Select Input Source NET
-    public const LASTFM = 'LASTFM'; // Select Input Source LastFM
-    public const FLICKR = 'FLICKR'; // Select Input Source Flickr
-    public const FAVORITES = 'FAVORITES'; // Select Input Source Favorites
-    public const IRADIO = 'IRADIO'; // Select Input Source Internet Radio
-    public const SERVER = 'SERVER'; // Select Input Source Server
-    public const NAPSTER = 'NAPSTER'; // Select Input Source Napster
-    public const USB_IPOD = 'USB/IPOD'; // Select Input USB/IPOD
-    public const MXPORT = 'MXPORT'; // Select Input MXPORT
-    public const SOURCE = 'SOURCE'; // Select Input Source of Main Zone
-    public const ON = 'ON'; // Select Input Source On
-    public const OFF = 'OFF'; // Select Input Source Off
+    public const IS_PHONO = 'PHONO'; // Select Input Source Phono
+    public const IS_CD     = 'CD'; // Select Input Source CD
+    public const IS_TUNER   = 'TUNER'; // Select Input Source Tuner
+    public const IS_FM      = 'FM'; // Select Input Source FM
+    public const IS_DAB     = 'DAB'; // Select Input Source DAB
+    public const IS_DVD     = 'DVD'; // Select Input Source DVD
+    public const IS_HDP     = 'HDP'; // Select Input Source HDP
+    public const IS_BD      = 'BD'; // Select Input Source BD
+    public const IS_BT      = 'BT'; // Select Input Source Blutooth
+    public const IS_MPLAY   = 'MPLAY'; // Select Input Source Mediaplayer
+    public const IS_TV      = 'TV'; // Select Input Source TV
+    public const IS_TV_CBL  = 'TV/CBL'; // Select Input Source TV/CBL
+    public const IS_SAT_CBL = 'SAT/CBL'; // Select Input Source Sat/CBL
+    public const IS_SAT   = 'SAT'; // Select Input Source Sat
+    public const IS_VCR    = 'VCR'; // Select Input Source VCR
+    public const IS_DVR    = 'DVR'; // Select Input Source DVR
+    public const IS_GAME   = 'GAME'; // Select Input Source Game
+    public const IS_GAME2  = 'GAME2'; // Select Input Source Game
+    public const IS_8K     = '8K'; // Select Input Source 8K
+    public const IS_AUX    = 'AUX'; // Select Input Source AUX
+    public const IS_AUX1   = 'AUX1'; // Select Input Source AUX1
+    public const IS_AUX2   = 'AUX2'; // Select Input Source AUX2
+    public const IS_VAUX   = 'V.AUX'; // Select Input Source V.AUX
+    public const IS_DOCK   = 'DOCK'; // Select Input Source Dock
+    public const IS_IPOD      = 'IPOD'; // Select Input Source iPOD
+    public const IS_USB       = 'USB'; // Select Input Source USB
+    public const IS_AUXA      = 'AUXA'; // Select Input Source AUXA
+    public const IS_AUXB      = 'AUXB'; // Select Input Source AUXB
+    public const IS_AUXC      = 'AUXC'; // Select Input Source AUXC
+    public const IS_AUXD      = 'AUXD'; // Select Input Source AUXD
+    public const IS_NETUSB    = 'NET/USB'; // Select Input Source NET/USB
+    public const IS_NET       = 'NET'; // Select Input Source NET
+    public const IS_LASTFM    = 'LASTFM'; // Select Input Source LastFM
+    public const IS_FLICKR    = 'FLICKR'; // Select Input Source Flickr
+    public const IS_FAVORITES = 'FAVORITES'; // Select Input Source Favorites
+    public const IS_IRADIO    = 'IRADIO'; // Select Input Source Internet Radio
+    public const IS_SERVER    = 'SERVER'; // Select Input Source Server
+    public const IS_NAPSTER   = 'NAPSTER'; // Select Input Source Napster
+    public const IS_USB_IPOD  = 'USB/IPOD'; // Select Input USB/IPOD
+    public const IS_MXPORT    = 'MXPORT'; // Select Input MXPORT
+    public const IS_SOURCE    = 'SOURCE'; // Select Input Source of Main Zone
+    public const IS_ON        = 'ON'; // Select Input Source On
+    public const IS_OFF       = 'OFF'; // Select Input Source Off
 
-    public static $SIMapping = ['CBL/SAT'         => self::SAT_CBL,
-        'MediaPlayer'                             => self::MPLAY,
-        'Media Player'                            => self::MPLAY,
-        'Media Server'                            => self::SERVER,
-        'iPod/USB'                                => self::USB_IPOD,
-        'M-XPORT'                                 => self::MXPORT,
-        'TVAUDIO'                                 => self::TV,
-        'TV AUDIO'                                => self::TV,
-        'Bluetooth'                               => self::BT,
-        'Blu-ray'                                 => self::BD,
-        'Online Music'                            => self::NET,
-        'NETWORK'                                 => self::NET,
-        'Internet Radio'                          => self::IRADIO,
-        'Last. fm'                                => self::LASTFM,
-        'FM'                                      => self::TUNER,
+    public static $SIMapping = ['CBL/SAT'         => self::IS_SAT_CBL,
+                                'MediaPlayer'                             => self::IS_MPLAY,
+                                'Media Player'                            => self::IS_MPLAY,
+                                'Media Server'                            => self::IS_SERVER,
+                                'iPod/USB'                                => self::IS_USB_IPOD,
+                                'M-XPORT'                                 => self::IS_MXPORT,
+                                'TVAUDIO'                                 => self::IS_TV,
+                                'TV AUDIO'                                => self::IS_TV,
+                                'Bluetooth'                               => self::IS_BT,
+                                'Blu-ray'                                 => self::IS_BD,
+                                'Online Music'                            => self::IS_NET,
+                                'NETWORK'                                 => self::IS_NET,
+                                'Internet Radio'                          => self::IS_IRADIO,
+                                'Last. fm'                                => self::IS_LASTFM,
+                                'FM'                                      => self::IS_TUNER,
     ];
 
     public static $SI_InputSettings = [
-        self::PHONO,
-        self::CD,
-        self::TUNER,
-        self::DVR,
-        self::BD,
-        self::BT,
-        self::MPLAY,
-        self::TV,
-        self::SAT_CBL,
-        self::SAT,
-        self::VCR,
-        self::DVR,
-        self::GAME,
-        self::GAME2,
-        self::AUX,
-        self::AUX1,
-        self::AUX2,
-        self::AUXA,
-        self::AUXB,
-        self::AUXC,
-        self::AUXD,
-        self::NETUSB,
-        self::VAUX,
-        self::DOCK,
-        self::IPOD,
-        self::NETUSB,
-        self::NET,
-        self::LASTFM,
-        self::FLICKR,
-        self::FAVORITES,
-        self::IRADIO,
-        self::SERVER,
-        self::NAPSTER,
-        self::USB,
-        self::USB_IPOD,
-        self::MXPORT,
-        self::SOURCE,
+        self::IS_PHONO,
+        self::IS_CD,
+        self::IS_TUNER,
+        self::IS_DVD,
+        self::IS_HDP,
+        self::IS_BD,
+        self::IS_BT,
+        self::IS_MPLAY,
+        self::IS_TV,
+        self::IS_TV_CBL,
+        self::IS_SAT_CBL,
+        self::IS_SAT,
+        self::IS_VCR,
+        self::IS_DVR,
+        self::IS_GAME,
+        self::IS_GAME2,
+        self::IS_AUX,
+        self::IS_AUX1,
+        self::IS_AUX2,
+        self::IS_AUXA,
+        self::IS_AUXB,
+        self::IS_AUXC,
+        self::IS_AUXD,
+        self::IS_NETUSB,
+        self::IS_VAUX,
+        self::IS_DOCK,
+        self::IS_IPOD,
+        self::IS_NETUSB,
+        self::IS_NET,
+        self::IS_LASTFM,
+        self::IS_FLICKR,
+        self::IS_FAVORITES,
+        self::IS_IRADIO,
+        self::IS_SERVER,
+        self::IS_NAPSTER,
+        self::IS_USB,
+        self::IS_USB_IPOD,
+        self::IS_MXPORT,
+        self::IS_SOURCE,
     ];
-
-    /*public static $SI_DefaultAssociations = [
-                                [0, 'Phono', self::PHONO],
-                                [1, 'CD', self::CD],
-                                [2, 'Tuner', self::TUNER],
-                                [3, 'DVD', self::DVD],
-                                [4, 'BD', self::BD],
-                                [5, 'TV', self::TV],
-                                [6, 'Sat/CBL', self::SAT_CBL],
-                                [7, 'Sat', self::SAT],
-                                [8, 'VCR', self::VCR],
-                                [9, 'DVR', self::DVR],
-                                [10, 'Game', self::GAME],
-                                [11, 'Game2', self::GAME2],
-                                [12, 'V.Aux', self::VAUX],
-                                [13, 'Aux1', self::AUX1],
-                                [14, 'Aux2', self::AUX2],
-                                [15, 'Dock', self::DOCK],
-                                [16, 'IPod', self::IPOD],
-                                [17, 'Net/USB', self::NETUSB],
-                                [18, 'Napster', self::NAPSTER],
-                                [19, 'LastFM', self::LASTFM],
-                                [20, 'Flickr', self::FLICKR],
-                                [21, 'Favorites', self::FAVORITES],
-                                [22, 'IRadio', self::IRADIO],
-                                [23, 'Server', self::SERVER],
-                                ];
-*/
 
     //ZM Mainzone
     public const ZMOFF = 'OFF'; // Power Off
@@ -3760,6 +3755,7 @@ class DENON_API_Commands extends stdClass
     public const SC10P24 = '10P24'; // Set Resolution to 1080p:24Hz
     public const SC4K = '4K'; // Set Resolution to 4K
     public const SC4KF = '4KF'; // Set Resolution to 4K (60/50)
+    public const SC8K = '8K'; // Set Resolution to 8K
     public const SCAUTO = 'AUTO'; // Set Resolution to Auto
     public const SC = ' ?'; // SC ? Return VSSC Status
 
@@ -3771,6 +3767,7 @@ class DENON_API_Commands extends stdClass
     public const SCH10P24 = '10P24'; // Set Resolution to 1080p:24Hz HDMI
     public const SCH4K = '4K'; // Set Resolution to 4K
     public const SCH4KF = '4KF'; // Set Resolution to 4K (60/50)
+    public const SCH8K = '8K'; // Set Resolution to 8K
     public const SCHAUTO = 'AUTO'; // Set Resolution to Auto HDMI
     public const SCH = ' ?'; // SCH ? Return VSSCH Status(HDMI)
 
@@ -4188,6 +4185,14 @@ class DENON_API_Commands extends stdClass
 
     public const SURROUNDDISPLAY = 'SurroundDisplay'; // Nur DisplayIdent
 
+    public const BTTXON = 'ON';
+    public const BTTXOFF = 'OFF';
+    public const BTTXSP = 'SP';
+    public const BTTXBT = 'BT';
+
+    public const SPPR_1 = ' 1';
+    public const SPPR_2 = ' 2';
+
     // All Zone Stereo
     public const MNZST = 'MNZST';
     public const MNZSTON = ' ON';
@@ -4524,11 +4529,11 @@ class DenonAVRCP_API_Data extends stdClass
         ];
 
         if (in_array($this->AVRType, ['DRA-N5', 'RCD-N8'])) {
-            $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::USB_IPOD] = DENON_API_Commands::SI . DENON_API_Commands::USB; //not documented, but tested
+            $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::IS_USB_IPOD] = DENON_API_Commands::SI . DENON_API_Commands::IS_USB; //not documented, but tested
         }
 
-        if (in_array($this->AVRType, ['AVR-X1200W'])) {
-            $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::AUX1] = DENON_API_Commands::SI . 'AUX'; //not documented, but tested with AVR-X1200W
+        if ($this->AVRType === 'AVR-X1200W') {
+            $specialcommands[DENON_API_Commands::SI . DENON_API_Commands::IS_AUX1] = DENON_API_Commands::SI . 'AUX'; //not documented, but tested with AVR-X1200W
         }
 
         // add special commands for zone responses
@@ -4631,7 +4636,7 @@ class DenonAVRCP_API_Data extends stdClass
                                     'Value'      => $item['ValueMapping'][$ResponseSubCommand],
                                     'Subcommand' => $ResponseSubCommand,
                                 ];
-                            } elseif (in_array($Command, [DENON_API_Commands::SI, DENON_API_Commands::Z2INPUT, DENON_API_Commands::Z3INPUT]) && in_array($ResponseSubCommand, [DENON_API_Commands::FAVORITES, DENON_API_Commands::IRADIO, DENON_API_Commands::SERVER, DENON_API_Commands::NAPSTER, DENON_API_Commands::LASTFM, DENON_API_Commands::FLICKR])) {
+                            } elseif (in_array($Command, [DENON_API_Commands::SI, DENON_API_Commands::Z2INPUT, DENON_API_Commands::Z3INPUT]) && in_array($ResponseSubCommand, [DENON_API_Commands::IS_FAVORITES, DENON_API_Commands::IS_IRADIO, DENON_API_Commands::IS_SERVER, DENON_API_Commands::IS_NAPSTER, DENON_API_Commands::IS_LASTFM, DENON_API_Commands::IS_FLICKR])) {
                                 IPS_LogMessage(__CLASS__ . '::' . __FUNCTION__, sprintf('*Hint*: Input Source %s not configured, check your configuration. Current inputs: %s'
                                     , $ResponseSubCommand, json_encode($item['ValueMapping'])));
                             } else {
