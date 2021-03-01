@@ -32,6 +32,20 @@ class Denon_AVR_3808A extends DenonAVR
     public static $internalID = 3;
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
     public static $InfoFunctions = [];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_HDP,
+        DENON_API_Commands::IS_TV_CBL,
+        DENON_API_Commands::IS_SAT,
+        DENON_API_Commands::IS_VCR,
+        DENON_API_Commands::IS_DVR,
+        DENON_API_Commands::IS_VAUX,
+        DENON_API_Commands::IS_NETUSB,
+        DENON_API_Commands::IS_IPOD,
+    ];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
         DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
@@ -170,15 +184,15 @@ class Denon_AVR_3311 extends Denon_AVR_3310
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::DVR,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::VAUX,
-        DENON_API_Commands::DOCK,
-        DENON_API_Commands::SOURCE,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_DVR,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_VAUX,
+        DENON_API_Commands::IS_DOCK,
+        DENON_API_Commands::IS_SOURCE,
     ];
     public static $SystemControl_Commands = [
         DENON_API_Commands::MN,
@@ -268,16 +282,16 @@ class Denon_AVR_3312 extends Denon_AVR_3311
     public static $Name = 'AVR-3312';
     public static $internalID = 1;
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::DVR,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::GAME2,
-        DENON_API_Commands::VAUX,
-        DENON_API_Commands::DOCK,
-        DENON_API_Commands::SOURCE,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_DVR,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_GAME2,
+        DENON_API_Commands::IS_VAUX,
+        DENON_API_Commands::IS_DOCK,
+        DENON_API_Commands::IS_SOURCE,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -326,13 +340,13 @@ class Denon_AVR_4310 extends DenonAVR
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::VCR,
-        DENON_API_Commands::DVR,
-        DENON_API_Commands::VAUX,
-        DENON_API_Commands::SOURCE,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_VCR,
+        DENON_API_Commands::IS_DVR,
+        DENON_API_Commands::IS_VAUX,
+        DENON_API_Commands::IS_SOURCE,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSDIRECT,
@@ -449,15 +463,15 @@ class Denon_AVR_4311 extends Denon_AVR_4310
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::DVR,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::VAUX,
-        DENON_API_Commands::DOCK,
-        DENON_API_Commands::SOURCE,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_DVR,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_VAUX,
+        DENON_API_Commands::IS_DOCK,
+        DENON_API_Commands::IS_SOURCE,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSDIRECT,
@@ -556,16 +570,16 @@ class Denon_AVR_X2000 extends DenonAVR
         DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -652,16 +666,16 @@ class Denon_AVR_X2100W extends Denon_AVR_X2000
     public static $Name = 'AVR-X2100W';
     public static $internalID = 11;
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1, DENON_API_Commands::AUX2,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1, DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $PowerFunctions = [
         DENON_API_Commands::PW,
@@ -853,18 +867,18 @@ class Denon_AVR_X2400H extends Denon_AVR_X2300W
         DENON_API_Commands::DIM,
     ];
     public static $SI_SubCommands = [
-        DENON_API_Commands::CD,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
     public static $VS_Commands = [
         DENON_API_Commands::VSASP,
@@ -882,19 +896,19 @@ class Denon_AVR_X2500H extends Denon_AVR_X2400H
     public static $Name = 'AVR-X2500H';
     public static $internalID = 43;
     public static $SI_SubCommands = [
-        DENON_API_Commands::PHONO,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
@@ -963,6 +977,75 @@ class Denon_AVR_X2600H extends Denon_AVR_X2500H
 
 }
 
+class Denon_AVR_X2700H extends Denon_AVR_X2600H
+{
+    // see FY21AVR_DENON_PROTOCOL_V04.xlsx
+    public static $Name       = 'AVR-X2700H';
+
+    public static $internalID = 202;
+
+    public static $PS_Commands = [
+        DENON_API_Commands::PSFRONT,
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSWL,
+        DENON_API_Commands::PSCLV,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSSPV,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSNEURAL,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSEFF,
+        DENON_API_Commands::PSDEL,
+        DENON_API_Commands::PSRSZ,
+        DENON_API_Commands::PSDELAY,
+        DENON_API_Commands::PSRSTR,
+    ];
+
+    public static $SV_SubCommands = [
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
+    ];
+
+    public static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::BTTX,
+        DENON_API_Commands::SPPR,
+    ];
+
+
+}
+
+class Denon_AVR_S960H extends Denon_AVR_X2700H
+{
+    // see FY21AVR_DENON_PROTOCOL_V04.xlsx
+    public static $Name       = 'AVR-S960H';
+
+    public static $internalID = 201;
+}
 /* ---------------------
  * Denon AVR-X1x00W Serie
    --------------------*/
@@ -1065,15 +1148,15 @@ class Denon_AVR_X1200W extends Denon_AVR_X1100W
         DENON_API_Commands::CVZRL,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $MS_SubCommands = [
         DENON_API_Commands::MSMOVIE,
@@ -1177,16 +1260,16 @@ class Denon_AVR_X1400H extends Denon_AVR_X1300W
         DENON_API_Commands::CVZRL,
     ];
     public static $SI_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_BT,
     ];
 
 }
@@ -1197,17 +1280,17 @@ class Denon_AVR_X1500H extends Denon_AVR_X1400H
     public static $Name = 'AVR-X1500H';
     public static $internalID = 42;
     public static $SI_SubCommands = [
-        DENON_API_Commands::PHONO,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_BT,
     ];
     public static $PS_Commands = [
         DENON_API_Commands::PSTONECTRL,
@@ -1269,16 +1352,16 @@ class Denon_AVR_X3000 extends DenonAVR
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $SystemControl_Commands = [
         DENON_API_Commands::MN,
@@ -1384,18 +1467,18 @@ class Denon_AVR_X3400H extends Denon_AVR_X3000
         DENON_API_Commands::DIM,
     ];
     public static $SI_SubCommands = [
-        DENON_API_Commands::CD,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
@@ -1412,17 +1495,17 @@ class Denon_AVR_X3400H extends Denon_AVR_X3000
         DENON_API_Commands::CVZRL
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $PowerFunctions = [
         DENON_API_Commands::PW,
@@ -1501,19 +1584,19 @@ class Denon_AVR_X3500H extends Denon_AVR_X3400H
     public static $Name = 'AVR-X3500H';
     public static $internalID = 44;
     public static $SI_SubCommands = [
-        DENON_API_Commands::PHONO,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
     public static $PS_Commands = [
         DENON_API_Commands::PSFRONT,
@@ -1547,6 +1630,60 @@ class Denon_AVR_X3500H extends Denon_AVR_X3400H
     ];
  }
 
+class Denon_AVR_X3700H extends Denon_AVR_X3500H
+{
+    // see FY21AVR_DENON_PROTOCOL_V04.xlsx
+    public static $Name = 'AVR-X3700H';
+    public static $internalID = 203;
+    public static $SI_SubCommands = [
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
+    ];
+
+    public static $SV_SubCommands = [
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
+    ];
+    public static $VS_Commands = [
+        DENON_API_Commands::VSASP,
+        DENON_API_Commands::VSSCH,
+        DENON_API_Commands::VSAUDIO,
+        DENON_API_Commands::VSVPM,
+    ];
+    public static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNZST,
+        DENON_API_Commands::DIM,
+        DENON_API_Commands::BTTX,
+        DENON_API_Commands::SPPR,
+    ];
+
+
+}
+
 /* ---------------------
  * Denon AVR-X4x00(W) Serie
    --------------------*/
@@ -1567,17 +1704,17 @@ class Denon_AVR_X4000 extends DenonAVR
         DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $SystemControl_Commands = [
         DENON_API_Commands::MN,
@@ -1808,19 +1945,19 @@ class Denon_AVR_X4300H extends Denon_AVR_X4200W
     public static $httpMainZone = DENON_HTTP_Interface::NoHTTPInterface;
     public static $InfoFunctions = [];
     public static $SI_SubCommands = [
-        DENON_API_Commands::PHONO,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::TUNER,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
     public static $CV_Commands = [
         DENON_API_Commands::MV,
@@ -1933,6 +2070,93 @@ class Denon_AVR_X4500H extends Denon_AVR_X4400H
     ];
 }
 
+class Denon_AVR_X4700H extends Denon_AVR_X4500H
+{
+    // see FY21AVR_DENON_PROTOCOL_V04.xlsx
+    public static $Name = 'AVR-X4700H';
+    public static $internalID = 204;
+
+    public static $SI_SubCommands = [
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
+    ];
+
+    public static $SV_SubCommands = [
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
+    ];
+
+    public static $PS_Commands = [
+        DENON_API_Commands::PSTONECTRL,
+        DENON_API_Commands::PSBAS, DENON_API_Commands::PSTRE,
+        DENON_API_Commands::PSCLV,
+        DENON_API_Commands::PSBSC,
+        DENON_API_Commands::PSSWL, DENON_API_Commands::PSSWL2,
+        DENON_API_Commands::PSCINEMAEQ,
+        DENON_API_Commands::PSMODE,
+        DENON_API_Commands::PSLOM,
+        DENON_API_Commands::PSSP,
+        DENON_API_Commands::PSPHG,
+        DENON_API_Commands::PSMULTEQ,
+        DENON_API_Commands::PSDYNEQ,
+        DENON_API_Commands::PSREFLEV,
+        DENON_API_Commands::PSDYNVOL,
+        DENON_API_Commands::PSLFC,
+        DENON_API_Commands::PSCNTAMT,
+        DENON_API_Commands::PSDSX,
+        DENON_API_Commands::PSSTW,
+        DENON_API_Commands::PSSTH,
+        DENON_API_Commands::PSGEQ,
+        DENON_API_Commands::PSHEQ,
+        DENON_API_Commands::PSDRC,
+        DENON_API_Commands::PSDIC,
+        DENON_API_Commands::PSLFE,
+        DENON_API_Commands::PSEFF,
+        DENON_API_Commands::PSDEL,
+        DENON_API_Commands::PSCES,
+        DENON_API_Commands::PSSPV,
+        DENON_API_Commands::PSNEURAL,
+        DENON_API_Commands::PSSWR,
+        DENON_API_Commands::PSRSZ,
+        DENON_API_Commands::PSDELAY,
+        DENON_API_Commands::PSRSTR,
+        DENON_API_Commands::PSFRONT,
+        DENON_API_Commands::PSAUROPR,
+        DENON_API_Commands::PSAUROST,
+    ];
+    public static $SystemControl_Commands = [
+        DENON_API_Commands::MN,
+        DENON_API_Commands::MNMEN,
+        DENON_API_Commands::MNSRC,
+        DENON_API_Commands::DISPLAY,
+        DENON_API_Commands::BTTX,
+        DENON_API_Commands::SPPR,
+    ];
+
+}
+
 /* ---------------------
  * Denon AVR-X5x00 Serie
    --------------------*/
@@ -1962,17 +2186,17 @@ class Denon_AVR_X5200W extends DenonAVR
         DENON_API_Commands::CVZRL,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $PowerFunctions = [
         DENON_API_Commands::PW,
@@ -2110,17 +2334,17 @@ class Denon_AVR_X6200W extends DenonAVR
         DENON_API_Commands::CVZRL,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $PowerFunctions = [
         DENON_API_Commands::PW,
@@ -2240,18 +2464,18 @@ class Denon_AVR_X6300H extends Denon_AVR_X6200W
         DENON_API_Commands::DIM,
     ];
     public static $SI_SubCommands = [
-        DENON_API_Commands::PHONO,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
     public static $Zone_Commands = [
         DENON_API_Commands::PW,
@@ -2315,6 +2539,64 @@ class Denon_AVR_X6500H extends Denon_AVR_X6400H
     // see AVC-X6500H_AVR-X6500H_X4500H_X3500H_X2500H_X1500H_S940H_S740H_S640H_PROTOCOL_V01.xlsx
     public static $Name = 'AVR-X6500H';
     public static $internalID = 46;
+}
+class Denon_AVR_X6700H extends Denon_AVR_X6500H
+{
+    // see FY21AVR_DENON_PROTOCOL_V04.xlsx
+    public static $Name = 'AVR-X6700H';
+    public static $internalID = 205;
+
+    public static $CV_Commands = [
+        DENON_API_Commands::MV,
+        DENON_API_Commands::CVFL, DENON_API_Commands::CVFR, DENON_API_Commands::CVC,
+        DENON_API_Commands::CVSW,
+        DENON_API_Commands::CVSW2,
+        DENON_API_Commands::CVSL, DENON_API_Commands::CVSR,
+        DENON_API_Commands::CVSBL, DENON_API_Commands::CVSBR, DENON_API_Commands::CVSB,
+        DENON_API_Commands::CVFHL, DENON_API_Commands::CVFHR,
+        DENON_API_Commands::CVFWL, DENON_API_Commands::CVFWR,
+        DENON_API_Commands::CVTFL, DENON_API_Commands::CVTFR,
+        DENON_API_Commands::CVTML, DENON_API_Commands::CVTMR,
+        DENON_API_Commands::CVTRL, DENON_API_Commands::CVTRR,
+        DENON_API_Commands::CVRHL, DENON_API_Commands::CVRHR,
+        DENON_API_Commands::CVFDL, DENON_API_Commands::CVFDR,
+        DENON_API_Commands::CVSDL, DENON_API_Commands::CVSDR,
+        DENON_API_Commands::CVBDL, DENON_API_Commands::CVBDR,
+        DENON_API_Commands::CVSHL, DENON_API_Commands::CVSHR, DENON_API_Commands::CVTS,
+        DENON_API_Commands::CVTS,
+        DENON_API_Commands::CVCH,
+        DENON_API_Commands::CVZRL,
+    ];
+    public static $SI_SubCommands = [
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_TUNER,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_BT,
+    ];
+    public static $SV_SubCommands = [
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_8K,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
+    ];
 
 }
 
@@ -2347,17 +2629,17 @@ class Denon_AVR_X7200W extends DenonAVR
         DENON_API_Commands::CVZRL,
     ];
     public static $SV_SubCommands = [
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::ON,
-        DENON_API_Commands::OFF,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_ON,
+        DENON_API_Commands::IS_OFF,
     ];
     public static $PowerFunctions = [
         DENON_API_Commands::PW,
@@ -2497,18 +2779,18 @@ class Denon_AVC_X8500H extends Denon_AVR_X7200WA
     public static $InfoFunctions  = [];
 
     public static $SI_SubCommands = [
-        DENON_API_Commands::PHONO,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::DVD,
-        DENON_API_Commands::BD,
-        DENON_API_Commands::TV,
-        DENON_API_Commands::SAT_CBL,
-        DENON_API_Commands::MPLAY,
-        DENON_API_Commands::GAME,
-        DENON_API_Commands::NET,
-        DENON_API_Commands::AUX1,
-        DENON_API_Commands::AUX2,
-        DENON_API_Commands::BT,
+        DENON_API_Commands::IS_PHONO,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_DVD,
+        DENON_API_Commands::IS_BD,
+        DENON_API_Commands::IS_TV,
+        DENON_API_Commands::IS_SAT_CBL,
+        DENON_API_Commands::IS_MPLAY,
+        DENON_API_Commands::IS_GAME,
+        DENON_API_Commands::IS_NET,
+        DENON_API_Commands::IS_AUX1,
+        DENON_API_Commands::IS_AUX2,
+        DENON_API_Commands::IS_BT,
     ];
 
     public static $CV_Commands    = [
@@ -2601,12 +2883,12 @@ class Denon_DRA_N5 extends DenonAVR
     ];
 
     public static $SI_SubCommands = [
-        DENON_API_Commands::IRADIO,
-        DENON_API_Commands::SERVER,
-        DENON_API_Commands::IPOD,
-        DENON_API_Commands::USB,
-        DENON_API_Commands::AUXB,
-        DENON_API_Commands::AUXD,
+        DENON_API_Commands::IS_IRADIO,
+        DENON_API_Commands::IS_SERVER,
+        DENON_API_Commands::IS_IPOD,
+        DENON_API_Commands::IS_USB,
+        DENON_API_Commands::IS_AUXB,
+        DENON_API_Commands::IS_AUXD,
     ];
 
     public static $SystemControl_Commands = [
@@ -2629,12 +2911,12 @@ class Denon_RCD_N8 extends Denon_DRA_N5
     public static $internalID = 41;
 
     public static $SI_SubCommands = [
-        DENON_API_Commands::IRADIO,
-        DENON_API_Commands::SERVER,
-        DENON_API_Commands::IPOD,
-        DENON_API_Commands::CD,
-        DENON_API_Commands::FM,
-        DENON_API_Commands::DAB,
+        DENON_API_Commands::IS_IRADIO,
+        DENON_API_Commands::IS_SERVER,
+        DENON_API_Commands::IS_IPOD,
+        DENON_API_Commands::IS_CD,
+        DENON_API_Commands::IS_FM,
+        DENON_API_Commands::IS_DAB,
     ];
 
 }

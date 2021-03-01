@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection PhpVariableVariableInspection */
 require_once __DIR__ . '/../DenonClass.php';  // diverse Klassen
 
 /** @noinspection AutoloadingIssuesInspection */
@@ -63,6 +62,7 @@ class DenonAVRTelnet extends AVRModule
                 /** @noinspection PhpVariableVariableInspection */
                 $object->$key = $this->arrayToObject($value);
             } else {
+                /** @noinspection PhpVariableVariableInspection */
                 $object->$key = $value;
             }
         }
@@ -142,6 +142,7 @@ class DenonAVRTelnet extends AVRModule
             foreach ($CommandAreas as $commandArea) {
                 if ($this->testAllProperties) {
                     $commandArea_max = $commandArea . '_max';
+                    /** @noinspection PhpVariableVariableInspection */
                     $Caps = AVR::$$commandArea_max;
                 } else {
                     $Caps = $AVRCaps[$commandArea];
@@ -999,14 +1000,14 @@ class DenonAVRTelnet extends AVRModule
     //Stage Width
     public function StageWidth(float $Value): void
     { //Stage Width can be operated from -10 to +10 Step 0.5
-        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTW, strval($Value));
+        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTW, (string) $Value);
         $this->SendCommand(DENON_API_Commands::PSSTW . $SubCommand);
     }
 
     //Stage Height
     public function StageHeight(float $Value): void
     { //Stage Width can be operated from -10 to +10 Step 0.5
-        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTH, strval($Value));
+        $SubCommand = (new DENONIPSProfiles())->GetSubCommandOfValueName(DENON_API_Commands::PSSTH, (string) $Value);
         $this->SendCommand(DENON_API_Commands::PSSTH . $SubCommand);
     }
 
@@ -1418,7 +1419,7 @@ class DenonAVRTelnet extends AVRModule
     }
 
     // Get Value for Sending
-    private function GetCommandValueSend($Value, $FunctionType)
+    private function GetCommandValueSend($Value, $FunctionType): string
     {
         //Range **:00-55,00=A1,01=A2,B1=08,G8=55
         $ValueMapping = [];
@@ -1616,6 +1617,7 @@ class DenonAVRTelnet extends AVRModule
             foreach ($profiles as $profile) {
                 if ($this->testAllProperties) {
                     $commandArea_max = $commandArea . '_max';
+                    /** @noinspection PhpVariableVariableInspection */
                     $Caps = AVR::$$commandArea_max;
                 } else {
                     $Caps = $AVRCaps[$commandArea];

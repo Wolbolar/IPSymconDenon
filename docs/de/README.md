@@ -4,7 +4,7 @@
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![StyleCI](https://github.styleci.io/repos/57190839/shield?branch=master)](https://github.styleci.io/repos/57190839)
 
-Modul für IP-Symcon ab Version 4.1. Ermöglicht die Kommunikation mit einem Denon AV Receiver oder Marantz AV Receiver.
+Modul für IP-Symcon ab Version 5.1. Ermöglicht die Kommunikation mit einem Denon AV Receiver oder Marantz AV Receiver.
 
 ## Dokumentation
 
@@ -38,18 +38,18 @@ Befehle an den Denon Receiver verschicken und Rückmeldung erhalten.
 
 ### Denon Modelle:  
 
-AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-4810, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X1400H, AVR-X1500H, AVR-X1600H, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X2500H, AVR-X2600H, AVR-X3000, AVR-X3400H, AVR-X3500H, AVR-X4000, AVR-X4100W,
-AVR-X4200W, AVR-X4300H, AVR-X4400H, AVR-X4500H, AVR-X5200W, AVR-X6200W, AVR-X6300H, AVR-X6400H, AVR-X6500H, AVR-X7200W, AVR-X7200WA, AVC-X8500H, AVR-S750H, DRA-N5, RCD-N8
+AVR-3310, AVR-3311,  AVR-3312, AVR-3313, AVR-3808A, AVR-4310, AVR-4311, AVR-4810, AVR-X1100W, AVR-X1200W,  AVR-X1300W, AVR-X1400H, AVR-X1500H, AVR-X1600H, AVR-X2000,	AVR-X2100W,	AVR-X2200W,	AVR-X2300W,	AVR-X2400H,	AVR-X2500H, AVR-X2600H, AVR-X2700H, AVR-X3000, AVR-X3400H, AVR-X3500H, AVR-X3700H, AVR-X4000, AVR-X4100W,
+AVR-X4200W, AVR-X4300H, AVR-X4400H, AVR-X4500H, AVR-X4700H, AVR-X5200W, AVR-X6200W, AVR-X6300H, AVR-X6400H, AVR-X6500H, AVR-X6700H, AVR-X7200W, AVR-X7200WA, AVC-X8500H, AVR-S750H, AVR-S960H, DRA-N5, RCD-N8
 
 ### Marantz Modelle: 
 
-Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1508,	Marantz-NR1509,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607,	Marantz-NR1608,Marantz-NR1609, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
-Marantz-SR5011, Marantz-SR5012, Marantz-SR5013,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR6012, Marantz-SR6013, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
-Marantz-SR7011, Marantz-SR7012,  Marantz-SR7013, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV7704, Marantz-AV7705, Marantz-AV8801, Marantz-AV8802 
+Marantz-NR1504,	Marantz-NR1506,	Marantz-NR1508,	Marantz-NR1509,	Marantz-NR1602,	Marantz-NR1603,	Marantz-NR1604,	Marantz-NR1605,	Marantz-NR1606,	Marantz-NR1607,	Marantz-NR1608, Marantz-NR1609, Marantz-NR1711, Marantz-SR5006, Marantz-SR5007, Marantz-SR5008, Marantz-SR5009, Marantz-SR5010,
+Marantz-SR5011, Marantz-SR5012, Marantz-SR5013, Marantz-SR5015,	Marantz-SR6005,	Marantz-SR6006,	Marantz-SR6007, Marantz-SR6008, Marantz-SR6009, Marantz-SR6010, Marantz-SR6011, Marantz-SR6012, Marantz-SR6013, Marantz-SR6015, Marantz-SR7005, Marantz-SR7007, Marantz-SR7008, Marantz-SR7009, Marantz-SR7010,
+Marantz-SR7011, Marantz-SR7012,  Marantz-SR7013, Marantz-SR7015, Marantz-SR8015, Marantz-AV7005, Marantz-AV7701, Marantz-AV7702, Marantz-AV7702 mk II, Marantz-AV7703, Marantz-AV7704, Marantz-AV7705, Marantz-AV7706, Marantz-AV8801, Marantz-AV8802 
 	  
 ## 2. Voraussetzungen
 
- - IPS 4.1
+ - IPS 5.1
  - Denon AVR oder Marantz AVR mit Netzwerkanschluss. Fernsteuerung des Denon AVR oder Marantz AVR muss aktiviert sein (siehe Handbuch AVR). IP-Symcon muss im gleichen Netzwerk wie der AVR sein.
 
 ## 3. Installation
